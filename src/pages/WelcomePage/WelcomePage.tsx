@@ -1,9 +1,10 @@
+import UIbutton from "@/src/components/Buttons/UIbutton/UIbutton";
 import { FC } from "react";
 
 const WelcomePage: FC = () => {
   return (
     <>
-      <h1 className="font-bold text-sm">Hello, Worl... Khm-Khm... Chapter!</h1>
+      <UIbutton variant="black-outlined" size="lg" />
     </>
   );
 };

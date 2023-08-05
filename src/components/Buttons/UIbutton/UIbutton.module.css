@@ -1,0 +1,51 @@
+.btn {
+  @apply rounded-[5px] w-full transition-all duration-150;
+}
+
+.orange-contained {
+  @apply bg-orange-1000 text-white;
+}
+
+.orange-contained:hover {
+  @apply bg-orange-1050;
+}
+
+.orange-contained:disabled {
+  @apply bg-gray-1060 text-white;
+}
+
+.orange-outlined {
+  @apply bg-white border-2 border-orange-1100 text-orange-1100;
+}
+
+.orange-outlined:hover {
+  @apply bg-pink-1050;
+}
+
+.orange-outlined:disabled {
+  @apply bg-gray-1060 text-white border-0;
+}
+
+.black-outlined {
+  @apply bg-white border-black-1100 border-[1px];
+}
+
+.xs {
+  @apply py-[5px] text-xs md:text-base md:py-[10px];
+}
+
+.sm {
+  @apply py-[11px] text-sm md:text-[15px] md:py-[10px];
+}
+
+.md {
+  @apply py-[5px] text-sm md:text-base md:py-[10px];
+}
+
+.lg {
+  @apply md:py-[10px] md:text-[22px];
+}
+
+.xl {
+  @apply py-[14px] text-[20px] md:text-[25px] md:py-[18px];
+}

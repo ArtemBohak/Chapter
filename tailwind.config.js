@@ -12,12 +12,13 @@ export default {
         orange: {
           1000: "#F69400", // button 1
           1050: "#E78A00", // button 1 hovered
-          1100: "#E99136", // button 2 border
+          1100: "#E99136", // outlined button border and text
           1200: "#F79400", // button 3
           1250: "#E78A00", // button 3 hovered
         },
         black: {
           1000: "#1C1C1E", // default text color
+          1100: "#1D1D1D", // black outlined button
         },
         pink: {
           1050: "#FFF8F1", // button 2 hovered
