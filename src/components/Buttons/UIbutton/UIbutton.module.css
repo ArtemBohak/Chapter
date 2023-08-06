@@ -6,7 +6,8 @@
   @apply bg-orange-1000 text-white;
 }
 
-.orange-contained:hover {
+.orange-contained:hover,
+.orange-contained:active {
   @apply bg-orange-1050;
 }
 
@@ -18,7 +19,8 @@
   @apply bg-white border-2 border-orange-1100 text-orange-1100;
 }
 
-.orange-outlined:hover {
+.orange-outlined:hover,
+.orange-outlined:active {
   @apply bg-pink-1050;
 }
 
@@ -47,5 +49,5 @@
 }
 
 .xl {
-  @apply py-[14px] text-[20px] md:text-[25px] md:py-[18px];
+  @apply py-[18px] text-[20px] max-w-[329px] max-h-[65px] sm:max-w-none sm:max-h-none sm:text-[calc(20px+3*(100vw/768))] md:text-[calc(20px+2*(100vw/1920))] md:py-[calc(10px+4*(100vw/1920))] md:max-w-[250px];
 }

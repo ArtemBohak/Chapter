@@ -1,10 +1,18 @@
-import UIbutton from "@/src/components/Buttons/UIbutton/UIbutton";
 import { FC } from "react";
+
+import Logo from "@/src/components/SVGComponents/Logo";
+
+import WelcomePageImage from "./components/WelcomePageImage/WelcomePageImage";
+import WelcomePagePanel from "./components/WelcomePagePanel/WelcomePagePanel";
 
 const WelcomePage: FC = () => {
   return (
     <>
-      <UIbutton variant="black-outlined" size="lg" />
+      <Logo />
+      <div className="flex flex-col md:flex-row-reverse md:justify-between">
+        <WelcomePageImage />
+        <WelcomePagePanel />
+      </div>
     </>
   );
 };

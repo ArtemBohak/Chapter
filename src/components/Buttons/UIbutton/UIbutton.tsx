@@ -25,7 +25,6 @@ const UIbutton: FC<Props> = ({
     (variant && styles[variant]) || styles["orange-contained"];
 
   const sizeClassName: string = styles[size || "md"];
-  console.log(sizeClassName);
 
   return (
     <button
