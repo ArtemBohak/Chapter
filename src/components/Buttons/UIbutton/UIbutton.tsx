@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import styles from "./UIbutton.module.css";
+import styles from "./UIbutton.module.scss";
 
 type Props = {
   className?: string;

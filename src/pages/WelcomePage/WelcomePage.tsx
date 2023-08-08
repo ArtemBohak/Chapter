@@ -8,9 +8,11 @@ import WelcomePagePanel from "./components/WelcomePagePanel/WelcomePagePanel";
 const WelcomePage: FC = () => {
   return (
     <>
-      <Logo />
-      <div className="flex flex-col items-center md:flex-row-reverse 
-      md:justify-between md:mt-[5vh]">
+      <Logo className="hidden absolute left-[70px] top-[70px] md:hidden w-1/6 max-w-[107px]" />
+      <div
+        className="flex flex-col items-center md:flex-row-reverse 
+      md:justify-between md:h-[100vh] md:w-100vw base:overflow-x-hidden"
+      >
         <WelcomePageImage />
         <WelcomePagePanel />
       </div>
