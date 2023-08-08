@@ -1,9 +1,21 @@
 import { FC } from "react";
 
+import Logo from "@/src/components/SVGComponents/Logo";
+
+import WelcomePageImage from "./components/WelcomePageImage/WelcomePageImage";
+import WelcomePagePanel from "./components/WelcomePagePanel/WelcomePagePanel";
+
 const WelcomePage: FC = () => {
   return (
     <>
-      <h1 className="font-bold text-sm">Hello, Worl... Khm-Khm... Chapter!</h1>
+      <Logo />
+      <div
+        className="flex flex-col items-center md:flex-row-reverse 
+      md:justify-between md:mt-[5vh]"
+      >
+        <WelcomePageImage />
+        <WelcomePagePanel />
+      </div>
     </>
   );
 };
