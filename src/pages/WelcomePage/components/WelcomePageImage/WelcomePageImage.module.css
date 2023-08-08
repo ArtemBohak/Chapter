@@ -1,11 +1,17 @@
 .image-container {
-  @apply relative mt-5 flex justify-end md:mt-0 md:w-3/5;
+  @apply relative w-full pt-5 flex justify-end self-end max-w-[100vw] 
+  overflow-x-hidden;
 }
 
 .image-background {
-  @apply absolute  bg-[#FFE0C8] blur-[106px] rounded-2xl w-full h-2/3 bottom-28 md:bottom-[15%] md:w-[80%];
+  @apply absolute  bg-[#FFE0C8] blur-[106px] rounded-2xl w-full h-full 
+  bottom-28;
 }
 
 .image {
-  @apply relative md:top-8 md:h-[90%] md:max-h-[100vh];
+  @apply relative max-h-[710px] sm:max-w-[665px] sm:left-4;
+}
+
+.image img {
+  @apply w-[118%] max-w-none sm:max-w-full sm:w-full;
 }

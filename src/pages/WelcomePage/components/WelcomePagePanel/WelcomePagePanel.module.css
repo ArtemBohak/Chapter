@@ -1,23 +1,23 @@
 .panel-container {
-  @apply flex flex-col text-center px-[16px] md:self-center md:ml-[7vw] md:w-2/5 md:text-left;
+  @apply w-full flex flex-col text-center items-center -mt-4 sm-md:-mt-10 ;
 }
 
 .panel-description {
-  @apply mb-6;
+  @apply mb-6 text-[#000];
 }
 
 .panel-description h2:first-child {
-  @apply hidden text-[50px] md:block md:text-[calc(29px+21*(100vw/1920))];
+  @apply hidden text-[50px] md:block;
 }
 
 .panel-description h2:nth-child(2) {
-  @apply text-[24px] font-medium sm:text-[calc(23px+8*(100vw/768))] md:hidden;
+  @apply text-[25px] mb-[10px] font-medium md:hidden;
 }
 
 .panel-description h3 {
-  @apply text-[17px] font-light sm:text-[calc(17px+6*(100vw/768))] md:text-[calc(23px+7*(100vw/1920))];
+  @apply text-[17px] tracking-wider font-light;
 }
 
 .panel-buttons {
-  @apply flex flex-col gap-5 sm:px-[max(10vw,25px)] sm:text-[calc(20px+5*(100vw/768))] w-auto md:flex-row md:w-[85%] md:justify-between md:p-0 md:gap-[12%];
+  @apply flex flex-col gap-5 w-full px-2 max-w-[329px] sm:w-[320px];
 }

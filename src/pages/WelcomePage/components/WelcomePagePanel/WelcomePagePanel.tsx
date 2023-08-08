@@ -13,8 +13,16 @@ const WelcomePagePanel: FC = () => {
         <h3>Read, discuss, make new friends!</h3>
       </div>
       <div className={styles["panel-buttons"]}>
-        <UIbutton variant="orange-contained" title="Sign up" size="xl" />
-        <UIbutton variant="orange-outlined" title="Log in" size="xl" />
+        <UIbutton
+          variant="orange-contained"
+          title="Sign up"
+          className="text-[20px] py-[18px]"
+        />
+        <UIbutton
+          variant="orange-outlined"
+          title="Log in"
+          className="text-[20px] py-[18px]"
+        />
       </div>
     </div>
   );

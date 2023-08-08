@@ -17,20 +17,17 @@ const UIbutton: FC<Props> = ({
   isDisabled,
   title,
   type,
-  size,
   variant,
   ...props
 }) => {
   const variantClassName: string =
     (variant && styles[variant]) || styles["orange-contained"];
 
-  const sizeClassName: string = styles[size || "md"];
-
   return (
     <button
       disabled={!!isDisabled}
       type={type && "button"}
-      className={`${styles["btn"]} ${variantClassName} ${sizeClassName} ${className}`}
+      className={`${styles["btn"]} ${variantClassName} ${className}`}
       {...props}
     >
       {title || "button"}

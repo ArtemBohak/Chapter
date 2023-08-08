@@ -1,5 +1,5 @@
 .btn {
-  @apply rounded-[5px] w-full transition-all duration-150;
+  @apply font-medium rounded-[5px] w-full transition-all duration-150;
 }
 
 .orange-contained {
@@ -30,24 +30,4 @@
 
 .black-outlined {
   @apply bg-white border-black-1100 border-[1px];
-}
-
-.xs {
-  @apply py-[5px] text-xs md:text-base md:py-[10px];
-}
-
-.sm {
-  @apply py-[11px] text-sm md:text-[15px] md:py-[10px];
-}
-
-.md {
-  @apply py-[5px] text-sm md:text-base md:py-[10px];
-}
-
-.lg {
-  @apply md:py-[10px] md:text-[22px];
-}
-
-.xl {
-  @apply py-[18px] text-[20px] max-w-[329px] max-h-[65px] sm:max-w-none sm:max-h-none sm:text-[calc(20px+3*(100vw/768))] md:text-[calc(20px+2*(100vw/1920))] md:py-[calc(10px+4*(100vw/1920))] md:max-w-[250px];
 }
