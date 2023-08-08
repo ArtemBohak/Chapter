@@ -10,6 +10,7 @@ type Props = {
   title?: string;
   variant?: "orange-outlined" | "orange-contained" | "black-outlined";
   size?: "xs" | "sm" | "md" | "lg" | "xl";
+  dataAutomation: "sign-in-button";
 };
 
 const UIbutton: FC<Props> = ({
@@ -18,6 +19,7 @@ const UIbutton: FC<Props> = ({
   title,
   type,
   variant,
+  dataAutomation,
   ...props
 }) => {
   const variantClassName: string =
@@ -25,6 +27,7 @@ const UIbutton: FC<Props> = ({
 
   return (
     <button
+      data-automation={dataAutomation}
       disabled={!!isDisabled}
       type={type && "button"}
       className={`${styles["btn"]} ${variantClassName} ${className}`}

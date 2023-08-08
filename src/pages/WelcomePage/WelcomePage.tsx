@@ -9,7 +9,8 @@ const WelcomePage: FC = () => {
   return (
     <>
       <Logo />
-      <div className="flex flex-col items-center md:flex-row-reverse md:justify-between">
+      <div className="flex flex-col items-center md:flex-row-reverse 
+      md:justify-between md:mt-[5vh]">
         <WelcomePageImage />
         <WelcomePagePanel />
       </div>
