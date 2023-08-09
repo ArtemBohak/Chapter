@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 
 import styles from "./WelcomePagePanel.module.scss";
 
@@ -15,14 +15,14 @@ const WelcomePagePanel: FC = () => {
         </div>
         <div className={styles["panel-buttons"]}>
           <UIbutton
-            dataAutomation="sign-in-button"
+            dataAutomation="navigationButton"
             variant="orange-contained"
             title="Sign up"
             className="text-[20px] py-[18px] base:text-[25px] 
             base:max-w-[250px]"
           />
           <UIbutton
-            dataAutomation="sign-in-button"
+            dataAutomation="navigationButton"
             variant="orange-outlined"
             title="Log in"
             className="text-[20px] py-[18px] base:text-[25px]

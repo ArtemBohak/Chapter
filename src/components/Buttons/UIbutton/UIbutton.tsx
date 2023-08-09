@@ -1,4 +1,5 @@
-import { FC } from "react";
+import { ButtonHTMLAttributes, FC } from "react";
+import cn from "classnames";
 
 import styles from "./UIbutton.module.scss";
 
@@ -10,8 +11,12 @@ type Props = {
   title?: string;
   variant?: "orange-outlined" | "orange-contained" | "black-outlined";
   size?: "xs" | "sm" | "md" | "lg" | "xl";
-  dataAutomation: "sign-in-button";
-};
+  dataAutomation:
+    | "submitButton"
+    | "resetButton"
+    | "navigationButton"
+    | "button";
+} & Partial<ButtonHTMLAttributes<HTMLButtonElement>>;
 
 const UIbutton: FC<Props> = ({
   className,
@@ -28,9 +33,9 @@ const UIbutton: FC<Props> = ({
   return (
     <button
       data-automation={dataAutomation}
-      disabled={!!isDisabled}
+      disabled={isDisabled}
       type={type && "button"}
-      className={`${styles["btn"]} ${variantClassName} ${className}`}
+      className={cn(styles["btn"], variantClassName, className)}
       {...props}
     >
       {title || "button"}

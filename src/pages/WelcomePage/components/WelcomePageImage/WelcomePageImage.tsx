@@ -9,7 +9,7 @@ const WelcomePageImage: FC = () => {
       <div className={styles["image-background"]} />
       <div className={styles["image-container"]}>
         <div className={styles["image"]}>
-          <img src={girlImage} alt="chapter-girl.webp" />
+          <img src={girlImage} alt="chapter-girl" />
         </div>
       </div>
     </div>

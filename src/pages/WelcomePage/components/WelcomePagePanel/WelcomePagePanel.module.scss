@@ -19,7 +19,8 @@
 
 .panel-description {
   @apply text-center text-[#000] base:text-left 
-  mb-6 base:mb-10;
+  mb-6 base:mb-10 
+  px-1 md:px-0;
 }
 
 .panel-description h2:first-child {

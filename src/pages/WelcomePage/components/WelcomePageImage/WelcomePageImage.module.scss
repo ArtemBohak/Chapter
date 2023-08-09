@@ -1,7 +1,7 @@
 .image-container {
   @apply relative  
   w-full max-w-[100vw] max-h-[100vh]
-  pt-5 base:pt-0
+  pt-2 base:pt-0
   flex justify-end self-end md:self-auto
   overflow-x-hidden md:overflow-x-visible;
 }
