@@ -4,20 +4,22 @@ export default {
   theme: {
     extend: {
       screens: {
-        sm: "376px", // everything higher than 375px is considered as a tablet-sized markup
-        md: "769px", // everything higher than 768px is considered as a desktop-sized markup
+        sm: "376px", // everything higher than 375px is considered as tablet-sized markup
+        md: "769px", // everything higher than 768px is considered as small desktop-sized markup or large tablets
+        base: "1025px", // everything higher than 1024 is considered as normal desktop-sized markup
         lg: "1921px", // the maximum size of our markup is 1920px
       },
       colors: {
         orange: {
           1000: "#F69400", // button 1
           1050: "#E78A00", // button 1 hovered
-          1100: "#E99136", // button 2 border
+          1100: "#E99136", // outlined button border and text
           1200: "#F79400", // button 3
           1250: "#E78A00", // button 3 hovered
         },
         black: {
           1000: "#1C1C1E", // default text color
+          1100: "#1D1D1D", // black outlined button
         },
         pink: {
           1050: "#FFF8F1", // button 2 hovered
