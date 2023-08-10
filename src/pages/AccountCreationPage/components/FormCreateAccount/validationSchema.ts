@@ -1,5 +1,5 @@
 import * as Yup from "yup";
-import passwordRegex from "@/src/utils/password-regex";
+import { baseValidation } from "@/src/utils/password-regex";
 
 export default Yup.object({
   fullname: Yup.string().required("Please enter a valid name."),
@@ -7,7 +7,7 @@ export default Yup.object({
   password: Yup.string()
     .required("Password is required")
     .matches(
-      passwordRegex,
+      baseValidation,
       "Password must be at least 8 characters, including uppercase letters and special characters"
     ),
   confirm_password: Yup.string()

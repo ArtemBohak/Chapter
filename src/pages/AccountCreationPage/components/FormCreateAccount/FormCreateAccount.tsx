@@ -47,6 +47,7 @@ const FormCreateAccount: FC = () => {
           label="Create password"
           placeholder="Enter your password"
           dataAutomation="password"
+          strength
         />
         <PasswordField
           id="confirm_password"
