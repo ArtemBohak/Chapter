@@ -1,6 +1,11 @@
 .btn {
   @apply font-medium rounded-[5px] w-full transition-all duration-150;
+
+  &--loading {
+    @apply animate-pulse
+  }
 }
+
 
 .orange-contained {
   @apply bg-orange-1000 text-white;
@@ -16,7 +21,7 @@
 }
 
 .orange-outlined {
-  @apply bg-white border-2 border-orange-1100 text-orange-1100;
+  @apply bg-white border-2 border-solid border-orange-1100 text-orange-1100;
 }
 
 .orange-outlined:hover,

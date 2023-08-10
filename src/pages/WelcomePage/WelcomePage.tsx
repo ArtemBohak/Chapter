@@ -1,21 +1,21 @@
 import { FC } from "react";
 
 import Logo from "@/src/components/SVGComponents/Logo";
+import styles from "./WelcomePage.module.scss";
 
 import WelcomePageImage from "./components/WelcomePageImage/WelcomePageImage";
 import WelcomePagePanel from "./components/WelcomePagePanel/WelcomePagePanel";
+import TestingForm from "./TestingForm";
 
 const WelcomePage: FC = () => {
   return (
     <>
-      <Logo className="hidden absolute left-[70px] top-[70px] md:hidden w-1/6 max-w-[107px]" />
-      <div
-        className="flex flex-col items-center md:flex-row-reverse 
-      md:justify-between md:h-[100vh] md:w-100vw base:overflow-x-hidden"
-      >
+      <Logo className={styles.logo} />
+      <div className={styles["welcome-page__container"]}>
         <WelcomePageImage />
         <WelcomePagePanel />
       </div>
+      <TestingForm />
     </>
   );
 };

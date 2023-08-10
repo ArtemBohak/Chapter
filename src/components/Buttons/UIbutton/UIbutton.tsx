@@ -5,26 +5,18 @@ import styles from "./UIbutton.module.scss";
 
 type Props = {
   className?: string;
-  onClick?: () => void;
-  isDisabled?: boolean;
-  type?: "button" | "submit" | "reset";
-  title?: string;
   variant?: "orange-outlined" | "orange-contained" | "black-outlined";
-  size?: "xs" | "sm" | "md" | "lg" | "xl";
-  dataAutomation:
-    | "submitButton"
-    | "resetButton"
-    | "navigationButton"
-    | "button";
+  dataAutomation: "submitButton" | "resetButton" | "navigationButton" | string;
+  isLoading?: boolean;
 } & Partial<ButtonHTMLAttributes<HTMLButtonElement>>;
 
 const UIbutton: FC<Props> = ({
+  isLoading = false,
   className,
-  isDisabled,
-  title,
-  type,
+  children,
   variant,
   dataAutomation,
+  type = "button",
   ...props
 }) => {
   const variantClassName: string =
@@ -32,13 +24,19 @@ const UIbutton: FC<Props> = ({
 
   return (
     <button
+      type={type}
       data-automation={dataAutomation}
-      disabled={isDisabled}
-      type={type && "button"}
-      className={cn(styles["btn"], variantClassName, className)}
+      className={cn(
+        styles["btn"],
+        variantClassName,
+        {
+          [styles["btn--loading"]]: isLoading,
+        },
+        className
+      )}
       {...props}
     >
-      {title || "button"}
+      {children || "button"}
     </button>
   );
 };
