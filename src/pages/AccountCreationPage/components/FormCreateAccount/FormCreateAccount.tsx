@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { Formik, Form } from "formik";
+import { Formik, Form, FormikProps } from "formik";
 
 import UIbutton from "@/src/components/Buttons/UIbutton/UIbutton";
 import TextField from "@/src/components/Fields/TextField/TextField";
@@ -21,48 +21,54 @@ const FormCreateAccount: FC = () => {
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={(values, actions) => {
-        console.log(values);
-        console.log(actions);
+      onSubmit={(values, { setSubmitting }) => {
+        // temp
+        setTimeout(() => {
+          console.log("values", values);
+          setSubmitting(false);
+        }, 1000);
       }}
     >
-      <Form>
-        <TextField
-          id="fullname"
-          name="fullname"
-          label="Full Name"
-          placeholder="Full Name"
-          dataAutomation="fullname"
-        />
-        <TextField
-          id="nickname"
-          name="nickname"
-          label="Nickname"
-          placeholder="nickname"
-          dataAutomation="nickname"
-        />
-        <PasswordField
-          id="password"
-          name="password"
-          label="Create password"
-          placeholder="Enter your password"
-          dataAutomation="password"
-          strength
-        />
-        <PasswordField
-          id="confirm_password"
-          name="confirm_password"
-          label="Confirm password"
-          placeholder="Re-enter your password"
-          dataAutomation="confirm_password"
-        />
-        <UIbutton
-          title="Submit"
-          variant="orange-contained"
-          size="lg"
-          dataAutomation="submitButton"
-        />
-      </Form>
+      {({ isSubmitting }: FormikProps<IAccountCreate>) => (
+        <Form>
+          <TextField
+            id="fullname"
+            name="fullname"
+            label="Full Name"
+            placeholder="Full Name"
+            dataAutomation="fullname"
+          />
+          <TextField
+            id="nickname"
+            name="nickname"
+            label="Nickname"
+            placeholder="nickname"
+            dataAutomation="nickname"
+          />
+          <PasswordField
+            id="password"
+            name="password"
+            label="Create password"
+            placeholder="Enter your password"
+            strength
+            dataAutomation="password"
+          />
+          <PasswordField
+            id="confirm_password"
+            name="confirm_password"
+            label="Confirm password"
+            placeholder="Re-enter your password"
+            dataAutomation="confirm_password"
+          />
+          <UIbutton
+            title="Submit"
+            variant="orange-contained"
+            size="lg"
+            dataAutomation="submitButton"
+          />
+          {isSubmitting ? "Loading..." : null}
+        </Form>
+      )}
     </Formik>
   );
 };

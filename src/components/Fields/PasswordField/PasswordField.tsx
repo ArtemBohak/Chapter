@@ -1,6 +1,12 @@
 import { ChangeEvent, FC, InputHTMLAttributes } from "react";
 import cn from "classnames";
-import { Field, ErrorMessage, useField } from "formik";
+import {
+  Field,
+  ErrorMessage,
+  useField,
+  useFormikContext,
+  FieldProps,
+} from "formik";
 import {
   usePasswordStrength,
   TypePasswordStrength,
@@ -10,12 +16,13 @@ import styles from "./PasswordField.module.css";
 
 type Props = {
   id: string;
-  className?: string;
   label?: string;
   name: string;
   dataAutomation: string;
   strength?: boolean;
-} & Partial<Omit<InputHTMLAttributes<HTMLInputElement>, "type">>;
+  className?: string;
+} & Partial<Omit<InputHTMLAttributes<HTMLInputElement>, "type">> &
+  Partial<FieldProps>;
 
 const TextField: FC<Props> = ({
   id,
@@ -29,6 +36,7 @@ const TextField: FC<Props> = ({
   ...props
 }) => {
   const [field, meta] = useField(name);
+  const { setFieldValue } = useFormikContext();
   const { passwordStrength, passwordValue, LENGTH_STRENGTH, onHandleChange } =
     usePasswordStrength();
 
@@ -38,30 +46,32 @@ const TextField: FC<Props> = ({
     [TypePasswordStrength.STRONG]: passwordStrength === 3,
   });
 
+  const validationClassname = cn({
+    [styles["text-field--success"]]: meta.touched && !meta.error,
+    [styles["text-field--has-error"]]: meta.touched && meta.error,
+  });
+
+  const onHandleChangeField = (event: ChangeEvent<HTMLInputElement>) => {
+    onHandleChange(event.target.value);
+    setFieldValue(field.name, event.target.value);
+  };
+
   return (
-    <div
-      className={cn(
-        styles["text-field"],
-        { [styles["text-field--has-error"]]: meta.touched && meta.error },
-        className
-      )}
-    >
+    <div className={cn(styles["text-field"], validationClassname, className)}>
       <label htmlFor={id} className={styles["text-field__label"]}>
         {label && <p className={styles["text-field__label-text"]}>{label}</p>}
         <div className={styles["text-field__holder"]}>
           <Field
             {...field}
+            {...props}
             id={id}
+            name={name}
             data-automation={dataAutomation}
             type="password"
-            {...props}
             value={value}
             defaultValue={defaultValue}
             className={styles["text-field__input"]}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => {
-              console.log("e.currentTarget.valued", e.currentTarget.value);
-              if (strength) onHandleChange(e.currentTarget.value);
-            }}
+            onChange={onHandleChangeField}
           />
         </div>
       </label>
@@ -75,15 +85,16 @@ const TextField: FC<Props> = ({
       {strength && passwordValue && passwordStrength >= 0 ? (
         <div
           className={cn(
-            "strength-progress",
-            `strength-progress--${typePasswordStrengthClassname}`
+            styles["strength-progress"],
+            styles[`strength-progress--${typePasswordStrengthClassname}`]
           )}
         >
           {Array.from(Array(LENGTH_STRENGTH).keys()).map((item) => (
             <div
               key={item}
-              className={cn("strength-progress__item", {
-                "strength-progress__item--active": item < passwordStrength,
+              className={cn(styles["strength-progress__item"], {
+                [styles["strength-progress__item--active"]]:
+                  item < passwordStrength,
               })}
             ></div>
           ))}

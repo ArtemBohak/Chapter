@@ -25,14 +25,13 @@ const TextField: FC<Props> = ({
 }) => {
   const [field, meta] = useField(name);
 
+  const validationClassname = cn({
+    [styles["text-field--success"]]: meta.touched && !meta.error,
+    [styles["text-field--has-error"]]: meta.touched && meta.error,
+  });
+
   return (
-    <div
-      className={cn(
-        styles["text-field"],
-        { [styles["text-field--has-error"]]: meta.touched && meta.error },
-        className
-      )}
-    >
+    <div className={cn(styles["text-field"], validationClassname, className)}>
       <label htmlFor={id} className={styles["text-field__label"]}>
         {label && <p className={styles["text-field__label-text"]}>{label}</p>}
         <div className={styles["text-field__holder"]}>
