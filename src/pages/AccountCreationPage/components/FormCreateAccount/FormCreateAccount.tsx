@@ -60,7 +60,7 @@ const FormCreateAccount: FC = () => {
           title="Submit"
           variant="orange-contained"
           size="lg"
-          dataAutomation="create-account-button"
+          dataAutomation="submitButton"
         />
       </Form>
     </Formik>
