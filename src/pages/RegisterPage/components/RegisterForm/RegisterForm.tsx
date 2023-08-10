@@ -1,21 +1,24 @@
-import { DetailsHTMLAttributes, FC, InputHTMLAttributes } from "react";
+import UIbutton from "@/src/components/Buttons/UIbutton/UIbutton";
+import { FC } from "react";
 
-type InputProps<T> = { dataAutomation: "emailInput" | "input" };
+type InputProps = { dataAutomation?: "emailInput" | "input" };
 
 const RegisterForm: FC<InputProps> = ({ dataAutomation }) => {
   return (
-    <div>
-      <h2>Sign up</h2>
-      <form>
-        <label htmlFor="email">Your email</label>
-        <input
-          id="email"
-          type="email"
-          name="email"
-          data-automation={dataAutomation}
-        />
-      </form>
-    </div>
+    <form>
+      <label htmlFor="email">Your email</label>
+      <input
+        id="email"
+        type="email"
+        name="email"
+        data-automation={dataAutomation}
+      />
+      <UIbutton
+        dataAutomation="submitButton"
+        // type="submit"
+        title="Create new account "
+      />
+    </form>
   );
 };
 
