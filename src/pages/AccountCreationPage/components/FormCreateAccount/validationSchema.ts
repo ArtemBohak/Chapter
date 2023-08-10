@@ -1,8 +1,14 @@
 import * as Yup from "yup";
-import { baseValidation } from "@/src/utils/password-regex";
+import { baseValidation } from "@/src/utils/regex/password-regex";
+import simpleStringRegex from "@/src/utils/regex/simple-string";
 
 export default Yup.object({
-  fullname: Yup.string().required("Please enter a valid name."),
+  fullname: Yup.string()
+    .required("Please enter a valid name.")
+    .matches(
+      simpleStringRegex,
+      "Fullname field cannot contain any special symbols or numbers"
+    ),
   nickname: Yup.string().required("Please enter a valid Nickname"),
   password: Yup.string()
     .required("Password is required")
