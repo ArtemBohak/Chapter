@@ -1,7 +1,7 @@
 .btn {
   @apply font-medium rounded-[5px] w-full transition-all duration-150;
 
-  &--loading {
+  &_loading {
     @apply animate-pulse
   }
 }

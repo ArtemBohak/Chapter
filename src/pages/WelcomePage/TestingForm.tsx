@@ -1,15 +1,29 @@
-import FormWrapper from "@/src/components/Forms/FormWrapper";
+import FormWrapper from "@/src/components/Forms/FormWrapper/FormWrapper";
 import * as Yup from "yup";
-import TextField from "@/src/components/Fields/TextField/TextField";
+// import TextField from "@/src/components/Fields/TextField/TextField";
+// import PasswordField from "@/src/components/Fields/PasswordField/PasswordField";
+import { baseValidation } from "@/src/utils/regex/password-regex";
 
 const TestingForm = () => {
   const validationSchema = Yup.object({
-    fullname: Yup.string().required("Please enter a valid name."),
+    fullname: Yup.string().required("This field can't be empty"),
+    password: Yup.string()
+      .required("Password is required")
+      .matches(
+        baseValidation,
+        "Password must be at least 8 characters long, including uppercase letters and special characters"
+      ),
+    confirm_password: Yup.string()
+      .oneOf([Yup.ref("password"), ""], "Passwords must match")
+      .required("Confirm Password is required"),
   });
+
   return (
     <FormWrapper
       initialValues={{
         fullname: "",
+        password: "",
+        confirmPassword: "",
       }}
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
@@ -20,13 +34,6 @@ const TestingForm = () => {
         }, 1000);
       }}
     >
-      <TextField
-        id="fullname"
-        name="fullname"
-        label="Full Name"
-        placeholder="Full Name"
-        dataAutomation="fullname"
-      />
     </FormWrapper>
   );
 };

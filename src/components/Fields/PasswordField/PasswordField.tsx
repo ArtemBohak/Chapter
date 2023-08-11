@@ -75,6 +75,12 @@ const PasswordField: FC<Props> = ({
           />
         </div>
       </label>
+      {strength && meta.value && !meta.touched && (
+        <p className={styles["text-field__requirements"]}>
+          Password must be at least 8 characters long, including uppercase
+          letters and special characters
+        </p>
+      )}
       {meta.touched && meta.error ? (
         <ErrorMessage
           name={name || "Field invalid"}

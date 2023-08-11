@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import './preflightReset.scss';
+
 html {
   @apply text-lg;
 }
@@ -18,3 +20,4 @@ ul,
 ol {
   @apply list-none;
 }
+

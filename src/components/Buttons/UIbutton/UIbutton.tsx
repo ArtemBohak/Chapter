@@ -30,13 +30,13 @@ const UIbutton: FC<Props> = ({
         styles["btn"],
         variantClassName,
         {
-          [styles["btn--loading"]]: isLoading,
+          [styles["btn_loading"]]: isLoading,
         },
         className
       )}
       {...props}
     >
-      {children || "button"}
+      {children}
     </button>
   );
 };
