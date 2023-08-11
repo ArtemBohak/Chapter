@@ -1,14 +1,18 @@
 import { FC } from "react";
 import { Formik, Form, Field, FieldArray } from "formik";
+
 import UIbutton from "@/src/components/Buttons/UIbutton/UIbutton";
+
 import { createObject, findKeys } from "@/src/pages/RegisterPage/helpers";
+
+import styles from "./CustomForm.module.scss";
 
 type Props = {
   fields: { label: string; type: string; [field: string]: string }[];
   formName: string;
 };
 
-const RegisterForm: FC<Props> = ({ fields, formName }) => {
+const CustomForm: FC<Props> = ({ fields, formName }) => {
   return (
     <Formik
       enableReinitialize={true}
@@ -21,12 +25,14 @@ const RegisterForm: FC<Props> = ({ fields, formName }) => {
       {(props) => (
         <FieldArray name={formName}>
           {() => (
-            <Form>
+            <Form className="max-w-[327px]">
               {props.values[formName].map((item, index) => {
                 const [keys] = findKeys(item);
                 return (
                   <div key={index}>
-                    <label htmlFor={keys}>{item.label}</label>
+                    <label htmlFor={keys} className={`${styles["label"]}`}>
+                      {item.label}
+                    </label>
                     <Field
                       id={keys}
                       type={item.type}
@@ -34,6 +40,7 @@ const RegisterForm: FC<Props> = ({ fields, formName }) => {
                       value={item[keys]}
                       data-automation={`${keys}Input`}
                       onChange={props.handleChange}
+                      className="w-[327px] h-[35px] mb-[15px] px-4 rounded-[5px] border border-gray-1030"
                     />
                   </div>
                 );
@@ -41,7 +48,8 @@ const RegisterForm: FC<Props> = ({ fields, formName }) => {
               <UIbutton
                 dataAutomation="submitButton"
                 // type="submit"
-                title="Create new account "
+                title="Create new account"
+                className="bg-orange-1200 text-white w-[327px] h-11 rounded-[5px] mb-[10px]"
               />
             </Form>
           )}
@@ -51,4 +59,4 @@ const RegisterForm: FC<Props> = ({ fields, formName }) => {
   );
 };
 
-export default RegisterForm;
+export default CustomForm;

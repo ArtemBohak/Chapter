@@ -1,0 +1,7 @@
+.authPage_delimiter {
+  @apply flex justify-center gap-[9px] mb-[10px];
+
+  & .delimiter-line {
+    @apply h-[2px] w-[144px] relative top-4 bg-gray-800 border-0;
+  }
+}
