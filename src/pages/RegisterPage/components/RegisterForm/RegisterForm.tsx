@@ -1,10 +1,10 @@
 import { FC } from "react";
 import { Formik, Form, Field, FieldArray } from "formik";
 import UIbutton from "@/src/components/Buttons/UIbutton/UIbutton";
-import { createObject } from "@/src/pages/RegisterPage/helpers/createObject";
+import { createObject, findKeys } from "@/src/pages/RegisterPage/helpers";
 
 type Props = {
-  fields: { value: string; label: string; type: string; name: string }[];
+  fields: { label: string; type: string; [field: string]: string }[];
   formName: string;
 };
 
@@ -22,19 +22,22 @@ const RegisterForm: FC<Props> = ({ fields, formName }) => {
         <FieldArray name={formName}>
           {() => (
             <Form>
-              {props.values[formName].map((item, index) => (
-                <div key={index}>
-                  <label htmlFor={item.name}>{item.label}</label>
-                  <Field
-                    id={item.name}
-                    type={item.type}
-                    name={`${formName}[${index}].value`}
-                    value={item.value}
-                    data-automation={`${item.name}Input`}
-                    onChange={props.handleChange}
-                  />
-                </div>
-              ))}
+              {props.values[formName].map((item, index) => {
+                const [keys] = findKeys(item);
+                return (
+                  <div key={index}>
+                    <label htmlFor={keys}>{item.label}</label>
+                    <Field
+                      id={keys}
+                      type={item.type}
+                      name={`${formName}[${index}].${keys}`}
+                      value={item[keys]}
+                      data-automation={`${keys}Input`}
+                      onChange={props.handleChange}
+                    />
+                  </div>
+                );
+              })}
               <UIbutton
                 dataAutomation="submitButton"
                 // type="submit"
