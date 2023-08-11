@@ -1,24 +1,46 @@
-import UIbutton from "@/src/components/Buttons/UIbutton/UIbutton";
 import { FC } from "react";
+import { Formik, Form, Field, FieldArray } from "formik";
+import UIbutton from "@/src/components/Buttons/UIbutton/UIbutton";
 
-type InputProps = { dataAutomation?: "emailInput" | "input" };
+type Props = {
+  fieldArray: { name: string; label: string }[];
+  formName: string;
+};
 
-const RegisterForm: FC<InputProps> = ({ dataAutomation }) => {
+const RegisterForm: FC<Props> = ({ fieldArray, formName }) => {
   return (
-    <form>
-      <label htmlFor="email">Your email</label>
-      <input
-        id="email"
-        type="email"
-        name="email"
-        data-automation={dataAutomation}
-      />
-      <UIbutton
-        dataAutomation="submitButton"
-        // type="submit"
-        title="Create new account "
-      />
-    </form>
+    <Formik
+      initialValues={{ [formName]: fieldArray }}
+      onSubmit={(values): void => {
+        console.log(values);
+      }}
+    >
+      {(formikProps) => (
+        <Form>
+          <FieldArray
+            name={formName}
+            render={() =>
+              formikProps.values[formName].map((item, index) => (
+                <div key={index}>
+                  <label htmlFor={item.name}>{item.label}</label>
+                  <Field
+                    id={item.name}
+                    type={item.name}
+                    name={item.name}
+                    data-automation={`${item.name}Input`}
+                  />
+                </div>
+              ))
+            }
+          />
+          <UIbutton
+            dataAutomation="submitButton"
+            // type="submit"
+            title="Create new account "
+          />
+        </Form>
+      )}
+    </Formik>
   );
 };
 

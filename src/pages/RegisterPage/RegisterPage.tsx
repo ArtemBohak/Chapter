@@ -6,10 +6,13 @@ import RegisterForm from "./components/RegisterForm/RegisterForm";
 const RegisterPage: FC = () => {
   return (
     <>
-      <Logo />
+      <Logo className="md:block" />
       <div>
         <h1>Sign up</h1>
-        <RegisterForm dataAutomation="emailInput" />
+        <RegisterForm
+          formName="register"
+          fieldArray={[{ name: "email", label: "Your email" }]}
+        />
       </div>
     </>
   );
