@@ -1,0 +1,23 @@
+.regPage-container {
+  @apply flex flex-col max-w-[327px] sm:max-w-[450px] mx-auto items-center sm:mt-[240px] md:mt-[24.2vh] mt-[17.24vh];
+}
+
+.regPage-title {
+  @apply text-[34px] md:text-[50px] font-semibold mb-[15px] leading-normal;
+}
+
+.regPage {
+  @apply flex justify-center gap-[9px] mb-[10px];
+
+  & .regPage-line {
+    @apply h-[2px] w-[144px] relative top-4 bg-gray-800 border-0;
+  }
+}
+
+.loginVia-block {
+  @apply flex flex-col w-[327px] mb-12 sm:mb-12;
+
+  & .loginVia-text {
+    @apply text-xs font-normal relative top-0 left-0 mb-[15px] text-black-1000;
+  }
+}
