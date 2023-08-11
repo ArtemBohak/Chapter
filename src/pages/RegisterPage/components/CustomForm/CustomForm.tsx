@@ -40,7 +40,7 @@ const CustomForm: FC<Props> = ({ fields, formName }) => {
                       value={item[keys]}
                       data-automation={`${keys}Input`}
                       onChange={props.handleChange}
-                      className="w-[327px] h-[35px] mb-[15px] px-4 rounded-[5px] border border-gray-1030"
+                      className="w-[327px] h-[35px] mb-[15px] px-2 py-1 rounded-[5px] border border-gray-1030"
                     />
                   </div>
                 );
