@@ -1,6 +1,6 @@
 import { FC, InputHTMLAttributes } from "react";
 import cn from "classnames";
-import { Field, ErrorMessage, useField } from "formik";
+import { Field, ErrorMessage, useField, useFormikContext } from "formik";
 
 import styles from "./TextField.module.scss";
 
@@ -24,6 +24,8 @@ const TextField: FC<Props> = ({
   ...props
 }) => {
   const [field, meta] = useField(name);
+  const context = useFormikContext();
+  console.log(context);
 
   const validationClassname = cn({
     [styles["text-field--success"]]: meta.touched && !meta.error,

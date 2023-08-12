@@ -5,7 +5,6 @@ import styles from "./WelcomePage.module.scss";
 
 import WelcomePageImage from "./components/WelcomePageImage/WelcomePageImage";
 import WelcomePagePanel from "./components/WelcomePagePanel/WelcomePagePanel";
-import TestingForm from "./TestingForm";
 
 const WelcomePage: FC = () => {
   return (
@@ -15,7 +14,6 @@ const WelcomePage: FC = () => {
         <WelcomePageImage />
         <WelcomePagePanel />
       </div>
-      <TestingForm />
     </>
   );
 };
