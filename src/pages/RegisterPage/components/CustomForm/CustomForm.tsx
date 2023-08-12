@@ -10,12 +10,13 @@ import styles from "./CustomForm.module.scss";
 type Props = {
   fields: { label: string; type: string; [field: string]: string }[];
   formName: string;
+  reinitialize?: boolean;
 };
 
-const CustomForm: FC<Props> = ({ fields, formName }) => {
+const CustomForm: FC<Props> = ({ fields, formName, reinitialize = true }) => {
   return (
     <Formik
-      enableReinitialize={true}
+      enableReinitialize={reinitialize}
       initialValues={{ [formName]: [...fields] }}
       onSubmit={(values): void => {
         const value = createObject(values[formName]);
