@@ -1,10 +1,10 @@
 import { findKeys } from ".";
 
-type ArrayType = { label: string; type: string; [field: string]: string }[];
+type ItemType = { label: string; type: string; [field: string]: string };
 
-const createObject = (array: ArrayType) =>
-  array.reduce((acc: Record<string, string>, item) => {
-    const [keys] = findKeys(item);
+const createObject = (array: ItemType[]) =>
+  array.reduce((acc: Record<string, string>, item: ItemType) => {
+    const [keys]: Array<string> = findKeys(item);
     acc[keys] = item[keys];
     return acc;
   }, {});
