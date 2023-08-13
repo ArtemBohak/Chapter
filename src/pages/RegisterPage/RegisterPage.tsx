@@ -27,6 +27,7 @@ const RegisterPage: FC = () => {
         <h1 className={styles["regPage-title"]}>Sign up</h1>
         <Form
           formName="register"
+          className="max-w-[327px]"
           fieldsValues={initialFieldValues}
           textFieldComponent={TextInput}
         />

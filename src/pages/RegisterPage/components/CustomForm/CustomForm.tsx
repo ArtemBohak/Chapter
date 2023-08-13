@@ -5,10 +5,12 @@ import UIbutton from "@/src/components/Buttons/UIbutton/UIbutton";
 
 import { createObject, findKeys } from "@/src/pages/RegisterPage/helpers";
 import { type FieldTypes } from "../../types";
+import { FieldName } from "../../enums";
 
 type Props = {
-  fieldsValues: FieldTypes[];
   formName: string;
+  className: string;
+  fieldsValues: FieldTypes[];
   reinitialize?: boolean;
   textFieldComponent?: ElementType;
   passwordFieldComponent?: ElementType;
@@ -18,6 +20,7 @@ const CustomForm: FC<Props> = ({
   fieldsValues = [],
   formName,
   reinitialize = true,
+  className,
   textFieldComponent: TextFieldComponent,
   passwordFieldComponent: PasswordFieldComponent,
 }) => {
@@ -33,10 +36,10 @@ const CustomForm: FC<Props> = ({
       {(props) => (
         <FieldArray name={formName}>
           {() => (
-            <Form className="max-w-[327px]">
+            <Form className={className}>
               {props.values[formName].map((item, index) => {
                 const fieldName = findKeys(item);
-                if (PasswordFieldComponent && fieldName === "password")
+                if (PasswordFieldComponent && fieldName === FieldName.password)
                   return (
                     <div key={index}>
                       <PasswordFieldComponent
@@ -52,7 +55,7 @@ const CustomForm: FC<Props> = ({
                       />
                     </div>
                   );
-                if (TextFieldComponent && fieldName !== "password")
+                if (TextFieldComponent && fieldName !== FieldName.password)
                   return (
                     <div key={index}>
                       <TextFieldComponent

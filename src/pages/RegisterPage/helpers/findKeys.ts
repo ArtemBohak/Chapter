@@ -1,23 +1,15 @@
 import { type FieldTypes } from "../types";
-
-enum MetaKeys {
-  label = "label",
-  type = "type",
-  defaultValue = "defaultValue",
-  fieldClassName = "fieldClassName",
-  labelClassName = "labelClassName",
-  strength = "strength",
-}
+import { FieldName } from "../enums";
 
 const findKeys = <T extends FieldTypes>(obj: T) => {
   const [keyValue] = Object.keys(obj).filter(
     (key) =>
-      key !== MetaKeys.label &&
-      key !== MetaKeys.type &&
-      key !== MetaKeys.defaultValue &&
-      key !== MetaKeys.fieldClassName &&
-      key !== MetaKeys.labelClassName &&
-      key !== MetaKeys.strength
+      key !== FieldName.label &&
+      key !== FieldName.type &&
+      key !== FieldName.defaultValue &&
+      key !== FieldName.fieldClassName &&
+      key !== FieldName.labelClassName &&
+      key !== FieldName.strength
   );
   return keyValue;
 };
