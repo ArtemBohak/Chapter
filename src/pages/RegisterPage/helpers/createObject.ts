@@ -7,9 +7,11 @@ const createObject = (array: FieldTypes[]) =>
 
     if (
       keys === "email" ||
-      keys === "code" ||
+      keys === "signUpCode" ||
       keys === "password" ||
-      keys === "confirmPassword"
+      keys === "confirmPassword" ||
+      keys === "fullName" ||
+      keys === "nickName"
     )
       acc[keys] = item[keys]!;
 

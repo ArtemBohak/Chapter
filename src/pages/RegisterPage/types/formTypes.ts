@@ -2,10 +2,13 @@ export type FieldTypes = {
   label: string;
   type: string;
   defaultValue?: string;
-  className?: string;
+  fieldClassName?: string;
+  labelClassName?: string;
   strength?: boolean;
   email?: string;
-  code?: string;
+  signUpCode?: string;
   password?: string;
   confirmPassword?: string;
+  fullName?: string;
+  nickName?: string;
 };

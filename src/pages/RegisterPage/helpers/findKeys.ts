@@ -6,7 +6,8 @@ const findKeys = <T extends FieldTypes>(obj: T) => {
       key !== "label" &&
       key !== "type" &&
       key !== "defaultValue" &&
-      key !== "className" &&
+      key !== "fieldClassName" &&
+      key !== "labelClassName" &&
       key !== "strength"
   );
   return keyValue;

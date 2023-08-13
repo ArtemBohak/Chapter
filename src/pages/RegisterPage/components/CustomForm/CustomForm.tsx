@@ -1,24 +1,30 @@
-import { FC } from "react";
-import { Formik, Form, Field, FieldArray } from "formik";
+import { ElementType, FC } from "react";
+import { Formik, Form, FieldArray } from "formik";
 
 import UIbutton from "@/src/components/Buttons/UIbutton/UIbutton";
 
 import { createObject, findKeys } from "@/src/pages/RegisterPage/helpers";
 import { type FieldTypes } from "../../types";
 
-import styles from "./CustomForm.module.scss";
-
 type Props = {
-  fields: FieldTypes[];
+  fieldsValues: FieldTypes[];
   formName: string;
   reinitialize?: boolean;
+  textFieldComponent?: ElementType;
+  passwordFieldComponent?: ElementType;
 };
 
-const CustomForm: FC<Props> = ({ fields, formName, reinitialize = true }) => {
+const CustomForm: FC<Props> = ({
+  fieldsValues = [],
+  formName,
+  reinitialize = true,
+  textFieldComponent: TextFieldComponent,
+  passwordFieldComponent: PasswordFieldComponent,
+}) => {
   return (
     <Formik
       enableReinitialize={reinitialize}
-      initialValues={{ [formName]: [...fields] }}
+      initialValues={{ [formName]: [...fieldsValues] }}
       onSubmit={(values): void => {
         const value = createObject(values[formName]);
         console.log(value);
@@ -29,23 +35,39 @@ const CustomForm: FC<Props> = ({ fields, formName, reinitialize = true }) => {
           {() => (
             <Form className="max-w-[327px]">
               {props.values[formName].map((item, index) => {
-                const keys = findKeys(item);
-                return (
-                  <div key={index}>
-                    <label htmlFor={keys} className={`${styles["label"]}`}>
-                      {item.label}
-                    </label>
-                    <Field
-                      id={keys}
-                      type={item.type}
-                      name={`${formName}[${index}].${keys}`}
-                      value={item[keys as keyof typeof item]}
-                      data-automation={`${keys}Input`}
-                      onChange={props.handleChange}
-                      className="w-[327px] h-[35px] mb-[15px] px-2 py-1 rounded-[5px] border border-gray-1030"
-                    />
-                  </div>
-                );
+                const fieldName = findKeys(item);
+                if (PasswordFieldComponent && fieldName === "password")
+                  return (
+                    <div key={index}>
+                      <PasswordFieldComponent
+                        id={fieldName}
+                        type={item.type}
+                        name={`${formName}[${index}].${fieldName}`}
+                        value={item[fieldName as keyof typeof item]}
+                        dataAutomation={`${fieldName}Input`}
+                        onChange={props.handleChange}
+                        labelText={item.label}
+                        labelClassName={item.labelClassName}
+                        fieldClassName={item.fieldClassName}
+                      />
+                    </div>
+                  );
+                if (TextFieldComponent && fieldName !== "password")
+                  return (
+                    <div key={index}>
+                      <TextFieldComponent
+                        id={fieldName}
+                        type={item.type}
+                        name={`${formName}[${index}].${fieldName}`}
+                        value={item[fieldName as keyof typeof item]}
+                        dataAutomation={`${fieldName}Input`}
+                        onChange={props.handleChange}
+                        labelText={item.label}
+                        labelClassName={item.labelClassName}
+                        fieldClassName={item.fieldClassName}
+                      />
+                    </div>
+                  );
               })}
               <UIbutton
                 dataAutomation="submitButton"
