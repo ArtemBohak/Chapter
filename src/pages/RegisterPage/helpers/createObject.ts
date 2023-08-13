@@ -1,19 +1,30 @@
 import { type FieldTypes } from "../types";
 import { findKeys } from ".";
 
+enum ValuesKeys {
+  email = "email",
+  signUpCode = "signUpCode",
+  password = "password",
+  confirmPassword = "confirmPassword",
+  fullName = "fullName",
+  nickName = "nickName",
+}
+
+type Values = Pick<
+  FieldTypes,
+  | ValuesKeys.email
+  | ValuesKeys.signUpCode
+  | ValuesKeys.password
+  | ValuesKeys.confirmPassword
+  | ValuesKeys.fullName
+  | ValuesKeys.nickName
+>;
+
 const createObject = (array: FieldTypes[]) =>
   array.reduce((acc: Record<string, string>, item: FieldTypes) => {
     const keys: string = findKeys(item);
 
-    if (
-      keys === "email" ||
-      keys === "signUpCode" ||
-      keys === "password" ||
-      keys === "confirmPassword" ||
-      keys === "fullName" ||
-      keys === "nickName"
-    )
-      acc[keys] = item[keys]!;
+    acc[keys] = item[keys as keyof Values]!;
 
     return acc;
   }, {});
