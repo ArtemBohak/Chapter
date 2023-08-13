@@ -5,3 +5,7 @@
 .regPage-title {
   @apply text-[34px] md:text-[50px] font-semibold mb-[15px] leading-normal;
 }
+
+.label {
+  @apply text-gray-400 text-xs;
+}

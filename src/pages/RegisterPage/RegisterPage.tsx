@@ -1,13 +1,12 @@
 import { FC } from "react";
 
-import Logo from "@/src/components/SVGComponents/Logo";
 import { Form } from "./components";
-import { AuthLink, Delimiter, Terms, AuthBy } from "@/src/components";
+import { AuthLink, Delimiter, Terms, AuthBy, Logo } from "@/src/components";
+import TextInput from "./TemporaryInput";
 
 import { termMess } from "@/src/constants";
 
 import styles from "./RegisterPage.module.scss";
-import TextInput from "./components/CustomForm/TemporaryInput";
 
 const initialFieldValues = [
   {

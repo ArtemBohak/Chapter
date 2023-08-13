@@ -1,5 +1,5 @@
 import { Field } from "formik";
-import styles from "./CustomForm.module.scss";
+import styles from "./RegisterPage.module.scss";
 
 const TextInput = ({
   id,
