@@ -23,8 +23,8 @@ const RegisterPage: FC = () => {
   return (
     <>
       <Logo className="md:block fixed top-[70px] left-[70px] hidden" />
-      <div className={styles["regPage-container"]}>
-        <h1 className={styles["regPage-title"]}>Sign up</h1>
+      <div className={styles["registration-page-container"]}>
+        <h1 className={styles["registration-page-title"]}>Sign up</h1>
         <Form
           formName="register"
           className="max-w-[327px]"

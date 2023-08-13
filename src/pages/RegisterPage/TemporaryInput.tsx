@@ -1,27 +1,24 @@
 import { Field } from "formik";
 import styles from "./RegisterPage.module.scss";
+import { ChangeEvent } from "react";
 
 const TextInput = ({
   id,
-  type,
-  name,
-  value,
-  dataAutomation,
-  onChange,
-  labelClassName,
-  fieldClassName,
   labelText,
+  labelClassName,
+  name,
+  setFieldValue,
+  dataAutomation,
+  fieldClassName,
+  ...otherProps
 }: {
   id: string;
-  type: string;
-  name: string;
-  value: string;
-  dataAutomation: string;
-  className: string;
   labelText: string;
   labelClassName: string;
+  name: string;
+  setFieldValue: (arg1: string, arg2: string) => string;
+  dataAutomation: string;
   fieldClassName: string;
-  onChange: () => void;
 }) => (
   <>
     <label htmlFor={id} className={`${styles[labelClassName]}`}>
@@ -29,12 +26,13 @@ const TextInput = ({
     </label>
     <Field
       id={id}
-      type={type}
       name={name}
-      value={value}
+      onChange={(event: ChangeEvent<HTMLInputElement>) =>
+        setFieldValue(name, event.target.value)
+      }
       data-automation={dataAutomation}
-      onChange={onChange}
       className={fieldClassName}
+      {...otherProps}
     />
   </>
 );

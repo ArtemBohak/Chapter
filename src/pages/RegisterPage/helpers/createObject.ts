@@ -1,15 +1,15 @@
 import { type FieldTypes } from "../types";
 import { findKeys } from ".";
-import { FieldName } from "../enums";
+import { FieldsName } from "../enums";
 
 type Values = Pick<
   FieldTypes,
-  | FieldName.email
-  | FieldName.signUpCode
-  | FieldName.password
-  | FieldName.confirmPassword
-  | FieldName.fullName
-  | FieldName.nickName
+  | FieldsName.email
+  | FieldsName.signUpCode
+  | FieldsName.password
+  | FieldsName.confirmPassword
+  | FieldsName.fullName
+  | FieldsName.nickName
 >;
 
 const createObject = (array: FieldTypes[]) =>

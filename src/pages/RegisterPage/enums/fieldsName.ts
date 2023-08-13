@@ -1,4 +1,4 @@
-export enum FieldName {
+export enum FieldsName {
   email = "email",
   signUpCode = "signUpCode",
   password = "password",

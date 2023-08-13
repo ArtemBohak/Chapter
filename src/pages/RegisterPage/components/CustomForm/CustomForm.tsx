@@ -5,7 +5,7 @@ import UIbutton from "@/src/components/Buttons/UIbutton/UIbutton";
 
 import { createObject, findKeys } from "@/src/pages/RegisterPage/helpers";
 import { type FieldTypes } from "../../types";
-import { FieldName } from "../../enums";
+import { FieldsName } from "../../enums";
 
 type Props = {
   formName: string;
@@ -39,7 +39,7 @@ const CustomForm: FC<Props> = ({
             <Form className={className}>
               {props.values[formName].map((item, index) => {
                 const fieldName = findKeys(item);
-                if (PasswordFieldComponent && fieldName === FieldName.password)
+                if (PasswordFieldComponent && fieldName === FieldsName.password)
                   return (
                     <div key={index}>
                       <PasswordFieldComponent
@@ -48,14 +48,14 @@ const CustomForm: FC<Props> = ({
                         name={`${formName}[${index}].${fieldName}`}
                         value={item[fieldName as keyof typeof item]}
                         dataAutomation={`${fieldName}Input`}
-                        onChange={props.handleChange}
+                        setFieldValue={props.setFieldValue}
                         labelText={item.label}
                         labelClassName={item.labelClassName}
                         fieldClassName={item.fieldClassName}
                       />
                     </div>
                   );
-                if (TextFieldComponent && fieldName !== FieldName.password)
+                if (TextFieldComponent && fieldName !== FieldsName.password)
                   return (
                     <div key={index}>
                       <TextFieldComponent
@@ -64,7 +64,7 @@ const CustomForm: FC<Props> = ({
                         name={`${formName}[${index}].${fieldName}`}
                         value={item[fieldName as keyof typeof item]}
                         dataAutomation={`${fieldName}Input`}
-                        onChange={props.handleChange}
+                        setFieldValue={props.setFieldValue}
                         labelText={item.label}
                         labelClassName={item.labelClassName}
                         fieldClassName={item.fieldClassName}

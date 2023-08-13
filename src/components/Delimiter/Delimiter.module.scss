@@ -1,7 +1,12 @@
-.authPage_delimiter {
-  @apply flex justify-center gap-[9px] mb-[10px];
-
-  & .delimiter-line {
-    @apply h-[2px] w-[144px] relative top-3.5 bg-gray-800 border-0;
+.delimiter {
+  & &__line {
+    @apply flex justify-center items-center gap-[10px] mb-[10px];
+    &::before,
+    &::after {
+      content: "";
+      height: 2px;
+      width: 100%;
+      background: #1c1c1e;
+    }
   }
 }
