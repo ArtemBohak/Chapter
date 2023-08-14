@@ -1,12 +1,15 @@
 .delimiter {
-  & &__line {
-    @apply flex justify-center items-center gap-[10px] mb-[10px];
-    &::before,
-    &::after {
-      content: "";
-      height: 2px;
-      width: 100%;
-      background: #1c1c1e;
-    }
-  }
+  @apply w-full max-w-[327px];
+}
+
+.delimiter__line {
+  @apply flex justify-center items-center gap-[10px] mb-[10px];
+
+  // &::before,
+  // &::after {
+  //   content: "";
+  //   height: 2px;
+  //   width: 100%;
+  //   background: #1c1c1e;
+  // }
 }

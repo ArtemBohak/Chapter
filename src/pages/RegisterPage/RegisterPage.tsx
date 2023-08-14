@@ -13,9 +13,6 @@ const initialFieldValues = [
     label: "Your email",
     type: "email",
     email: "",
-    labelClassName: "label",
-    fieldClassName:
-      "w-[327px] h-[35px] mb-[15px] px-2 py-1 rounded-[5px] border border-gray-1030",
   },
 ];
 
@@ -27,7 +24,6 @@ const RegisterPage: FC = () => {
         <h1 className={styles["registration-page-title"]}>Sign up</h1>
         <Form
           formName="register"
-          className="max-w-[327px]"
           fieldsValues={initialFieldValues}
           textFieldComponent={TextInput}
         />

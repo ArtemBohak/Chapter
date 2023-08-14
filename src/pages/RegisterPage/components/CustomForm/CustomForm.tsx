@@ -1,5 +1,6 @@
 import { ElementType, FC } from "react";
 import { Formik, Form, FieldArray } from "formik";
+import cn from "classnames";
 
 import UIbutton from "@/src/components/Buttons/UIbutton/UIbutton";
 
@@ -9,7 +10,7 @@ import { FieldsName } from "../../enums";
 
 type Props = {
   formName: string;
-  className: string;
+  className?: string;
   fieldsValues: FieldTypes[];
   reinitialize?: boolean;
   textFieldComponent?: ElementType;
@@ -36,7 +37,7 @@ const CustomForm: FC<Props> = ({
       {(props) => (
         <FieldArray name={formName}>
           {() => (
-            <Form className={className}>
+            <Form className={cn("max-w-[327px]", className)}>
               {props.values[formName].map((item, index) => {
                 const fieldName = findKeys(item);
                 if (PasswordFieldComponent && fieldName === FieldsName.password)
