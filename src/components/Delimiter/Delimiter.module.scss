@@ -3,13 +3,5 @@
 }
 
 .delimiter__line {
-  @apply flex justify-center items-center gap-[10px] mb-[10px];
-
-  // &::before,
-  // &::after {
-  //   content: "";
-  //   height: 2px;
-  //   width: 100%;
-  //   background: #1c1c1e;
-  // }
+  @apply flex justify-center items-center gap-[10px] mb-[10px] text-[20px] before:content-[''] before:h-[2px] before:w-full before:bg-black-1000 after:content-[''] after:h-[2px] after:w-full after:bg-black-1000;
 }
