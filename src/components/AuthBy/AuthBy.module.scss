@@ -1,7 +1,7 @@
-.authBy-block {
+.auth-by {
   @apply flex flex-col w-[327px] mb-12 sm:mb-12;
+}
 
-  & .authBy-text {
-    @apply text-xs font-normal relative top-0 left-0 mb-[15px] text-black-1000;
-  }
+.auth-by__text {
+  @apply text-xs font-normal relative top-0 left-0 mb-[15px] text-black-1000;
 }

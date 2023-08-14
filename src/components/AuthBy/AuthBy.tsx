@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import styles from "./AuthBy.module.scss";
 
 type Props = {
+  text?: string;
   socialLinks: {
     link: string;
     className?: string;
@@ -10,10 +11,10 @@ type Props = {
   }[];
 };
 
-const AuthBy = ({ socialLinks }: Props) => {
+const AuthBy = ({ socialLinks, text = "log in via" }: Props) => {
   return (
-    <div className={styles["authBy-block"]}>
-      <div className={styles["authBy-text"]}>log in via</div>
+    <div className={styles["auth-by"]}>
+      <div className={styles["auth-by__text"]}>{text}</div>
       <ul className="flex gap-6 justify-center items-center">
         {socialLinks.map((item, index) => (
           <li key={index} className="rounded-full bg-red-600 w-[51px] h-[51px]">

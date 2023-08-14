@@ -1,11 +1,11 @@
-.registration-page-container {
-  @apply flex flex-col max-w-[327px] sm:max-w-[450px] mx-auto items-center sm:mt-[240px] md:mt-[24.2vh] mt-[17.24vh];
+.registration-page {
+  @apply pt-[140px] pb-[40px] md:pt-[260px] md:pb-[100px] lg:pt-[333px];
 }
 
-.registration-page-title {
+.registration-page__container {
+  @apply flex flex-col max-w-[327px] sm:max-w-[450px] mx-auto items-center;
+}
+
+.registration-page__title {
   @apply text-[34px] md:text-[50px] font-semibold mb-[15px] leading-normal;
-}
-
-.label {
-  @apply text-gray-400 text-xs;
 }

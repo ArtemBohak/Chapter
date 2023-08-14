@@ -1,5 +1,4 @@
 import { Field } from "formik";
-import styles from "./RegisterPage.module.scss";
 import { ChangeEvent } from "react";
 import cn from "classnames";
 
@@ -22,7 +21,7 @@ const TextInput = ({
   fieldClassName?: string;
 }) => (
   <>
-    <label htmlFor={id} className={cn(styles["label"], labelClassName)}>
+    <label htmlFor={id} className={cn("text-gray-400 text-xs", labelClassName)}>
       {labelText}
     </label>
     <Field
