@@ -1,13 +1,16 @@
 import { FC } from "react";
 
-import LayoutContentCenter from "@/src/layouts/LayoutContentCenter/LayoutContentCenter";
+import BlockAuth from "@/src/components/BlockAuth/BlockAuth";
+import PublicLayout from "@/src/layouts/PublicLayout/PublicLayout";
 import FormCreateAccount from "./components/FormCreateAccount/FormCreateAccount";
 
 const AccountCreationPage: FC = () => {
   return (
-    <LayoutContentCenter heading="Create account">
-      <FormCreateAccount />
-    </LayoutContentCenter>
+    <PublicLayout>
+      <BlockAuth heading="Create account">
+        <FormCreateAccount />
+      </BlockAuth>
+    </PublicLayout>
   );
 };
 
