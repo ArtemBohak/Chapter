@@ -15,7 +15,7 @@ import {
   TypePasswordStrength,
 } from "./usePasswordStrength";
 
-import styles from "./PasswordField.module.css";
+import styles from "./PasswordField.module.scss";
 
 type Props = {
   id: string;

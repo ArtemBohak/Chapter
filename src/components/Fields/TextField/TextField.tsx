@@ -4,7 +4,7 @@ import { Field, ErrorMessage, useField } from "formik";
 
 import { Icon, IconEnum } from "@/src/components/Icon";
 
-import styles from "./TextField.module.css";
+import styles from "./TextField.module.scss";
 
 type Props = {
   id: string;
@@ -31,7 +31,6 @@ const TextField: FC<Props> = ({
   const isErrorValidation = meta.touched && meta.error;
 
   const validationClassname = cn({
-    [styles["text-field--success"]]: isSuccessValidation,
     [styles["text-field--has-error"]]: isErrorValidation,
   });
 
