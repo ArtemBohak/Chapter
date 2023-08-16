@@ -15,6 +15,8 @@ type Props = {
   reinitialize?: boolean;
   textFieldComponent?: ElementType;
   passwordFieldComponent?: ElementType;
+  buttonTitle: string;
+  strength?: boolean;
 };
 
 const CustomForm: FC<Props> = ({
@@ -22,13 +24,17 @@ const CustomForm: FC<Props> = ({
   formName,
   reinitialize = true,
   className,
+  buttonTitle,
+  strength = true,
   textFieldComponent: TextFieldComponent,
   passwordFieldComponent: PasswordFieldComponent,
+  ...props
 }) => {
   return (
     <Formik
       enableReinitialize={reinitialize}
       initialValues={{ [formName]: [...fieldsValues] }}
+      {...props}
       onSubmit={(values): void => {
         const value = createObject(values[formName]);
         console.log(value);
@@ -45,14 +51,12 @@ const CustomForm: FC<Props> = ({
                     <div key={index}>
                       <PasswordFieldComponent
                         id={fieldName}
-                        type={item.type}
                         name={`${formName}[${index}].${fieldName}`}
-                        value={item[fieldName as keyof typeof item]}
                         dataAutomation={`${fieldName}Input`}
-                        setFieldValue={props.setFieldValue}
-                        labelText={item.label}
-                        labelClassName={item.labelClassName}
-                        fieldClassName={item.fieldClassName}
+                        value={item[fieldName as keyof typeof item]}
+                        label={item.label}
+                        className={item.className}
+                        strength={strength}
                       />
                     </div>
                   );
@@ -65,20 +69,19 @@ const CustomForm: FC<Props> = ({
                         name={`${formName}[${index}].${fieldName}`}
                         value={item[fieldName as keyof typeof item]}
                         dataAutomation={`${fieldName}Input`}
-                        setFieldValue={props.setFieldValue}
-                        labelText={item.label}
-                        labelClassName={item.labelClassName}
-                        fieldClassName={item.fieldClassName}
+                        label={item.label}
+                        className={item.className}
                       />
                     </div>
                   );
               })}
               <UIbutton
                 dataAutomation="submitButton"
-                // type="submit"
-                title="Create new account"
+                type="submit"
                 className="bg-orange-1200 text-white w-[327px] h-11 rounded-[5px] mb-[10px]"
-              />
+              >
+                {buttonTitle}
+              </UIbutton>
             </Form>
           )}
         </FieldArray>

@@ -2,8 +2,14 @@ import { FC } from "react";
 import cn from "classnames";
 
 import { Form } from "./components";
-import { AuthLink, Delimiter, Terms, AuthBy, Logo } from "@/src/components";
-import TextInput from "./TemporaryInput";
+import {
+  AuthLink,
+  Delimiter,
+  Terms,
+  AuthBy,
+  Logo,
+  TextField,
+} from "@/src/components";
 
 import { termMess } from "@/src/constants";
 
@@ -12,7 +18,7 @@ import styles from "./RegisterPage.module.scss";
 const initialFieldValues = [
   {
     label: "Your email",
-    type: "email",
+    type: "text",
     email: "",
   },
 ];
@@ -27,7 +33,8 @@ const RegisterPage: FC = () => {
           <Form
             formName="register"
             fieldsValues={initialFieldValues}
-            textFieldComponent={TextInput}
+            textFieldComponent={TextField}
+            buttonTitle="Create new account"
           />
           <Delimiter />
           <AuthBy socialLinks={[{ link: "/" }, { link: "/" }, { link: "/" }]} />

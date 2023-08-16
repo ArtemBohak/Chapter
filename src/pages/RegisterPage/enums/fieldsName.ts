@@ -8,7 +8,5 @@ export enum FieldsName {
   label = "label",
   type = "type",
   defaultValue = "defaultValue",
-  fieldClassName = "fieldClassName",
-  labelClassName = "labelClassName",
-  strength = "strength",
+  className = "className",
 }
