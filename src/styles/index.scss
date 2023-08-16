@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import './preflightReset.scss';
+
 html {
   @apply text-lg;
 }
@@ -10,7 +12,12 @@ html {
   @apply font-poppins m-0 p-0 box-border;
 }
 
+button {
+  @apply border-transparent 
+}
+
 ul,
 ol {
   @apply list-none;
 }
+
