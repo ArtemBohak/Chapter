@@ -21,18 +21,11 @@
   @apply text-center text-[#000] base:text-left 
   mb-6 base:mb-10 
   px-1 md:px-0;
-}
 
-.panel-description h2:first-child {
-  @apply hidden 
-  text-[25px] base:text-[50px] 
-  md:block;
-}
-
-.panel-description h2:nth-child(2) {
-  @apply text-[25px] font-medium 
-  mb-[5px]  
-  md:hidden;
+  & h2 {
+    @apply font-medium text-[25px] base:text-[50px]
+    mb-[5px] md:mb-[5px];
+  }
 }
 
 .panel-description h3 {
@@ -42,5 +35,5 @@
 .panel-buttons {
   @apply flex flex-col gap-5 base:flex-row base:gap-[5vw]
   w-full max-w-[329px] sm:w-[320px] base:max-w-[594px] base:w-full
-  px-2 base:px-0;
+  px-2 base:px-0 mb-[30px] base:mb-0;
 }

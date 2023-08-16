@@ -1,8 +1,7 @@
 .image-container {
   @apply relative  
   w-full max-w-[100vw] max-h-[100vh]
-  pt-2 base:pt-0
-  flex justify-end self-end md:self-auto
+  flex justify-center self-end md:self-auto
   overflow-x-hidden md:overflow-x-visible;
 }
 
@@ -23,9 +22,10 @@
 
 .image img {
   @apply relative 
-  w-[118%] max-w-none sm:max-w-full md:max-h-full
+  h-full w-[118%] max-w-none sm:max-w-full md:max-h-full
   object-contain
   sm:left-4;
+  mask-image: linear-gradient(95deg, black 75%, transparent);
 
   @media (min-width: 680px) {
     right: 30px;

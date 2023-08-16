@@ -7,10 +7,8 @@ const WelcomePageImage: FC = () => {
   return (
     <div className={styles["image-container"]}>
       <div className={styles["image-background"]} />
-      <div className={styles["image-container"]}>
-        <div className={styles["image"]}>
-          <img src={girlImage} alt="chapter-girl" />
-        </div>
+      <div className={styles["image"]}>
+        <img src={girlImage} alt="chapter-girl" />
       </div>
     </div>
   );

@@ -27,7 +27,7 @@ type Props = {
 } & Partial<Omit<InputHTMLAttributes<HTMLInputElement>, "type">> &
   Partial<FieldProps>;
 
-const TextField: FC<Props> = ({
+const PasswordField: FC<Props> = ({
   id,
   className,
   label,
@@ -123,4 +123,4 @@ const TextField: FC<Props> = ({
   );
 };
 
-export default TextField;
+export default PasswordField;
