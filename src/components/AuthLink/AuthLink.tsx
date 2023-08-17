@@ -1,22 +1,14 @@
+import { FC } from "react";
 import { Link } from "react-router-dom";
-import cn from "classnames";
-
+import { type AuthLinkProps } from "@/src/components/AuthLink";
 import styles from "./AuthLink.module.scss";
 
-const AuthLink = ({
-  textMsg,
-  linkMsg,
-  link,
-}: {
-  textMsg: string;
-  linkMsg: string;
-  link: string;
-}) => (
-  <div className={cn(styles["auth-link"])}>
+const AuthLink: FC<AuthLinkProps> = ({ textMsg, linkMsg, link }) => (
+  <div className={styles["auth-link"]}>
     <div>
-      <span className={cn(styles["auth-link__text"])}>{textMsg}</span>
+      <span className={styles["auth-link__text"]}>{textMsg}</span>
       &nbsp;
-      <Link className={cn(styles["auth-link__link"])} to={link}>
+      <Link className={styles["auth-link__link"]} to={link}>
         {linkMsg}
       </Link>
     </div>

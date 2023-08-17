@@ -1,26 +1,17 @@
+import { FC } from "react";
 import { Link } from "react-router-dom";
-import cn from "classnames";
-
 import { Icon } from "@/src/components/Icon";
+import { type AuthByProps } from "@/src/components/AuthBy";
 import styles from "./AuthBy.module.scss";
 
-type Props = {
-  text?: string;
-  socialLinks: {
-    link: string;
-    className?: string;
-    icon: string;
-  }[];
-};
-
-const AuthBy = ({ socialLinks, text = "log in via" }: Props) => {
+const AuthBy: FC<AuthByProps> = ({ socialLinks, text = "log in via" }) => {
   return (
-    <div className={cn(styles["auth-by"])}>
-      <div className={cn(styles["auth-by__text"])}>{text}</div>
-      <ul className={cn(styles["auth-by__list"])}>
+    <div className={styles["auth-by"]}>
+      <div className={styles["auth-by__text"]}>{text}</div>
+      <ul className={styles["auth-by__list"]}>
         {socialLinks.map((item, index) => (
           <li key={index}>
-            <Link to={item.link} className={cn(styles["auth-by__link"])}>
+            <Link to={item.link} className={styles["auth-by__link"]}>
               <Icon icon={item.icon} size={24} />
             </Link>
           </li>

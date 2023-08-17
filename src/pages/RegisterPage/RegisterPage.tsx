@@ -1,5 +1,4 @@
 import { FC } from "react";
-import cn from "classnames";
 
 import PublicLayout from "@/src/layouts/PublicLayout/PublicLayout";
 import { AuthLink, Delimiter, AuthBy, BlockAuth } from "@/src/components";
@@ -15,7 +14,7 @@ const RegisterPage: FC = () => (
       showBottomText={true}
       typePageText="Create account"
     >
-      <div className={cn(styles["register-page"])}>
+      <div className={styles["register-page"]}>
         <RegisterForm />
         <Delimiter />
         <AuthBy

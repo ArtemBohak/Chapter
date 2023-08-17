@@ -3,21 +3,17 @@ import { Formik, Form } from "formik";
 import cn from "classnames";
 
 import { UIbutton, TextField } from "@/src/components";
-import { IRegisterAccount } from "@/src/pages/RegisterPage";
+import { IRegisterAccount, RegisterFormProps } from "@/src/pages/RegisterPage";
 
 import styles from "./RegisterForm.module.scss";
 
-type FormPropsTypes = {
-  className?: string;
-};
-
 const initialValues: IRegisterAccount = { email: "", signUpCode: "" };
 
-const RegisterForm: FC<FormPropsTypes> = ({ className, ...props }) => {
+const RegisterForm: FC<RegisterFormProps> = ({ className, ...props }) => {
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={(values: IRegisterAccount, { setSubmitting }) => {
+      onSubmit={(values, { setSubmitting }) => {
         console.log(1);
         setTimeout(() => {
           console.log(values);
@@ -37,7 +33,7 @@ const RegisterForm: FC<FormPropsTypes> = ({ className, ...props }) => {
           <UIbutton
             dataAutomation="submitButton"
             type="submit"
-            className={cn(styles["register-from__button"])}
+            className={styles["register-from__button"]}
             isLoading={isSubmitting}
             disabled={isSubmitting}
           >
