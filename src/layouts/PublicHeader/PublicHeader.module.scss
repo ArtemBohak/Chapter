@@ -1,0 +1,7 @@
+.header {
+  @apply absolute top-0 left-0 right-0 py-2 md:pt-10 md:pb-1;
+
+  & &__container {
+    @apply max-w-[1200px] w-full px-4 mx-auto;
+  }
+}

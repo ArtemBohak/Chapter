@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, InputHTMLAttributes } from "react";
+import { ChangeEvent, FC, InputHTMLAttributes, useState } from "react";
 import cn from "classnames";
 import {
   Field,
@@ -7,6 +7,9 @@ import {
   useFormikContext,
   FieldProps,
 } from "formik";
+
+import { Icon, IconEnum } from "@/src/components/Icon";
+
 import {
   usePasswordStrength,
   TypePasswordStrength,
@@ -36,6 +39,7 @@ const PasswordField: FC<Props> = ({
   ...props
 }) => {
   const [field, meta] = useField(name);
+  const [isVisiblePassword, setIsVisiblePassword] = useState<boolean>(false);
   const { setFieldValue } = useFormikContext();
   const { passwordStrength, passwordValue, LENGTH_STRENGTH, onHandleChange } =
     usePasswordStrength();
@@ -46,9 +50,11 @@ const PasswordField: FC<Props> = ({
     [TypePasswordStrength.STRONG]: passwordStrength === 3,
   });
 
+  const isErrorValidation = meta.touched && meta.error;
+
   const validationClassname = cn({
     [styles["text-field--success"]]: meta.touched && !meta.error,
-    [styles["text-field--has-error"]]: meta.touched && meta.error,
+    [styles["text-field--has-error"]]: isErrorValidation,
   });
 
   const onHandleChangeField = (event: ChangeEvent<HTMLInputElement>) => {
@@ -67,11 +73,18 @@ const PasswordField: FC<Props> = ({
             id={id}
             name={name}
             data-automation={dataAutomation}
-            type="password"
+            type={isVisiblePassword ? "text" : "password"}
             value={value}
             defaultValue={defaultValue}
             className={styles["text-field__input"]}
             onChange={onHandleChangeField}
+          />
+          <Icon
+            icon={isVisiblePassword ? IconEnum.Eye : IconEnum.Eye_Off}
+            size={18}
+            color="#8E8E93"
+            onClick={() => setIsVisiblePassword(!isVisiblePassword)}
+            className={styles["text-field__icon"]}
           />
         </div>
       </label>
@@ -81,7 +94,7 @@ const PasswordField: FC<Props> = ({
           letters and special characters
         </p>
       )}
-      {meta.touched && meta.error ? (
+      {isErrorValidation ? (
         <ErrorMessage
           name={name || "Field invalid"}
           component="p"

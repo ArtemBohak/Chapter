@@ -1,6 +1,8 @@
 import { FC, InputHTMLAttributes } from "react";
 import cn from "classnames";
-import { Field, ErrorMessage, useField, useFormikContext } from "formik";
+import { Field, ErrorMessage, useField } from "formik";
+
+import { Icon, IconEnum } from "@/src/components/Icon";
 
 import styles from "./TextField.module.scss";
 
@@ -24,12 +26,12 @@ const TextField: FC<Props> = ({
   ...props
 }) => {
   const [field, meta] = useField(name);
-  const context = useFormikContext();
-  console.log(context);
+
+  const isSuccessValidation = meta.touched && !meta.error;
+  const isErrorValidation = meta.touched && meta.error;
 
   const validationClassname = cn({
-    [styles["text-field--success"]]: meta.touched && !meta.error,
-    [styles["text-field--has-error"]]: meta.touched && meta.error,
+    [styles["text-field--has-error"]]: isErrorValidation,
   });
 
   return (
@@ -47,9 +49,16 @@ const TextField: FC<Props> = ({
             defaultValue={defaultValue}
             className={styles["text-field__input"]}
           />
+          {isSuccessValidation ? (
+            <Icon
+              icon={IconEnum.Ok}
+              size={20}
+              className={styles["text-field__icon"]}
+            />
+          ) : null}
         </div>
       </label>
-      {meta.touched && meta.error ? (
+      {isErrorValidation ? (
         <ErrorMessage
           name={name || "Field invalid"}
           component="p"
