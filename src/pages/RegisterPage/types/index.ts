@@ -1,1 +1,1 @@
-export { type SubmitTypes, type FormPropsTypes } from "./formTypes";
+export { type IRegisterAccount } from "./formTypes";

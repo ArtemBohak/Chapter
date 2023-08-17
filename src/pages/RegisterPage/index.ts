@@ -1,2 +1,2 @@
 export { RegisterForm } from "./components";
-export { type SubmitTypes, type FormPropsTypes } from "./types";
+export { type IRegisterAccount } from "./types";

@@ -8,12 +8,14 @@ type Props = {
   children: React.ReactNode;
   heading?: string;
   showBottomText?: boolean;
+  typePageText?: string;
 };
 
 const BlockAuth: FC<Props> = ({
   className,
   heading,
   showBottomText = false,
+  typePageText,
   children,
 }) => {
   return (
@@ -28,8 +30,9 @@ const BlockAuth: FC<Props> = ({
         {showBottomText ? (
           <div className={cn(styles["block-auth__bottom-text"])}>
             <p>
-              By clicking “Create account” above, you acknowledge that you have
-              read and understood, and agree to Chapter's
+              By clicking {typePageText ? `"${typePageText}"` : null} above, you
+              acknowledge that you have read and understood, and agree to
+              Chapter's
               <a href="/">Terms & Conditions and Privacy Policy.</a>
             </p>
           </div>

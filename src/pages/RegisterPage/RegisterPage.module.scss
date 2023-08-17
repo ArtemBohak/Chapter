@@ -1,11 +1,3 @@
-.registration-page {
-  @apply pt-[140px] pb-[40px] md:pt-[260px] md:pb-[100px] lg:pt-[333px] bg-gray-1070;
-}
-
-.registration-page__container {
-  @apply flex flex-col max-w-[327px] sm:max-w-[450px] mx-auto items-center;
-}
-
-.registration-page__title {
-  @apply text-[34px] md:text-[50px] font-semibold mb-[15px] leading-normal;
+.register-page {
+  @apply max-w-[320px] w-full mx-auto text-center;
 }
