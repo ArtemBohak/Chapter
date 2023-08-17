@@ -1,0 +1,7 @@
+.register-from {
+  @apply max-w-[327px];
+
+  &__button {
+    @apply bg-orange-1200 text-white w-[327px] h-11 rounded-[5px] mb-[10px];
+  }
+}

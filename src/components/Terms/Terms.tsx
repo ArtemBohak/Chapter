@@ -1,4 +1,7 @@
 import { Link } from "react-router-dom";
+import cn from "classnames";
+
+import styles from "./Terms.module.scss";
 
 const Terms = ({
   message,
@@ -9,14 +12,14 @@ const Terms = ({
   policyLinkMsg?: string;
   termsLinkMsgText?: string;
 }) => (
-  <div className="text-gray-1030 max-w-[302px] sm:max-w-[449px]">
-    <p className="text-center text-2xs">
+  <div className={cn(styles["terms"])}>
+    <p className={cn(styles["terms__text"])}>
       {message}
-      <Link className="underline" to="#">
+      <Link className={cn(styles["terms__link"])} to="#">
         {termsLinkMsgText}
       </Link>
       &nbsp; and&nbsp;
-      <Link className="underline" to="#">
+      <Link className={cn(styles["terms__link"])} to="#">
         {policyLinkMsg}
       </Link>
     </p>

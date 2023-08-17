@@ -1,1 +1,1 @@
-export { default as Form } from "./CustomForm/CustomForm";
+export { default as RegisterForm } from "./RegisterForm/RegisterForm";

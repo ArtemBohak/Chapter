@@ -1,5 +1,7 @@
-import { ReactElement, ReactNode } from "react";
 import { Link } from "react-router-dom";
+import cn from "classnames";
+
+import { Icon } from "@/src/components/Icon";
 import styles from "./AuthBy.module.scss";
 
 type Props = {
@@ -7,18 +9,20 @@ type Props = {
   socialLinks: {
     link: string;
     className?: string;
-    icon?: ReactElement | ReactNode;
+    icon: string;
   }[];
 };
 
 const AuthBy = ({ socialLinks, text = "log in via" }: Props) => {
   return (
-    <div className={styles["auth-by"]}>
-      <div className={styles["auth-by__text"]}>{text}</div>
-      <ul className="flex gap-6 justify-center items-center">
+    <div className={cn(styles["auth-by"])}>
+      <div className={cn(styles["auth-by__text"])}>{text}</div>
+      <ul className={cn(styles["auth-by__list"])}>
         {socialLinks.map((item, index) => (
-          <li key={index} className="rounded-full bg-red-600 w-[51px] h-[51px]">
-            <Link to={item.link}></Link>
+          <li key={index}>
+            <Link to={item.link} className={cn(styles["auth-by__link"])}>
+              <Icon icon={item.icon} size={24} />
+            </Link>
           </li>
         ))}
       </ul>

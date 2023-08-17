@@ -11,6 +11,7 @@ type Props = {
   className?: string;
   label?: string;
   name: string;
+  showSuccessIcon?: boolean;
   dataAutomation: string;
 } & Partial<InputHTMLAttributes<HTMLInputElement>>;
 
@@ -22,6 +23,7 @@ const TextField: FC<Props> = ({
   type = "text",
   value,
   defaultValue,
+  showSuccessIcon = false,
   dataAutomation,
   ...props
 }) => {
@@ -49,7 +51,7 @@ const TextField: FC<Props> = ({
             defaultValue={defaultValue}
             className={styles["text-field__input"]}
           />
-          {isSuccessValidation ? (
+          {showSuccessIcon && isSuccessValidation ? (
             <Icon
               icon={IconEnum.Ok}
               size={20}

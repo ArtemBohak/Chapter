@@ -1,43 +1,29 @@
 import { FC } from "react";
 import cn from "classnames";
 
-import { Form } from "./components";
-import {
-  AuthLink,
-  Delimiter,
-  Terms,
-  AuthBy,
-  Logo,
-  TextField,
-} from "@/src/components";
-
+import PublicLayout from "@/src/layouts/PublicLayout/PublicLayout";
+import { AuthLink, Delimiter, Terms, AuthBy } from "@/src/components";
+import { RegisterForm } from "@/src/pages/RegisterPage";
 import { termMess } from "@/src/constants";
+import { IconEnum } from "@/src/components/Icon";
 
-import styles from "./RegisterPage.module.scss";
-
-const initialFieldValues = [
-  {
-    label: "Your email",
-    type: "text",
-    email: "",
-  },
-];
+import styles from "@/src/pages/RegisterPage/RegisterPage.module.scss";
 
 const RegisterPage: FC = () => {
   return (
-    <>
-      <Logo className="md:block fixed top-[70px] left-[70px] hidden" />
+    <PublicLayout>
       <section className={cn(styles["registration-page"])}>
         <div className={cn(styles["registration-page__container"])}>
           <h1 className={cn(styles["registration-page__title"])}>Sign up</h1>
-          <Form
-            formName="register"
-            fieldsValues={initialFieldValues}
-            textFieldComponent={TextField}
-            buttonTitle="Create new account"
-          />
+          <RegisterForm buttonTitle="Create new account" />
           <Delimiter />
-          <AuthBy socialLinks={[{ link: "/" }, { link: "/" }, { link: "/" }]} />
+          <AuthBy
+            socialLinks={[
+              { link: "/", icon: IconEnum.Google },
+              { link: "/", icon: IconEnum.Facebook },
+              { link: "/", icon: IconEnum.Twitter },
+            ]}
+          />
           <AuthLink
             textMsg="Already have an account ?"
             linkMsg="Log in"
@@ -46,7 +32,7 @@ const RegisterPage: FC = () => {
           <Terms message={termMess} />
         </div>
       </section>
-    </>
+    </PublicLayout>
   );
 };
 

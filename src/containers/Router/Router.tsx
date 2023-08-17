@@ -4,7 +4,7 @@ import { RegisterPage, WelcomePage, AccountCreationPage } from "@/src/pages";
 
 const router = createBrowserRouter([
   { path: "/", element: <WelcomePage /> },
-  { path: "register", element: <RegisterPage /> },
+  { path: "/register", element: <RegisterPage /> },
   { path: "/account-creation", element: <AccountCreationPage /> },
 ]);
 

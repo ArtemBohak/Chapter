@@ -1,0 +1,11 @@
+.terms {
+  @apply text-gray-1030 max-w-[302px] sm:max-w-[449px];
+
+  &__text {
+    @apply text-center text-2xs;
+  }
+
+  &__link {
+    @apply underline;
+  }
+}

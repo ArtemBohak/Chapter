@@ -1,4 +1,7 @@
 import { Link } from "react-router-dom";
+import cn from "classnames";
+
+import styles from "./AuthLink.module.scss";
 
 const AuthLink = ({
   textMsg,
@@ -9,11 +12,11 @@ const AuthLink = ({
   linkMsg: string;
   link: string;
 }) => (
-  <div className="text-sm mb-[85px] sm:mb-[127px]">
+  <div className={cn(styles["auth-link"])}>
     <div>
-      <span className="font-medium">{textMsg}</span>
+      <span className={cn(styles["auth-link__text"])}>{textMsg}</span>
       &nbsp;
-      <Link className="text-blue-1030 font-semibold" to={link}>
+      <Link className={cn(styles["auth-link__link"])} to={link}>
         {linkMsg}
       </Link>
     </div>

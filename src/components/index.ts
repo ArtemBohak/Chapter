@@ -9,3 +9,5 @@ export { default as AuthBy } from "./AuthBy/AuthBy";
 export { default as Logo } from "./SVGComponents/Logo";
 
 export { TextField, PasswordField } from "./Fields";
+
+export { UIbutton } from "./Buttons";

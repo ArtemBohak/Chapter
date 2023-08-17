@@ -1,12 +1,6 @@
-export type FieldTypes = {
-  label: string;
-  type: string;
-  defaultValue?: string;
+export type SubmitTypes = { email: string; signUpCode: string };
+
+export type FormPropsTypes = {
+  buttonTitle: string;
   className?: string;
-  email?: string;
-  signUpCode?: string;
-  password?: string;
-  confirmPassword?: string;
-  fullName?: string;
-  nickName?: string;
 };
