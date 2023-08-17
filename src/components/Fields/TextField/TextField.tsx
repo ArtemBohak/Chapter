@@ -1,8 +1,10 @@
-import { FC, InputHTMLAttributes } from "react";
+import { FC } from "react";
 import cn from "classnames";
 import { Field, ErrorMessage, useField } from "formik";
 
 import { Icon, IconEnum } from "@/src/components/Icon";
+
+import { TextFieldProps } from "./TextField.type";
 
 import styles from "./TextField.module.scss";
 
