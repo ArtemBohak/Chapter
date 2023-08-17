@@ -23,7 +23,7 @@ const RegisterForm: FC<RegisterFormProps> = ({ className, ...props }) => {
       {...props}
     >
       {({ isSubmitting }) => (
-        <Form className={cn(styles["register-from"], className)}>
+        <Form className={cn(styles["register-form"], className)}>
           <TextField
             id="email"
             name="email"
@@ -33,7 +33,7 @@ const RegisterForm: FC<RegisterFormProps> = ({ className, ...props }) => {
           <UIbutton
             dataAutomation="submitButton"
             type="submit"
-            className={styles["register-from__button"]}
+            className={styles["register-form__button"]}
             isLoading={isSubmitting}
             disabled={isSubmitting}
           >
