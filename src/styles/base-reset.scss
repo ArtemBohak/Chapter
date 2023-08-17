@@ -1,0 +1,20 @@
+html {
+  @apply text-lg;
+}
+
+* {
+  @apply font-poppins m-0 p-0 box-border;
+}
+
+button {
+  @apply border-transparent;
+}
+
+ul,
+ol {
+  @apply list-none;
+}
+
+#wrapper {
+  @apply overflow-hidden max-w-full w-full min-h-full;
+}

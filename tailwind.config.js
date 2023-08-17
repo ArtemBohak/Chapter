@@ -52,6 +52,7 @@ export default {
         xl: "22px",
         "2xl": "34px",
         "3xl": "42px",
+        "4xl": "50px",
       },
       fontFamily: {
         poppins: ["Poppins"],

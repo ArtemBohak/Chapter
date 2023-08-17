@@ -1,0 +1,27 @@
+.panel-container {
+  @apply w-full flex flex-col text-center items-center -mt-4;
+
+  @media (min-width: 600px) {
+    margin-top: -40px;
+  }
+}
+
+.panel-description {
+  @apply mb-6 text-[#000];
+}
+
+.panel-description h2:first-child {
+  @apply hidden text-[25px] md:block;
+}
+
+.panel-description h2:nth-child(2) {
+  @apply text-[25px] mb-[5px] font-medium md:hidden;
+}
+
+.panel-description h3 {
+  @apply text-[17px] tracking-wide font-light;
+}
+
+.panel-buttons {
+  @apply flex flex-col gap-5 w-full px-2 max-w-[329px] sm:w-[320px];
+}

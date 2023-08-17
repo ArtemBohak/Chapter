@@ -34,7 +34,7 @@ export function usePasswordStrength(): UsePasswordStrengthReturnType {
   const [passwordValue, setPasswordValue] = useState<string>("");
 
   function onHandleChange(value: string) {
-    if (!value) {
+    if (value === "") {
       setPasswordStrength(0);
       setPasswordValue("");
       return;

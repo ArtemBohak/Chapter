@@ -1,21 +1,18 @@
 import { FC } from "react";
+import cn from "classnames";
 
 import logo from "src/assets/SVG/logo.svg";
 
 type Props = {
   className?: string;
+  alt?: string;
 };
 
-const Logo: FC<Props> = ({ className }) => {
+const Logo: FC<Props> = ({ className, alt }) => {
   return (
-    <span
-      className={
-        className ||
-        "hidden absolute left-[70px] top-[70px] md:hidden w-1/6 max-w-[107px]"
-      }
-    >
-      <img className="w-full" src={logo} alt="chapter-logo" />
-    </span>
+    <div className={cn("max-w-[120px] hidden md:block", className)}>
+      <img className="w-full" src={logo} alt={alt || "logo"} />
+    </div>
   );
 };
 

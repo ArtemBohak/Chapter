@@ -2,22 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@import './preflightReset.scss';
-
-html {
-  @apply text-lg;
-}
-
-* {
-  @apply font-poppins m-0 p-0 box-border;
-}
-
-button {
-  @apply border-transparent 
-}
-
-ul,
-ol {
-  @apply list-none;
-}
-
+@import "./preflightReset";
+@import "./base-reset";
+@import "./icons";
