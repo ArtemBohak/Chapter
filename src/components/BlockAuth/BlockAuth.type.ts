@@ -3,4 +3,5 @@ export type BlockAuthProps = {
   children: React.ReactNode;
   heading?: string;
   showBottomText?: boolean;
+  typePageText?: string;
 };

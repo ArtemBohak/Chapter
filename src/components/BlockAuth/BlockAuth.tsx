@@ -5,15 +5,7 @@ import { BlockAuthProps } from "./BlockAuth.type";
 
 import styles from "./BlockAuth.module.scss";
 
-type Props = {
-  className?: string;
-  children: React.ReactNode;
-  heading?: string;
-  showBottomText?: boolean;
-  typePageText?: string;
-};
-
-const BlockAuth: FC<Props> = ({
+const BlockAuth: FC<BlockAuthProps> = ({
   className,
   heading,
   showBottomText = false,
