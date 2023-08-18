@@ -1,57 +1,71 @@
 import { FC } from "react";
-import { Field, Form, Formik, FormikHelpers } from "formik";
+import { Form, Formik, FormikProps } from "formik";
 import styles from "./LoginPageForm.module.scss";
 import { Link } from "react-router-dom";
-interface InputValues {
-  email: string;
-  password: string;
-}
+import { PasswordField, TextField } from "@/src/components/Fields";
+import { UIbutton } from "@/src/components/Buttons";
+import { ILoginPage } from "./LoginPageForm.types";
+import Delimiter from "../Delimiter/Delimiter";
+import LoginVia from "../LogInVia/LoginVia";
+import SingUp from "../SignUp/SingUp";
+
 const LoginPageForm: FC = () => {
   return (
-    <Formik
-      initialValues={{
-        email: "",
-        password: "",
-      }}
-      onSubmit={(
-        inputValues: InputValues,
-        { setSubmitting }: FormikHelpers<InputValues>
-      ) => {
-        alert("hi");
-      }}
-    >
-      <Form className="max-w-[327px]">
-        <label className={`${styles["lable"]}  `} htmlFor="email">
-          Your email
-        </label>
-        <Field
-          className="w-[327px] h-[35px] mb-[15px] rounded-[5px] border border-gray-1030 "
-          id="email"
-          name="email"
-          placeholder=""
-        />
-        <label className={`${styles["lable"]}`} htmlFor="password">
-          Your password
-        </label>
-        <Field
-          className="w-[327px] h-[35px] rounded-[5px] mb-[5px] border border-gray-1030 "
-          id="password"
-          name="password"
-          placeholder=""
-        />
-        <div className=" flex justify-end">
-          <Link
-            className="mb-[25px] text-right  text-xs text-blue-1030"
-            to={"#"}
-          >
-            Forgot password?
-          </Link>
-        </div>
-        <button className=" bg-orange-1200 text-white w-[327px] h-11 rounded-[5px] mb-[10px]">
-          Log in
-        </button>
-      </Form>
-    </Formik>
+    <div className={styles["login-page-form"]}>
+      <Formik
+        initialValues={{
+          email: "",
+          password: "",
+        }}
+        onSubmit={(values, { setSubmitting }) => {
+          // temp
+          setTimeout(() => {
+            console.log("values", values);
+            setSubmitting(false);
+          }, 1000);
+        }}
+      >
+        {({ isSubmitting, isValid, dirty }: FormikProps<ILoginPage>) => (
+          <Form>
+            <TextField
+              id="email"
+              name="email"
+              label="Your email"
+              placeholder=""
+              dataAutomation="email"
+            />
+            <PasswordField
+              id="password"
+              name="password"
+              label="Your password"
+              placeholder=""
+              dataAutomation="password"
+            />
+            <div className=" flex justify-end">
+              <Link
+                className="mb-[25px] text-right  text-xs text-blue-1030"
+                to={"#"}
+              >
+                Forgot password?
+              </Link>
+            </div>
+            <UIbutton
+              type="submit"
+              variant="orange-contained"
+              dataAutomation="submitButton"
+              className="p-[12px] text-sm"
+              disabled={!isValid || !dirty}
+              isLoading={isSubmitting ? true : false}
+            >
+              Log in
+            </UIbutton>
+            <Delimiter />
+            <LoginVia />
+            <SingUp />
+          </Form>
+        )}
+      </Formik>
+    </div>
   );
 };
 

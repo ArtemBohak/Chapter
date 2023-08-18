@@ -1,0 +1,22 @@
+.block-auth {
+  @apply bg-gray-1070 text-black-1000 min-h-screen flex flex-col justify-center flex-1 pt-20 pb-4 md:pt-[100px] md:pb-8;
+
+  & &__container {
+    @apply max-w-[520px] w-full mx-auto flex flex-col flex-1 justify-center px-[24px];
+  }
+
+  & &__heading {
+    @apply text-center font-semibold mb-5 leading-none text-2xl md:text-4xl;
+  }
+
+  & &__body {
+    @apply mt-14 mb-20 md:mb-8;
+  }
+
+  & &__bottom-text {
+    @apply text-center text-gray-1030 text-2xs mt-auto;
+    & a {
+      @apply underline;
+    }
+  }
+}

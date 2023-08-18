@@ -7,17 +7,18 @@
 }
 
 .loginPage_delimiter {
-  @apply flex justify-center gap-[9px] mb-[10px];
+  @apply flex justify-center gap-[9px] mb-[10px] max-w-[320px] items-center;
 
   & .delimiter-line {
-    @apply h-[2px] w-[144px] relative top-4 bg-gray-800 border-0;
+    @apply h-[2px] w-[100%] bg-gray-800 border-0;
   }
 }
 
-.loginVia-block {
-  @apply flex flex-col w-[327px] mb-12 sm:mb-12;
+// .loginVia-block {
+//   @apply flex flex-col w-[327px] mb-12 sm:mb-12;
 
-  & .loginVia-text {
-    @apply text-xs font-normal relative top-0 left-0 mb-[15px] text-black-1000;
-  }
+// }
+
+.loginVia-text {
+  @apply text-xs font-normal relative top-0 left-0 mb-[15px] text-black-1000;
 }

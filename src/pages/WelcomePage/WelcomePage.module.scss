@@ -1,0 +1,10 @@
+.logo {
+  @apply hidden absolute left-[70px] top-[70px] md:hidden w-1/6 max-w-[107px];
+}
+
+.welcome-page__container {
+  @apply flex 
+  flex-col items-center md:flex-row-reverse md:justify-between 
+  md:h-[100vh] md:w-[100vw] h-[100vh]
+  base:overflow-x-hidden;
+}
