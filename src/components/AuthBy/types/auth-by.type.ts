@@ -1,8 +1,9 @@
 export type AuthByProps = {
   text?: string;
+  className?: string;
   socialLinks: {
     link: string;
-    className?: string;
+    itemClassName?: string;
     icon: string;
   }[];
 };
