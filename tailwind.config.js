@@ -6,9 +6,6 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
-      backgroundImage: {
-        page404: "url(./src/assets/WEBP/page-404/page-404@1x.webp)",
-      },
       screens: {
         sm: "376px", // everything higher than 375px is considered as tablet-sized markup
         md: "769px", // everything higher than 768px is considered as small desktop-sized markup or large tablets

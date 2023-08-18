@@ -1,0 +1,14 @@
+.header {
+  @apply absolute top-0 left-0 right-0 py-2 md:pt-10 md:pb-1;
+
+  &__container {
+    @apply w-full px-4 mx-auto text-center lg:px-[80px];
+  }
+}
+
+.error {
+  @apply text-[#F9F9F9] min-h-screen pt-[96px] pb-4 md:pt-[80px] md:pb-8 bg-orange-900;
+  &__container {
+    @apply w-full mx-auto flex flex-col flex-1 justify-center items-center;
+  }
+}

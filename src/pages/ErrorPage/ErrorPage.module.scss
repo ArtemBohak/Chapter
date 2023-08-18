@@ -1,0 +1,7 @@
+.error-content {
+  @apply px-[24px] relative top-[-20px] md:top-[-75px] flex flex-col justify-center items-center flex-1;
+
+  &__button {
+    @apply w-full max-w-[326px] md:max-w-[329px] min-h-[41px] md:min-h-[65px];
+  }
+}

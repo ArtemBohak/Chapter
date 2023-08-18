@@ -1,11 +1,29 @@
 import { FC } from "react";
+import { useNavigate } from "react-router-dom";
 
-import { Page404, ErrorLayout } from "./components";
+import { ErrorLayout, ErrorPanel, ErrorImage } from "./components";
+import { UIbutton } from "@/src/components";
+
+import styles from "./ErrorPage.module.scss";
 
 const ErrorPage: FC = () => {
+  const navigate = useNavigate();
+
   return (
     <ErrorLayout>
-      <Page404 />
+      <>
+        <ErrorImage />
+        <div className={styles["error-content"]}>
+          <ErrorPanel />
+          <UIbutton
+            onClick={() => navigate("/")}
+            dataAutomation="clickButton"
+            className={styles["error-content__button"]}
+          >
+            Go to home page
+          </UIbutton>
+        </div>
+      </>
     </ErrorLayout>
   );
 };

@@ -15,7 +15,7 @@ const UIbutton: FC<UIButtonProps> = ({
 }) => {
   const variantClassName: string =
     (variant && styles[variant]) || styles["orange-contained"];
-  console.log(props);
+
   return (
     <button
       type={type}

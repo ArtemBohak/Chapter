@@ -1,0 +1,11 @@
+.error-content__wrapper {
+  @apply mb-[40px] text-center;
+}
+
+.error-content__top-text {
+  @apply text-[25px] md:text-4xl font-medium w-full mb-[20px] md:mb-[12px];
+}
+
+.error-content__bottom-text {
+  @apply text-sm md:text-[20px] font-light w-full max-w-[279px] md:max-w-full;
+}
