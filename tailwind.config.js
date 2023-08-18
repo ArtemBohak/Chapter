@@ -7,8 +7,8 @@ export default {
   theme: {
     extend: {
       screens: {
-        sm: "376px", // everything higher than 375px is considered as tablet-sized markup
-        md: "769px", // everything higher than 768px is considered as small desktop-sized markup or large tablets
+        sm: "376px", // everything higher than 375px is considered as a tablet-sized markup
+        md: "769px", // everything higher than 768px is considered as a desktop-sized markup
         base: "1025px", // everything higher than 1024 is considered as normal desktop-sized markup
         lg: "1921px", // the maximum size of our markup is 1920px
       },
