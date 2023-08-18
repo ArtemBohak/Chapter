@@ -1,12 +1,8 @@
-import { ChangeEvent, FC, InputHTMLAttributes, useState } from "react";
+import { ChangeEvent, FC, useState } from "react";
 import cn from "classnames";
-import {
-  Field,
-  ErrorMessage,
-  useField,
-  useFormikContext,
-  FieldProps,
-} from "formik";
+import { Field, ErrorMessage, useField, useFormikContext } from "formik";
+
+import { PasswordFieldProps } from "./PasswordField.type";
 
 import { Icon, IconEnum } from "@/src/components/Icon";
 
@@ -17,17 +13,7 @@ import {
 
 import styles from "./PasswordField.module.scss";
 
-type Props = {
-  id: string;
-  label?: string;
-  name: string;
-  dataAutomation: string;
-  strength?: boolean;
-  className?: string;
-} & Partial<Omit<InputHTMLAttributes<HTMLInputElement>, "type">> &
-  Partial<FieldProps>;
-
-const PasswordField: FC<Props> = ({
+const PasswordField: FC<PasswordFieldProps> = ({
   id,
   className,
   label,

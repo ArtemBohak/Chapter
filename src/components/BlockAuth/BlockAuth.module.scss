@@ -2,7 +2,7 @@
   @apply text-black-1000 min-h-screen flex flex-col justify-center flex-1 pt-20 pb-4 md:pt-[100px] md:pb-8;
 
   & &__container {
-    @apply max-w-[520px] w-full mx-auto flex flex-col flex-1 justify-center px-[24px];
+    @apply max-w-[520px] w-full mx-auto flex flex-col justify-center px-[24px];
   }
 
   & &__heading {
