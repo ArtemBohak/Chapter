@@ -5,5 +5,6 @@ export type TextFieldProps = {
   className?: string;
   label?: string;
   name: string;
+  showSuccessIcon?: boolean;
   dataAutomation: string;
 } & Partial<InputHTMLAttributes<HTMLInputElement>>;

@@ -8,16 +8,7 @@ import { TextFieldProps } from "./TextField.type";
 
 import styles from "./TextField.module.scss";
 
-type Props = {
-  id: string;
-  className?: string;
-  label?: string;
-  name: string;
-  showSuccessIcon?: boolean;
-  dataAutomation: string;
-} & Partial<InputHTMLAttributes<HTMLInputElement>>;
-
-const TextField: FC<Props> = ({
+const TextField: FC<TextFieldProps> = ({
   id,
   className,
   label,
