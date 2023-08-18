@@ -9,14 +9,14 @@ type Props = {
   children: React.ReactNode;
   heading?: string;
   showBottomText?: boolean;
-  bottomTextCurrentPage?: string;
+  typePageText?: string;
 };
 
 const BlockAuth: FC<Props> = ({
   className,
   heading,
   showBottomText = false,
-  bottomTextCurrentPage,
+  typePageText,
   children,
 }) => {
   return (
@@ -31,9 +31,10 @@ const BlockAuth: FC<Props> = ({
         {showBottomText ? (
           <div className={cn(styles["block-auth__bottom-text"])}>
             <p>
-              By clicking “{bottomTextCurrentPage}” above, you acknowledge that you have
-              read and understood, and agree to Chapter's &nbsp;
-              <Link to='#'>Terms & Conditions</Link> and <Link to='#'>Privacy Policy.</Link>
+              By clicking {typePageText ? `"${typePageText}"` : null} above, you
+              acknowledge that you have read and understood, and agree to
+              Chapter's {''}
+              <a href="/">Terms & Conditions and Privacy Policy.</a>
             </p>
           </div>
         ) : null}

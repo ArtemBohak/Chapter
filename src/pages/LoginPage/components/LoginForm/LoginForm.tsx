@@ -1,13 +1,10 @@
 import { FC } from "react";
 import { Form, Formik, FormikProps } from "formik";
-import styles from "./LoginPageForm.module.scss";
+import styles from "./LoginForm.module.scss";
 import { Link } from "react-router-dom";
 import { PasswordField, TextField } from "@/src/components/Fields";
 import { UIbutton } from "@/src/components/Buttons";
-import { ILoginPage } from "./LoginPageForm.types";
-import Delimiter from "../Delimiter/Delimiter";
-import LoginVia from "../LogInVia/LoginVia";
-import SingUp from "../SignUp/SingUp";
+import { ILoginPage } from "./LoginForm.types";
 
 const LoginPageForm: FC = () => {
   return (
@@ -18,7 +15,6 @@ const LoginPageForm: FC = () => {
           password: "",
         }}
         onSubmit={(values, { setSubmitting }) => {
-          // temp
           setTimeout(() => {
             console.log("values", values);
             setSubmitting(false);
@@ -41,11 +37,8 @@ const LoginPageForm: FC = () => {
               placeholder=""
               dataAutomation="password"
             />
-            <div className=" flex justify-end">
-              <Link
-                className="mb-[25px] text-right  text-xs text-blue-1030"
-                to={"#"}
-              >
+            <div className="flex justify-end">
+              <Link className="mb-[25px] text-xs text-blue-1030" to={"#"}>
                 Forgot password?
               </Link>
             </div>
@@ -59,9 +52,6 @@ const LoginPageForm: FC = () => {
             >
               Log in
             </UIbutton>
-            <Delimiter />
-            <LoginVia />
-            <SingUp />
           </Form>
         )}
       </Formik>

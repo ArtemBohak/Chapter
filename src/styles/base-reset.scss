@@ -2,6 +2,9 @@ html {
   @apply text-lg;
 }
 
+body {
+  @apply bg-gray-1070;
+}
 * {
   @apply font-poppins m-0 p-0 box-border;
 }
@@ -16,5 +19,5 @@ ol {
 }
 
 #wrapper {
-  @apply overflow-hidden max-w-full w-full min-h-full;
+  @apply overflow-hidden max-w-full w-full min-h-screen;
 }
