@@ -1,0 +1,15 @@
+.sidebar-navigation {
+  @apply absolute top-0 left-0 bottom-0 z-[1] bg-white w-full flex flex-col border-2 border-solid border-[#CDCDCD] transition duration-300 ease-in-out transform -translate-x-full laptop:translate-x-0 w-full md:z-[2] md:max-w-[260px] laptop_md:max-w-[310px];
+
+  &.active {
+    @apply translate-x-0;
+  }
+
+  &__logo {
+    @apply pt-[30px] pb-[30px] md:pb-[40px] px-[24px] max-w-[280px] md:max-w-[320px] laptop_md:mb-[30px] laptop_md:py-[48px] laptop_md:px-[32px];
+
+    img {
+      @apply w-full;
+    }
+  }
+}
