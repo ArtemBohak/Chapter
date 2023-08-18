@@ -4,11 +4,10 @@ import cn from "classnames";
 import { Formik, Form, FormikProps } from "formik";
 
 import UIbutton from "@/src/components/Buttons/UIbutton/UIbutton";
-import TextField from "@/src/components/Fields/TextField/TextField";
-import PasswordField from "@/src/components/Fields/PasswordField/PasswordField";
+import { TextField, PasswordField } from "@/src/components/Fields";
 
 import validationSchema from "./validationSchema";
-import { IAccountCreate } from "./FormCreateAccount.types";
+import { IAccountCreate } from "./FormCreateAccount.type";
 
 import styles from "./FormCreateAccount.module.scss";
 

@@ -1,2 +1,2 @@
 export { default as Icon } from "./icon";
-export { IconEnum } from "./icon.type";
+export * from "./icon.type";
