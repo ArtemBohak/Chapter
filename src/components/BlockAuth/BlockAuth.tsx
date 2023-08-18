@@ -4,7 +4,6 @@ import cn from "classnames";
 import { BlockAuthProps } from "./BlockAuth.type";
 
 import styles from "./BlockAuth.module.scss";
-import { Link } from "react-router-dom";
 
 const BlockAuth: FC<BlockAuthProps> = ({
   className,
@@ -27,7 +26,7 @@ const BlockAuth: FC<BlockAuthProps> = ({
             <p>
               By clicking {typePageText ? `"${typePageText}"` : null} above, you
               acknowledge that you have read and understood, and agree to
-              Chapter's {''}
+              Chapter's {""}
               <a href="/">Terms & Conditions and Privacy Policy.</a>
             </p>
           </div>

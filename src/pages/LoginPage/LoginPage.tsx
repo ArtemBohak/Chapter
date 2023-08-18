@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import LoginPageForm from "./components/LoginForm/LoginForm";
+import LoginForm from "./components/LoginForm/LoginForm";
 import BlockAuth from "@/src/components/BlockAuth/BlockAuth";
 import { AuthBy, AuthLink, Delimiter } from "@/src/components";
 import { IconEnum } from "@/src/components/Icon";
@@ -11,7 +11,7 @@ const LoginPage: FC = () => {
   return (
     <BlockAuth heading="Log in" showBottomText={true} typePageText="Log in">
       <div className={styles["login-page"]}>
-        <LoginPageForm />
+        <LoginForm />
         <Delimiter />
         <AuthBy
           socialLinks={[

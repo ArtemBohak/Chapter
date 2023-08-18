@@ -27,14 +27,12 @@ const LoginPageForm: FC = () => {
               id="email"
               name="email"
               label="Your email"
-              placeholder=""
               dataAutomation="email"
             />
             <PasswordField
               id="password"
               name="password"
               label="Your password"
-              placeholder=""
               dataAutomation="password"
             />
             <div className="flex justify-end">
@@ -46,9 +44,9 @@ const LoginPageForm: FC = () => {
               type="submit"
               variant="orange-contained"
               dataAutomation="submitButton"
-              className="p-[12px] text-sm"
+              className="p-[12px] text-sm mb-[10px]"
               disabled={!isValid || !dirty}
-              isLoading={isSubmitting ? true : false}
+              isLoading={isSubmitting}
             >
               Log in
             </UIbutton>
