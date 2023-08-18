@@ -1,7 +1,7 @@
 import { FC } from "react";
 import cn from "classnames";
 
-import { type LogoProps } from "@/src/components/SVGComponents";
+import { type LogoProps } from "@/src/components/SVGComponents/logo.type";
 import logo from "src/assets/SVG/logo.svg";
 
 const Logo: FC<LogoProps> = ({ className, alt }) => {

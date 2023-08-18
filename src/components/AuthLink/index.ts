@@ -1,2 +1,2 @@
 export { default as AuthLink } from "./AuthLink";
-export { type AuthLinkProps } from "./types";
+export { type AuthLinkProps } from "./auth-link.type";

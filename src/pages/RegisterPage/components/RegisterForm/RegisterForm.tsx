@@ -3,7 +3,7 @@ import { Formik, Form } from "formik";
 import cn from "classnames";
 
 import { UIbutton, TextField } from "@/src/components";
-import { IRegisterAccount, RegisterFormProps } from "@/src/pages/RegisterPage";
+import { IRegisterAccount, RegisterFormProps } from "./register-form.type";
 
 import styles from "./RegisterForm.module.scss";
 
@@ -14,7 +14,6 @@ const RegisterForm: FC<RegisterFormProps> = ({ className, ...props }) => {
     <Formik
       initialValues={initialValues}
       onSubmit={(values, { setSubmitting }) => {
-        console.log(1);
         setTimeout(() => {
           console.log(values);
           setSubmitting(false);
