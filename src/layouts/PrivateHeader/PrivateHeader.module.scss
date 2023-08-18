@@ -1,0 +1,35 @@
+.admin-header {
+  @apply relative z-[1] py-[20px] bg-white laptop:pl-[260px] laptop_md:py-[40px] laptop_md:pl-[310px];
+
+  &__heading {
+    @apply text-black-1000 text-[26px] font-bold laptop:text-[30px] laptop_md:text-[36px];
+  }
+
+  &__container {
+    @apply flex justify-between items-center w-full px-[24px] mx-auto laptop_md:max-w-[94%];
+  }
+
+  &__auth-side {
+    @apply flex;
+  }
+
+  &__search-wrapper {
+    @apply hidden laptop:inline-block;
+  }
+
+  &__menu-toggler {
+    @apply ml-4 w-[52px] h-[52px] laptop:hidden;
+  }
+
+  .add-post-button {
+    @apply hidden laptop:inline-flex laptop:ml-4;
+  }
+}
+
+.add-post-button {
+  @apply w-auto px-8 rounded-[8px] inline-flex items-center text-base h-[52px] laptop_md:px-12;
+
+  &__icon {
+    @apply mr-2 w-[30px] h-[30px] inline-block;
+  }
+}

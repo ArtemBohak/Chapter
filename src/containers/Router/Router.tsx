@@ -8,6 +8,9 @@ import {
   UIPage,
 } from "@/src/pages";
 import { PublicLayout } from "@/src/layouts/PublicLayout";
+  AdminPage,
+} from "@/src/pages";
+import { PublicLayout, PrivateLayout } from "@/src/layouts";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +36,15 @@ const router = createBrowserRouter([
       {
         path: "/ui-page",
         element: <UIPage />,
+    ],
+  },
+  {
+    path: "/admin",
+    element: <PrivateLayout />,
+    children: [
+      {
+        index: true,
+        element: <AdminPage />,
       },
     ],
   },
