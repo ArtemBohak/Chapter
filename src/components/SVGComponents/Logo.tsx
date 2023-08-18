@@ -1,14 +1,10 @@
 import { FC } from "react";
 import cn from "classnames";
 
+import { type LogoProps } from "@/src/components/SVGComponents/logo.type";
 import logo from "src/assets/SVG/logo.svg";
 
-type Props = {
-  className?: string;
-  alt?: string;
-};
-
-const Logo: FC<Props> = ({ className, alt }) => {
+const Logo: FC<LogoProps> = ({ className, alt }) => {
   return (
     <div className={cn("max-w-[120px] hidden md:block", className)}>
       <img className="w-full" src={logo} alt={alt || "logo"} />

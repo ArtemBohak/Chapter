@@ -26,7 +26,6 @@ const FormCreateAccount: FC = () => {
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={(values, { setSubmitting }) => {
-          // temp
           setTimeout(() => {
             console.log("values", values);
             setSubmitting(false);
@@ -41,6 +40,7 @@ const FormCreateAccount: FC = () => {
               label="Full Name"
               placeholder="Full Name"
               dataAutomation="fullname"
+              showSuccessIcon={true}
             />
             <TextField
               id="nickname"
@@ -48,6 +48,7 @@ const FormCreateAccount: FC = () => {
               label="Nickname"
               placeholder="nickname"
               dataAutomation="nickname"
+              showSuccessIcon={true}
             />
             <PasswordField
               id="password"

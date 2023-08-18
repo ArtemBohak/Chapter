@@ -1,16 +1,10 @@
-import { ButtonHTMLAttributes, FC } from "react";
+import { FC } from "react";
 import cn from "classnames";
 
+import { type UIButtonProps } from "@/src/components/Buttons/UIbutton/ui-button.type";
 import styles from "./UIbutton.module.scss";
 
-type Props = {
-  className?: string;
-  variant?: "orange-outlined" | "orange-contained" | "black-outlined";
-  dataAutomation: "submitButton" | "resetButton" | "navigationButton" | string;
-  isLoading?: boolean;
-} & Partial<ButtonHTMLAttributes<HTMLButtonElement>>;
-
-const UIbutton: FC<Props> = ({
+const UIbutton: FC<UIButtonProps> = ({
   isLoading = false,
   className,
   children,
