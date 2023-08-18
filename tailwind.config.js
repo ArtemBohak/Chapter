@@ -6,14 +6,19 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      backgroundImage: {
+        page404: "url(./src/assets/WEBP/page-404/page-404@1x.webp)",
+      },
       screens: {
         sm: "376px", // everything higher than 375px is considered as tablet-sized markup
         md: "769px", // everything higher than 768px is considered as small desktop-sized markup or large tablets
         base: "1025px", // everything higher than 1024 is considered as normal desktop-sized markup
         lg: "1921px", // the maximum size of our markup is 1920px
       },
+
       colors: {
         orange: {
+          900: "#FFC78A", // 404 page bg
           1000: "#F69400", // button 1
           1050: "#E78A00", // button 1 hovered
           1100: "#E99136", // outlined button border and text
