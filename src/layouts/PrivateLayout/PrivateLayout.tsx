@@ -1,6 +1,8 @@
 import { FC } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 
+import PrivateHeader from "../PrivateHeader/PrivateHeader";
+
 const PrivateLayout: FC = () => {
   const isAuthenticated = true;
 
@@ -10,7 +12,7 @@ const PrivateLayout: FC = () => {
 
   return (
     <>
-      PrivateLayout
+      <PrivateHeader />
       <main>
         <Outlet />
       </main>
