@@ -1,7 +1,13 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import { RegisterPage, WelcomePage, AccountCreationPage, LoginPage } from "@/src/pages";
-import { PublicLayout } from "@/src/layouts/PublicLayout";
+import {
+  RegisterPage,
+  WelcomePage,
+  AccountCreationPage,
+  LoginPage,
+  AdminPage,
+} from "@/src/pages";
+import { PublicLayout, PrivateLayout } from "@/src/layouts";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +29,16 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <LoginPage />,
+      },
+    ],
+  },
+  {
+    path: "/admin",
+    element: <PrivateLayout />,
+    children: [
+      {
+        index: true,
+        element: <AdminPage />,
       },
     ],
   },
