@@ -1,21 +1,77 @@
-import { FC } from "react";
+import { FC, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Formik, Form } from "formik";
 import cn from "classnames";
 
 import { UIbutton, TextField } from "@/src/components";
-import { IRegisterAccount, RegisterFormProps } from "./register-form.type";
+import FormNotification from "../FormNotification/FormNotification";
+
+import {
+  IRegisterAccount,
+  RegisterFormProps,
+  Steps,
+  RegisterAccountKey,
+} from "./register-form.type";
+import { validationSchema } from "./validationSchema";
 
 import styles from "./RegisterForm.module.scss";
 
-const initialValues: IRegisterAccount = { email: "", signUpCode: "" };
+const initialValues: IRegisterAccount = {
+  email: "",
+  hash: "",
+};
 
 const RegisterForm: FC<RegisterFormProps> = ({ className, ...props }) => {
+  const [step, setStep] = useState(Steps.FIRST);
+  const navigate = useNavigate();
+
+  const schemaTypeValidation = step > Steps.FIRST;
+  // const isDisabled = step > Steps.FIRST;
+
+  const error = "";
+
+  const onHandleSubmit = async (
+    { email, hash }: IRegisterAccount,
+    setFieldError: (field: string, errorMsg: string) => void
+  ) => {
+    if (step === Steps.SECOND) {
+      console.log("request => ", { hash });
+
+      if (error) return setFieldError(RegisterAccountKey.HASH, error);
+
+      return navigate("/account-creation", { state: { email } });
+    }
+
+    console.log("request => ", { email });
+
+    if (error) return setFieldError(RegisterAccountKey.EMAIL, error);
+
+    setStep((state) => (state += Steps.FIRST));
+  };
+
+  const renderNextStep =
+    step > Steps.FIRST ? (
+      <>
+        <FormNotification />
+        <TextField
+          id={RegisterAccountKey.HASH}
+          name={RegisterAccountKey.HASH}
+          dataAutomation={`${RegisterAccountKey.HASH}Input`}
+          label="Sign up code"
+        />
+      </>
+    ) : null;
+
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={(values, { setSubmitting }) => {
+      validationSchema={validationSchema(schemaTypeValidation)}
+      onSubmit={(
+        values: IRegisterAccount,
+        { setFieldError, setSubmitting }
+      ) => {
         setTimeout(() => {
-          console.log(values);
+          onHandleSubmit(values, setFieldError);
           setSubmitting(false);
         }, 1000);
       }}
@@ -24,11 +80,14 @@ const RegisterForm: FC<RegisterFormProps> = ({ className, ...props }) => {
       {({ isSubmitting }) => (
         <Form className={cn(styles["register-form"], className)}>
           <TextField
-            id="email"
-            name="email"
-            dataAutomation="emailInput"
+            id={RegisterAccountKey.EMAIL}
+            name={RegisterAccountKey.EMAIL}
+            dataAutomation={`${RegisterAccountKey.EMAIL}Input`}
             label="Your email"
+            className={step > Steps.FIRST ? "mb-0" : ""}
+            // disabled={isDisabled}
           />
+          {renderNextStep}
           <UIbutton
             dataAutomation="submitButton"
             type="submit"

@@ -22,7 +22,11 @@ const RegisterPage: FC = () => (
           { link: "/", icon: IconEnum.Twitter },
         ]}
       />
-      <AuthLink textMsg="Already have an account ?" linkMsg="Log in" link="/" />
+      <AuthLink
+        textMsg="Already have an account ?"
+        linkMsg="Log in"
+        link="/login"
+      />
     </div>
   </BlockAuth>
 );

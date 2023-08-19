@@ -2,7 +2,17 @@ export type RegisterFormProps = {
   className?: string;
 };
 
+export enum RegisterAccountKey {
+  EMAIL = "email",
+  HASH = "hash",
+}
+
 export interface IRegisterAccount {
-  email: string;
-  signUpCode: string;
+  [RegisterAccountKey.EMAIL]: string;
+  [RegisterAccountKey.HASH]: string;
+}
+
+export enum Steps {
+  FIRST = 1,
+  SECOND = 2,
 }
