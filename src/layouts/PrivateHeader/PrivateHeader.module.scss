@@ -1,0 +1,23 @@
+.admin-header {
+  @apply py-[52px] bg-white;
+
+  &__heading {
+    @apply text-black-1000 text-[36px] font-bold;
+  }
+
+  &__container {
+    @apply flex justify-between max-w-[1510px] w-full px-[24px] mx-auto;
+  }
+
+  &__auth-side {
+    @apply flex;
+  }
+}
+
+.add-post-button {
+  @apply px-12 rounded-[8px] text-base;
+
+  &__icon {
+    @apply mr-2  w-[30px] h-[30px] inline-block;
+  }
+}
