@@ -1,0 +1,7 @@
+.search-field {
+  &.text-field {
+    &__input {
+      @apply bg-[#E2E2E2];
+    }
+  }
+}
