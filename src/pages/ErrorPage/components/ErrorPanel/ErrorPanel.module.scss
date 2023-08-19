@@ -1,4 +1,8 @@
-.error-content__wrapper {
+.error-content {
+  @apply px-[24px] relative top-[-20px] md:top-[-75px] flex flex-col  items-center flex-1;
+}
+
+.error-content__container {
   @apply mb-[40px] text-center;
 }
 
@@ -8,4 +12,8 @@
 
 .error-content__bottom-text {
   @apply text-sm md:text-[20px] font-light w-full max-w-[279px] md:max-w-full;
+}
+
+.error-content__button {
+  @apply w-full max-w-[326px] md:max-w-[329px] min-h-[41px] md:min-h-[65px];
 }
