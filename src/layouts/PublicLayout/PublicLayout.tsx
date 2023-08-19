@@ -1,16 +1,15 @@
 import { FC } from "react";
+import { Outlet } from "react-router-dom";
 
-import PublicHeader from "@/src/layouts/PublicHeader/PublicHeader";
+import { PublicHeader } from "@/src/layouts/PublicHeader";
 
-type Props = {
-  children: React.ReactNode;
-};
-
-const PublicLayout: FC<Props> = ({ children }) => {
+const PublicLayout: FC = () => {
   return (
     <>
       <PublicHeader />
-      <main>{children}</main>
+      <main>
+        <Outlet />
+      </main>
     </>
   );
 };

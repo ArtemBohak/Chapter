@@ -1,4 +1,6 @@
 import { FC } from "react";
+import { Link } from "react-router-dom";
+
 import Logo from "@/src/components/SVGComponents/Logo";
 
 import { ErrorLayoutProps } from "./error-layout.type";
@@ -9,7 +11,9 @@ const ErrorLayout: FC<ErrorLayoutProps> = ({ children }) => (
   <>
     <header className={styles["header"]}>
       <div className={styles["header__container"]}>
-        <Logo alt="chapter" isHidden={false} />
+        <Link to="/">
+          <Logo alt="chapter" isHidden={false} />
+        </Link>
       </div>
     </header>
     <main>
