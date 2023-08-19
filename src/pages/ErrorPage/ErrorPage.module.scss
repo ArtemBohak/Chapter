@@ -1,0 +1,27 @@
+.block-error {
+  @apply text-[#F9F9F9] min-h-screen pt-[96px] pb-4 md:pt-[80px] md:pb-8 bg-orange-900;
+
+  &__container {
+    @apply w-full mx-auto flex flex-col flex-1 justify-center items-center;
+  }
+
+  &__content {
+    @apply relative top-[-20px] md:top-[-75px];
+  }
+
+  &__wrapper {
+    @apply px-[24px] text-center;
+  }
+
+  &__heading {
+    @apply text-[25px] md:text-4xl font-medium w-full mb-[20px] md:mb-[12px];
+  }
+
+  &__text {
+    @apply text-sm md:text-[20px] mb-[40px] font-light w-full max-w-[279px] md:max-w-full;
+  }
+
+  &__button {
+    @apply w-full max-w-[326px] md:max-w-[329px] min-h-[41px] md:min-h-[65px];
+  }
+}
