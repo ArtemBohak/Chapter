@@ -48,6 +48,16 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: "/admin",
+    element: <PrivateLayout />,
+    children: [
+      {
+        index: true,
+        element: <AdminPage />,
+      },
+    ],
+  },
 ]);
 
 const Router = () => {
