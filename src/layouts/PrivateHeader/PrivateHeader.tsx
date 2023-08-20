@@ -4,7 +4,12 @@ import { NavLink } from "react-router-dom";
 import plusIcon from "src/assets/SVG/plus.svg";
 
 import styles from "./PrivateHeader.module.scss";
-import { UserAvatar, UIbutton, MenuToggler } from "@/src/components";
+import {
+  UserAvatar,
+  UIbutton,
+  MenuToggler,
+  SearchField,
+} from "@/src/components";
 import { useNavigationToggler } from "@/src/context/NavigationToggler";
 
 const PrivateHeader: FC = () => {
@@ -19,6 +24,12 @@ const PrivateHeader: FC = () => {
           <h1 className={styles["admin-header__heading"]}>Profile</h1>
         </NavLink>
         <div className={styles["admin-header__auth-side"]}>
+          <SearchField
+            id={"search-field"}
+            name={"search-field"}
+            dataAutomation={"search-field"}
+            className={styles["admin-header__search-field"]}
+          />
           <UIbutton
             variant="orange-contained"
             dataAutomation={"addPostButton"}
@@ -31,7 +42,11 @@ const PrivateHeader: FC = () => {
             />
             Add post
           </UIbutton>
-          <UserAvatar src={userAvatar} alt={userName} className="ml-[16px]" />
+          <UserAvatar
+            src={userAvatar}
+            alt={userName}
+            className={styles["admin-header__user-avatar"]}
+          />
           <MenuToggler
             className={styles["admin-header__menu-toggler"]}
             onClick={() => setIsActiveMenu && setIsActiveMenu(!isActiveMenu)}
