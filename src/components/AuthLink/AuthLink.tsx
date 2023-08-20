@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import cn from "classnames";
+
 import { type AuthLinkProps } from "@/src/components/AuthLink";
 import styles from "./AuthLink.module.scss";
 

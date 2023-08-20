@@ -1,5 +1,6 @@
 import { FC } from "react";
 import cn from "classnames";
+
 import { type DelimiterProps } from "@/src/components/Delimiter/delimiter.type";
 import styles from "./Delimiter.module.scss";
 

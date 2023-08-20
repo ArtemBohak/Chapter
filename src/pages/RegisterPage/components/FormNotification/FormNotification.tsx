@@ -1,5 +1,6 @@
 import { FC } from "react";
 import cn from "classnames";
+
 import { type FormNotificationProps } from "./form-notification.type";
 import { signUpCodeMessage } from "./constants";
 import styles from "./FormNotification.module.scss";

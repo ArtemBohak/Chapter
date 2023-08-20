@@ -1,10 +1,10 @@
 import { FC } from "react";
 
+import { IconEnum } from "@/src/components/Icon";
+import styles from "@/src/pages/RegisterPage/RegisterPage.module.scss";
+
 import { AuthLink, Delimiter, AuthBy, BlockAuth } from "@/src/components";
 import { RegisterForm } from "@/src/pages/RegisterPage/components";
-import { IconEnum } from "@/src/components/Icon";
-
-import styles from "@/src/pages/RegisterPage/RegisterPage.module.scss";
 
 const RegisterPage: FC = () => (
   <BlockAuth

@@ -3,9 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { Formik, Form } from "formik";
 import cn from "classnames";
 
-import { UIbutton, TextField } from "@/src/components";
-import FormNotification from "../FormNotification/FormNotification";
-
 import {
   IRegisterAccount,
   RegisterFormProps,
@@ -13,8 +10,10 @@ import {
   RegisterAccountKey,
 } from "./register-form.type";
 import { validationSchema } from "./validationSchema";
-
 import styles from "./RegisterForm.module.scss";
+
+import { UIbutton, TextField } from "@/src/components";
+import FormNotification from "../FormNotification/FormNotification";
 
 const initialValues: IRegisterAccount = {
   email: "",
@@ -77,7 +76,7 @@ const RegisterForm: FC<RegisterFormProps> = ({ className, ...props }) => {
       }}
       {...props}
     >
-      {({ isSubmitting }) => (
+      {({ isSubmitting, dirty, isValid }) => (
         <Form className={cn(styles["register-form"], className)}>
           <TextField
             id={RegisterAccountKey.EMAIL}
@@ -93,9 +92,9 @@ const RegisterForm: FC<RegisterFormProps> = ({ className, ...props }) => {
             type="submit"
             className={styles["register-form__button"]}
             isLoading={isSubmitting}
-            disabled={isSubmitting}
+            disabled={isSubmitting || !isValid || !dirty}
           >
-            {isSubmitting ? <div>Load ...</div> : "Create new account"}
+            Create new account
           </UIbutton>
         </Form>
       )}
