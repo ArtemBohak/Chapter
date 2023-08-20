@@ -5,8 +5,10 @@ import plusIcon from "src/assets/SVG/plus.svg";
 
 import styles from "./PrivateHeader.module.scss";
 import { UserAvatar, UIbutton, MenuToggler } from "@/src/components";
+import { useNavigationToggler } from "@/src/context/NavigationToggler";
 
 const PrivateHeader: FC = () => {
+  const { isActiveMenu, setIsActiveMenu } = useNavigationToggler();
   const userName = "User name";
   const userAvatar = "https://i.postimg.cc/LX0WVXCB/Follow-web-1.webp";
 
@@ -32,7 +34,7 @@ const PrivateHeader: FC = () => {
           <UserAvatar src={userAvatar} alt={userName} className="ml-[16px]" />
           <MenuToggler
             className={styles["admin-header__menu-toggler"]}
-            onClick={() => console.log(1)}
+            onClick={() => setIsActiveMenu && setIsActiveMenu(!isActiveMenu)}
           />
         </div>
       </div>

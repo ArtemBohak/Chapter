@@ -4,6 +4,8 @@ import { Navigate, Outlet } from "react-router-dom";
 import { PrivateHeader } from "../PrivateHeader";
 import { SidebarNavigation } from "../SidebarNavigation";
 
+import { NavigationTogglerProvider } from "src/context/NavigationToggler";
+
 const PrivateLayout: FC = () => {
   const isAuthenticated = true;
 
@@ -13,8 +15,10 @@ const PrivateLayout: FC = () => {
 
   return (
     <>
-      <SidebarNavigation />
-      <PrivateHeader />
+      <NavigationTogglerProvider>
+        <SidebarNavigation />
+        <PrivateHeader />
+      </NavigationTogglerProvider>
       <main>
         <Outlet />
       </main>
