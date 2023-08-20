@@ -52,6 +52,7 @@ export function NavigationTogglerProvider({
   );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useNavigationToggler() {
   const context = useContext(NavigationTogglerStateContext);
   if (!context) {
