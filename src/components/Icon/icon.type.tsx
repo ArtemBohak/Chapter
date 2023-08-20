@@ -11,4 +11,6 @@ export enum IconEnum {
   Search = "search",
   Settings = "settings",
   SignOut = "sign-out",
+  Menu = "menu",
+  Cross = "cross",
 }

@@ -6,3 +6,4 @@ export { TextField, PasswordField, SearchField } from "./Fields";
 export { UIbutton } from "./Buttons";
 export { default as BlockAuth } from "./BlockAuth/BlockAuth";
 export { default as UserAvatar } from "./UserAvatar/UserAvatar";
+export { MenuToggler } from "./MenuToggler";
