@@ -5,7 +5,7 @@ import { Icon, IconEnum } from "@/src/components";
 import { MenuTogglerProps } from "./MenuToggler.type";
 import { UIbutton } from "../Buttons";
 
-import styles from "./MenuToggler.module.scss";
+import "./MenuToggler.scss";
 
 const MenuToggler: FC<MenuTogglerProps> = ({ className, onClick }) => {
   const [isActive, setIsActive] = useState<boolean>(false);
@@ -16,11 +16,14 @@ const MenuToggler: FC<MenuTogglerProps> = ({ className, onClick }) => {
   }
   return (
     <UIbutton
-      className={cn(styles["menu-toggler"], className)}
+      className={cn("menu-toggler", className)}
       dataAutomation={"admin-header-menu-toggler"}
       onClick={handleClick}
     >
-      <Icon icon={isActive ? IconEnum.Cross : IconEnum.Menu} size={40} />
+      <Icon
+        icon={isActive ? IconEnum.Cross : IconEnum.Menu}
+        className="menu-toggler__icon"
+      />
     </UIbutton>
   );
 };
