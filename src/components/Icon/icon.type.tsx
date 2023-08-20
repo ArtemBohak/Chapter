@@ -5,4 +5,10 @@ export enum IconEnum {
   Google = "google",
   Twitter = "twitter",
   Ok = "Ok",
+  User = "user",
+  Notification = "notification",
+  Home = "home",
+  Search = "search",
+  Settings = "settings",
+  SignOut = "sign-out",
 }
