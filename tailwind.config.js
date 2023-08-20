@@ -15,7 +15,6 @@ export default {
 
       colors: {
         orange: {
-          900: "#FFC78A", // 404 page bg
           1000: "#F69400", // button 1
           1050: "#E78A00", // button 1 hovered
           1100: "#E99136", // outlined button border and text

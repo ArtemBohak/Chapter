@@ -1,8 +1,8 @@
 import { FC } from "react";
 
-import { PublicHeader } from "@/src/layouts/PublicHeader";
-
 import { ErrorLayoutProps } from "./error-layout.type";
+
+import { PublicHeader } from "@/src/layouts/PublicHeader";
 
 const ErrorLayout: FC<ErrorLayoutProps> = ({ children }) => (
   <>
