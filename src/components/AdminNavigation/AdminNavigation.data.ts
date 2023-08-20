@@ -4,7 +4,7 @@ import { NavigationLinkProps } from "./AdminNavigation.type";
 export const topNavigation: NavigationLinkProps[] = [
   {
     id: "1",
-    path: "/",
+    path: "/admin",
     icon: IconEnum.Home,
     name: "Feed",
   },
@@ -31,7 +31,7 @@ export const topNavigation: NavigationLinkProps[] = [
 export const bottomNavigation: NavigationLinkProps[] = [
   {
     id: "5",
-    path: "/",
+    path: "/admin/settings",
     icon: IconEnum.Settings,
     name: "Settings",
   },

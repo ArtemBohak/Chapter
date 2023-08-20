@@ -1,3 +1,4 @@
+export { Icon, IconEnum } from "./Icon";
 export { AuthBy } from "./AuthBy";
 export { AuthLink } from "./AuthLink";
 export { Logo } from "./SVGComponents";
@@ -8,4 +9,4 @@ export { BlockAuth } from "./BlockAuth";
 export { UserAvatar } from "./UserAvatar";
 export { MenuToggler } from "./MenuToggler";
 export { AdminNavigation } from "./AdminNavigation";
-export { Icon, IconEnum } from "./Icon";
+export { NavigationList } from "./NavigationList";
