@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 import cn from "classnames";
 
-import { Icon, IconEnum } from "@/src/components";
+import { Icon, IconEnum } from "@/src/components/Icon";
 import { MenuTogglerProps } from "./MenuToggler.type";
 import { UIbutton } from "../Buttons";
 
