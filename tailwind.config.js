@@ -10,6 +10,8 @@ export default {
         sm: "376px", // everything higher than 375px is considered as a tablet-sized markup
         md: "769px", // everything higher than 768px is considered as a desktop-sized markup
         base: "1025px", // everything higher than 1024 is considered as normal desktop-sized markup
+        laptop: "1367px", // everything higher than 1440 is considered as laptop desktop-sized markup
+        laptop_md: "1681px", // everything higher than 1680 is considered as laptop desktop-sized markup
         lg: "1921px", // the maximum size of our markup is 1920px
       },
       colors: {
