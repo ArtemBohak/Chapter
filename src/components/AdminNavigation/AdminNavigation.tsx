@@ -5,49 +5,9 @@ import cn from "classnames";
 import styles from "./AdminNavigation.module.scss";
 
 import { NavigationLinkProps } from "./AdminNavigation.type";
-import { Icon, IconEnum } from "../Icon";
+import { Icon } from "../Icon";
 
-const topNavigation: NavigationLinkProps[] = [
-  {
-    id: "1",
-    path: "/",
-    icon: IconEnum.Home,
-    name: "Feed",
-  },
-  {
-    id: "2",
-    path: "/",
-    icon: IconEnum.Search,
-    name: "Search",
-  },
-  {
-    id: "3",
-    path: "/",
-    icon: IconEnum.Notification,
-    name: "Notification",
-  },
-  {
-    id: "4",
-    path: "/",
-    icon: IconEnum.User,
-    name: "Profile",
-  },
-];
-
-const bottomNavigation: NavigationLinkProps[] = [
-  {
-    id: "5",
-    path: "/",
-    icon: IconEnum.Settings,
-    name: "Settings",
-  },
-  {
-    id: "6",
-    path: "/",
-    icon: IconEnum.SignOut,
-    name: "Logout",
-  },
-];
+import { topNavigation, bottomNavigation } from "./AdminNavigation.data";
 
 function NavList({
   className,
