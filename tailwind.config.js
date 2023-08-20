@@ -10,6 +10,8 @@ export default {
         sm: "376px", // everything higher than 375px is considered as a tablet-sized markup
         md: "769px", // everything higher than 768px is considered as a desktop-sized markup
         base: "1025px", // everything higher than 1024 is considered as normal desktop-sized markup
+        laptop: "1367px", // everything higher than 1440 is considered as laptop desktop-sized markup
+        laptop_md: "1681px", // everything higher than 1680 is considered as laptop desktop-sized markup
         lg: "1921px", // the maximum size of our markup is 1920px
       },
       colors: {
@@ -44,15 +46,22 @@ export default {
         },
       },
       fontSize: {
-        "2xs": "10px",
+        xxs: "10px",
         xs: "12px",
         sm: "14px",
         base: "16px",
-        lg: "18px",
-        xl: "22px",
-        "2xl": "34px",
-        "3xl": "42px",
-        "4xl": "50px",
+        lg: "20px",
+        xl: "24px",
+        h1_sm: "48px",
+        h1_lg: "50px",
+        h2_sm: "38px",
+        h2_lg: "42px",
+        h3_sm: "28px",
+        h3_lg: "32px",
+        h4_sm: "22px",
+        h4_lg: "26px",
+        h5_sm: "18px",
+        h5_lg: "20px",
       },
       fontFamily: {
         poppins: ["Poppins"],

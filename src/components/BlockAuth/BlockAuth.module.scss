@@ -14,7 +14,7 @@
   }
 
   & &__bottom-text {
-    @apply text-center text-gray-1030 text-2xs mt-auto;
+    @apply text-center text-gray-1030 text-xxs mt-auto;
     & a {
       @apply underline;
     }
