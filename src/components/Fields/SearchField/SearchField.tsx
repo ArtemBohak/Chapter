@@ -6,9 +6,9 @@ import { TextField } from "../TextField";
 
 import { SearchFieldProps } from "./SearchField.type";
 
-import styles from "./SearchField.module.scss";
+import "./SearchField.scss";
 
-const SearchField: FC<SearchFieldProps> = ({ ...props }) => {
+const SearchField: FC<SearchFieldProps> = ({ className, ...props }) => {
   return (
     <Formik
       initialValues={{}}
@@ -18,10 +18,7 @@ const SearchField: FC<SearchFieldProps> = ({ ...props }) => {
     >
       {() => (
         <Form>
-          <TextField
-            className={cn(styles["search-field"], props.className)}
-            {...props}
-          />
+          <TextField className={cn("search-field", className)} {...props} />
         </Form>
       )}
     </Formik>
