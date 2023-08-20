@@ -1,5 +1,5 @@
 .block-error {
-  @apply text-[#F9F9F9] min-h-screen pt-[96px] md:pt-[80px] bg-[#FFC78A] overflow-hidden;
+  @apply text-[#F9F9F9] min-h-screen pt-[96px] pb-4 md:pt-[80px] md:pb-8 bg-[#FFC78A];
 
   &__container {
     @apply w-full mx-auto flex flex-col flex-1 justify-center items-center;
