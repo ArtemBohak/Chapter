@@ -1,20 +1,15 @@
 .sidebar-navigation {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  z-index: 1;
-  background-color: #fff;
-  max-width: 310px;
-  width: 100%;
-  padding: 48px 16px;
+  @apply absolute top-0 left-0 bottom-0 z-[1] bg-white laptop:max-w-[260px] laptop_md:max-w-[310px] w-full flex flex-col border-2 border-solid border-[#CDCDCD] transform -translate-x-full laptop:translate-x-0 transition duration-300 ease-in-out;
+
+  &.active {
+    @apply translate-x-0;
+  }
 
   &__logo {
-    padding: 0 18px;
-    margin-bottom: 80px;
+    @apply pt-[30px] pb-[40px] px-[24px] laptop_md:mb-[30px] laptop_md:py-[48px] laptop_md:px-[32px];
 
     img {
-      width: 100%;
+      @apply w-full;
     }
   }
 }
