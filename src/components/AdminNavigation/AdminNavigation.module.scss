@@ -1,13 +1,36 @@
 .admin-navigation {
+  @apply flex flex-col flex-1 py-[22px] px-2 laptop_md:px-4;
+
   &__list {
-    position: relative;
   }
 
   &__top-nav-list {
-    position: relative;
+    @apply mb-4;
   }
 
   &__bottom-nav-list {
-    position: relative;
+    @apply mt-auto;
+  }
+
+  &__item {
+    &:not(:last-child) {
+      @apply mb-[4px] laptop_md:mb-1;
+    }
+  }
+
+  &__link {
+    @apply p-2 text-black-1000 font-semibold text-base tracking-[0.36px] inline-flex items-center w-full rounded-[8px] hover:bg-orange-1000 hover:text-white transition duration-300 ease-in-out laptop_md:text-[20px] laptop_md:p-4;
+  }
+
+  &__link.active {
+    @apply bg-orange-1000 text-white;
+  }
+
+  &__link.active &__link-icon path {
+    @apply fill-white;
+  }
+
+  &__link-icon {
+    @apply mr-4 laptop_md:mr-[24px] w-[28px] laptop_md:w-[32px];
   }
 }
