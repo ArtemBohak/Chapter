@@ -1,19 +1,27 @@
 import { FC } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
-import plusIcon from "src/assets/SVG/plus.svg";
+import { useNavigationToggler } from "@/src/context/NavigationToggler";
 
-import styles from "./PrivateHeader.module.scss";
 import {
   UserAvatar,
   UIbutton,
   MenuToggler,
   SearchField,
 } from "@/src/components";
-import { useNavigationToggler } from "@/src/context/NavigationToggler";
+
+import plusIcon from "src/assets/SVG/plus.svg";
+import styles from "./PrivateHeader.module.scss";
+
+const getPageNameByPath = (path: string = "/admin"): string => {
+  const splitedPath = path.split("/");
+  const pageName = splitedPath[splitedPath.length - 1];
+  return pageName === "admin" ? "Feed" : pageName;
+};
 
 const PrivateHeader: FC = () => {
   const { isActiveMenu, setIsActiveMenu } = useNavigationToggler();
+  const location = useLocation();
   const userName = "User name";
   const userAvatar = "https://i.postimg.cc/LX0WVXCB/Follow-web-1.webp";
 
@@ -21,7 +29,9 @@ const PrivateHeader: FC = () => {
     <header className={styles["admin-header"]}>
       <div className={styles["admin-header__container"]}>
         <NavLink to="/admin">
-          <h1 className={styles["admin-header__heading"]}>Profile</h1>
+          <h1 className={styles["admin-header__heading"]}>
+            {getPageNameByPath(location.pathname)}
+          </h1>
         </NavLink>
         <div className={styles["admin-header__auth-side"]}>
           <SearchField

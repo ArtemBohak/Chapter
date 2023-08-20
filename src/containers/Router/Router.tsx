@@ -9,6 +9,7 @@ import {
 } from "@/src/pages";
 import { PublicLayout } from "@/src/layouts/PublicLayout";
   AdminPage,
+  SettingsPage,
 } from "@/src/pages";
 import { PublicLayout, PrivateLayout } from "@/src/layouts";
 
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <AdminPage />,
+      },
+      {
+        path: "/admin/settings",
+        element: <SettingsPage />,
       },
     ],
   },

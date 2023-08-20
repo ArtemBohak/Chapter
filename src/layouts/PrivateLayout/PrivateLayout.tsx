@@ -14,15 +14,17 @@ const PrivateLayout: FC = () => {
   }
 
   return (
-    <>
+    <div className="private-layout">
       <NavigationTogglerProvider>
         <SidebarNavigation />
         <PrivateHeader />
       </NavigationTogglerProvider>
       <main>
-        <Outlet />
+        <div className="private-layout__body">
+          <Outlet />
+        </div>
       </main>
-    </>
+    </div>
   );
 };
 

@@ -1,9 +1,7 @@
 import { FC } from "react";
 
-// import styles from "./AdminPage.module.scss";
-
 const AdminPage: FC = () => {
-  return <div>AdminPage</div>;
+  return <div>Admin base page</div>;
 };
 
 export default AdminPage;

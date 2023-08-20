@@ -2,7 +2,7 @@
   @apply relative z-[1] py-[14px] bg-white laptop:py-[20px] laptop:pl-[260px] laptop_md:py-[40px] laptop_md:pl-[310px];
 
   &__heading {
-    @apply text-black-1000 text-[26px] font-bold laptop:text-[30px] laptop_md:text-[36px];
+    @apply text-black-1000 text-[26px] font-bold laptop:text-[30px] laptop_md:text-[36px] capitalize;
   }
 
   &__container {
