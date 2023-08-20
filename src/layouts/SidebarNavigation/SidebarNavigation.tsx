@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { NavLink } from "react-router-dom";
 
-import AdminNavigation from "@/src/components/AdminNavigation/AdminNavigation";
+import { AdminNavigation } from "@/src/components/";
 
 import styles from "./SidebarNavigation.module.scss";
 
