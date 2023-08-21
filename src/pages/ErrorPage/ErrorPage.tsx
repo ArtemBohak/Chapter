@@ -13,7 +13,15 @@ const ErrorPage: FC = () => {
     <ErrorLayout>
       <section className={styles["block-error"]}>
         <div className={styles["block-error__container"]}>
-          <img src={image} alt="error-404" width="974" height="649" />
+          <div className={styles["block-error__thumb"]}>
+            <img
+              src={image}
+              alt="error-404"
+              width="974"
+              height="649"
+              className={styles["block-error__image"]}
+            />
+          </div>
           <div className={styles["block-error__content"]}>
             <div className={styles["block-error__wrapper"]}>
               <h1 className={styles["block-error__heading"]}>
