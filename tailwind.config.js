@@ -14,36 +14,56 @@ export default {
         laptop_md: "1681px", // everything higher than 1680 is considered as laptop desktop-sized markup
         lg: "1921px", // the maximum size of our markup is 1920px
       },
+      borderRadius: {
+        xs: "4px",
+        sm: "6px",
+        md: "8px",
+        lg: "10px",
+      },
+      spacing: {
+        "0-sm": "4px",
+        "0-md": "8px",
+        "1-xs": "10px",
+        "1-sm": "12px",
+        "1-md": "14px",
+        "1-lg": "16px",
+        "1-xl": "18px",
+        "2-xs": "20px",
+        "2-sm": "22px",
+        "2-md": "24px",
+        "2-lg": "26px",
+        "2-xl": "28px",
+        "3-xs": "30px",
+        "3-sm": "32px",
+        "3-md": "34px",
+        "3-lg": "36px",
+        "3-xl": "38px",
+        "4-xs": "40px",
+        "4-sm": "42px",
+        "4-md": "44px",
+        "4-lg": "46px",
+        "4-xl": "48px",
+        "5-xs": "50px",
+        "5-sm": "52px",
+        "5-md": "54px",
+        "5-lg": "56px",
+        "5-xl": "58px",
+      },
       colors: {
-        orange: {
-          1000: "#F69400", // button 1
-          1050: "#E78A00", // button 1 hovered
-          1100: "#E99136", // outlined button border and text
-          1200: "#F79400", // button 3
-          1250: "#E78A00", // button 3 hovered
+        primary: "#F69400",
+        primaryHover: "#E78A00",
+        orange: "#FFBD5A",
+        black: "#000000",
+        grey: {
+          1000: "#6C6C6C",
+          1010: "#D0D0D0",
+          1020: "#EEEEEE",
+          1030: "#F2F2F2",
+          1040: "##FDFDFD",
         },
-        black: {
-          1000: "#1C1C1E", // default text color
-          1100: "#1D1D1D", // black outlined button
-        },
-        pink: {
-          1050: "#FFF8F1", // button 2 hovered
-        },
-        gray: {
-          1060: "#D0D0D0", // button disabled
-          1070: "#F2F2F7", //disabled button text
-          1030: "#8E8E93", //validation form color
-        },
-        green: {
-          1010: "#2BBF06", // success color
-        },
-        red: {
-          1020: "#D0140A", // error color
-          1130: "#D22219", // validation error color
-        },
-        blue: {
-          1030: "#0000EB", // link color
-        },
+        green: "#2BBF06",
+        red: "#D0140A",
+        blue: "#0000EB",
       },
       fontSize: {
         xxs: "10px",
@@ -52,6 +72,7 @@ export default {
         base: "16px",
         lg: "20px",
         xl: "24px",
+        xxl: "26px",
         h1_sm: "48px",
         h1_lg: "50px",
         h2_sm: "38px",
