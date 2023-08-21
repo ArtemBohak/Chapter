@@ -35,16 +35,12 @@ const RegisterForm: FC<RegisterFormProps> = ({ className, ...props }) => {
   ) => {
     if (step === Steps.SECOND) {
       console.log("request => ", { hash });
-
       if (error) return setFieldError(RegisterAccountKey.HASH, error);
-
-      return navigate("/account-creation", { state: { email } });
+      return navigate("/account-creation", { state: { email, hash } });
     }
 
     console.log("request => ", { email });
-
     if (error) return setFieldError(RegisterAccountKey.EMAIL, error);
-
     setStep((state) => (state += Steps.FIRST));
   };
 
