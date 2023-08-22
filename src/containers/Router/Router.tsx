@@ -6,11 +6,10 @@ import {
   AccountCreationPage,
   LoginPage,
   UIPage,
-} from "@/src/pages";
-import { PublicLayout } from "@/src/layouts/PublicLayout";
   AdminPage,
   SettingsPage,
 } from "@/src/pages";
+
 import { PublicLayout, PrivateLayout } from "@/src/layouts";
 
 const router = createBrowserRouter([
@@ -37,6 +36,7 @@ const router = createBrowserRouter([
       {
         path: "/ui-page",
         element: <UIPage />,
+      },
     ],
   },
   {

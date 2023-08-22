@@ -41,7 +41,6 @@ const PrivateHeader: FC = () => {
             className={styles["admin-header__search-field"]}
           />
           <UIbutton
-            variant="orange-contained"
             dataAutomation={"addPostButton"}
             className={styles["add-post-button"]}
           >

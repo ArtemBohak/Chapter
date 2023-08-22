@@ -19,11 +19,11 @@
   }
 
   &__link {
-    @apply p-2 text-black-1000 font-semibold text-base tracking-[0.36px] inline-flex items-center w-full rounded-[8px] hover:bg-orange-1000 hover:text-white transition duration-300 ease-in-out laptop_md:text-[20px] laptop_md:p-4;
+    @apply p-2 text-black font-semibold text-base tracking-[0.36px] inline-flex items-center w-full rounded-[8px] hover:bg-primary hover:text-white transition duration-300 ease-in-out laptop_md:text-[20px] laptop_md:p-4;
   }
 
   &__link.active {
-    @apply bg-orange-1000 text-white;
+    @apply bg-primary text-white;
   }
 
   &__link.active &__link-icon path {
