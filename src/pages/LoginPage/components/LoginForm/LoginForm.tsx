@@ -36,7 +36,10 @@ const LoginPageForm: FC = () => {
               dataAutomation="password"
             />
             <div className="flex justify-end">
-              <Link className="mb-[25px] text-xs text-blue-1030" to={"#"}>
+              <Link
+                className="mb-[25px] text-xs text-blue-1030"
+                to={"/login/forgot-password"}
+              >
                 Forgot password?
               </Link>
             </div>
