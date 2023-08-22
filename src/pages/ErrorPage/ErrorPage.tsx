@@ -32,8 +32,7 @@ const ErrorPage: FC = () => (
             href="/"
             variant="contained"
             dataAutomation="navigationButton"
-            size="large"
-            // className={styles["block-error__button"]}
+            className={styles["block-error__button"]}
           >
             Go to home page
           </UIbutton>

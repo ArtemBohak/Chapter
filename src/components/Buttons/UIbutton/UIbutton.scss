@@ -18,7 +18,7 @@
   }
 
   &.btn--large {
-    @apply py-1-sm px-2-md text-xxl tracking-[0.468px] leading-[1.46];
+    @apply py-1-sm px-2-md text-sm laptop:text-xxl tracking-[0.468px] leading-[1.46];
   }
 
   &.btn--small.btn--icon-right {
