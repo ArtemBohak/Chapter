@@ -45,10 +45,10 @@ h6,
 
 @layer components {
   .subtitle1 {
-    @apply text-xl leading-[1.5];
+    @apply text-xs leading-[1.5] laptop:text-xl;
   }
   .subtitle2 {
-    @apply text-sm leading-[1.2];
+    @apply text-xxs leading-[1.4] laptop:text-sm laptop:leading-[1.2];
   }
   .subtitle3 {
     @apply text-xs leading-[1.5];
