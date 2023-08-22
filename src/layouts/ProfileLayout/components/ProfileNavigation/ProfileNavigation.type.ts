@@ -1,4 +1,4 @@
-import { IconEnum } from "../Icon";
+import { IconEnum } from "../../../../components/Icon";
 
 export type NavigationList = {
   items: NavigationLinkProps[];

@@ -17,7 +17,7 @@ const MenuToggler: FC<MenuTogglerProps> = ({ className, onClick }) => {
   return (
     <UIbutton
       className={cn("menu-toggler", className)}
-      dataAutomation={"admin-header-menu-toggler"}
+      dataAutomation={"profiile-header-menu-toggler"}
       onClick={handleClick}
     >
       <Icon

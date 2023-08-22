@@ -1,7 +1,9 @@
 .menu-toggler {
-  @apply p-1;
+  &.btn {
+    @apply p-1;
+  }
 
-  &__icon {
-    width: 100%;
+  &.btn &__icon {
+    @apply m-0;
   }
 }

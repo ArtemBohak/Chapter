@@ -1,12 +1,10 @@
 import { FC } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 
-import { PrivateHeader } from "../PrivateHeader";
-import { SidebarNavigation } from "../SidebarNavigation";
-
+import { ProfileHeader, SidebarNavigation } from "./components";
 import { NavigationTogglerProvider } from "src/context/NavigationToggler";
 
-const PrivateLayout: FC = () => {
+const ProfileLayout: FC = () => {
   const isAuthenticated = true;
 
   if (!isAuthenticated) {
@@ -14,13 +12,13 @@ const PrivateLayout: FC = () => {
   }
 
   return (
-    <div className="private-layout">
+    <div className="profile-layout">
       <NavigationTogglerProvider>
         <SidebarNavigation />
-        <PrivateHeader />
+        <ProfileHeader />
       </NavigationTogglerProvider>
       <main>
-        <div className="private-layout__body">
+        <div className="profile-layout__body">
           <Outlet />
         </div>
       </main>
@@ -28,4 +26,4 @@ const PrivateLayout: FC = () => {
   );
 };
 
-export default PrivateLayout;
+export default ProfileLayout;

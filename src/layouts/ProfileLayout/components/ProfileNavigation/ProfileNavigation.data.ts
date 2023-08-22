@@ -1,10 +1,10 @@
-import { IconEnum } from "../Icon";
-import { NavigationLinkProps } from "./AdminNavigation.type";
+import { IconEnum } from "../../../../components/Icon";
+import { NavigationLinkProps } from "./ProfileNavigation.type";
 
 export const topNavigation: NavigationLinkProps[] = [
   {
     id: "1",
-    path: "/admin",
+    path: "/profile",
     icon: IconEnum.Home,
     name: "Feed",
   },
@@ -31,7 +31,7 @@ export const topNavigation: NavigationLinkProps[] = [
 export const bottomNavigation: NavigationLinkProps[] = [
   {
     id: "5",
-    path: "/admin/settings",
+    path: "/profile/settings",
     icon: IconEnum.Settings,
     name: "Settings",
   },

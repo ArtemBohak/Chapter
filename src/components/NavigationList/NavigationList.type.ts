@@ -1,4 +1,4 @@
-import { NavigationLinkProps } from "../AdminNavigation/AdminNavigation.type";
+import { NavigationLinkProps } from "../../layouts/ProfileLayout/components/ProfileNavigation/ProfileNavigation.type";
 
 export type NavigationListProps = {
   className?: string;

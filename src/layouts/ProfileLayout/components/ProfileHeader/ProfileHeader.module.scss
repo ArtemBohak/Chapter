@@ -1,4 +1,4 @@
-.admin-header {
+.profile-header {
   @apply relative z-[1] py-[14px] bg-white laptop:py-[20px] laptop:pl-[260px] laptop_md:py-[40px] laptop_md:pl-[310px];
 
   &__heading {
@@ -35,9 +35,9 @@
 }
 
 .add-post-button {
-  @apply w-auto px-8 rounded-[8px] inline-flex items-center text-base h-[52px] laptop_md:px-12;
+  //   @apply w-auto px-8 rounded-[8px] inline-flex items-center text-base h-[52px] laptop_md:px-12;
 
-  &__icon {
-    @apply mr-2 w-[30px] h-[30px] inline-block;
-  }
+  //   &__icon {
+  //     @apply mr-2 w-[30px] h-[30px] inline-block;
+  //   }
 }

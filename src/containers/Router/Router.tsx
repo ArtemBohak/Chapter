@@ -6,11 +6,11 @@ import {
   AccountCreationPage,
   LoginPage,
   UIPage,
-  AdminPage,
+  ProfilePage,
   SettingsPage,
 } from "@/src/pages";
 
-import { PublicLayout, PrivateLayout } from "@/src/layouts";
+import { PublicLayout, ProfileLayout } from "@/src/layouts";
 
 const router = createBrowserRouter([
   {
@@ -40,39 +40,15 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/admin",
-    element: <PrivateLayout />,
+    path: "/profile",
+    element: <ProfileLayout />,
     children: [
       {
         index: true,
-        element: <AdminPage />,
-      },
-    ],
-  },
-  {
-    path: "/admin",
-    element: <PrivateLayout />,
-    children: [
-      {
-        index: true,
-        element: <AdminPage />,
+        element: <ProfilePage />,
       },
       {
-        path: "/admin/settings",
-        element: <SettingsPage />,
-      },
-    ],
-  },
-  {
-    path: "/admin",
-    element: <PrivateLayout />,
-    children: [
-      {
-        index: true,
-        element: <AdminPage />,
-      },
-      {
-        path: "/admin/settings",
+        path: "/profile/settings",
         element: <SettingsPage />,
       },
     ],
