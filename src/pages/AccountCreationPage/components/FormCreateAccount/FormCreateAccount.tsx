@@ -66,7 +66,7 @@ const FormCreateAccount: FC = () => {
             />
             <UIbutton
               type="submit"
-              variant="orange-contained"
+              fullWidth
               dataAutomation="submitButton"
               className="p-[12px] text-sm"
               disabled={!isValid || !dirty}

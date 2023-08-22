@@ -1,13 +1,14 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import { PublicLayout } from "@/src/layouts/PublicLayout";
 import {
-  WelcomePage,
   RegisterPage,
-  LoginPage,
+  WelcomePage,
   AccountCreationPage,
+  LoginPage,
   ErrorPage,
+  UIPage,
 } from "@/src/pages";
+import { PublicLayout } from "@/src/layouts/PublicLayout";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <LoginPage />,
+      },
+      {
+        path: "/ui-page",
+        element: <UIPage />,
       },
     ],
   },
