@@ -34,7 +34,7 @@ const RegisterForm: FC<RegisterFormProps> = ({ className, ...props }) => {
     setFieldError: (field: string, errorMsg: string) => void
   ) => {
     if (step === Steps.SECOND) {
-      console.log("request => ", { hash });
+      console.log("request => ", { email, hash });
       if (error) return setFieldError(RegisterAccountKey.HASH, error);
       return navigate("/account-creation", { state: { email, hash } });
     }
@@ -44,7 +44,7 @@ const RegisterForm: FC<RegisterFormProps> = ({ className, ...props }) => {
     setStep((state) => (state += Steps.FIRST));
   };
 
-  const renderNextStep =
+  const renderNextStep = (value: string) =>
     step > Steps.FIRST ? (
       <>
         <FormNotification />
@@ -53,6 +53,7 @@ const RegisterForm: FC<RegisterFormProps> = ({ className, ...props }) => {
           name={RegisterAccountKey.HASH}
           dataAutomation={`${RegisterAccountKey.HASH}Input`}
           label="Sign up code"
+          value={value}
         />
       </>
     ) : null;
@@ -63,26 +64,28 @@ const RegisterForm: FC<RegisterFormProps> = ({ className, ...props }) => {
       validationSchema={validationSchema(schemaTypeValidation)}
       onSubmit={(
         values: IRegisterAccount,
-        { setFieldError, setSubmitting }
+        { setFieldError, setSubmitting, resetForm }
       ) => {
         setTimeout(() => {
           onHandleSubmit(values, setFieldError);
           setSubmitting(false);
+          resetForm();
         }, 1000);
       }}
       {...props}
     >
-      {({ isSubmitting, dirty, isValid }) => (
+      {({ isSubmitting, dirty, isValid, values }) => (
         <Form className={cn(styles["register-form"], className)}>
           <TextField
             id={RegisterAccountKey.EMAIL}
             name={RegisterAccountKey.EMAIL}
+            value={values.email}
             dataAutomation={`${RegisterAccountKey.EMAIL}Input`}
             label="Your email"
             className={step > Steps.FIRST ? "mb-0" : ""}
             // disabled={isDisabled}
           />
-          {renderNextStep}
+          {renderNextStep(values.hash)}
           <UIbutton
             dataAutomation="submitButton"
             type="submit"
