@@ -1,12 +1,16 @@
 .block-error {
-  @apply text-[#F9F9F9] min-h-screen pt-[96px]  lg:pt-[80px]  bg-[#FFC78A];
+  @apply text-[#F9F9F9] min-h-screen pt-[134px] md:pt-[80px] lg:pt-[108px] bg-[#FFC78A];
 
   &__container {
     @apply w-full mx-auto flex flex-col flex-1 justify-center items-center;
   }
 
   &__thumb {
-    @apply max-w-[974px] min-w-[280px] min-h-[250px] w-[100vw] md:w-[76vw];
+    @apply max-w-[974px] min-w-[280px] min-h-[250px] w-[100vw] base:w-[76vw];
+
+    @media screen and (min-width: 1024px) and (min-height: 600px) {
+      width: 50vw;
+    }
   }
 
   &__image {
@@ -16,22 +20,22 @@
   }
 
   &__content {
-    @apply relative top-[-20px] md:top-[-75px];
+    @apply relative top-[-20px] base:top-[-75px] max-w-full text-center;
   }
 
   &__wrapper {
-    @apply px-[24px] text-center;
+    @apply px-[23.5px] mb-[40px] text-center;
   }
 
   &__heading {
-    @apply text-[25px] md:text-4xl font-medium w-full mb-[20px] md:mb-[12px];
+    @apply text-[25px] base:text-4xl font-medium mb-[20px] base:mb-[12px];
   }
 
   &__text {
-    @apply text-sm md:text-[20px] mb-[40px] font-light w-full max-w-[279px] md:max-w-full;
+    @apply text-sm base:text-[20px] font-light w-full max-w-[279px] md:max-w-full;
   }
 
   &__button {
-    @apply w-full max-w-[326px] md:max-w-[329px] min-h-[41px] md:min-h-[65px] text-[14px] md:text-[25px];
+    @apply w-full max-w-[326px] base:max-w-[329px] min-h-[41px] base:min-h-[65px] text-[14px] base:text-[25px];
   }
 }

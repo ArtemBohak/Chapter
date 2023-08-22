@@ -30,14 +30,14 @@ const ErrorPage: FC = () => {
               <p className={styles["block-error__text"]}>
                 Sorry, we couldn`t find the page you are looking for.
               </p>
-              <UIbutton
-                onClick={() => navigate("/")}
-                dataAutomation="navigationButton"
-                className={styles["block-error__button"]}
-              >
-                Go to home page
-              </UIbutton>
             </div>
+            <UIbutton
+              onClick={() => navigate("/")}
+              dataAutomation="navigationButton"
+              className={styles["block-error__button"]}
+            >
+              Go to home page
+            </UIbutton>
           </div>
         </div>
       </section>
