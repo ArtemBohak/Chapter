@@ -22,11 +22,19 @@
   }
 
   &__input {
-    @apply text-black text-sm h-9 py-2 pl-2.5 pr-8 outline-none border-grey-1000 border-[1px] rounded-md w-full;
+    @apply text-black text-xs py-2 h-[34px] pl-2.5 pr-8 outline-none border-grey-1000 border-[1px] rounded-[5px] base:rounded-md w-full base:text-sm base:h-[48px];
 
     &::placeholder {
       @apply text-grey-1000;
     }
+  }
+
+  &__helper-box {
+    @apply flex flex-wrap items-center justify-between;
+  }
+
+  &__helper-link {
+    @apply ml-auto text-blue text-xs inline-block mt-1;
   }
 
   &__icon {
@@ -34,7 +42,7 @@
   }
 
   &__error-message {
-    @apply text-red text-xxs mt-1;
+    @apply text-red text-xxs mt-1 mr-2;
   }
 }
 
