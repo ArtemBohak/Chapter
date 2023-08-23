@@ -9,4 +9,4 @@ export { UIbutton } from "./Buttons";
 export { BlockAuth } from "./BlockAuth";
 export { UserAvatar } from "./UserAvatar";
 export { MenuToggler } from "./MenuToggler";
-export { NavigationList } from "./NavigationList";
+export { NavigationList } from "../layouts/ProfileLayout/components/NavigationList";

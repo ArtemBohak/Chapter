@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { NavigationList } from "../../../../components/NavigationList";
+import { NavigationList } from "../NavigationList";
 
 import { topNavigation, bottomNavigation } from "./ProfileNavigation.data";
 import styles from "./ProfileNavigation.module.scss";

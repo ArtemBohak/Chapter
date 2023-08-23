@@ -2,15 +2,19 @@
   @apply relative z-[1] py-[14px] bg-white laptop:py-[20px] laptop:pl-[260px] laptop_md:py-[40px] laptop_md:pl-[310px];
 
   &__heading {
-    @apply text-black text-[26px] font-bold laptop:text-[30px] laptop_md:text-[36px] capitalize;
+    @apply hidden text-black text-[26px] font-bold laptop:inline-block laptop:text-[30px] laptop_md:text-[36px] capitalize;
   }
 
   &__container {
     @apply flex justify-between items-center w-full px-[24px] mx-auto laptop_md:max-w-[94%];
   }
 
+  &__logo-name {
+    @apply absolute left-1/2 translate-x-[-50%] text-lg font-semibold laptop:hidden;
+  }
+
   &__auth-side {
-    @apply flex;
+    @apply flex laptop:justify-end laptop:w-full;
   }
 
   &__search-wrapper {
@@ -18,7 +22,7 @@
   }
 
   &__menu-toggler {
-    @apply ml-4 w-[40px] h-[40px] laptop:w-[52px] laptop:h-[52px] laptop:hidden;
+    @apply -ml-1 mr-1-xs w-[40px] h-[40px] laptop:w-[52px] laptop:h-[52px] laptop:hidden;
   }
 
   &__search-field {
@@ -26,18 +30,10 @@
   }
 
   &__user-avatar {
-    @apply ml-[16px] w-[40px] laptop:w-[52px];
+    @apply hidden ml-[16px] w-[40px] laptop:inline-flex laptop:w-[52px];
   }
 
   .add-post-button {
     @apply hidden laptop:inline-flex laptop:ml-4;
   }
-}
-
-.add-post-button {
-  //   @apply w-auto px-8 rounded-[8px] inline-flex items-center text-base h-[52px] laptop_md:px-12;
-
-  //   &__icon {
-  //     @apply mr-2 w-[30px] h-[30px] inline-block;
-  //   }
 }

@@ -2,13 +2,20 @@ import { FC } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import cn from "classnames";
 
-import { Icon } from "../Icon";
+import { useNavigationToggler } from "@/src/context/NavigationToggler";
+
+import { Icon } from "../../../../components/Icon";
 import { NavigationListProps } from "./NavigationList.type";
 
 import "./NavigationList.scss";
 
 const NavigationList: FC<NavigationListProps> = ({ items, className }) => {
   const location = useLocation();
+  const { setIsActiveMenu } = useNavigationToggler();
+
+  function handleClickNavLink() {
+    setIsActiveMenu && setIsActiveMenu(false);
+  }
 
   return (
     <ul className={cn("navigation-list", className)}>
@@ -19,6 +26,7 @@ const NavigationList: FC<NavigationListProps> = ({ items, className }) => {
             className={cn("navigation-list__link", {
               "current-page": navItem.path === location.pathname,
             })}
+            onClick={handleClickNavLink}
           >
             <Icon icon={navItem.icon} className="navigation-list__link-icon" />
             {navItem.name}

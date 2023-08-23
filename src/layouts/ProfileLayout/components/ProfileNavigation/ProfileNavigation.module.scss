@@ -1,5 +1,5 @@
 .profile-navigation {
-  @apply flex flex-col flex-1 pb-4 md:py-[22px] px-2 laptop_md:px-4 overflow-auto;
+  @apply flex flex-col flex-1 pb-4 px-2-md overflow-auto md:py-[22px] md:px-2 laptop_md:px-4;
 
   &__list {
   }

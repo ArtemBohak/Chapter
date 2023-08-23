@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import { useNavigationToggler } from "@/src/context/NavigationToggler";
 
@@ -8,29 +8,27 @@ import {
   UIbutton,
   MenuToggler,
   SearchField,
+  Icon,
+  IconEnum,
 } from "@/src/components";
 
 import styles from "./ProfileHeader.module.scss";
 
-const getPageNameByPath = (path: string = "/profile"): string => {
-  const splitedPath = path.split("/");
-  const pageName = splitedPath[splitedPath.length - 1];
-  return pageName === "profile" ? "Feed" : pageName;
-};
-
 const ProfileHeader: FC = () => {
   const { isActiveMenu, setIsActiveMenu } = useNavigationToggler();
-  const location = useLocation();
   const userName = "User name";
   const userAvatar = "https://i.postimg.cc/LX0WVXCB/Follow-web-1.webp";
 
   return (
     <header className={styles["profile-header"]}>
       <div className={styles["profile-header__container"]}>
-        <NavLink to="/profile">
-          <h1 className={styles["profile-header__heading"]}>
-            {getPageNameByPath(location.pathname)}
-          </h1>
+        <MenuToggler
+          isActive={isActiveMenu}
+          className={styles["profile-header__menu-toggler"]}
+          onClick={() => setIsActiveMenu && setIsActiveMenu(!isActiveMenu)}
+        />
+        <NavLink to="/profile" className={styles["profile-header__logo-name"]}>
+          Chapter
         </NavLink>
         <div className={styles["profile-header__auth-side"]}>
           <SearchField
@@ -71,10 +69,15 @@ const ProfileHeader: FC = () => {
             alt={userName}
             className={styles["profile-header__user-avatar"]}
           />
-          <MenuToggler
-            className={styles["profile-header__menu-toggler"]}
-            onClick={() => setIsActiveMenu && setIsActiveMenu(!isActiveMenu)}
-          />
+          <UIbutton
+            href="/"
+            variant="text"
+            alignIcon="right"
+            dataAutomation={"notification"}
+            className="laptop:hidden"
+          >
+            <Icon icon={IconEnum.Notification} color="#000000" />
+          </UIbutton>
         </div>
       </div>
     </header>

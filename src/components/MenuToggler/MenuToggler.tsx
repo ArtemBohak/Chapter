@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useState, useEffect } from "react";
 import cn from "classnames";
 
 import { Icon, IconEnum } from "@/src/components";
@@ -7,22 +7,34 @@ import { UIbutton } from "../Buttons";
 
 import "./MenuToggler.scss";
 
-const MenuToggler: FC<MenuTogglerProps> = ({ className, onClick }) => {
-  const [isActive, setIsActive] = useState<boolean>(false);
+const MenuToggler: FC<MenuTogglerProps> = ({
+  isActive = false,
+  className,
+  onClick,
+}) => {
+  const [activeState, setActiveState] = useState<boolean>(false);
+
+  useEffect(() => {
+    setActiveState(isActive);
+  }, [isActive]);
+
   function handleClick() {
-    const updatedValue = !isActive;
-    setIsActive(updatedValue);
+    const updatedValue = !activeState;
+    setActiveState(updatedValue);
     onClick(updatedValue);
   }
+
   return (
     <UIbutton
       className={cn("menu-toggler", className)}
       dataAutomation={"profiile-header-menu-toggler"}
       onClick={handleClick}
+      variant="text"
     >
       <Icon
-        icon={isActive ? IconEnum.Cross : IconEnum.Menu}
+        icon={activeState ? IconEnum.Cross : IconEnum.Menu}
         className="menu-toggler__icon"
+        color="#000000"
       />
     </UIbutton>
   );
