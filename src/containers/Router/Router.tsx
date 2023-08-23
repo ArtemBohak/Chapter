@@ -6,6 +6,7 @@ import {
   AccountCreationPage,
   LoginPage,
   ForgotPasswordPage,
+  UIPage,
 } from "@/src/pages";
 import { PublicLayout } from "@/src/layouts/PublicLayout";
 
@@ -34,6 +35,8 @@ const router = createBrowserRouter([
         path: "/login/forgot-password",
         element: <ForgotPasswordPage />,
       },
+      { path: "/ui-page", 
+        element: <UIPage /> },
     ],
   },
 ]);

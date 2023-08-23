@@ -3,7 +3,7 @@ html {
 }
 
 body {
-  @apply bg-gray-1070;
+  @apply bg-grey-1030 text-base leading-[1.2];
 }
 * {
   @apply font-poppins m-0 p-0 box-border;
@@ -20,4 +20,12 @@ ol {
 
 #wrapper {
   @apply overflow-hidden max-w-full w-full min-h-screen;
+}
+
+a:not([class]) {
+  @apply text-blue no-underline cursor-pointer;
+
+  &:hover {
+    @apply underline;
+  }
 }
