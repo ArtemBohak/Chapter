@@ -1,4 +1,4 @@
-interface IForgotPasswordProps {
+type ForgotPasswordProps = {
     setSubmitted: React.Dispatch<React.SetStateAction<boolean>>;
   }
   

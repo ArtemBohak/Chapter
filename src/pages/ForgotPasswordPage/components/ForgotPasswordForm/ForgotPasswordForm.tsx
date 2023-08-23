@@ -4,19 +4,20 @@ import { IForgotPassword } from "./ForgotPassword.types";
 import { TextField, UIbutton } from "@/src/components";
 import { FC } from "react";
 
-import PublicAxiosInstance from "@/src/axios/publicAxiosInstance";
-import endpoints from "@/src/axios/endpoints";
+import api from "@/src/axios/api";
+
 import validationSchema from "./validationSchema";
+import { EndpointsEnum } from "@/src/axios/endpoints.types";
 
 const initialValues: IForgotPassword = { email: "" };
 
-const ForgotPasswordForm: FC<IForgotPasswordProps> = ({ setSubmitted }) => {
+const ForgotPasswordForm: FC<ForgotPasswordProps> = ({ setSubmitted }) => {
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={(values) => {
-        PublicAxiosInstance.post(endpoints.FORGOT_PASSWORD, values)
+        api.post(EndpointsEnum.FORGOT_PASSWORD, values)
           .then((res) => {
             console.log(res);
           })
@@ -38,10 +39,8 @@ const ForgotPasswordForm: FC<IForgotPasswordProps> = ({ setSubmitted }) => {
           <UIbutton
             dataAutomation="submitButton"
             type="submit"
-            color="primary"
-            variant="contained"
             size="medium"
-            className="w-full"
+            fullWidth
             isLoading={isSubmitting}
             disabled={!isValid || !dirty}
           >
