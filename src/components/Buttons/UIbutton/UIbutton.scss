@@ -10,15 +10,15 @@
   }
 
   &.btn--small {
-    @apply py-0-md px-2-md text-base font-normal tracking-[0.176px];
+    @apply py-0-md px-2-md text-sm laptop:text-base font-normal laptop:tracking-[0.176px];
   }
 
   &.btn--medium {
-    @apply py-0-md px-2-md text-lg;
+    @apply py-0-md px-2-md text-base laptop:text-lg;
   }
 
   &.btn--large {
-    @apply py-1-sm px-2-md text-sm laptop:text-xxl tracking-[0.468px] leading-[1.46];
+    @apply py-1-xl laptop:py-1-sm px-2-md text-lg laptop:text-xxl laptop:tracking-[0.468px] leading-[1.46];
   }
 
   &.btn--small.btn--icon-right {

@@ -1,12 +1,12 @@
 .block-error {
-  @apply text-[#F9F9F9] min-h-screen pb-[10px] pt-[134px] md:pt-[80px] base:pt-[108px] bg-[#FFC78A];
+  @apply text-[#F9F9F9] min-h-screen pb-[10px] pt-[134px] md:pt-[80px] laptop:pt-[108px] bg-[#FFC78A];
 
   &__container {
     @apply w-full mx-auto flex flex-col flex-1 justify-center items-center;
   }
 
   &__thumb {
-    @apply max-w-[974px] min-w-[280px] min-h-[250px] w-[100vw] base:w-[76vw];
+    @apply max-w-[974px] min-w-[280px] min-h-[250px] w-[100vw] laptop:w-[76vw];
 
     @media screen and (min-width: 1024px) and (min-height: 600px) {
       width: 50vw;
@@ -20,22 +20,22 @@
   }
 
   &__content {
-    @apply relative top-[-12px] base:top-[-76px] max-w-full text-center;
+    @apply relative top-[-12px] laptop:top-[-76px] max-w-full text-center;
   }
 
   &__wrapper {
-    @apply px-2-sm mb-4-xs base:mb-[62px] text-center;
+    @apply px-2-sm mb-4-xs laptop:mb-[62px] text-center;
   }
 
   &__heading {
-    @apply mb-2-xs text-xl base:mb-[16px] font-medium;
+    @apply mb-2-xs  laptop:mb-[16px] text-xl laptop:text-h1_lg font-medium;
   }
 
   &__text {
-    @apply text-sm base:text-lg font-light w-full max-w-[280px] md:max-w-full;
+    @apply font-light w-full max-w-[280px] laptop:max-w-full text-sm laptop:text-lg;
   }
 
   &__button {
-    @apply w-full max-w-[326px] base:max-w-[330px] min-h-[40px] base:min-h-[64px];
+    @apply w-full  laptop:max-w-[316px];
   }
 }
