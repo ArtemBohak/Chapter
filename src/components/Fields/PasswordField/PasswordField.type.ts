@@ -7,4 +7,8 @@ export type PasswordFieldProps = {
   dataAutomation: string;
   strength?: boolean;
   className?: string;
+  helperLink?: {
+    text: string;
+    href: string;
+  };
 } & Partial<Omit<InputHTMLAttributes<HTMLInputElement>, "type">>;
