@@ -5,15 +5,17 @@ import { Link } from "react-router-dom";
 import { PasswordField, TextField } from "@/src/components/Fields";
 import { UIbutton } from "@/src/components/Buttons";
 import { ILoginPage } from "./LoginForm.types";
+import validationSchema from "./validationSchema";
 
 const LoginPageForm: FC = () => {
   return (
-    <div className={styles["login-page-form"]}>
+    <div className={styles["login-form"]}>
       <Formik
         initialValues={{
           email: "",
           password: "",
         }}
+        validationSchema={validationSchema}
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
             console.log("values", values);
@@ -36,7 +38,10 @@ const LoginPageForm: FC = () => {
               dataAutomation="password"
             />
             <div className="flex justify-end">
-              <Link className="mb-[25px] text-xs text-blue" to={"#"}>
+              <Link
+                className="mb-[25px] text-xs text-blue"
+                to={"/login/forgot-password"}
+              >
                 Forgot password?
               </Link>
             </div>
@@ -44,7 +49,7 @@ const LoginPageForm: FC = () => {
               type="submit"
               fullWidth
               dataAutomation="submitButton"
-              className="p-[12px] text-sm mb-[10px]"
+              className={styles["login-form__button"]}
               disabled={!isValid || !dirty}
               isLoading={isSubmitting}
             >
