@@ -4,6 +4,8 @@ import { Navigate, Outlet } from "react-router-dom";
 import { ProfileHeader, SidebarNavigation } from "./components";
 import { NavigationTogglerProvider } from "src/context/NavigationToggler";
 
+import styles from "./ProfileLayout.module.scss";
+
 const ProfileLayout: FC = () => {
   const isAuthenticated = true;
 
@@ -12,13 +14,13 @@ const ProfileLayout: FC = () => {
   }
 
   return (
-    <div className="profile-layout">
+    <div className={styles["profile-layout"]}>
       <NavigationTogglerProvider>
         <SidebarNavigation />
         <ProfileHeader />
       </NavigationTogglerProvider>
       <main>
-        <div className="profile-layout__body">
+        <div className={styles["profile-layout__body"]}>
           <Outlet />
         </div>
       </main>
