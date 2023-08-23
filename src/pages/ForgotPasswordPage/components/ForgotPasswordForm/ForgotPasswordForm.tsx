@@ -6,24 +6,28 @@ import { FC } from "react";
 
 import PublicAxiosInstance from "@/src/axios/publicAxiosInstance";
 import endpoints from "@/src/axios/endpoints";
+import validationSchema from "./validationSchema";
 
 const initialValues: IForgotPassword = { email: "" };
 
-const ForgotPasswordForm: FC = () => {
+const ForgotPasswordForm: FC<IForgotPasswordProps> = ({ setSubmitted }) => {
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={(values, { setSubmitting }) => {
-        PublicAxiosInstance.post(endpoints.FORGOT_PASSWORD, values).catch(
-          (err) => {
+      validationSchema={validationSchema}
+      onSubmit={(values) => {
+        PublicAxiosInstance.post(endpoints.FORGOT_PASSWORD, values)
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
             console.warn(err);
-          }
-        );
-        setSubmitting(false);
+          });
+        setSubmitted(true);
       }}
     >
       {({ isSubmitting, isValid, dirty }) => (
-        <Form className={""}>
+        <Form>
           <TextField
             id="email"
             name="email"
@@ -34,7 +38,10 @@ const ForgotPasswordForm: FC = () => {
           <UIbutton
             dataAutomation="submitButton"
             type="submit"
-            className="p-[12px] text-sm mb-[10px]"
+            color="primary"
+            variant="contained"
+            size="medium"
+            className="w-full"
             isLoading={isSubmitting}
             disabled={!isValid || !dirty}
           >
