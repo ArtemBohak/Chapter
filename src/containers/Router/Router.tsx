@@ -5,6 +5,7 @@ import {
   WelcomePage,
   AccountCreationPage,
   LoginPage,
+  ErrorPage,
   ForgotPasswordPage,
   UIPage,
   FeedPage,
@@ -17,6 +18,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <PublicLayout />,
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,
@@ -38,7 +40,7 @@ const router = createBrowserRouter([
         path: "/login/forgot-password",
         element: <ForgotPasswordPage />,
       },
-      { path: "/ui-page", 
+      { path: "/ui-page",
         element: <UIPage /> },
     ],
   },
