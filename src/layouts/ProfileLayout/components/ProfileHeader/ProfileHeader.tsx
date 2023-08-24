@@ -40,7 +40,7 @@ const ProfileHeader: FC = () => {
           <UIbutton
             size="small"
             isCustomIcon
-            dataAutomation={"addPostButton"}
+            dataAutomation="addPostButton"
             className={styles["add-post-button"]}
           >
             <svg
@@ -53,13 +53,13 @@ const ProfileHeader: FC = () => {
               <path
                 d="M2.66602 15.9993C2.66602 9.71396 2.66602 6.57126 4.61864 4.61864C6.57126 2.66602 9.71396 2.66602 15.9993 2.66602C22.2847 2.66602 25.4274 2.66602 27.3801 4.61864C29.3327 6.57126 29.3327 9.71396 29.3327 15.9993C29.3327 22.2847 29.3327 25.4274 27.3801 27.3801C25.4274 29.3327 22.2847 29.3327 15.9993 29.3327C9.71396 29.3327 6.57126 29.3327 4.61864 27.3801C2.66602 25.4274 2.66602 22.2847 2.66602 15.9993Z"
                 stroke="#FFFBFE"
-                stroke-width="2"
+                strokeWidth="2"
               />
               <path
                 d="M20 16L16 16M16 16L12 16M16 16L16 12M16 16L16 20"
                 stroke="#FFFBFE"
-                stroke-width="2"
-                stroke-linecap="round"
+                strokeWidth="2"
+                strokeLinecap="round"
               />
             </svg>
             Add post
@@ -73,8 +73,8 @@ const ProfileHeader: FC = () => {
             href="/"
             variant="text"
             alignIcon="right"
-            dataAutomation={"notification"}
-            className="laptop:hidden"
+            dataAutomation="notification"
+            className="md:hidden"
           >
             <Icon icon={IconEnum.Notification} color="#000000" />
           </UIbutton>
