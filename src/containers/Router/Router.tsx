@@ -6,8 +6,11 @@ import {
   AccountCreationPage,
   LoginPage,
   UIPage,
+  FeedPage,
+  SettingsPage,
 } from "@/src/pages";
-import { PublicLayout } from "@/src/layouts/PublicLayout";
+
+import { PublicLayout, ProfileLayout } from "@/src/layouts";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +36,20 @@ const router = createBrowserRouter([
       {
         path: "/ui-page",
         element: <UIPage />,
+      },
+    ],
+  },
+  {
+    element: <ProfileLayout />,
+    children: [
+      {
+        index: true,
+        path: "/feed",
+        element: <FeedPage />,
+      },
+      {
+        path: "/settings",
+        element: <SettingsPage />,
       },
     ],
   },
