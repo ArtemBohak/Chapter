@@ -21,7 +21,7 @@ const ForgotPasswordForm: FC<ForgotPasswordProps> = ({ setSubmitted }) => {
       }}
     >
       {({ isSubmitting, isValid, dirty }) => (
-        <Form>
+        <Form className="max-w-xs mx-auto">
           <TextField
             id="email"
             name="email"
