@@ -4,3 +4,5 @@ export { default as AccountCreationPage } from "./AccountCreationPage/AccountCre
 export { default as LoginPage } from "./LoginPage/LoginPage";
 export { default as ForgotPasswordPage } from "./ForgotPasswordPage/ForgotPasswordPage";
 export { default as UIPage } from "./UIPage/UIPage";
+export { default as FeedPage } from "./FeedPage/FeedPage";
+export { default as SettingsPage } from "./Settings/Settings";

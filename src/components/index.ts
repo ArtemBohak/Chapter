@@ -1,7 +1,12 @@
+export { Icon, IconEnum } from "./Icon";
+export * from "./Fields";
+
 export { AuthBy } from "./AuthBy";
 export { AuthLink } from "./AuthLink";
 export { Logo } from "./SVGComponents";
 export { Delimiter } from "./Delimiter";
-export { TextField, PasswordField } from "./Fields";
 export { UIbutton } from "./Buttons";
-export { default as BlockAuth } from "./BlockAuth/BlockAuth";
+export { BlockAuth } from "./BlockAuth";
+export { UserAvatar } from "./UserAvatar";
+export { MenuToggler } from "./MenuToggler";
+export { NavigationList } from "../layouts/ProfileLayout/components/NavigationList";
