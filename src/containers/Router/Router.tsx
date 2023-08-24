@@ -5,6 +5,7 @@ import {
   WelcomePage,
   AccountCreationPage,
   LoginPage,
+  ForgotPasswordPage,
   UIPage,
   FeedPage,
   SettingsPage,
@@ -34,9 +35,11 @@ const router = createBrowserRouter([
         element: <LoginPage />,
       },
       {
-        path: "/ui-page",
-        element: <UIPage />,
+        path: "/login/forgot-password",
+        element: <ForgotPasswordPage />,
       },
+      { path: "/ui-page", 
+        element: <UIPage /> },
     ],
   },
   {
