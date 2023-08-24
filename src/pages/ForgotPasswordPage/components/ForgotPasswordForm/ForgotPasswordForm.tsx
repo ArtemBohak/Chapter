@@ -4,10 +4,9 @@ import { IForgotPassword } from "./ForgotPassword.types";
 import { TextField, UIbutton } from "@/src/components";
 import { FC } from "react";
 
-import api from "@/src/axios/api";
-
 import validationSchema from "./validationSchema";
-import { EndpointsEnum } from "@/src/axios/endpoints.types";
+
+import ForgotPasswordApi from "./ForgotPasswordApi";
 
 const initialValues: IForgotPassword = { email: "" };
 
@@ -17,13 +16,7 @@ const ForgotPasswordForm: FC<ForgotPasswordProps> = ({ setSubmitted }) => {
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={(values) => {
-        api.post(EndpointsEnum.FORGOT_PASSWORD, values)
-          .then((res) => {
-            console.log(res);
-          })
-          .catch((err) => {
-            console.warn(err);
-          });
+        ForgotPasswordApi(values);
         setSubmitted(true);
       }}
     >
