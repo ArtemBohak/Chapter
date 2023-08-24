@@ -28,14 +28,18 @@
   }
 
   &__heading {
-    @apply mb-2-xs  laptop:mb-[16px] text-xl laptop:text-h1_lg font-medium;
+    @apply mb-2-xs  laptop:mb-[16px] text-xl md:text-h1_lg font-medium;
   }
 
   &__text {
-    @apply font-light w-full max-w-[280px] laptop:max-w-full text-sm laptop:text-lg;
+    @apply font-light w-full max-w-[280px] md:max-w-full text-sm md:text-lg;
   }
 
   &__button {
-    @apply w-full  laptop:max-w-[316px];
+    @apply w-full  md:max-w-[316px];
+
+    &.error__btn {
+      @apply md:text-xxl;
+    }
   }
 }
