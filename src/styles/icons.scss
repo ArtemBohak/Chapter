@@ -1,11 +1,11 @@
 @font-face {
   font-family: "icomoon";
-  src: url("/icons/icomoon.eot?9afpef");
+  src: url("/icons/icomoon.eot?4ajgsh");
   src:
-    url("/icons/icomoon.eot?9afpef#iefix") format("embedded-opentype"),
-    url("/icons/icomoon.ttf?9afpef") format("truetype"),
-    url("/icons/icomoon.woff?9afpef") format("woff"),
-    url("/icons/icomoon.svg?9afpef#icomoon") format("svg");
+    url("/icons/icomoon.eot?4ajgsh#iefix") format("embedded-opentype"),
+    url("/icons/icomoon.ttf?4ajgsh") format("truetype"),
+    url("/icons/icomoon.woff?4ajgsh") format("woff"),
+    url("/icons/icomoon.svg?4ajgsh#icomoon") format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -27,11 +27,29 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-eye-off:before {
-  content: "\e900";
+.icon-cross:before {
+  content: "\e910";
 }
-.icon-eye:before {
-  content: "\e901";
+.icon-menu:before {
+  content: "\e911";
+}
+.icon-user:before {
+  content: "\e90a";
+}
+.icon-notification:before {
+  content: "\e90b";
+}
+.icon-home:before {
+  content: "\e90c";
+}
+.icon-search:before {
+  content: "\e90d";
+}
+.icon-settings:before {
+  content: "\e90e";
+}
+.icon-sign-out:before {
+  content: "\e90f";
 }
 .icon-facebook .path1:before {
   content: "\e902";
@@ -68,4 +86,10 @@
 .icon-Ok:before {
   content: "\e909";
   color: #2bbf06;
+}
+.icon-eye-off:before {
+  content: "\e900";
+}
+.icon-eye:before {
+  content: "\e901";
 }

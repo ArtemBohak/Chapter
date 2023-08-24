@@ -46,6 +46,10 @@
     }
   }
 
+  &.btn--text {
+    @apply p-0;
+  }
+
   &.btn--outlined {
     @apply bg-transparent;
   }
