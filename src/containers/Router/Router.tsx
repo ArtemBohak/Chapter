@@ -6,7 +6,7 @@ import {
   AccountCreationPage,
   LoginPage,
   UIPage,
-  ProfilePage,
+  FeedPage,
   SettingsPage,
 } from "@/src/pages";
 
@@ -40,15 +40,15 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/profile",
     element: <ProfileLayout />,
     children: [
       {
         index: true,
-        element: <ProfilePage />,
+        path: "/feed",
+        element: <FeedPage />,
       },
       {
-        path: "/profile/settings",
+        path: "/settings",
         element: <SettingsPage />,
       },
     ],

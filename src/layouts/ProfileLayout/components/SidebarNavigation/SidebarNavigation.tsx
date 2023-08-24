@@ -13,7 +13,7 @@ const SidebarNavigation: FC = () => {
         [styles["active"]]: isActiveMenu,
       })}
     >
-      <NavLink to="/profile" className={styles["sidebar-navigation__logo"]}>
+      <NavLink to="/feed" className={styles["sidebar-navigation__logo"]}>
         <img src="https://i.postimg.cc/0jD0P9kw/Chapter.webp" alt="Chapter" />
       </NavLink>
       <ProfileNavigation />
