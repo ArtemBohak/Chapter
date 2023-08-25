@@ -15,3 +15,7 @@ export enum EndpointsEnum {
   GOOGLE_LOGIN = "auth/google/login",
   TWITTER_LOGIN = "auth/twitter/login",
 }
+
+export enum BaseURLEnum {
+  GOOGLE_API = "https://www.googleapis.com/oauth2/v4",
+}
