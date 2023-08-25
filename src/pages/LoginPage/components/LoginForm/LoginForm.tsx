@@ -36,15 +36,12 @@ const LoginPageForm: FC = () => {
               name="password"
               label="Your password"
               dataAutomation="password"
+              helperLink={{
+                text: "Forgot password?",
+                href: "/auth/forgot-password",
+              }}
             />
-            <div className="flex justify-end">
-              <Link
-                className="mb-[25px] text-xs text-blue"
-                to={"/login/forgot-password"}
-              >
-                Forgot password?
-              </Link>
-            </div>
+
             <UIbutton
               type="submit"
               fullWidth
