@@ -32,7 +32,7 @@ const RegisterForm: FC<RegisterFormProps> = ({ className, ...props }) => {
           <UIbutton
             dataAutomation="submitButton"
             type="submit"
-            className={styles["register-form__button"]}
+            fullWidth
             isLoading={isSubmitting}
             disabled={isSubmitting}
           >

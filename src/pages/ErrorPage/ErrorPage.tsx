@@ -14,8 +14,8 @@ const ErrorPage: FC = () => (
           <img
             src={image}
             alt="error-404"
-            width="974"
-            height="649"
+            // width="974"
+            // height="649"
             className={styles["block-error__image"]}
           />
         </div>
