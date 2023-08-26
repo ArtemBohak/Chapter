@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useGoogleLogin } from "@react-oauth/google";
 
 import { getAuthCode } from "./helpers";
-import { type GoogleOAuthProps } from "./google-oAuth.type";
+import { type GoogleOAuthProps } from "./GoogleOAuth.type";
 import { IconEnum } from "@/src/components/Icon";
 
 import { Icon } from "@/src/components/Icon";

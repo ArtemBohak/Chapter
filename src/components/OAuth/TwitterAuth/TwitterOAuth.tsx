@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { type TwitterOAuthProps } from "./twitter-oAuth.type";
+import { type TwitterOAuthProps } from "./TwitterOAuth.type";
 
 import { IconEnum } from "@/src/components/Icon";
 

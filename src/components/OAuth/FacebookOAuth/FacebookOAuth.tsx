@@ -6,7 +6,7 @@ import FacebookLogin, {
   ProfileSuccessResponse,
 } from "@greatsumini/react-facebook-login";
 
-import { type FacebookOAuthProps } from "./facebook-oAuth.type";
+import { type FacebookOAuthProps } from "./FacebookOAuth.type";
 import { IconEnum } from "@/src/components/Icon";
 
 import { Icon } from "@/src/components/Icon";
