@@ -2,7 +2,7 @@ import { FC } from "react";
 import cn from "classnames";
 
 import { Icon } from "../../Icon";
-import { UIButtonProps } from "./ui-button.type";
+import { UIButtonProps } from "./UIbutton.type";
 
 import "./UIbutton.scss";
 import { Link } from "react-router-dom";
