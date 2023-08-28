@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import FacebookLogin, {
   SuccessResponse,
   FailResponse,
-  ProfileSuccessResponse,
+  // ProfileSuccessResponse,
 } from "@greatsumini/react-facebook-login";
 
 import { type FacebookOAuthProps } from "./FacebookOAuth.type";
@@ -16,6 +16,7 @@ const FacebookOAuth: FC<FacebookOAuthProps> = ({ className, size = 24 }) => {
 
   const onSuccess = (response: SuccessResponse) => {
     console.log("Facebook Login Success!", response);
+    console.log("POST auth/facebook/login => ", response.accessToken);
     navigate("/");
   };
 
@@ -23,9 +24,9 @@ const FacebookOAuth: FC<FacebookOAuthProps> = ({ className, size = 24 }) => {
     console.log("Facebook Login Failed!", error);
   };
 
-  const onProfileSuccess = (response: ProfileSuccessResponse) => {
-    console.log("Get Facebook Profile Success!", response);
-  };
+  // const onProfileSuccess = (response: ProfileSuccessResponse) => {
+  //   console.log("Get Facebook Profile Success!", response);
+  // };
 
   return (
     <FacebookLogin
@@ -34,7 +35,7 @@ const FacebookOAuth: FC<FacebookOAuthProps> = ({ className, size = 24 }) => {
       fields="name,email,picture"
       onSuccess={onSuccess}
       onFail={onFail}
-      onProfileSuccess={onProfileSuccess}
+      // onProfileSuccess={onProfileSuccess}
       render={(renderProps) => {
         return (
           <button className={className} onClick={renderProps.onClick}>
