@@ -1,6 +1,6 @@
 import { FC } from "react";
 import cn from "classnames";
-import { type DelimiterProps } from "@/src/components/Delimiter/delimiter.type";
+import { type DelimiterProps } from "@/src/components/Delimiter/Delimiter.type";
 import styles from "./Delimiter.module.scss";
 
 const Delimiter: FC<DelimiterProps> = ({ text = "or", className }) => {

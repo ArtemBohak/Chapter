@@ -3,7 +3,7 @@ import { Formik, Form } from "formik";
 import cn from "classnames";
 
 import { UIbutton, TextField } from "@/src/components";
-import { IRegisterAccount, RegisterFormProps } from "./register-form.type";
+import { IRegisterAccount, RegisterFormProps } from "./RegisterForm.type";
 
 import styles from "./RegisterForm.module.scss";
 
