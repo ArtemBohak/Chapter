@@ -1,12 +1,12 @@
 .block-error {
-  @apply min-h-screen pt-[11vh]  laptop_md:pt-[108px]  bg-[#FFC78A] text-[#F9F9F9];
+  @apply min-h-screen pt-[8vh]  lg:pt-[108px]  bg-[#FFC78A] text-[#F9F9F9];
 
   &__container {
     @apply w-full mx-auto flex flex-col flex-1 justify-center items-center;
   }
 
   &__thumb {
-    @apply max-w-[974px] min-w-[220px]  w-[100vw] min-h-[140px] md:w-[76vw] h-auto;
+    @apply max-w-[974px] min-w-[220px]  w-[100vw] min-h-[140px] laptop_md:w-[50vw];
 
     @media screen and (min-width: 600px) and (min-height: 300px) and (max-height: 399px) {
       max-width: 220px;
