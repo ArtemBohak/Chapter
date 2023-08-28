@@ -2,9 +2,11 @@ import { FC } from "react";
 
 import { UIbutton } from "@/src/components";
 import { IconEnum } from "@/src/components/Icon";
+import CookiesToaster from "@/src/components/CookiesToaster/CookiesToaster";
 
 const UIPage: FC = () => {
   return (
+ 
     <div className="pt-[130px] pb-[100px]">
       <div className="max-w-[1200px] w-full mx-auto px-2-md">
         <div className="mb-4">
@@ -19,7 +21,7 @@ const UIPage: FC = () => {
             <p className="subtitle3">subtitle3</p>
           </div>
         </div>
-
+        
         <div>
           <div className="flex flex-wrap gap-12">
             <div className="w-1/4">
@@ -473,6 +475,7 @@ const UIPage: FC = () => {
             </div>
           </div>
         </div>
+        <CookiesToaster/>
       </div>
     </div>
   );
