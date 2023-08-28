@@ -6,8 +6,6 @@ import { type TwitterOAuthProps } from "./TwitterOAuth.type";
 import { IconEnum } from "@/src/components/Icon";
 
 import { Icon } from "@/src/components/Icon";
-import { nanoid } from "nanoid";
-import TwitterLogin from "react-twitter-login";
 
 const {
   VITE_TWITTER_CONSUMER_KEY,
@@ -46,34 +44,16 @@ const TwitterOAuth: FC<TwitterOAuthProps> = ({ className, size = 24 }) => {
 
   const currentLocation = window.location.origin;
 
-  const authHandler = (error, data) => {
-    console.log(data);
-  };
+  const onHandleClick = () => {};
+
   return (
-    <TwitterLogin
-      authCallback={authHandler}
-      consumerKey={VITE_TWITTER_CONSUMER_KEY}
-      consumerSecret={VITE_TWITTER_CONSUMER_SECRET}
-      children={
-        <button className={className}>
-          <Icon icon={IconEnum.Twitter} size={size} />
-        </button>
-      }
-    />
+    <button className={className}>
+      <Icon icon={IconEnum.Twitter} size={size} />
+    </button>
   );
 };
 
 export default TwitterOAuth;
-
-// const authHandler = (error, data) => {
-//   console.log(data);
-//   console.log({
-//     accessTokenKey: data.oauth_token,
-//     accessTokenSecret: data.oauth_token_secret,
-//   });
-//   // console.log(error);
-//   // navigate("/");
-// };
 
 //  <a
 //    href={getTwitterOauthUrl(currentLocation + location.pathname)}
