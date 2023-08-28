@@ -17,9 +17,9 @@ const GoogleOAuth: FC<GoogleOAuthProps> = ({ className, size = 24 }) => {
     onSuccess: async (codeResponse) => {
       console.log("Google Login Success!", codeResponse);
       navigate("/");
-      const { data } = await getAuthCode(codeResponse.code);
+      const data = await getAuthCode({ code: codeResponse.code });
 
-      console.log("POST auth/google/login => ", data.id_token);
+      console.log("POST auth/google/login => ", data?.data.id_token);
     },
     onError: (onError) => {
       console.log("Google Login Failed!", onError);
