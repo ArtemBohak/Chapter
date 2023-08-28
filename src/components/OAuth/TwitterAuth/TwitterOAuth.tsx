@@ -1,18 +1,55 @@
-import { FC, useMemo } from "react";
-import { useLocation, useSearchParams, useNavigate } from "react-router-dom";
+import { FC } from "react";
 import axios from "axios";
-
+import { nanoid } from "nanoid";
 import { type TwitterOAuthProps } from "./TwitterOAuth.type";
 import { IconEnum } from "@/src/components/Icon";
 
 import { Icon } from "@/src/components/Icon";
 
-const {
-  VITE_TWITTER_CONSUMER_KEY,
-  VITE_TWITTER_CONSUMER_SECRET,
-  VITE_TWITTER_CLIENT_ID,
-  VITE_TWITTER_STATE,
-} = import.meta.env;
+const { VITE_TWITTER_API_KEY, VITE_TWITTER_API_SECRET } = import.meta.env;
+
+const TwitterOAuth: FC<TwitterOAuthProps> = ({ className, size = 24 }) => {
+  const signature = oauthSignature.generate();
+  const onHandleClick = async () => {
+    const res = await axios.post(
+      "https://api.twitter.com/oauth/request_token",
+      null,
+      {
+        headers: {
+          Authorization: `OAuth oauth_consumer_key="${VITE_TWITTER_API_KEY}", oauth_nonce="${nanoid()}", oauth_signature="oauth_signature", oauth_signature_method="HMAC-SHA1", oauth_timestamp="${Math.floor(
+            new Date().getTime() / 1000
+          )}", oauth_version="1.0"`,
+          "Access-Control-Allow-Origin": window.location.origin,
+        },
+        params: { oauth_callback: "https://localhost:5173" },
+      }
+    );
+
+    console.log(res);
+  };
+
+  return (
+    <button className={className} onClick={onHandleClick}>
+      <Icon icon={IconEnum.Twitter} size={size} />
+    </button>
+  );
+};
+
+export default TwitterOAuth;
+
+// import { useLocation, useSearchParams, useNavigate } from "react-router-dom";
+// import { auth } from "twitter-api-sdk";
+
+//  <a
+//    href={getTwitterOauthUrl(currentLocation + location.pathname)}
+//    className={className}
+//  >
+//    <Icon icon={IconEnum.Twitter} size={size} />
+//  </a>;
+
+//  <button className={className} onClick={onHandleClick}>
+//    <Icon icon={IconEnum.Twitter} size={size} />
+//  </button>;
 
 // function getTwitterOauthUrl(redirectUri: string) {
 //   const rootUrl = "https://twitter.com/i/oauth2/authorize";
@@ -31,37 +68,14 @@ const {
 //   return `${rootUrl}?${qs}`;
 // }
 
-const TwitterOAuth: FC<TwitterOAuthProps> = ({ className, size = 24 }) => {
-  const [searchParams] = useSearchParams();
-  const location = useLocation();
-  const navigate = useNavigate();
+// const [searchParams] = useSearchParams();
+// const location = useLocation();
+// const navigate = useNavigate();
 
-  const params = useMemo(
-    () => Object.fromEntries([...searchParams]),
-    [searchParams]
-  );
-  const { state, code } = params;
+// const params = useMemo(
+//   () => Object.fromEntries([...searchParams]),
+//   [searchParams]
+// );
+// const { state, code } = params;
 
-  const currentLocation = window.location.origin;
-
-  const onHandleClick = () => {};
-
-  return (
-    <button className={className}>
-      <Icon icon={IconEnum.Twitter} size={size} />
-    </button>
-  );
-};
-
-export default TwitterOAuth;
-
-//  <a
-//    href={getTwitterOauthUrl(currentLocation + location.pathname)}
-//    className={className}
-//  >
-//    <Icon icon={IconEnum.Twitter} size={size} />
-//  </a>;
-
-//  <button className={className} onClick={onHandleClick}>
-//    <Icon icon={IconEnum.Twitter} size={size} />
-//  </button>;
+// const currentLocation = window.location.origin;
