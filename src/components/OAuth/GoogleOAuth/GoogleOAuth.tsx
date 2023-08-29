@@ -2,13 +2,13 @@ import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGoogleLogin } from "@react-oauth/google";
 
-import { getAuthCode } from "./helpers";
-import { type GoogleOAuthProps } from "./GoogleOAuth.type";
+import { getAuthCode } from "./googleOAuthHelpers";
+import { type OAuthProps } from "../types/Oauth.type";
 import { IconEnum } from "@/src/components/Icon";
 
 import { Icon } from "@/src/components/Icon";
 
-const GoogleOAuth: FC<GoogleOAuthProps> = ({ className, size = 24 }) => {
+const GoogleOAuth: FC<OAuthProps> = ({ className, size = 24 }) => {
   const navigate = useNavigate();
 
   const login = useGoogleLogin({
@@ -17,7 +17,7 @@ const GoogleOAuth: FC<GoogleOAuthProps> = ({ className, size = 24 }) => {
     onSuccess: async (codeResponse) => {
       console.log("Google Login Success!", codeResponse);
       navigate("/");
-      const data = await getAuthCode({ code: codeResponse.code });
+      const data = await getAuthCode({ googleCode: codeResponse.code });
 
       console.log("POST auth/google/login => ", data?.data.id_token);
     },

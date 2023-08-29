@@ -1,3 +1,8 @@
+export enum BaseURLEnum {
+  GOOGLE_API = "https://www.googleapis.com/oauth2/v4",
+  API = "https://obscure-island-84086-0710166a71eb.herokuapp.com/api/v1/",
+}
+
 export enum EndpointsEnum {
   USERS = "users/",
   UPLOAD_FILES = "files/upload",
@@ -14,8 +19,4 @@ export enum EndpointsEnum {
   FACEBOOK_LOGIN = "auth/facebook/login",
   GOOGLE_LOGIN = "auth/google/login",
   TWITTER_LOGIN = "auth/twitter/login",
-}
-
-export enum BaseURLEnum {
-  GOOGLE_API = "https://www.googleapis.com/oauth2/v4",
 }

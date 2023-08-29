@@ -1,8 +1,10 @@
 import axios from "axios";
 
+import { BaseURLEnum } from "./endpoints.types";
+
 const api = axios.create({
   //will be changed to const from .env later
-  baseURL: "https://obscure-island-84086-0710166a71eb.herokuapp.com/api/v1/",
+  baseURL: BaseURLEnum.API,
   withCredentials: false,
   method: "get, post, put, delete",
   headers: {

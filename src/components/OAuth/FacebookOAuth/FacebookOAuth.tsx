@@ -6,17 +6,21 @@ import FacebookLogin, {
   // ProfileSuccessResponse,
 } from "@greatsumini/react-facebook-login";
 
-import { type FacebookOAuthProps } from "./FacebookOAuth.type";
+import { facebookOAuthApi } from "./facebookOAuthHelpers";
+import { type OAuthProps } from "../types/Oauth.type";
 import { IconEnum } from "@/src/components/Icon";
 
 import { Icon } from "@/src/components/Icon";
 
-const FacebookOAuth: FC<FacebookOAuthProps> = ({ className, size = 24 }) => {
+const FacebookOAuth: FC<OAuthProps> = ({ className, size = 24 }) => {
   const navigate = useNavigate();
 
-  const onSuccess = (response: SuccessResponse) => {
-    console.log("Facebook Login Success!", response);
-    console.log("POST auth/facebook/login => ", response.accessToken);
+  const onSuccess = async (response: SuccessResponse) => {
+    const res = await facebookOAuthApi({
+      facebookAccessToken: response.accessToken,
+    });
+    console.log(res?.data);
+
     navigate("/");
   };
 

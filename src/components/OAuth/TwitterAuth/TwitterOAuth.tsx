@@ -1,9 +1,7 @@
-import { FC, useCallback } from "react";
+import { FC } from "react";
 import axios from "axios";
-import oauthSignature from "oauth-signature";
-import { LoginSocialTwitter, IResolveParams } from "reactjs-social-login";
 
-import { type TwitterOAuthProps } from "./TwitterOAuth.type";
+import { type OAuthProps } from "../types/Oauth.type";
 import { IconEnum } from "@/src/components/Icon";
 
 import { Icon } from "@/src/components/Icon";
@@ -32,9 +30,7 @@ const { VITE_TWITTER_API_KEY, VITE_TWITTER_API_SECRET } = import.meta.env;
 //    tokenSecret
 //  );
 
-const TwitterOAuth: FC<TwitterOAuthProps> = ({ className, size = 24 }) => {
-  const REDIRECT_URI = "https://www.localhot:5173/register";
-
+const TwitterOAuth: FC<OAuthProps> = ({ className, size = 24 }) => {
   // const onHandleClick = async () => {
   //   const headers = {
   //     Authorization: `OAuth oauth_callback="https://localhost:5173",oauth_consumer_key="${params.oauth_consumer_key}",oauth_nonce="${params.oauth_nonce}",oauth_signature="${signature}",oauth_signature_method="${params.oauth_signature_method}",oauth_timestamp="${params.oauth_timestamp}",oauth_version="${params.oauth_version}"`,
@@ -47,26 +43,9 @@ const TwitterOAuth: FC<TwitterOAuthProps> = ({ className, size = 24 }) => {
   // };
 
   return (
-    <LoginSocialTwitter
-      isOnlyGetToken
-      fields="created_at,description,entities,id,location,name,pinned_tweet_id,profile_image_url,protected,public_metrics,url,username,verified,withheld"
-      state="chapter"
-      scope="users.read"
-      client_id={VITE_TWITTER_API_KEY}
-      redirect_uri={REDIRECT_URI}
-      onLoginStart={console.log}
-      onResolve={({ provider, data }: IResolveParams) => {
-        console.log(provider);
-        console.log(data);
-      }}
-      onReject={(err: any) => {
-        console.log(err);
-      }}
-    >
-      <button className={className}>
-        <Icon icon={IconEnum.Twitter} size={size} />
-      </button>
-    </LoginSocialTwitter>
+    <button className={className}>
+      <Icon icon={IconEnum.Twitter} size={size} />
+    </button>
   );
 };
 

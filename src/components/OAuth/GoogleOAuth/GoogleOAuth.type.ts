@@ -1,1 +1,3 @@
-export type GoogleOAuthProps = { className?: string; size?: number };
+export enum GoogleApiEndPoints {
+  TOKEN = "/token",
+}

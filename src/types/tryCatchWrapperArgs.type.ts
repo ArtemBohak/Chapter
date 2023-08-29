@@ -1,1 +1,1 @@
-export type Data = { code?: string };
+export type Data = { googleCode?: string; facebookAccessToken?: string };
