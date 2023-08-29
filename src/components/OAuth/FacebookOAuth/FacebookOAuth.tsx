@@ -12,6 +12,8 @@ import { IconEnum } from "@/src/components/Icon";
 
 import { Icon } from "@/src/components/Icon";
 
+const { VITE_FACEBOOK_APP_ID } = import.meta.env;
+
 const FacebookOAuth: FC<OAuthProps> = ({ className, size = 24 }) => {
   const navigate = useNavigate();
 
@@ -34,7 +36,7 @@ const FacebookOAuth: FC<OAuthProps> = ({ className, size = 24 }) => {
 
   return (
     <FacebookLogin
-      appId="3558758577715170"
+      appId={VITE_FACEBOOK_APP_ID}
       autoLoad={false}
       fields="name,email,picture"
       onSuccess={onSuccess}
