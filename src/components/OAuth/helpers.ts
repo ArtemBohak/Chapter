@@ -1,8 +1,7 @@
-import { oAuthApi } from "@/src/axios";
-
+import { oAuthApi, api, EndpointsEnum } from "@/src/axios";
 import { tryCatchWrapper } from "@/src/utils";
+import { GoogleApiEndPoints } from "./OAuth.type";
 import { type Data } from "@/src/types";
-import { GoogleApiEndPoints } from "./GoogleOAuth.type";
 
 const {
   VITE_GOOGLE_CLIENT_ID,
@@ -19,5 +18,11 @@ export const getAuthCode = tryCatchWrapper((data: Data) =>
       redirect_uri: VITE_GOOGLE_REDIRECT_URI,
       code: data.googleCode,
     },
+  })
+);
+
+export const facebookOAuthApi = tryCatchWrapper((data: Data) =>
+  api.post(EndpointsEnum.FACEBOOK_LOGIN, {
+    accessToken: data.facebookAccessToken,
   })
 );

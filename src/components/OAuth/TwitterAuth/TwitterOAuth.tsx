@@ -1,7 +1,6 @@
 import { FC } from "react";
 import axios from "axios";
 
-import { type OAuthProps } from "../types/Oauth.type";
 import { IconEnum } from "@/src/components/Icon";
 
 import { Icon } from "@/src/components/Icon";
@@ -29,7 +28,7 @@ const { VITE_TWITTER_API_KEY, VITE_TWITTER_API_SECRET } = import.meta.env;
 //    consumerSecret,
 //    tokenSecret
 //  );
-
+type OAuthProps = { className?: string; size?: number };
 const TwitterOAuth: FC<OAuthProps> = ({ className, size = 24 }) => {
   // const onHandleClick = async () => {
   //   const headers = {
