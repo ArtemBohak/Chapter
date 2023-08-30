@@ -2,7 +2,7 @@ import { FC } from "react";
 
 import FacebookLogin from "@greatsumini/react-facebook-login";
 
-import { useOAuth } from "./useOAuth";
+import useOAuth from "./useOAuth";
 
 import { type OAuthProps } from "./OAuth.type";
 
@@ -13,8 +13,12 @@ import { Icon } from "@/src/components/Icon";
 const { VITE_FACEBOOK_APP_ID } = import.meta.env;
 
 const OAuth: FC<OAuthProps> = ({ size = 24, className, url = "/", type }) => {
-  const { googleOAuthLogin, onFacebookOauthSuccess, onFacebookOauthFail } =
-    useOAuth({ url });
+  const {
+    googleOAuthLogin,
+    onFacebookOauthSuccess,
+    onFacebookOauthFail,
+    twitterUrl,
+  } = useOAuth({ url });
 
   if (type === "google")
     return (
@@ -41,7 +45,17 @@ const OAuth: FC<OAuthProps> = ({ size = 24, className, url = "/", type }) => {
       />
     );
 
-  if (type === "twitter") return <>Twitter</>;
+  if (type === "twitter")
+    return (
+      <button
+        className={className}
+        onClick={() => {
+          window.location.replace(twitterUrl);
+        }}
+      >
+        <Icon icon={IconEnum.Twitter} size={size} />
+      </button>
+    );
 };
 
 export default OAuth;

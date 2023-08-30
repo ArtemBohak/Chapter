@@ -9,6 +9,10 @@ export type UseOAuth = {
   url: string;
 };
 
-export enum GoogleApiEndPoints {
-  TOKEN = "/token",
+export enum OAuthApiBaseUrl {
+  TWITTER_AUTH_CODE = "https://twitter.com/i/oauth2/authorize",
+}
+
+export enum OAuthApiEndPoints {
+  GOOGLE_TOKEN = "/token",
 }

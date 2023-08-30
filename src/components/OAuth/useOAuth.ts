@@ -6,25 +6,32 @@ import {
   ProfileSuccessResponse,
 } from "@greatsumini/react-facebook-login";
 
-import { getAuthCode, facebookOAuthApi } from "./helpers";
+import useGetTwitterUrlParams from "./useGetTwitterUrlParams";
+import { getGoogleAuthCode, facebookOAuthApi } from "./helpers";
 import { type UseOAuth } from "./OAuth.type";
-
-const { VITE_GOOGLE_STATE } = import.meta.env;
+import { useEffect } from "react";
 
 const useOAuth = ({ url }: UseOAuth) => {
   const navigate = useNavigate();
+  const { authCode, twitterUrl } = useGetTwitterUrlParams();
+
+  useEffect(() => {
+    if (authCode) {
+      console.log("POST auth/twitter/login => ", authCode);
+      navigate(url);
+    }
+  }, [authCode, navigate, url]);
 
   const googleOAuthLogin = useGoogleLogin({
     flow: "auth-code",
-    ux_mode: "popup",
-    state: VITE_GOOGLE_STATE,
-
+    state: import.meta.env.VITE_GOOGLE_STATE,
     onSuccess: async (codeResponse) => {
-      if (codeResponse.state === VITE_GOOGLE_STATE) {
-        navigate(url);
-        const data = await getAuthCode({ googleCode: codeResponse.code });
+      if (codeResponse.state === import.meta.env.VITE_GOOGLE_STATE) {
+        const data = await getGoogleAuthCode({ googleCode: codeResponse.code });
 
         console.log("POST auth/google/login => ", data?.data.id_token);
+
+        navigate(url);
       }
     },
     onError: (onError) => {
@@ -54,7 +61,9 @@ const useOAuth = ({ url }: UseOAuth) => {
     onFacebookOauthSuccess,
     onFacebookOauthFail,
     onFacebookOauthProfileSuccess,
+    twitterAuthCode: authCode,
+    twitterUrl,
   };
 };
 
-export { useOAuth };
+export default useOAuth;
