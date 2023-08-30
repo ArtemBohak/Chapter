@@ -1,8 +1,8 @@
 export type OAuthProps = {
   className?: string;
   size?: number;
-  type: "facebook" | "google" | "twitter";
-  url: string;
+  url?: string;
+  type: "google" | "facebook" | "twitter";
 };
 
 export type UseOAuth = {
