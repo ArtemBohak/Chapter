@@ -8,7 +8,6 @@ import styles from "./AuthBy.module.scss";
 
 import { Icon } from "@/src/components/Icon";
 import TwitterOAuth from "../OAuth/TwitterAuth/TwitterOAuth";
-import { OAuth } from "../OAuth";
 
 const AuthBy: FC<AuthByProps> = ({
   socialLinks,
@@ -31,8 +30,7 @@ const AuthBy: FC<AuthByProps> = ({
             </li>
           ))}
         </ul>
-        {/* <TwitterOAuth /> */}
-        <OAuth type="google" />
+        <TwitterOAuth />
       </div>
     </GoogleOAuthProvider>
   );
