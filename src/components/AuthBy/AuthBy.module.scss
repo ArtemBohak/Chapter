@@ -1,8 +1,8 @@
 .auth-by {
-  @apply flex flex-col max-w-[327px] mb-[50px];
+  @apply flex flex-col w-full mb-5-xs;
 
   &__text {
-    @apply text-xs font-normal relative top-0 left-0 mb-[15px] text-black-1000 text-left;
+    @apply text-xs font-normal relative top-0 left-0 mb-1-md text-black text-left;
   }
 
   &__list {
@@ -10,6 +10,6 @@
   }
 
   &__link {
-    @apply flex justify-center items-center rounded-full bg-white w-[51px] h-[51px];
+    @apply flex justify-center items-center rounded-full bg-white w-5-xs h-5-xs;
   }
 }

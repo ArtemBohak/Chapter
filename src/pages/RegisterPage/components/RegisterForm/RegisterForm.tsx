@@ -8,7 +8,7 @@ import {
   RegisterFormProps,
   Steps,
   RegisterAccountKey,
-} from "./register-form.type";
+} from "./RegisterForm.type";
 import { validationSchema } from "./validationSchema";
 import styles from "./RegisterForm.module.scss";
 
@@ -89,7 +89,7 @@ const RegisterForm: FC<RegisterFormProps> = ({ className, ...props }) => {
           <UIbutton
             dataAutomation="submitButton"
             type="submit"
-            className={styles["register-form__button"]}
+            fullWidth
             isLoading={isSubmitting}
             disabled={isSubmitting || !isValid || !dirty}
           >

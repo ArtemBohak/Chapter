@@ -1,5 +1,5 @@
 import * as Yup from "yup";
-import { RegisterAccountKey } from "./register-form.type";
+import { RegisterAccountKey } from "./RegisterForm.type";
 import { emailValidation } from "@/src/utils";
 
 export const validationSchema = (type: boolean) => {

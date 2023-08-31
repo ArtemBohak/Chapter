@@ -7,4 +7,8 @@ export type TextFieldProps = {
   name: string;
   showSuccessIcon?: boolean;
   dataAutomation: string;
+  helperLink?: {
+    text: string;
+    href: string;
+  };
 } & Partial<InputHTMLAttributes<HTMLInputElement>>;

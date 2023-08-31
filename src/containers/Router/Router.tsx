@@ -1,7 +1,18 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import { RegisterPage, WelcomePage, AccountCreationPage, LoginPage } from "@/src/pages";
-import { PublicLayout } from "@/src/layouts/PublicLayout";
+import {
+  RegisterPage,
+  WelcomePage,
+  AccountCreationPage,
+  LoginPage,
+  ErrorPage,
+  ForgotPasswordPage,
+  UIPage,
+  FeedPage,
+  SettingsPage,
+} from "@/src/pages";
+
+import { PublicLayout, ProfileLayout } from "@/src/layouts";
 
 const router = createBrowserRouter([
   {
@@ -24,8 +35,28 @@ const router = createBrowserRouter([
         path: "/login",
         element: <LoginPage />,
       },
+      {
+        path: "/login/forgot-password",
+        element: <ForgotPasswordPage />,
+      },
+      { path: "/ui-page", element: <UIPage /> },
     ],
   },
+  {
+    element: <ProfileLayout />,
+    children: [
+      {
+        index: true,
+        path: "/feed",
+        element: <FeedPage />,
+      },
+      {
+        path: "/settings",
+        element: <SettingsPage />,
+      },
+    ],
+  },
+  { path: "*", element: <ErrorPage /> },
 ]);
 
 const Router = () => {

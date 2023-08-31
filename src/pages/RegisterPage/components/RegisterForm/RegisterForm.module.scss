@@ -1,7 +1,3 @@
 .register-form {
-  @apply max-w-[327px];
-
-  &__button {
-    @apply bg-orange-1200 text-white w-full h-11 rounded-[5px] mb-[10px] text-[15px] md:text-sm;
-  }
+  @apply max-w-[326px] mb-1-xs;
 }
