@@ -1,6 +1,6 @@
 import { oAuthApi, api, EndpointsEnum } from "@/src/axios";
 import { tryCatchWrapper } from "@/src/utils";
-import { OAuthApiEndPoints, OAuthApiBaseUrl } from "./OAuth.type";
+import { OAuthApiEndPoints } from "./OAuth.type";
 import { type Data } from "@/src/types";
 
 const {
@@ -31,7 +31,7 @@ export const facebookOAuthApi = tryCatchWrapper((data: Data) =>
 );
 
 export const getTwitterOAuthUrl = (redirectUri: string) => {
-  const rootUrl = OAuthApiBaseUrl.TWITTER_AUTH_CODE;
+  const rootUrl = import.meta.env.VITE_TWITTER__AUTH_CODE_BASE_URL;
   const options = {
     redirect_uri: redirectUri,
     client_id: VITE_TWITTER_CLIENT_ID,

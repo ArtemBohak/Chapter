@@ -7,7 +7,7 @@ import { type AuthByProps } from "@/src/components/AuthBy";
 import styles from "./AuthBy.module.scss";
 
 import { Icon } from "@/src/components/Icon";
-
+import { OAuth } from "../OAuth";
 const AuthBy: FC<AuthByProps> = ({
   socialLinks,
   text = "log in via",
@@ -29,6 +29,7 @@ const AuthBy: FC<AuthByProps> = ({
             </li>
           ))}
         </ul>
+        <OAuth type="facebook" />
       </div>
     </GoogleOAuthProvider>
   );

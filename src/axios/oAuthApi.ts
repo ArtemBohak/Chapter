@@ -1,7 +1,7 @@
 import axios from "axios";
 
-import { BaseURLEnum } from "./endpoints.types";
-
-const oAuthApi = axios.create({ baseURL: BaseURLEnum.GOOGLE_API });
+const oAuthApi = axios.create({
+  baseURL: import.meta.env.VITE_GOOGLE_BASE_URL,
+});
 
 export default oAuthApi;
