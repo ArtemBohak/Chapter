@@ -18,7 +18,6 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <PublicLayout />,
-    errorElement: <ErrorPage />,
     children: [
       {
         index: true,
@@ -40,8 +39,7 @@ const router = createBrowserRouter([
         path: "/login/forgot-password",
         element: <ForgotPasswordPage />,
       },
-      { path: "/ui-page",
-        element: <UIPage /> },
+      { path: "/ui-page", element: <UIPage /> },
     ],
   },
   {
@@ -58,6 +56,7 @@ const router = createBrowserRouter([
       },
     ],
   },
+  { path: "*", element: <ErrorPage /> },
 ]);
 
 const Router = () => {

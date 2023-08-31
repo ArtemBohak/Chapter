@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { ErrorLayoutProps } from "./error-layout.type";
+import { ErrorLayoutProps } from "./ErrorLayout.type";
 
 import { PublicHeader } from "@/src/layouts/PublicLayout/components/PublicHeader";
 
