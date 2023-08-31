@@ -6,7 +6,6 @@ import { type Data } from "@/src/types";
 const {
   VITE_GOOGLE_CLIENT_ID,
   VITE_GOOGLE_CLIENT_SECRET,
-  VITE_GOOGLE_REDIRECT_URI,
   VITE_TWITTER_STATE,
   VITE_TWITTER_CLIENT_ID,
   VITE_TWITTER_CODE_VERIFIER,
@@ -18,7 +17,7 @@ export const getGoogleAuthCode = tryCatchWrapper((data: Data) =>
       grant_type: "authorization_code",
       client_id: VITE_GOOGLE_CLIENT_ID,
       client_secret: VITE_GOOGLE_CLIENT_SECRET,
-      redirect_uri: VITE_GOOGLE_REDIRECT_URI,
+      redirect_uri: data.redirectUri,
       code: data.googleCode,
     },
   })

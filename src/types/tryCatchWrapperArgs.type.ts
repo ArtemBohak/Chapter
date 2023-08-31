@@ -1,1 +1,5 @@
-export type Data = { googleCode?: string; facebookAccessToken?: string };
+export type Data = {
+  googleCode?: string;
+  facebookAccessToken?: string;
+  redirectUri?: string;
+};
