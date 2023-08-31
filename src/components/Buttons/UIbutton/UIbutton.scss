@@ -42,7 +42,7 @@
     }
 
     &:disabled {
-      @apply bg-grey-1010 text-white;
+      @apply bg-grey-1010 text-white border-grey-1010;
     }
   }
 
