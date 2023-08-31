@@ -3,7 +3,7 @@ import { Formik, Form } from "formik";
 import cn from "classnames";
 
 import { UIbutton, TextField } from "@/src/components";
-import { IRegisterAccount, RegisterFormProps } from "./register-form.type";
+import { IRegisterAccount, RegisterFormProps } from "./RegisterForm.type";
 
 import styles from "./RegisterForm.module.scss";
 
@@ -32,7 +32,7 @@ const RegisterForm: FC<RegisterFormProps> = ({ className, ...props }) => {
           <UIbutton
             dataAutomation="submitButton"
             type="submit"
-            className={styles["register-form__button"]}
+            fullWidth
             isLoading={isSubmitting}
             disabled={isSubmitting}
           >
