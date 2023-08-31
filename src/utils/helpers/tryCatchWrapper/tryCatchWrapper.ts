@@ -7,6 +7,7 @@ const tryCatchWrapper = (cb: TryCatchWrapperCb) => (data: Data) => {
     return cb(data);
   } catch (error) {
     console.log(error);
+    return error;
   }
 };
 

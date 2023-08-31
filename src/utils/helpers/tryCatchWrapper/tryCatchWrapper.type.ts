@@ -1,5 +1,7 @@
-import { AxiosResponse } from "axios";
+import { AxiosResponse, AxiosError, AxiosPromise } from "axios";
 
 import { type Data } from "@/src/types";
 
-export type TryCatchWrapperCb = (data: Data) => Promise<AxiosResponse>;
+export type TryCatchWrapperCb = (
+  data: Data
+) => AxiosPromise<AxiosResponse | AxiosError>;

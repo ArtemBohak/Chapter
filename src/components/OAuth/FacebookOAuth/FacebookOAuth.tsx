@@ -1,5 +1,6 @@
 import { FC, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+
 import FacebookLogin, {
   SuccessResponse,
   FailResponse,
@@ -26,10 +27,10 @@ const FacebookOAuth: FC<FacebookOAuthProps> = ({
   useEffect(() => {
     (async () => {
       if (authCode && state === import.meta.env.VITE_FACEBOOK_STATE) {
-        const res = await facebookOAuthApi({
+        const response = await facebookOAuthApi({
           facebookAccessToken: authCode,
         });
-        console.log(res?.data);
+        console.log(response);
         setSearchParams("");
         setAuthCode("");
         navigate(url);
@@ -45,11 +46,11 @@ const FacebookOAuth: FC<FacebookOAuthProps> = ({
     url,
   ]);
 
-  const onFacebookOauthSuccess = async (response: SuccessResponse) => {
-    const res = await facebookOAuthApi({
-      facebookAccessToken: response.accessToken,
+  const onFacebookOauthSuccess = async (codeResponse: SuccessResponse) => {
+    const response = await facebookOAuthApi({
+      facebookAccessToken: codeResponse.accessToken,
     });
-    console.log(res?.data);
+    console.log(response);
     navigate(url);
   };
 

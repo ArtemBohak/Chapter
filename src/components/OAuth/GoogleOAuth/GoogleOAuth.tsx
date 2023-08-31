@@ -22,11 +22,11 @@ const GoogleOAuth: FC<GoogleOAuthProps> = ({
   useEffect(() => {
     (async () => {
       if (authCode && state === import.meta.env.VITE_GOOGLE_STATE) {
-        const data = await getGoogleAuthCode({
+        const response = await getGoogleAuthCode({
           googleCode: authCode,
           redirectUri: currentLocation,
         });
-        console.log("POST auth/google/login => ", data?.data.id_token);
+        console.log("POST auth/google/login => ", response);
         setSearchParams("");
         setAuthCode("");
         navigate(url);
@@ -49,12 +49,12 @@ const GoogleOAuth: FC<GoogleOAuthProps> = ({
     state: import.meta.env.VITE_GOOGLE_STATE,
     onSuccess: async (codeResponse) => {
       if (codeResponse.state === import.meta.env.VITE_GOOGLE_STATE) {
-        const data = await getGoogleAuthCode({
+        const response = await getGoogleAuthCode({
           googleCode: codeResponse.code,
           redirectUri: import.meta.env.VITE_GOOGLE_REDIRECT_URI,
         });
 
-        console.log("POST auth/google/login => ", data?.data.id_token);
+        console.log("POST auth/google/login => ", response);
         navigate(url);
       }
     },
