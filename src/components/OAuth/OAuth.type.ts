@@ -2,19 +2,14 @@ export type OAuthProps = {
   className?: string;
   size?: number;
   url?: string;
-  facebookMode?: boolean;
-  googleMode?: "popup" | "redirect";
+  facebookUxMode?: boolean;
+  googleUxMode?: "popup" | "redirect";
   type: "facebook" | "google" | "twitter";
 };
 
-export type UseOAuthProps = Pick<
-  OAuthProps,
-  "url" | "facebookMode" | "googleMode" | "type"
->;
+export type UseOAuthProps = Pick<OAuthProps, "url" | "googleUxMode" | "type">;
 
-export type GoogleOAuthProps = { mode?: "popup" | "redirect" } & OAuthProps;
-
-export type FacebookOAuthProps = { mode?: boolean } & OAuthProps;
+export type OAuthResponse = { data: object };
 
 export enum OAuthApiEndPoints {
   GOOGLE_TOKEN = "/token",

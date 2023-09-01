@@ -1,17 +1,29 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useGoogleLogin } from "@react-oauth/google";
+import {
+  SuccessResponse,
+  FailResponse,
+  ProfileSuccessResponse,
+} from "@greatsumini/react-facebook-login";
 
-import { type UseOAuthProps } from "../OAuth.type";
+import { type UseOAuthProps, type OAuthResponse } from "../OAuth.type";
 import useGetOAthUrlParams from "../hooks/useGetOAthUrlParams";
+import { facebookOAuthApi, getGoogleAuthCode } from "../helpers";
 
 export const useOAuth = ({
   type,
-  facebookMode,
-  googleMode,
+  googleUxMode = "redirect",
   url = "/",
 }: UseOAuthProps) => {
-  const { authCode, twitterUrl, state, setSearchParams, setAuthCode } =
-    useGetOAthUrlParams();
+  const {
+    authCode,
+    state,
+    setSearchParams,
+    setAuthCode,
+    currentLocation,
+    twitterUrl,
+  } = useGetOAthUrlParams();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -30,8 +42,100 @@ export const useOAuth = ({
   }, [authCode, navigate, setAuthCode, setSearchParams, state, type, url]);
 
   useEffect(() => {
-    if (type === "facebook") console.log(1);
-  }, [type]);
+    (async () => {
+      if (
+        type === "facebook" &&
+        authCode &&
+        state === import.meta.env.VITE_FACEBOOK_STATE
+      ) {
+        const response = await facebookOAuthApi({
+          facebookAccessToken: authCode,
+        });
+        console.log((response as OAuthResponse)?.data);
+        setSearchParams("");
+        setAuthCode("");
+        navigate(url);
+      }
+    })();
+  }, [authCode, navigate, setAuthCode, setSearchParams, state, type, url]);
 
-  return { twitterUrl };
+  useEffect(() => {
+    (async () => {
+      if (
+        type === "google" &&
+        authCode &&
+        state === import.meta.env.VITE_GOOGLE_STATE
+      ) {
+        const response = await getGoogleAuthCode({
+          googleCode: authCode,
+          redirectUri: currentLocation,
+        });
+        console.log(
+          "POST auth/google/login => ",
+          (response as OAuthResponse)?.data
+        );
+        setSearchParams("");
+        setAuthCode("");
+        navigate(url);
+      }
+    })();
+  }, [
+    authCode,
+    currentLocation,
+    navigate,
+    setAuthCode,
+    setSearchParams,
+    state,
+    type,
+    url,
+  ]);
+
+  const onFacebookOauthSuccess = async (codeResponse: SuccessResponse) => {
+    const response = await facebookOAuthApi({
+      facebookAccessToken: codeResponse.accessToken,
+    });
+    console.log((response as OAuthResponse)?.data);
+    navigate(url);
+  };
+
+  const onFacebookOauthFail = (error: FailResponse) => {
+    console.log("Facebook Login Failed!", error);
+  };
+
+  const onFacebookOauthProfileSuccess = (response: ProfileSuccessResponse) => {
+    console.log("Get Facebook Profile Success!", response);
+  };
+
+  const googleOAuthLogin = useGoogleLogin({
+    flow: "auth-code",
+    ux_mode: googleUxMode,
+    redirect_uri: currentLocation,
+    state: import.meta.env.VITE_GOOGLE_STATE,
+    onSuccess: async (codeResponse) => {
+      if (codeResponse.state === import.meta.env.VITE_GOOGLE_STATE) {
+        const response = await getGoogleAuthCode({
+          googleCode: codeResponse.code,
+          redirectUri: import.meta.env.VITE_GOOGLE_REDIRECT_URI,
+        });
+
+        console.log(
+          "POST auth/google/login => ",
+          (response as OAuthResponse)?.data
+        );
+        navigate(url);
+      }
+    },
+    onError: (onError) => {
+      console.log("Google Login Failed!", onError);
+    },
+  });
+
+  return {
+    twitterUrl,
+    onFacebookOauthSuccess,
+    onFacebookOauthFail,
+    onFacebookOauthProfileSuccess,
+    googleOAuthLogin,
+    currentLocation,
+  };
 };

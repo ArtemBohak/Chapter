@@ -6,7 +6,6 @@ import cn from "classnames";
 import { type AuthByProps } from "@/src/components/AuthBy";
 import styles from "./AuthBy.module.scss";
 
-import OAuth from "../OAuth/OAuth";
 import { Icon } from "@/src/components/Icon";
 
 const AuthBy: FC<AuthByProps> = ({
@@ -30,9 +29,6 @@ const AuthBy: FC<AuthByProps> = ({
             </li>
           ))}
         </ul>
-        <OAuth type="facebook" />
-        <OAuth type="google" />
-        <OAuth type="twitter" />
       </div>
     </GoogleOAuthProvider>
   );
