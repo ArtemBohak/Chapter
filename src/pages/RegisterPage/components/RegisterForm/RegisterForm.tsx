@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Formik, Form } from "formik";
 import cn from "classnames";
 
+import { fetchNewUserEmail, fetchOTPCode } from "./helpers";
 import {
   IRegisterAccount,
   RegisterFormProps,
@@ -25,22 +26,30 @@ const RegisterForm: FC<RegisterFormProps> = ({ className, ...props }) => {
   const navigate = useNavigate();
 
   const schemaTypeValidation = step > Steps.FIRST;
-  // const isDisabled = step > Steps.FIRST;
-
-  const error = "";
+  const isDisabled = step > Steps.FIRST;
 
   const onHandleSubmit = async (
     { email, hash }: IRegisterAccount,
-    setFieldError: (field: string, errorMsg: string) => void
+    setFieldError: (field: string, errorMsg: string) => void,
+    resetForm: () => void
   ) => {
     if (step === Steps.SECOND) {
-      console.log("request => ", { email, hash });
-      if (error) return setFieldError(RegisterAccountKey.HASH, error);
-      return navigate("/account-creation", { state: { email, hash } });
-    }
+      const response = await fetchOTPCode({ hash });
 
-    console.log("request => ", { email });
-    if (error) return setFieldError(RegisterAccountKey.EMAIL, error);
+      if (response === 404)
+        return setFieldError(RegisterAccountKey.HASH, "Invalid sign up code");
+
+      return navigate(`/account-creation/${response.id}`);
+      resetForm();
+    }
+    const response = await fetchNewUserEmail({ email });
+
+    if (response && response === 422)
+      return setFieldError(
+        RegisterAccountKey.EMAIL,
+        "Email address is already in use."
+      );
+
     setStep((state) => (state += Steps.FIRST));
   };
 
@@ -62,15 +71,12 @@ const RegisterForm: FC<RegisterFormProps> = ({ className, ...props }) => {
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema(schemaTypeValidation)}
-      onSubmit={(
+      onSubmit={async (
         values: IRegisterAccount,
         { setFieldError, setSubmitting, resetForm }
       ) => {
-        setTimeout(() => {
-          onHandleSubmit(values, setFieldError);
-          setSubmitting(false);
-          resetForm();
-        }, 1000);
+        await onHandleSubmit(values, setFieldError, resetForm);
+        setSubmitting(false);
       }}
       {...props}
     >
@@ -83,7 +89,7 @@ const RegisterForm: FC<RegisterFormProps> = ({ className, ...props }) => {
             dataAutomation={`${RegisterAccountKey.EMAIL}Input`}
             label="Your email"
             className={step > Steps.FIRST ? "mb-0" : ""}
-            // disabled={isDisabled}
+            disabled={isDisabled}
           />
           {renderNextStep(values.hash)}
           <UIbutton

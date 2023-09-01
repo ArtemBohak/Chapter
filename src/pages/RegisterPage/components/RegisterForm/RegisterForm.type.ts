@@ -16,3 +16,7 @@ export enum Steps {
   FIRST = 1,
   SECOND = 2,
 }
+
+export type ErrorResponse = {
+  status: number;
+};
