@@ -44,7 +44,7 @@ const RegisterForm: FC<RegisterFormProps> = ({ className, ...props }) => {
     }
     const response = await fetchNewUserEmail({ email });
 
-    if (response && response === 422)
+    if (response && response.status === 422)
       return setFieldError(
         RegisterAccountKey.EMAIL,
         "Email address is already in use."

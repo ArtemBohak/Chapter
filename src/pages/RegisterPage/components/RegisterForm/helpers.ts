@@ -11,7 +11,7 @@ export const fetchNewUserEmail = async (data: { email: string }) => {
     });
   } catch (error) {
     if (axios.isAxiosError(error) && error.response)
-      return (error.response.data as ErrorResponse).status;
+      return error.response.data as ErrorResponse;
   }
 };
 
