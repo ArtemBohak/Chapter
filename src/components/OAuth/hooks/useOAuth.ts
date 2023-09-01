@@ -9,7 +9,7 @@ import {
 
 import { type UseOAuthProps, type OAuthResponse } from "../OAuth.type";
 import useGetOAthUrlParams from "../hooks/useGetOAthUrlParams";
-import { facebookOAuthApi, getGoogleAuthCode } from "../helpers";
+import { facebookOAuthApi, getGoogleAuthCode } from "../helpers/api";
 
 export const useOAuth = ({
   type,

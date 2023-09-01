@@ -1,6 +1,4 @@
-import { type TryCatchWrapperCb } from "./tryCatchWrapper.type";
-
-import { type Data } from "@/src/types";
+import { type TryCatchWrapperCb, type Data } from "../OAuth.type";
 
 const tryCatchWrapper = (cb: TryCatchWrapperCb) => (data: Data) => {
   try {
@@ -11,4 +9,4 @@ const tryCatchWrapper = (cb: TryCatchWrapperCb) => (data: Data) => {
   }
 };
 
-export { tryCatchWrapper };
+export default tryCatchWrapper;

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useLocation, useSearchParams } from "react-router-dom";
 
-import { getTwitterOAuthUrl } from "../helpers";
+import getTwitterOAuthUrl from "../helpers/getTwitterOAuthUrl";
 
 const useGetOAthUrlParams = () => {
   const [authCode, setAuthCode] = useState("");

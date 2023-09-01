@@ -1,3 +1,5 @@
+import { AxiosResponse, AxiosError, AxiosPromise } from "axios";
+
 export type OAuthProps = {
   className?: string;
   size?: number;
@@ -10,6 +12,16 @@ export type OAuthProps = {
 export type UseOAuthProps = Pick<OAuthProps, "url" | "googleUxMode" | "type">;
 
 export type OAuthResponse = { data: object };
+
+export type Data = {
+  googleCode?: string;
+  facebookAccessToken?: string;
+  redirectUri?: string;
+};
+
+export type TryCatchWrapperCb = (
+  data: Data
+) => AxiosPromise<AxiosResponse | AxiosError>;
 
 export enum OAuthApiEndPoints {
   GOOGLE_TOKEN = "/token",
