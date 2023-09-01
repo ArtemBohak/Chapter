@@ -1,12 +1,12 @@
 .block-auth {
-  @apply text-black-1000 min-h-screen flex flex-col justify-center flex-1 pt-20 pb-4 md:pt-[100px] md:pb-8;
+  @apply text-black min-h-screen flex flex-col justify-center flex-1 pt-20 pb-4 md:pt-[100px] md:pb-8;
 
   & &__container {
-    @apply max-w-[520px] w-full mx-auto flex flex-col justify-center px-[24px];
+    @apply max-w-[520px] w-full mx-auto flex flex-col justify-center px-2-md;
   }
 
   & &__heading {
-    @apply text-center font-semibold mb-5 leading-none text-2xl md:text-4xl;
+    @apply text-center mb-5;
   }
 
   & &__body {
@@ -14,9 +14,9 @@
   }
 
   & &__bottom-text {
-    @apply text-center text-gray-1030 text-2xs mt-auto;
+    @apply text-center text-grey-1000 text-xxs mt-auto;
     & a {
-      @apply underline;
+      @apply underline text-inherit;
     }
   }
 }
