@@ -1,10 +1,10 @@
 import { googleOAuthApi, api, EndpointsEnum } from "@/src/axios";
 import tryCatchWrapper from "./tryCatchWrapper";
-import { type Data, OAuthApiEndPoints } from "../OAuth.type";
+import { type ApiData, OAuthApiEndPoints } from "../OAuth.type";
 
 const { VITE_GOOGLE_CLIENT_ID, VITE_GOOGLE_CLIENT_SECRET } = import.meta.env;
 
-export const getGoogleAuthCode = tryCatchWrapper(async (data: Data) => {
+export const getGoogleAuthCode = tryCatchWrapper(async (data: ApiData) => {
   const response = await googleOAuthApi.post(
     OAuthApiEndPoints.GOOGLE_TOKEN,
     null,
@@ -19,12 +19,19 @@ export const getGoogleAuthCode = tryCatchWrapper(async (data: Data) => {
     }
   );
 
-  return response;
+  return response.data;
 });
 
-export const facebookOAuthApi = tryCatchWrapper(async (data: Data) => {
+export const facebookApi = tryCatchWrapper(async (data: ApiData) => {
   const response = await api.post(EndpointsEnum.FACEBOOK_LOGIN, {
     accessToken: data.facebookAccessToken,
   });
-  return response;
+  return response.data;
+});
+
+export const googleApi = tryCatchWrapper(async (data: ApiData) => {
+  const response = await api.post(EndpointsEnum.GOOGLE_LOGIN, {
+    idToken: data.idToken,
+  });
+  return response.data;
 });

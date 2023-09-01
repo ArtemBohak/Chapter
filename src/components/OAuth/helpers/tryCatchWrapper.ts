@@ -1,6 +1,6 @@
-import { type TryCatchWrapperCb, type Data } from "../OAuth.type";
+import { type TryCatchWrapperCb, type ApiData } from "../OAuth.type";
 
-const tryCatchWrapper = (cb: TryCatchWrapperCb) => (data: Data) => {
+const tryCatchWrapper = (cb: TryCatchWrapperCb) => (data: ApiData) => {
   try {
     return cb(data);
   } catch (error) {

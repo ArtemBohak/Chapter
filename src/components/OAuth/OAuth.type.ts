@@ -11,16 +11,17 @@ export type OAuthProps = {
 
 export type UseOAuthProps = Pick<OAuthProps, "url" | "googleUxMode" | "type">;
 
-export type OAuthResponse = { data: object };
+export type OAuthResponse = { id_token?: string };
 
-export type Data = {
-  googleCode?: string;
+export type ApiData = {
   facebookAccessToken?: string;
+  idToken?: string;
   redirectUri?: string;
+  googleCode?: string;
 };
 
 export type TryCatchWrapperCb = (
-  data: Data
+  data: ApiData
 ) => AxiosPromise<AxiosResponse | AxiosError>;
 
 export enum OAuthApiEndPoints {

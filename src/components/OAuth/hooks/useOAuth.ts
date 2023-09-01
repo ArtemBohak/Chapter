@@ -9,7 +9,7 @@ import {
 
 import { type UseOAuthProps, type OAuthResponse } from "../OAuth.type";
 import useGetOAthUrlParams from "../hooks/useGetOAthUrlParams";
-import { facebookOAuthApi, getGoogleAuthCode } from "../helpers/api";
+import { facebookApi, getGoogleAuthCode, googleApi } from "../helpers/oAuthapi";
 
 export const useOAuth = ({
   type,
@@ -48,10 +48,10 @@ export const useOAuth = ({
         authCode &&
         state === import.meta.env.VITE_FACEBOOK_STATE
       ) {
-        const response = await facebookOAuthApi({
+        const response = await facebookApi({
           facebookAccessToken: authCode,
         });
-        console.log((response as OAuthResponse)?.data);
+        console.log(response);
         setSearchParams("");
         setAuthCode("");
         navigate(url);
@@ -66,14 +66,14 @@ export const useOAuth = ({
         authCode &&
         state === import.meta.env.VITE_GOOGLE_STATE
       ) {
-        const response = await getGoogleAuthCode({
+        const data = await getGoogleAuthCode({
           googleCode: authCode,
           redirectUri: currentLocation,
         });
-        console.log(
-          "POST auth/google/login => ",
-          (response as OAuthResponse)?.data
-        );
+        const response = await googleApi({
+          idToken: (data as OAuthResponse).id_token,
+        });
+        console.log(response);
         setSearchParams("");
         setAuthCode("");
         navigate(url);
@@ -91,10 +91,10 @@ export const useOAuth = ({
   ]);
 
   const onFacebookOauthSuccess = async (codeResponse: SuccessResponse) => {
-    const response = await facebookOAuthApi({
+    const response = await facebookApi({
       facebookAccessToken: codeResponse.accessToken,
     });
-    console.log((response as OAuthResponse)?.data);
+    console.log(response);
     navigate(url);
   };
 
@@ -113,15 +113,15 @@ export const useOAuth = ({
     state: import.meta.env.VITE_GOOGLE_STATE,
     onSuccess: async (codeResponse) => {
       if (codeResponse.state === import.meta.env.VITE_GOOGLE_STATE) {
-        const response = await getGoogleAuthCode({
+        const data = await getGoogleAuthCode({
           googleCode: codeResponse.code,
           redirectUri: import.meta.env.VITE_GOOGLE_REDIRECT_URI,
         });
 
-        console.log(
-          "POST auth/google/login => ",
-          (response as OAuthResponse)?.data
-        );
+        const response = await googleApi({
+          idToken: (data as OAuthResponse).id_token,
+        });
+        console.log(response);
         navigate(url);
       }
     },
