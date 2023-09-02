@@ -10,11 +10,7 @@ import {
 import { type UseOAuthProps } from "../OAuth.type";
 import useGetOAthUrlParams from "./useGetOAuthUrlParams";
 
-import {
-  facebookDataHandler,
-  googleDataHandler,
-  twitterDataHandler,
-} from "../helpers";
+import OAuthApi from "../OAuthApi";
 
 const useOAuth = ({
   type,
@@ -38,13 +34,13 @@ const useOAuth = ({
         authCode &&
         state === import.meta.env.VITE_TWITTER_STATE
       ) {
-        twitterDataHandler({
+        new OAuthApi({
           token: authCode,
           url,
           setSearchParams,
           setAuthCode,
           navigate,
-        });
+        }).twitterDataHandler();
       }
     })();
   }, [authCode, navigate, setAuthCode, setSearchParams, state, type, url]);
@@ -56,13 +52,13 @@ const useOAuth = ({
         authCode &&
         state === import.meta.env.VITE_FACEBOOK_STATE
       ) {
-        facebookDataHandler({
+        new OAuthApi({
           token: authCode,
           url,
           setSearchParams,
           setAuthCode,
           navigate,
-        });
+        }).facebookDataHandler();
       }
     })();
   }, [authCode, navigate, setAuthCode, setSearchParams, state, type, url]);
@@ -74,14 +70,14 @@ const useOAuth = ({
         authCode &&
         state === import.meta.env.VITE_GOOGLE_STATE
       ) {
-        googleDataHandler({
+        new OAuthApi({
           token: authCode,
           redirectUri: currentLocation,
           url,
           setSearchParams,
           setAuthCode,
           navigate,
-        });
+        }).googleDataHandler();
       }
     })();
   }, [
@@ -96,11 +92,11 @@ const useOAuth = ({
   ]);
 
   const onFacebookOauthSuccess = async (codeResponse: SuccessResponse) => {
-    facebookDataHandler({
+    new OAuthApi({
       token: codeResponse.accessToken,
       url,
       navigate,
-    });
+    }).facebookDataHandler();
   };
 
   const onFacebookOauthFail = (error: FailResponse) => {
@@ -118,12 +114,12 @@ const useOAuth = ({
     state: import.meta.env.VITE_GOOGLE_STATE,
     onSuccess: async (codeResponse) => {
       if (codeResponse.state === import.meta.env.VITE_GOOGLE_STATE) {
-        googleDataHandler({
+        new OAuthApi({
           token: codeResponse.code,
           redirectUri: import.meta.env.VITE_GOOGLE_REDIRECT_URI,
           url,
           navigate,
-        });
+        }).googleDataHandler();
       }
     },
     onError: (onError) => {

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useLocation, useSearchParams } from "react-router-dom";
 
-import { getTwitterOAuthUrl } from "../helpers";
+import OAuthApi from "../OAuthApi";
 
 const useGetOAuthUrlParams = () => {
   const [authCode, setAuthCode] = useState("");
@@ -21,7 +21,7 @@ const useGetOAuthUrlParams = () => {
   }, [code]);
 
   return {
-    twitterUrl: getTwitterOAuthUrl(currentLocation),
+    twitterUrl: OAuthApi.getTwitterOAuthUrl(currentLocation),
     authCode,
     state,
     currentLocation,
