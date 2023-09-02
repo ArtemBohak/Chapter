@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 
 import {
   RegisterPage,
@@ -24,20 +24,26 @@ const router = createBrowserRouter([
         element: <WelcomePage />,
       },
       {
-        path: "/register",
-        element: <RegisterPage />,
-      },
-      {
-        path: "/account-creation",
-        element: <AccountCreationPage />,
-      },
-      {
-        path: "/login",
-        element: <LoginPage />,
-      },
-      {
-        path: "/login/forgot-password",
-        element: <ForgotPasswordPage />,
+        path: "auth",
+        element: <Outlet />,
+        children: [
+          {
+            path: "register",
+            element: <RegisterPage />,
+          },
+          {
+            path: "account-creation",
+            element: <AccountCreationPage />,
+          },
+          {
+            path: "login",
+            element: <LoginPage />,
+          },
+          {
+            path: "forgot-password",
+            element: <ForgotPasswordPage />,
+          },
+        ],
       },
       { path: "/ui-page", element: <UIPage /> },
     ],
