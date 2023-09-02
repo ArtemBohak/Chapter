@@ -2,7 +2,10 @@ import { FC } from "react";
 import { Form, Formik, FormikProps } from "formik";
 
 import styles from "./LoginForm.module.scss";
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3517dd93d8a2807351134e1eca1dfe29eb9ac39b
 import { PasswordField, TextField } from "@/src/components/Fields";
 import { UIbutton } from "@/src/components/Buttons";
 import { ILoginPage } from "./LoginForm.types";
@@ -41,7 +44,11 @@ const LoginPageForm: FC = () => {
               dataAutomation="password"
               helperLink={{
                 text: "Forgot password?",
+<<<<<<< HEAD
                 href: "/login/forgot-password",
+=======
+                href: "/auth/forgot-password",
+>>>>>>> 3517dd93d8a2807351134e1eca1dfe29eb9ac39b
               }}
             />
 
