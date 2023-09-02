@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { useLocation, useSearchParams } from "react-router-dom";
 
-import getTwitterOAuthUrl from "../helpers/getTwitterOAuthUrl";
+import { getTwitterOAuthUrl } from "../helpers";
 
-const useGetOAthUrlParams = () => {
+const useGetOAuthUrlParams = () => {
   const [authCode, setAuthCode] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
   const location = useLocation();
@@ -30,4 +30,4 @@ const useGetOAthUrlParams = () => {
   };
 };
 
-export default useGetOAthUrlParams;
+export default useGetOAuthUrlParams;

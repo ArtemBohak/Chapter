@@ -1,7 +1,7 @@
 import { FC } from "react";
 import FacebookLogin from "@greatsumini/react-facebook-login";
 
-import { useOAuth } from "./hooks/useOAuth";
+import { useOAuth } from "./hooks";
 import { type OAuthProps } from "./OAuth.type";
 
 import { Icon } from "@/src/components/Icon";
@@ -14,6 +14,7 @@ const OAuth: FC<OAuthProps> = ({
   url,
   facebookUxMode = true,
   googleUxMode,
+  dataAutomation = "authButton",
 }) => {
   const {
     twitterUrl,
@@ -25,7 +26,11 @@ const OAuth: FC<OAuthProps> = ({
 
   if (type === "google")
     return (
-      <button className={className} onClick={() => googleOAuthLogin()}>
+      <button
+        className={className}
+        onClick={() => googleOAuthLogin()}
+        data-automation={dataAutomation}
+      >
         <Icon icon={IconEnum.Google} size={size} />
       </button>
     );
@@ -45,7 +50,11 @@ const OAuth: FC<OAuthProps> = ({
         }}
         render={(renderProps) => {
           return (
-            <button className={className} onClick={renderProps.onClick}>
+            <button
+              className={className}
+              onClick={renderProps.onClick}
+              data-automation={dataAutomation}
+            >
               <Icon icon={IconEnum.Facebook} size={size} />
             </button>
           );
@@ -58,6 +67,7 @@ const OAuth: FC<OAuthProps> = ({
       <button
         className={className}
         onClick={() => window.location.replace(twitterUrl)}
+        data-automation={dataAutomation}
       >
         <Icon icon={IconEnum.Twitter} size={size} />
       </button>

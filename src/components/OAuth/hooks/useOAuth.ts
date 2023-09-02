@@ -7,11 +7,16 @@ import {
   ProfileSuccessResponse,
 } from "@greatsumini/react-facebook-login";
 
-import { type UseOAuthProps, type OAuthResponse } from "../OAuth.type";
-import useGetOAthUrlParams from "../hooks/useGetOAthUrlParams";
-import { facebookApi, getGoogleAuthCode, googleApi } from "../helpers/oAuthapi";
+import { type UseOAuthProps } from "../OAuth.type";
+import useGetOAthUrlParams from "./useGetOAuthUrlParams";
 
-export const useOAuth = ({
+import {
+  facebookDataHandler,
+  googleDataHandler,
+  twitterDataHandler,
+} from "../helpers";
+
+const useOAuth = ({
   type,
   googleUxMode = "redirect",
   url = "/",
@@ -33,10 +38,13 @@ export const useOAuth = ({
         authCode &&
         state === import.meta.env.VITE_TWITTER_STATE
       ) {
-        console.log("POST auth/twitter/login => ", authCode);
-        setSearchParams("");
-        setAuthCode("");
-        navigate(url);
+        twitterDataHandler({
+          token: authCode,
+          url,
+          setSearchParams,
+          setAuthCode,
+          navigate,
+        });
       }
     })();
   }, [authCode, navigate, setAuthCode, setSearchParams, state, type, url]);
@@ -48,13 +56,13 @@ export const useOAuth = ({
         authCode &&
         state === import.meta.env.VITE_FACEBOOK_STATE
       ) {
-        const response = await facebookApi({
-          facebookAccessToken: authCode,
+        facebookDataHandler({
+          token: authCode,
+          url,
+          setSearchParams,
+          setAuthCode,
+          navigate,
         });
-        console.log(response);
-        setSearchParams("");
-        setAuthCode("");
-        navigate(url);
       }
     })();
   }, [authCode, navigate, setAuthCode, setSearchParams, state, type, url]);
@@ -66,17 +74,14 @@ export const useOAuth = ({
         authCode &&
         state === import.meta.env.VITE_GOOGLE_STATE
       ) {
-        const data = await getGoogleAuthCode({
-          googleCode: authCode,
+        googleDataHandler({
+          token: authCode,
           redirectUri: currentLocation,
+          url,
+          setSearchParams,
+          setAuthCode,
+          navigate,
         });
-        const response = await googleApi({
-          idToken: (data as OAuthResponse).id_token,
-        });
-        console.log(response);
-        setSearchParams("");
-        setAuthCode("");
-        navigate(url);
       }
     })();
   }, [
@@ -91,11 +96,11 @@ export const useOAuth = ({
   ]);
 
   const onFacebookOauthSuccess = async (codeResponse: SuccessResponse) => {
-    const response = await facebookApi({
-      facebookAccessToken: codeResponse.accessToken,
+    facebookDataHandler({
+      token: codeResponse.accessToken,
+      url,
+      navigate,
     });
-    console.log(response);
-    navigate(url);
   };
 
   const onFacebookOauthFail = (error: FailResponse) => {
@@ -113,16 +118,12 @@ export const useOAuth = ({
     state: import.meta.env.VITE_GOOGLE_STATE,
     onSuccess: async (codeResponse) => {
       if (codeResponse.state === import.meta.env.VITE_GOOGLE_STATE) {
-        const data = await getGoogleAuthCode({
-          googleCode: codeResponse.code,
+        googleDataHandler({
+          token: codeResponse.code,
           redirectUri: import.meta.env.VITE_GOOGLE_REDIRECT_URI,
+          url,
+          navigate,
         });
-
-        const response = await googleApi({
-          idToken: (data as OAuthResponse).id_token,
-        });
-        console.log(response);
-        navigate(url);
       }
     },
     onError: (onError) => {
@@ -139,3 +140,5 @@ export const useOAuth = ({
     currentLocation,
   };
 };
+
+export default useOAuth;
