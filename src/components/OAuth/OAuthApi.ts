@@ -16,15 +16,15 @@ const {
 } = import.meta.env;
 
 class OAuthApi {
-  redirectUri: string;
-  token: string;
-  googleOAuthGrandType: string;
-  googleClientId: string;
-  googleClientSecret: string;
-  url: string;
-  setSearchParams: SetURLSearchParams | null;
-  setAuthCode: ((data: string) => void) | null;
-  navigate: (data: string) => void;
+  protected redirectUri: string;
+  protected token: string;
+  protected googleOAuthGrandType = "authorization_code";
+  protected googleClientId = VITE_GOOGLE_CLIENT_ID;
+  protected googleClientSecret = VITE_GOOGLE_CLIENT_SECRET;
+  protected url: string;
+  protected setSearchParams: SetURLSearchParams | null;
+  protected setAuthCode: ((data: string) => void) | null;
+  protected navigate: (data: string) => void;
 
   static async facebookApi({ facebookAccessToken }: ApiDataArgs) {
     return api.post(EndpointsEnum.FACEBOOK_LOGIN, {
@@ -63,9 +63,6 @@ class OAuthApi {
   }: IOAuthApiType) {
     this.redirectUri = redirectUri;
     this.token = token;
-    this.googleOAuthGrandType = "authorization_code";
-    this.googleClientId = VITE_GOOGLE_CLIENT_ID;
-    this.googleClientSecret = VITE_GOOGLE_CLIENT_SECRET;
     this.url = url;
     this.setSearchParams = setSearchParams;
     this.setAuthCode = setAuthCode;
@@ -92,14 +89,13 @@ class OAuthApi {
         googleIdToken: cred.data.id_token,
       });
 
-      console.log(response);
+      console.log(response.data);
 
       this.navigate(this.url);
     } catch (error) {
       console.log(error);
     } finally {
-      this.setSearchParams && this.setSearchParams("");
-      this.setAuthCode && this.setAuthCode("");
+      this.clearData();
     }
   }
 
@@ -108,13 +104,12 @@ class OAuthApi {
       const response = await OAuthApi.facebookApi({
         facebookAccessToken: this.token,
       });
-      console.log(response);
+      console.log(response.data);
       this.navigate(this.url);
     } catch (error) {
       console.log(error);
     } finally {
-      this.setSearchParams && this.setSearchParams("");
-      this.setAuthCode && this.setAuthCode("");
+      this.clearData();
     }
   }
 
@@ -125,9 +120,13 @@ class OAuthApi {
     } catch (error) {
       console.log(error);
     } finally {
-      this.setSearchParams && this.setSearchParams("");
-      this.setAuthCode && this.setAuthCode("");
+      this.clearData();
     }
+  }
+
+  clearData() {
+    this.setSearchParams && this.setSearchParams("");
+    this.setAuthCode && this.setAuthCode("");
   }
 }
 
