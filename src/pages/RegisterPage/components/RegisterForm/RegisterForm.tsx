@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Formik, Form } from "formik";
 import cn from "classnames";
 
-import { fetchNewUserEmail, fetchOTPCode } from "./helpers";
+import RegisterFormApi from "./RegisterFormApi";
 import {
   IRegisterAccount,
   RegisterFormProps,
@@ -34,17 +34,17 @@ const RegisterForm: FC<RegisterFormProps> = ({ className, ...props }) => {
     resetForm: () => void
   ) => {
     if (step === Steps.SECOND) {
-      const response = await fetchOTPCode({ hash });
+      const response = await RegisterFormApi.fetchOTPCode({ hash });
 
-      if (response === 404)
+      if (response.status === 404)
         return setFieldError(RegisterAccountKey.HASH, "Invalid sign up code");
 
       return navigate(`/account-creation/${response.id}`);
       resetForm();
     }
-    const response = await fetchNewUserEmail({ email });
+    const response = await RegisterFormApi.fetchNewUserEmail({ email });
 
-    if (response && response.status === 422)
+    if (response?.status === 422)
       return setFieldError(
         RegisterAccountKey.EMAIL,
         "Email address is already in use."
