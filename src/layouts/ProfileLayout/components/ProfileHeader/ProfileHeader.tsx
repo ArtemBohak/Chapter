@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { NavLink } from "react-router-dom";
+import cn from "classnames";
 
 import { useNavigationToggler } from "@/src/context/NavigationToggler";
 
@@ -13,11 +14,18 @@ import {
 } from "@/src/components";
 
 import styles from "./ProfileHeader.module.scss";
+import { useAppSelector } from "@/src/redux/hooks";
 
 const ProfileHeader: FC = () => {
   const { isActiveMenu, setIsActiveMenu } = useNavigationToggler();
-  const userName = "User name";
-  const userAvatar = "https://i.postimg.cc/LX0WVXCB/Follow-web-1.webp";
+  const userSlice = useAppSelector((store) => store.userSlice);
+  const defaultUserAvatar = "https://i.postimg.cc/LX0WVXCB/Follow-web-1.webp";
+
+  const getUserAvatar = () => {
+    return userSlice.loading
+      ? defaultUserAvatar
+      : userSlice.user.avatarUrl || defaultUserAvatar;
+  };
 
   return (
     <header className={styles["profile-header"]}>
@@ -65,9 +73,9 @@ const ProfileHeader: FC = () => {
             Add post
           </UIbutton>
           <UserAvatar
-            src={userAvatar}
-            alt={userName}
-            className={styles["profile-header__user-avatar"]}
+            src={getUserAvatar()}
+            alt={`${userSlice.user.firstName} ${userSlice.user.lastName}`}
+            className={cn(styles["profile-header__user-avatar"])}
           />
           <UIbutton
             href="/"

@@ -1,4 +1,3 @@
-import { AxiosResponse } from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { IUserStore } from "../types/user";
 import { defaultUserState } from "../default-state/user";
@@ -9,40 +8,43 @@ export interface IUserState {
   user: IUserStore;
   loading: boolean;
   error?: string | null;
+  isAuth: boolean;
 }
 
-export const fetchUserById = createAsyncThunk<
-  AxiosResponse<IUserState> | null,
-  number
->(`${import.meta.env.VITE_REACT_API_URL}`, async (userId: number) => {
-  const response = await api.get(`${EndpointsEnum.USERS}/${userId}`);
-  return await response.data;
-});
+export const isAuthUser = createAsyncThunk<IUserStore | null>(
+  `${import.meta.env.VITE_REACT_API_URL}`,
+  async () => {
+    const response = await api.get(`${EndpointsEnum.PROFILE}`);
+    return await response.data;
+  }
+);
 
 const initialState: IUserState = {
   user: defaultUserState,
+  isAuth: false,
   loading: false,
   error: null,
 };
 
 export const userSlice = createSlice({
-  name: "user",
+  name: "userSlice",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchUserById.pending, (state) => {
+      .addCase(isAuthUser.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(fetchUserById.fulfilled, (state, action) => {
-        if (action.payload?.data) {
-          state.user = action.payload?.data.user;
+      .addCase(isAuthUser.fulfilled, (state, action) => {
+        if (action.payload) {
+          state.user = action.payload;
+          state.isAuth = true;
         }
         state.loading = false;
         state.error = null;
       })
-      .addCase(fetchUserById.rejected, (state) => {
+      .addCase(isAuthUser.rejected, (state) => {
         state.loading = false;
       });
   },

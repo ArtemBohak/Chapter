@@ -60,7 +60,7 @@ const router = createBrowserRouter([
 ]);
 
 const Router = () => {
-  return <RouterProvider router={router} />;
+  return <RouterProvider router={router} fallbackElement={<p>Loading...</p>} />;
 };
 
 export default Router;

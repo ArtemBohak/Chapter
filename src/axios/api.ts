@@ -1,13 +1,56 @@
 import axios from "axios";
+import TokenService from "@/src//services/token";
+import { getTokenFromLC } from "@/src/utils/localstorage";
 
 const api = axios.create({
   //will be changed to const from .env later
-  baseURL: "https://obscure-island-84086-0710166a71eb.herokuapp.com/api/v1/",
+  baseURL: import.meta.env.VITE_REACT_API_URL,
   withCredentials: false,
-  method: "get, post, put, delete",
+  method: "get, post, put, delete, patch",
   headers: {
     "X-Requested-With": "XMLHttpRequest",
   },
 });
+
+api.interceptors.request.use((request) => {
+  if (getTokenFromLC()) {
+    request.headers.Authorization = `Bearer ${getTokenFromLC()}`;
+  }
+  return request;
+});
+
+api.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  async (error) => {
+    if (!getTokenFromLC()) {
+      return Promise.reject(error);
+    }
+
+    const originalRequest = error.config;
+
+    if (
+      error.response.status === 401 &&
+      error.config &&
+      !originalRequest._retry
+    ) {
+      error.config._isRetry = true;
+      try {
+        const response = await TokenService.refreshToken();
+        const { token, refreshToken } = await response.data;
+
+        localStorage.setItem("token", token);
+        localStorage.setItem("refreshToken", refreshToken);
+
+        return api.request(originalRequest);
+      } catch (e) {
+        console.log("User doesn`t authorized");
+        return Promise.reject(error);
+      }
+    }
+    throw error;
+  }
+);
 
 export default api;

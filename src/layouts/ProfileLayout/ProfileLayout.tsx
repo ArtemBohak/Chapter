@@ -1,30 +1,54 @@
-import { FC } from "react";
-import { Navigate, Outlet } from "react-router-dom";
+import { FC, useEffect } from "react";
+import { Navigate, Outlet, redirect } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "@/src/redux/hooks";
+import { isAuthUser } from "@/src/redux/slices/user";
 
 import { ProfileHeader, SidebarNavigation } from "./components";
 import { NavigationTogglerProvider } from "src/context/NavigationToggler";
 
 import styles from "./ProfileLayout.module.scss";
+import { getTokenFromLC } from "@/src/utils/localstorage";
 
 const ProfileLayout: FC = () => {
-  const isAuthenticated = true;
+  const userSlice = useAppSelector((state) => state.userSlice);
 
-  if (!isAuthenticated) {
-    return <Navigate to="/" />;
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (getTokenFromLC()) {
+      dispatch(isAuthUser());
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (!userSlice.loading && !userSlice.isAuth) {
+      redirect("/");
+    }
+  }, [userSlice.isAuth, userSlice.loading]);
+
+  if (!getTokenFromLC()) {
+    return <Navigate to="/404" replace={true} />;
   }
 
   return (
-    <div className={styles["profile-layout"]}>
-      <NavigationTogglerProvider>
-        <SidebarNavigation />
-        <ProfileHeader />
-      </NavigationTogglerProvider>
-      <main>
-        <div className={styles["profile-layout__body"]}>
-          <Outlet />
+    <>
+      {!userSlice.loading && userSlice.isAuth ? (
+        <div className={styles["profile-layout"]}>
+          <NavigationTogglerProvider>
+            <SidebarNavigation />
+            <ProfileHeader />
+          </NavigationTogglerProvider>
+          <main>
+            <div className={styles["profile-layout__body"]}>
+              <Outlet />
+            </div>
+          </main>
         </div>
-      </main>
-    </div>
+      ) : (
+        "Loading..."
+      )}
+    </>
   );
 };
 

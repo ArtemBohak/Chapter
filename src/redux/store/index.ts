@@ -5,13 +5,13 @@ import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import { userSlice } from "../slices";
 
 const rootReducer = combineReducers({
-  ["userSlice"]: userSlice,
+  [userSlice.name]: userSlice.reducer,
 });
 
-const makeStore = () =>
+export const makeStore = () =>
   configureStore({
     reducer: rootReducer,
-    middleware: [thunk],
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
     devTools: true,
   });
 
