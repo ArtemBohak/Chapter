@@ -20,7 +20,7 @@ const WelcomePagePanel: FC = () => {
             size="large"
             fullWidth
             dataAutomation="navigationButton"
-            href="/register"
+            href={links.SIGN_UP}
           >
             Sign up
           </UIbutton>
@@ -29,7 +29,7 @@ const WelcomePagePanel: FC = () => {
             fullWidth
             dataAutomation="navigationButton"
             variant="outlined"
-            href="/login"
+            href={links.LOG_IN}
           >
             Log in
           </UIbutton>
