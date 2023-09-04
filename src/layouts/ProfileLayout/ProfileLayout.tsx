@@ -29,7 +29,7 @@ const ProfileLayout: FC = () => {
   }, [userSlice.isAuth, userSlice.loading]);
 
   if (!getTokenFromLC()) {
-    return <Navigate to={links.NOT_FOUND} replace={true} />;
+    return <Navigate to={links.LOG_IN} replace={true} />;
   }
 
   return (
