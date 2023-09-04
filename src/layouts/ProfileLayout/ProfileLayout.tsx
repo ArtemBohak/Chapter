@@ -2,6 +2,7 @@ import { FC, useEffect } from "react";
 import { Navigate, Outlet, redirect } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/src/redux/hooks";
 import { isAuthUser } from "@/src/redux/slices/user";
+import { links } from "@/src/utils/links/links.types";
 
 import { ProfileHeader, SidebarNavigation } from "./components";
 import { NavigationTogglerProvider } from "src/context/NavigationToggler";
@@ -28,7 +29,7 @@ const ProfileLayout: FC = () => {
   }, [userSlice.isAuth, userSlice.loading]);
 
   if (!getTokenFromLC()) {
-    return <Navigate to="/404" replace={true} />;
+    return <Navigate to={links.NOT_FOUND} replace={true} />;
   }
 
   return (
