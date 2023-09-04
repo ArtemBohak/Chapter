@@ -9,7 +9,7 @@ export default Yup.object({
       simpleStringRegex,
       "Fullname field cannot contain any special symbols or numbers"
     ),
-  nickname: Yup.string().required("Please enter a valid Nickname"),
+  nickName: Yup.string().required("Please enter a valid Nickname"),
   password: Yup.string()
     .required("Password is required")
     .matches(

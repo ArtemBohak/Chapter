@@ -1,6 +1,6 @@
 export interface IAccountCreate {
   fullname: string;
-  nickname: string;
+  nickName: string;
   password: string;
   confirm_password: string;
 }

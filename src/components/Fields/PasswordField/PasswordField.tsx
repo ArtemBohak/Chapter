@@ -24,6 +24,7 @@ const PasswordField: FC<PasswordFieldProps> = ({
   dataAutomation,
   strength,
   helperLink,
+  customErrorMessage,
   ...props
 }) => {
   const [field, meta] = useField(name);
@@ -97,6 +98,11 @@ const PasswordField: FC<PasswordFieldProps> = ({
           >
             {helperLink.text}
           </Link>
+        ) : null}
+        {customErrorMessage ? (
+          <p className="text-field__custom-error-message">
+            {customErrorMessage}
+          </p>
         ) : null}
       </div>
       {strength && passwordValue && passwordStrength >= 0 ? (
