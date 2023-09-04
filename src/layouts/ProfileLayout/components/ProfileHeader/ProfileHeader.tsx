@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { NavLink } from "react-router-dom";
+import { links } from "@/src/utils/links/links.types";
 
 import { useNavigationToggler } from "@/src/context/NavigationToggler";
 
@@ -27,7 +28,10 @@ const ProfileHeader: FC = () => {
           className={styles["profile-header__menu-toggler"]}
           onClick={() => setIsActiveMenu && setIsActiveMenu(!isActiveMenu)}
         />
-        <NavLink to="/profile" className={styles["profile-header__logo-name"]}>
+        <NavLink
+          to={links.FEED}
+          className={styles["profile-header__logo-name"]}
+        >
           Chapter
         </NavLink>
         <div className={styles["profile-header__auth-side"]}>
