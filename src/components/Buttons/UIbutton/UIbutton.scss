@@ -2,7 +2,7 @@
   @apply cursor-pointer relative inline-flex items-center justify-center font-medium rounded-sm leading-[1.75] transition-all duration-150;
 
   &.btn--loading {
-    @apply animate-pulse;
+    @apply animate-pulse pointer-events-none;
   }
 
   &.btn--fullwidth {
