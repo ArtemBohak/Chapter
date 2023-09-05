@@ -1,10 +1,11 @@
 import { FC } from "react";
 
-import { IconEnum } from "@/src/components/Icon";
 import styles from "@/src/pages/RegisterPage/RegisterPage.module.scss";
+import { links } from "@/src/utils/links/links.types";
 
 import { AuthLink, Delimiter, AuthBy, BlockAuth } from "@/src/components";
 import { RegisterForm } from "@/src/pages/RegisterPage/components";
+import { IconEnum } from "@/src/components/Icon";
 
 const RegisterPage: FC = () => (
   <BlockAuth
@@ -25,7 +26,7 @@ const RegisterPage: FC = () => (
       <AuthLink
         textMsg="Already have an account ?"
         linkMsg="Log in"
-        link="/login"
+        link={links.LOG_IN}
       />
     </div>
   </BlockAuth>

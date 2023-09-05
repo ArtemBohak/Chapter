@@ -1,7 +1,7 @@
 .header {
-  @apply absolute top-0 left-0 right-0 py-2 md:pt-10 md:pb-1;
+  @apply fixed top-0 left-0 right-0;
 
   & &__container {
-    @apply max-w-[1808px] w-full px-[24px] mx-auto;
+    @apply max-w-[1808px] w-full px-[24px] py-[24px] laptop:pt-[70px] laptop:px-[80px];
   }
 }

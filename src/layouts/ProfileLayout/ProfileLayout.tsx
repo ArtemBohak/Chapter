@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { Navigate, Outlet } from "react-router-dom";
+import { links } from "@/src/utils/links/links.types";
 
 import { ProfileHeader, SidebarNavigation } from "./components";
 import { NavigationTogglerProvider } from "src/context/NavigationToggler";
@@ -10,7 +11,7 @@ const ProfileLayout: FC = () => {
   const isAuthenticated = true;
 
   if (!isAuthenticated) {
-    return <Navigate to="/" />;
+    return <Navigate to={links.WELCOME} />;
   }
 
   return (

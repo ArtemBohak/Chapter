@@ -1,7 +1,7 @@
-import { FC } from "react";
+import { FC, ChangeEvent } from "react";
 import { Link } from "react-router-dom";
 import cn from "classnames";
-import { Field, ErrorMessage, useField } from "formik";
+import { Field, ErrorMessage, useField, useFormikContext } from "formik";
 
 import { Icon, IconEnum } from "@/src/components/Icon";
 
@@ -20,9 +20,12 @@ const TextField: FC<TextFieldProps> = ({
   showSuccessIcon = false,
   dataAutomation,
   helperLink,
+  customErrorMessage,
+  onChange,
   ...props
 }) => {
   const [field, meta] = useField(name);
+  const { setFieldValue } = useFormikContext();
 
   const isSuccessValidation = meta.touched && !meta.error;
   const isErrorValidation = meta.touched && meta.error;
@@ -30,6 +33,11 @@ const TextField: FC<TextFieldProps> = ({
   const validationClassname = cn({
     "text-field--has-error": isErrorValidation,
   });
+
+  const onHandleChangeField = (event: ChangeEvent<HTMLInputElement>) => {
+    setFieldValue(field.name, event.target.value);
+    onChange && onChange(event);
+  };
 
   return (
     <div className={cn("text-field", validationClassname, className)}>
@@ -45,6 +53,7 @@ const TextField: FC<TextFieldProps> = ({
             value={value}
             defaultValue={defaultValue}
             className={"text-field__input"}
+            onChange={onHandleChangeField}
           />
           {showSuccessIcon && isSuccessValidation ? (
             <Icon icon={IconEnum.Ok} size={20} className="text-field__icon" />
@@ -63,6 +72,11 @@ const TextField: FC<TextFieldProps> = ({
           <Link to={helperLink.href} className="text-field__helper-link">
             {helperLink.text}
           </Link>
+        ) : null}
+        {customErrorMessage ? (
+          <p className="text-field__custom-error-message">
+            {customErrorMessage}
+          </p>
         ) : null}
       </div>
     </div>
