@@ -15,7 +15,7 @@ import OAuthApi from "../OAuthApi";
 const useOAuth = ({
   type,
   googleUxMode = "redirect",
-  url = "/",
+  url = "/account-creation/",
 }: UseOAuthProps) => {
   const {
     authCode,
