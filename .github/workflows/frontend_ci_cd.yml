@@ -1,0 +1,12 @@
+name: Chapter Frontend CI/CD
+
+on:
+  push:
+    branches: [ "dev" ]
+
+jobs:
+  build-and-deploy:
+    uses: DenysHalkin/chapter-github-templates/blob/main/.github/workflows/frontend_ci_cd.yml@main
+    with:
+      ENVIRONMENT: dev
+    secrets: inherit
