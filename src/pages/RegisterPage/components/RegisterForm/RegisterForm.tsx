@@ -5,8 +5,9 @@ import cn from "classnames";
 
 import RegisterFormApi from "./RegisterFormApi";
 import {
+  type RegisterFormProps,
   IRegisterAccount,
-  RegisterFormProps,
+  ErrorMessage,
   Steps,
   RegisterAccountKey,
 } from "./RegisterForm.type";
@@ -34,23 +35,20 @@ const RegisterForm: FC<RegisterFormProps> = ({ className, ...props }) => {
     resetForm: () => void
   ) => {
     if (step === Steps.SECOND) {
-      const response = await RegisterFormApi.fetchOTPCode({ hash });
+      const response = await RegisterFormApi.fetchUserRegData({ hash });
 
       if (response.status === 404)
-        return setFieldError(RegisterAccountKey.HASH, "Invalid sign up code");
+        return setFieldError(RegisterAccountKey.HASH, ErrorMessage.HASH);
 
-      return navigate(`/account-creation/${response.id}`);
+      return navigate(`/auth/account-creation/${response.id}`);
       resetForm();
     }
-    const response = await RegisterFormApi.fetchNewUserEmail({ email });
+    const response = await RegisterFormApi.fetchUserRegData({ email });
 
     if (response?.status === 422)
-      return setFieldError(
-        RegisterAccountKey.EMAIL,
-        "Email address is already in use."
-      );
+      return setFieldError(RegisterAccountKey.EMAIL, ErrorMessage.EMAIL);
 
-    setStep((state) => (state += Steps.FIRST));
+    setStep(step + 1);
   };
 
   const renderNextStep = (value: string) =>
