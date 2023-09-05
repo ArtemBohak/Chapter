@@ -37,11 +37,7 @@ const useOAuth = ({ type, googleUxMode = true }: UseOAuthProps) => {
           navigate,
         }).twitterDataHandler();
       }
-    })();
-  }, [authCode, navigate, setAuthCode, setSearchParams, state, type]);
 
-  useEffect(() => {
-    (async () => {
       if (
         type === "facebook" &&
         authCode &&
@@ -54,11 +50,7 @@ const useOAuth = ({ type, googleUxMode = true }: UseOAuthProps) => {
           navigate,
         }).facebookDataHandler();
       }
-    })();
-  }, [authCode, navigate, setAuthCode, setSearchParams, state, type]);
 
-  useEffect(() => {
-    (async () => {
       if (
         type === "google" &&
         authCode &&
