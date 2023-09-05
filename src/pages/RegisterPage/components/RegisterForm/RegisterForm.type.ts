@@ -24,6 +24,7 @@ export interface IRegisterAccount {
 
 export type ErrorResponse = {
   status: number;
+  error: string;
 };
 
 export type ApiArgs = {

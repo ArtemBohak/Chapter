@@ -35,17 +35,20 @@ const RegisterForm: FC<RegisterFormProps> = ({ className, ...props }) => {
     resetForm: () => void
   ) => {
     if (step === Steps.SECOND) {
-      const response = await RegisterFormApi.fetchUserRegData({ hash });
+      const { status, user } = await RegisterFormApi.fetchUserRegData({ hash });
 
-      if (response.status === 404)
+      if (status === 404)
         return setFieldError(RegisterAccountKey.HASH, ErrorMessage.HASH);
 
-      return navigate(`/auth/account-creation/${response.id}`);
+      return navigate(`/auth/account-creation/${user.id}`);
       resetForm();
     }
-    const response = await RegisterFormApi.fetchUserRegData({ email });
+    const { error, status } = await RegisterFormApi.fetchUserRegData({ email });
 
-    if (response?.status === 422)
+    if (RegisterFormApi.formatErrorResponse(error) === "inactive")
+      return setStep(step + 1);
+
+    if (status === 422)
       return setFieldError(RegisterAccountKey.EMAIL, ErrorMessage.EMAIL);
 
     setStep(step + 1);
