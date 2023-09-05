@@ -1,6 +1,8 @@
 import { FC } from "react";
 import cn from "classnames";
 import { NavLink } from "react-router-dom";
+import { links } from "@/src/utils/links/links.types";
+
 import { useNavigationToggler } from "@/src/context/NavigationToggler";
 import { ProfileNavigation } from "../ProfileNavigation";
 import styles from "./SidebarNavigation.module.scss";
@@ -13,7 +15,7 @@ const SidebarNavigation: FC = () => {
         [styles["active"]]: isActiveMenu,
       })}
     >
-      <NavLink to="/feed" className={styles["sidebar-navigation__logo"]}>
+      <NavLink to={links.FEED} className={styles["sidebar-navigation__logo"]}>
         <img src="https://i.postimg.cc/0jD0P9kw/Chapter.webp" alt="Chapter" />
       </NavLink>
       <ProfileNavigation />

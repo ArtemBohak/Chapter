@@ -6,6 +6,7 @@ import { AuthBy, AuthLink, Delimiter } from "@/src/components";
 import { IconEnum } from "@/src/components/Icon";
 
 import styles from "./LoginPage.module.scss";
+import { links } from "@/src/utils/links/links.types";
 
 const LoginPage: FC = () => {
   return (
@@ -23,7 +24,7 @@ const LoginPage: FC = () => {
         <AuthLink
           textMsg="You don`t have an account ?"
           linkMsg="Sign up"
-          link="/register"
+          link={links.SIGN_UP}
         />
       </div>
     </BlockAuth>

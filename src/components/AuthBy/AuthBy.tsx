@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import cn from "classnames";
 
-import { type AuthByProps } from "@/src/components/AuthBy";
+import { type AuthByProps } from "./AuthBy.type";
 import styles from "./AuthBy.module.scss";
 
 import { Icon } from "@/src/components/Icon";
