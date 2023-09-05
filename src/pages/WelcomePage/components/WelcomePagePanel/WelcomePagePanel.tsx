@@ -21,7 +21,7 @@ const WelcomePagePanel: FC = () => {
             dataAutomation="navigationButton"
             href={links.SIGN_UP}
           >
-            Sign updfdsfsdf
+            Sign up
           </UIbutton>
           <UIbutton
             size="large"
