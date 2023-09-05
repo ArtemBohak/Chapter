@@ -4,17 +4,19 @@ import FacebookLogin from "@greatsumini/react-facebook-login";
 import { useOAuth } from "./hooks";
 import { type OAuthProps } from "./OAuth.type";
 
+import { UIbutton } from "@/src/components/Buttons";
 import { Icon } from "@/src/components/Icon";
 import { IconEnum } from "@/src/components/Icon";
 
 const OAuth: FC<OAuthProps> = ({
   type,
+  text = "Enter with",
   size = 24,
-  className,
-  url,
+
   facebookUxMode = true,
   googleUxMode,
-  dataAutomation = "authButton",
+  dataAutomation = "oAuthButton",
+  className,
 }) => {
   const {
     twitterUrl,
@@ -22,17 +24,23 @@ const OAuth: FC<OAuthProps> = ({
     onFacebookOauthFail,
     currentLocation,
     googleOAuthLogin,
-  } = useOAuth({ type, url, googleUxMode });
+  } = useOAuth({ type, googleUxMode });
 
   if (type === "google")
     return (
-      <button
+      <UIbutton
         className={className}
         onClick={() => googleOAuthLogin()}
-        data-automation={dataAutomation}
+        dataAutomation={dataAutomation}
+        fullWidth
+        variant="outlined"
+        color="secondary"
       >
         <Icon icon={IconEnum.Google} size={size} />
-      </button>
+        <span>
+          {text} {type}
+        </span>
+      </UIbutton>
     );
 
   if (type === "facebook")
@@ -50,13 +58,19 @@ const OAuth: FC<OAuthProps> = ({
         }}
         render={(renderProps) => {
           return (
-            <button
+            <UIbutton
               className={className}
               onClick={renderProps.onClick}
-              data-automation={dataAutomation}
+              dataAutomation={dataAutomation}
+              fullWidth
+              variant="outlined"
+              color="secondary"
             >
               <Icon icon={IconEnum.Facebook} size={size} />
-            </button>
+              <span>
+                {text} {type}
+              </span>
+            </UIbutton>
           );
         }}
       />
@@ -64,13 +78,19 @@ const OAuth: FC<OAuthProps> = ({
 
   if (type === "twitter")
     return (
-      <button
+      <UIbutton
         className={className}
         onClick={() => window.location.replace(twitterUrl)}
-        data-automation={dataAutomation}
+        dataAutomation={dataAutomation}
+        fullWidth
+        variant="outlined"
+        color="secondary"
       >
         <Icon icon={IconEnum.Twitter} size={size} />
-      </button>
+        <span>
+          {text} {type}
+        </span>
+      </UIbutton>
     );
 };
 

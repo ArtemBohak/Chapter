@@ -16,12 +16,12 @@ const {
 } = import.meta.env;
 
 class OAuthApi {
-  protected redirectUri: string;
-  protected token: string;
+  protected redirectUri: string | undefined;
+  protected token: string | undefined;
   protected googleOAuthGrandType = "authorization_code";
   protected googleClientId = VITE_GOOGLE_CLIENT_ID;
   protected googleClientSecret = VITE_GOOGLE_CLIENT_SECRET;
-  protected url: string;
+  protected url: [string, string];
   protected setSearchParams: SetURLSearchParams | null;
   protected setAuthCode: ((data: string) => void) | null;
   protected navigate: (data: string) => void;
@@ -54,19 +54,23 @@ class OAuthApi {
   }
 
   constructor({
-    redirectUri = "",
-    url = "",
-    token = "",
+    redirectUri,
+    token,
     setSearchParams = null,
     setAuthCode = null,
     navigate,
   }: IOAuthApiType) {
     this.redirectUri = redirectUri;
     this.token = token;
-    this.url = url;
+    this.url = ["/auth/account-creation", "/feed"];
     this.setSearchParams = setSearchParams;
     this.setAuthCode = setAuthCode;
     this.navigate = navigate;
+  }
+
+  getRedirectUserUrl(hasNickName: boolean, id?: number) {
+    const [accountCreate, feed] = this.url;
+    return hasNickName ? feed : accountCreate + "/" + id;
   }
 
   async getGoogleAuthCode() {
@@ -85,13 +89,15 @@ class OAuthApi {
     try {
       const cred = await this.getGoogleAuthCode();
 
-      const response = await OAuthApi.googleApi({
+      const { data } = await OAuthApi.googleApi({
         googleIdToken: cred.data.id_token,
       });
 
-      console.log(response.data);
+      console.log(data);
+      if (data.user.nickName)
+        return this.navigate(this.getRedirectUserUrl(true));
 
-      this.navigate(this.url);
+      this.navigate(this.getRedirectUserUrl(false, data.user.id));
     } catch (error) {
       console.log(error);
     } finally {
@@ -101,11 +107,14 @@ class OAuthApi {
 
   async facebookDataHandler() {
     try {
-      const response = await OAuthApi.facebookApi({
+      const { data } = await OAuthApi.facebookApi({
         facebookAccessToken: this.token,
       });
-      console.log(response.data);
-      this.navigate(this.url);
+      console.log(data);
+      if (data.user.nickName)
+        return this.navigate(this.getRedirectUserUrl(true));
+
+      this.navigate(this.getRedirectUserUrl(false, data.user.id));
     } catch (error) {
       console.log(error);
     } finally {
@@ -116,7 +125,7 @@ class OAuthApi {
   async twitterDataHandler() {
     try {
       console.log("POST auth/twitter/login => ", this.token);
-      this.navigate(this.url);
+      this.navigate("/");
     } catch (error) {
       console.log(error);
     } finally {

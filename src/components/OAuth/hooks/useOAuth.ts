@@ -12,11 +12,7 @@ import useGetOAthUrlParams from "./useGetOAuthUrlParams";
 
 import OAuthApi from "../OAuthApi";
 
-const useOAuth = ({
-  type,
-  googleUxMode = "redirect",
-  url = "/account-creation/",
-}: UseOAuthProps) => {
+const useOAuth = ({ type, googleUxMode = true }: UseOAuthProps) => {
   const {
     authCode,
     state,
@@ -36,14 +32,13 @@ const useOAuth = ({
       ) {
         new OAuthApi({
           token: authCode,
-          url,
           setSearchParams,
           setAuthCode,
           navigate,
         }).twitterDataHandler();
       }
     })();
-  }, [authCode, navigate, setAuthCode, setSearchParams, state, type, url]);
+  }, [authCode, navigate, setAuthCode, setSearchParams, state, type]);
 
   useEffect(() => {
     (async () => {
@@ -54,14 +49,13 @@ const useOAuth = ({
       ) {
         new OAuthApi({
           token: authCode,
-          url,
           setSearchParams,
           setAuthCode,
           navigate,
         }).facebookDataHandler();
       }
     })();
-  }, [authCode, navigate, setAuthCode, setSearchParams, state, type, url]);
+  }, [authCode, navigate, setAuthCode, setSearchParams, state, type]);
 
   useEffect(() => {
     (async () => {
@@ -73,7 +67,6 @@ const useOAuth = ({
         new OAuthApi({
           token: authCode,
           redirectUri: currentLocation,
-          url,
           setSearchParams,
           setAuthCode,
           navigate,
@@ -88,13 +81,11 @@ const useOAuth = ({
     setSearchParams,
     state,
     type,
-    url,
   ]);
 
   const onFacebookOauthSuccess = async (codeResponse: SuccessResponse) => {
     new OAuthApi({
       token: codeResponse.accessToken,
-      url,
       navigate,
     }).facebookDataHandler();
   };
@@ -109,7 +100,7 @@ const useOAuth = ({
 
   const googleOAuthLogin = useGoogleLogin({
     flow: "auth-code",
-    ux_mode: googleUxMode,
+    ux_mode: googleUxMode ? "redirect" : "popup",
     redirect_uri: currentLocation,
     state: import.meta.env.VITE_GOOGLE_STATE,
     onSuccess: async (codeResponse) => {
@@ -117,7 +108,6 @@ const useOAuth = ({
         new OAuthApi({
           token: codeResponse.code,
           redirectUri: import.meta.env.VITE_GOOGLE_REDIRECT_URI,
-          url,
           navigate,
         }).googleDataHandler();
       }

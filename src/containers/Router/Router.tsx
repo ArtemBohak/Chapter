@@ -32,7 +32,7 @@ const router = createBrowserRouter([
             element: <RegisterPage />,
           },
           {
-            path: "account-creation",
+            path: "account-creation/:id",
             element: <AccountCreationPage />,
           },
           {

@@ -71,6 +71,23 @@
     @apply bg-transparent text-primary;
   }
 
+  &.btn--secondary.btn--outlined {
+    @apply border-2 border-solid border-grey-1000 text-black;
+
+    &:active,
+    &:hover {
+      @apply bg-white;
+    }
+
+    &:disabled {
+      @apply bg-grey-1010 text-white border-transparent;
+    }
+  }
+
+  &.btn--secondary.btn--text {
+    @apply bg-transparent text-black;
+  }
+
   > svg,
   &.btn__icon {
     @apply w-[32px] mr-[10px];

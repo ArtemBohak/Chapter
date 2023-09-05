@@ -3,18 +3,19 @@ import { SetURLSearchParams } from "react-router-dom";
 export enum OAuthApiEndPoints {
   GOOGLE_TOKEN = "/token",
 }
+export type OAuthResponse = { data: { id_token?: string } };
 
 export type OAuthProps = {
   className?: string;
+  text?: string;
   size?: number;
-  url?: string;
   facebookUxMode?: boolean;
-  googleUxMode?: "popup" | "redirect";
+  googleUxMode?: boolean;
   type: "facebook" | "google" | "twitter";
   dataAutomation?: string;
 };
 
-export type UseOAuthProps = Pick<OAuthProps, "url" | "googleUxMode" | "type">;
+export type UseOAuthProps = Pick<OAuthProps, "googleUxMode" | "type">;
 
 export type ApiDataArgs = {
   facebookAccessToken?: string;
@@ -22,8 +23,6 @@ export type ApiDataArgs = {
   redirectUri?: string;
   googleCode?: string;
 };
-
-export type OAuthResponse = { data: { id_token?: string } };
 
 export type ErrorResponse = {
   error: string;
@@ -35,7 +34,6 @@ export type ErrorResponse = {
 export interface IOAuthApiType {
   redirectUri?: string;
   token?: string;
-  url: string;
   setSearchParams?: SetURLSearchParams | null;
   setAuthCode?: ((data: string) => void) | null;
   navigate: (data: string) => void;

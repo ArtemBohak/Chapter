@@ -29,6 +29,7 @@ const AuthBy: FC<AuthByProps> = ({
             </li>
           ))}
         </ul>
+        <div className={styles["oauth-container"]}></div>
       </div>
     </GoogleOAuthProvider>
   );
