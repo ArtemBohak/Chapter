@@ -1,3 +1,5 @@
+import React from "react";
+
 export enum RegisterAccountKey {
   EMAIL = "email",
   HASH = "hash",
@@ -30,4 +32,5 @@ export type ErrorResponse = {
 export type ApiArgs = {
   email?: string;
   hash?: string;
+  setErr: React.Dispatch<React.SetStateAction<string | null>>;
 };

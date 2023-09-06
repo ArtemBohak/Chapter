@@ -24,10 +24,14 @@ const initialValues: IRegisterAccount = {
 
 const RegisterForm: FC<RegisterFormProps> = ({ className, ...props }) => {
   const [step, setStep] = useState(Steps.FIRST);
+
+  const [err, setErr] = useState(null);
   const navigate = useNavigate();
 
   const schemaTypeValidation = step > Steps.FIRST;
   const isDisabled = step > Steps.FIRST;
+
+  console.log(err);
 
   const onHandleSubmit = async (
     { email, hash }: IRegisterAccount,
@@ -35,15 +39,20 @@ const RegisterForm: FC<RegisterFormProps> = ({ className, ...props }) => {
     resetForm: () => void
   ) => {
     if (step === Steps.SECOND) {
-      const { status, user } = await RegisterFormApi.fetchUserRegData({ hash });
-
+      const { status, id } = await RegisterFormApi.fetchUserRegData({
+        hash,
+        setErr,
+      });
       if (status === 404)
         return setFieldError(RegisterAccountKey.HASH, ErrorMessage.HASH);
 
-      return navigate(`/auth/account-creation/${user.id}`);
+      return navigate(`/auth/account-creation/${id}`);
       resetForm();
     }
-    const { error, status } = await RegisterFormApi.fetchUserRegData({ email });
+    const { error, status } = await RegisterFormApi.fetchUserRegData({
+      email,
+      setErr,
+    });
 
     if (
       status === 422 &&

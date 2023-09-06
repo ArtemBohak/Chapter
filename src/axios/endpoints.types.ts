@@ -4,7 +4,7 @@ export enum EndpointsEnum {
   FILES = "files/",
   LOGIN = "auth/email/login",
   ADMIN_LOGIN = "auth/admin/email/login",
-  REGISTRATION = "auth/email/register",
+  REGISTRATION = "auth/email/registe",
   REGISTRATION_FINALY = "auth/email/register/finaly",
   CONFIRM = "auth/email/confirm",
   FORGOT_PASSWORD = "auth/forgot/password",

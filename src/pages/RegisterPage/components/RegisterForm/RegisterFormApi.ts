@@ -1,12 +1,13 @@
 import api from "@/src/axios/api";
-import axios from "axios";
+import { AxiosError } from "axios";
 
 import { EndpointsEnum } from "@/src/axios/endpoints.types";
-import { type ErrorResponse, type ApiArgs } from "./RegisterForm.type";
+import { type ApiArgs } from "./RegisterForm.type";
 
 class RegisterFormApi {
-  static async fetchUserRegData({ email, hash }: ApiArgs) {
+  static async fetchUserRegData({ email, hash, setErr }: ApiArgs) {
     try {
+      setErr(null);
       if (email) {
         return await api.post(EndpointsEnum.REGISTRATION, {
           email,
@@ -18,8 +19,21 @@ class RegisterFormApi {
 
       return response.data;
     } catch (error) {
-      if (axios.isAxiosError(error) && error.response)
-        return error.response.data as ErrorResponse;
+      console.log(error);
+      if (error instanceof AxiosError && error.response) {
+        console.log(
+          RegisterFormApi.formatErrorResponse(error.response.data.error)
+        );
+        return error.response.data;
+      }
+
+      if (
+        error instanceof AxiosError &&
+        error.response &&
+        error.response.data.error.statusCode >= 500
+      ) {
+        console.log(error.response);
+      }
     }
   }
 
