@@ -9,10 +9,11 @@ import {
 
 import { type UseOAuthProps } from "../OAuth.type";
 import useGetOAthUrlParams from "./useGetOAuthUrlParams";
+import { cookieParser } from "../helpers";
 
 import OAuthApi from "../OAuthApi";
 
-const useOAuth = ({ type, googleUxMode = true }: UseOAuthProps) => {
+const useOAuth = ({ variant, googlePopupMode = false }: UseOAuthProps) => {
   const {
     authCode,
     state,
@@ -22,13 +23,16 @@ const useOAuth = ({ type, googleUxMode = true }: UseOAuthProps) => {
     twitterUrl,
   } = useGetOAthUrlParams();
   const navigate = useNavigate();
+  const stateId = cookieParser()
+    ? cookieParser("stateId")
+    : import.meta.env.VITE_BASE_OAUTH_STATE;
 
   useEffect(() => {
     (async () => {
       if (
-        type === "twitter" &&
+        variant === "twitter" &&
         authCode &&
-        state === import.meta.env.VITE_TWITTER_STATE
+        state === import.meta.env.VITE_TWITTER_STATE + stateId
       ) {
         new OAuthApi({
           token: authCode,
@@ -39,9 +43,9 @@ const useOAuth = ({ type, googleUxMode = true }: UseOAuthProps) => {
       }
 
       if (
-        type === "facebook" &&
+        variant === "facebook" &&
         authCode &&
-        state === import.meta.env.VITE_FACEBOOK_STATE
+        state === import.meta.env.VITE_FACEBOOK_STATE + stateId
       ) {
         new OAuthApi({
           token: authCode,
@@ -52,9 +56,9 @@ const useOAuth = ({ type, googleUxMode = true }: UseOAuthProps) => {
       }
 
       if (
-        type === "google" &&
+        variant === "google" &&
         authCode &&
-        state === import.meta.env.VITE_GOOGLE_STATE
+        state === import.meta.env.VITE_GOOGLE_STATE + stateId
       ) {
         new OAuthApi({
           token: authCode,
@@ -72,7 +76,8 @@ const useOAuth = ({ type, googleUxMode = true }: UseOAuthProps) => {
     setAuthCode,
     setSearchParams,
     state,
-    type,
+    stateId,
+    variant,
   ]);
 
   const onFacebookOauthSuccess = async (codeResponse: SuccessResponse) => {
@@ -92,11 +97,11 @@ const useOAuth = ({ type, googleUxMode = true }: UseOAuthProps) => {
 
   const googleOAuthLogin = useGoogleLogin({
     flow: "auth-code",
-    ux_mode: googleUxMode ? "redirect" : "popup",
+    ux_mode: googlePopupMode ? "popup" : "redirect",
     redirect_uri: currentLocation,
-    state: import.meta.env.VITE_GOOGLE_STATE,
+    state: import.meta.env.VITE_GOOGLE_STATE + stateId,
     onSuccess: async (codeResponse) => {
-      if (codeResponse.state === import.meta.env.VITE_GOOGLE_STATE) {
+      if (codeResponse.state === import.meta.env.VITE_GOOGLE_STATE + stateId) {
         new OAuthApi({
           token: codeResponse.code,
           redirectUri: import.meta.env.VITE_GOOGLE_REDIRECT_URI,

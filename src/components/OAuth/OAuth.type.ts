@@ -9,13 +9,13 @@ export type OAuthProps = {
   className?: string;
   text?: string;
   size?: number;
-  facebookUxMode?: boolean;
-  googleUxMode?: boolean;
-  type: "facebook" | "google" | "twitter";
+  facebookPopupMode?: boolean;
+  googlePopupMode?: boolean;
+  variant: "facebook" | "google" | "twitter";
   dataAutomation?: string;
 };
 
-export type UseOAuthProps = Pick<OAuthProps, "googleUxMode" | "type">;
+export type UseOAuthProps = Pick<OAuthProps, "googlePopupMode" | "variant">;
 
 export type ApiDataArgs = {
   facebookAccessToken?: string;

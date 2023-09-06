@@ -38,12 +38,12 @@ class OAuthApi {
     });
   }
 
-  static getTwitterOAuthUrl(redirectUri: string) {
+  static getTwitterOAuthUrl(redirectUri: string, stateId: string) {
     const rootUrl = import.meta.env.VITE_TWITTER__AUTH_CODE_BASE_URL;
     const options = {
       redirect_uri: redirectUri,
       client_id: VITE_TWITTER_CLIENT_ID,
-      state: VITE_TWITTER_STATE,
+      state: VITE_TWITTER_STATE + stateId,
       response_type: "code",
       code_challenge: VITE_TWITTER_CODE_VERIFIER,
       code_challenge_method: "plain",
@@ -97,7 +97,7 @@ class OAuthApi {
       if (data.user.nickName)
         return this.navigate(this.getRedirectUserUrl(true));
 
-      this.navigate(this.getRedirectUserUrl(false, data.user.id));
+      // this.navigate(this.getRedirectUserUrl(false, data.user.id));
     } catch (error) {
       console.log(error);
     } finally {
@@ -114,7 +114,7 @@ class OAuthApi {
       if (data.user.nickName)
         return this.navigate(this.getRedirectUserUrl(true));
 
-      this.navigate(this.getRedirectUserUrl(false, data.user.id));
+      // this.navigate(this.getRedirectUserUrl(false, data.user.id));
     } catch (error) {
       console.log(error);
     } finally {
@@ -125,7 +125,7 @@ class OAuthApi {
   async twitterDataHandler() {
     try {
       console.log("POST auth/twitter/login => ", this.token);
-      this.navigate("/");
+      // this.navigate("/");
     } catch (error) {
       console.log(error);
     } finally {

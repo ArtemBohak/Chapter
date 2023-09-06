@@ -1,19 +1,21 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import FacebookLogin from "@greatsumini/react-facebook-login";
 
 import { useOAuth } from "./hooks";
 import { type OAuthProps } from "./OAuth.type";
+import { cookieParser } from "./helpers";
 
 import { UIbutton } from "@/src/components/Buttons";
 import { Icon } from "@/src/components/Icon";
 import { IconEnum } from "@/src/components/Icon";
+import { nanoid } from "nanoid";
 
 const OAuth: FC<OAuthProps> = ({
-  type,
+  variant,
   text = "Enter with",
   size = 24,
-  facebookUxMode = true,
-  googleUxMode,
+  facebookPopupMode = false,
+  googlePopupMode,
   dataAutomation = "oAuthButton",
   className,
 }) => {
@@ -23,9 +25,17 @@ const OAuth: FC<OAuthProps> = ({
     onFacebookOauthFail,
     currentLocation,
     googleOAuthLogin,
-  } = useOAuth({ type, googleUxMode });
+  } = useOAuth({ variant, googlePopupMode });
 
-  if (type === "google")
+  const stateId = cookieParser()
+    ? cookieParser("stateId")
+    : import.meta.env.VITE_BASE_OAUTH_STATE;
+
+  useEffect(() => {
+    if (!cookieParser()) document.cookie = `stateId=${nanoid()}; max-age=3600`;
+  }, []);
+
+  if (variant === "google")
     return (
       <UIbutton
         className={className}
@@ -37,22 +47,22 @@ const OAuth: FC<OAuthProps> = ({
       >
         <Icon icon={IconEnum.Google} size={size} />
         <span>
-          {text} {type}
+          {text} {variant}
         </span>
       </UIbutton>
     );
 
-  if (type === "facebook")
+  if (variant === "facebook")
     return (
       <FacebookLogin
         appId={import.meta.env.VITE_FACEBOOK_APP_ID}
         autoLoad={false}
-        useRedirect={facebookUxMode}
+        useRedirect={!facebookPopupMode}
         fields="name,email,picture"
         onSuccess={onFacebookOauthSuccess}
         onFail={onFacebookOauthFail}
         dialogParams={{
-          state: import.meta.env.VITE_FACEBOOK_STATE,
+          state: import.meta.env.VITE_FACEBOOK_STATE + stateId,
           redirect_uri: currentLocation,
         }}
         render={(renderProps) => {
@@ -67,7 +77,7 @@ const OAuth: FC<OAuthProps> = ({
             >
               <Icon icon={IconEnum.Facebook} size={size} />
               <span>
-                {text} {type}
+                {text} {variant}
               </span>
             </UIbutton>
           );
@@ -75,7 +85,7 @@ const OAuth: FC<OAuthProps> = ({
       />
     );
 
-  if (type === "twitter")
+  if (variant === "twitter")
     return (
       <UIbutton
         className={className}
@@ -87,7 +97,7 @@ const OAuth: FC<OAuthProps> = ({
       >
         <Icon icon={IconEnum.Twitter} size={size} />
         <span>
-          {text} {type}
+          {text} {variant}
         </span>
       </UIbutton>
     );
