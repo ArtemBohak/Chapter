@@ -1,9 +1,9 @@
-import { googleOAuthApi, api, EndpointsEnum } from "@/src/axios";
 import { SetURLSearchParams } from "react-router-dom";
+import { googleOAuthApi, api, EndpointsEnum } from "@/src/axios";
 
 import {
   type ApiDataArgs,
-  IOAuthApiType,
+  OAuthApiArgs,
   OAuthApiEndPoints,
 } from "./OAuth.type";
 
@@ -18,21 +18,21 @@ const {
 class OAuthApi {
   protected redirectUri: string | undefined;
   protected token: string | undefined;
-  protected googleOAuthGrandType = "authorization_code";
-  protected googleClientId = VITE_GOOGLE_CLIENT_ID;
-  protected googleClientSecret = VITE_GOOGLE_CLIENT_SECRET;
   protected url: [string, string];
   protected setSearchParams: SetURLSearchParams | null;
   protected setAuthCode: ((data: string) => void) | null;
   protected navigate: (data: string) => void;
+  protected googleOAuthGrandType = "authorization_code";
+  protected googleClientId = VITE_GOOGLE_CLIENT_ID;
+  protected googleClientSecret = VITE_GOOGLE_CLIENT_SECRET;
 
-  static async facebookApi({ facebookAccessToken }: ApiDataArgs) {
+  protected static async facebookApi({ facebookAccessToken }: ApiDataArgs) {
     return api.post(EndpointsEnum.FACEBOOK_LOGIN, {
       accessToken: facebookAccessToken,
     });
   }
 
-  static async googleApi({ googleIdToken }: ApiDataArgs) {
+  protected static async googleApi({ googleIdToken }: ApiDataArgs) {
     return api.post(EndpointsEnum.GOOGLE_LOGIN, {
       idToken: googleIdToken,
     });
@@ -59,7 +59,7 @@ class OAuthApi {
     setSearchParams = null,
     setAuthCode = null,
     navigate,
-  }: IOAuthApiType) {
+  }: OAuthApiArgs) {
     this.redirectUri = redirectUri;
     this.token = token;
     this.url = ["/auth/account-creation", "/feed"];

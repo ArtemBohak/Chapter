@@ -31,10 +31,10 @@ export type ErrorResponse = {
   errors: { [key: string]: string };
 };
 
-export interface IOAuthApiType {
+export type OAuthApiArgs = {
   redirectUri?: string;
   token?: string;
   setSearchParams?: SetURLSearchParams | null;
   setAuthCode?: ((data: string) => void) | null;
   navigate: (data: string) => void;
-}
+};
