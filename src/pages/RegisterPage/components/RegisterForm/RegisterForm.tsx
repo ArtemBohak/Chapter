@@ -6,7 +6,9 @@ import cn from "classnames";
 import RegisterFormApi from "./RegisterFormApi";
 import {
   type RegisterFormProps,
-  IRegisterAccount,
+  RegisterAccountValues,
+  SetFieldError,
+  ResetForm,
   ErrorMessage,
   Steps,
   RegisterAccountKey,
@@ -17,7 +19,7 @@ import styles from "./RegisterForm.module.scss";
 import { UIbutton, TextField } from "@/src/components";
 import FormNotification from "../FormNotification/FormNotification";
 
-const initialValues: IRegisterAccount = {
+const initialValues: RegisterAccountValues = {
   email: "",
   hash: "",
 };
@@ -25,33 +27,32 @@ const initialValues: IRegisterAccount = {
 const RegisterForm: FC<RegisterFormProps> = ({ className, ...props }) => {
   const [step, setStep] = useState(Steps.FIRST);
 
-  const [err, setErr] = useState(null);
   const navigate = useNavigate();
 
   const schemaTypeValidation = step > Steps.FIRST;
   const isDisabled = step > Steps.FIRST;
 
-  console.log(err);
-
-  const onHandleSubmit = async (
-    { email, hash }: IRegisterAccount,
-    setFieldError: (field: string, errorMsg: string) => void,
-    resetForm: () => void
+  const onHandleSubmit = async <
+    T extends RegisterAccountValues,
+    K extends SetFieldError,
+    N extends ResetForm,
+  >(
+    { email, hash }: T,
+    setFieldError: K,
+    resetForm: N
   ) => {
     if (step === Steps.SECOND) {
       const { status, id } = await RegisterFormApi.fetchUserRegData({
         hash,
-        setErr,
       });
-      if (status === 404)
-        return setFieldError(RegisterAccountKey.HASH, ErrorMessage.HASH);
 
-      return navigate(`/auth/account-creation/${id}`);
+      return status === 404
+        ? setFieldError(RegisterAccountKey.HASH, ErrorMessage.HASH)
+        : navigate(`/auth/account-creation/${id}`);
       resetForm();
     }
     const { error, status } = await RegisterFormApi.fetchUserRegData({
       email,
-      setErr,
     });
 
     if (
@@ -60,10 +61,9 @@ const RegisterForm: FC<RegisterFormProps> = ({ className, ...props }) => {
     )
       return setStep(step + 1);
 
-    if (status === 422)
-      return setFieldError(RegisterAccountKey.EMAIL, ErrorMessage.EMAIL);
-
-    setStep(step + 1);
+    return status === 422
+      ? setFieldError(RegisterAccountKey.EMAIL, ErrorMessage.EMAIL)
+      : setStep(step + 1);
   };
 
   const renderNextStep = (value: string) =>
@@ -85,7 +85,7 @@ const RegisterForm: FC<RegisterFormProps> = ({ className, ...props }) => {
       initialValues={initialValues}
       validationSchema={validationSchema(schemaTypeValidation)}
       onSubmit={async (
-        values: IRegisterAccount,
+        values: RegisterAccountValues,
         { setFieldError, setSubmitting, resetForm }
       ) => {
         await onHandleSubmit(values, setFieldError, resetForm);

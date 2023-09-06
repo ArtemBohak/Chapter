@@ -1,5 +1,3 @@
-import React from "react";
-
 export enum RegisterAccountKey {
   EMAIL = "email",
   HASH = "hash",
@@ -19,10 +17,14 @@ export type RegisterFormProps = {
   className?: string;
 };
 
-export interface IRegisterAccount {
+export type RegisterAccountValues = {
   [RegisterAccountKey.EMAIL]: string;
   [RegisterAccountKey.HASH]: string;
-}
+};
+
+export type SetFieldError = (field: string, errorMsg: string) => void;
+
+export type ResetForm = () => void;
 
 export type ErrorResponse = {
   status: number;
@@ -32,5 +34,4 @@ export type ErrorResponse = {
 export type ApiArgs = {
   email?: string;
   hash?: string;
-  setErr: React.Dispatch<React.SetStateAction<string | null>>;
 };

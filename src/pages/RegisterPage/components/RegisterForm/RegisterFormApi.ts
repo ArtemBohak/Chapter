@@ -5,9 +5,8 @@ import { EndpointsEnum } from "@/src/axios/endpoints.types";
 import { type ApiArgs } from "./RegisterForm.type";
 
 class RegisterFormApi {
-  static async fetchUserRegData({ email, hash, setErr }: ApiArgs) {
+  static async fetchUserRegData({ email, hash }: ApiArgs) {
     try {
-      setErr(null);
       if (email) {
         return await api.post(EndpointsEnum.REGISTRATION, {
           email,
@@ -19,33 +18,27 @@ class RegisterFormApi {
 
       return response.data;
     } catch (error) {
-      console.log(error);
-      if (error instanceof AxiosError && error.response) {
-        console.log(
-          RegisterFormApi.formatErrorResponse(error.response.data.error)
-        );
-        return error.response.data;
-      }
-
       if (
         error instanceof AxiosError &&
         error.response &&
-        error.response.data.error.statusCode >= 500
+        error.response.data.status < 500
       ) {
-        console.log(error.response);
+        return error.response.data;
+      } else {
+        return console.log(error);
       }
     }
   }
 
   static formatErrorResponse(
     message: string,
-    index = 1,
+    i = 1,
     firstDelimiter = ".",
     secondDelimiter = ":"
   ) {
     const [, formattedErrorMessage] = message
       .split(firstDelimiter)
-      [index].split(secondDelimiter);
+      [i].split(secondDelimiter);
 
     return formattedErrorMessage.toLowerCase();
   }
