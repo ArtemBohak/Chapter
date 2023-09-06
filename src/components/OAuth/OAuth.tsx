@@ -12,7 +12,6 @@ const OAuth: FC<OAuthProps> = ({
   type,
   text = "Enter with",
   size = 24,
-
   facebookUxMode = true,
   googleUxMode,
   dataAutomation = "oAuthButton",
