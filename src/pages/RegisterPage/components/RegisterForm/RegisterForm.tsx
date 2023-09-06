@@ -45,7 +45,10 @@ const RegisterForm: FC<RegisterFormProps> = ({ className, ...props }) => {
     }
     const { error, status } = await RegisterFormApi.fetchUserRegData({ email });
 
-    if (RegisterFormApi.formatErrorResponse(error) === "inactive")
+    if (
+      status === 422 &&
+      RegisterFormApi.formatErrorResponse(error) === "inactive"
+    )
       return setStep(step + 1);
 
     if (status === 422)
