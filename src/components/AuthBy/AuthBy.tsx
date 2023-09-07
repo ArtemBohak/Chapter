@@ -7,7 +7,6 @@ import { type AuthByProps } from "./AuthBy.type";
 import styles from "./AuthBy.module.scss";
 
 import { Icon } from "@/src/components/Icon";
-import { OAuth } from "../OAuth";
 
 const AuthBy: FC<AuthByProps> = ({
   socialLinks,
@@ -30,10 +29,7 @@ const AuthBy: FC<AuthByProps> = ({
             </li>
           ))}
         </ul>
-        <div className={styles["oauth-container"]}>
-          <OAuth variant="facebook" />
-          <OAuth variant="google" />
-        </div>
+        <div className={styles["oauth-container"]}></div>
       </div>
     </GoogleOAuthProvider>
   );
