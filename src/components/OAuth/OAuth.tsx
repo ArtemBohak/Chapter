@@ -1,4 +1,5 @@
 import { FC, useEffect } from "react";
+import { nanoid } from "nanoid";
 import FacebookLogin from "@greatsumini/react-facebook-login";
 
 import { useOAuth } from "./hooks";
@@ -8,7 +9,6 @@ import { cookieParser } from "./helpers";
 import { UIbutton } from "@/src/components/Buttons";
 import { Icon } from "@/src/components/Icon";
 import { IconEnum } from "@/src/components/Icon";
-import { nanoid } from "nanoid";
 
 const OAuth: FC<OAuthProps> = ({
   variant,
