@@ -4,6 +4,8 @@ import { useLocation, useSearchParams } from "react-router-dom";
 import OAuthApi from "../OAuthApi";
 import { cookieParser } from "../helpers";
 
+const { VITE_BASE_OAUTH_STATE } = import.meta.env;
+
 const useGetOAuthUrlParams = () => {
   const [authCode, setAuthCode] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
@@ -12,7 +14,7 @@ const useGetOAuthUrlParams = () => {
   const currentLocation = window.location.origin + location.pathname;
   const stateId = cookieParser()
     ? cookieParser("stateId")
-    : import.meta.env.VITE_BASE_OAUTH_STATE;
+    : VITE_BASE_OAUTH_STATE;
 
   const params = useMemo(
     () => Object.fromEntries([...searchParams]),

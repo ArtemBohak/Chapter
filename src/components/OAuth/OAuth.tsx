@@ -10,6 +10,13 @@ import { UIbutton } from "@/src/components/Buttons";
 import { Icon } from "@/src/components/Icon";
 import { IconEnum } from "@/src/components/Icon";
 
+const {
+  VITE_BASE_OAUTH_STATE,
+  VITE_STATE_ID_COOKIE_LIFETIME,
+  VITE_FACEBOOK_APP_ID,
+  VITE_FACEBOOK_STATE,
+} = import.meta.env;
+
 const OAuth: FC<OAuthProps> = ({
   variant,
   text = "Enter with",
@@ -20,22 +27,21 @@ const OAuth: FC<OAuthProps> = ({
   className,
 }) => {
   const {
+    currentLocation,
     twitterUrl,
     onFacebookOauthSuccess,
     onFacebookOauthFail,
-    currentLocation,
     googleOAuthLogin,
   } = useOAuth({ variant, googlePopupMode });
 
   const stateId = cookieParser()
     ? cookieParser("stateId")
-    : import.meta.env.VITE_BASE_OAUTH_STATE;
+    : VITE_BASE_OAUTH_STATE;
 
   useEffect(() => {
-    if (!cookieParser())
-      document.cookie = `stateId=${nanoid()}; max-age=${
-        import.meta.env.VITE_STATE_ID_COOKIE_LIFETIME
-      }`;
+    if (!cookieParser()) {
+      document.cookie = `stateId=${nanoid()}; path=/; max-age=${VITE_STATE_ID_COOKIE_LIFETIME};`;
+    }
   }, []);
 
   if (variant === "google")
@@ -58,14 +64,14 @@ const OAuth: FC<OAuthProps> = ({
   if (variant === "facebook")
     return (
       <FacebookLogin
-        appId={import.meta.env.VITE_FACEBOOK_APP_ID}
+        appId={VITE_FACEBOOK_APP_ID}
         autoLoad={false}
         useRedirect={!facebookPopupMode}
         fields="name,email,picture"
         onSuccess={onFacebookOauthSuccess}
         onFail={onFacebookOauthFail}
         dialogParams={{
-          state: import.meta.env.VITE_FACEBOOK_STATE + stateId,
+          state: VITE_FACEBOOK_STATE + stateId,
           redirect_uri: currentLocation,
         }}
         render={(renderProps) => {
