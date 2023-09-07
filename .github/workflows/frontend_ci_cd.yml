@@ -8,7 +8,7 @@ jobs:
   build-and-deploy:
     uses: DenysHalkin/chapter-github-templates/.github/workflows/frontend_ci_cd.yml@main
     with:
-      ENVIRONMENT: dev
+      ENVIRONMENT: ${{ github.ref_name }}
     secrets:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
