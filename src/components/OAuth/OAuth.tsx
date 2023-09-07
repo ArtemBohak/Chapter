@@ -32,7 +32,8 @@ const OAuth: FC<OAuthProps> = ({
     : import.meta.env.VITE_BASE_OAUTH_STATE;
 
   useEffect(() => {
-    if (!cookieParser()) document.cookie = `stateId=${nanoid()}; max-age=3600`;
+    if (!cookieParser())
+      document.cookie = `stateId=${nanoid()}; max-age=${60 * 60 * 24}`;
   }, []);
 
   if (variant === "google")

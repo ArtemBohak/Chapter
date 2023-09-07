@@ -97,7 +97,7 @@ class OAuthApi {
       if (data.user.nickName)
         return this.navigate(this.getRedirectUserUrl(true));
 
-      // this.navigate(this.getRedirectUserUrl(false, data.user.id));
+      this.navigate(this.getRedirectUserUrl(false, data.user.id));
     } catch (error) {
       console.log(error);
     } finally {
@@ -114,7 +114,7 @@ class OAuthApi {
       if (data.user.nickName)
         return this.navigate(this.getRedirectUserUrl(true));
 
-      // this.navigate(this.getRedirectUserUrl(false, data.user.id));
+      this.navigate(this.getRedirectUserUrl(false, data.user.id));
     } catch (error) {
       console.log(error);
     } finally {
@@ -125,7 +125,7 @@ class OAuthApi {
   async twitterDataHandler() {
     try {
       console.log("POST auth/twitter/login => ", this.token);
-      // this.navigate("/");
+      this.navigate("/");
     } catch (error) {
       console.log(error);
     } finally {
