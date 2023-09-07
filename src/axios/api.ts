@@ -38,10 +38,9 @@ api.interceptors.response.use(
       error.config._isRetry = true;
       try {
         const response = await TokenService.refreshToken();
-        const { token, refreshToken } = await response.data;
+        const { token } = await response.data;
 
         localStorage.setItem("token", token);
-        localStorage.setItem("refreshToken", refreshToken);
 
         return api.request(originalRequest);
       } catch (e) {

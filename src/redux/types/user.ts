@@ -15,17 +15,14 @@ export interface IUserStore {
   photo?: string | null;
   role: IUserRole;
   status: IUserStatus;
-  __entity: string;
 }
 
 export interface IUserRole {
   id: number;
   name: string;
-  __entity: string;
 }
 
 export interface IUserStatus {
   id: number;
   name: string;
-  __entity: string;
 }

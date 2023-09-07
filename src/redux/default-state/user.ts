@@ -16,12 +16,9 @@ export const defaultUserState: IUserStore = {
   role: {
     id: 0,
     name: "",
-    __entity: "",
   },
   status: {
     id: 0,
     name: "",
-    __entity: "",
   },
-  __entity: "",
 };

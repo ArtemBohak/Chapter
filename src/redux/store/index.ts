@@ -1,5 +1,4 @@
 import { combineReducers } from "redux";
-import thunk from "redux-thunk";
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 
 import { userSlice } from "../slices";
@@ -11,8 +10,6 @@ const rootReducer = combineReducers({
 export const makeStore = () =>
   configureStore({
     reducer: rootReducer,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
-    devTools: true,
   });
 
 export type AppStore = ReturnType<typeof makeStore>;

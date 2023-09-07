@@ -19,13 +19,13 @@ import { useAppSelector } from "@/src/redux/hooks";
 
 const ProfileHeader: FC = () => {
   const { isActiveMenu, setIsActiveMenu } = useNavigationToggler();
-  const userSlice = useAppSelector((store) => store.userSlice);
+  const { loading, user } = useAppSelector((store) => store.userSlice);
+  const { firstName, lastName, avatarUrl } = user;
+
   const defaultUserAvatar = "https://i.postimg.cc/LX0WVXCB/Follow-web-1.webp";
 
   const getUserAvatar = () => {
-    return userSlice.loading
-      ? defaultUserAvatar
-      : userSlice.user.avatarUrl || defaultUserAvatar;
+    return loading ? defaultUserAvatar : avatarUrl || defaultUserAvatar;
   };
 
   return (
@@ -78,7 +78,7 @@ const ProfileHeader: FC = () => {
           </UIbutton>
           <UserAvatar
             src={getUserAvatar()}
-            alt={`${userSlice.user.firstName} ${userSlice.user.lastName}`}
+            alt={`${firstName} ${lastName}`}
             className={cn(styles["profile-header__user-avatar"])}
           />
           <UIbutton

@@ -11,8 +11,8 @@ export interface IUserState {
   isAuth: boolean;
 }
 
-export const isAuthUser = createAsyncThunk<IUserStore | null>(
-  `${import.meta.env.VITE_REACT_API_URL}`,
+export const fetchIsAuthUser = createAsyncThunk<IUserStore>(
+  "user/fetchIsAuthUser",
   async () => {
     const response = await api.get(`${EndpointsEnum.PROFILE}`);
     return await response.data;
@@ -32,20 +32,19 @@ export const userSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(isAuthUser.pending, (state) => {
+      .addCase(fetchIsAuthUser.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(isAuthUser.fulfilled, (state, action) => {
-        if (action.payload) {
-          state.user = action.payload;
-          state.isAuth = true;
-        }
+      .addCase(fetchIsAuthUser.fulfilled, (state, action) => {
+        state.user = action.payload;
+        state.isAuth = true;
         state.loading = false;
         state.error = null;
       })
-      .addCase(isAuthUser.rejected, (state) => {
+      .addCase(fetchIsAuthUser.rejected, (state, action) => {
         state.loading = false;
+        state.error = action.error.message;
       });
   },
 });
