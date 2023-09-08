@@ -3,11 +3,38 @@ import { FC } from "react";
 import { UIbutton } from "@/src/components";
 import { IconEnum } from "@/src/components/Icon";
 import CookiesToaster from "@/src/components/CookiesToaster/CookiesToaster";
+import { Link } from "react-router-dom";
+import { links } from "@/src/utils/links/links.types";
 
 const UIPage: FC = () => {
   return (
- 
     <div className="pt-[130px] pb-[100px]">
+      <ul className="flex gap-3 justify-center flex-wrap  p-2 text-lg border-2 bg-gray-300">
+        <li>
+          <Link to={links.WELCOME}>Welcome</Link>
+        </li>
+        <li>
+          <Link to={links.SIGN_UP}>Sign Up</Link>
+        </li>
+        <li>
+          <Link to={links.ACCOUNT_CREATION}>Account creation</Link>
+        </li>
+        <li>
+          <Link to={links.LOG_IN}>Login</Link>
+        </li>
+        <li>
+          <Link to={links.FORGOT_PASSWORD}>Forgot password</Link>
+        </li>
+        <li>
+          <Link to={links.FEED}>Feed</Link>
+        </li>
+        <li>
+          <Link to={links.SETTINGS}>Settings</Link>
+        </li>
+        <li>
+          <Link to="/111">Not found</Link>
+        </li>
+      </ul>
       <div className="max-w-[1200px] w-full mx-auto px-2-md">
         <div className="mb-4">
           <div>
@@ -21,7 +48,7 @@ const UIPage: FC = () => {
             <p className="subtitle3">subtitle3</p>
           </div>
         </div>
-        
+
         <div>
           <div className="flex flex-wrap gap-12">
             <div className="w-1/4">
@@ -475,7 +502,7 @@ const UIPage: FC = () => {
             </div>
           </div>
         </div>
-        <CookiesToaster/>
+        <CookiesToaster />
       </div>
     </div>
   );

@@ -3,6 +3,7 @@ import { FC } from "react";
 import styles from "./WelcomePagePanel.module.scss";
 
 import UIbutton from "@/src/components/Buttons/UIbutton/UIbutton";
+import { links } from "@/src/utils/links/links.types";
 
 
 const WelcomePagePanel: FC = () => {
@@ -18,7 +19,7 @@ const WelcomePagePanel: FC = () => {
             size="large"
             fullWidth
             dataAutomation="navigationButton"
-            href="/register"
+            href={links.SIGN_UP}
           >
             Sign up
           </UIbutton>
@@ -27,7 +28,7 @@ const WelcomePagePanel: FC = () => {
             fullWidth
             dataAutomation="navigationButton"
             variant="outlined"
-            href="/login"
+            href={links.LOG_IN}
           >
             Log in
           </UIbutton>
