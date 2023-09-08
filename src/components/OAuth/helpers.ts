@@ -4,10 +4,14 @@ export const cookieParser = (key = "stateId") =>
     .find((item) => item.startsWith(key))
     ?.split("=")[1];
 
-export const getUrlParams = (params: string) => {
+export const getUrlParams = (
+  params: string,
+  tokenKey: string,
+  stateKey: string
+) => {
   const hashParams = new URLSearchParams(params);
-  const accessToken = hashParams.get("access_token");
-  const state = hashParams.get("state");
+  const token = hashParams.get(tokenKey);
+  const state = hashParams.get(stateKey);
 
-  return [accessToken, state];
+  return [token, state];
 };

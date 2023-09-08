@@ -24,7 +24,11 @@ const useGetOAuthUrlParams = ({
 
   const { state, code, error_message } = params;
 
-  const [facebookCode, faceBookState] = getUrlParams(location.hash.slice(1));
+  const [facebookCode, faceBookState] = getUrlParams(
+    location.hash.slice(1),
+    "access_token",
+    "state"
+  );
 
   useEffect(() => {
     if (code) {
