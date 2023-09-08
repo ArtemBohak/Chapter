@@ -12,7 +12,7 @@
     @apply font-medium text-xs leading-normal;
   }
   &__accept {
-    @apply text-[#64C0FF] tracking-[0.176px] leading-normal my-4 inline-flex gap-1 items-center cursor-pointer;
+    @apply text-[#64C0FF] tracking-[0.176px] leading-normal my-4 inline-flex gap-1 items-center cursor-pointer w-fit;
   }
 }
 
