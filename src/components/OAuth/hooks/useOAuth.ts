@@ -37,12 +37,12 @@ const useOAuth = ({
     currentLocation,
     twitterUrl,
     googleAuthCode,
-    setGoogleAuthCode,
     twitterAuthCode,
-    setTwitterAuthCode,
-    facebookAuthCode,
-    setFacebookAuthCode,
     faceBookState,
+    facebookAuthCode,
+    setTwitterAuthCode,
+    setFacebookAuthCode,
+    setGoogleAuthCode,
     setSearchParams,
   } = useGetOAthUrlParams({ setFacebookErrorMessage, stateId });
   const navigate = useNavigate();
@@ -158,13 +158,13 @@ const useOAuth = ({
 
   return {
     twitterUrl,
+    facebookErrorMessage,
+    loading,
+    currentLocation,
     onFacebookOauthSuccess,
     onFacebookOauthFail,
     onFacebookOauthProfileSuccess,
     googleOAuthLogin,
-    facebookErrorMessage,
-    loading,
-    currentLocation,
   };
 };
 
