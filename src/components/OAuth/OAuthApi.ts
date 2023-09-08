@@ -20,15 +20,16 @@ const {
 class OAuthApi {
   protected redirectUri: string | undefined;
   protected token: string | undefined;
-  protected url: [string, string];
   protected setSearchParams: SetURLSearchParams | null;
   protected setAuthCode: ((data: string) => void) | null;
   protected navigate: (data: string) => void;
   // protected dispatch: AppDispatch;
   protected setLoading: (data: boolean) => void;
+
   protected googleOAuthGrandType = "authorization_code";
   protected googleClientId = VITE_GOOGLE_CLIENT_ID;
   protected googleClientSecret = VITE_GOOGLE_CLIENT_SECRET;
+  protected static url = ["/auth/account-creation", "/feed"];
 
   protected static async facebookApi({ facebookAccessToken }: ApiDataArgs) {
     return api.post(EndpointsEnum.FACEBOOK_LOGIN, {
@@ -40,6 +41,11 @@ class OAuthApi {
     return api.post(EndpointsEnum.GOOGLE_LOGIN, {
       idToken: googleIdToken,
     });
+  }
+
+  protected static getRedirectUserUrl(hasNickName: boolean, id?: number) {
+    const [accountCreate, feed] = OAuthApi.url;
+    return hasNickName ? feed : accountCreate + "/" + id;
   }
 
   static getTwitterOAuthUrl(redirectUri: string, stateId: string) {
@@ -68,17 +74,11 @@ class OAuthApi {
   }: OAuthApiArgs) {
     this.redirectUri = redirectUri;
     this.token = token;
-    this.url = ["/auth/account-creation", "/feed"];
     this.setSearchParams = setSearchParams;
     this.setAuthCode = setAuthCode;
     this.navigate = navigate;
     // this.dispatch = dispatch;
     this.setLoading = setLoading;
-  }
-
-  getRedirectUserUrl(hasNickName: boolean, id?: number) {
-    const [accountCreate, feed] = this.url;
-    return hasNickName ? feed : accountCreate + "/" + id;
   }
 
   async getGoogleAuthCode() {
@@ -105,10 +105,10 @@ class OAuthApi {
       console.log(data);
       if (data.user.nickName) {
         // this.dispatch(loginBy(data.user));
-        return this.navigate(this.getRedirectUserUrl(true));
+        return this.navigate(OAuthApi.getRedirectUserUrl(true));
       }
 
-      this.navigate(this.getRedirectUserUrl(false, data.user.id));
+      this.navigate(OAuthApi.getRedirectUserUrl(false, data.user.id));
     } catch (error) {
       console.log(error);
     } finally {
@@ -125,10 +125,10 @@ class OAuthApi {
       console.log(data);
       if (data.user.nickName) {
         // this.dispatch(loginBy(data.user));
-        return this.navigate(this.getRedirectUserUrl(true));
+        return this.navigate(OAuthApi.getRedirectUserUrl(true));
       }
 
-      this.navigate(this.getRedirectUserUrl(false, data.user.id));
+      this.navigate(OAuthApi.getRedirectUserUrl(false, data.user.id));
     } catch (error) {
       console.log(error);
     } finally {
