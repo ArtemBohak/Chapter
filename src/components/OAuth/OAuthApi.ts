@@ -1,6 +1,8 @@
 import { SetURLSearchParams } from "react-router-dom";
 import { googleOAuthApi, api, EndpointsEnum } from "@/src/axios";
 
+// import { AppDispatch } from "@/src/redux/store";
+// import { loginBy } from "@/src/redux/slices/user";
 import {
   type ApiDataArgs,
   OAuthApiArgs,
@@ -22,6 +24,8 @@ class OAuthApi {
   protected setSearchParams: SetURLSearchParams | null;
   protected setAuthCode: ((data: string) => void) | null;
   protected navigate: (data: string) => void;
+  // protected dispatch: AppDispatch;
+  protected setLoading: (data: boolean) => void;
   protected googleOAuthGrandType = "authorization_code";
   protected googleClientId = VITE_GOOGLE_CLIENT_ID;
   protected googleClientSecret = VITE_GOOGLE_CLIENT_SECRET;
@@ -59,6 +63,8 @@ class OAuthApi {
     setSearchParams = null,
     setAuthCode = null,
     navigate,
+    // dispatch,
+    setLoading,
   }: OAuthApiArgs) {
     this.redirectUri = redirectUri;
     this.token = token;
@@ -66,6 +72,8 @@ class OAuthApi {
     this.setSearchParams = setSearchParams;
     this.setAuthCode = setAuthCode;
     this.navigate = navigate;
+    // this.dispatch = dispatch;
+    this.setLoading = setLoading;
   }
 
   getRedirectUserUrl(hasNickName: boolean, id?: number) {
@@ -86,6 +94,7 @@ class OAuthApi {
   }
 
   async googleDataHandler() {
+    this.setLoading(true);
     try {
       const cred = await this.getGoogleAuthCode();
 
@@ -93,9 +102,11 @@ class OAuthApi {
         googleIdToken: cred.data.id_token,
       });
 
-      console.log(data);
-      if (data.user.nickName)
+      console.log(data.user);
+      if (data.user.nickName) {
+        // this.dispatch(loginBy(data.user));
         return this.navigate(this.getRedirectUserUrl(true));
+      }
 
       this.navigate(this.getRedirectUserUrl(false, data.user.id));
     } catch (error) {
@@ -106,13 +117,16 @@ class OAuthApi {
   }
 
   async facebookDataHandler() {
+    this.setLoading(true);
     try {
       const { data } = await OAuthApi.facebookApi({
         facebookAccessToken: this.token,
       });
       console.log(data);
-      if (data.user.nickName)
+      if (data.user.nickName) {
+        // this.dispatch(loginBy(data.user));
         return this.navigate(this.getRedirectUserUrl(true));
+      }
 
       this.navigate(this.getRedirectUserUrl(false, data.user.id));
     } catch (error) {
@@ -123,6 +137,7 @@ class OAuthApi {
   }
 
   async twitterDataHandler() {
+    this.setLoading(true);
     try {
       console.log("POST auth/twitter/login => ", this.token);
       this.navigate("/");
@@ -134,6 +149,7 @@ class OAuthApi {
   }
 
   clearData() {
+    this.setLoading(false);
     this.setSearchParams && this.setSearchParams("");
     this.setAuthCode && this.setAuthCode("");
   }

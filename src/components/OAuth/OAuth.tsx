@@ -29,6 +29,7 @@ const OAuth: FC<OAuthProps> = ({
   const {
     currentLocation,
     twitterUrl,
+    loading,
     onFacebookOauthSuccess,
     onFacebookOauthFail,
     googleOAuthLogin,
@@ -53,6 +54,8 @@ const OAuth: FC<OAuthProps> = ({
         fullWidth
         variant="outlined"
         color="secondary"
+        isLoading={loading}
+        disabled={loading}
       >
         <Icon icon={IconEnum.Google} size={size} />
         <span>
@@ -83,6 +86,8 @@ const OAuth: FC<OAuthProps> = ({
               fullWidth
               variant="outlined"
               color="secondary"
+              isLoading={loading}
+              disabled={loading}
             >
               <Icon icon={IconEnum.Facebook} size={size} />
               <span>
@@ -103,6 +108,8 @@ const OAuth: FC<OAuthProps> = ({
         fullWidth
         variant="outlined"
         color="secondary"
+        isLoading={loading}
+        disabled={loading}
       >
         <Icon icon={IconEnum.Twitter} size={size} />
         <span>

@@ -1,5 +1,7 @@
 import { SetURLSearchParams } from "react-router-dom";
 
+// import { AppDispatch } from "@/src/redux/store";
+
 export enum OAuthApiEndPoints {
   GOOGLE_TOKEN = "/token",
 }
@@ -37,4 +39,6 @@ export type OAuthApiArgs = {
   setSearchParams?: SetURLSearchParams | null;
   setAuthCode?: ((data: string) => void) | null;
   navigate: (data: string) => void;
+  // dispatch: AppDispatch;
+  setLoading: (data: boolean) => void;
 };

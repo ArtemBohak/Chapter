@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGoogleLogin } from "@react-oauth/google";
 import {
@@ -10,6 +10,7 @@ import {
 import { type UseOAuthProps } from "../OAuth.type";
 import useGetOAthUrlParams from "./useGetOAuthUrlParams";
 import { cookieParser } from "../helpers";
+// import { useAppDispatch } from "@/src/redux/hooks";
 
 import OAuthApi from "../OAuthApi";
 
@@ -30,7 +31,9 @@ const useOAuth = ({ variant, googlePopupMode = false }: UseOAuthProps) => {
     setSearchParams,
     setAuthCode,
   } = useGetOAthUrlParams();
+  // const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const stateId = cookieParser()
     ? cookieParser("stateId")
     : VITE_BASE_OAUTH_STATE;
@@ -48,6 +51,8 @@ const useOAuth = ({ variant, googlePopupMode = false }: UseOAuthProps) => {
           setSearchParams,
           setAuthCode,
           navigate,
+          // dispatch,
+          setLoading,
         }).twitterDataHandler();
       }
 
@@ -62,12 +67,10 @@ const useOAuth = ({ variant, googlePopupMode = false }: UseOAuthProps) => {
           setSearchParams,
           setAuthCode,
           navigate,
+          // dispatch,
+          setLoading,
         }).facebookDataHandler();
       }
-      console.log(
-        state === VITE_GOOGLE_STATE + stateId ||
-          state === VITE_GOOGLE_STATE + VITE_BASE_OAUTH_STATE
-      );
 
       if (
         variant === "google" &&
@@ -81,12 +84,15 @@ const useOAuth = ({ variant, googlePopupMode = false }: UseOAuthProps) => {
           setSearchParams,
           setAuthCode,
           navigate,
+          // dispatch,
+          setLoading,
         }).googleDataHandler();
       }
     })();
   }, [
     authCode,
     currentLocation,
+    // dispatch,
     navigate,
     setAuthCode,
     setSearchParams,
@@ -99,6 +105,8 @@ const useOAuth = ({ variant, googlePopupMode = false }: UseOAuthProps) => {
     new OAuthApi({
       token: codeResponse.accessToken,
       navigate,
+      // dispatch,
+      setLoading,
     }).facebookDataHandler();
   };
 
@@ -124,6 +132,8 @@ const useOAuth = ({ variant, googlePopupMode = false }: UseOAuthProps) => {
           token: codeResponse.code,
           redirectUri: VITE_GOOGLE_REDIRECT_URI,
           navigate,
+          // dispatch,
+          setLoading,
         }).googleDataHandler();
       }
     },
@@ -138,6 +148,7 @@ const useOAuth = ({ variant, googlePopupMode = false }: UseOAuthProps) => {
     onFacebookOauthFail,
     onFacebookOauthProfileSuccess,
     googleOAuthLogin,
+    loading,
     currentLocation,
   };
 };
