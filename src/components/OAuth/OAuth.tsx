@@ -26,6 +26,9 @@ const OAuth: FC<OAuthProps> = ({
   dataAutomation = "oAuthButton",
   className,
 }) => {
+  const stateId = cookieParser()
+    ? cookieParser("stateId")
+    : VITE_BASE_OAUTH_STATE;
   const {
     currentLocation,
     twitterUrl,
@@ -33,11 +36,7 @@ const OAuth: FC<OAuthProps> = ({
     onFacebookOauthSuccess,
     onFacebookOauthFail,
     googleOAuthLogin,
-  } = useOAuth({ variant, googlePopupMode });
-
-  const stateId = cookieParser()
-    ? cookieParser("stateId")
-    : VITE_BASE_OAUTH_STATE;
+  } = useOAuth({ variant, googlePopupMode, stateId });
 
   useEffect(() => {
     if (!cookieParser()) {
@@ -47,21 +46,23 @@ const OAuth: FC<OAuthProps> = ({
 
   if (variant === "google")
     return (
-      <UIbutton
-        className={className}
-        onClick={() => googleOAuthLogin()}
-        dataAutomation={dataAutomation}
-        fullWidth
-        variant="outlined"
-        color="secondary"
-        isLoading={loading}
-        disabled={loading}
-      >
-        <Icon icon={IconEnum.Google} size={size} />
-        <span>
-          {text} {variant}
-        </span>
-      </UIbutton>
+      <>
+        <UIbutton
+          className={className}
+          onClick={() => googleOAuthLogin()}
+          dataAutomation={dataAutomation}
+          fullWidth
+          variant="outlined"
+          color="secondary"
+          isLoading={loading}
+          disabled={loading}
+        >
+          <Icon icon={IconEnum.Google} size={size} />
+          <span>
+            {text} {variant}
+          </span>
+        </UIbutton>
+      </>
     );
 
   if (variant === "facebook")
@@ -76,24 +77,27 @@ const OAuth: FC<OAuthProps> = ({
         dialogParams={{
           state: VITE_FACEBOOK_STATE + stateId,
           redirect_uri: currentLocation,
+          response_type: "token",
         }}
         render={(renderProps) => {
           return (
-            <UIbutton
-              className={className}
-              onClick={renderProps.onClick}
-              dataAutomation={dataAutomation}
-              fullWidth
-              variant="outlined"
-              color="secondary"
-              isLoading={loading}
-              disabled={loading}
-            >
-              <Icon icon={IconEnum.Facebook} size={size} />
-              <span>
-                {text} {variant}
-              </span>
-            </UIbutton>
+            <>
+              <UIbutton
+                className={className}
+                onClick={renderProps.onClick}
+                dataAutomation={dataAutomation}
+                fullWidth
+                variant="outlined"
+                color="secondary"
+                isLoading={loading}
+                disabled={loading}
+              >
+                <Icon icon={IconEnum.Facebook} size={size} />
+                <span>
+                  {text} {variant}
+                </span>
+              </UIbutton>
+            </>
           );
         }}
       />
@@ -101,21 +105,23 @@ const OAuth: FC<OAuthProps> = ({
 
   if (variant === "twitter")
     return (
-      <UIbutton
-        className={className}
-        onClick={() => window.location.replace(twitterUrl)}
-        dataAutomation={dataAutomation}
-        fullWidth
-        variant="outlined"
-        color="secondary"
-        isLoading={loading}
-        disabled={loading}
-      >
-        <Icon icon={IconEnum.Twitter} size={size} />
-        <span>
-          {text} {variant}
-        </span>
-      </UIbutton>
+      <>
+        <UIbutton
+          className={className}
+          onClick={() => window.location.replace(twitterUrl)}
+          dataAutomation={dataAutomation}
+          fullWidth
+          variant="outlined"
+          color="secondary"
+          isLoading={loading}
+          disabled={loading}
+        >
+          <Icon icon={IconEnum.Twitter} size={size} />
+          <span>
+            {text} {variant}
+          </span>
+        </UIbutton>
+      </>
     );
 };
 

@@ -5,7 +5,6 @@ import { SetURLSearchParams } from "react-router-dom";
 export enum OAuthApiEndPoints {
   GOOGLE_TOKEN = "/token",
 }
-export type OAuthResponse = { data: { id_token?: string } };
 
 export type OAuthProps = {
   className?: string;
@@ -17,20 +16,20 @@ export type OAuthProps = {
   dataAutomation?: string;
 };
 
-export type UseOAuthProps = Pick<OAuthProps, "googlePopupMode" | "variant">;
+export type UseOAuthProps = { stateId: string } & Pick<
+  OAuthProps,
+  "googlePopupMode" | "variant"
+>;
+export type UseGetOAuthUrlParamsProps = {
+  stateId: string;
+  setFacebookErrorMessage: (data: string | null) => void;
+};
 
 export type ApiDataArgs = {
   facebookAccessToken?: string;
   googleIdToken?: string;
   redirectUri?: string;
   googleCode?: string;
-};
-
-export type ErrorResponse = {
-  error: string;
-  error_description?: string;
-  status: number;
-  errors: { [key: string]: string };
 };
 
 export type OAuthApiArgs = {
@@ -41,4 +40,11 @@ export type OAuthApiArgs = {
   navigate: (data: string) => void;
   // dispatch: AppDispatch;
   setLoading: (data: boolean) => void;
+};
+
+export type ErrorResponse = {
+  error: string;
+  error_description?: string;
+  status: number;
+  errors: { [key: string]: string };
 };

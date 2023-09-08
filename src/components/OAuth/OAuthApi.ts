@@ -102,7 +102,7 @@ class OAuthApi {
         googleIdToken: cred.data.id_token,
       });
 
-      console.log(data.user);
+      console.log(data);
       if (data.user.nickName) {
         // this.dispatch(loginBy(data.user));
         return this.navigate(this.getRedirectUserUrl(true));

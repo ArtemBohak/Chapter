@@ -2,37 +2,58 @@ import { useEffect, useMemo, useState } from "react";
 import { useLocation, useSearchParams } from "react-router-dom";
 
 import OAuthApi from "../OAuthApi";
-import { cookieParser } from "../helpers";
+import { getUrlParams } from "../helpers";
+import { UseGetOAuthUrlParamsProps } from "../OAuth.type";
 
-const { VITE_BASE_OAUTH_STATE } = import.meta.env;
-
-const useGetOAuthUrlParams = () => {
-  const [authCode, setAuthCode] = useState("");
+const useGetOAuthUrlParams = ({
+  stateId,
+  setFacebookErrorMessage,
+}: UseGetOAuthUrlParamsProps) => {
+  const [googleAuthCode, setGoogleAuthCode] = useState("");
+  const [facebookAuthCode, setFacebookAuthCode] = useState("");
+  const [twitterAuthCode, setTwitterAuthCode] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
   const location = useLocation();
 
   const currentLocation = window.location.origin + location.pathname;
-  const stateId = cookieParser()
-    ? cookieParser("stateId")
-    : VITE_BASE_OAUTH_STATE;
 
   const params = useMemo(
     () => Object.fromEntries([...searchParams]),
     [searchParams]
   );
-  const { state, code } = params;
+
+  const { state, code, error_message } = params;
+
+  const [facebookCode, faceBookState] = getUrlParams(location.hash.slice(1));
 
   useEffect(() => {
-    code && setAuthCode(code);
-  }, [code]);
+    if (code) {
+      setGoogleAuthCode(code);
+      setTwitterAuthCode(code);
+    }
+    facebookCode && setFacebookAuthCode(facebookCode);
+  }, [code, facebookCode]);
+
+  useEffect(() => {
+    if (error_message) {
+      setFacebookErrorMessage(error_message);
+      setSearchParams("");
+    }
+  }, [error_message, setFacebookErrorMessage, setSearchParams]);
 
   return {
     twitterUrl: OAuthApi.getTwitterOAuthUrl(currentLocation, stateId),
-    authCode,
+    googleAuthCode,
     state,
     currentLocation,
+    code,
+    facebookAuthCode,
+    faceBookState,
+    twitterAuthCode,
+    setTwitterAuthCode,
     setSearchParams,
-    setAuthCode,
+    setGoogleAuthCode,
+    setFacebookAuthCode,
   };
 };
 

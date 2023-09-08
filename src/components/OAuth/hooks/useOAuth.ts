@@ -9,7 +9,7 @@ import {
 
 import { type UseOAuthProps } from "../OAuth.type";
 import useGetOAthUrlParams from "./useGetOAuthUrlParams";
-import { cookieParser } from "../helpers";
+
 // import { useAppDispatch } from "@/src/redux/hooks";
 
 import OAuthApi from "../OAuthApi";
@@ -22,101 +22,97 @@ const {
   VITE_GOOGLE_REDIRECT_URI,
 } = import.meta.env;
 
-const useOAuth = ({ variant, googlePopupMode = false }: UseOAuthProps) => {
+const useOAuth = ({
+  variant,
+  googlePopupMode = false,
+  stateId,
+}: UseOAuthProps) => {
+  const [facebookErrorMessage, setFacebookErrorMessage] = useState<
+    string | null
+  >(null);
+  // const dispatch = useAppDispatch();
   const {
-    authCode,
+    code,
     state,
     currentLocation,
     twitterUrl,
+    googleAuthCode,
+    setGoogleAuthCode,
+    twitterAuthCode,
+    setTwitterAuthCode,
+    facebookAuthCode,
+    setFacebookAuthCode,
+    faceBookState,
     setSearchParams,
-    setAuthCode,
-  } = useGetOAthUrlParams();
-  // const dispatch = useAppDispatch();
+  } = useGetOAthUrlParams({ setFacebookErrorMessage, stateId });
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const stateId = cookieParser()
-    ? cookieParser("stateId")
-    : VITE_BASE_OAUTH_STATE;
 
   useEffect(() => {
     (async () => {
       if (
-        variant === "twitter" &&
-        authCode &&
-        (state === VITE_TWITTER_STATE + stateId ||
-          state === VITE_TWITTER_STATE + VITE_BASE_OAUTH_STATE)
-      ) {
-        new OAuthApi({
-          token: authCode,
-          setSearchParams,
-          setAuthCode,
-          navigate,
-          // dispatch,
-          setLoading,
-        }).twitterDataHandler();
-      }
-
-      if (
-        variant === "facebook" &&
-        authCode &&
-        (state === VITE_FACEBOOK_STATE + stateId ||
-          state === VITE_FACEBOOK_STATE + VITE_BASE_OAUTH_STATE)
-      ) {
-        new OAuthApi({
-          token: authCode,
-          setSearchParams,
-          setAuthCode,
-          navigate,
-          // dispatch,
-          setLoading,
-        }).facebookDataHandler();
-      }
-
-      if (
         variant === "google" &&
-        authCode &&
+        googleAuthCode &&
         (state === VITE_GOOGLE_STATE + stateId ||
           state === VITE_GOOGLE_STATE + VITE_BASE_OAUTH_STATE)
       ) {
         new OAuthApi({
-          token: authCode,
+          token: googleAuthCode,
           redirectUri: currentLocation,
           setSearchParams,
-          setAuthCode,
           navigate,
-          // dispatch,
           setLoading,
+          setAuthCode: setGoogleAuthCode,
+          // dispatch,
         }).googleDataHandler();
+      }
+      if (
+        variant === "facebook" &&
+        facebookAuthCode &&
+        (faceBookState === VITE_FACEBOOK_STATE + stateId ||
+          faceBookState === VITE_FACEBOOK_STATE + VITE_BASE_OAUTH_STATE)
+      ) {
+        new OAuthApi({
+          token: facebookAuthCode,
+          setSearchParams,
+          navigate,
+          setLoading,
+          setAuthCode: setFacebookAuthCode,
+          // dispatch,
+        }).facebookDataHandler();
+      }
+      if (
+        variant === "twitter" &&
+        twitterAuthCode &&
+        (state === VITE_TWITTER_STATE + stateId ||
+          state === VITE_TWITTER_STATE + VITE_BASE_OAUTH_STATE)
+      ) {
+        new OAuthApi({
+          token: twitterAuthCode,
+          setSearchParams,
+          navigate,
+          setAuthCode: setTwitterAuthCode,
+          setLoading,
+          // dispatch,
+        }).twitterDataHandler();
       }
     })();
   }, [
-    authCode,
+    code,
     currentLocation,
-    // dispatch,
-    navigate,
-    setAuthCode,
-    setSearchParams,
+    faceBookState,
+    facebookAuthCode,
+    googleAuthCode,
     state,
     stateId,
     variant,
+    twitterAuthCode,
+    navigate,
+    setFacebookAuthCode,
+    setSearchParams,
+    setGoogleAuthCode,
+    setTwitterAuthCode,
   ]);
-
-  const onFacebookOauthSuccess = async (codeResponse: SuccessResponse) => {
-    new OAuthApi({
-      token: codeResponse.accessToken,
-      navigate,
-      // dispatch,
-      setLoading,
-    }).facebookDataHandler();
-  };
-
-  const onFacebookOauthFail = (error: FailResponse) => {
-    console.log("Facebook Login Failed!", error);
-  };
-
-  const onFacebookOauthProfileSuccess = (response: ProfileSuccessResponse) => {
-    console.log("Get Facebook Profile Success!", response);
-  };
 
   const googleOAuthLogin = useGoogleLogin({
     flow: "auth-code",
@@ -132,15 +128,33 @@ const useOAuth = ({ variant, googlePopupMode = false }: UseOAuthProps) => {
           token: codeResponse.code,
           redirectUri: VITE_GOOGLE_REDIRECT_URI,
           navigate,
-          // dispatch,
           setLoading,
+          // dispatch,
         }).googleDataHandler();
       }
     },
-    onError: (onError) => {
-      console.log("Google Login Failed!", onError);
+    onError: (error) => {
+      console.log("Google Login Failed!", error);
     },
   });
+
+  const onFacebookOauthSuccess = async (codeResponse: SuccessResponse) => {
+    new OAuthApi({
+      token: codeResponse.accessToken,
+      navigate,
+      setLoading,
+      // dispatch,
+    }).facebookDataHandler();
+  };
+
+  const onFacebookOauthFail = (error: FailResponse) => {
+    console.log("Facebook Login Failed!", error);
+    setFacebookErrorMessage(error.status);
+  };
+
+  const onFacebookOauthProfileSuccess = (response: ProfileSuccessResponse) => {
+    console.log("Get Facebook Profile Success!", response);
+  };
 
   return {
     twitterUrl,
@@ -148,6 +162,7 @@ const useOAuth = ({ variant, googlePopupMode = false }: UseOAuthProps) => {
     onFacebookOauthFail,
     onFacebookOauthProfileSuccess,
     googleOAuthLogin,
+    facebookErrorMessage,
     loading,
     currentLocation,
   };
