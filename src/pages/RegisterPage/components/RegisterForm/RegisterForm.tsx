@@ -49,7 +49,6 @@ const RegisterForm: FC<RegisterFormProps> = ({ className, ...props }) => {
       return status === 404
         ? setFieldError(RegisterAccountKey.HASH, ErrorMessage.HASH)
         : navigate(`/auth/account-creation/${id}`);
-      resetForm();
     }
     const { error, status } = await RegisterFormApi.fetchUserRegData({
       email,
@@ -58,12 +57,16 @@ const RegisterForm: FC<RegisterFormProps> = ({ className, ...props }) => {
     if (
       status === 422 &&
       RegisterFormApi.formatErrorResponse(error) === "inactive"
-    )
+    ) {
+      resetForm({ values: { email, hash } });
       return setStep(step + 1);
+    }
 
-    return status === 422
-      ? setFieldError(RegisterAccountKey.EMAIL, ErrorMessage.EMAIL)
-      : setStep(step + 1);
+    if (status === 422)
+      return setFieldError(RegisterAccountKey.EMAIL, ErrorMessage.EMAIL);
+
+    resetForm({ values: { email, hash } });
+    setStep(step + 1);
   };
 
   const renderNextStep = (value: string) =>

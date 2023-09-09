@@ -1,3 +1,5 @@
+import { FormikState } from "formik";
+
 export enum RegisterAccountKey {
   EMAIL = "email",
   HASH = "hash",
@@ -24,7 +26,9 @@ export type RegisterAccountValues = {
 
 export type SetFieldError = (field: string, errorMsg: string) => void;
 
-export type ResetForm = () => void;
+export type ResetForm = (
+  nextState?: Partial<FormikState<RegisterAccountValues>> | undefined
+) => void;
 
 export type ErrorResponse = {
   status: number;
