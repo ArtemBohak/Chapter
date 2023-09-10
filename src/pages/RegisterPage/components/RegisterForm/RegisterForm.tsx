@@ -29,8 +29,7 @@ const RegisterForm: FC<RegisterFormProps> = ({ className, ...props }) => {
 
   const navigate = useNavigate();
 
-  const schemaTypeValidation = step > Steps.FIRST;
-  const isDisabled = step > Steps.FIRST;
+  const isNextStep = step > Steps.FIRST;
 
   const onHandleSubmit = async <
     T extends RegisterAccountValues,
@@ -86,7 +85,7 @@ const RegisterForm: FC<RegisterFormProps> = ({ className, ...props }) => {
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={validationSchema(schemaTypeValidation)}
+      validationSchema={validationSchema(isNextStep)}
       onSubmit={async (
         values: RegisterAccountValues,
         { setFieldError, setSubmitting, resetForm }
@@ -104,8 +103,8 @@ const RegisterForm: FC<RegisterFormProps> = ({ className, ...props }) => {
             value={values.email}
             dataAutomation={`${RegisterAccountKey.EMAIL}Input`}
             label="Your email"
-            className={step > Steps.FIRST ? "mb-0" : ""}
-            disabled={isDisabled}
+            className={isNextStep ? "mb-0" : ""}
+            disabled={isNextStep}
           />
           {renderNextStep(values.hash)}
           <UIbutton
