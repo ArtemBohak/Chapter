@@ -9,16 +9,19 @@ export enum OAuthApiEndPoints {
 export type OAuthProps = {
   className?: string;
   text?: string;
-  size?: number;
+  buttonColor?: "primary" | "secondary";
+  buttonVariant?: "outlined" | "contained" | "text";
+  buttonSize?: "small" | "medium" | "large";
+  iconSize?: number;
   facebookPopupMode?: boolean;
   googlePopupMode?: boolean;
-  variant: "facebook" | "google" | "twitter";
+  oAuthVariant: "facebook" | "google" | "twitter";
   dataAutomation?: string;
 };
 
 export type UseOAuthProps = { stateId: string } & Pick<
   OAuthProps,
-  "googlePopupMode" | "variant"
+  "googlePopupMode" | "oAuthVariant"
 >;
 export type UseGetOAuthUrlParamsProps = {
   stateId: string;
@@ -39,7 +42,7 @@ export type OAuthApiArgs = {
   setAuthCode?: ((data: string) => void) | null;
   navigate: (data: string) => void;
   // dispatch: AppDispatch;
-  setLoading: (data: boolean) => void;
+  setIsLoading: (data: boolean) => void;
 };
 
 export type ErrorResponse = {

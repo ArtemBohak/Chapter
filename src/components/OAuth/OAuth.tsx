@@ -4,7 +4,7 @@ import FacebookLogin from "@greatsumini/react-facebook-login";
 
 import { useOAuth } from "./hooks";
 import { type OAuthProps } from "./OAuth.type";
-import { cookieParser } from "./helpers";
+import { getCookie } from "./helpers";
 
 import { UIbutton } from "@/src/components/Buttons";
 import { Icon } from "@/src/components/Icon";
@@ -18,33 +18,36 @@ const {
 } = import.meta.env;
 
 const OAuth: FC<OAuthProps> = ({
-  variant,
-  text = "Enter with",
-  size = 24,
+  oAuthVariant,
+  googlePopupMode = false,
   facebookPopupMode = false,
-  googlePopupMode,
+  text = "Enter with",
+  iconSize = 24,
+  buttonSize = "small",
+  buttonColor = "secondary",
+  buttonVariant = "outlined",
   dataAutomation = "oAuthButton",
   className,
 }) => {
-  const stateId = cookieParser()
-    ? cookieParser("stateId")
+  const stateId = getCookie("stateId")
+    ? getCookie("stateId")
     : VITE_BASE_OAUTH_STATE;
   const {
     currentLocation,
-    twitterUrl,
-    loading,
+    twitterRedirectUrl,
+    isLoading,
     onFacebookOauthSuccess,
     onFacebookOauthFail,
     googleOAuthLogin,
-  } = useOAuth({ variant, googlePopupMode, stateId });
+  } = useOAuth({ oAuthVariant, googlePopupMode, stateId });
 
   useEffect(() => {
-    if (!cookieParser()) {
+    if (!getCookie("stateId")) {
       document.cookie = `stateId=${nanoid()}; path=/; max-age=${VITE_STATE_ID_COOKIE_LIFETIME};`;
     }
   }, []);
 
-  if (variant === "google")
+  if (oAuthVariant === "google")
     return (
       <>
         <UIbutton
@@ -52,20 +55,21 @@ const OAuth: FC<OAuthProps> = ({
           onClick={() => googleOAuthLogin()}
           dataAutomation={dataAutomation}
           fullWidth
-          variant="outlined"
-          color="secondary"
-          isLoading={loading}
-          disabled={loading}
+          variant={buttonVariant}
+          isLoading={isLoading}
+          disabled={isLoading}
+          color={buttonColor}
+          size={buttonSize}
         >
-          <Icon icon={IconEnum.Google} size={size} />
+          <Icon icon={IconEnum.Google} size={iconSize} />
           <span>
-            {text} {variant}
+            {text} {oAuthVariant}
           </span>
         </UIbutton>
       </>
     );
 
-  if (variant === "facebook")
+  if (oAuthVariant === "facebook")
     return (
       <FacebookLogin
         appId={VITE_FACEBOOK_APP_ID}
@@ -87,14 +91,15 @@ const OAuth: FC<OAuthProps> = ({
                 onClick={renderProps.onClick}
                 dataAutomation={dataAutomation}
                 fullWidth
-                variant="outlined"
-                color="secondary"
-                isLoading={loading}
-                disabled={loading}
+                variant={buttonVariant}
+                color={buttonColor}
+                isLoading={isLoading}
+                disabled={isLoading}
+                size={buttonSize}
               >
-                <Icon icon={IconEnum.Facebook} size={size} />
+                <Icon icon={IconEnum.Facebook} size={iconSize} />
                 <span>
-                  {text} {variant}
+                  {text} {oAuthVariant}
                 </span>
               </UIbutton>
             </>
@@ -103,22 +108,23 @@ const OAuth: FC<OAuthProps> = ({
       />
     );
 
-  if (variant === "twitter")
+  if (oAuthVariant === "twitter")
     return (
       <>
         <UIbutton
           className={className}
-          onClick={() => window.location.replace(twitterUrl)}
+          onClick={() => window.location.replace(twitterRedirectUrl)}
           dataAutomation={dataAutomation}
           fullWidth
-          variant="outlined"
-          color="secondary"
-          isLoading={loading}
-          disabled={loading}
+          variant={buttonVariant}
+          color={buttonColor}
+          isLoading={isLoading}
+          disabled={isLoading}
+          size={buttonSize}
         >
-          <Icon icon={IconEnum.Twitter} size={size} />
+          <Icon icon={IconEnum.Twitter} size={iconSize} />
           <span>
-            {text} {variant}
+            {text} {oAuthVariant}
           </span>
         </UIbutton>
       </>

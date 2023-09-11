@@ -23,8 +23,8 @@ const {
 } = import.meta.env;
 
 const useOAuth = ({
-  variant,
-  googlePopupMode = false,
+  oAuthVariant,
+  googlePopupMode,
   stateId,
 }: UseOAuthProps) => {
   const [facebookErrorMessage, setFacebookErrorMessage] = useState<
@@ -32,81 +32,82 @@ const useOAuth = ({
   >(null);
   // const dispatch = useAppDispatch();
   const {
-    code,
-    state,
-    currentLocation,
-    twitterUrl,
+    oAuthState,
+    faceBookState,
     googleAuthCode,
     twitterAuthCode,
-    faceBookState,
     facebookAuthCode,
-    setTwitterAuthCode,
-    setFacebookAuthCode,
+    twitterRedirectUrl,
+    currentLocation,
     setGoogleAuthCode,
+    setFacebookAuthCode,
+    setTwitterAuthCode,
     setSearchParams,
   } = useGetOAthUrlParams({ setFacebookErrorMessage, stateId });
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     (async () => {
       if (
-        variant === "google" &&
+        oAuthVariant === "google" &&
         googleAuthCode &&
-        (state === VITE_GOOGLE_STATE + stateId ||
-          state === VITE_GOOGLE_STATE + VITE_BASE_OAUTH_STATE)
+        (oAuthState === VITE_GOOGLE_STATE + stateId ||
+          oAuthState === VITE_GOOGLE_STATE + VITE_BASE_OAUTH_STATE)
       ) {
-        new OAuthApi({
+        const googleLogin = new OAuthApi({
           token: googleAuthCode,
           redirectUri: currentLocation,
           setSearchParams,
           navigate,
-          setLoading,
+          setIsLoading,
           setAuthCode: setGoogleAuthCode,
           // dispatch,
-        }).googleDataHandler();
+        });
+        await googleLogin.googleDataHandler();
       }
       if (
-        variant === "facebook" &&
+        oAuthVariant === "facebook" &&
         facebookAuthCode &&
         (faceBookState === VITE_FACEBOOK_STATE + stateId ||
           faceBookState === VITE_FACEBOOK_STATE + VITE_BASE_OAUTH_STATE)
       ) {
-        new OAuthApi({
+        const facebookLogin = new OAuthApi({
           token: facebookAuthCode,
           setSearchParams,
           navigate,
-          setLoading,
+          setIsLoading,
           setAuthCode: setFacebookAuthCode,
           // dispatch,
-        }).facebookDataHandler();
+        });
+        await facebookLogin.facebookDataHandler();
       }
       if (
-        variant === "twitter" &&
+        oAuthVariant === "twitter" &&
         twitterAuthCode &&
-        (state === VITE_TWITTER_STATE + stateId ||
-          state === VITE_TWITTER_STATE + VITE_BASE_OAUTH_STATE)
+        (oAuthState === VITE_TWITTER_STATE + stateId ||
+          oAuthState === VITE_TWITTER_STATE + VITE_BASE_OAUTH_STATE)
       ) {
-        new OAuthApi({
+        const twitterLogin = new OAuthApi({
           token: twitterAuthCode,
           setSearchParams,
           navigate,
           setAuthCode: setTwitterAuthCode,
-          setLoading,
+          setIsLoading,
           // dispatch,
-        }).twitterDataHandler();
+        });
+        await twitterLogin.twitterDataHandler();
       }
     })();
   }, [
-    code,
-    currentLocation,
     faceBookState,
-    facebookAuthCode,
-    googleAuthCode,
-    state,
+    oAuthState,
     stateId,
-    variant,
+    facebookAuthCode,
     twitterAuthCode,
+    googleAuthCode,
+    oAuthVariant,
+    currentLocation,
     navigate,
     setFacebookAuthCode,
     setSearchParams,
@@ -128,7 +129,7 @@ const useOAuth = ({
           token: codeResponse.code,
           redirectUri: VITE_GOOGLE_REDIRECT_URI,
           navigate,
-          setLoading,
+          setIsLoading,
           // dispatch,
         }).googleDataHandler();
       }
@@ -142,7 +143,7 @@ const useOAuth = ({
     new OAuthApi({
       token: codeResponse.accessToken,
       navigate,
-      setLoading,
+      setIsLoading,
       // dispatch,
     }).facebookDataHandler();
   };
@@ -157,9 +158,9 @@ const useOAuth = ({
   };
 
   return {
-    twitterUrl,
+    twitterRedirectUrl,
     facebookErrorMessage,
-    loading,
+    isLoading,
     currentLocation,
     onFacebookOauthSuccess,
     onFacebookOauthFail,

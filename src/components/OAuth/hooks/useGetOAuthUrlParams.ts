@@ -46,14 +46,13 @@ const useGetOAuthUrlParams = ({
   }, [error_message, setFacebookErrorMessage, setSearchParams]);
 
   return {
-    twitterUrl: OAuthApi.getTwitterOAuthUrl(currentLocation, stateId),
-    googleAuthCode,
-    state,
-    currentLocation,
-    code,
-    facebookAuthCode,
+    oAuthState: state,
     faceBookState,
+    googleAuthCode,
+    facebookAuthCode,
     twitterAuthCode,
+    twitterRedirectUrl: OAuthApi.getTwitterOAuthUrl(currentLocation, stateId),
+    currentLocation,
     setTwitterAuthCode,
     setSearchParams,
     setGoogleAuthCode,

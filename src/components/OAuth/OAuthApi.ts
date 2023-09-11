@@ -24,7 +24,7 @@ class OAuthApi {
   protected setAuthCode: ((data: string) => void) | null;
   protected navigate: (data: string) => void;
   // protected dispatch: AppDispatch;
-  protected setLoading: (data: boolean) => void;
+  protected setIsLoading: (data: boolean) => void;
 
   protected googleOAuthGrandType = "authorization_code";
   protected googleClientId = VITE_GOOGLE_CLIENT_ID;
@@ -70,7 +70,7 @@ class OAuthApi {
     setAuthCode = null,
     navigate,
     // dispatch,
-    setLoading,
+    setIsLoading,
   }: OAuthApiArgs) {
     this.redirectUri = redirectUri;
     this.token = token;
@@ -78,7 +78,7 @@ class OAuthApi {
     this.setAuthCode = setAuthCode;
     this.navigate = navigate;
     // this.dispatch = dispatch;
-    this.setLoading = setLoading;
+    this.setIsLoading = setIsLoading;
   }
 
   async getGoogleAuthCode() {
@@ -94,7 +94,7 @@ class OAuthApi {
   }
 
   async googleDataHandler() {
-    this.setLoading(true);
+    this.setIsLoading(true);
     try {
       const cred = await this.getGoogleAuthCode();
 
@@ -117,7 +117,7 @@ class OAuthApi {
   }
 
   async facebookDataHandler() {
-    this.setLoading(true);
+    this.setIsLoading(true);
     try {
       const { data } = await OAuthApi.facebookApi({
         facebookAccessToken: this.token,
@@ -137,7 +137,7 @@ class OAuthApi {
   }
 
   async twitterDataHandler() {
-    this.setLoading(true);
+    this.setIsLoading(true);
     try {
       console.log("POST auth/twitter/login => ", this.token);
       this.navigate("/");
@@ -149,7 +149,7 @@ class OAuthApi {
   }
 
   clearData() {
-    this.setLoading(false);
+    this.setIsLoading(false);
     this.setSearchParams && this.setSearchParams("");
     this.setAuthCode && this.setAuthCode("");
   }

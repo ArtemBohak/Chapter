@@ -1,4 +1,4 @@
-export const cookieParser = (key = "stateId") =>
+export const getCookie = (key = "stateId") =>
   document.cookie
     .split("; ")
     .find((item) => item.startsWith(key))
