@@ -1,19 +1,6 @@
 .auth-by {
   @apply flex flex-col w-full mb-5-xs;
-
-  &__text {
-    @apply text-xs font-normal relative top-0 left-0 mb-1-md text-black text-left;
+  &__container {
+    @apply flex flex-col gap-1-md;
   }
-
-  &__list {
-    @apply flex flex-wrap gap-6 justify-center items-center;
-  }
-
-  &__link {
-    @apply flex justify-center items-center rounded-full bg-white w-5-xs h-5-xs;
-  }
-}
-
-.oauth-container {
-  @apply flex flex-col gap-1-md;
 }
