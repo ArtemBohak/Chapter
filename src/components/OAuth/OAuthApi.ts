@@ -3,6 +3,7 @@ import { googleOAuthApi, api, EndpointsEnum } from "@/src/axios";
 
 // import { AppDispatch } from "@/src/redux/store";
 // import { loginBy } from "@/src/redux/slices/user";
+import { links } from "@/src/utils";
 import {
   type ApiDataArgs,
   OAuthApiArgs,
@@ -29,7 +30,7 @@ class OAuthApi {
   protected googleOAuthGrandType = "authorization_code";
   protected googleClientId = VITE_GOOGLE_CLIENT_ID;
   protected googleClientSecret = VITE_GOOGLE_CLIENT_SECRET;
-  protected static url = ["/auth/account-creation", "/feed"];
+  protected static url = [links.ACCOUNT_CREATION, links.FEED];
 
   protected static async facebookApi({ facebookAccessToken }: ApiDataArgs) {
     return api.post(EndpointsEnum.FACEBOOK_LOGIN, {
@@ -43,12 +44,12 @@ class OAuthApi {
     });
   }
 
-  protected static getRedirectUserUrl(hasNickName: boolean, id?: number) {
+  protected static createRedirectUserUrl(hasNickName: boolean, id?: number) {
     const [accountCreate, feed] = OAuthApi.url;
     return hasNickName ? feed : accountCreate + "/" + id;
   }
 
-  static getTwitterOAuthUrl(redirectUri: string, stateId: string) {
+  static getTwitterOAuthRedirectUrl(redirectUri: string, stateId: string) {
     const rootUrl = import.meta.env.VITE_TWITTER__AUTH_CODE_BASE_URL;
     const options = {
       redirect_uri: redirectUri,
@@ -93,7 +94,7 @@ class OAuthApi {
     });
   }
 
-  async googleDataHandler() {
+  async googleLogin() {
     this.setIsLoading(true);
     try {
       const cred = await this.getGoogleAuthCode();
@@ -102,13 +103,10 @@ class OAuthApi {
         googleIdToken: cred.data.id_token,
       });
 
-      console.log(data);
-      if (data.user.nickName) {
-        // this.dispatch(loginBy(data.user));
-        return this.navigate(OAuthApi.getRedirectUserUrl(true));
-      }
-
-      this.navigate(OAuthApi.getRedirectUserUrl(false, data.user.id));
+      console.log("dispatch =>", data);
+      this.navigate(
+        OAuthApi.createRedirectUserUrl(data.user.nickName, data.user.id)
+      );
     } catch (error) {
       console.log(error);
     } finally {
@@ -116,19 +114,17 @@ class OAuthApi {
     }
   }
 
-  async facebookDataHandler() {
+  async facebookLogin() {
     this.setIsLoading(true);
     try {
       const { data } = await OAuthApi.facebookApi({
         facebookAccessToken: this.token,
       });
-      console.log(data);
-      if (data.user.nickName) {
-        // this.dispatch(loginBy(data.user));
-        return this.navigate(OAuthApi.getRedirectUserUrl(true));
-      }
+      console.log("dispatch =>", data);
 
-      this.navigate(OAuthApi.getRedirectUserUrl(false, data.user.id));
+      this.navigate(
+        OAuthApi.createRedirectUserUrl(data.user.nickName, data.user.id)
+      );
     } catch (error) {
       console.log(error);
     } finally {
@@ -136,7 +132,7 @@ class OAuthApi {
     }
   }
 
-  async twitterDataHandler() {
+  async twitterLogin() {
     this.setIsLoading(true);
     try {
       console.log("POST auth/twitter/login => ", this.token);

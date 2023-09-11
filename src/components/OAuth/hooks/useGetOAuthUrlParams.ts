@@ -51,7 +51,10 @@ const useGetOAuthUrlParams = ({
     googleAuthCode,
     facebookAuthCode,
     twitterAuthCode,
-    twitterRedirectUrl: OAuthApi.getTwitterOAuthUrl(currentLocation, stateId),
+    twitterRedirectUrl: OAuthApi.getTwitterOAuthRedirectUrl(
+      currentLocation,
+      stateId
+    ),
     currentLocation,
     setTwitterAuthCode,
     setSearchParams,

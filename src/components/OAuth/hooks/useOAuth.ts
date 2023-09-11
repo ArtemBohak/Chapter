@@ -55,7 +55,7 @@ const useOAuth = ({
         (oAuthState === VITE_GOOGLE_STATE + stateId ||
           oAuthState === VITE_GOOGLE_STATE + VITE_BASE_OAUTH_STATE)
       ) {
-        const googleLogin = new OAuthApi({
+        const google = new OAuthApi({
           token: googleAuthCode,
           redirectUri: currentLocation,
           setSearchParams,
@@ -64,7 +64,7 @@ const useOAuth = ({
           setAuthCode: setGoogleAuthCode,
           // dispatch,
         });
-        await googleLogin.googleDataHandler();
+        await google.googleLogin();
       }
       if (
         oAuthVariant === "facebook" &&
@@ -72,7 +72,7 @@ const useOAuth = ({
         (faceBookState === VITE_FACEBOOK_STATE + stateId ||
           faceBookState === VITE_FACEBOOK_STATE + VITE_BASE_OAUTH_STATE)
       ) {
-        const facebookLogin = new OAuthApi({
+        const facebook = new OAuthApi({
           token: facebookAuthCode,
           setSearchParams,
           navigate,
@@ -80,7 +80,7 @@ const useOAuth = ({
           setAuthCode: setFacebookAuthCode,
           // dispatch,
         });
-        await facebookLogin.facebookDataHandler();
+        await facebook.facebookLogin();
       }
       if (
         oAuthVariant === "twitter" &&
@@ -96,7 +96,7 @@ const useOAuth = ({
           setIsLoading,
           // dispatch,
         });
-        await twitterLogin.twitterDataHandler();
+        await twitterLogin.twitterLogin();
       }
     })();
   }, [
@@ -125,13 +125,14 @@ const useOAuth = ({
         codeResponse.state === VITE_GOOGLE_STATE + stateId ||
         codeResponse.state === VITE_GOOGLE_STATE + VITE_BASE_OAUTH_STATE
       ) {
-        new OAuthApi({
+        const google = new OAuthApi({
           token: codeResponse.code,
           redirectUri: VITE_GOOGLE_REDIRECT_URI,
           navigate,
           setIsLoading,
           // dispatch,
-        }).googleDataHandler();
+        });
+        await google.googleLogin();
       }
     },
     onError: (error) => {
@@ -140,12 +141,13 @@ const useOAuth = ({
   });
 
   const onFacebookOauthSuccess = async (codeResponse: SuccessResponse) => {
-    new OAuthApi({
+    const facebook = new OAuthApi({
       token: codeResponse.accessToken,
       navigate,
       setIsLoading,
       // dispatch,
-    }).facebookDataHandler();
+    });
+    await facebook.facebookLogin();
   };
 
   const onFacebookOauthFail = (error: FailResponse) => {
