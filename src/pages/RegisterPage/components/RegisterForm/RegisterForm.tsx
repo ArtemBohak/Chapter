@@ -14,6 +14,7 @@ import {
   RegisterAccountKey,
 } from "./RegisterForm.type";
 import { validationSchema } from "./validationSchema";
+import { links } from "@/src/utils";
 import styles from "./RegisterForm.module.scss";
 
 import { UIbutton, TextField } from "@/src/components";
@@ -47,7 +48,7 @@ const RegisterForm: FC<RegisterFormProps> = ({ className, ...props }) => {
 
       return status === 404
         ? setFieldError(RegisterAccountKey.HASH, ErrorMessage.HASH)
-        : navigate(`/auth/account-creation/${id}`);
+        : navigate(`${links.ACCOUNT_CREATION}/${id}`);
     }
     const { error, status } = await RegisterFormApi.fetchUserRegData({
       email,
