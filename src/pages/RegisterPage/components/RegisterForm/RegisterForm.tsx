@@ -108,6 +108,7 @@ const RegisterForm: FC<RegisterFormProps> = ({ className, ...props }) => {
           />
           {renderNextStep(values.hash)}
           <UIbutton
+            className={styles["register-form__button"]}
             dataAutomation="submitButton"
             type="submit"
             fullWidth
