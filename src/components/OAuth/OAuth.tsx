@@ -5,6 +5,7 @@ import FacebookLogin from "@greatsumini/react-facebook-login";
 import { useOAuth } from "./hooks";
 import { type OAuthProps } from "./OAuth.type";
 import { getCookie } from "./helpers";
+import styles from "./OAuth.module.scss";
 
 import { UIbutton } from "@/src/components/Buttons";
 import { Icon } from "@/src/components/Icon";
@@ -51,7 +52,7 @@ const OAuth: FC<OAuthProps> = ({
     return (
       <>
         <UIbutton
-          className={className}
+          className={`${styles["oauth-btn"]} ${className}`}
           onClick={() => googleOAuthLogin()}
           dataAutomation={dataAutomation}
           fullWidth
@@ -87,7 +88,7 @@ const OAuth: FC<OAuthProps> = ({
           return (
             <>
               <UIbutton
-                className={className}
+                className={`${styles["oauth-btn"]} ${className}`}
                 onClick={renderProps.onClick}
                 dataAutomation={dataAutomation}
                 fullWidth
@@ -112,7 +113,7 @@ const OAuth: FC<OAuthProps> = ({
     return (
       <>
         <UIbutton
-          className={className}
+          className={`${styles["oauth-btn"]} ${className}`}
           onClick={() => window.location.replace(twitterRedirectUrl)}
           dataAutomation={dataAutomation}
           fullWidth
