@@ -3,10 +3,27 @@ import { Form, Formik, FormikProps } from "formik";
 import styles from "./LoginForm.module.scss";
 import { PasswordField, TextField } from "@/src/components/Fields";
 import { UIbutton } from "@/src/components/Buttons";
-import { ILoginPage } from "./LoginForm.types";
+import { ILoginPage, setErrors } from "./LoginForm.type";
+
 import validationSchema from "./validationSchema";
+import LoginApi from "./LoginApi";
+import { links } from "@/src/utils/links/links.types";
+import { useNavigate } from "react-router-dom";
 
 const LoginPageForm: FC = () => {
+  const navigate = useNavigate();
+
+  const onHandleSubmit = async (values: ILoginPage, setErrors: setErrors) => {
+    const { status, data } = await LoginApi(values);
+
+    if (status === 200) {
+      localStorage.setItem("token", data.token);
+      navigate(links.FEED);
+    }
+    if (status === 422) {
+      setErrors({ ["email"]: " ", ["password"]: "wrong email or password" });
+    }
+  };
   return (
     <div className={styles["login-form"]}>
       <Formik
@@ -15,11 +32,9 @@ const LoginPageForm: FC = () => {
           password: "",
         }}
         validationSchema={validationSchema}
-        onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            console.log("values", values);
-            setSubmitting(false);
-          }, 1000);
+        onSubmit={async (values, { setSubmitting, setErrors }) => {
+          await onHandleSubmit(values, setErrors);
+          setSubmitting(false);
         }}
       >
         {({ isSubmitting, isValid, dirty }: FormikProps<ILoginPage>) => (
@@ -28,19 +43,18 @@ const LoginPageForm: FC = () => {
               id="email"
               name="email"
               label="Your email"
-              dataAutomation="email"
+              dataAutomation="emailInput"
             />
             <PasswordField
               id="password"
               name="password"
               label="Your password"
-              dataAutomation="password"
+              dataAutomation="passwordInput"
               helperLink={{
                 text: "Forgot password?",
-                href: "/auth/forgot-password",
+                href: links.FORGOT_PASSWORD,
               }}
             />
-
             <UIbutton
               type="submit"
               fullWidth
