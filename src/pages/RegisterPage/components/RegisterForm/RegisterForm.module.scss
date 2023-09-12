@@ -1,3 +1,7 @@
 .register-form {
   @apply max-w-[326px] mb-1-xs;
+
+  &__button {
+    @apply min-h-[50px];
+  }
 }
