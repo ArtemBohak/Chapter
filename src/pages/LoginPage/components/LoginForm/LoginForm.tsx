@@ -3,7 +3,7 @@ import { Form, Formik, FormikProps } from "formik";
 import styles from "./LoginForm.module.scss";
 import { PasswordField, TextField } from "@/src/components/Fields";
 import { UIbutton } from "@/src/components/Buttons";
-import { ILoginPage, SetFieldError } from "./LoginForm.type";
+import { ILoginPage, setErrors } from "./LoginForm.type";
 
 import validationSchema from "./validationSchema";
 import LoginApi from "./LoginApi";
@@ -13,10 +13,7 @@ import { useNavigate } from "react-router-dom";
 const LoginPageForm: FC = () => {
   const navigate = useNavigate();
 
-  const onHandleSubmit = async (
-    values: ILoginPage,
-    setFieldError: SetFieldError
-  ) => {
+  const onHandleSubmit = async (values: ILoginPage, setErrors: setErrors) => {
     const { status, data } = await LoginApi(values);
 
     if (status === 200) {
@@ -24,8 +21,7 @@ const LoginPageForm: FC = () => {
       navigate(links.FEED);
     }
     if (status === 422) {
-      setFieldError("email", " ");
-      setFieldError("password", "wrong email or password");
+      setErrors({ ["email"]: " ", ["password"]: "wrong email or password" });
     }
   };
   return (
@@ -36,8 +32,8 @@ const LoginPageForm: FC = () => {
           password: "",
         }}
         validationSchema={validationSchema}
-        onSubmit={async (values, { setSubmitting, setFieldError }) => {
-          await onHandleSubmit(values, setFieldError);
+        onSubmit={async (values, { setSubmitting, setErrors }) => {
+          await onHandleSubmit(values, setErrors);
           setSubmitting(false);
         }}
       >
