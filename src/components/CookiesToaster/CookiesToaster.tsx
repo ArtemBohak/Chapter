@@ -1,22 +1,15 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import CookiesImage from "@/src/assets/WEBP/CookiesGirl.webp";
 import styles from "./CookiesToaster.module.scss";
 import { Icon, IconEnum } from "..";
 
 const CookiesToaster: FC = () => {
-  const [toasterHide, setToasterHide] = useState(false);
-
-  useEffect(() => {
-    const acceptedCookies = localStorage.getItem("cookieAccept");
-    return () => {
-      if (acceptedCookies === "1") {
-        setToasterHide(true);
-      }
-    };
-  }, []);
+  const [toasterHide, setToasterHide] = useState(
+    JSON.parse(localStorage.getItem("cookieAccept") || "false")
+  );
 
   const cookieAccept = () => {
-    localStorage.setItem("cookieAccept", "1");
+    localStorage.setItem("cookieAccept", JSON.stringify(true));
     setToasterHide(true);
   };
   return (
