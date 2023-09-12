@@ -1,5 +1,4 @@
 import { FC } from "react";
-
 import styles from "./WelcomePage.module.scss";
 
 import WelcomePageImage from "./components/WelcomePageImage/WelcomePageImage";

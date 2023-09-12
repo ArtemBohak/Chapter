@@ -5,5 +5,6 @@ export enum links {
   LOG_IN = "/auth/login",
   FORGOT_PASSWORD = "/auth/forgot-password",
   FEED = "/feed",
-  SETTINGS = '/settings'
+  SETTINGS = "/settings",
+  NOT_FOUND = "/404",
 }

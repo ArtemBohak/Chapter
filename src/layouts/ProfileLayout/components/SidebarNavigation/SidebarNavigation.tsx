@@ -1,10 +1,11 @@
 import { FC } from "react";
-import cn from "classnames";
 import { NavLink } from "react-router-dom";
+import cn from "classnames";
+
+import { ProfileNavigation } from "../ProfileNavigation";
 import { links } from "@/src/utils/links/links.types";
 
 import { useNavigationToggler } from "@/src/context/NavigationToggler";
-import { ProfileNavigation } from "../ProfileNavigation";
 import styles from "./SidebarNavigation.module.scss";
 
 const SidebarNavigation: FC = () => {
