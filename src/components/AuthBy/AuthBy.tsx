@@ -1,9 +1,11 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import cn from "classnames";
-import { Icon } from "@/src/components/Icon";
+
 import { type AuthByProps } from "./AuthBy.type";
 import styles from "./AuthBy.module.scss";
+
+import { Icon } from "@/src/components/Icon";
 
 const AuthBy: FC<AuthByProps> = ({
   socialLinks,
