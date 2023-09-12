@@ -13,6 +13,7 @@ import {
 } from "@/src/pages";
 
 import { PublicLayout, ProfileLayout } from "@/src/layouts";
+import { links } from "@/src/utils/links/links.types";
 
 const router = createBrowserRouter([
   {
@@ -28,7 +29,7 @@ const router = createBrowserRouter([
         element: <Outlet />,
         children: [
           {
-            path: "register",
+            path: links.SIGN_UP,
             element: <RegisterPage />,
           },
           {
@@ -36,11 +37,11 @@ const router = createBrowserRouter([
             element: <AccountCreationPage />,
           },
           {
-            path: "login",
+            path: links.LOG_IN,
             element: <LoginPage />,
           },
           {
-            path: "forgot-password",
+            path: links.FORGOT_PASSWORD,
             element: <ForgotPasswordPage />,
           },
         ],
@@ -53,13 +54,14 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        path: "/feed",
+        path: links.FEED,
         element: <FeedPage />,
       },
       {
-        path: "/settings",
+        path: links.SETTINGS,
         element: <SettingsPage />,
       },
+      { path: "/ui-page", element: <UIPage /> },
     ],
   },
   { path: "*", element: <ErrorPage /> },
