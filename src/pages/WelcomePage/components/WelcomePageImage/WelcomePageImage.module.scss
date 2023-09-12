@@ -5,7 +5,7 @@
   overflow-x-hidden md:overflow-x-visible;
 }
 
-.image-background {
+.image__background {
   @apply absolute 
   bg-[#FFE0C8] blur-[106px] 
   rounded-2xl 
@@ -17,7 +17,8 @@
   @apply relative 
   sm:max-w-[665px] base:max-w-[990px] base:w-full
   sm:left-4 base:left-12
-  flex items-end;
+  flex items-end
+  pt-8 md:pt-0;
 }
 
 .image img {

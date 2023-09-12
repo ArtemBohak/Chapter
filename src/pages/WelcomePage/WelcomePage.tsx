@@ -6,9 +6,11 @@ import WelcomePagePanel from "./components/WelcomePagePanel/WelcomePagePanel";
 
 const WelcomePage: FC = () => {
   return (
-    <div className={styles["welcome-page__container"]}>
-      <WelcomePageImage />
-      <WelcomePagePanel />
+    <div className={styles['wrapper']}>
+      <div className={styles["welcome-page-container"]}>
+        <WelcomePageImage />
+        <WelcomePagePanel />
+      </div>
     </div>
   );
 };
