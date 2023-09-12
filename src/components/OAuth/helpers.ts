@@ -1,7 +1,7 @@
 export const getCookie = (key = "stateId") =>
   document.cookie
     .split("; ")
-    .find((item) => item.startsWith(key))
+    .find((item) => item.startsWith(`${key}=`))
     ?.split("=")[1];
 
 export const getUrlParams = (

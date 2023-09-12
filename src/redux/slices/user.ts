@@ -30,15 +30,15 @@ export const userSlice = createSlice({
   name: "userSlice",
   initialState,
   reducers: {
-    loginByPending(state) {
+    oAuthPending(state) {
       state.error = null;
     },
-    loginByFulfilled: (state, action) => {
+    oAuthFulfilled: (state, action) => {
       state.user = action.payload;
       state.isAuth = true;
       state.error = null;
     },
-    loginByRejected: (state, action) => {
+    oAuthRejected: (state, action) => {
       state.error = action.payload;
     },
   },
@@ -61,6 +61,6 @@ export const userSlice = createSlice({
   },
 });
 
-export const { loginByFulfilled, loginByRejected, loginByPending } =
+export const { oAuthPending, oAuthFulfilled, oAuthRejected } =
   userSlice.actions;
 export default userSlice.reducer;

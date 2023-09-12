@@ -33,6 +33,7 @@ const OAuth: FC<OAuthProps> = ({
   const stateId = getCookie("stateId")
     ? getCookie("stateId")
     : VITE_BASE_OAUTH_STATE;
+
   const {
     currentLocation,
     twitterRedirectUrl,

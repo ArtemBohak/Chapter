@@ -4,11 +4,11 @@ import { AxiosError } from "axios";
 import { googleOAuthApi, api, EndpointsEnum } from "@/src/axios";
 import { AppDispatch } from "@/src/redux/store";
 import {
-  loginByFulfilled,
-  loginByRejected,
-  loginByPending,
+  oAuthPending,
+  oAuthFulfilled,
+  oAuthRejected,
 } from "@/src/redux/slices/user";
-import { links } from "@/src/utils";
+import { links, setTokenToLC } from "@/src/utils";
 import {
   type ApiDataArgs,
   OAuthApiArgs,
@@ -101,21 +101,26 @@ class OAuthApi {
 
   async googleLogin() {
     this.setIsLoading(true);
-    this.dispatch(loginByPending());
+    this.dispatch(oAuthPending());
     try {
       const cred = await this.getGoogleAuthCode();
 
-      const { data } = await OAuthApi.googleApi({
+      const {
+        data: { token, tokenExpires, user },
+      } = await OAuthApi.googleApi({
         googleIdToken: cred.data.id_token,
       });
-
-      if (data.user.nickName) this.dispatch(loginByFulfilled(data.user));
-      this.navigate(
-        OAuthApi.createRedirectUserUrl(data.user.nickName, data.user.id)
-      );
+      if (user.nickName) {
+        setTokenToLC({
+          token,
+          tokenExpires,
+        });
+        this.dispatch(oAuthFulfilled(user));
+      }
+      this.navigate(OAuthApi.createRedirectUserUrl(user.nickName, user.id));
     } catch (error) {
       if (error instanceof AxiosError)
-        this.dispatch(loginByRejected(error.message));
+        this.dispatch(oAuthRejected(error.message));
     } finally {
       this.clearData();
     }
@@ -123,19 +128,25 @@ class OAuthApi {
 
   async facebookLogin() {
     this.setIsLoading(true);
-    this.dispatch(loginByPending());
+    this.dispatch(oAuthPending());
     try {
-      const { data } = await OAuthApi.facebookApi({
+      const {
+        data: { token, tokenExpires, user },
+      } = await OAuthApi.facebookApi({
         facebookAccessToken: this.token,
       });
 
-      if (data.user.nickName) this.dispatch(loginByFulfilled(data.user));
-      this.navigate(
-        OAuthApi.createRedirectUserUrl(data.user.nickName, data.user.id)
-      );
+      if (user.nickName) {
+        setTokenToLC({
+          token,
+          tokenExpires,
+        });
+        this.dispatch(oAuthFulfilled(user));
+      }
+      this.navigate(OAuthApi.createRedirectUserUrl(user.nickName, user.id));
     } catch (error) {
       if (error instanceof AxiosError)
-        this.dispatch(loginByRejected(error.message));
+        this.dispatch(oAuthRejected(error.message));
     } finally {
       this.clearData();
     }
