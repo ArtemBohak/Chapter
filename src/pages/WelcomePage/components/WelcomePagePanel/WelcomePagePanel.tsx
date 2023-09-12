@@ -1,10 +1,8 @@
 import { FC } from "react";
-
 import styles from "./WelcomePagePanel.module.scss";
 
 import UIbutton from "@/src/components/Buttons/UIbutton/UIbutton";
 import { links } from "@/src/utils/links/links.types";
-
 
 const WelcomePagePanel: FC = () => {
   return (      
