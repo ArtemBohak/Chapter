@@ -6,6 +6,7 @@ import { IconEnum } from "@/src/components/Icon";
 
 import styles from "@/src/pages/RegisterPage/RegisterPage.module.scss";
 import { links } from "@/src/utils/links/links.types";
+import { CookiesToaster } from "@/src/components/CookiesToaster";
 
 const RegisterPage: FC = () => (
   <BlockAuth
@@ -23,8 +24,13 @@ const RegisterPage: FC = () => (
           { link: "/", icon: IconEnum.Twitter },
         ]}
       />
-      <AuthLink textMsg="Already have an account ?" linkMsg="Log in" link={links.LOG_IN} />
+      <AuthLink
+        textMsg="Already have an account ?"
+        linkMsg="Log in"
+        link={links.LOG_IN}
+      />
     </div>
+    <CookiesToaster />
   </BlockAuth>
 );
 
