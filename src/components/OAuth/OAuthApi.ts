@@ -1,8 +1,13 @@
 import { SetURLSearchParams } from "react-router-dom";
-import { googleOAuthApi, api, EndpointsEnum } from "@/src/axios";
+import { AxiosError } from "axios";
 
-// import { AppDispatch } from "@/src/redux/store";
-// import { loginBy } from "@/src/redux/slices/user";
+import { googleOAuthApi, api, EndpointsEnum } from "@/src/axios";
+import { AppDispatch } from "@/src/redux/store";
+import {
+  loginByFulfilled,
+  loginByRejected,
+  loginByPending,
+} from "@/src/redux/slices/user";
 import { links } from "@/src/utils";
 import {
   type ApiDataArgs,
@@ -24,7 +29,7 @@ class OAuthApi {
   protected setSearchParams: SetURLSearchParams | null;
   protected setAuthCode: ((data: string) => void) | null;
   protected navigate: (data: string) => void;
-  // protected dispatch: AppDispatch;
+  protected dispatch: AppDispatch;
   protected setIsLoading: (data: boolean) => void;
 
   protected googleOAuthGrandType = "authorization_code";
@@ -70,7 +75,7 @@ class OAuthApi {
     setSearchParams = null,
     setAuthCode = null,
     navigate,
-    // dispatch,
+    dispatch,
     setIsLoading,
   }: OAuthApiArgs) {
     this.redirectUri = redirectUri;
@@ -78,7 +83,7 @@ class OAuthApi {
     this.setSearchParams = setSearchParams;
     this.setAuthCode = setAuthCode;
     this.navigate = navigate;
-    // this.dispatch = dispatch;
+    this.dispatch = dispatch;
     this.setIsLoading = setIsLoading;
   }
 
@@ -96,6 +101,7 @@ class OAuthApi {
 
   async googleLogin() {
     this.setIsLoading(true);
+    this.dispatch(loginByPending());
     try {
       const cred = await this.getGoogleAuthCode();
 
@@ -103,12 +109,13 @@ class OAuthApi {
         googleIdToken: cred.data.id_token,
       });
 
-      console.log("dispatch =>", data);
+      if (data.user.nickName) this.dispatch(loginByFulfilled(data.user));
       this.navigate(
         OAuthApi.createRedirectUserUrl(data.user.nickName, data.user.id)
       );
     } catch (error) {
-      console.log(error);
+      if (error instanceof AxiosError)
+        this.dispatch(loginByRejected(error.message));
     } finally {
       this.clearData();
     }
@@ -116,17 +123,19 @@ class OAuthApi {
 
   async facebookLogin() {
     this.setIsLoading(true);
+    this.dispatch(loginByPending());
     try {
       const { data } = await OAuthApi.facebookApi({
         facebookAccessToken: this.token,
       });
-      console.log("dispatch =>", data);
 
+      if (data.user.nickName) this.dispatch(loginByFulfilled(data.user));
       this.navigate(
         OAuthApi.createRedirectUserUrl(data.user.nickName, data.user.id)
       );
     } catch (error) {
-      console.log(error);
+      if (error instanceof AxiosError)
+        this.dispatch(loginByRejected(error.message));
     } finally {
       this.clearData();
     }

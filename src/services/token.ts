@@ -10,7 +10,7 @@ type RefreshTokenType = {
 class TokenService {
   static async refreshToken(): AxiosPromise<RefreshTokenType> {
     const response = await axios.post(
-      `${import.meta.env.VITE_REACT_API_URL}${EndpointsEnum.REFRESH}`
+      `${import.meta.env.VITE_API_BASE_URL}${EndpointsEnum.REFRESH}`
     );
     return response;
   }

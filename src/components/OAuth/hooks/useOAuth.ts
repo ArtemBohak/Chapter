@@ -10,7 +10,7 @@ import {
 import { type UseOAuthProps } from "../OAuth.type";
 import useGetOAthUrlParams from "./useGetOAuthUrlParams";
 
-// import { useAppDispatch } from "@/src/redux/hooks";
+import { useAppDispatch } from "@/src/redux/hooks";
 
 import OAuthApi from "../OAuthApi";
 
@@ -30,7 +30,7 @@ const useOAuth = ({
   const [facebookErrorMessage, setFacebookErrorMessage] = useState<
     string | null
   >(null);
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
   const {
     oAuthState,
     faceBookState,
@@ -62,7 +62,7 @@ const useOAuth = ({
           navigate,
           setIsLoading,
           setAuthCode: setGoogleAuthCode,
-          // dispatch,
+          dispatch,
         });
         await google.googleLogin();
       }
@@ -78,7 +78,7 @@ const useOAuth = ({
           navigate,
           setIsLoading,
           setAuthCode: setFacebookAuthCode,
-          // dispatch,
+          dispatch,
         });
         await facebook.facebookLogin();
       }
@@ -94,7 +94,7 @@ const useOAuth = ({
           navigate,
           setAuthCode: setTwitterAuthCode,
           setIsLoading,
-          // dispatch,
+          dispatch,
         });
         await twitterLogin.twitterLogin();
       }
@@ -113,6 +113,7 @@ const useOAuth = ({
     setSearchParams,
     setGoogleAuthCode,
     setTwitterAuthCode,
+    dispatch,
   ]);
 
   const googleOAuthLogin = useGoogleLogin({
@@ -130,7 +131,7 @@ const useOAuth = ({
           redirectUri: VITE_GOOGLE_REDIRECT_URI,
           navigate,
           setIsLoading,
-          // dispatch,
+          dispatch,
         });
         await google.googleLogin();
       }
@@ -145,7 +146,7 @@ const useOAuth = ({
       token: codeResponse.accessToken,
       navigate,
       setIsLoading,
-      // dispatch,
+      dispatch,
     });
     await facebook.facebookLogin();
   };

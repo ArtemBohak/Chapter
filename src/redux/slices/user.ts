@@ -29,7 +29,19 @@ const initialState: IUserState = {
 export const userSlice = createSlice({
   name: "userSlice",
   initialState,
-  reducers: {},
+  reducers: {
+    loginByPending(state) {
+      state.error = null;
+    },
+    loginByFulfilled: (state, action) => {
+      state.user = action.payload;
+      state.isAuth = true;
+      state.error = null;
+    },
+    loginByRejected: (state, action) => {
+      state.error = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchIsAuthUser.pending, (state) => {
@@ -49,4 +61,6 @@ export const userSlice = createSlice({
   },
 });
 
+export const { loginByFulfilled, loginByRejected, loginByPending } =
+  userSlice.actions;
 export default userSlice.reducer;
