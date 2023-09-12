@@ -7,7 +7,7 @@ import { links } from "@/src/utils/links/links.types";
 
 
 const WelcomePagePanel: FC = () => {
-  return (
+  return (      
     <div className={styles["panel-container"]}>
       <div className={styles["panel"]}>
         <div className={styles["panel-description"]}>
