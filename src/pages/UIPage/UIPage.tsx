@@ -32,7 +32,7 @@ const UIPage: FC = () => {
           <Link to={links.SETTINGS}>Settings</Link>
         </li>
         <li>
-          <Link to="/111">Not found</Link>
+          <Link to={links.NOT_FOUND}>Not found</Link>
         </li>
       </ul>
       <div className="max-w-[1200px] w-full mx-auto px-2-md">

@@ -1,11 +1,11 @@
 import { FC } from "react";
 
+import styles from "@/src/pages/RegisterPage/RegisterPage.module.scss";
+import { links } from "@/src/utils";
+
 import { AuthLink, Delimiter, AuthBy, BlockAuth } from "@/src/components";
 import { RegisterForm } from "@/src/pages/RegisterPage/components";
 import { IconEnum } from "@/src/components/Icon";
-
-import styles from "@/src/pages/RegisterPage/RegisterPage.module.scss";
-import { links } from "@/src/utils/links/links.types";
 import { CookiesToaster } from "@/src/components/CookiesToaster";
 
 const RegisterPage: FC = () => (
