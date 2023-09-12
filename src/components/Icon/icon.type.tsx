@@ -13,4 +13,5 @@ export enum IconEnum {
   SignOut = "sign-out",
   Menu = "menu",
   Cross = "cross",
+  ArrowRight = 'arrow-right'
 }
