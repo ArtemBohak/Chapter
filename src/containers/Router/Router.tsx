@@ -33,7 +33,7 @@ const router = createBrowserRouter([
             element: <RegisterPage />,
           },
           {
-            path: links.ACCOUNT_CREATION,
+            path: "account-creation/:id",
             element: <AccountCreationPage />,
           },
           {

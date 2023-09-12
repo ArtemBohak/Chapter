@@ -11,4 +11,5 @@ export type TextFieldProps = {
     text: string;
     href: string;
   };
+  customErrorMessage?: string | null;
 } & Partial<InputHTMLAttributes<HTMLInputElement>>;

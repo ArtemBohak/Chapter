@@ -1,5 +1,7 @@
 import { FC } from "react";
 import { NavLink } from "react-router-dom";
+import cn from "classnames";
+import { links } from "@/src/utils/links/links.types";
 
 import { useNavigationToggler } from "@/src/context/NavigationToggler";
 
@@ -13,11 +15,18 @@ import {
 } from "@/src/components";
 
 import styles from "./ProfileHeader.module.scss";
+import { useAppSelector } from "@/src/redux/hooks";
 
 const ProfileHeader: FC = () => {
   const { isActiveMenu, setIsActiveMenu } = useNavigationToggler();
-  const userName = "User name";
-  const userAvatar = "https://i.postimg.cc/LX0WVXCB/Follow-web-1.webp";
+  const { loading, user } = useAppSelector((store) => store.userSlice);
+  const { firstName, lastName, avatarUrl } = user;
+
+  const defaultUserAvatar = "https://i.postimg.cc/LX0WVXCB/Follow-web-1.webp";
+
+  const getUserAvatar = () => {
+    return loading ? defaultUserAvatar : avatarUrl || defaultUserAvatar;
+  };
 
   return (
     <header className={styles["profile-header"]}>
@@ -27,7 +36,10 @@ const ProfileHeader: FC = () => {
           className={styles["profile-header__menu-toggler"]}
           onClick={() => setIsActiveMenu && setIsActiveMenu(!isActiveMenu)}
         />
-        <NavLink to="/profile" className={styles["profile-header__logo-name"]}>
+        <NavLink
+          to={links.FEED}
+          className={styles["profile-header__logo-name"]}
+        >
           Chapter
         </NavLink>
         <div className={styles["profile-header__auth-side"]}>
@@ -65,9 +77,9 @@ const ProfileHeader: FC = () => {
             Add post
           </UIbutton>
           <UserAvatar
-            src={userAvatar}
-            alt={userName}
-            className={styles["profile-header__user-avatar"]}
+            src={getUserAvatar()}
+            alt={`${firstName} ${lastName}`}
+            className={cn(styles["profile-header__user-avatar"])}
           />
           <UIbutton
             href="/"
