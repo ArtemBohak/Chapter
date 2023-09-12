@@ -24,9 +24,7 @@ class RegisterFormApi {
         error.response.data.status < 500
       ) {
         return error.response.data;
-      } else {
-        return console.log(error);
-      }
+      } else console.log(error);
     }
   }
 

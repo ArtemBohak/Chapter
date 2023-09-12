@@ -1,15 +1,16 @@
 import { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Formik, Form } from "formik";
+import { Formik, Form, FormikHelpers } from "formik";
+
 import cn from "classnames";
 
 import RegisterFormApi from "./RegisterFormApi";
 import {
   type RegisterFormProps,
   RegisterAccountValues,
-  SetFieldError,
-  ResetForm,
+  EmailStatus,
   ErrorMessage,
+  ErrorStatus,
   Steps,
   RegisterAccountKey,
 } from "./RegisterForm.type";
@@ -32,41 +33,44 @@ const RegisterForm: FC<RegisterFormProps> = ({ className, ...props }) => {
 
   const isNextStep = step > Steps.FIRST;
 
-  const onHandleSubmit = async <
-    T extends RegisterAccountValues,
-    K extends SetFieldError,
-    N extends ResetForm,
-  >(
-    { email, hash }: T,
-    setFieldError: K,
-    resetForm: N
+  const onHandleSubmit = async (
+    { email, hash }: RegisterAccountValues,
+    {
+      setFieldError,
+      resetForm,
+      setSubmitting,
+    }: FormikHelpers<RegisterAccountValues>
   ) => {
-    if (step === Steps.SECOND) {
-      const { status, id } = await RegisterFormApi.fetchUserRegData({
-        hash,
+    try {
+      if (step === Steps.SECOND) {
+        const { status, id } = await RegisterFormApi.fetchUserRegData({
+          hash,
+        });
+
+        return status === ErrorStatus.NOTFOUND
+          ? setFieldError(RegisterAccountKey.HASH, ErrorMessage.HASH)
+          : navigate(`${links.ACCOUNT_CREATION}/${id}`);
+      }
+      const { error, status } = await RegisterFormApi.fetchUserRegData({
+        email,
       });
 
-      return status === 404
-        ? setFieldError(RegisterAccountKey.HASH, ErrorMessage.HASH)
-        : navigate(`${links.ACCOUNT_CREATION}/${id}`);
-    }
-    const { error, status } = await RegisterFormApi.fetchUserRegData({
-      email,
-    });
+      if (
+        status === ErrorStatus.UNPROCESSABLE_ENTITY &&
+        RegisterFormApi.formatErrorResponse(error) === EmailStatus.UNCONFIRMED
+      ) {
+        resetForm({ values: { email, hash } });
+        return setStep(step + 1);
+      }
 
-    if (
-      status === 422 &&
-      RegisterFormApi.formatErrorResponse(error) === "inactive"
-    ) {
+      if (status === ErrorStatus.UNPROCESSABLE_ENTITY)
+        return setFieldError(RegisterAccountKey.EMAIL, ErrorMessage.EMAIL);
+
       resetForm({ values: { email, hash } });
-      return setStep(step + 1);
+      setStep(step + 1);
+    } finally {
+      setSubmitting(false);
     }
-
-    if (status === 422)
-      return setFieldError(RegisterAccountKey.EMAIL, ErrorMessage.EMAIL);
-
-    resetForm({ values: { email, hash } });
-    setStep(step + 1);
   };
 
   const renderNextStep = (value: string) =>
@@ -87,13 +91,7 @@ const RegisterForm: FC<RegisterFormProps> = ({ className, ...props }) => {
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema(isNextStep)}
-      onSubmit={async (
-        values: RegisterAccountValues,
-        { setFieldError, setSubmitting, resetForm }
-      ) => {
-        await onHandleSubmit(values, setFieldError, resetForm);
-        setSubmitting(false);
-      }}
+      onSubmit={onHandleSubmit}
       {...props}
     >
       {({ isSubmitting, dirty, isValid, values }) => (
