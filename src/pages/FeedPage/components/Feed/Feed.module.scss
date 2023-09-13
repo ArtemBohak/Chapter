@@ -1,0 +1,7 @@
+.feed {
+  @apply flex gap-2-xs;
+
+  &__content-container {
+    @apply max-w-[640px];
+  }
+}

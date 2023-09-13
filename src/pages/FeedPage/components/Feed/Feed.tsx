@@ -1,4 +1,5 @@
 import { FC } from "react";
+import styles from "./Feed.module.scss";
 
 import { IconEnum } from "@/src/components/Icon";
 
@@ -9,11 +10,11 @@ import postImage from "./assets/image.jpg";
 import CommentsForm from "../CommentsForm/CommentsForm";
 const Feed: FC = () => {
   return (
-    <div>
+    <div className={styles["feed"]}>
       <div>
         <img src={userImage} alt="" width="78" />
       </div>
-      <div>
+      <div className={styles["feed__content-container"]}>
         <div>
           <div>
             <h5>Alex Space</h5>
