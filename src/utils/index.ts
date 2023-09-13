@@ -1,3 +1,3 @@
 export { emailValidation } from "./regex/email-regex";
 export { links } from "./links/links.types";
-export { setTokenToLC, getTokenFromLC } from "./localStorage/localStorage";
+export { setTokenToLS, getTokenFromLC } from "./localStorage/localStorage";

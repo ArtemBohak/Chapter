@@ -8,9 +8,10 @@ import {
   oAuthFulfilled,
   oAuthRejected,
 } from "@/src/redux/slices/user";
-import { links, setTokenToLC } from "@/src/utils";
+import { links, setTokenToLS } from "@/src/utils";
 import {
   type ApiDataArgs,
+  ApiData,
   OAuthApiArgs,
   OAuthApiEndPoints,
 } from "./OAuth.type";
@@ -100,8 +101,7 @@ class OAuthApi {
   }
 
   async googleLogin() {
-    this.setIsLoading(true);
-    this.dispatch(oAuthPending());
+    this.pendingData();
     try {
       const cred = await this.getGoogleAuthCode();
 
@@ -110,13 +110,8 @@ class OAuthApi {
       } = await OAuthApi.googleApi({
         googleIdToken: cred.data.id_token,
       });
-      if (user.nickName) {
-        setTokenToLC({
-          token,
-          tokenExpires,
-        });
-        this.dispatch(oAuthFulfilled(user));
-      }
+      if (user.nickName) this.saveData({ token, tokenExpires, user });
+
       this.navigate(OAuthApi.createRedirectUserUrl(user.nickName, user.id));
     } catch (error) {
       if (error instanceof AxiosError)
@@ -127,8 +122,7 @@ class OAuthApi {
   }
 
   async facebookLogin() {
-    this.setIsLoading(true);
-    this.dispatch(oAuthPending());
+    this.pendingData();
     try {
       const {
         data: { token, tokenExpires, user },
@@ -136,13 +130,8 @@ class OAuthApi {
         facebookAccessToken: this.token,
       });
 
-      if (user.nickName) {
-        setTokenToLC({
-          token,
-          tokenExpires,
-        });
-        this.dispatch(oAuthFulfilled(user));
-      }
+      if (user.nickName) this.saveData({ token, tokenExpires, user });
+
       this.navigate(OAuthApi.createRedirectUserUrl(user.nickName, user.id));
     } catch (error) {
       if (error instanceof AxiosError)
@@ -158,10 +147,23 @@ class OAuthApi {
       console.log("POST auth/twitter/login => ", this.token);
       this.navigate("/");
     } catch (error) {
-      console.log(error);
+      if (error instanceof AxiosError)
+        this.dispatch(oAuthRejected(error.message));
     } finally {
       this.clearData();
     }
+  }
+  pendingData() {
+    this.setIsLoading(true);
+    this.dispatch(oAuthPending());
+  }
+
+  saveData({ user, token, tokenExpires }: ApiData) {
+    setTokenToLS({
+      token,
+      tokenExpires,
+    });
+    this.dispatch(oAuthFulfilled(user));
   }
 
   clearData() {

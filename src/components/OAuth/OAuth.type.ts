@@ -1,6 +1,7 @@
 import { SetURLSearchParams } from "react-router-dom";
 
 import { AppDispatch } from "@/src/redux/store";
+import { IUserStore } from "@/src/redux/types/user";
 
 export enum OAuthApiEndPoints {
   GOOGLE_TOKEN = "/token",
@@ -50,4 +51,10 @@ export type ErrorResponse = {
   error_description?: string;
   status: number;
   errors: { [key: string]: string };
+};
+
+export type ApiData = {
+  user: IUserStore;
+  token: string;
+  tokenExpires: string;
 };

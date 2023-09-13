@@ -8,9 +8,7 @@ import styles from "./AuthBy.module.scss";
 const AuthBy: FC<AuthByProps> = ({ className }) => {
   return (
     <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
-      <div className={cn(styles["auth-by"], className)}>
-        <div className={styles["auth-by__container"]}></div>
-      </div>
+      <div className={cn(styles["auth-by"], className)}></div>
     </GoogleOAuthProvider>
   );
 };

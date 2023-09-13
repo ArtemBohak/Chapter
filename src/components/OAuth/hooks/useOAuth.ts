@@ -8,7 +8,7 @@ import {
 } from "@greatsumini/react-facebook-login";
 
 import { type UseOAuthProps } from "../OAuth.type";
-import useGetOAthUrlParams from "./useGetOAuthUrlParams";
+import useGetOAuthUrlParams from "./useGetOAuthUrlParams";
 
 import { useAppDispatch } from "@/src/redux/hooks";
 
@@ -43,7 +43,7 @@ const useOAuth = ({
     setFacebookAuthCode,
     setTwitterAuthCode,
     setSearchParams,
-  } = useGetOAthUrlParams({ setFacebookErrorMessage, stateId });
+  } = useGetOAuthUrlParams({ setFacebookErrorMessage, stateId });
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -152,7 +152,6 @@ const useOAuth = ({
   };
 
   const onFacebookOauthFail = (error: FailResponse) => {
-    console.log("Facebook Login Failed!", error);
     setFacebookErrorMessage(error.status);
   };
 
