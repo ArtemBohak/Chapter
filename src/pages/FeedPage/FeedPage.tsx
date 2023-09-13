@@ -1,10 +1,12 @@
 import { FC } from "react";
-import { useAppSelector } from "@/src/redux/hooks";
+
+import FeedsList from "./components/FeedsList/FeedsList";
+// import { useAppSelector } from "@/src/redux/hooks";
 
 const FeedPage: FC = () => {
-  const userSlice = useAppSelector((state) => state.userSlice);
+  // const userSlice = useAppSelector((state) => state.userSlice);
 
-  return <h1>Feed page - {userSlice.user.firstName}</h1>;
+  return <FeedsList />;
 };
 
 export default FeedPage;

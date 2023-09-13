@@ -13,5 +13,8 @@ export enum IconEnum {
   SignOut = "sign-out",
   Menu = "menu",
   Cross = "cross",
-  ArrowRight = 'arrow-right'
+  ArrowRight = "arrow-right",
+  Likes = "heart",
+  Comments = "comments",
+  Share = "share",
 }

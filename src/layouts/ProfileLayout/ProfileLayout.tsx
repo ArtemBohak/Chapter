@@ -28,13 +28,13 @@ const ProfileLayout: FC = () => {
     }
   }, [userSlice.isAuth, userSlice.loading]);
 
-  if (!getTokenFromLC()) {
-    return <Navigate to={links.LOG_IN} replace={true} />;
-  }
+  // if (!getTokenFromLC()) {
+  //   return <Navigate to={links.LOG_IN} replace={true} />;
+  // }
 
   return (
     <>
-      {!userSlice.loading && userSlice.isAuth ? (
+      {!userSlice.loading && !userSlice.isAuth ? (
         <div className={styles["profile-layout"]}>
           <NavigationTogglerProvider>
             <SidebarNavigation />

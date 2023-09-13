@@ -21,6 +21,7 @@ const TextField: FC<TextFieldProps> = ({
   dataAutomation,
   helperLink,
   customErrorMessage,
+  component = "input",
   onChange,
   ...props
 }) => {
@@ -47,6 +48,7 @@ const TextField: FC<TextFieldProps> = ({
           <Field
             {...field}
             id={id}
+            as={component}
             data-automation={dataAutomation}
             type={type}
             {...props}
