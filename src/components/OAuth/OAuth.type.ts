@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 import { SetURLSearchParams } from "react-router-dom";
 
 import { AppDispatch } from "@/src/redux/store";
@@ -7,6 +8,7 @@ export enum OAuthApiEndPoints {
   GOOGLE_TOKEN = "/token",
 }
 
+export type OAuthContainerProps = { children: ReactNode };
 export type OAuthProps = {
   className?: string;
   text?: string;
