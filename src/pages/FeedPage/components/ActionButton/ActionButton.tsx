@@ -1,39 +1,44 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useMemo, useState } from "react";
+import cn from "classnames";
 
 import { ActionButtonProps } from "./ActionButton.type";
-import { IconEnum } from "@/src/components/Icon";
+
 import styles from "./ActionButton.module.scss";
 
 import { Icon } from "@/src/components";
 
 const ActionButton: FC<ActionButtonProps> = ({
   id,
-  iconType,
-  value,
   clickedList,
+  value,
+  iconType,
   size = 28,
 }) => {
-  const [isClicked, setIsClicked] = useState(false);
+  const clicked = useMemo(
+    () =>
+      clickedList.some((i) => {
+        return i === id;
+      }),
+    [clickedList, id]
+  );
 
-  useEffect(() => {
-    setIsClicked(clickedList.some((item) => item === id));
-  }, [clickedList, id]);
+  const [isClicked, setIsClicked] = useState(clicked);
 
   const onHandleClick = () => {
     setIsClicked(!isClicked);
-    isClicked && clickedList.filter((item) => item !== id);
-    !isClicked && clickedList.push(id);
   };
+  const mainClass = cn({
+    [`${styles["button__icon"]}`]: !isClicked,
+    [`${styles["button__icon--clicked"]}`]: isClicked,
+  });
+
   return (
     <button onClick={onHandleClick} className={styles["button"]}>
       <Icon
-        className={`${
-          isClicked ? styles["button__icon--clicked"] : styles["button__icon"]
-        }`}
+        className={mainClass}
         icon={iconType}
         size={size}
         removeInlineStyle={true}
-        style={iconType === IconEnum.Likes ? {} : undefined}
       />
       <span>{value}</span>
     </button>

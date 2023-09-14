@@ -1,7 +1,7 @@
 .comments {
   @apply flex gap-1-xs items-start;
   &__field {
-    @apply resize-none max-w-[432px] w-full min-h-min py-[8px] px-[20px] rounded-md border border-solid border-[#B3B3B3] outline-none text-lg transition-all duration-100 ease-linear;
+    @apply resize-none max-w-[432px] w-full min-h-min py-[8px] px-[20px] rounded-md border border-solid border-[#B3B3B3] outline-none text-lg transition-all duration-100 ease-linear bg-inherit;
 
     &--unfocused {
       @apply h-[44px];

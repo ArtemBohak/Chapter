@@ -2,31 +2,26 @@ import { FC, useState } from "react";
 import styles from "./Feed.module.scss";
 
 import { IconEnum } from "@/src/components/Icon";
+import { FeedProps } from "./Feed.type";
 
 import { UIbutton } from "@/src/components";
-
 import CommentsForm from "../CommentsForm/CommentsForm";
 import ActionButton from "../ActionButton/ActionButton";
 
-import userImage from "./assets/user.png";
-import postImage from "./assets/image.jpg";
-const testText =
-  "Just finished diving into an amazing book and couldn't resist sharing my thoughts! 🤓📖 The narrative's compelling, the characters were wonderfully crafted, and the plot was so gripping that it made 'putting the book down' an impossible task. I can safely say that it gave my imagination a whole new world to explore! I won't spill any spoilers, but here's a hint: It's a tapestry of intriguing storylines that intertwine in the most unexpected ways. 😏 If anyone is looking for a brilliant book to get lost into, stay tuned. I'll be dropping a hint soon. Until then, keep reading and keep exploring! 🚀 #BookLovers #AmReading #BookWorld #ReadersLife #PageTurner #BookwormsUnite";
-
-const Feed: FC = ({
-  follow = false,
-  totalLike = 235,
-  totalReposts = 122,
-  totalComments = 1212,
-  likesList = [],
-  commentsList = [],
-  repostLst = [],
-  id = "12",
-  img = postImage,
-  avatar = userImage,
-  text = testText,
+const Feed: FC<FeedProps> = ({
+  isFollowing,
+  totalLikes,
+  totalReposts,
+  totalComments,
+  id,
+  likesIdList,
+  commentsIdList,
+  repostsIdList,
+  img,
+  avatar,
+  text,
 }) => {
-  const [isFollow, setIsFollow] = useState(follow);
+  const [isFollow, setIsFollow] = useState(isFollowing);
   const [isReadMore, setIsReadMore] = useState(true);
   const toggleReadMore = () => setIsReadMore(!isReadMore);
 
@@ -68,22 +63,22 @@ const Feed: FC = ({
         </div>
         <div className={styles["content__action"]}>
           <ActionButton
-            value={totalLike}
-            id="1"
+            value={totalLikes}
+            id={id}
             iconType={IconEnum.Likes}
-            clickedList={likesList}
+            clickedList={likesIdList}
           />
           <ActionButton
             value={totalReposts}
             id={id}
             iconType={IconEnum.Share}
-            clickedList={repostLst}
+            clickedList={repostsIdList}
           />
           <ActionButton
             value={totalComments}
             id={id}
             iconType={IconEnum.Comments}
-            clickedList={commentsList}
+            clickedList={commentsIdList}
           />
         </div>
         <CommentsForm id={id} />
