@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import styles from "./Feed.module.scss";
 
 import { IconEnum } from "@/src/components/Icon";
@@ -9,6 +9,9 @@ import userImage from "./assets/user.png";
 import postImage from "./assets/image.jpg";
 import CommentsForm from "../CommentsForm/CommentsForm";
 const Feed: FC = () => {
+  const [isLiked, setIsLiked] = useState(false);
+  const [isShared, setIsShared] = useState(false);
+  const [isCommented, setIsCommented] = useState(false);
   return (
     <div className={styles["feed"]}>
       <div>
