@@ -1,0 +1,10 @@
+.button {
+  @apply bg-transparent text-grey-1000 flex gap-[10px] justify-center items-center;
+
+  &__icon {
+    @apply fill-grey-1000;
+    &--clicked {
+      @apply fill-[#F79400];
+    }
+  }
+}

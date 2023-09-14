@@ -418,30 +418,14 @@
         "paths": [
           "M547.909 166.041l-35.906 38.966-35.906-38.966c-99.152-107.602-259.911-107.602-359.064-0s-99.153 282.059 0 389.659l323.158 350.694c39.658 43.041 103.962 43.041 143.623 0l323.156-350.694c99.152-107.6 99.152-282.058 0-389.659s-259.909-107.602-359.062 0z"
         ],
-        "attrs": [
-          {
-            "fill": "none",
-            "strokeLinejoin": "round",
-            "strokeLinecap": "butt",
-            "strokeMiterlimit": "4",
-            "strokeWidth": 73.14285714285714
-          }
-        ],
+        "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
         "grid": 24,
         "tags": ["heart"],
         "colorPermutations": {}
       },
-      "attrs": [
-        {
-          "fill": "none",
-          "strokeLinejoin": "round",
-          "strokeLinecap": "butt",
-          "strokeMiterlimit": "4",
-          "strokeWidth": 73.14285714285714
-        }
-      ],
+      "attrs": [],
       "properties": {
         "order": 5,
         "id": 1,

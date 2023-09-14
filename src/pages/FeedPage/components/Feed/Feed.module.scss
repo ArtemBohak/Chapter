@@ -1,10 +1,40 @@
 .feed {
   @apply flex gap-2-xs;
+}
 
-  &__content-container {
-    @apply max-w-[640px];
+.content {
+  @apply max-w-[640px];
+
+  &__title {
+    @apply flex justify-between items-center mb-2-xs;
+
+    &-text {
+      @apply flex items-center justify-center gap-[50px];
+
+      & > h5 {
+        @apply mb-0;
+      }
+      & > p {
+        @apply text-[#ababab];
+      }
+    }
+
+    &-button {
+      @apply min-w-[228px];
+    }
   }
 
-  &__button {
+  &__text {
+    &-button.feed-btn.btn {
+      @apply text-[#b3b3b3] mt-1-lg;
+    }
+  }
+
+  &__image {
+    @apply py-1-lg;
+  }
+
+  &__action {
+    @apply max-w-[420px] pb-1-lg flex justify-between;
   }
 }

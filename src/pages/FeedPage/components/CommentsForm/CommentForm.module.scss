@@ -1,10 +1,17 @@
 .comments {
-  @apply resize-none max-w-[432px] w-full py-[8px] px-[20px] rounded-md border border-solid border-[#B3B3B3] outline-none min-h-min text-lg;
+  @apply flex gap-1-xs items-start;
+  &__field {
+    @apply resize-none max-w-[432px] w-full min-h-min py-[8px] px-[20px] rounded-md border border-solid border-[#B3B3B3] outline-none text-lg transition-all duration-100 ease-linear;
 
-  &--unfocused {
-    @apply h-[44px];
+    &--unfocused {
+      @apply h-[44px];
+    }
+    &--focused {
+      @apply h-[108px];
+    }
   }
-  &--focused {
-    @apply h-[108px];
+
+  &__button {
+    @apply max-h-[44px] w-[198px];
   }
 }

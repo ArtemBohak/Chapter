@@ -2,12 +2,12 @@ import { FC, useState } from "react";
 import { Formik, Form, Field, FormikHelpers } from "formik";
 import cn from "classnames";
 
-import { Values } from "./CommentsForm.type";
+import { Values, CommentsFormProps } from "./CommentsForm.type";
 import styles from "./CommentForm.module.scss";
 
 import { UIbutton } from "@/src/components";
 
-const CommentsForm: FC = () => {
+const CommentsForm: FC<CommentsFormProps> = ({ id }) => {
   const [isFocused, setIsFocused] = useState(false);
 
   const onHandleSubmit = (
@@ -15,6 +15,7 @@ const CommentsForm: FC = () => {
     { setSubmitting, resetForm }: FormikHelpers<Values>
   ) => {
     console.log(values);
+    console.log(id);
     setSubmitting(false);
     resetForm();
   };
@@ -23,7 +24,7 @@ const CommentsForm: FC = () => {
     <Formik initialValues={{ comments: "" }} onSubmit={onHandleSubmit}>
       {({ isSubmitting, values, dirty }) => {
         return (
-          <Form>
+          <Form className={styles["comments"]}>
             <Field
               id="comments"
               placeholder="Add a comment"
@@ -31,20 +32,21 @@ const CommentsForm: FC = () => {
               component="textarea"
               data-automation="commentsInput"
               value={values.comments}
-              className={cn(
-                styles["comments"],
-                dirty || isFocused
-                  ? styles["comments--focused"]
-                  : styles["comments--unfocused"]
-              )}
               onBlur={() => setIsFocused(false)}
               onFocus={() => setIsFocused(true)}
+              className={cn(
+                styles["comments__field"],
+                dirty || isFocused
+                  ? styles["comments__field--focused"]
+                  : styles["comments__field--unfocused"]
+              )}
             />
             <UIbutton
               type="submit"
               dataAutomation="submitButton"
               isLoading={isSubmitting}
               disabled={!dirty || isSubmitting}
+              className={styles["comments__button"]}
             >
               Send
             </UIbutton>

@@ -1,14 +1,10 @@
 import { FC, useEffect, useState } from "react";
 
-import { Icon } from "@/src/components";
+import { ActionButtonProps } from "./ActionButton.type";
+import { IconEnum } from "@/src/components/Icon";
+import styles from "./ActionButton.module.scss";
 
-type ActionButtonProps = {
-  iconType: string;
-  value: number;
-  id: string;
-  clickedList: string[];
-  size?: number | undefined;
-};
+import { Icon } from "@/src/components";
 
 const ActionButton: FC<ActionButtonProps> = ({
   id,
@@ -29,8 +25,17 @@ const ActionButton: FC<ActionButtonProps> = ({
     !isClicked && clickedList.push(id);
   };
   return (
-    <button onClick={onHandleClick}>
-      <Icon icon={iconType} size={size} /> {value}
+    <button onClick={onHandleClick} className={styles["button"]}>
+      <Icon
+        className={`${
+          isClicked ? styles["button__icon--clicked"] : styles["button__icon"]
+        }`}
+        icon={iconType}
+        size={size}
+        removeInlineStyle={true}
+        style={iconType === IconEnum.Likes ? {} : undefined}
+      />
+      <span>{value}</span>
     </button>
   );
 };
