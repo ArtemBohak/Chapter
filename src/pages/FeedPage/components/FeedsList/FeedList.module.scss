@@ -1,7 +1,7 @@
-.feed-container {
-  @apply max-w-fit pt-1-lg pb-3-sm px-4-xs bg-grey-1030 rounded-[16px] max-h-[87vh] overflow-y-scroll;
+.feed-list {
+  @apply flex flex-col gap-[54px] max-w-fit  bg-grey-1030 rounded-[16px] max-h-[86vh] overflow-y-scroll;
 }
 
-.feed-list {
-  @apply flex flex-col gap-[100px];
+.feed-item {
+  @apply pt-1-lg pb-3-xs px-4-xs border-b-[1px];
 }

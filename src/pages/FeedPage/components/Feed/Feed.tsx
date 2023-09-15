@@ -1,30 +1,35 @@
 import { FC, useState } from "react";
 import styles from "./Feed.module.scss";
 
-import { IconEnum } from "@/src/components/Icon";
-import { FeedProps } from "./Feed.type";
+import { FeedProps, TextSize } from "./Feed.type";
+import { formatDate, limitText } from "@/src/utils";
+import { useArrayOfId } from "@/src/hooks";
 
+import { IconEnum } from "@/src/components/Icon";
 import { UIbutton } from "@/src/components";
 import CommentsForm from "../CommentsForm/CommentsForm";
-import ActionButton from "../ActionButton/ActionButton";
+import SocialButton from "../SocialButton/SocialButton";
 
 const Feed: FC<FeedProps> = ({
-  isFollowing,
-  totalLikes,
-  totalReposts,
-  totalComments,
   id,
-  likesIdList,
-  commentsIdList,
-  repostsIdList,
-  img,
+  name,
+  postCreatedAt,
   avatar,
   text,
+  img,
+  followIdList,
+  totalLikes,
+  totalComments,
+  totalRepost,
+  likesIdList,
+  commentsIdList,
+  repostIdList,
 }) => {
+  const [isFollowing] = useArrayOfId(id, followIdList);
   const [isFollow, setIsFollow] = useState(isFollowing);
   const [isReadMore, setIsReadMore] = useState(true);
-  const toggleReadMore = () => setIsReadMore(!isReadMore);
 
+  const formattedPostCreatedAt = formatDate(postCreatedAt);
   return (
     <div className={styles["feed"]}>
       <div>
@@ -33,8 +38,8 @@ const Feed: FC<FeedProps> = ({
       <div className={styles["content"]}>
         <div className={styles["content__title"]}>
           <div className={styles["content__title-text"]}>
-            <h5>Alex Space</h5>
-            <p>11 min</p>
+            <h5>{name}</h5>
+            <p>{formattedPostCreatedAt}</p>
           </div>
           <UIbutton
             variant={isFollow ? "outlined" : "contained"}
@@ -46,11 +51,15 @@ const Feed: FC<FeedProps> = ({
           </UIbutton>
         </div>
         <div className={styles["text"]}>
-          <p>{isReadMore ? text.slice(0, 320) + "..." : text}</p>
-          {text.length > 320 && isReadMore ? (
+          <p>
+            {isReadMore && text.length > TextSize.WORD
+              ? limitText(text, TextSize.SENTENCE)
+              : text}
+          </p>
+          {text.length > TextSize.WORD && isReadMore ? (
             <UIbutton
               variant="text"
-              onClick={toggleReadMore}
+              onClick={() => setIsReadMore(!isReadMore)}
               dataAutomation="clickButton"
               className={`${styles["content__text-button"]} ${styles["feed-btn"]} ${styles["btn"]}`}
             >
@@ -62,23 +71,23 @@ const Feed: FC<FeedProps> = ({
           <img src={img} alt="" width="640" />
         </div>
         <div className={styles["content__action"]}>
-          <ActionButton
+          <SocialButton
+            id={id}
             value={totalLikes}
-            id={id}
-            iconType={IconEnum.Likes}
             clickedList={likesIdList}
+            iconType={IconEnum.Likes}
           />
-          <ActionButton
-            value={totalReposts}
+          <SocialButton
             id={id}
+            value={totalRepost}
+            clickedList={repostIdList}
             iconType={IconEnum.Share}
-            clickedList={repostsIdList}
           />
-          <ActionButton
-            value={totalComments}
+          <SocialButton
             id={id}
-            iconType={IconEnum.Comments}
+            value={totalComments}
             clickedList={commentsIdList}
+            iconType={IconEnum.Comments}
           />
         </div>
         <CommentsForm id={id} />

@@ -1,6 +1,6 @@
 import { IconEnum } from "@/src/components";
 
-export type ActionButtonProps = {
+export type SocialButtonProps = {
   iconType: IconEnum;
   value: number;
   id: string;
