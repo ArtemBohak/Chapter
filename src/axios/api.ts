@@ -3,8 +3,7 @@ import TokenService from "@/src//services/token";
 import { getTokenFromLC } from "@/src/utils/localstorage";
 
 const api = axios.create({
-  //will be changed to const from .env later
-  baseURL: import.meta.env.VITE_REACT_API_URL,
+  baseURL: import.meta.env.VITE_API_BASE_URL,
   withCredentials: false,
   method: "get, post, put, delete, patch",
   headers: {
