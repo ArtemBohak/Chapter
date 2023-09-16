@@ -1,3 +1,15 @@
+::-webkit-scrollbar {
+  @apply w-[20px];
+}
+
+::-webkit-scrollbar-track-piece {
+  @apply bg-[#d9d9d9] rounded-[16px];
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-[#f0eded] rounded-[8px];
+}
+
 html {
   @apply text-lg;
 }
