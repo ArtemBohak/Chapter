@@ -2,13 +2,6 @@
   @apply w-full 
   flex flex-col items-center 
   -mt-4 px-5;
-
-  @media (min-width: 600px) {
-    margin-top: -40px;
-  }
-  @media (min-width: 1367px) {
-    margin-top: -140px;
-  }
 }
 
 .panel {
