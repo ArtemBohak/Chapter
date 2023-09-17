@@ -1,7 +1,7 @@
 .feed-list {
-  @apply flex flex-col gap-[54px] max-w-fit  bg-grey-1030 rounded-[16px] max-h-[86vh] overflow-y-scroll;
+  @apply flex flex-col mt-[20px] md:mt-[24px] laptop:mt-[40px] gap-[60px] laptop:gap-[54px] md:rounded-t-[16px] md:bg-grey-1030  overflow-y-scroll  h-[83vh];
 }
 
 .feed-item {
-  @apply pt-1-lg pb-3-xs px-4-xs border-b-[1px];
+  @apply md:pt-2-md md:px-3-xl laptop:pt-1-lg laptop:pb-3-xs laptop:px-4-xs laptop:border-b-[1px];
 }

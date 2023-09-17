@@ -3,41 +3,75 @@ import cn from "classnames";
 
 import { useArrayOfId } from "@/src/hooks";
 import { SocialButtonProps } from "./SocialButton.type";
+
 import styles from "./SocialButton.module.scss";
 
-import { Icon } from "@/src/components";
+import { Icon, Modal } from "@/src/components";
+import ModalWindow from "../ModalWindow/ModalWindow";
 
 const SocialButton: FC<SocialButtonProps> = ({
-  id,
-  value,
-  clickedList,
+  userId,
+  dataList,
   iconType,
-  size = 28,
+  modalTitle,
+  size,
 }) => {
-  const [clicked] = useArrayOfId(id, clickedList);
+  const [clicked] = useArrayOfId(userId, dataList);
   const [isClicked, setIsClicked] = useState(clicked);
+  const [isShow, setIsShow] = useState(false);
 
-  const onHandleClick = () => {
+  const onHandleIconClick = () => {
     setIsClicked(!isClicked);
+  };
+  const onHandleTextClick = () => {
+    setIsShow(!isShow);
   };
   const mainClass = cn(styles["button__icon"], {
     [`${styles["button__icon--normal"]}`]: !isClicked,
     [`${styles["button__icon--clicked"]}`]: isClicked,
   });
 
+  const value = dataList.length;
   return (
-    <button onClick={onHandleClick} className={styles["button"]}>
-      <span>
-        <Icon
-          className={mainClass}
-          icon={iconType}
-          size={size}
-          removeInlineStyle={true}
-          disableFill
-        />
-      </span>
-      <span>{value}</span>
-    </button>
+    <>
+      <div className={styles["social"]}>
+        <button
+          onClick={onHandleIconClick}
+          className={styles["social__button"]}
+          data-automation="clickButton"
+        >
+          <Icon
+            className={mainClass}
+            icon={iconType}
+            size={size}
+            removeInlineStyle={true}
+            disableFill
+          />
+        </button>
+        <button
+          onClick={onHandleTextClick}
+          className={styles["social__button"]}
+          data-automation="clickButton"
+        >
+          {value}
+        </button>
+      </div>
+      <Modal isOpen={isShow} setIsOpen={setIsShow}>
+        <h5>{modalTitle}</h5>
+        <ul>
+          {dataList.map((i) => (
+            <li key={i.id}>
+              <ModalWindow
+                avatar={i.avatar}
+                id={i.id}
+                name={i.name}
+                followList={i.followList}
+              />
+            </li>
+          ))}
+        </ul>
+      </Modal>
+    </>
   );
 };
 

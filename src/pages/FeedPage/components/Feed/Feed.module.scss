@@ -1,40 +1,56 @@
 .feed {
-  @apply flex gap-2-xs;
+  @apply md:flex md:gap-2-xs;
 }
 
+.avatar {
+  @apply md:hidden;
+  &-tab {
+    @apply hidden md:block laptop:hidden;
+  }
+  &-desc {
+    @apply hidden laptop:block;
+  }
+}
 .content {
-  @apply max-w-[640px];
+  @apply md:max-w-[508px] laptop:max-w-[640px];
 
   &__title {
-    @apply flex justify-between items-center mb-2-xs;
+    @apply flex items-center md:justify-between pb-2-xs laptop:pb-2-xl;
 
     &-text {
-      @apply flex items-center justify-center gap-[50px];
+      @apply ml-1-md md:ml-0 md:flex md:items-center md:justify-center md:gap-[50px];
 
       & > h5 {
-        @apply mb-0;
+        @apply mb-0 md:text-base laptop:text-lg;
       }
       & > p {
-        @apply text-[#ababab];
+        @apply text-xs md:text-base text-[#ababab];
       }
     }
 
-    &-button {
-      @apply min-w-[228px];
+    &-button.btn {
+      @apply ml-auto w-full max-w-[103px] md:max-w-[228px] max-h-[30px] md:max-h-[40px] laptop:min-h-[44px] text-xxs md:text-sm laptop:text-base mb-0;
     }
   }
 
   &__text {
+    & p {
+      @apply text-xs md:text-base;
+    }
     &-button.feed-btn.btn {
-      @apply text-[#b3b3b3] mt-1-lg;
+      @apply text-[#b3b3b3] mt-1-lg text-xxs md:text-xs laptop:text-base;
     }
   }
 
   &__image {
-    @apply py-1-lg;
+    @apply pt-1-lg pb-2-xs md:pb-1-lg flex justify-center;
+
+    & img {
+      @apply mb-2-xs md:mb-1-lg;
+    }
   }
 
-  &__action {
-    @apply max-w-[420px] pb-1-lg flex justify-between;
+  &__social {
+    @apply flex gap-[40px] laptop:gap-[100px];
   }
 }

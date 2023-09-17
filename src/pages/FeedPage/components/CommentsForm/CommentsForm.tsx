@@ -46,7 +46,7 @@ const CommentsForm: FC<CommentsFormProps> = ({ id }) => {
               dataAutomation="submitButton"
               isLoading={isSubmitting}
               disabled={!dirty || isSubmitting}
-              className={styles["comments__button"]}
+              className={`${styles["comments__button"]} ${styles["btn"]}`}
             >
               Send
             </UIbutton>

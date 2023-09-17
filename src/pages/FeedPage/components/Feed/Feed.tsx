@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useRef, useState } from "react";
 import styles from "./Feed.module.scss";
 
 import { FeedProps, TextSize } from "./Feed.type";
@@ -9,6 +9,7 @@ import { IconEnum } from "@/src/components/Icon";
 import { UIbutton } from "@/src/components";
 import CommentsForm from "../CommentsForm/CommentsForm";
 import SocialButton from "../SocialButton/SocialButton";
+import { useAppSelector } from "@/src/redux/hooks";
 
 const Feed: FC<FeedProps> = ({
   id,
@@ -17,46 +18,58 @@ const Feed: FC<FeedProps> = ({
   avatar,
   text,
   img,
-  followIdList,
-  totalLikes,
-  totalComments,
-  totalRepost,
-  likesIdList,
-  commentsIdList,
-  repostIdList,
+  followersList,
+  likesList,
+  commentsList,
+  sharesList,
 }) => {
-  const [isFollowing] = useArrayOfId(id, followIdList);
+  const { user } = useAppSelector((state) => state.userSlice);
+  const { current: screenSize } = useRef(window.innerWidth);
+  const [isFollowing] = useArrayOfId(user.id + 1 + "", followersList);
+
   const [isFollow, setIsFollow] = useState(isFollowing);
   const [isReadMore, setIsReadMore] = useState(true);
 
-  const formattedPostCreatedAt = formatDate(postCreatedAt);
+  const formattedPostTime = formatDate(postCreatedAt);
+  const { sentenceSize, wordSize } =
+    screenSize < 769
+      ? { sentenceSize: TextSize.MOB_SENTENCE, wordSize: TextSize.MOB_WORD }
+      : { sentenceSize: TextSize.SENTENCE, wordSize: TextSize.WORD };
+  const isMobDimension = screenSize < 769;
+
   return (
     <div className={styles["feed"]}>
-      <div>
+      <div className={styles["avatar-desc"]}>
         <img src={avatar} alt="" width="78" />
+      </div>
+      <div className={styles["avatar-tab"]}>
+        <img src={avatar} alt="" width="68" />
       </div>
       <div className={styles["content"]}>
         <div className={styles["content__title"]}>
+          <div className={styles["avatar"]}>
+            <img src={avatar} alt="" width="38" />
+          </div>
           <div className={styles["content__title-text"]}>
             <h5>{name}</h5>
-            <p>{formattedPostCreatedAt}</p>
+            <p>{formattedPostTime}</p>
           </div>
           <UIbutton
             variant={isFollow ? "outlined" : "contained"}
             dataAutomation="clickButton"
             onClick={() => setIsFollow(!isFollow)}
-            className={styles["content__title-button"]}
+            className={`${styles["content__title-button"]} ${styles["btn"]}`}
           >
             {isFollow ? "Unfollow" : "Follow"}
           </UIbutton>
         </div>
-        <div className={styles["text"]}>
+        <div className={styles["content__text"]}>
           <p>
-            {isReadMore && text.length > TextSize.WORD
-              ? limitText(text, TextSize.SENTENCE)
+            {isReadMore && text.length > wordSize
+              ? limitText(text, sentenceSize)
               : text}
           </p>
-          {text.length > TextSize.WORD && isReadMore ? (
+          {text.length > wordSize && isReadMore ? (
             <UIbutton
               variant="text"
               onClick={() => setIsReadMore(!isReadMore)}
@@ -68,28 +81,34 @@ const Feed: FC<FeedProps> = ({
           ) : null}
         </div>
         <div className={styles["content__image"]}>
-          <img src={img} alt="" width="640" />
+          <div>
+            <img src={img} alt="" width="640" />
+            <div className={styles["content__social"]}>
+              <SocialButton
+                size={isMobDimension ? 24 : 28}
+                userId={user.id + 1 + ""}
+                dataList={likesList}
+                iconType={IconEnum.Likes}
+                modalTitle="Likes"
+              />
+              <SocialButton
+                size={isMobDimension ? 22 : 24}
+                userId={user.id + 1 + ""}
+                dataList={sharesList}
+                iconType={IconEnum.Share}
+                modalTitle="Shared"
+              />
+              <SocialButton
+                size={isMobDimension ? 22 : 24}
+                userId={user.id + 1 + ""}
+                dataList={commentsList}
+                iconType={IconEnum.Comments}
+                modalTitle="Comments"
+              />
+            </div>
+          </div>
         </div>
-        <div className={styles["content__action"]}>
-          <SocialButton
-            id={id}
-            value={totalLikes}
-            clickedList={likesIdList}
-            iconType={IconEnum.Likes}
-          />
-          <SocialButton
-            id={id}
-            value={totalRepost}
-            clickedList={repostIdList}
-            iconType={IconEnum.Share}
-          />
-          <SocialButton
-            id={id}
-            value={totalComments}
-            clickedList={commentsIdList}
-            iconType={IconEnum.Comments}
-          />
-        </div>
+
         <CommentsForm id={id} />
       </div>
     </div>

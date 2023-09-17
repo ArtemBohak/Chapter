@@ -1,0 +1,7 @@
+.modal-backdrop {
+  @apply absolute w-screen h-full top-0 left-0 z-50  bg-white;
+}
+
+.modal {
+  @apply relative mx-auto;
+}

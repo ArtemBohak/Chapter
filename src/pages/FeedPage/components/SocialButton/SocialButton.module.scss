@@ -1,6 +1,12 @@
-.button {
-  @apply bg-transparent text-grey-1000 flex gap-[10px] justify-center items-center;
+.social {
+  @apply flex gap-[10px] justify-center items-center;
 
+  &__button {
+    @apply bg-transparent text-grey-1000 text-xxs laptop:text-base;
+  }
+}
+
+.button {
   &__icon {
     @apply transition-all duration-100 ease-linear;
     &--normal {

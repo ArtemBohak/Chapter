@@ -10,3 +10,4 @@ export { BlockAuth } from "./BlockAuth";
 export { UserAvatar } from "./UserAvatar";
 export { MenuToggler } from "./MenuToggler";
 export { NavigationList } from "../layouts/ProfileLayout/components/NavigationList";
+export { Modal } from "./Modal";
