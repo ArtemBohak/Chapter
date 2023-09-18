@@ -5,14 +5,14 @@
 .avatar {
   @apply md:hidden;
   &-tab {
-    @apply hidden md:block laptop:hidden;
+    @apply hidden md:block laptop:hidden min-w-fit;
   }
   &-desc {
     @apply hidden laptop:block;
   }
 }
 .content {
-  @apply md:max-w-[508px] laptop:max-w-[640px];
+  @apply laptop:max-w-[640px];
 
   &__title {
     @apply flex items-center md:justify-between pb-2-xs laptop:pb-2-xl;

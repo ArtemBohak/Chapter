@@ -1,0 +1,25 @@
+.likes {
+  @apply flex justify-between items-center;
+
+  &__content {
+    @apply flex items-center gap-[10px];
+
+    & > img {
+      @apply mb-0;
+    }
+    &-image {
+      @apply md:hidden;
+      &-tab {
+        @apply hidden md:block;
+      }
+    }
+
+    & > p {
+      @apply text-sm md:text-base;
+    }
+  }
+
+  &__button {
+    @apply w-full max-w-[98px] md:max-w-[228px] h-full max-h-[30px] md:max-h-[44px];
+  }
+}

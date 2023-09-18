@@ -2,13 +2,13 @@
   @apply flex gap-[10px] justify-center items-center;
 
   &__button {
-    @apply bg-transparent text-grey-1000 text-xxs laptop:text-base;
+    @apply bg-transparent text-grey-1000 text-xxs md:text-sm laptop:text-base outline-none;
   }
 }
 
 .button {
   &__icon {
-    @apply transition-all duration-100 ease-linear;
+    @apply transition-all duration-100 ease-linear outline-none;
     &--normal {
       @apply fill-grey-1000;
     }
@@ -16,5 +16,16 @@
     &--clicked {
       @apply fill-[#F79400];
     }
+  }
+}
+
+.modal {
+  @apply top-0 left-0 w-full h-screen bg-white md:rounded-t-[16px] md:px-0-md md:pt-[116px];
+  @media screen and (min-width: 769px) {
+    background-color: rgba(28, 28, 28, 0.2);
+  }
+
+  &__body {
+    @apply static w-full md:max-w-[658px] md:rounded-[16px] md:bg-[#F2F2F2] md:pt-[30px] md:pb-[50px] md:px-[40px] mx-auto laptop:mx-0 laptop:ml-auto laptop:mr-[30px];
   }
 }

@@ -1,24 +1,29 @@
 import { createPortal } from "react-dom";
 import { FC, MouseEvent, useEffect } from "react";
-import { ModalProps } from "./Modal.type";
 
+import cn from "classnames";
+
+import { ModalProps } from "./Modal.type";
 import styles from "./Modal.module.scss";
 
-const Modal: FC<ModalProps> = ({ isOpen, setIsOpen, children }) => {
+const Modal: FC<ModalProps> = ({
+  setIsOpen,
+  children,
+  portal = false,
+  backdropClassName,
+  bodyClassName,
+}) => {
   useEffect(() => {
     const handlePressESC = (e: { code: string }) => {
-      console.log(e.code);
       if (e.code === "Escape") setIsOpen(false);
     };
     window.addEventListener("keydown", handlePressESC);
 
     return () => {
-      console.log(1);
       window.removeEventListener("keydown", handlePressESC);
     };
   }, [setIsOpen]);
 
-  if (!isOpen) return null;
   const onHandleClick = (e: MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
     if (e.target === e.currentTarget) {
@@ -26,15 +31,28 @@ const Modal: FC<ModalProps> = ({ isOpen, setIsOpen, children }) => {
     }
   };
 
-  return createPortal(
+  const backDropClassNames = cn(styles["modal-backdrop"], backdropClassName);
+  const bodyClassNames = cn(styles["modal-body"], bodyClassName);
+
+  return portal ? (
+    createPortal(
+      <div
+        onClick={onHandleClick}
+        data-automation="clickDiv"
+        className={backDropClassNames}
+      >
+        <div className={bodyClassNames}>{children}</div>
+      </div>,
+      document.getElementById("modal-root")!
+    )
+  ) : (
     <div
       onClick={onHandleClick}
-      onKeyDown={handlePressESC}
-      className={styles["modal-backdrop"]}
+      data-automation="clickDiv"
+      className={backDropClassNames}
     >
-      <div className={styles["modal"]}>{children}</div>
-    </div>,
-    document.getElementById("modal-root")!
+      <div className={bodyClassNames}>{children}</div>
+    </div>
   );
 };
 

@@ -1,0 +1,17 @@
+.title {
+  @apply mb-[30px] md:mb-[40px] flex justify-between items-center;
+  & > h5 {
+    @apply text-lg  md:text-xxl;
+  }
+  & > button {
+    @apply bg-transparent;
+  }
+}
+
+.list {
+  @apply flex flex-col pr-[28px] md:pr-[40px] gap-[40px] max-h-[404px] md:max-h-[382px] overflow-y-auto;
+}
+
+.item {
+  @apply w-full;
+}

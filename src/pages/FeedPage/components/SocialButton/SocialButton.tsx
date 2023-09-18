@@ -7,16 +7,17 @@ import { SocialButtonProps } from "./SocialButton.type";
 import styles from "./SocialButton.module.scss";
 
 import { Icon, Modal } from "@/src/components";
-import ModalWindow from "../ModalWindow/ModalWindow";
+
+import List from "../Modal/List";
 
 const SocialButton: FC<SocialButtonProps> = ({
   userId,
-  dataList,
+  data,
   iconType,
   modalTitle,
   size,
 }) => {
-  const [clicked] = useArrayOfId(userId, dataList);
+  const [clicked] = useArrayOfId(userId, data);
   const [isClicked, setIsClicked] = useState(clicked);
   const [isShow, setIsShow] = useState(false);
 
@@ -31,7 +32,19 @@ const SocialButton: FC<SocialButtonProps> = ({
     [`${styles["button__icon--clicked"]}`]: isClicked,
   });
 
-  const value = dataList.length;
+  const value = data.length ? data.length + 1 : data.length;
+
+  const renderModal =
+    isShow && value ? (
+      <Modal
+        setIsOpen={setIsShow}
+        backdropClassName={styles["modal"]}
+        bodyClassName={styles["modal__body"]}
+      >
+        <List setIsOpen={setIsShow} title={modalTitle} data={data} />
+      </Modal>
+    ) : null;
+
   return (
     <>
       <div className={styles["social"]}>
@@ -56,21 +69,7 @@ const SocialButton: FC<SocialButtonProps> = ({
           {value}
         </button>
       </div>
-      <Modal isOpen={isShow} setIsOpen={setIsShow}>
-        <h5>{modalTitle}</h5>
-        <ul>
-          {dataList.map((i) => (
-            <li key={i.id}>
-              <ModalWindow
-                avatar={i.avatar}
-                id={i.id}
-                name={i.name}
-                followList={i.followList}
-              />
-            </li>
-          ))}
-        </ul>
-      </Modal>
+      {renderModal}
     </>
   );
 };

@@ -1,5 +1,7 @@
 export type ModalProps = {
   children: React.ReactNode;
-  isOpen: boolean;
-  setIsOpen: (data: boolean) => void;
+  setIsOpen: (isOpen: boolean) => void;
+  portal?: boolean;
+  backdropClassName?: string;
+  bodyClassName?: string;
 };

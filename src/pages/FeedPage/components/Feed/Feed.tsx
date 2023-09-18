@@ -87,21 +87,21 @@ const Feed: FC<FeedProps> = ({
               <SocialButton
                 size={isMobDimension ? 24 : 28}
                 userId={user.id + 1 + ""}
-                dataList={likesList}
+                data={likesList}
                 iconType={IconEnum.Likes}
                 modalTitle="Likes"
               />
               <SocialButton
                 size={isMobDimension ? 22 : 24}
                 userId={user.id + 1 + ""}
-                dataList={sharesList}
+                data={sharesList}
                 iconType={IconEnum.Share}
                 modalTitle="Shared"
               />
               <SocialButton
                 size={isMobDimension ? 22 : 24}
                 userId={user.id + 1 + ""}
-                dataList={commentsList}
+                data={commentsList}
                 iconType={IconEnum.Comments}
                 modalTitle="Comments"
               />
