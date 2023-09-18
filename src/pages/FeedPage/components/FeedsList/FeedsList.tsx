@@ -51,6 +51,10 @@ const data = [
       { id: "8", name: "Alex Space", avatar: userImage, followList: ["1"] },
       { id: "9", name: "Alex Space", avatar: userImage, followList: ["1"] },
       { id: "10", name: "Alex Space", avatar: userImage, followList: ["1"] },
+      { id: "11", name: "Alex Space", avatar: userImage, followList: ["1"] },
+      { id: "12", name: "Alex Space", avatar: userImage, followList: ["1"] },
+      { id: "13", name: "Alex Space", avatar: userImage, followList: ["1"] },
+      { id: "14", name: "Alex Space", avatar: userImage, followList: ["1"] },
     ],
     commentsList: [
       { id: "2", name: "Alex Space", avatar: userImage, followList: ["1"] },
