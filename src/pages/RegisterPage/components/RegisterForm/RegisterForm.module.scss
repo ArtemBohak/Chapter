@@ -1,7 +1,28 @@
 .register-form {
   @apply max-w-[326px] mb-1-xs;
 
+  &__hash-container {
+    @apply overflow-hidden;
+  }
+
+  &__hash-input--enter {
+    opacity: 0;
+    // transform: scale(0);
+    transform: translateY(-100%);
+  }
+  &__hash-input--enter-active {
+    opacity: 1;
+    transform: translateX(0);
+    // transform: scale(1);
+    transition:
+      opacity 300ms,
+      transform 400ms;
+  }
+
   &__button {
     @apply min-h-[50px];
+    &__hash-container {
+      @apply overflow-hidden;
+    }
   }
 }
