@@ -21,11 +21,25 @@
 
 .modal {
   @apply top-0 left-0 w-full h-screen bg-white md:rounded-t-[16px] md:px-0-md md:pt-[116px];
+
   @media screen and (min-width: 769px) {
     background-color: rgba(28, 28, 28, 0.2);
+
+    &-enter {
+      @apply md:opacity-0 md:scale-0;
+    }
+    &-enter-active {
+      @apply md:opacity-100 md:scale-100 md:transition md:duration-300;
+    }
+    &-exit {
+      @apply md:opacity-100 md:scale-100;
+    }
+    &-exit-active {
+      @apply md:opacity-0 md:scale-0 md:transition md:duration-300;
+    }
   }
 
   &__body {
-    @apply static w-full md:max-w-[658px] md:rounded-[16px] md:bg-[#F2F2F2] md:pt-[30px] md:pb-[50px] md:px-[40px] mx-auto laptop:mx-0 laptop:ml-auto laptop:mr-[30px];
+    @apply relative w-full md:max-w-[658px] md:rounded-[16px] md:bg-[#F2F2F2] md:pt-[30px] md:pb-[50px] md:px-[40px] mx-auto laptop:mx-0 laptop:ml-auto laptop:mr-[30px];
   }
 }

@@ -1,10 +1,27 @@
 import { IconEnum } from "@/src/components";
-import { type Data } from "../../FeedPage.type";
+
+export enum Title {
+  LIKES = "Likes",
+  SHARED = "Shared",
+  COMMENTS = "Comments",
+}
 
 export type SocialButtonProps = {
-  iconType: IconEnum;
   userId: string;
-  data: Data;
-  modalTitle: string;
+  postId: string;
+  screenSize: number;
+  iconType: IconEnum;
+  total: number;
+  clickedData: string[] | [];
+  title: Title.COMMENTS | Title.LIKES | Title.SHARED;
   size?: number | undefined;
 };
+
+export type Data =
+  | {
+      id: string;
+      name: string;
+      followList: string[];
+      avatar: string;
+    }[]
+  | [];

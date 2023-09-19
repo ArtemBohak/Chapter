@@ -1,4 +1,4 @@
-import { Data } from "../../FeedPage.type";
+import { Data } from "../SocialButton.type";
 
 export type ListProps = {
   title: string;

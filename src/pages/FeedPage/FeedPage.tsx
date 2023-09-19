@@ -1,4 +1,5 @@
 import { FC } from "react";
+
 import styles from "./FeedPage.module.scss";
 
 import FeedsList from "./components/FeedsList/FeedsList";

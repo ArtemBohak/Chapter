@@ -1,15 +1,16 @@
 import { FC, useRef, useState } from "react";
-import styles from "./Feed.module.scss";
 
-import { FeedProps, TextSize } from "./Feed.type";
 import { formatDate, limitText } from "@/src/utils";
-import { useArrayOfId } from "@/src/hooks";
+import { useFindById } from "@/src/hooks";
+import { useAppSelector } from "@/src/redux/hooks";
+import { FeedProps, TextSize } from "./Feed.type";
+import { Title } from "../SocialButton/SocialButton.type";
+import styles from "./Feed.module.scss";
 
 import { IconEnum } from "@/src/components/Icon";
 import { UIbutton } from "@/src/components";
 import CommentsForm from "../CommentsForm/CommentsForm";
 import SocialButton from "../SocialButton/SocialButton";
-import { useAppSelector } from "@/src/redux/hooks";
 
 const Feed: FC<FeedProps> = ({
   id,
@@ -18,14 +19,17 @@ const Feed: FC<FeedProps> = ({
   avatar,
   text,
   img,
+  totalLikes,
+  totalShares,
+  totalComments,
   followersList,
   likesList,
   commentsList,
-  sharesList,
+  sharedList,
 }) => {
   const { user } = useAppSelector((state) => state.userSlice);
   const { current: screenSize } = useRef(window.innerWidth);
-  const [isFollowing] = useArrayOfId(user.id + 1 + "", followersList);
+  const [isFollowing] = useFindById(user.id + 1 + "", followersList);
 
   const [isFollow, setIsFollow] = useState(isFollowing);
   const [isReadMore, setIsReadMore] = useState(true);
@@ -36,6 +40,12 @@ const Feed: FC<FeedProps> = ({
       ? { sentenceSize: TextSize.MOB_SENTENCE, wordSize: TextSize.MOB_WORD }
       : { sentenceSize: TextSize.SENTENCE, wordSize: TextSize.WORD };
   const isMobDimension = screenSize < 769;
+
+  const onHandleFollowing = () => {
+    setIsFollow(!isFollow);
+  };
+
+  const onHandleReadMore = () => setIsReadMore(!isReadMore);
 
   return (
     <div className={styles["feed"]}>
@@ -57,7 +67,7 @@ const Feed: FC<FeedProps> = ({
           <UIbutton
             variant={isFollow ? "outlined" : "contained"}
             dataAutomation="clickButton"
-            onClick={() => setIsFollow(!isFollow)}
+            onClick={onHandleFollowing}
             className={`${styles["content__title-button"]} ${styles["btn"]}`}
           >
             {isFollow ? "Unfollow" : "Follow"}
@@ -72,7 +82,7 @@ const Feed: FC<FeedProps> = ({
           {text.length > wordSize && isReadMore ? (
             <UIbutton
               variant="text"
-              onClick={() => setIsReadMore(!isReadMore)}
+              onClick={onHandleReadMore}
               dataAutomation="clickButton"
               className={`${styles["content__text-button"]} ${styles["feed-btn"]} ${styles["btn"]}`}
             >
@@ -85,31 +95,39 @@ const Feed: FC<FeedProps> = ({
             <img src={img} alt="" width="640" />
             <div className={styles["content__social"]}>
               <SocialButton
-                size={isMobDimension ? 24 : 28}
                 userId={user.id + 1 + ""}
-                data={likesList}
+                postId={id}
+                title={Title.LIKES}
+                total={totalLikes}
+                clickedData={likesList}
                 iconType={IconEnum.Likes}
-                modalTitle="Likes"
+                size={isMobDimension ? 24 : 28}
+                screenSize={screenSize}
               />
               <SocialButton
-                size={isMobDimension ? 22 : 24}
+                postId={id}
                 userId={user.id + 1 + ""}
-                data={sharesList}
+                title={Title.SHARED}
+                total={totalShares}
+                clickedData={sharedList}
                 iconType={IconEnum.Share}
-                modalTitle="Shared"
+                size={isMobDimension ? 22 : 24}
+                screenSize={screenSize}
               />
               <SocialButton
-                size={isMobDimension ? 22 : 24}
                 userId={user.id + 1 + ""}
-                data={commentsList}
+                postId={id}
+                title={Title.COMMENTS}
+                total={totalComments}
+                clickedData={commentsList}
                 iconType={IconEnum.Comments}
-                modalTitle="Comments"
+                size={isMobDimension ? 22 : 24}
+                screenSize={screenSize}
               />
             </div>
           </div>
         </div>
-
-        <CommentsForm id={id} />
+        <CommentsForm postId={id} />
       </div>
     </div>
   );

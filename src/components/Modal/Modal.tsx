@@ -1,6 +1,6 @@
 import { createPortal } from "react-dom";
-import { FC, MouseEvent, useEffect } from "react";
-
+import { FC, MouseEvent, useEffect, useRef } from "react";
+import { CSSTransition } from "react-transition-group";
 import cn from "classnames";
 
 import { ModalProps } from "./Modal.type";
@@ -8,11 +8,16 @@ import styles from "./Modal.module.scss";
 
 const Modal: FC<ModalProps> = ({
   setIsOpen,
+  isOpen,
   children,
+  transitionTimeOut = 300,
   portal = false,
   backdropClassName,
   bodyClassName,
+  transitionClassName,
 }) => {
+  const nodeRef = useRef(null);
+
   useEffect(() => {
     const handlePressESC = (e: { code: string }) => {
       if (e.code === "Escape") setIsOpen(false);
@@ -26,33 +31,51 @@ const Modal: FC<ModalProps> = ({
 
   const onHandleClick = (e: MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
-    if (e.target === e.currentTarget) {
-      setIsOpen(false);
-    }
+    if (e.target === e.currentTarget) setIsOpen(false);
   };
 
   const backDropClassNames = cn(styles["modal-backdrop"], backdropClassName);
   const bodyClassNames = cn(styles["modal-body"], bodyClassName);
 
-  return portal ? (
-    createPortal(
+  if (portal)
+    return createPortal(
+      <CSSTransition
+        nodeRef={nodeRef}
+        in={isOpen}
+        timeout={transitionTimeOut}
+        classNames={{ ...transitionClassName }}
+        mountOnEnter
+        unmountOnExit
+      >
+        <div
+          ref={nodeRef}
+          className={backDropClassNames}
+          onClick={onHandleClick}
+          data-automation="elementClick"
+        >
+          <div className={bodyClassNames}>{children}</div>
+        </div>
+      </CSSTransition>,
+      document.getElementById("modal-root")!
+    );
+
+  return (
+    <CSSTransition
+      nodeRef={nodeRef}
+      in={isOpen}
+      timeout={transitionTimeOut}
+      classNames={{ ...transitionClassName }}
+      unmountOnExit
+    >
       <div
-        onClick={onHandleClick}
-        data-automation="clickDiv"
+        ref={nodeRef}
         className={backDropClassNames}
+        onClick={onHandleClick}
+        data-automation="elementClick"
       >
         <div className={bodyClassNames}>{children}</div>
-      </div>,
-      document.getElementById("modal-root")!
-    )
-  ) : (
-    <div
-      onClick={onHandleClick}
-      data-automation="clickDiv"
-      className={backDropClassNames}
-    >
-      <div className={bodyClassNames}>{children}</div>
-    </div>
+      </div>
+    </CSSTransition>
   );
 };
 

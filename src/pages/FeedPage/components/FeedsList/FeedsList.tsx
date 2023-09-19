@@ -4,6 +4,7 @@ import styles from "./FeedList.module.scss";
 
 import Feed from "../Feed/Feed";
 
+//
 import userImage from "./assets/user.png";
 import postImage from "./assets/image.jpg";
 const testText =
@@ -36,50 +37,9 @@ const data = [
     avatar: userImage,
     text: testText,
     followList: ["1"],
-    likesList: [
-      { id: "2", name: "Alex Space", avatar: userImage, followList: ["1"] },
-      {
-        id: "3",
-        name: "Alex Space",
-        avatar: userImage,
-        followList: ["1", "2"],
-      },
-      { id: "4", name: "Alex Space", avatar: userImage, followList: ["3"] },
-      { id: "5", name: "Alex Space", avatar: userImage, followList: ["2"] },
-      { id: "6", name: "Alex Space", avatar: userImage, followList: ["1"] },
-      { id: "7", name: "Alex Space", avatar: userImage, followList: ["1"] },
-      { id: "8", name: "Alex Space", avatar: userImage, followList: ["1"] },
-      { id: "9", name: "Alex Space", avatar: userImage, followList: ["1"] },
-      { id: "10", name: "Alex Space", avatar: userImage, followList: ["1"] },
-      { id: "11", name: "Alex Space", avatar: userImage, followList: ["1"] },
-      { id: "12", name: "Alex Space", avatar: userImage, followList: ["1"] },
-      { id: "13", name: "Alex Space", avatar: userImage, followList: ["1"] },
-      { id: "14", name: "Alex Space", avatar: userImage, followList: ["1"] },
-    ],
-    commentsList: [
-      { id: "2", name: "Alex Space", avatar: userImage, followList: ["1"] },
-      {
-        id: "3",
-        name: "Alex Space",
-        avatar: userImage,
-        followList: ["1", "2"],
-      },
-      { id: "4", name: "Alex Space", avatar: userImage, followList: ["3"] },
-      { id: "5", name: "Alex Space", avatar: userImage, followList: ["2"] },
-      { id: "6", name: "Alex Space", avatar: userImage, followList: ["1"] },
-    ],
-    repostsList: [
-      { id: "2", name: "Alex Space", avatar: userImage, followList: ["1"] },
-      {
-        id: "3",
-        name: "Alex Space",
-        avatar: userImage,
-        followList: ["1", "2"],
-      },
-      { id: "4", name: "Alex Space", avatar: userImage, followList: ["3"] },
-      { id: "5", name: "Alex Space", avatar: userImage, followList: ["2"] },
-      { id: "6", name: "Alex Space", avatar: userImage, followList: ["1"] },
-    ],
+    likesList: ["2", "3"],
+    commentsList: ["2", "1"],
+    repostsList: ["1", "2"],
   },
   {
     name: "Alex Terri",
@@ -92,36 +52,9 @@ const data = [
     avatar: userImage,
     text: testText,
     followList: [],
-    likesList: [
-      { id: "2", name: "Alex Space", avatar: userImage, followList: ["1"] },
-      {
-        id: "3",
-        name: "Alex Space",
-        avatar: userImage,
-        followList: ["1", "2"],
-      },
-      { id: "4", name: "Alex Space", avatar: userImage, followList: ["3"] },
-    ],
-    commentsList: [
-      { id: "2", name: "Alex Space", avatar: userImage, followList: ["1"] },
-      {
-        id: "3",
-        name: "Alex Space",
-        avatar: userImage,
-        followList: ["1", "2"],
-      },
-      { id: "4", name: "Alex Space", avatar: userImage, followList: ["3"] },
-    ],
-    repostsList: [
-      { id: "2", name: "Alex Space", avatar: userImage, followList: ["1"] },
-      {
-        id: "3",
-        name: "Alex Space",
-        avatar: userImage,
-        followList: ["1", "2"],
-      },
-      { id: "4", name: "Alex Space", avatar: userImage, followList: ["3"] },
-    ],
+    likesList: ["3", "4"],
+    commentsList: ["2", "1"],
+    repostsList: ["3", "2"],
   },
   {
     name: "Alex Merri",
@@ -154,10 +87,13 @@ const FeedsList: FC = () => {
             avatar={i.avatar}
             text={i.text}
             img={i.img}
+            totalLikes={i.totalLikes}
+            totalShares={i.totalReposts}
+            totalComments={i.totalComments}
             followersList={i.followList}
             likesList={i.likesList}
             commentsList={i.commentsList}
-            sharesList={i.repostsList}
+            sharedList={i.repostsList}
           />
         </li>
       ))}

@@ -7,7 +7,7 @@ import styles from "./CommentForm.module.scss";
 
 import { UIbutton } from "@/src/components";
 
-const CommentsForm: FC<CommentsFormProps> = ({ id }) => {
+const CommentsForm: FC<CommentsFormProps> = ({ postId }) => {
   const [isFocused, setIsFocused] = useState(false);
 
   const onHandleSubmit = (
@@ -15,7 +15,7 @@ const CommentsForm: FC<CommentsFormProps> = ({ id }) => {
     { setSubmitting, resetForm }: FormikHelpers<Values>
   ) => {
     console.log(values);
-    console.log(id);
+    console.log(postId);
     setSubmitting(false);
     resetForm();
   };

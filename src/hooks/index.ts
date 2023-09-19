@@ -1,1 +1,1 @@
-export { default as useArrayOfId } from "./useArrayOfId/useArrayOfId";
+export { default as useFindById } from "./useFindById/useFindById";

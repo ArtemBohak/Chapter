@@ -1,7 +1,8 @@
 import { useMemo } from "react";
-import { type Data } from "@/src/pages/FeedPage/FeedPage.type";
 
-const useArrayOfId = (id: string, data: string[] | Data) => {
+import { type Data } from "@/src/pages/FeedPage/components/SocialButton/SocialButton.type";
+
+const useFindById = (id: string, data: string[] | Data) => {
   const isIncluded = useMemo(
     () =>
       data.some((i) => {
@@ -14,4 +15,4 @@ const useArrayOfId = (id: string, data: string[] | Data) => {
   return [isIncluded];
 };
 
-export default useArrayOfId;
+export default useFindById;

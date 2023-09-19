@@ -1,9 +1,10 @@
 import { FC } from "react";
 
 import { ListProps } from "./List.type";
-import styles from "./List.module.scss";
-import Likes from "./Likes/Likes";
 import { Icon, IconEnum } from "@/src/components";
+import styles from "./List.module.scss";
+
+import Likes from "./Likes/Likes";
 
 const List: FC<ListProps> = ({ title, data, setIsOpen }) => {
   return (
