@@ -20,11 +20,8 @@
 }
 
 .modal {
-  @apply top-0 left-0 w-full h-screen bg-white md:rounded-t-[16px] md:px-0-md md:pt-[116px];
+  @apply top-0 left-0 w-full h-screen bg-white md:bg-[#1c1c1c33] md:rounded-t-[16px] md:px-0-md md:pt-[116px];
 
-  @media screen and (min-width: 769px) {
-    background-color: rgba(28, 28, 28, 0.2);
-  }
   &-enter {
     @apply translate-x-[-100%] md:translate-x-0 md:opacity-0 md:scale-0;
   }
