@@ -46,7 +46,6 @@ const SocialButton: FC<SocialButtonProps> = ({
   iconType,
   title,
   size,
-  screenSize,
 }) => {
   const [clicked] = useFindById(userId, clickedData);
   const [isClicked, setIsClicked] = useState(clicked);
@@ -66,10 +65,17 @@ const SocialButton: FC<SocialButtonProps> = ({
     setIsShow(true);
   };
 
-  const mainClass = cn(styles["button__icon"], {
+  const mainBtnClass = cn(styles["button__icon"], {
     [`${styles["button__icon--normal"]}`]: !isClicked,
     [`${styles["button__icon--clicked"]}`]: isClicked,
   });
+
+  const transition = {
+    enter: styles["modal-enter"],
+    enterActive: styles["modal-enter-active"],
+    exit: styles["modal-exit"],
+    exitActive: styles["modal-exit-active"],
+  };
 
   return (
     <>
@@ -80,7 +86,7 @@ const SocialButton: FC<SocialButtonProps> = ({
           data-automation="clickButton"
         >
           <Icon
-            className={mainClass}
+            className={mainBtnClass}
             icon={iconType}
             size={size}
             removeInlineStyle={true}
@@ -100,13 +106,8 @@ const SocialButton: FC<SocialButtonProps> = ({
         setIsOpen={setIsShow}
         backdropClassName={styles["modal"]}
         bodyClassName={styles["modal__body"]}
-        transitionTimeOut={screenSize > 768 ? 300 : 0}
-        transitionClassName={{
-          enter: styles["modal-enter"],
-          enterActive: styles["modal-enter-active"],
-          exit: styles["modal-exit"],
-          exitActive: styles["modal-exit-active"],
-        }}
+        transitionTimeOut={300}
+        transitionClassName={transition}
       >
         <List setIsOpen={setIsShow} title={title} data={data} />
       </Modal>

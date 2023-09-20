@@ -9,7 +9,6 @@ export enum Title {
 export type SocialButtonProps = {
   userId: string;
   postId: string;
-  screenSize: number;
   iconType: IconEnum;
   total: number;
   clickedData: string[] | [];

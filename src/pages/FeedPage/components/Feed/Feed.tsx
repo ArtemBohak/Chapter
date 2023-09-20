@@ -47,6 +47,21 @@ const Feed: FC<FeedProps> = ({
 
   const onHandleReadMore = () => setIsReadMore(!isReadMore);
 
+  const renderText =
+    isReadMore && text.length > wordSize ? limitText(text, sentenceSize) : text;
+
+  const renderReadMoreBtn =
+    text.length > wordSize && isReadMore ? (
+      <UIbutton
+        variant="text"
+        onClick={onHandleReadMore}
+        dataAutomation="clickButton"
+        className={`${styles["content__text-button"]} ${styles["feed-btn"]} ${styles["btn"]}`}
+      >
+        Read more...
+      </UIbutton>
+    ) : null;
+
   return (
     <div className={styles["feed"]}>
       <div className={styles["avatar-desc"]}>
@@ -74,21 +89,8 @@ const Feed: FC<FeedProps> = ({
           </UIbutton>
         </div>
         <div className={styles["content__text"]}>
-          <p>
-            {isReadMore && text.length > wordSize
-              ? limitText(text, sentenceSize)
-              : text}
-          </p>
-          {text.length > wordSize && isReadMore ? (
-            <UIbutton
-              variant="text"
-              onClick={onHandleReadMore}
-              dataAutomation="clickButton"
-              className={`${styles["content__text-button"]} ${styles["feed-btn"]} ${styles["btn"]}`}
-            >
-              Read more...
-            </UIbutton>
-          ) : null}
+          <p>{renderText}</p>
+          {renderReadMoreBtn}
         </div>
         <div className={styles["content__image"]}>
           <div>
@@ -102,7 +104,6 @@ const Feed: FC<FeedProps> = ({
                 clickedData={likesList}
                 iconType={IconEnum.Likes}
                 size={isMobDimension ? 24 : 28}
-                screenSize={screenSize}
               />
               <SocialButton
                 postId={id}
@@ -112,7 +113,6 @@ const Feed: FC<FeedProps> = ({
                 clickedData={sharedList}
                 iconType={IconEnum.Share}
                 size={isMobDimension ? 22 : 24}
-                screenSize={screenSize}
               />
               <SocialButton
                 userId={user.id + 1 + ""}
@@ -122,7 +122,6 @@ const Feed: FC<FeedProps> = ({
                 clickedData={commentsList}
                 iconType={IconEnum.Comments}
                 size={isMobDimension ? 22 : 24}
-                screenSize={screenSize}
               />
             </div>
           </div>

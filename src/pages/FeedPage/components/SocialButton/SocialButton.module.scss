@@ -24,19 +24,18 @@
 
   @media screen and (min-width: 769px) {
     background-color: rgba(28, 28, 28, 0.2);
-
-    &-enter {
-      @apply md:opacity-0 md:scale-0;
-    }
-    &-enter-active {
-      @apply md:opacity-100 md:scale-100 md:transition md:duration-300;
-    }
-    &-exit {
-      @apply md:opacity-100 md:scale-100;
-    }
-    &-exit-active {
-      @apply md:opacity-0 md:scale-0 md:transition md:duration-300;
-    }
+  }
+  &-enter {
+    @apply translate-x-[-100%] md:translate-x-0 md:opacity-0 md:scale-0;
+  }
+  &-enter-active {
+    @apply translate-x-0 md:opacity-100 md:scale-100 transition duration-300;
+  }
+  &-exit {
+    @apply translate-x-0 md:opacity-100 md:scale-100;
+  }
+  &-exit-active {
+    @apply translate-x-[-100%] md:translate-x-0 md:opacity-0 md:scale-0 transition duration-300;
   }
 
   &__body {

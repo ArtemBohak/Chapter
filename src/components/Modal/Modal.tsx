@@ -7,14 +7,14 @@ import { ModalProps } from "./Modal.type";
 import styles from "./Modal.module.scss";
 
 const Modal: FC<ModalProps> = ({
-  setIsOpen,
-  isOpen,
   children,
+  isOpen,
+  setIsOpen,
+  transitionClassName,
   transitionTimeOut = 300,
   portal = false,
   backdropClassName,
   bodyClassName,
-  transitionClassName,
 }) => {
   const nodeRef = useRef(null);
 
@@ -65,6 +65,7 @@ const Modal: FC<ModalProps> = ({
       in={isOpen}
       timeout={transitionTimeOut}
       classNames={{ ...transitionClassName }}
+      mountOnEnter
       unmountOnExit
     >
       <div
