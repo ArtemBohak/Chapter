@@ -32,7 +32,7 @@ const likesList = [
   { id: "14", name: "Alex Space", avatar: userImage, followList: ["1"] },
 ];
 
-const repostsList: Data = [];
+const sharesList: Data = [];
 
 const commentsList: Data = [];
 
@@ -61,7 +61,7 @@ const SocialButton: FC<SocialButtonProps> = ({
     console.log(postId);
     if (title === Title.LIKES) setData(likesList);
     if (title === Title.COMMENTS) setData(commentsList);
-    if (title === Title.SHARED) setData(repostsList);
+    if (title === Title.SHARED) setData(sharesList);
     setIsShow(true);
   };
 

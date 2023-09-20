@@ -11,7 +11,7 @@ const Modal: FC<ModalProps> = ({
   isOpen,
   setIsOpen,
   transitionClassName,
-  transitionTimeOut = 300,
+  transitionTimeOut = 0,
   portal = false,
   backdropClassName,
   bodyClassName,
@@ -51,7 +51,7 @@ const Modal: FC<ModalProps> = ({
           ref={nodeRef}
           className={backDropClassNames}
           onClick={onHandleClick}
-          data-automation="elementClick"
+          data-automation="backDropClick"
         >
           <div className={bodyClassNames}>{children}</div>
         </div>
@@ -72,7 +72,7 @@ const Modal: FC<ModalProps> = ({
         ref={nodeRef}
         className={backDropClassNames}
         onClick={onHandleClick}
-        data-automation="elementClick"
+        data-automation="backDropClick"
       >
         <div className={bodyClassNames}>{children}</div>
       </div>
