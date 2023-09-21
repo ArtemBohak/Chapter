@@ -56,7 +56,7 @@ class OAuthApi {
   }
 
   static getTwitterOAuthRedirectUrl(redirectUri: string, stateId: string) {
-    const rootUrl = import.meta.env.VITE_TWITTER__AUTH_CODE_BASE_URL;
+    const rootUrl = import.meta.env.VITE_TWITTER_AUTH_CODE_BASE_URL;
     const options = {
       redirect_uri: redirectUri,
       client_id: VITE_TWITTER_CLIENT_ID,
