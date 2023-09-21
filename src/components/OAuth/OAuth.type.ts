@@ -1,4 +1,3 @@
-import { ReactNode } from "react";
 import { SetURLSearchParams } from "react-router-dom";
 
 import { AppDispatch } from "@/src/redux/store";
@@ -8,7 +7,6 @@ export enum OAuthApiEndPoints {
   GOOGLE_TOKEN = "/token",
 }
 
-export type OAuthContainerProps = { children: ReactNode };
 export type OAuthProps = {
   className?: string;
   text?: string;
@@ -22,21 +20,7 @@ export type OAuthProps = {
   dataAutomation?: string;
 };
 
-export type UseOAuthProps = { stateId: string } & Pick<
-  OAuthProps,
-  "googlePopupMode" | "oAuthVariant"
->;
-export type UseGetOAuthUrlParamsProps = {
-  stateId: string;
-  setFacebookErrorMessage: (data: string | null) => void;
-};
-
-export type ApiDataArgs = {
-  facebookAccessToken?: string;
-  googleIdToken?: string;
-  redirectUri?: string;
-  googleCode?: string;
-};
+export type SocialsProps = { stateId: string } & Partial<OAuthProps>;
 
 export type OAuthApiArgs = {
   redirectUri?: string;
@@ -46,13 +30,6 @@ export type OAuthApiArgs = {
   navigate: (data: string) => void;
   dispatch: AppDispatch;
   setIsLoading: (data: boolean) => void;
-};
-
-export type ErrorResponse = {
-  error: string;
-  error_description?: string;
-  status: number;
-  errors: { [key: string]: string };
 };
 
 export type ApiData = {

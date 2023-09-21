@@ -1,7 +1,5 @@
 import { SetURLSearchParams } from "react-router-dom";
-import { AxiosError } from "axios";
 
-import { googleOAuthApi, api, EndpointsEnum } from "@/src/axios";
 import { AppDispatch } from "@/src/redux/store";
 import {
   oAuthPending,
@@ -9,22 +7,12 @@ import {
   oAuthRejected,
 } from "@/src/redux/slices/user";
 import { links, setTokenToLS } from "@/src/utils";
-import {
-  type ApiDataArgs,
-  ApiData,
-  OAuthApiArgs,
-  OAuthApiEndPoints,
-} from "./OAuth.type";
+import { ApiData, OAuthApiArgs } from "./OAuth.type";
 
-const {
-  VITE_GOOGLE_CLIENT_ID,
-  VITE_GOOGLE_CLIENT_SECRET,
-  VITE_TWITTER_STATE,
-  VITE_TWITTER_CLIENT_ID,
-  VITE_TWITTER_CODE_VERIFIER,
-} = import.meta.env;
+const { VITE_GOOGLE_CLIENT_ID, VITE_GOOGLE_CLIENT_SECRET } = import.meta.env;
 
-class OAuthApi {
+abstract class OAuthApi {
+  private url = [links.ACCOUNT_CREATION, links.FEED];
   protected redirectUri: string | undefined;
   protected token: string | undefined;
   protected setSearchParams: SetURLSearchParams | null;
@@ -32,43 +20,9 @@ class OAuthApi {
   protected navigate: (data: string) => void;
   protected dispatch: AppDispatch;
   protected setIsLoading: (data: boolean) => void;
-
   protected googleOAuthGrandType = "authorization_code";
   protected googleClientId = VITE_GOOGLE_CLIENT_ID;
   protected googleClientSecret = VITE_GOOGLE_CLIENT_SECRET;
-  protected static url = [links.ACCOUNT_CREATION, links.FEED];
-
-  protected static async facebookApi({ facebookAccessToken }: ApiDataArgs) {
-    return api.post(EndpointsEnum.FACEBOOK_LOGIN, {
-      accessToken: facebookAccessToken,
-    });
-  }
-
-  protected static async googleApi({ googleIdToken }: ApiDataArgs) {
-    return api.post(EndpointsEnum.GOOGLE_LOGIN, {
-      idToken: googleIdToken,
-    });
-  }
-
-  protected static createRedirectUserUrl(hasNickName: boolean, id?: number) {
-    const [accountCreate, feed] = OAuthApi.url;
-    return hasNickName ? feed : accountCreate + "/" + id;
-  }
-
-  static getTwitterOAuthRedirectUrl(redirectUri: string, stateId: string) {
-    const rootUrl = import.meta.env.VITE_TWITTER_AUTH_CODE_BASE_URL;
-    const options = {
-      redirect_uri: redirectUri,
-      client_id: VITE_TWITTER_CLIENT_ID,
-      state: VITE_TWITTER_STATE + stateId,
-      response_type: "code",
-      code_challenge: VITE_TWITTER_CODE_VERIFIER,
-      code_challenge_method: "plain",
-      scope: ["users.read", "offline.access"].join(" "),
-    };
-    const qs = new URLSearchParams(options).toString();
-    return `${rootUrl}?${qs}`;
-  }
 
   constructor({
     redirectUri,
@@ -88,77 +42,17 @@ class OAuthApi {
     this.setIsLoading = setIsLoading;
   }
 
-  async getGoogleAuthCode() {
-    return googleOAuthApi.post(OAuthApiEndPoints.GOOGLE_TOKEN, null, {
-      params: {
-        grant_type: this.googleOAuthGrandType,
-        client_id: this.googleClientId,
-        client_secret: this.googleClientSecret,
-        redirect_uri: this.redirectUri,
-        code: this.token,
-      },
-    });
+  protected createRedirectUserUrl(hasNickName: boolean, id?: number) {
+    const [accountCreate, feed] = this.url;
+    return hasNickName ? feed : accountCreate + "/" + id;
   }
 
-  async googleLogin() {
-    this.pendingData();
-    try {
-      const cred = await this.getGoogleAuthCode();
-
-      const {
-        data: { token, tokenExpires, user },
-      } = await OAuthApi.googleApi({
-        googleIdToken: cred.data.id_token,
-      });
-      if (user.nickName) this.saveData({ token, tokenExpires, user });
-
-      this.navigate(OAuthApi.createRedirectUserUrl(user.nickName, user.id));
-    } catch (error) {
-      if (error instanceof AxiosError)
-        this.dispatch(oAuthRejected(error.message));
-    } finally {
-      this.clearData();
-    }
-  }
-
-  async facebookLogin() {
-    this.pendingData();
-    try {
-      const {
-        data: { token, tokenExpires, user },
-      } = await OAuthApi.facebookApi({
-        facebookAccessToken: this.token,
-      });
-
-      if (user.nickName) this.saveData({ token, tokenExpires, user });
-
-      this.navigate(OAuthApi.createRedirectUserUrl(user.nickName, user.id));
-    } catch (error) {
-      if (error instanceof AxiosError)
-        this.dispatch(oAuthRejected(error.message));
-    } finally {
-      this.clearData();
-    }
-  }
-
-  async twitterLogin() {
-    this.setIsLoading(true);
-    try {
-      console.log("POST auth/twitter/login => ", this.token);
-      this.navigate("/");
-    } catch (error) {
-      if (error instanceof AxiosError)
-        this.dispatch(oAuthRejected(error.message));
-    } finally {
-      this.clearData();
-    }
-  }
-  pendingData() {
+  protected pendingData() {
     this.setIsLoading(true);
     this.dispatch(oAuthPending());
   }
 
-  saveData({ user, token, tokenExpires }: ApiData) {
+  protected saveData({ user, token, tokenExpires }: ApiData) {
     setTokenToLS({
       token,
       tokenExpires,
@@ -166,7 +60,11 @@ class OAuthApi {
     this.dispatch(oAuthFulfilled(user));
   }
 
-  clearData() {
+  protected errorData(error: string) {
+    this.dispatch(oAuthRejected(error));
+  }
+
+  protected clearData() {
     this.setIsLoading(false);
     this.setSearchParams && this.setSearchParams("");
     this.setAuthCode && this.setAuthCode("");
