@@ -31,7 +31,7 @@ class GoogleApi extends OAuthApi {
     });
   }
 
-  public async getGoogleAuthCode() {
+  protected async getGoogleAuthCode() {
     return googleOAuthApi.post(OAuthApiEndPoints.GOOGLE_TOKEN, null, {
       params: {
         grant_type: this.googleOAuthGrandType,

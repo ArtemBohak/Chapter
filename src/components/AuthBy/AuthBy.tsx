@@ -8,7 +8,7 @@ import { OAuth } from "../OAuth";
 const AuthBy: FC<AuthByProps> = ({ className }) => (
   <div className={`${styles["auth-by"]} ${className}`}>
     <div className={styles["auth-by__container"]}>
-      <OAuth oAuthVariant="google" googlePopupMode />
+      <OAuth oAuthVariant="google" />
     </div>
   </div>
 );
