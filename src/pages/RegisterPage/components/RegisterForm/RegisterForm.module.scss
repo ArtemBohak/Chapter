@@ -9,7 +9,7 @@
     @apply translate-y-[-100%];
   }
   &__hash-input--enter-active {
-    @apply translate-y-0 transition duration-200;
+    @apply translate-y-0 transition duration-500;
   }
 
   &__button {
