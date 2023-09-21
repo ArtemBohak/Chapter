@@ -1,0 +1,11 @@
+.settings {
+  @apply pt-[20px] bg-[#fefefe];
+
+  &__container {
+    @apply mx-auto;
+  }
+
+  &__avatar {
+    @apply laptop:flex;
+  }
+}

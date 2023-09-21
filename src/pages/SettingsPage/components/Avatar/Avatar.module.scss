@@ -1,0 +1,17 @@
+.avatar {
+  @apply flex flex-col items-center;
+  &__image {
+    @apply mb-1-xs;
+    &--mob {
+      @apply laptop:hidden;
+    }
+
+    &--desc {
+      @apply hidden laptop:block;
+    }
+  }
+}
+
+.email {
+  @apply text-sm text-grey-1000;
+}

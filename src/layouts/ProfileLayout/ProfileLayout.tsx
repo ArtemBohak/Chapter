@@ -15,26 +15,26 @@ const ProfileLayout: FC = () => {
 
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    if (getTokenFromLC()) {
-      dispatch(fetchIsAuthUser());
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  //   if (getTokenFromLC()) {
+  //     dispatch(fetchIsAuthUser());
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
-  useEffect(() => {
-    if (!userSlice.loading && !userSlice.isAuth) {
-      redirect("/");
-    }
-  }, [userSlice.isAuth, userSlice.loading]);
+  // useEffect(() => {
+  //   if (!userSlice.loading && !userSlice.isAuth) {
+  //     redirect("/");
+  //   }
+  // }, [userSlice.isAuth, userSlice.loading]);
 
-  if (!getTokenFromLC()) {
-    return <Navigate to={links.LOG_IN} replace={true} />;
-  }
+  // if (!getTokenFromLC()) {
+  //   return <Navigate to={links.LOG_IN} replace={true} />;
+  // }
 
   return (
     <>
-      {!userSlice.loading && userSlice.isAuth ? (
+      {!userSlice.loading && !userSlice.isAuth ? (
         <div className={styles["profile-layout"]}>
           <NavigationTogglerProvider>
             <SidebarNavigation />
