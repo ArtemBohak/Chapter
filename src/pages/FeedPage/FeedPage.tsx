@@ -6,8 +6,8 @@ import FeedsList from "./components/FeedsList/FeedsList";
 
 const FeedPage: FC = () => {
   return (
-    <section>
-      <div className={styles["feed"]}>
+    <section className={styles["feed"]}>
+      <div className={styles["feed__container"]}>
         <FeedsList />
       </div>
     </section>

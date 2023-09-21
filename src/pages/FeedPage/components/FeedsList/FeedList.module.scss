@@ -1,5 +1,5 @@
 .feed-list {
-  @apply flex flex-col mt-[20px] md:mt-[24px] laptop:mt-[40px] gap-[60px] laptop:gap-[54px] md:rounded-t-[16px] md:bg-grey-1030  overflow-y-scroll  h-[83vh];
+  @apply flex flex-col gap-[60px] laptop:gap-[54px] md:rounded-t-[16px] md:bg-grey-1030  overflow-y-scroll  h-[83vh];
 }
 
 .feed-item {

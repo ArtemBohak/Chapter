@@ -1,3 +1,6 @@
 .feed {
-  @apply relative w-full max-w-[640px] md:max-w-full laptop:max-w-fit mx-auto laptop:mx-0;
+  @apply pt-[20px] md:pt-[24px] laptop:pt-[40px];
+  &__container {
+    @apply relative w-full max-w-[640px] md:max-w-full laptop:max-w-fit mx-auto laptop:mx-0;
+  }
 }
