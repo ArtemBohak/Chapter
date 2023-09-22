@@ -14,6 +14,7 @@ class FilesService {
   private static cloudName = VITE_CLOUDINARY_CLOUD_NAME;
   private static apiKey = VITE_CLOUDINARY_API_KEY;
   private static apiSecret = VITE_CLOUDINARY_API_SECRET;
+  private static formats = ["webp", "jpg", "jpeg", "png", "gif"];
 
   private static async createSignature(params: Params) {
     const baseString = Object.keys(params)
@@ -50,21 +51,16 @@ class FilesService {
     height = 216,
     width = 216,
     radius = 10,
-    allowedFormat = ["webp", "jpg", "jpeg", "png", "gif"],
+    formats = [],
   }: FileUploadArgs) {
     try {
       const defaultPath = avatar ? Path.AVATAR : Path.POSTS;
       const imageTags = tags.length ? tags : [...defaultPath.split("/")];
+      const transformSettings = { avatar, transform, height, width, radius };
 
       const params: UploadParams = {
-        allowed_formats: [...allowedFormat],
-        eager: FilesService.imageTransformString({
-          avatar,
-          transform,
-          height,
-          width,
-          radius,
-        }),
+        allowed_formats: [...FilesService.formats, ...formats],
+        eager: FilesService.imageTransformString(transformSettings),
         folder: path || defaultPath,
         format,
         overwrite,

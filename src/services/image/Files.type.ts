@@ -10,7 +10,7 @@ export type FileUploadArgs = {
   transform?: string;
   tags?: string[];
   radius?: number;
-  allowedFormat?: string[];
+  formats?: string[] | [];
 };
 
 export type Params = { public_id: string; timestamp: number };

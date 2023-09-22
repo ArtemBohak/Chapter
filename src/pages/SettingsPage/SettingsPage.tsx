@@ -10,6 +10,7 @@ import UserInfo from "./components/UserInfo/UserInfo";
 
 const SettingsPage: FC = () => {
   const [avatarUrl, setAvatarUrl] = useState("");
+
   return (
     <section className={styles["settings"]}>
       <div
