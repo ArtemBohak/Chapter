@@ -4,7 +4,13 @@ import OAuthApi from "../OAuthApi";
 import { OAuthApiArgs, OAuthApiEndPoints } from "../OAuth.type";
 import { googleOAuthApi, api, EndpointsEnum } from "@/src/axios";
 
+const { VITE_GOOGLE_CLIENT_ID, VITE_GOOGLE_CLIENT_SECRET } = import.meta.env;
 class GoogleApi extends OAuthApi {
+  protected redirectUri: string | undefined;
+  protected googleOAuthGrandType = "authorization_code";
+  protected googleClientId = VITE_GOOGLE_CLIENT_ID;
+  protected googleClientSecret = VITE_GOOGLE_CLIENT_SECRET;
+
   protected static async googleApi(googleIdToken: string) {
     return api.post(EndpointsEnum.GOOGLE_LOGIN, {
       idToken: googleIdToken,
@@ -22,13 +28,13 @@ class GoogleApi extends OAuthApi {
   }: OAuthApiArgs) {
     super({
       token,
-      redirectUri,
       setSearchParams,
       navigate,
       setIsLoading,
       setAuthCode,
       dispatch,
     });
+    this.redirectUri = redirectUri;
   }
 
   protected async getGoogleAuthCode() {

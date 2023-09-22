@@ -9,23 +9,16 @@ import {
 import { links, setTokenToLS } from "@/src/utils";
 import { ApiData, OAuthApiArgs } from "./OAuth.type";
 
-const { VITE_GOOGLE_CLIENT_ID, VITE_GOOGLE_CLIENT_SECRET } = import.meta.env;
-
 abstract class OAuthApi {
   private url = [links.ACCOUNT_CREATION, links.FEED];
-  protected redirectUri: string | undefined;
   protected token: string | undefined;
   protected setSearchParams: SetURLSearchParams | null;
   protected setAuthCode: ((data: string) => void) | null;
   protected navigate: (data: string) => void;
   protected dispatch: AppDispatch;
   protected setIsLoading: (data: boolean) => void;
-  protected googleOAuthGrandType = "authorization_code";
-  protected googleClientId = VITE_GOOGLE_CLIENT_ID;
-  protected googleClientSecret = VITE_GOOGLE_CLIENT_SECRET;
 
   constructor({
-    redirectUri,
     token,
     setSearchParams = null,
     setAuthCode = null,
@@ -33,7 +26,6 @@ abstract class OAuthApi {
     dispatch,
     setIsLoading,
   }: OAuthApiArgs) {
-    this.redirectUri = redirectUri;
     this.token = token;
     this.setSearchParams = setSearchParams;
     this.setAuthCode = setAuthCode;

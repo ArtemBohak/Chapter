@@ -26,9 +26,9 @@ class TwitterApi extends OAuthApi {
   }
   constructor({
     token,
-    setSearchParams = null,
+    setSearchParams,
     navigate,
-    setAuthCode = null,
+    setAuthCode,
     setIsLoading,
     dispatch,
   }: OAuthApiArgs) {

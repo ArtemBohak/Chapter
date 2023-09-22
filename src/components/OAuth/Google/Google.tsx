@@ -52,13 +52,13 @@ const Google: FC<SocialsProps> = ({
     }
   }, [
     currentLocation,
-    dispatch,
     googleAuthCode,
-    navigate,
     oAuthVariant,
-    setSearchParams,
-    state,
     stateId,
+    state,
+    dispatch,
+    navigate,
+    setSearchParams,
   ]);
 
   const googleOAuthLogin = useGoogleLogin({

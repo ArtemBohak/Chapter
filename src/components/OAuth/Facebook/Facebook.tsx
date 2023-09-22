@@ -73,13 +73,13 @@ const Facebook: FC<SocialsProps> = ({
       }).login();
     }
   }, [
-    dispatch,
     faceBookState,
     facebookAuthCode,
-    navigate,
     oAuthVariant,
-    setSearchParams,
     stateId,
+    setSearchParams,
+    navigate,
+    dispatch,
   ]);
 
   const onFacebookOauthSuccess = async (codeResponse: SuccessResponse) => {

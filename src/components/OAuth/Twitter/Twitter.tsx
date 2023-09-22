@@ -52,13 +52,13 @@ const Twitter: FC<SocialsProps> = ({
       }).login();
     }
   }, [
-    dispatch,
-    navigate,
-    oAuthVariant,
-    setSearchParams,
     state,
     stateId,
     twitterAuthCode,
+    oAuthVariant,
+    dispatch,
+    navigate,
+    setSearchParams,
   ]);
 
   return (
