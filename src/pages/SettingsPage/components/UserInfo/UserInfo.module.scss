@@ -1,0 +1,15 @@
+.container {
+  @apply flex gap-[82px] laptop:gap-[182px];
+
+  & > p {
+    @apply text-xs laptop:text-base;
+  }
+}
+
+.title {
+  @apply text-grey-1000;
+}
+
+.text {
+  @apply font-medium;
+}

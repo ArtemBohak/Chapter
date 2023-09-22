@@ -1,11 +1,21 @@
 .settings {
-  @apply pt-[20px] bg-[#fefefe];
+  @apply pt-2-xs laptop:pt-3-xl laptop:pb-5-lg  laptop:bg-grey-1030;
 
   &__container {
-    @apply mx-auto;
+    @apply w-full laptop:max-w-[962px] mx-auto px-2-md laptop:px-[120px]  bg-[#fefefe];
+
+    &-top {
+      @apply pb-2-xs laptop:pb-3-lg laptop:pt-[66px] border-b border-b-grey-1010 laptop:rounded-t-lg;
+    }
+    &-bottom {
+      @apply pt-2-xs;
+    }
   }
 
   &__avatar {
-    @apply laptop:flex;
+    @apply laptop:flex laptop:gap-5-xs;
+  }
+  &__input-container {
+    @apply mt-1-xs laptop:mt-0;
   }
 }

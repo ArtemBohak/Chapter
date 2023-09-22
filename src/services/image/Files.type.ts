@@ -9,6 +9,7 @@ export type FileUploadArgs = {
   overwrite?: boolean;
   transform?: string;
   tags?: string[];
+  radius?: number;
   allowedFormat?: string[];
 };
 

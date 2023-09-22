@@ -1,5 +1,6 @@
 .avatar {
   @apply flex flex-col items-center;
+
   &__image {
     @apply mb-1-xs;
     &--mob {
@@ -13,5 +14,5 @@
 }
 
 .email {
-  @apply text-sm text-grey-1000;
+  @apply text-sm laptop:text-base text-grey-1000;
 }

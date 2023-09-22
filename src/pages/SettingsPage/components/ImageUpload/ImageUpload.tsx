@@ -1,21 +1,47 @@
-import { UIbutton } from "@/src/components";
-import { FC } from "react";
+import { FC, FormEvent, useState } from "react";
 
+import FilesService from "@/src/services/image/Files";
+import { useAppSelector } from "@/src/redux/hooks";
 import styles from "./ImageUpload.module.scss";
+import { ImageUploadProps } from "./ImageUpload.type";
 
-const ImageUpload: FC = () => {
-  const handleChange = (e) => {
-    console.log(e.currentTarget);
+import { Icon, IconEnum } from "@/src/components";
+
+const ImageUpload: FC<ImageUploadProps> = ({ setAvatarUrl }) => {
+  const { user } = useAppSelector((state) => state.userSlice);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleChange = async (e: FormEvent<HTMLInputElement>) => {
+    setIsLoading(true);
+    try {
+      if (!e.currentTarget.files?.length) return;
+      const [file] = e.currentTarget.files;
+
+      const res = await FilesService.upload({
+        file,
+        id: user.id + 1 + "",
+        avatar: true,
+      });
+
+      setAvatarUrl(res.eager[0].secure_url);
+    } finally {
+      setIsLoading(false);
+    }
   };
   return (
-    <label>
+    <label className={styles["label"]}>
       <input
+        disabled={isLoading}
         type="file"
         name="avatar"
         className={styles["input"]}
         onChange={handleChange}
+        accept="image/*"
+        data-automation="uploadInput"
       />
-      Upload new photo
+      <span className={styles["btn"]}>
+        <Icon icon={IconEnum.Camera} size={20} /> <span>Upload new photo</span>
+      </span>
     </label>
   );
 };

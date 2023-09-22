@@ -23,6 +23,21 @@ class FilesService {
     return await hashingString(`${baseString}${FilesService.apiSecret}`);
   }
 
+  private static imageTransformString({
+    avatar,
+    transform,
+    height,
+    width,
+    radius,
+  }: Partial<FileUploadArgs>) {
+    if (avatar)
+      return transform
+        ? transform
+        : `c_thumb,h_${height},w_${width}/r_${radius}`;
+
+    return transform ? transform : `c_thumb,h_${height},w_${width}`;
+  }
+
   static async upload({
     file,
     id,
@@ -32,20 +47,24 @@ class FilesService {
     format = "webp",
     tags = [],
     transform,
-    height = 80,
-    width = 80,
-    allowedFormat = ["webp", "jpg", "png", "gif"],
+    height = 216,
+    width = 216,
+    radius = 10,
+    allowedFormat = ["webp", "jpg", "jpeg", "png", "gif"],
   }: FileUploadArgs) {
     try {
       const defaultPath = avatar ? Path.AVATAR : Path.POSTS;
       const imageTags = tags.length ? tags : [...defaultPath.split("/")];
-      const imageTransform = transform
-        ? transform
-        : `c_crop,h_${height},w_${width}`;
 
       const params: UploadParams = {
         allowed_formats: [...allowedFormat],
-        eager: imageTransform,
+        eager: FilesService.imageTransformString({
+          avatar,
+          transform,
+          height,
+          width,
+          radius,
+        }),
         folder: path || defaultPath,
         format,
         overwrite,

@@ -1,0 +1,21 @@
+.container {
+  @apply w-full mt-1-lg mx-auto relative py-1-lg pl-1-lg pr-3-xl laptop:pt-2-xs laptop:pb-2-lg laptop:pl-2-xs laptop:pr-[60px] rounded-lg bg-[#FAFAFA];
+
+  &--full-width {
+    @apply w-full;
+  }
+
+  &--width {
+    @apply max-w-[328px] laptop:max-w-[454px];
+  }
+
+  &__title {
+    @apply laptop:text-base mb-1-xs;
+  }
+  & > button {
+    @apply bg-transparent absolute top-1-xs right-1-xs;
+    .icon {
+      @apply w-[20px] h-[20px] laptop:w-[28px] laptop:h-[28px] cursor-pointer pointer-events-auto;
+    }
+  }
+}
