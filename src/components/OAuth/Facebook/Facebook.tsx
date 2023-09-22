@@ -6,8 +6,8 @@ import FacebookLogin, {
   ProfileSuccessResponse,
 } from "@greatsumini/react-facebook-login";
 
-import useGetUrlParams from "../useGetUrlParams";
 import FacebookApi from "./FacebookApi";
+import { useGetUrlParams } from "../hooks";
 import { getUrlParams } from "../helpers";
 import { useAppDispatch } from "@/src/redux/hooks";
 import { SocialsProps, OAuthVariant } from "../OAuth.type";

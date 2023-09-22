@@ -2,8 +2,8 @@ import { FC, useEffect } from "react";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { nanoid } from "@reduxjs/toolkit";
 
-import { OAuthProps, OAuthVariant } from "./OAuth.type";
 import { getCookie } from "./helpers";
+import { OAuthProps, OAuthVariant } from "./OAuth.type";
 
 import Twitter from "./Twitter/Twitter";
 import Facebook from "./Facebook/Facebook";

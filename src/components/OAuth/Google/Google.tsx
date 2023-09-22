@@ -2,9 +2,9 @@ import { FC, useEffect, useState } from "react";
 import { useGoogleLogin } from "@react-oauth/google";
 
 import GoogleApi from "./GoogleApi";
+import { useGetUrlParams } from "../hooks";
 import { useAppDispatch } from "@/src/redux/hooks";
 import { SocialsProps, OAuthVariant } from "../OAuth.type";
-import useGetUrlParams from "../useGetUrlParams";
 import styles from "../OAuth.module.scss";
 
 import { UIbutton } from "../../Buttons";

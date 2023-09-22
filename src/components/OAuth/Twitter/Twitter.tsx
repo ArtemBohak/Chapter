@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import TwitterApi from "./TwitterApi";
-import useGetUrlParams from "../useGetUrlParams";
+import { useGetUrlParams } from "../hooks";
 import { useAppDispatch } from "@/src/redux/hooks";
 import { SocialsProps, OAuthVariant } from "../OAuth.type";
 import styles from "../OAuth.module.scss";
