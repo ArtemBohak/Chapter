@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import TwitterApi from "./TwitterApi";
 import useGetUrlParams from "../useGetUrlParams";
 import { useAppDispatch } from "@/src/redux/hooks";
-import { SocialsProps } from "../OAuth.type";
+import { SocialsProps, OAuthVariant } from "../OAuth.type";
 import styles from "../OAuth.module.scss";
 
 import { Icon, IconEnum } from "../../Icon";
@@ -36,24 +36,21 @@ const Twitter: FC<SocialsProps> = ({
   );
 
   useEffect(() => {
-    (async () => {
-      if (
-        oAuthVariant === "twitter" &&
-        twitterAuthCode &&
-        (state === VITE_TWITTER_STATE + stateId ||
-          state === VITE_TWITTER_STATE + VITE_BASE_OAUTH_STATE)
-      ) {
-        const twitterLogin = new TwitterApi({
-          token: twitterAuthCode,
-          setSearchParams,
-          navigate,
-          setAuthCode: setTwitterAuthCode,
-          setIsLoading,
-          dispatch,
-        });
-        await twitterLogin.login();
-      }
-    })();
+    if (
+      oAuthVariant === OAuthVariant.TWITTER &&
+      twitterAuthCode &&
+      (state === VITE_TWITTER_STATE + stateId ||
+        state === VITE_TWITTER_STATE + VITE_BASE_OAUTH_STATE)
+    ) {
+      new TwitterApi({
+        token: twitterAuthCode,
+        setSearchParams,
+        navigate,
+        setAuthCode: setTwitterAuthCode,
+        setIsLoading,
+        dispatch,
+      }).login();
+    }
   }, [
     dispatch,
     navigate,

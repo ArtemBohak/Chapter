@@ -2,7 +2,7 @@ import { FC, useEffect } from "react";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { nanoid } from "nanoid";
 
-import { type OAuthProps } from "./OAuth.type";
+import { OAuthProps, OAuthVariant } from "./OAuth.type";
 import { getCookie } from "./helpers";
 
 import Twitter from "./Twitter/Twitter";
@@ -26,17 +26,17 @@ const OAuth: FC<OAuthProps> = (props) => {
     }
   }, []);
 
-  if (props.oAuthVariant === "google")
+  if (props.oAuthVariant === OAuthVariant.GOOGLE)
     return (
       <GoogleOAuthProvider clientId={VITE_GOOGLE_CLIENT_ID}>
         <Google stateId={stateId} {...props} />
       </GoogleOAuthProvider>
     );
 
-  if (props.oAuthVariant === "facebook")
+  if (props.oAuthVariant === OAuthVariant.FACEBOOK)
     return <Facebook stateId={stateId} {...props} />;
 
-  if (props.oAuthVariant === "twitter")
+  if (props.oAuthVariant === OAuthVariant.TWITTER)
     return <Twitter stateId={stateId} {...props} />;
 };
 

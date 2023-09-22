@@ -7,12 +7,10 @@ const useGetUrlParams = () => {
 
   const currentLocation = window.location.origin + location.pathname;
 
-  const params = useMemo(
+  const { state, code, error_message } = useMemo(
     () => Object.fromEntries([...searchParams]),
     [searchParams]
   );
-
-  const { state, code, error_message } = params;
 
   return {
     state,

@@ -7,6 +7,12 @@ export enum OAuthApiEndPoints {
   GOOGLE_TOKEN = "/token",
 }
 
+export enum OAuthVariant {
+  FACEBOOK = "facebook",
+  GOOGLE = "google",
+  TWITTER = "twitter",
+}
+
 export type OAuthProps = {
   className?: string;
   text?: string;

@@ -3,7 +3,7 @@ import { useGoogleLogin } from "@react-oauth/google";
 
 import GoogleApi from "./GoogleApi";
 import { useAppDispatch } from "@/src/redux/hooks";
-import { SocialsProps } from "../OAuth.type";
+import { SocialsProps, OAuthVariant } from "../OAuth.type";
 import useGetUrlParams from "../useGetUrlParams";
 import styles from "../OAuth.module.scss";
 
@@ -34,25 +34,22 @@ const Google: FC<SocialsProps> = ({
   const navigate = useNavigate();
 
   useEffect(() => {
-    (async () => {
-      if (
-        oAuthVariant === "google" &&
-        googleAuthCode &&
-        (state === VITE_GOOGLE_STATE + stateId ||
-          state === VITE_GOOGLE_STATE + VITE_BASE_OAUTH_STATE)
-      ) {
-        const google = new GoogleApi({
-          token: googleAuthCode,
-          redirectUri: currentLocation,
-          setSearchParams,
-          navigate,
-          setIsLoading,
-          setAuthCode: setGoogleAuthCode,
-          dispatch,
-        });
-        await google.login();
-      }
-    })();
+    if (
+      oAuthVariant === OAuthVariant.GOOGLE &&
+      googleAuthCode &&
+      (state === VITE_GOOGLE_STATE + stateId ||
+        state === VITE_GOOGLE_STATE + VITE_BASE_OAUTH_STATE)
+    ) {
+      new GoogleApi({
+        token: googleAuthCode,
+        redirectUri: currentLocation,
+        setSearchParams,
+        navigate,
+        setIsLoading,
+        setAuthCode: setGoogleAuthCode,
+        dispatch,
+      }).login();
+    }
   }, [
     currentLocation,
     dispatch,
@@ -74,14 +71,13 @@ const Google: FC<SocialsProps> = ({
         codeResponse.state === VITE_GOOGLE_STATE + stateId ||
         codeResponse.state === VITE_GOOGLE_STATE + VITE_BASE_OAUTH_STATE
       ) {
-        const google = new GoogleApi({
+        new GoogleApi({
           token: codeResponse.code,
           redirectUri: VITE_GOOGLE_REDIRECT_URI,
           navigate,
           setIsLoading,
           dispatch,
-        });
-        await google.login();
+        }).login();
       }
     },
     onError: (error) => {

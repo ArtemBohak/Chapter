@@ -10,7 +10,7 @@ import useGetUrlParams from "../useGetUrlParams";
 import FacebookApi from "./FacebookApi";
 import { getUrlParams } from "../helpers";
 import { useAppDispatch } from "@/src/redux/hooks";
-import { SocialsProps } from "../OAuth.type";
+import { SocialsProps, OAuthVariant } from "../OAuth.type";
 import styles from "../OAuth.module.scss";
 
 import { Icon, IconEnum } from "../../Icon";
@@ -57,24 +57,21 @@ const Facebook: FC<SocialsProps> = ({
   }, [error_message, setFacebookErrorMessage, setSearchParams]);
 
   useEffect(() => {
-    (async () => {
-      if (
-        oAuthVariant === "facebook" &&
-        facebookAuthCode &&
-        (faceBookState === VITE_FACEBOOK_STATE + stateId ||
-          faceBookState === VITE_FACEBOOK_STATE + VITE_BASE_OAUTH_STATE)
-      ) {
-        const facebook = new FacebookApi({
-          token: facebookAuthCode,
-          setSearchParams,
-          navigate,
-          setIsLoading,
-          setAuthCode: setFacebookAuthCode,
-          dispatch,
-        });
-        await facebook.login();
-      }
-    })();
+    if (
+      oAuthVariant === OAuthVariant.FACEBOOK &&
+      facebookAuthCode &&
+      (faceBookState === VITE_FACEBOOK_STATE + stateId ||
+        faceBookState === VITE_FACEBOOK_STATE + VITE_BASE_OAUTH_STATE)
+    ) {
+      new FacebookApi({
+        token: facebookAuthCode,
+        setSearchParams,
+        navigate,
+        setIsLoading,
+        setAuthCode: setFacebookAuthCode,
+        dispatch,
+      }).login();
+    }
   }, [
     dispatch,
     faceBookState,
@@ -86,13 +83,12 @@ const Facebook: FC<SocialsProps> = ({
   ]);
 
   const onFacebookOauthSuccess = async (codeResponse: SuccessResponse) => {
-    const facebook = new FacebookApi({
+    new FacebookApi({
       token: codeResponse.accessToken,
       navigate,
       setIsLoading,
       dispatch,
-    });
-    await facebook.login();
+    }).login();
   };
 
   const onFacebookOauthFail = (error: FailResponse) => {
