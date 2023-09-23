@@ -18,14 +18,14 @@ class FacebookApi extends OAuthApi {
     setAuthCode,
     dispatch,
   }: OAuthApiArgs) {
-    super({
+    super(
       token,
       setSearchParams,
-      navigate,
-      setIsLoading,
       setAuthCode,
+      navigate,
       dispatch,
-    });
+      setIsLoading
+    );
   }
 
   public async login() {

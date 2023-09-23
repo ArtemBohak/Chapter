@@ -26,14 +26,14 @@ class GoogleApi extends OAuthApi {
     setAuthCode,
     dispatch,
   }: OAuthApiArgs) {
-    super({
+    super(
       token,
       setSearchParams,
-      navigate,
-      setIsLoading,
       setAuthCode,
+      navigate,
       dispatch,
-    });
+      setIsLoading
+    );
     this.redirectUri = redirectUri;
   }
 

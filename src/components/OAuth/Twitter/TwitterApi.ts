@@ -32,14 +32,14 @@ class TwitterApi extends OAuthApi {
     setIsLoading,
     dispatch,
   }: OAuthApiArgs) {
-    super({
+    super(
       token,
       setSearchParams,
       setAuthCode,
       navigate,
       dispatch,
-      setIsLoading,
-    });
+      setIsLoading
+    );
   }
 
   public async login() {
