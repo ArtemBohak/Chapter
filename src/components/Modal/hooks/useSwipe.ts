@@ -4,38 +4,41 @@ import { UseSwipeProps } from "./useSwipe.type";
 
 const useSwipe = ({
   setIsOpen,
+  swipeIsOn = false,
   axis = "clientX",
-  touchDistinction = 150,
+  touchDistinction = 200,
+  swipeOnscreen = 769,
 }: UseSwipeProps) => {
   const [touchStart, setTouchStart] = useState(0);
-  const [touchEnd, setTouchEnd] = useState(0);
   const { current: screenSize } = useRef(window.innerWidth);
 
   useEffect(() => {
-    const handleTouchStart = (e: TouchEvent) => {
-      setTouchStart(e.targetTouches[0][axis]);
-    };
-    const handleTouchMove = (e: TouchEvent) => {
-      setTouchEnd(e.targetTouches[0][axis]);
+    const handleTouchStart = (e: TouchEvent) =>
+      setTouchStart(e.changedTouches[0][axis]);
+
+    const handleTouchEnd = (e: TouchEvent) => {
+      const touchEnd = e.changedTouches[0][axis];
+      if (touchStart - touchEnd > touchDistinction) setIsOpen(false);
     };
 
-    const handleTouchEnd = () => {
-      if (touchStart - touchEnd > touchDistinction) {
-        setIsOpen(false);
-      }
-    };
-    if (screenSize < 769) {
+    if (swipeIsOn && screenSize < swipeOnscreen) {
       window.addEventListener("touchstart", handleTouchStart);
-      window.addEventListener("touchmove", handleTouchMove);
       window.addEventListener("touchend", handleTouchEnd);
     }
 
     return () => {
       window.removeEventListener("touchstart", handleTouchStart);
-      window.removeEventListener("touchmove", handleTouchMove);
       window.removeEventListener("touchend", handleTouchEnd);
     };
-  }, [screenSize, touchEnd, touchStart, setIsOpen, axis, touchDistinction]);
+  }, [
+    screenSize,
+    touchStart,
+    axis,
+    touchDistinction,
+    swipeIsOn,
+    swipeOnscreen,
+    setIsOpen,
+  ]);
 };
 
 export default useSwipe;

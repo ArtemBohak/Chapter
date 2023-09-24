@@ -4,6 +4,7 @@ import { CSSTransition } from "react-transition-group";
 import cn from "classnames";
 
 import { ModalProps } from "./Modal.type";
+import useSwipe from "./hooks/useSwipe";
 import styles from "./Modal.module.scss";
 
 const Modal: FC<ModalProps> = ({
@@ -15,7 +16,9 @@ const Modal: FC<ModalProps> = ({
   portal = false,
   backdropClassName,
   bodyClassName,
+  ...props
 }) => {
+  useSwipe({ setIsOpen, ...props });
   const nodeRef = useRef(null);
 
   useEffect(() => {
@@ -31,6 +34,7 @@ const Modal: FC<ModalProps> = ({
 
   const onHandleClick = (e: MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
+
     if (e.target === e.currentTarget) setIsOpen(false);
   };
 

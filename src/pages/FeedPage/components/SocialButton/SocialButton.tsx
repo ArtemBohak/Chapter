@@ -108,6 +108,7 @@ const SocialButton: FC<SocialButtonProps> = ({
         bodyClassName={styles["modal__body"]}
         transitionTimeOut={300}
         transitionClassName={transition}
+        swipeIsOn
       >
         <List setIsOpen={setIsShow} title={title} data={data} />
       </Modal>

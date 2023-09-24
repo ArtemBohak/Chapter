@@ -1,14 +1,12 @@
 import { FC } from "react";
 
-import { useSwipe } from "@/src/hooks";
 import { ListProps } from "./List.type";
-import { Icon, IconEnum } from "@/src/components";
 import styles from "./List.module.scss";
 
+import { Icon, IconEnum } from "@/src/components";
 import Likes from "./Likes/Likes";
 
 const List: FC<ListProps> = ({ title, data, setIsOpen }) => {
-  useSwipe({ setIsOpen });
   return (
     <>
       <div className={styles["title"]}>

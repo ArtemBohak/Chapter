@@ -19,4 +19,8 @@ export type ModalProps = {
   portal?: boolean;
   backdropClassName?: string;
   bodyClassName?: string;
+  axis?: "clientX" | "clientY";
+  touchDistinction?: number;
+  swipeOnscreen?: number;
+  swipeIsOn?: boolean;
 };
