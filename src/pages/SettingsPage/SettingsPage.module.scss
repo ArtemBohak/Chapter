@@ -8,7 +8,7 @@
       @apply pb-2-xs laptop:pb-3-lg laptop:pt-[66px] border-b border-b-grey-1010 laptop:rounded-t-lg;
     }
     &-bottom {
-      @apply pt-2-xs;
+      @apply pt-2-xs pb-2-lg laptop:pb-4-xs laptop:pt-3-lg;
     }
   }
 
@@ -17,5 +17,17 @@
   }
   &__input-container {
     @apply mt-1-xs laptop:mt-0;
+  }
+}
+
+.form-wrapper {
+  &--top-spacing {
+    @apply mt-1-lg;
+    &.user-bio {
+      @apply pr-[38px] laptop:pr-[60px];
+    }
+  }
+  &--bottom-spacing {
+    @apply mb-2-xs laptop:mb-2-lg;
   }
 }

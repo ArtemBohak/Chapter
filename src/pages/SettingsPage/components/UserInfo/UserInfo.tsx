@@ -7,9 +7,9 @@ const lastName = "Downroy";
 
 const UserInfo: FC = () => {
   return (
-    <div className={styles["container"]}>
-      <p className={styles["title"]}>Full Name</p>
-      <p className={styles["text"]}>
+    <div className={styles["info-container"]}>
+      <p className={styles["info-container__title"]}>Full Name</p>
+      <p className={styles["info-container__text"]}>
         {firstName} {lastName}
       </p>
     </div>

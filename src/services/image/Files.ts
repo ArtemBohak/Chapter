@@ -14,22 +14,22 @@ class FilesService {
   private static cloudName = VITE_CLOUDINARY_CLOUD_NAME;
   private static apiKey = VITE_CLOUDINARY_API_KEY;
   private static apiSecret = VITE_CLOUDINARY_API_SECRET;
-  private static formats = ["webp", "jpg", "jpeg", "png", "gif"];
+  private static formats = ["webp"];
 
-  private static async createSignature(params: Params) {
+  private static createSignature(params: Params) {
     const baseString = Object.keys(params)
       .map((key) => `${key}=${params[key as keyof Params]}`)
       .join("&");
 
-    return await hashingString(`${baseString}${FilesService.apiSecret}`);
+    return hashingString(`${baseString}${FilesService.apiSecret}`);
   }
 
   private static imageTransformString({
     avatar,
     transform,
-    height,
-    width,
-    radius,
+    height = 216,
+    width = 216,
+    radius = 10,
   }: Partial<FileUploadArgs>) {
     if (avatar)
       return transform
@@ -47,20 +47,19 @@ class FilesService {
     overwrite = true,
     format = "webp",
     tags = [],
-    transform,
-    height = 216,
-    width = 216,
-    radius = 10,
     formats = [],
+    alt,
+    ...args
   }: FileUploadArgs) {
     try {
       const defaultPath = avatar ? Path.AVATAR : Path.POSTS;
       const imageTags = tags.length ? tags : [...defaultPath.split("/")];
-      const transformSettings = { avatar, transform, height, width, radius };
+      const context = `alt=${alt ? alt : defaultPath.split("/")}`;
 
       const params: UploadParams = {
         allowed_formats: [...FilesService.formats, ...formats],
-        eager: FilesService.imageTransformString(transformSettings),
+        context,
+        eager: FilesService.imageTransformString({ avatar, ...args }),
         folder: path || defaultPath,
         format,
         overwrite,
@@ -68,8 +67,7 @@ class FilesService {
         tags: imageTags,
         timestamp: Math.floor(Date.now() / 1000),
       };
-
-      const signature = await FilesService.createSignature(params);
+      const signature = FilesService.createSignature(params);
 
       const res = await uploadFilesApi.post(
         `${FilesService.cloudName}/image/upload`,
@@ -80,6 +78,7 @@ class FilesService {
           ...params,
         }
       );
+
       return res.data;
     } catch (error) {
       console.log(error);
@@ -93,7 +92,7 @@ class FilesService {
         timestamp: Math.floor(Date.now() / 1000),
       };
 
-      const signature = await FilesService.createSignature(params);
+      const signature = FilesService.createSignature(params);
 
       const res = await uploadFilesApi.post(
         `${FilesService.cloudName}/image/destroy`,

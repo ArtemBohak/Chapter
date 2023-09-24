@@ -11,18 +11,27 @@ const Layout: FC<LayoutProps> = ({
   editIcon = false,
   title,
   fullWidth = false,
+  className,
 }) => {
   const containerClassNames = cn([
-    styles["container"],
-    fullWidth ? styles["container--full-width"] : styles["container--width"],
+    styles["layout-container"],
+    fullWidth
+      ? styles["layout-container--full-width"]
+      : styles["layout-container--width"],
+    className,
   ]);
   return (
     <div className={containerClassNames}>
-      {title ? <h4 className={styles["container__title"]}>{title}</h4> : null}
+      {title ? (
+        <h3 className={styles["layout-container__title"]}>{title}</h3>
+      ) : null}
       {children}
       {editIcon ? (
         <button>
-          <Icon icon={IconEnum.Edit} className={styles["icon"]} />
+          <Icon
+            icon={IconEnum.Edit}
+            className={styles["layout-container__icon"]}
+          />
         </button>
       ) : null}
     </div>

@@ -1,0 +1,18 @@
+.delete-container {
+  @apply flex flex-col laptop:flex-row laptop:justify-between items-center gap-1-xs;
+  &__title {
+    @apply text-sm laptop:text-base mb-0 text-center;
+  }
+
+  &__button {
+    @apply w-full laptop:max-w-[128px]  min-h-[38px] bg-[#FFF1F0] text-sm laptop:text-base outline-none rounded-sm border border-[#D22219] transition-all duration-150;
+
+    &:hover {
+      @apply drop-shadow-[0_4px_15px_rgba(255,63,53,0.30)];
+    }
+
+    &:disabled {
+      @apply bg-[#D0D0D0] border-none text-[#FDFDFD] animate-pulse pointer-events-none;
+    }
+  }
+}

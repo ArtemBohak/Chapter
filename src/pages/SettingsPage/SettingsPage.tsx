@@ -2,11 +2,16 @@ import { FC, useState } from "react";
 
 import styles from "./SettingsPage.module.scss";
 
-import Avatar from "./components/Avatar/Avatar";
-import ImageUpload from "./components/ImageUpload/ImageUpload";
-import Layout from "./components/Layout/Layout";
-import Bio from "./components/UserBio/UserBio";
-import UserInfo from "./components/UserInfo/UserInfo";
+import {
+  Avatar,
+  ImageUpload,
+  Layout,
+  UserBio,
+  UserInfo,
+  Location,
+  UpdatePassword,
+  AccountDeletion,
+} from "./components";
 
 const SettingsPage: FC = () => {
   const [avatarUrl, setAvatarUrl] = useState("");
@@ -20,8 +25,11 @@ const SettingsPage: FC = () => {
           <Avatar avatarUrl={avatarUrl} />
           <div className={styles["settings__input-container"]}>
             <ImageUpload setAvatarUrl={setAvatarUrl} />
-            <Layout editIcon>
-              <Bio />
+            <Layout
+              className={`${styles["form-wrapper--top-spacing"]} ${styles["user-bio"]}`}
+              editIcon
+            >
+              <UserBio />
             </Layout>
           </div>
         </div>
@@ -29,8 +37,30 @@ const SettingsPage: FC = () => {
       <div
         className={`${styles["settings__container"]} ${styles["settings__container-bottom"]}`}
       >
-        <Layout title="Personal Info" editIcon fullWidth>
+        <Layout
+          title="Personal Info"
+          className={styles["form-wrapper--bottom-spacing"]}
+          editIcon
+          fullWidth
+        >
           <UserInfo />
+        </Layout>
+        <Layout
+          title="Location"
+          className={styles["form-wrapper--bottom-spacing"]}
+          fullWidth
+        >
+          <Location />
+        </Layout>
+        <Layout
+          title="Update password"
+          className={styles["form-wrapper--bottom-spacing"]}
+          fullWidth
+        >
+          <UpdatePassword />
+        </Layout>
+        <Layout fullWidth>
+          <AccountDeletion />
         </Layout>
       </div>
     </section>

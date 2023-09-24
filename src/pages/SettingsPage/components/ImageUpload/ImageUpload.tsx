@@ -21,6 +21,7 @@ const ImageUpload: FC<ImageUploadProps> = ({ setAvatarUrl }) => {
         file,
         id: user.id + 1 + "",
         avatar: true,
+        alt: "user avatar",
       });
 
       setAvatarUrl(res.eager[0].secure_url);
@@ -29,17 +30,17 @@ const ImageUpload: FC<ImageUploadProps> = ({ setAvatarUrl }) => {
     }
   };
   return (
-    <label className={styles["label"]}>
+    <label className={styles["uploading-container"]}>
       <input
         disabled={isLoading}
         type="file"
         name="avatar"
-        className={styles["input"]}
+        className={styles["uploading-container__input"]}
         onChange={handleChange}
         accept="image/*"
         data-automation="uploadInput"
       />
-      <span className={styles["btn"]}>
+      <span className={styles["uploading-container__button"]}>
         <Icon icon={IconEnum.Camera} size={20} /> <span>Upload new photo</span>
       </span>
     </label>

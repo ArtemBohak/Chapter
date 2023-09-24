@@ -1,4 +1,4 @@
-.avatar {
+.avatar-container {
   @apply flex flex-col items-center;
 
   &__image {
@@ -11,8 +11,8 @@
       @apply hidden laptop:block;
     }
   }
-}
 
-.email {
-  @apply text-sm laptop:text-base text-grey-1000;
+  &__email {
+    @apply text-sm laptop:text-base text-grey-1000;
+  }
 }

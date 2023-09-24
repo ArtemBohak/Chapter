@@ -11,11 +11,13 @@ export type FileUploadArgs = {
   tags?: string[];
   radius?: number;
   formats?: string[] | [];
+  alt?: string;
 };
 
 export type Params = { public_id: string; timestamp: number };
 
 export type UploadParams = {
+  context?: string;
   folder: string;
   eager: string;
   overwrite: boolean;

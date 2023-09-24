@@ -3,4 +3,5 @@ export type LayoutProps = {
   editIcon?: boolean;
   title?: string;
   fullWidth?: boolean;
+  className?: string;
 };

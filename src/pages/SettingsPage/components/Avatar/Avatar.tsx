@@ -10,20 +10,22 @@ const Avatar: FC<AvatarProps> = ({ avatarUrl }) => {
   const { user } = useAppSelector((state) => state.userSlice);
 
   return (
-    <div className={styles["avatar"]}>
+    <div className={styles["avatar-container"]}>
       <img
         src={avatarUrl || defaultUserAvatar}
         alt="avatar"
         width="120"
-        className={`${styles["avatar__image"]} ${styles["avatar__image--mob"]}`}
+        className={`${styles["avatar-container__image"]} ${styles["avatar-container__image--mob"]}`}
       />
       <img
         src={avatarUrl || defaultUserAvatar}
         alt="avatar"
         width="216"
-        className={`${styles["avatar__image"]} ${styles["avatar__image--desc"]}`}
+        className={`${styles["avatar-container__image"]} ${styles["avatar-container__image--desc"]}`}
       />
-      <p className={styles["email"]}>{user.email || "test.test@test.com"}</p>
+      <p className={styles["avatar-container__email"]}>
+        {user.email || "test.test@test.com"}
+      </p>
     </div>
   );
 };

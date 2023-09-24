@@ -1,15 +1,15 @@
-.container {
+.info-container {
   @apply flex gap-[82px] laptop:gap-[182px];
 
   & > p {
     @apply text-xs laptop:text-base;
   }
-}
 
-.title {
-  @apply text-grey-1000;
-}
+  &__title {
+    @apply text-grey-1000;
+  }
 
-.text {
-  @apply font-medium;
+  &__text {
+    @apply font-medium;
+  }
 }
