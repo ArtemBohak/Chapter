@@ -27,13 +27,12 @@ class FacebookApi extends OAuthApi {
   }
 
   public login = this.tryCatchWrapper(async () => {
-    const {
-      data: { token, tokenExpires, user },
-    } = await FacebookApi.facebook(this.token);
+    const res = await FacebookApi.facebook(this.token);
+    const { token, tokenExpires, user } = res.data;
 
     if (user.nickName) this.saveData({ token, tokenExpires, user });
-
     this.navigate(this.createRedirectUserUrl(user.nickName, user.id));
+    return res;
   });
 }
 

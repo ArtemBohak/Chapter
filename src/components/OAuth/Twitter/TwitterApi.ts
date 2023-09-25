@@ -39,11 +39,10 @@ class TwitterApi extends OAuthApi {
       setIsLoading
     );
   }
-
-  public login = this.tryCatchWrapper(async () => {
+  public login() {
     console.log("POST auth/twitter/login => ", this.token);
     this.navigate("/");
-  });
+  }
 }
 
 export default TwitterApi;

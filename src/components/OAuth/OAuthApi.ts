@@ -1,5 +1,5 @@
 import { SetURLSearchParams } from "react-router-dom";
-import { AxiosError } from "axios";
+import { AxiosError, AxiosPromise } from "axios";
 
 import { AppDispatch } from "@/src/redux/store";
 import {
@@ -50,11 +50,11 @@ abstract class OAuthApi {
     this.setAuthCode && this.setAuthCode("");
   }
 
-  protected tryCatchWrapper(cb: () => void) {
+  protected tryCatchWrapper(cb: () => AxiosPromise) {
     return async () => {
       this.pendingData();
       try {
-        cb();
+        await cb();
       } catch (error) {
         if (error instanceof AxiosError) this.errorData(error.message);
       } finally {

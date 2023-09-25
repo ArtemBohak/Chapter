@@ -49,12 +49,13 @@ class GoogleApi extends OAuthApi {
 
   public login = this.tryCatchWrapper(async () => {
     const cred = await this.getGoogleAuthCode();
-    const {
-      data: { token, tokenExpires, user },
-    } = await GoogleApi.google(cred.data.id_token);
+    const res = await GoogleApi.google(cred.data.id_token);
+
+    const { token, tokenExpires, user } = res.data;
     if (user.nickName) this.saveData({ token, tokenExpires, user });
 
     this.navigate(this.createRedirectUserUrl(user.nickName, user.id));
+    return res;
   });
 }
 
