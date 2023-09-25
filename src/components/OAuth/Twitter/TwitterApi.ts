@@ -1,5 +1,3 @@
-import { AxiosError } from "axios";
-
 import OAuthApi from "../OAuthApi";
 import { OAuthApiArgs } from "../OAuth.type";
 
@@ -42,17 +40,10 @@ class TwitterApi extends OAuthApi {
     );
   }
 
-  public async login() {
-    this.pendingData();
-    try {
-      console.log("POST auth/twitter/login => ", this.token);
-      this.navigate("/");
-    } catch (error) {
-      if (error instanceof AxiosError) this.errorData(error.message);
-    } finally {
-      this.clearData();
-    }
-  }
+  public login = this.tryCatchWrapper(async () => {
+    console.log("POST auth/twitter/login => ", this.token);
+    this.navigate("/");
+  });
 }
 
 export default TwitterApi;

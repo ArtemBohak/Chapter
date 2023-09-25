@@ -1,5 +1,3 @@
-import { AxiosError } from "axios";
-
 import OAuthApi from "../OAuthApi";
 import { OAuthApiArgs, OAuthApiEndPoints } from "../OAuth.type";
 import { googleOAuthApi, api, EndpointsEnum } from "@/src/axios";
@@ -11,7 +9,7 @@ class GoogleApi extends OAuthApi {
   protected googleClientId = VITE_GOOGLE_CLIENT_ID;
   protected googleClientSecret = VITE_GOOGLE_CLIENT_SECRET;
 
-  protected static async googleApi(googleIdToken: string) {
+  protected static async google(googleIdToken: string) {
     return api.post(EndpointsEnum.GOOGLE_LOGIN, {
       idToken: googleIdToken,
     });
@@ -49,23 +47,15 @@ class GoogleApi extends OAuthApi {
     });
   }
 
-  public async login() {
-    this.pendingData();
-    try {
-      const cred = await this.getGoogleAuthCode();
+  public login = this.tryCatchWrapper(async () => {
+    const cred = await this.getGoogleAuthCode();
+    const {
+      data: { token, tokenExpires, user },
+    } = await GoogleApi.google(cred.data.id_token);
+    if (user.nickName) this.saveData({ token, tokenExpires, user });
 
-      const {
-        data: { token, tokenExpires, user },
-      } = await GoogleApi.googleApi(cred.data.id_token);
-      if (user.nickName) this.saveData({ token, tokenExpires, user });
-
-      this.navigate(this.createRedirectUserUrl(user.nickName, user.id));
-    } catch (error) {
-      if (error instanceof AxiosError) this.errorData(error.message);
-    } finally {
-      this.clearData();
-    }
-  }
+    this.navigate(this.createRedirectUserUrl(user.nickName, user.id));
+  });
 }
 
 export default GoogleApi;
