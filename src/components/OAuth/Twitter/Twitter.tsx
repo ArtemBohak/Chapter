@@ -51,15 +51,8 @@ const Twitter: FC<SocialsProps> = ({
         dispatch,
       }).login();
     }
-  }, [
-    state,
-    stateId,
-    twitterAuthCode,
-    oAuthVariant,
-    dispatch,
-    navigate,
-    setSearchParams,
-  ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state, stateId, twitterAuthCode, oAuthVariant]);
 
   return (
     <UIbutton

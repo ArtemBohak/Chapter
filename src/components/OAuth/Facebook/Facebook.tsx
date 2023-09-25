@@ -72,15 +72,8 @@ const Facebook: FC<SocialsProps> = ({
         dispatch,
       }).login();
     }
-  }, [
-    faceBookState,
-    facebookAuthCode,
-    oAuthVariant,
-    stateId,
-    setSearchParams,
-    navigate,
-    dispatch,
-  ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [faceBookState, facebookAuthCode, oAuthVariant, stateId]);
 
   const onFacebookOauthSuccess = async (codeResponse: SuccessResponse) => {
     new FacebookApi({

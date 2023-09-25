@@ -50,16 +50,8 @@ const Google: FC<SocialsProps> = ({
         dispatch,
       }).login();
     }
-  }, [
-    currentLocation,
-    googleAuthCode,
-    oAuthVariant,
-    stateId,
-    state,
-    setSearchParams,
-    navigate,
-    dispatch,
-  ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentLocation, googleAuthCode, oAuthVariant, stateId, state]);
 
   const googleOAuthLogin = useGoogleLogin({
     flow: "auth-code",
