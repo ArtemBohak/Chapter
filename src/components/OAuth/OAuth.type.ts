@@ -2,6 +2,11 @@ import { SetURLSearchParams } from "react-router-dom";
 
 import { AppDispatch } from "@/src/redux/store";
 import { IUserStore } from "@/src/redux/types/user";
+import {
+  ButtonColorType,
+  ButtonVariantType,
+  ButtonSizeType,
+} from "../Buttons/UIbutton/UIbutton.type";
 
 export enum OAuthApiEndPoints {
   GOOGLE_TOKEN = "/token",
@@ -16,9 +21,9 @@ export enum OAuthVariant {
 export type OAuthProps = {
   className?: string;
   text?: string;
-  buttonColor?: "primary" | "secondary";
-  buttonVariant?: "outlined" | "contained" | "text";
-  buttonSize?: "small" | "medium" | "large";
+  buttonColor?: ButtonColorType;
+  buttonVariant?: ButtonVariantType;
+  buttonSize?: ButtonSizeType;
   iconSize?: number;
   facebookPopupMode?: boolean;
   googlePopupMode?: boolean;

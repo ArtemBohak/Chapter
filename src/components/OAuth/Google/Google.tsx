@@ -56,9 +56,9 @@ const Google: FC<SocialsProps> = ({
     oAuthVariant,
     stateId,
     state,
-    dispatch,
-    navigate,
     setSearchParams,
+    navigate,
+    dispatch,
   ]);
 
   const googleOAuthLogin = useGoogleLogin({

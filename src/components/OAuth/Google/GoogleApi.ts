@@ -9,12 +9,6 @@ class GoogleApi extends OAuthApi {
   protected googleClientId = VITE_GOOGLE_CLIENT_ID;
   protected googleClientSecret = VITE_GOOGLE_CLIENT_SECRET;
 
-  protected static async google(googleIdToken: string) {
-    return api.post(EndpointsEnum.GOOGLE_LOGIN, {
-      idToken: googleIdToken,
-    });
-  }
-
   constructor({
     token,
     redirectUri,
@@ -35,6 +29,12 @@ class GoogleApi extends OAuthApi {
     this.redirectUri = redirectUri;
   }
 
+  private async google(googleIdToken: string) {
+    return api.post(EndpointsEnum.GOOGLE_LOGIN, {
+      idToken: googleIdToken,
+    });
+  }
+
   protected async getGoogleAuthCode() {
     return googleOAuthApi.post(OAuthApiEndPoints.GOOGLE_TOKEN, null, {
       params: {
@@ -47,9 +47,9 @@ class GoogleApi extends OAuthApi {
     });
   }
 
-  public login = this.tryCatchWrapper(async () => {
+  login = this.tryCatchWrapper(async () => {
     const cred = await this.getGoogleAuthCode();
-    const res = await GoogleApi.google(cred.data.id_token);
+    const res = await this.google(cred.data.id_token);
 
     const { token, tokenExpires, user } = res.data;
     if (user.nickName) this.saveData({ token, tokenExpires, user });

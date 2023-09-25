@@ -3,11 +3,6 @@ import { EndpointsEnum, api } from "@/src/axios";
 import { OAuthApiArgs } from "../OAuth.type";
 
 class FacebookApi extends OAuthApi {
-  protected static async facebook(facebookAccessToken: string | undefined) {
-    return api.post(EndpointsEnum.FACEBOOK_LOGIN, {
-      accessToken: facebookAccessToken,
-    });
-  }
   constructor({
     token,
     setSearchParams,
@@ -25,9 +20,14 @@ class FacebookApi extends OAuthApi {
       setIsLoading
     );
   }
+  private async facebook(facebookAccessToken: string | undefined) {
+    return api.post(EndpointsEnum.FACEBOOK_LOGIN, {
+      accessToken: facebookAccessToken,
+    });
+  }
 
-  public login = this.tryCatchWrapper(async () => {
-    const res = await FacebookApi.facebook(this.token);
+  login = this.tryCatchWrapper(async () => {
+    const res = await this.facebook(this.token);
     const { token, tokenExpires, user } = res.data;
 
     if (user.nickName) this.saveData({ token, tokenExpires, user });
