@@ -34,13 +34,13 @@ export type OAuthProps = {
 export type SocialsProps = { stateId: string } & Partial<OAuthProps>;
 
 export type OAuthApiArgs = {
-  redirectUri?: string;
-  token?: string;
-  setSearchParams?: SetURLSearchParams | null;
-  setAuthCode?: ((data: string) => void) | null;
   navigate: (data: string) => void;
   dispatch: AppDispatch;
   setIsLoading: (data: boolean) => void;
+  redirectUri?: string;
+  token?: string;
+  setSearchParams?: SetURLSearchParams;
+  setAuthCode?: (data: string) => void;
 };
 
 export type ApiData = {

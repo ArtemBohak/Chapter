@@ -15,8 +15,8 @@ abstract class OAuthApi {
 
   constructor(
     protected token: string | undefined,
-    protected setSearchParams: SetURLSearchParams | null = null,
-    protected setAuthCode: ((data: string) => void) | null = null,
+    protected setSearchParams: SetURLSearchParams | undefined,
+    protected setAuthCode: ((data: string) => void) | undefined,
     protected navigate: (data: string) => void,
     protected dispatch: AppDispatch,
     protected setIsLoading: (data: boolean) => void
