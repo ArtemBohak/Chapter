@@ -31,7 +31,7 @@ export type OAuthProps = {
   dataAutomation?: string;
 };
 
-export type SocialsProps = { stateId: string } & Partial<OAuthProps>;
+export type SocialsProps = { stateId: string } & OAuthProps;
 
 export type OAuthApiArgs = {
   navigate: (data: string) => void;
