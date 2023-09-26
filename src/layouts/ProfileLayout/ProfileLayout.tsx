@@ -8,7 +8,7 @@ import { ProfileHeader, SidebarNavigation } from "./components";
 import { NavigationTogglerProvider } from "src/context/NavigationToggler";
 
 import styles from "./ProfileLayout.module.scss";
-import { getTokenFromLC } from "@/src/utils/localstorage";
+import { getTokenFromLC } from "@/src/utils";
 
 const ProfileLayout: FC = () => {
   const userSlice = useAppSelector((state) => state.userSlice);
