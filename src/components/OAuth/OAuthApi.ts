@@ -22,17 +22,17 @@ abstract class OAuthApi {
     protected setIsLoading: (data: boolean) => void
   ) {}
 
-  protected createRedirectUserUrl(hasNickName: boolean, id?: number) {
+  protected redirect(hasNickName: boolean, id?: number) {
     const [accountCreate, feed] = this.url;
     return hasNickName ? feed : accountCreate + "/" + id;
   }
 
-  protected pendingData() {
+  protected handleRequest() {
     this.setIsLoading(true);
     this.dispatch(oAuthPending());
   }
 
-  protected saveData({ user, token, tokenExpires }: ApiData) {
+  protected handleData({ user, token, tokenExpires }: ApiData) {
     setTokenToLS({
       token,
       tokenExpires,
@@ -40,11 +40,11 @@ abstract class OAuthApi {
     this.dispatch(oAuthFulfilled(user));
   }
 
-  protected errorData(error: string) {
+  protected handleError(error: string) {
     this.dispatch(oAuthRejected(error));
   }
 
-  protected clearData() {
+  protected resetData() {
     this.setIsLoading(false);
     this.setSearchParams && this.setSearchParams("");
     this.setAuthCode && this.setAuthCode("");
@@ -52,13 +52,13 @@ abstract class OAuthApi {
 
   protected tryCatchWrapper(cb: () => AxiosPromise) {
     return async () => {
-      this.pendingData();
+      this.handleRequest();
       try {
         await cb();
       } catch (error) {
-        if (error instanceof AxiosError) this.errorData(error.message);
+        if (error instanceof AxiosError) this.handleError(error.message);
       } finally {
-        this.clearData();
+        this.resetData();
       }
     };
   }

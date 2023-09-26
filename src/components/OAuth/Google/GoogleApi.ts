@@ -52,9 +52,9 @@ class GoogleApi extends OAuthApi {
     const res = await this.google(cred.data.id_token);
 
     const { token, tokenExpires, user } = res.data;
-    if (user.nickName) this.saveData({ token, tokenExpires, user });
+    if (user.nickName) this.handleData({ token, tokenExpires, user });
 
-    this.navigate(this.createRedirectUserUrl(user.nickName, user.id));
+    this.navigate(this.redirect(user.nickName, user.id));
     return res;
   });
 }

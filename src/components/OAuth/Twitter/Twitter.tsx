@@ -30,7 +30,7 @@ const Twitter: FC<SocialsProps> = ({
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const twitterRedirectUrl = TwitterApi.getTwitterOAuthRedirectUrl(
+  const twitterRedirectUrl = TwitterApi.createRedirectUrl(
     currentLocation,
     stateId
   );

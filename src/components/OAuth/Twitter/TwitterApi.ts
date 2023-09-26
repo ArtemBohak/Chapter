@@ -8,7 +8,7 @@ const {
 } = import.meta.env;
 
 class TwitterApi extends OAuthApi {
-  static getTwitterOAuthRedirectUrl(redirectUri: string, stateId: string) {
+  static createRedirectUrl(redirectUri: string, stateId: string) {
     const rootUrl = import.meta.env.VITE_TWITTER_AUTH_CODE_BASE_URL;
     const options = {
       redirect_uri: redirectUri,
