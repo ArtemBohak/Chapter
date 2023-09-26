@@ -1,5 +1,5 @@
 .layout-container {
-  @apply w-full mx-auto relative py-1-lg px-1-lg laptop:pt-2-xs laptop:pb-2-lg laptop:px-2-xs rounded-lg bg-[#FAFAFA];
+  @apply w-full mx-auto relative py-1-xs px-1-xs laptop:pt-2-xs laptop:pb-2-lg laptop:px-2-xs rounded-lg bg-[#FAFAFA];
 
   &--full-width {
     @apply w-full max-w-[328px] laptop:max-w-none;

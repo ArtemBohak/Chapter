@@ -6,7 +6,7 @@ import styles from "./IconButton.module.scss";
 import { Icon, IconEnum } from "@/src/components";
 
 const IconButton: FC<IconButtonProps> = ({
-  isEditing = true,
+  isEditing,
   onHandleEdit,
   onHandleSave,
   classNames,
