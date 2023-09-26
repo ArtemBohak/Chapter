@@ -4,10 +4,10 @@ import { googleOAuthApi, api, EndpointsEnum } from "@/src/axios";
 
 const { VITE_GOOGLE_CLIENT_ID, VITE_GOOGLE_CLIENT_SECRET } = import.meta.env;
 class GoogleApi extends OAuthApi {
-  protected redirectUri: string | undefined;
-  protected googleOAuthGrandType = "authorization_code";
-  protected googleClientId = VITE_GOOGLE_CLIENT_ID;
-  protected googleClientSecret = VITE_GOOGLE_CLIENT_SECRET;
+  private redirectUri: string | undefined;
+  private googleOAuthGrandType = "authorization_code";
+  private googleClientId = VITE_GOOGLE_CLIENT_ID;
+  private googleClientSecret = VITE_GOOGLE_CLIENT_SECRET;
 
   constructor({
     token,
@@ -35,7 +35,7 @@ class GoogleApi extends OAuthApi {
     });
   }
 
-  protected async getGoogleAuthCode() {
+  private async getGoogleAuthCode() {
     return googleOAuthApi.post(OAuthApiEndPoints.GOOGLE_TOKEN, null, {
       params: {
         grant_type: this.googleOAuthGrandType,

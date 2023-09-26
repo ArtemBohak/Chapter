@@ -15,21 +15,31 @@ abstract class OAuthApi {
 
   constructor(
     protected token: string | undefined,
-    protected setSearchParams: SetURLSearchParams | undefined,
-    protected setAuthCode: ((data: string) => void) | undefined,
+    private setSearchParams: SetURLSearchParams | undefined,
+    private setAuthCode: ((data: string) => void) | undefined,
     protected navigate: (data: string) => void,
-    protected dispatch: AppDispatch,
-    protected setIsLoading: (data: boolean) => void
+    private dispatch: AppDispatch,
+    private setIsLoading: (data: boolean) => void
   ) {}
+
+  private handleRequest() {
+    this.setIsLoading(true);
+    this.dispatch(oAuthPending());
+  }
+
+  private handleError(error: string) {
+    this.dispatch(oAuthRejected(error));
+  }
+
+  private resetData() {
+    this.setIsLoading(false);
+    this.setSearchParams && this.setSearchParams("");
+    this.setAuthCode && this.setAuthCode("");
+  }
 
   protected redirect(hasNickName: boolean, id?: number) {
     const [accountCreate, feed] = this.url;
     return hasNickName ? feed : accountCreate + "/" + id;
-  }
-
-  protected handleRequest() {
-    this.setIsLoading(true);
-    this.dispatch(oAuthPending());
   }
 
   protected handleData({ user, token, tokenExpires }: ApiData) {
@@ -38,16 +48,6 @@ abstract class OAuthApi {
       tokenExpires,
     });
     this.dispatch(oAuthFulfilled(user));
-  }
-
-  protected handleError(error: string) {
-    this.dispatch(oAuthRejected(error));
-  }
-
-  protected resetData() {
-    this.setIsLoading(false);
-    this.setSearchParams && this.setSearchParams("");
-    this.setAuthCode && this.setAuthCode("");
   }
 
   protected tryCatchWrapper(cb: () => AxiosPromise) {
