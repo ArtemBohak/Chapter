@@ -1,6 +1,6 @@
 import axios from "axios";
 import TokenService from "@/src//services/token";
-import { getTokenFromLC } from "@/src/utils/localstorage";
+import { getTokenFromLC } from "@/src/utils";
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
