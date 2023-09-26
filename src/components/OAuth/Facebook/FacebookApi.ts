@@ -19,6 +19,8 @@ class FacebookApi extends OAuthApi {
       dispatch,
       setIsLoading
     );
+
+    this.login();
   }
   private async facebook(facebookAccessToken: string | undefined) {
     return api.post(EndpointsEnum.FACEBOOK_LOGIN, {
@@ -26,7 +28,7 @@ class FacebookApi extends OAuthApi {
     });
   }
 
-  login = this.tryCatchWrapper(async () => {
+  private login = this.tryCatchWrapper(async () => {
     const res = await this.facebook(this.token);
     const { token, tokenExpires, user } = res.data;
 

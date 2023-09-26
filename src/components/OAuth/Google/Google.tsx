@@ -48,7 +48,7 @@ const Google: FC<SocialsProps> = ({
         setIsLoading,
         setAuthCode: setGoogleAuthCode,
         dispatch,
-      }).login();
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentLocation, googleAuthCode, oAuthVariant, stateId, state]);
@@ -69,7 +69,7 @@ const Google: FC<SocialsProps> = ({
           navigate,
           setIsLoading,
           dispatch,
-        }).login();
+        });
       }
     },
     onError: (error) => {

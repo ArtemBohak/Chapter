@@ -70,7 +70,7 @@ const Facebook: FC<SocialsProps> = ({
         setIsLoading,
         setAuthCode: setFacebookAuthCode,
         dispatch,
-      }).login();
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [faceBookState, facebookAuthCode, oAuthVariant, stateId]);
@@ -81,7 +81,7 @@ const Facebook: FC<SocialsProps> = ({
       navigate,
       setIsLoading,
       dispatch,
-    }).login();
+    });
   };
 
   const onFacebookOauthFail = (error: FailResponse) => {

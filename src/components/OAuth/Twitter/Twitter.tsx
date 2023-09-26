@@ -49,7 +49,7 @@ const Twitter: FC<SocialsProps> = ({
         setAuthCode: setTwitterAuthCode,
         setIsLoading,
         dispatch,
-      }).login();
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state, stateId, twitterAuthCode, oAuthVariant]);

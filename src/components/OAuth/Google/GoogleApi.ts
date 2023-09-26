@@ -27,6 +27,8 @@ class GoogleApi extends OAuthApi {
       setIsLoading
     );
     this.redirectUri = redirectUri;
+
+    this.login();
   }
 
   private async google(googleIdToken: string) {
@@ -47,7 +49,7 @@ class GoogleApi extends OAuthApi {
     });
   }
 
-  login = this.tryCatchWrapper(async () => {
+  private login = this.tryCatchWrapper(async () => {
     const cred = await this.getGoogleAuthCode();
     const res = await this.google(cred.data.id_token);
 

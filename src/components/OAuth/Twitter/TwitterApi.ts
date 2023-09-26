@@ -38,8 +38,11 @@ class TwitterApi extends OAuthApi {
       dispatch,
       setIsLoading
     );
+
+    this.login();
   }
-  login() {
+
+  private login() {
     console.log("POST auth/twitter/login => ", this.token);
     this.navigate("/");
   }
