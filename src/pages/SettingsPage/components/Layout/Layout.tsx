@@ -3,12 +3,11 @@ import { FC } from "react";
 import { LayoutProps } from "./Layout.type";
 import styles from "./Layout.module.scss";
 
-import { Icon, IconEnum } from "@/src/components";
 import cn from "classnames";
 
 const Layout: FC<LayoutProps> = ({
   children,
-  editIcon = false,
+
   title,
   fullWidth = false,
   className,
@@ -26,14 +25,6 @@ const Layout: FC<LayoutProps> = ({
         <h3 className={styles["layout-container__title"]}>{title}</h3>
       ) : null}
       {children}
-      {editIcon ? (
-        <button>
-          <Icon
-            icon={IconEnum.Edit}
-            className={styles["layout-container__icon"]}
-          />
-        </button>
-      ) : null}
     </div>
   );
 };

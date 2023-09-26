@@ -16,4 +16,5 @@ export enum IconEnum {
   ArrowRight = "arrow-right",
   Camera = "camera",
   Edit = "edit",
+  Save = "save",
 }

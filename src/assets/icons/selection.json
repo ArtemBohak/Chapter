@@ -483,6 +483,53 @@
       "setIdx": 0,
       "setId": 4,
       "iconIdx": 0
+    },
+    {
+      "icon": {
+        "paths": [
+          "M725.35 896v-341.35h-426.701v341.35M298.65 128v213.35h341.35M810.65 896h-597.299c-47.138 0-85.35-38.213-85.35-85.35v0-597.299c0-47.138 38.213-85.35 85.35-85.35v0h469.299l213.35 213.35v469.299c0 0.015 0 0.033 0 0.051 0 47.109-38.19 85.299-85.299 85.299-0.018 0-0.036-0-0.054-0l0.003 0z"
+        ],
+        "attrs": [
+          {
+            "fill": "none",
+            "stroke": "rgb(246, 148, 0)",
+            "strokeLinejoin": "round",
+            "strokeLinecap": "round",
+            "strokeMiterlimit": "4",
+            "strokeWidth": 102.4
+          }
+        ],
+        "isMulticolor": false,
+        "isMulticolor2": false,
+        "grid": 0,
+        "tags": ["save"],
+        "colorPermutations": {
+          "24614801247148012542542541": [
+            {
+              "s": 0
+            }
+          ]
+        }
+      },
+      "attrs": [
+        {
+          "fill": "none",
+          "stroke": "rgb(246, 148, 0)",
+          "strokeLinejoin": "round",
+          "strokeLinecap": "round",
+          "strokeMiterlimit": "4",
+          "strokeWidth": 102.4
+        }
+      ],
+      "properties": {
+        "order": 15,
+        "id": 2,
+        "name": "save",
+        "prevSize": 32
+      },
+      "setIdx": 0,
+      "setId": 4,
+      "iconIdx": 0
     }
   ],
   "height": 1024,

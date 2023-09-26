@@ -1,0 +1,11 @@
+.icon-button {
+  @apply bg-transparent absolute top-1-xs right-1-xs outline-none;
+
+  &:hover {
+    @apply bg-[#FFE6C1];
+  }
+}
+
+.icon {
+  @apply w-[20px] h-[20px] laptop:w-[28px] laptop:h-[28px] cursor-pointer pointer-events-auto;
+}
