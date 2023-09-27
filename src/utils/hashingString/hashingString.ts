@@ -1,9 +1,6 @@
-import sjcl from "sjcl";
+// import sjcl from "sjcl";
+import { sha256 } from "js-sha256";
 
-const hashingString = (string: string) => {
-  const myBitArray = sjcl.hash.sha256.hash(string);
-
-  return sjcl.codec.hex.fromBits(myBitArray);
-};
+const hashingString = (string: string) => sha256(string);
 
 export default hashingString;
