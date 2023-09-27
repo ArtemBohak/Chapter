@@ -2,32 +2,26 @@
   @apply pt-2-xs laptop:pt-3-xl laptop:pb-5-lg  laptop:bg-grey-1030;
 
   &__container {
-    @apply w-full laptop:max-w-[962px] mx-auto px-2-md laptop:px-[120px]  bg-[#fefefe];
+    @apply w-full max-w-[328px] laptop:max-w-[962px] mx-auto laptop:px-[120px]  bg-[#fefefe];
 
     &-top {
-      @apply pb-2-xs laptop:pb-3-lg laptop:pt-[66px] border-b border-b-grey-1010 laptop:rounded-t-lg;
+      @apply pb-2-xs laptop:pb-1-lg laptop:pt-[66px] border-b  border-b-grey-1010 laptop:rounded-t-lg laptop:flex laptop:gap-5-xs;
     }
     &-bottom {
       @apply pt-2-xs pb-2-lg laptop:pb-4-xs laptop:pt-3-lg;
     }
   }
 
-  &__avatar {
-    @apply laptop:flex laptop:gap-5-xs;
-  }
   &__input-container {
-    @apply mt-1-xs laptop:mt-0;
+    @apply mt-1-xs laptop:mt-0 w-full;
   }
 }
 
 .form-wrapper {
-  &--top-spacing {
+  &__top-spacing {
     @apply mt-1-lg;
-    &.user-bio {
-      @apply pr-[38px] laptop:pr-[60px];
-    }
   }
-  &--bottom-spacing {
+  &__bottom-spacing {
     @apply mb-2-xs laptop:mb-2-lg;
   }
 }

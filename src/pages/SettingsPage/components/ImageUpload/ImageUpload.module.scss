@@ -1,14 +1,14 @@
-.uploading-container {
+.image-upload {
   @apply max-w-[328px] laptop:max-w-[224px] mx-auto block laptop:mx-0 cursor-pointer;
 
   &__input {
     @apply w-[0.1px] h-[0.1px] opacity-0 hidden absolute z-[-1] leading-[1.75];
 
-    &:hover + .uploading-container__button {
+    &:hover + .image-upload__button {
       @apply shadow-[0_4px_15px_0_rgba(246,148,0,0.30)];
     }
 
-    &:disabled + .uploading-container__button {
+    &:disabled + .image-upload__button {
       @apply border-none bg-grey-1010 text-[#FDFDFD] animate-pulse pointer-events-none;
     }
   }

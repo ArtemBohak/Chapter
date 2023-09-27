@@ -3,4 +3,5 @@ export type LayoutProps = {
   title?: string;
   fullWidth?: boolean;
   className?: string;
+  customSpacing?: boolean;
 };

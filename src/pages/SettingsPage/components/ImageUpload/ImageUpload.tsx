@@ -24,23 +24,23 @@ const ImageUpload: FC<ImageUploadProps> = ({ setAvatarUrl }) => {
         alt: "user avatar",
       });
 
-      setAvatarUrl(res.eager[0].secure_url);
+      setAvatarUrl(res?.eager[0].secure_url);
     } finally {
       setIsLoading(false);
     }
   };
   return (
-    <label className={styles["uploading-container"]}>
+    <label className={styles["image-upload"]}>
       <input
         disabled={isLoading}
         type="file"
         name="avatar"
-        className={styles["uploading-container__input"]}
+        className={styles["image-upload__input"]}
         onChange={handleChange}
         accept="image/*"
         data-automation="uploadInput"
       />
-      <span className={styles["uploading-container__button"]}>
+      <span className={styles["image-upload__button"]}>
         <Icon icon={IconEnum.Camera} size={20} /> <span>Upload new photo</span>
       </span>
     </label>

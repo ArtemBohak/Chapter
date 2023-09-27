@@ -1,5 +1,5 @@
-.avatar-container {
-  @apply flex flex-col items-center;
+.avatar {
+  @apply flex flex-col items-center laptop:min-w-[216px];
 
   &__image {
     @apply mb-1-xs;

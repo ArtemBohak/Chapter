@@ -1,22 +1,23 @@
-.layout-container {
-  @apply w-full mx-auto relative px-1-xs py-1-md laptop:p-1-lg rounded-lg bg-[#FAFAFA];
+.layout {
+  @apply w-full  relative rounded-lg bg-[#FAFAFA];
 
-  &--full-width {
-    @apply w-full max-w-[328px] laptop:max-w-none;
+  &--base {
+    @apply px-1-xs py-1-md laptop:p-2-xs;
   }
 
-  &--width {
-    @apply max-w-[328px] laptop:max-w-[454px];
+  &--story {
+    @apply px-0-md py-1-sm laptop:p-1-md;
+  }
+
+  &-width {
+    @apply w-full laptop:max-w-none;
+
+    &--full {
+      @apply w-full;
+    }
   }
 
   &__title {
     @apply text-sm laptop:text-base mb-1-md;
-  }
-  & > button {
-    @apply bg-transparent absolute top-1-xs right-1-xs outline-none;
-  }
-
-  &__icon {
-    @apply w-[20px] h-[20px] laptop:w-[28px] laptop:h-[28px] cursor-pointer pointer-events-auto;
   }
 }

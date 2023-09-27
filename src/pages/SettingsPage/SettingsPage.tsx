@@ -21,16 +21,12 @@ const SettingsPage: FC = () => {
       <div
         className={`${styles["settings__container"]} ${styles["settings__container-top"]}`}
       >
-        <div className={styles["settings__avatar"]}>
-          <Avatar avatarUrl={avatarUrl} />
-          <div className={styles["settings__input-container"]}>
-            <ImageUpload setAvatarUrl={setAvatarUrl} />
-            <Layout
-              className={`${styles["form-wrapper--top-spacing"]} ${styles["user-bio"]}`}
-            >
-              <UserStory />
-            </Layout>
-          </div>
+        <Avatar avatarUrl={avatarUrl} />
+        <div className={styles["settings__input-container"]}>
+          <ImageUpload setAvatarUrl={setAvatarUrl} />
+          <Layout className={styles["form-wrapper__top-spacing"]} customSpacing>
+            <UserStory />
+          </Layout>
         </div>
       </div>
       <div
@@ -38,21 +34,21 @@ const SettingsPage: FC = () => {
       >
         <Layout
           title="Personal Info"
-          className={styles["form-wrapper--bottom-spacing"]}
+          className={styles["form-wrapper__bottom-spacing"]}
           fullWidth
         >
           <UserName />
         </Layout>
         <Layout
           title="Location"
-          className={styles["form-wrapper--bottom-spacing"]}
+          className={styles["form-wrapper__bottom-spacing"]}
           fullWidth
         >
           <Location />
         </Layout>
         <Layout
           title="Update password"
-          className={styles["form-wrapper--bottom-spacing"]}
+          className={styles["form-wrapper__bottom-spacing"]}
           fullWidth
         >
           <UpdatePassword />

@@ -14,18 +14,18 @@ const AccountDeletion: FC = () => {
     } catch (error) {
       console.log(error);
     } finally {
-      // setIsLoading(false);
+      setIsLoading(false);
     }
   };
   return (
-    <div className={styles["delete-container"]}>
-      <h3 className={styles["delete-container__title"]}>
+    <div className={styles["account-delete"]}>
+      <h3 className={styles["account-delete__title"]}>
         Do you want to delete your account?
       </h3>
       <button
         onClick={onHandleClick}
         disabled={isLoading}
-        className={styles["delete-container__button"]}
+        className={styles["account-delete__button"]}
         data-automation="clickButton"
       >
         Delete

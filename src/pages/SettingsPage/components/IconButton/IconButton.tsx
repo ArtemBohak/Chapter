@@ -19,7 +19,7 @@ const IconButton: FC<IconButtonProps> = ({
           className={`${styles["icon-button"]} ${classNames}`}
           data-automation="clickButton"
         >
-          <Icon icon={IconEnum.Save} className={styles["icon"]} />
+          <Icon icon={IconEnum.Save} />
         </button>
       ) : (
         <button
@@ -27,7 +27,7 @@ const IconButton: FC<IconButtonProps> = ({
           className={`${styles["icon-button"]} ${classNames}`}
           data-automation="clickButton"
         >
-          <Icon icon={IconEnum.Edit} className={styles["icon"]} />
+          <Icon icon={IconEnum.Edit} />
         </button>
       )}
     </>

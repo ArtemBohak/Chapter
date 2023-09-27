@@ -11,5 +11,6 @@ export type PasswordFieldProps = {
     text: string;
     href: string;
   };
+  strengthMessage?: string;
   customErrorMessage?: string | null;
 } & Partial<Omit<InputHTMLAttributes<HTMLInputElement>, "type">>;
