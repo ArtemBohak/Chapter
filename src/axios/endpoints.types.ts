@@ -1,4 +1,5 @@
 export enum EndpointsEnum {
+  ME = "users/me",
   USERS = "users/",
   UPLOAD_FILES = "files/upload",
   FILES = "files/",

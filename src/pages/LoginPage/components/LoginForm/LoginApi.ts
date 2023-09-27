@@ -6,7 +6,7 @@ import { isAxiosError } from "axios";
 const LoginApi = async (values: ILoginPage, ) => {
   try {
     const response = await api.post(EndpointsEnum.LOGIN, values);
-  
+  console.log(response)
     return response;
 
   } catch (error) {

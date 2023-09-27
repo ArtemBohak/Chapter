@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { UIbutton } from "@/src/components";
+import { BookShelf, UIbutton } from "@/src/components";
 import { IconEnum } from "@/src/components/Icon";
 import CookiesToaster from "@/src/components/CookiesToaster/CookiesToaster";
 import { Link } from "react-router-dom";
@@ -35,6 +35,7 @@ const UIPage: FC = () => {
           <Link to={links.NOT_FOUND}>Not found</Link>
         </li>
       </ul>
+      <BookShelf />
       <div className="max-w-[1200px] w-full mx-auto px-2-md">
         <div className="mb-4">
           <div>
