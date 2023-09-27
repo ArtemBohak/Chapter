@@ -5,7 +5,6 @@ import { links } from "@/src/utils";
 
 import { AuthLink, Delimiter, AuthBy, BlockAuth } from "@/src/components";
 import { RegisterForm } from "@/src/pages/RegisterPage/components";
-import { IconEnum } from "@/src/components/Icon";
 import { CookiesToaster } from "@/src/components/CookiesToaster";
 
 const RegisterPage: FC = () => (
@@ -17,13 +16,7 @@ const RegisterPage: FC = () => (
     <div className={styles["register-page"]}>
       <RegisterForm />
       <Delimiter />
-      <AuthBy
-        socialLinks={[
-          { link: "/", icon: IconEnum.Google },
-          { link: "/", icon: IconEnum.Facebook },
-          { link: "/", icon: IconEnum.Twitter },
-        ]}
-      />
+      <AuthBy />
       <AuthLink
         textMsg="Already have an account ?"
         linkMsg="Log in"
