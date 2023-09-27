@@ -1,0 +1,6 @@
+.bio-text {
+  @apply resize-none  text-xs w-[262px] laptop:text-base laptop:w-[372px] h-[118px] laptop:h-[172px] px-1-xs py-0-sm laptop:p-1-md pr-1-xs bg-inherit outline-none rounded-lg border-[#FFD18C] border leading-[18px] laptop:leading-[24px] transition-all duration-100;
+  &:disabled {
+    @apply border-transparent;
+  }
+}

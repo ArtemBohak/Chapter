@@ -1,5 +1,6 @@
 import { FC } from "react";
-import { Formik, Form, FormikHelpers } from "formik";
+import { Formik, Form, FormikHelpers, Field } from "formik";
+import cn from "classnames";
 
 import { InitialValues } from "./UpdatePassword.type";
 import styles from "./UpdatePassword.module.scss";
@@ -24,9 +25,29 @@ const UpdatePassword: FC = () => {
     <Formik initialValues={initialValues} onSubmit={onHandleSubmit}>
       {({ isSubmitting, dirty, isValid, values }) => (
         <Form className={styles["update-password-container"]}>
+          <label className={styles["label-container"]}>
+            <span
+              className={cn(styles["label-text"], styles["label-text__top"])}
+            >
+              Old password
+            </span>
+            <span className={styles["input-holder"]}>
+              <Field
+                name="oldPassword"
+                value={values.oldPassword}
+                className={cn(styles["input"])}
+                data-automation="oldPasswordInput"
+              />
+            </span>
+            <span
+              className={cn(styles["label-text"], styles["label-text__bottom"])}
+            >
+              Enter your old password.
+            </span>
+          </label>
           <UIbutton
             type="submit"
-            dataAutomation="submitButtom"
+            dataAutomation="submitButton"
             isLoading={isSubmitting}
             disabled={isSubmitting || !isValid || !dirty}
             fullWidth

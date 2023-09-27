@@ -6,8 +6,8 @@ import {
   Avatar,
   ImageUpload,
   Layout,
-  UserBio,
-  UserInfo,
+  UserStory,
+  UserName,
   Location,
   UpdatePassword,
   AccountDeletion,
@@ -27,9 +27,8 @@ const SettingsPage: FC = () => {
             <ImageUpload setAvatarUrl={setAvatarUrl} />
             <Layout
               className={`${styles["form-wrapper--top-spacing"]} ${styles["user-bio"]}`}
-              editIcon
             >
-              <UserBio />
+              <UserStory />
             </Layout>
           </div>
         </div>
@@ -40,10 +39,9 @@ const SettingsPage: FC = () => {
         <Layout
           title="Personal Info"
           className={styles["form-wrapper--bottom-spacing"]}
-          editIcon
           fullWidth
         >
-          <UserInfo />
+          <UserName />
         </Layout>
         <Layout
           title="Location"

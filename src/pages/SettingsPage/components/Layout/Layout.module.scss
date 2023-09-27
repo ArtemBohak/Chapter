@@ -1,5 +1,5 @@
 .layout-container {
-  @apply w-full mx-auto relative py-1-xs px-1-xs laptop:pt-2-xs laptop:pb-2-lg laptop:px-2-xs rounded-lg bg-[#FAFAFA];
+  @apply w-full mx-auto relative px-1-xs py-1-md laptop:p-1-lg rounded-lg bg-[#FAFAFA];
 
   &--full-width {
     @apply w-full max-w-[328px] laptop:max-w-none;
@@ -10,7 +10,7 @@
   }
 
   &__title {
-    @apply text-sm laptop:text-base mb-1-xs;
+    @apply text-sm laptop:text-base mb-1-md;
   }
   & > button {
     @apply bg-transparent absolute top-1-xs right-1-xs outline-none;
