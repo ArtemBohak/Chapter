@@ -1,17 +1,13 @@
 import * as Yup from "yup";
 import { baseValidation } from "@/src/utils/regex/password-regex";
+import { ErrorMessages } from "./UpdatePassword.type";
 
 export default Yup.object({
-  oldPassword: Yup.string().required("Enter your old password."),
+  oldPassword: Yup.string().required(ErrorMessages.OLD_PASSWORD),
   newPassword: Yup.string()
-    .required(
-      "New password must be at least 8 characters, including uppercase letters, one number and Latin letters only. Space symbol is not included. Password must be different from the previous one."
-    )
-    .matches(
-      baseValidation,
-      "New password must be at least 8 characters, including uppercase letters, one number and Latin letters only. Space symbol is not included. Password must be different from the previous one."
-    ),
+    .required(ErrorMessages.NEW_PASSWORD)
+    .matches(baseValidation, ErrorMessages.NEW_PASSWORD),
   confirmNewPassword: Yup.string()
-    .oneOf([Yup.ref("newPassword")], "Both passwords must match.")
-    .required("Both passwords must match."),
+    .oneOf([Yup.ref("newPassword")], ErrorMessages.CONFIRM_NEW_PASSWORD)
+    .required(ErrorMessages.CONFIRM_NEW_PASSWORD),
 });

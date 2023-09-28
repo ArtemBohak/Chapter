@@ -22,6 +22,9 @@ const ImageUpload: FC<ImageUploadProps> = ({ setAvatarUrl }) => {
         id: user.id + 1 + "",
         avatar: true,
         alt: "user avatar",
+        height: 640,
+        width: 640,
+        radius: 50,
       });
 
       setAvatarUrl(res?.eager[0].secure_url);

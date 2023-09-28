@@ -25,6 +25,7 @@ const PasswordField: FC<PasswordFieldProps> = ({
   strength,
   strengthMessage = "Password must be at least 8 characters long, including uppercase letters and special characters",
   helperLink,
+  additionalLabel,
   customErrorMessage,
   ...props
 }) => {
@@ -78,7 +79,7 @@ const PasswordField: FC<PasswordFieldProps> = ({
           />
         </div>
       </label>
-      {strength && meta.value && !meta.touched && (
+      {strength && !additionalLabel && meta.value && !meta.touched && (
         <p className={styles["text-field__requirements"]}>{strengthMessage}</p>
       )}
       <div className={styles["text-field__helper-box"]}>
@@ -100,6 +101,11 @@ const PasswordField: FC<PasswordFieldProps> = ({
         {customErrorMessage ? (
           <p className="text-field__custom-error-message">
             {customErrorMessage}
+          </p>
+        ) : null}
+        {additionalLabel && !customErrorMessage && !isErrorValidation ? (
+          <p className={styles["text-field__label-sub-text"]}>
+            {additionalLabel}
           </p>
         ) : null}
       </div>
