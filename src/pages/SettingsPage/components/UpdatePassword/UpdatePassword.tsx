@@ -27,14 +27,14 @@ const UpdatePassword: FC = () => {
       onSubmit={onHandleSubmit}
       validationSchema={validationSchema}
     >
-      {({ isSubmitting, dirty, isValid, values }) => {
+      {({ isSubmitting, dirty, isValid }) => {
         return (
           <Form className={styles["update-password"]}>
             <PasswordField
               dataAutomation="oldPassword"
               id="oldPassword"
               name="oldPassword"
-              value={values.oldPassword}
+              autoComplete="current-password"
               additionalLabel={ErrorMessages.OLD_PASSWORD}
               label="Old password"
               className={`${styles["update-password__input"]} ${styles["input"]}`}
@@ -43,18 +43,18 @@ const UpdatePassword: FC = () => {
               dataAutomation="newPassword"
               id="newPassword"
               name="newPassword"
+              autoComplete="new-password"
               additionalLabel={ErrorMessages.NEW_PASSWORD}
-              value={values.newPassword}
-              label="New password"
               strengthMessage={ErrorMessages.NEW_PASSWORD}
-              strength
+              label="New password"
               className={`${styles["update-password__input"]} ${styles["input"]}`}
+              strength
             />
             <PasswordField
               dataAutomation="confirmNewPassword"
               id="confirmNewPassword"
               name="confirmNewPassword"
-              value={values.confirmNewPassword}
+              autoComplete="new-password"
               label="Repeat new password"
               additionalLabel={ErrorMessages.CONFIRM_NEW_PASSWORD}
               className={`${styles["update-password__input"]} ${styles["input"]}`}
