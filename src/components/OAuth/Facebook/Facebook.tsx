@@ -54,7 +54,8 @@ const Facebook: FC<SocialsProps> = ({
       setFacebookErrorMessage(error_message);
       setSearchParams("");
     }
-  }, [error_message, setFacebookErrorMessage, setSearchParams]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [error_message]);
 
   useEffect(() => {
     if (
