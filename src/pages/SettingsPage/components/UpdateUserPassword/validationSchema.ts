@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 import { baseValidation } from "@/src/utils/regex/password-regex";
-import { ErrorMessages } from "./UpdatePassword.type";
+import { ErrorMessages } from "./UpdateUserPassword.type";
 
 export default Yup.object({
   oldPassword: Yup.string().required(ErrorMessages.OLD_PASSWORD),

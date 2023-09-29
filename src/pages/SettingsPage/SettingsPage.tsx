@@ -3,14 +3,14 @@ import { FC, useState } from "react";
 import styles from "./SettingsPage.module.scss";
 
 import {
-  Avatar,
+  UserAvatar,
   ImageUpload,
   Layout,
   UserStory,
   UserName,
-  Location,
-  UpdatePassword,
-  AccountDeletion,
+  UserLocation,
+  UpdateUserPassword,
+  UserAccountDeletion,
 } from "./components";
 
 const SettingsPage: FC = () => {
@@ -21,8 +21,8 @@ const SettingsPage: FC = () => {
       <div
         className={`${styles["settings__container"]} ${styles["settings__container-top"]}`}
       >
-        <Avatar avatarUrl={avatarUrl} />
-        <div className={styles["settings__input-container"]}>
+        <UserAvatar avatarUrl={avatarUrl} />
+        <div className={styles["settings__input-wrapper"]}>
           <ImageUpload setAvatarUrl={setAvatarUrl} />
           <Layout className={styles["form-wrapper__top-spacing"]} customSpacing>
             <UserStory />
@@ -44,17 +44,17 @@ const SettingsPage: FC = () => {
           className={styles["form-wrapper__bottom-spacing"]}
           fullWidth
         >
-          <Location />
+          <UserLocation />
         </Layout>
         <Layout
           title="Update password"
           className={styles["form-wrapper__bottom-spacing"]}
           fullWidth
         >
-          <UpdatePassword />
+          <UpdateUserPassword />
         </Layout>
         <Layout fullWidth>
-          <AccountDeletion />
+          <UserAccountDeletion />
         </Layout>
       </div>
     </section>

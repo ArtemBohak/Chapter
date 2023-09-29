@@ -1,8 +1,8 @@
 import { FC, useState } from "react";
 
-import styles from "./AccountDeletion.module.scss";
+import styles from "./UserAccountDeletion.module.scss";
 
-const AccountDeletion: FC = () => {
+const UserAccountDeletion: FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const onHandleClick = async () => {
     try {
@@ -10,11 +10,11 @@ const AccountDeletion: FC = () => {
       setTimeout(() => {
         console.log("clicked");
         setIsLoading(false);
-      }, 1000);
+      }, 2000);
     } catch (error) {
       console.log(error);
     } finally {
-      setIsLoading(false);
+      // setIsLoading(false);
     }
   };
   return (
@@ -34,4 +34,4 @@ const AccountDeletion: FC = () => {
   );
 };
 
-export default AccountDeletion;
+export default UserAccountDeletion;

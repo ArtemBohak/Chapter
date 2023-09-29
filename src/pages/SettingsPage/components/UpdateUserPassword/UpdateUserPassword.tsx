@@ -1,9 +1,9 @@
 import { FC } from "react";
 import { Formik, Form, FormikHelpers } from "formik";
 
-import { InitialValues, ErrorMessages } from "./UpdatePassword.type";
+import { InitialValues, ErrorMessages } from "./UpdateUserPassword.type";
 import validationSchema from "./validationSchema";
-import styles from "./UpdatePassword.module.scss";
+import styles from "./UpdateUserPassword.module.scss";
 
 import { PasswordField, UIbutton } from "@/src/components";
 
@@ -13,7 +13,7 @@ const initialValues: InitialValues = {
   confirmNewPassword: "",
 };
 
-const UpdatePassword: FC = () => {
+const UpdateUserPassword: FC = () => {
   const onHandleSubmit = async (
     values: InitialValues,
     { setSubmitting }: FormikHelpers<InitialValues>
@@ -76,4 +76,4 @@ const UpdatePassword: FC = () => {
   );
 };
 
-export default UpdatePassword;
+export default UpdateUserPassword;
