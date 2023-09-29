@@ -9,7 +9,7 @@ import styles from "./Feed.module.scss";
 
 import { IconEnum } from "@/src/components/Icon";
 import { UIbutton } from "@/src/components";
-import CommentsForm from "../CommentsForm/CommentsForm";
+import FeedCommentsForm from "../FeedCommentsForm/FeedCommentsForm";
 import SocialButton from "../SocialButton/SocialButton";
 
 const Feed: FC<FeedProps> = ({
@@ -126,7 +126,7 @@ const Feed: FC<FeedProps> = ({
             </div>
           </div>
         </div>
-        <CommentsForm postId={id} />
+        <FeedCommentsForm postId={id} />
       </div>
     </div>
   );

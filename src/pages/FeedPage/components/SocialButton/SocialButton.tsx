@@ -65,7 +65,7 @@ const SocialButton: FC<SocialButtonProps> = ({
     setIsShow(true);
   };
 
-  const mainBtnClass = cn(styles["button__icon"], {
+  const baseBtnClass = cn(styles["button__icon"], {
     [`${styles["button__icon--normal"]}`]: !isClicked,
     [`${styles["button__icon--clicked"]}`]: isClicked,
   });
@@ -86,7 +86,7 @@ const SocialButton: FC<SocialButtonProps> = ({
           data-automation="clickButton"
         >
           <Icon
-            className={mainBtnClass}
+            className={baseBtnClass}
             icon={iconType}
             size={size}
             removeInlineStyle={true}

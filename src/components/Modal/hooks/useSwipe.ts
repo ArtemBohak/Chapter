@@ -30,6 +30,7 @@ const useSwipe = ({
       window.removeEventListener("touchstart", handleTouchStart);
       window.removeEventListener("touchend", handleTouchEnd);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     screenSize,
     touchStart,
@@ -37,7 +38,6 @@ const useSwipe = ({
     touchDistinction,
     swipeIsOn,
     swipeOnscreen,
-    setIsOpen,
   ]);
 };
 

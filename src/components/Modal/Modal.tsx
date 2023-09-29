@@ -8,9 +8,9 @@ import useSwipe from "./hooks/useSwipe";
 import styles from "./Modal.module.scss";
 
 const Modal: FC<ModalProps> = ({
-  children,
-  isOpen,
   setIsOpen,
+  isOpen,
+  children,
   transitionClassName,
   transitionTimeOut = 0,
   portal = false,
@@ -18,8 +18,8 @@ const Modal: FC<ModalProps> = ({
   bodyClassName,
   ...props
 }) => {
-  useSwipe({ setIsOpen, ...props });
   const nodeRef = useRef(null);
+  useSwipe({ setIsOpen, ...props });
 
   useEffect(() => {
     const handlePressESC = (e: { code: string }) => {
@@ -30,16 +30,16 @@ const Modal: FC<ModalProps> = ({
     return () => {
       window.removeEventListener("keydown", handlePressESC);
     };
-  }, [setIsOpen]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const onHandleClick = (e: MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
-
     if (e.target === e.currentTarget) setIsOpen(false);
   };
 
-  const backDropClassNames = cn(styles["modal-backdrop"], backdropClassName);
-  const bodyClassNames = cn(styles["modal-body"], bodyClassName);
+  const backDropClassNames = cn(styles["backdrop"], backdropClassName);
+  const bodyClassNames = cn(styles["body"], bodyClassName);
 
   if (portal)
     return createPortal(

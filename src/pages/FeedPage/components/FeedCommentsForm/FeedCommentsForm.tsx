@@ -2,12 +2,14 @@ import { FC, useState } from "react";
 import { Formik, Form, Field, FormikHelpers } from "formik";
 import cn from "classnames";
 
-import { Values, CommentsFormProps } from "./CommentsForm.type";
-import styles from "./CommentForm.module.scss";
+import { Values, CommentsFormProps } from "./FeedCommentsForm.type";
+import styles from "./FeedCommentsForm.module.scss";
 
 import { UIbutton } from "@/src/components";
 
-const CommentsForm: FC<CommentsFormProps> = ({ postId }) => {
+const initialValues = { comments: "" };
+
+const FeedCommentsForm: FC<CommentsFormProps> = ({ postId }) => {
   const [isFocused, setIsFocused] = useState(false);
 
   const onHandleSubmit = (
@@ -20,8 +22,17 @@ const CommentsForm: FC<CommentsFormProps> = ({ postId }) => {
     resetForm();
   };
 
+  const onHandleBlur = () => setIsFocused(false);
+  const onHandleFocus = () => setIsFocused(true);
+
+  const baseClassName = (dirty: boolean) =>
+    cn(styles["comments__field"], {
+      [styles["comments__field--focused"]]: dirty || isFocused,
+      [styles["comments__field--unfocused"]]: !(dirty || isFocused),
+    });
+
   return (
-    <Formik initialValues={{ comments: "" }} onSubmit={onHandleSubmit}>
+    <Formik initialValues={initialValues} onSubmit={onHandleSubmit}>
       {({ isSubmitting, values, dirty }) => {
         return (
           <Form className={styles["comments"]}>
@@ -32,14 +43,9 @@ const CommentsForm: FC<CommentsFormProps> = ({ postId }) => {
               component="textarea"
               data-automation="commentsInput"
               value={values.comments}
-              onBlur={() => setIsFocused(false)}
-              onFocus={() => setIsFocused(true)}
-              className={cn(
-                styles["comments__field"],
-                dirty || isFocused
-                  ? styles["comments__field--focused"]
-                  : styles["comments__field--unfocused"]
-              )}
+              onBlur={onHandleBlur}
+              onFocus={onHandleFocus}
+              className={baseClassName(dirty)}
             />
             <UIbutton
               type="submit"
@@ -57,4 +63,4 @@ const CommentsForm: FC<CommentsFormProps> = ({ postId }) => {
   );
 };
 
-export default CommentsForm;
+export default FeedCommentsForm;

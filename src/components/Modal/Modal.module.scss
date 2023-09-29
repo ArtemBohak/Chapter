@@ -1,8 +1,7 @@
-.modal {
-  &-backdrop {
-    @apply absolute z-50;
-  }
-  &-body {
-    @apply absolute;
-  }
+.backdrop {
+  @apply absolute z-50;
+}
+
+.body {
+  @apply absolute;
 }
