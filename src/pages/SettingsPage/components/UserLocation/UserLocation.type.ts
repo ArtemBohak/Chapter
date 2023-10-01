@@ -17,3 +17,12 @@ export type CountriesType = {
   subregion: string;
   tld: string;
 };
+
+export type StateType = { id: number; name: string; state_code: string };
+
+export type CityType = {
+  id: number;
+  name: string;
+  latitude: string;
+  longitude: string;
+};
