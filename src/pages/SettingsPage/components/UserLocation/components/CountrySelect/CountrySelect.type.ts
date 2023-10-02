@@ -17,4 +17,6 @@ export type CountrySelectProps = {
   countryList: CountriesType[];
   setCountryList: Dispatch<SetStateAction<CountriesType[]>>;
   id: number;
+  setCityId: Dispatch<SetStateAction<number>>;
+  setStateId: Dispatch<SetStateAction<number>>;
 };

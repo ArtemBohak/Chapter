@@ -12,9 +12,9 @@ import StateSelect from "./components/StateSelect/StateSelect";
 import CitySelect from "./components/CitySelect/CitySelect";
 
 const initialValues = {
-  countryId: 1,
-  stateId: 3901,
-  cityId: 52,
+  countryId: 0,
+  stateId: 0,
+  cityId: 0,
 };
 
 const UserLocation: FC = () => {
@@ -103,15 +103,17 @@ const UserLocation: FC = () => {
         setStateValue={setStateValue}
         setSelectedCity={setSelectedCity}
         setSelectedState={setSelectedState}
+        setStateId={setStateId}
+        setCityId={setCityId}
         id={id}
       />
       {selectedCountry && (selectedState || stateList.length) ? (
         <StateSelect
           stateList={stateList}
+          setStateId={setStateId}
           stateValue={stateValue}
           id={id}
           stateId={stateId}
-          setStateId={setStateId}
           setStateValue={setStateValue}
           setSelectedState={setSelectedState}
           setSelectedCity={setSelectedCity}

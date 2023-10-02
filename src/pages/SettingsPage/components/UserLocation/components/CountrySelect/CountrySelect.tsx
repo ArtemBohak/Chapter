@@ -19,6 +19,8 @@ const CountrySelect: FC<CountrySelectProps> = ({
   setSelectedState,
   setSelectedCity,
   setStateValue,
+  setCityId,
+  setStateId,
   setCityValue,
   setIsLoading,
   setStateList,
@@ -58,6 +60,8 @@ const CountrySelect: FC<CountrySelectProps> = ({
     setIcon("");
     setSelectedState("");
     setSelectedCity("");
+    setCityId(0);
+    setStateId(0);
   };
 
   const handleCountrySelect = (
@@ -75,6 +79,7 @@ const CountrySelect: FC<CountrySelectProps> = ({
       setSelectedCountry(country.name);
       setCountryValue(country.name);
       setId(country.id);
+
       setMenuIsOpen(false);
       setIsLoading(true);
 
