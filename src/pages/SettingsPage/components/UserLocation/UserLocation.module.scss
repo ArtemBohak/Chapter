@@ -24,7 +24,7 @@
 }
 
 .strop-down-menu-container {
-  @apply absolute  w-full h-fit min-h-[100px] max-h-[300px] p-[12px] overflow-scroll end-0 z-40 rounded-md flex flex-col gap-1 bg-[#FAFAFA];
+  @apply absolute  w-full h-fit min-h-[100px] max-h-[100px] p-[12px] overflow-scroll end-0 z-40 rounded-md flex flex-col gap-1 bg-[#FAFAFA];
   & > button {
     @apply bg-transparent text-start flex gap-1 text-xs laptop:text-sm;
   }
