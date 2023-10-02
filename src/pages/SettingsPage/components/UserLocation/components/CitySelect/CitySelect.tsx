@@ -16,7 +16,6 @@ import { CityType } from "../../UserLocation.type";
 const CitySelect: FC<CitySelectProps> = ({
   cityValue,
   citiesList,
-
   cityId,
   setCityId,
   setCityValue,
@@ -45,6 +44,7 @@ const CitySelect: FC<CitySelectProps> = ({
   const handleChangeValue = (e: ChangeEvent<HTMLInputElement>) => {
     setCityValue(e.target.value);
     setSelectedCity("");
+    setCityId(0);
   };
 
   const handleSelect = (

@@ -45,7 +45,6 @@ const CountrySelect: FC<CountrySelectProps> = ({
 
   useEffect(() => {
     const country = countryList.find((item) => item.id === id);
-
     if (country) {
       setIcon(country.emoji);
       setSelectedCountry(country.name);
@@ -71,15 +70,13 @@ const CountrySelect: FC<CountrySelectProps> = ({
     setStateValue("");
     setSelectedCity("");
     setCityValue("");
-
     const index = +e.currentTarget.value;
     const country = filteredCountries.find((item) => item.id === index);
     if (country) {
+      setId(country.id);
       setIcon(country.emoji);
       setSelectedCountry(country.name);
       setCountryValue(country.name);
-      setId(country.id);
-
       setMenuIsOpen(false);
       setIsLoading(true);
 

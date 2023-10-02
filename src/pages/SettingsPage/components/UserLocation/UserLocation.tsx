@@ -49,14 +49,18 @@ const UserLocation: FC = () => {
   }, []);
 
   useEffect(() => {
+    setIsLoading(true);
     GetState(id).then((states: StateType[]) => {
       setStateList(states);
+      setIsLoading(false);
     });
   }, [id]);
 
   useEffect(() => {
+    setIsLoading(true);
     GetCity(id, stateId).then((cities: CityType[]) => {
       setCitiesList(cities);
+      setIsLoading(false);
     });
   }, [id, stateId]);
 
@@ -112,6 +116,7 @@ const UserLocation: FC = () => {
           stateList={stateList}
           setStateId={setStateId}
           stateValue={stateValue}
+          setCityId={setCityId}
           id={id}
           stateId={stateId}
           setStateValue={setStateValue}

@@ -11,6 +11,7 @@ export type StateSelectProps = {
   setCityValue: Dispatch<SetStateAction<string>>;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
   setCitiesList: Dispatch<SetStateAction<CityType[]>>;
+  setCityId: Dispatch<SetStateAction<number>>;
   stateId: number;
   setStateId: Dispatch<SetStateAction<number>>;
 };

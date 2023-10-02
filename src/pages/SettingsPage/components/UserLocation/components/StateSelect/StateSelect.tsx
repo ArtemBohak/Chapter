@@ -26,6 +26,7 @@ const StateSelect: FC<StateSelectProps> = ({
   setIsLoading,
   setCitiesList,
   setStateId,
+  setCityId,
 }) => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
 
@@ -50,6 +51,8 @@ const StateSelect: FC<StateSelectProps> = ({
     setStateValue(e.target.value);
     setSelectedState("");
     setSelectedCity("");
+    setCityId(0);
+    setStateId(0);
   };
 
   const handleSelect = (
