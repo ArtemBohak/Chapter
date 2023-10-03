@@ -78,7 +78,7 @@ const RegisterForm: FC<RegisterFormProps> = ({ className, ...props }) => {
     <CSSTransition
       nodeRef={nodeRef}
       in={isNextStep}
-      timeout={500}
+      timeout={300}
       classNames={{
         enter: styles["register-form__hash-input--enter"],
         enterActive: styles["register-form__hash-input--enter-active"],

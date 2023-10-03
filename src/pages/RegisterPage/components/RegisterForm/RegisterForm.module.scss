@@ -6,10 +6,10 @@
   }
 
   &__hash-input--enter {
-    @apply translate-y-[-100%];
+    @apply opacity-0 scale-0;
   }
   &__hash-input--enter-active {
-    @apply translate-y-0 transition duration-500;
+    @apply opacity-100 scale-100 transition-all duration-300;
   }
 
   &__button {
