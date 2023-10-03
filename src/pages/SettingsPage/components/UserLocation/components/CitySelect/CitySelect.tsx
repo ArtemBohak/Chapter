@@ -18,8 +18,10 @@ import SelectMenu from "../SelectMenu/SelectMenu";
 
 const CitySelect: FC<CitySelectProps> = ({
   citiesList,
+  stateId,
   cityId,
   selectedCity,
+  transitionTimeOut,
   setCityId,
   setSelectedCity,
 }) => {
@@ -74,7 +76,7 @@ const CitySelect: FC<CitySelectProps> = ({
     <CSSTransition
       in={animation}
       nodeRef={cityRef}
-      timeout={200}
+      timeout={transitionTimeOut}
       mountOnEnter
       unmountOnExit
       classNames={transitionClassNames}

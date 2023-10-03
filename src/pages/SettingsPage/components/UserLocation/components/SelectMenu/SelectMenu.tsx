@@ -7,6 +7,7 @@ import styles from "./SelectMenu.module.scss";
 const SelectMenu: FC<SelectMenuProps> = ({
   menuIsOpen,
   filteredList,
+  transitionTimeOut = 200,
   handleSelect,
 }) => {
   const menuRef = useRef(null);
@@ -21,7 +22,7 @@ const SelectMenu: FC<SelectMenuProps> = ({
     <CSSTransition
       in={menuIsOpen}
       nodeRef={menuRef}
-      timeout={200}
+      timeout={transitionTimeOut}
       mountOnEnter
       unmountOnExit
       classNames={transitionClassNames}

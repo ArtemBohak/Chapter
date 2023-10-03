@@ -10,9 +10,9 @@ import StateSelect from "./components/StateSelect/StateSelect";
 import CitySelect from "./components/CitySelect/CitySelect";
 
 const initialValues = {
-  countryId: 107,
-  stateId: 1669,
-  cityId: 138722,
+  countryId: 0,
+  stateId: 0,
+  cityId: 0,
 };
 
 const UserLocation: FC = () => {
@@ -76,7 +76,7 @@ const UserLocation: FC = () => {
       // setIsLoading(false);
     }
   };
-
+  const transitionTimeOut = 300;
   const buttonIsDisabled = isLoading;
   return (
     <form onSubmit={handleSubmit} className={styles["location-form"]}>
@@ -106,17 +106,18 @@ const UserLocation: FC = () => {
         setSelectedCity={setSelectedCity}
         setIsLoading={setIsLoading}
         setCitiesList={setCitiesList}
+        transitionTimeOut={transitionTimeOut}
       />
-      {stateId && (cityId || citiesList.length) ? (
-        <CitySelect
-          stateId={stateId}
-          citiesList={citiesList}
-          cityId={cityId}
-          selectedCity={selectedCity}
-          setSelectedCity={setSelectedCity}
-          setCityId={setCityId}
-        />
-      ) : null}
+      <CitySelect
+        stateId={stateId}
+        citiesList={citiesList}
+        cityId={cityId}
+        selectedCity={selectedCity}
+        setSelectedCity={setSelectedCity}
+        setCityId={setCityId}
+        transitionTimeOut={transitionTimeOut}
+      />
+
       <UIbutton
         className={`${styles["location-form__button"]} ${styles["button"]}`}
         dataAutomation="submitButton"

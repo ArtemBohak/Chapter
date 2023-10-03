@@ -1,5 +1,6 @@
 .location-form {
   @apply flex flex-col gap-[10px];
+
   &__label {
     @apply relative;
   }
@@ -10,18 +11,18 @@
 
 .select-menu {
   &-enter {
-    @apply -translate-y-full;
+    @apply opacity-0 scale-0;
 
     &-active {
-      @apply translate-y-0 transition-transform duration-200;
+      @apply opacity-100 scale-100 transition-all duration-300;
     }
   }
 
   &-exit {
-    @apply translate-y-0;
+    @apply opacity-100 scale-100;
 
     &-active {
-      @apply -translate-y-full transition-transform duration-200;
+      @apply opacity-0 scale-0 transition-all duration-300;
     }
   }
 }

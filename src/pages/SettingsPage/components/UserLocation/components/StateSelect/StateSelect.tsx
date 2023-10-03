@@ -23,6 +23,7 @@ const StateSelect: FC<StateSelectProps> = ({
   countryId,
   stateId,
   selectedState,
+  transitionTimeOut,
   setSelectedState,
   setSelectedCity,
   setIsLoading,
@@ -91,7 +92,7 @@ const StateSelect: FC<StateSelectProps> = ({
     <CSSTransition
       in={animation}
       nodeRef={stateRef}
-      timeout={200}
+      timeout={transitionTimeOut}
       mountOnEnter
       unmountOnExit
       classNames={transitionClassNames}

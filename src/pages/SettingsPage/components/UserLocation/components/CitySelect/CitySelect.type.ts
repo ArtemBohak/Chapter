@@ -6,6 +6,7 @@ export type CitySelectProps = {
   citiesList: CityType[];
   cityId: number;
   stateId: number;
+  transitionTimeOut: number;
   setSelectedCity: Dispatch<SetStateAction<string>>;
   setCityId: Dispatch<SetStateAction<number>>;
 };

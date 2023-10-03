@@ -6,6 +6,7 @@ export type StateSelectProps = {
   countryId: number;
   stateId: number;
   selectedState: string;
+  transitionTimeOut: number;
   setSelectedState: Dispatch<SetStateAction<string>>;
   setSelectedCity: Dispatch<SetStateAction<string>>;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
