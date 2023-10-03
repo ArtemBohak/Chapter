@@ -7,11 +7,12 @@ import {
   TouchEvent,
   useEffect,
 } from "react";
-import cn from "classnames";
 
 import { CitySelectProps } from "./CitySelect.type";
 import styles from "../../UserLocation.module.scss";
 import { CityType } from "../../UserLocation.type";
+import Field from "../Field/Field";
+import SelectMenu from "../SelectMenu/SelectMenu";
 
 const CitySelect: FC<CitySelectProps> = ({
   citiesList,
@@ -55,47 +56,21 @@ const CitySelect: FC<CitySelectProps> = ({
     }
   };
 
-  const arrowClassNames = cn(styles["arrow"], {
-    [styles["arrow--down"]]: !menuIsOpen,
-    [styles["arrow--up"]]: menuIsOpen,
-  });
+  const toggleMenu = () => setMenuIsOpen(!menuIsOpen);
 
   return (
     <label className={styles["location-form__label"]}>
-      <span className={styles["strop-down-container"]}>
-        <input
-          type="text"
-          name="city"
-          value={selectedCity}
-          data-automation="cityInput"
-          onChange={handleChangeValue}
-        />
-        {filteredCities.length ? (
-          <button
-            className={styles["arrow-btn"]}
-            data-automation="clickButton"
-            type="button"
-            onClick={() => setMenuIsOpen(!menuIsOpen)}
-          >
-            <span className={arrowClassNames}></span>
-          </button>
-        ) : null}
-      </span>
-      {menuIsOpen && (
-        <span className={styles["strop-down-menu-container"]}>
-          {filteredCities.map(({ id, name }) => (
-            <button
-              type="button"
-              data-automation="clickButton"
-              key={id}
-              value={id}
-              onClick={handleSelect}
-            >
-              <span>{name}</span>
-            </button>
-          ))}
-        </span>
-      )}
+      <Field
+        menuIsOpen={menuIsOpen}
+        selectedValue={selectedCity}
+        toggleMenu={toggleMenu}
+        handleChangeValue={handleChangeValue}
+      />
+      <SelectMenu
+        menuIsOpen={menuIsOpen}
+        filteredList={filteredCities}
+        handleSelect={handleSelect}
+      />
     </label>
   );
 };

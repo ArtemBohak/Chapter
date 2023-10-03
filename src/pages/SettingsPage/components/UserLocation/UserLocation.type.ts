@@ -18,11 +18,15 @@ export type CountriesType = {
   tld: string;
 };
 
-export type StateType = { id: number; name: string; state_code: string };
+export type StateType = {
+  id: number;
+  name: string;
+  state_code: string;
+} & Partial<CountriesType>;
 
 export type CityType = {
   id: number;
   name: string;
   latitude: string;
   longitude: string;
-};
+} & Partial<StateType>;

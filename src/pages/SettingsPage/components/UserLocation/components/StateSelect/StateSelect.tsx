@@ -8,11 +8,13 @@ import {
   useEffect,
 } from "react";
 import { GetCity } from "react-country-state-city";
-import cn from "classnames";
 
 import { CityType, StateType } from "../../UserLocation.type";
 import { StateSelectProps } from "./StateSelect.type";
 import styles from "../../UserLocation.module.scss";
+
+import Field from "../Field/Field";
+import SelectMenu from "../SelectMenu/SelectMenu";
 
 const StateSelect: FC<StateSelectProps> = ({
   stateList,
@@ -71,47 +73,21 @@ const StateSelect: FC<StateSelectProps> = ({
     }
   };
 
-  const arrowClassNames = cn(styles["arrow"], {
-    [styles["arrow--down"]]: !menuIsOpen,
-    [styles["arrow--up"]]: menuIsOpen,
-  });
+  const toggleMenu = () => setMenuIsOpen(!menuIsOpen);
 
   return (
     <label className={styles["location-form__label"]}>
-      <span className={styles["strop-down-container"]}>
-        <input
-          type="text"
-          name="state"
-          value={selectedState}
-          data-automation="stateInput"
-          onChange={handleChangeValue}
-        />
-        {filteredStates.length ? (
-          <button
-            className={styles["arrow-btn"]}
-            type="button"
-            data-automation="clickButton"
-            onClick={() => setMenuIsOpen(!menuIsOpen)}
-          >
-            <span className={arrowClassNames}></span>
-          </button>
-        ) : null}
-      </span>
-      {menuIsOpen && (
-        <span className={styles["strop-down-menu-container"]}>
-          {filteredStates.map(({ id, name }) => (
-            <button
-              type="button"
-              data-automation="clickButton"
-              key={id}
-              value={id}
-              onClick={handleSelect}
-            >
-              <span>{name}</span>
-            </button>
-          ))}
-        </span>
-      )}
+      <Field
+        menuIsOpen={menuIsOpen}
+        selectedValue={selectedState}
+        toggleMenu={toggleMenu}
+        handleChangeValue={handleChangeValue}
+      />
+      <SelectMenu
+        menuIsOpen={menuIsOpen}
+        filteredList={filteredStates}
+        handleSelect={handleSelect}
+      />
     </label>
   );
 };

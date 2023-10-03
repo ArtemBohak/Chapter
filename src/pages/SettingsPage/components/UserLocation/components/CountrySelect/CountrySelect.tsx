@@ -8,12 +8,13 @@ import {
   useState,
 } from "react";
 import { GetState } from "react-country-state-city";
-import cn from "classnames";
 
-import { CountriesType } from "../../UserLocation.type";
+import { CountriesType, StateType } from "../../UserLocation.type";
 import { CountrySelectProps } from "./CountrySelect.type";
-import { StateType } from "../../UserLocation.type";
 import styles from "../../UserLocation.module.scss";
+
+import Field from "../Field/Field";
+import SelectMenu from "../SelectMenu/SelectMenu";
 
 const CountrySelect: FC<CountrySelectProps> = ({
   setSelectedState,
@@ -83,56 +84,22 @@ const CountrySelect: FC<CountrySelectProps> = ({
     }
   };
 
-  const arrowClassNames = cn(styles["arrow"], {
-    [styles["arrow--down"]]: !menuIsOpen,
-    [styles["arrow--up"]]: menuIsOpen,
-  });
+  const toggleMenu = () => setMenuIsOpen(!menuIsOpen);
 
   return (
     <label className={styles["location-form__label"]}>
-      <span className={styles["strop-down-container"]}>
-        <span className={styles["icon"]}>{icon}</span>
-        <input
-          className={styles["flag"]}
-          type="text"
-          name="country"
-          value={selectedCountry}
-          onChange={handleChangeValue}
-          onBlur={() => setMenuIsOpen(false)}
-          data-automation="countryInput"
-        />
-        <button
-          className={styles["arrow-btn"]}
-          type="button"
-          data-automation="clickButton"
-          onClick={() => setMenuIsOpen(!menuIsOpen)}
-        >
-          <span className={arrowClassNames}></span>
-        </button>
-      </span>
-      {menuIsOpen && (
-        <span
-          className={styles["strop-down-menu-container"]}
-          onClick={(e) => {
-            console.log(e);
-          }}
-        >
-          {filteredCountries.map(
-            ({ id, name, emoji }: Partial<CountriesType>) => (
-              <button
-                type="button"
-                key={id}
-                value={id}
-                data-automation="clickButton"
-                onClick={handleCountrySelect}
-              >
-                <span>{emoji}</span>
-                <span>{name}</span>
-              </button>
-            )
-          )}
-        </span>
-      )}
+      <Field
+        menuIsOpen={menuIsOpen}
+        toggleMenu={toggleMenu}
+        selectedValue={selectedCountry}
+        icon={icon}
+        handleChangeValue={handleChangeValue}
+      />
+      <SelectMenu
+        menuIsOpen={menuIsOpen}
+        filteredList={filteredCountries}
+        handleSelect={handleCountrySelect}
+      />
     </label>
   );
 };
