@@ -85,17 +85,15 @@ const RegisterForm: FC<RegisterFormProps> = ({ className, ...props }) => {
       }}
       unmountOnExit
     >
-      <div className={styles["register-form__hash-container"]}>
-        <div ref={nodeRef}>
-          <FormNotification />
-          <TextField
-            id={RegisterAccountKey.HASH}
-            name={RegisterAccountKey.HASH}
-            dataAutomation={`${RegisterAccountKey.HASH}Input`}
-            label="Sign up code"
-            value={value}
-          />
-        </div>
+      <div ref={nodeRef}>
+        <FormNotification />
+        <TextField
+          id={RegisterAccountKey.HASH}
+          name={RegisterAccountKey.HASH}
+          dataAutomation={`${RegisterAccountKey.HASH}Input`}
+          label="Sign up code"
+          value={value}
+        />
       </div>
     </CSSTransition>
   );

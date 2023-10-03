@@ -1,10 +1,6 @@
 .register-form {
   @apply max-w-[326px] mb-1-xs;
 
-  &__hash-container {
-    @apply overflow-hidden;
-  }
-
   &__hash-input--enter {
     @apply opacity-0 scale-0;
   }
