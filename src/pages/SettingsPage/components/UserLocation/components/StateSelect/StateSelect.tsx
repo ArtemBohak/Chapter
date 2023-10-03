@@ -44,6 +44,7 @@ const StateSelect: FC<StateSelectProps> = ({
 
   const handleChangeValue = (e: ChangeEvent<HTMLInputElement>) => {
     setMenuIsOpen(true);
+    setCitiesList([]);
     setSelectedState(e.target.value);
     setSelectedCity("");
     setCityId(0);
@@ -54,6 +55,7 @@ const StateSelect: FC<StateSelectProps> = ({
     e: MouseEvent<HTMLButtonElement> | TouchEvent<HTMLButtonElement>
   ) => {
     setSelectedCity("");
+    setCitiesList([]);
     const id = +e.currentTarget.value;
     const state = filteredStates.find((state) => state.id === id);
 

@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import { CountriesType, StateType } from "../../UserLocation.type";
+import { CityType, CountriesType, StateType } from "../../UserLocation.type";
 
 export type CountrySelectProps = {
   setSelectedState: Dispatch<SetStateAction<string>>;
@@ -10,6 +10,7 @@ export type CountrySelectProps = {
   setCountryId: Dispatch<SetStateAction<number>>;
   setCityId: Dispatch<SetStateAction<number>>;
   setCountryList: Dispatch<SetStateAction<CountriesType[]>>;
+  setCitiesList: Dispatch<SetStateAction<CityType[]>>;
   setStateId: Dispatch<SetStateAction<number>>;
   countryList: CountriesType[];
   selectedCountry: string;

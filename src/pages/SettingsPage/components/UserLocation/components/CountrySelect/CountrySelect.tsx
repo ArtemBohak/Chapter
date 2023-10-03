@@ -23,6 +23,7 @@ const CountrySelect: FC<CountrySelectProps> = ({
   setIsLoading,
   setStateList,
   setSelectedCountry,
+  setCitiesList,
   setCountryId,
   countryId,
   countryList,
@@ -54,6 +55,8 @@ const CountrySelect: FC<CountrySelectProps> = ({
     setIcon("");
     setSelectedState("");
     setSelectedCity("");
+    setStateList([]);
+    setCitiesList([]);
     setCityId(0);
     setStateId(0);
   };
@@ -61,9 +64,10 @@ const CountrySelect: FC<CountrySelectProps> = ({
   const handleCountrySelect = (
     e: MouseEvent<HTMLButtonElement> | TouchEvent<HTMLButtonElement>
   ) => {
-    console.log(1);
     setSelectedState("");
     setSelectedCity("");
+    setStateList([]);
+    setCitiesList([]);
     const id = +e.currentTarget.value;
     const country = filteredCountries.find((country) => country.id === id);
     if (country) {
@@ -107,7 +111,12 @@ const CountrySelect: FC<CountrySelectProps> = ({
         </button>
       </span>
       {menuIsOpen && (
-        <span className={styles["strop-down-menu-container"]}>
+        <span
+          className={styles["strop-down-menu-container"]}
+          onClick={(e) => {
+            console.log(e);
+          }}
+        >
           {filteredCountries.map(
             ({ id, name, emoji }: Partial<CountriesType>) => (
               <button

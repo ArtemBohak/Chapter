@@ -90,6 +90,7 @@ const UserLocation: FC = () => {
         setSelectedCountry={setSelectedCountry}
         setIsLoading={setIsLoading}
         setStateList={setStateList}
+        setCitiesList={setCitiesList}
         setCountryList={setCountryList}
         setSelectedCity={setSelectedCity}
         setSelectedState={setSelectedState}
