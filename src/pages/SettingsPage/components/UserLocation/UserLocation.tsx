@@ -12,32 +12,28 @@ import StateSelect from "./components/StateSelect/StateSelect";
 import CitySelect from "./components/CitySelect/CitySelect";
 
 const initialValues = {
-  countryId: 0,
-  stateId: 0,
-  cityId: 0,
+  countryId: 107,
+  stateId: 1669,
+  cityId: 138722,
 };
 
 const UserLocation: FC = () => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const [id, setId] = useState(0);
+  const [countryId, setCountryId] = useState(0);
   const [selectedCountry, setSelectedCountry] = useState("");
-  const [countryValue, setCountryValue] = useState("");
-  const [icon, setIcon] = useState("");
   const [countryList, setCountryList] = useState<Array<CountriesType>>([]);
 
   const [stateId, setStateId] = useState(0);
   const [selectedState, setSelectedState] = useState("");
-  const [stateValue, setStateValue] = useState("");
   const [stateList, setStateList] = useState<Array<StateType>>([]);
 
   const [cityId, setCityId] = useState(0);
   const [selectedCity, setSelectedCity] = useState("");
-  const [cityValue, setCityValue] = useState("");
   const [citiesList, setCitiesList] = useState<Array<CityType>>([]);
 
   useEffect(() => {
-    setId(initialValues.countryId);
+    setCountryId(initialValues.countryId);
     setStateId(initialValues.stateId);
     setCityId(initialValues.cityId);
   }, []);
@@ -50,19 +46,19 @@ const UserLocation: FC = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    GetState(id).then((states: StateType[]) => {
+    GetState(countryId).then((states: StateType[]) => {
       setStateList(states);
       setIsLoading(false);
     });
-  }, [id]);
+  }, [countryId]);
 
   useEffect(() => {
     setIsLoading(true);
-    GetCity(id, stateId).then((cities: CityType[]) => {
+    GetCity(countryId, stateId).then((cities: CityType[]) => {
       setCitiesList(cities);
       setIsLoading(false);
     });
-  }, [id, stateId]);
+  }, [countryId, stateId]);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -70,10 +66,9 @@ const UserLocation: FC = () => {
       setIsLoading(true);
       setTimeout(() => {
         console.log({
-          icon,
-          selectedCountry,
-          selectedState,
-          selectedCity,
+          countryId,
+          stateId,
+          cityId,
         });
         setIsLoading(false);
       }, 1000);
@@ -84,56 +79,43 @@ const UserLocation: FC = () => {
     }
   };
 
-  const buttonIsDisabled =
-    isLoading ||
-    !selectedCountry ||
-    selectedCountry !== countryValue ||
-    (stateList.length > 0 && !selectedState) ||
-    (citiesList.length > 0 && !selectedCity);
+  const buttonIsDisabled = isLoading;
   return (
     <form onSubmit={handleSubmit} className={styles["location-form"]}>
       <CountrySelect
-        countryValue={countryValue}
-        icon={icon}
+        selectedCountry={selectedCountry}
         countryList={countryList}
-        setId={setId}
-        setIcon={setIcon}
-        setCountryValue={setCountryValue}
+        countryId={countryId}
+        setCountryId={setCountryId}
         setSelectedCountry={setSelectedCountry}
-        setCityValue={setCityValue}
         setIsLoading={setIsLoading}
         setStateList={setStateList}
         setCountryList={setCountryList}
-        setStateValue={setStateValue}
         setSelectedCity={setSelectedCity}
         setSelectedState={setSelectedState}
         setStateId={setStateId}
         setCityId={setCityId}
-        id={id}
       />
-      {selectedCountry && (selectedState || stateList.length) ? (
+      {countryId && (stateId || stateList.length) ? (
         <StateSelect
           stateList={stateList}
-          setStateId={setStateId}
-          stateValue={stateValue}
-          setCityId={setCityId}
-          id={id}
+          countryId={countryId}
           stateId={stateId}
-          setStateValue={setStateValue}
+          selectedState={selectedState}
+          setStateId={setStateId}
+          setCityId={setCityId}
           setSelectedState={setSelectedState}
           setSelectedCity={setSelectedCity}
-          setCityValue={setCityValue}
           setIsLoading={setIsLoading}
           setCitiesList={setCitiesList}
         />
       ) : null}
-      {selectedState && (selectedCity || citiesList.length) ? (
+      {stateId && (cityId || citiesList.length) ? (
         <CitySelect
-          cityValue={cityValue}
           citiesList={citiesList}
-          setCityValue={setCityValue}
-          setSelectedCity={setSelectedCity}
           cityId={cityId}
+          selectedCity={selectedCity}
+          setSelectedCity={setSelectedCity}
           setCityId={setCityId}
         />
       ) : null}

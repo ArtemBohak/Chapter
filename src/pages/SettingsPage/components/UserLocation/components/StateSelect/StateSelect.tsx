@@ -16,13 +16,11 @@ import styles from "../../UserLocation.module.scss";
 
 const StateSelect: FC<StateSelectProps> = ({
   stateList,
-  stateValue,
-  id,
+  countryId,
   stateId,
-  setStateValue,
+  selectedState,
   setSelectedState,
   setSelectedCity,
-  setCityValue,
   setIsLoading,
   setCitiesList,
   setStateId,
@@ -32,24 +30,21 @@ const StateSelect: FC<StateSelectProps> = ({
 
   const filteredStates: StateType[] = useMemo(
     () =>
-      stateList.filter((item: StateType) =>
-        item.name.toLowerCase().includes(stateValue.toLowerCase())
+      stateList.filter((state: StateType) =>
+        state.name.toLowerCase().includes(selectedState.toLowerCase())
       ),
-    [stateList, stateValue]
+    [stateList, selectedState]
   );
 
   useEffect(() => {
-    const state = stateList.find((item) => item.id === stateId);
-    if (state) {
-      setSelectedState(state.name);
-      setStateValue(state.name);
-    }
+    const state = stateList.find((state) => state.id === stateId);
+    state && setSelectedState(state.name);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [stateId, stateList]);
 
   const handleChangeValue = (e: ChangeEvent<HTMLInputElement>) => {
-    setStateValue(e.target.value);
-    setSelectedState("");
+    setMenuIsOpen(true);
+    setSelectedState(e.target.value);
     setSelectedCity("");
     setCityId(0);
     setStateId(0);
@@ -58,18 +53,16 @@ const StateSelect: FC<StateSelectProps> = ({
   const handleSelect = (
     e: MouseEvent<HTMLButtonElement> | TouchEvent<HTMLButtonElement>
   ) => {
-    setCityValue("");
     setSelectedCity("");
-    const index = +e.currentTarget.value;
-    const state = filteredStates.find((item) => item.id === index);
+    const id = +e.currentTarget.value;
+    const state = filteredStates.find((state) => state.id === id);
 
     if (state) {
       setSelectedState(state.name);
-      setStateValue(state.name);
       setStateId(state.id);
-      setMenuIsOpen(false);
       setIsLoading(true);
-      GetCity(id, state.id).then((result: CityType[]) => {
+      setMenuIsOpen(false);
+      GetCity(countryId, state.id).then((result: CityType[]) => {
         setCitiesList(result);
         setIsLoading(false);
       });
@@ -87,7 +80,7 @@ const StateSelect: FC<StateSelectProps> = ({
         <input
           type="text"
           name="state"
-          value={stateValue}
+          value={selectedState}
           data-automation="stateInput"
           onChange={handleChangeValue}
         />
@@ -98,7 +91,7 @@ const StateSelect: FC<StateSelectProps> = ({
             data-automation="clickButton"
             onClick={() => setMenuIsOpen(!menuIsOpen)}
           >
-            <span className={arrowClassNames} />
+            <span className={arrowClassNames}></span>
           </button>
         ) : null}
       </span>

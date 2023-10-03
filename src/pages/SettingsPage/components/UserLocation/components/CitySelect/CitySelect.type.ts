@@ -2,10 +2,9 @@ import { Dispatch, SetStateAction } from "react";
 import { CityType } from "../../UserLocation.type";
 
 export type CitySelectProps = {
-  cityValue: string;
+  selectedCity: string;
   citiesList: CityType[];
-  setCityValue: Dispatch<SetStateAction<string>>;
-  setSelectedCity: Dispatch<SetStateAction<string>>;
   cityId: number;
+  setSelectedCity: Dispatch<SetStateAction<string>>;
   setCityId: Dispatch<SetStateAction<number>>;
 };

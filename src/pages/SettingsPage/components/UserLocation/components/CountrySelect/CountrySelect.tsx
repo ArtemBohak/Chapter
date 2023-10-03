@@ -18,44 +18,39 @@ import styles from "../../UserLocation.module.scss";
 const CountrySelect: FC<CountrySelectProps> = ({
   setSelectedState,
   setSelectedCity,
-  setStateValue,
   setCityId,
   setStateId,
-  setCityValue,
   setIsLoading,
   setStateList,
   setSelectedCountry,
-  setCountryValue,
-  setId,
-  setIcon,
-  id,
+  setCountryId,
+  countryId,
   countryList,
-  countryValue,
-  icon,
+  selectedCountry,
 }) => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
+  const [icon, setIcon] = useState("");
 
   const filteredCountries: CountriesType[] = useMemo(
     () =>
-      countryList.filter((item: CountriesType) =>
-        item.name.toLowerCase().includes(countryValue.toLowerCase())
+      countryList.filter((country: CountriesType) =>
+        country.name.toLowerCase().includes(selectedCountry.toLowerCase())
       ),
-    [countryList, countryValue]
+    [countryList, selectedCountry]
   );
 
   useEffect(() => {
-    const country = countryList.find((item) => item.id === id);
+    const country = countryList.find((country) => country.id === countryId);
     if (country) {
       setIcon(country.emoji);
       setSelectedCountry(country.name);
-      setCountryValue(country.name);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [countryList, id]);
+  }, [countryList, countryId]);
 
   const handleChangeValue = (e: ChangeEvent<HTMLInputElement>) => {
-    setCountryValue(e.target.value);
-    setSelectedCountry("");
+    setMenuIsOpen(true);
+    setSelectedCountry(e.target.value);
     setIcon("");
     setSelectedState("");
     setSelectedCity("");
@@ -66,20 +61,17 @@ const CountrySelect: FC<CountrySelectProps> = ({
   const handleCountrySelect = (
     e: MouseEvent<HTMLButtonElement> | TouchEvent<HTMLButtonElement>
   ) => {
+    console.log(1);
     setSelectedState("");
-    setStateValue("");
     setSelectedCity("");
-    setCityValue("");
-    const index = +e.currentTarget.value;
-    const country = filteredCountries.find((item) => item.id === index);
+    const id = +e.currentTarget.value;
+    const country = filteredCountries.find((country) => country.id === id);
     if (country) {
-      setId(country.id);
+      setCountryId(country.id);
       setIcon(country.emoji);
       setSelectedCountry(country.name);
-      setCountryValue(country.name);
-      setMenuIsOpen(false);
       setIsLoading(true);
-
+      setMenuIsOpen(false);
       GetState(country.id).then((result: StateType[]) => {
         setStateList(result);
         setIsLoading(false);
@@ -100,7 +92,7 @@ const CountrySelect: FC<CountrySelectProps> = ({
           className={styles["flag"]}
           type="text"
           name="country"
-          value={countryValue}
+          value={selectedCountry}
           onChange={handleChangeValue}
           onBlur={() => setMenuIsOpen(false)}
           data-automation="countryInput"
@@ -111,7 +103,7 @@ const CountrySelect: FC<CountrySelectProps> = ({
           data-automation="clickButton"
           onClick={() => setMenuIsOpen(!menuIsOpen)}
         >
-          <span className={arrowClassNames} />
+          <span className={arrowClassNames}></span>
         </button>
       </span>
       {menuIsOpen && (

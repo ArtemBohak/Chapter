@@ -14,47 +14,42 @@ import styles from "../../UserLocation.module.scss";
 import { CityType } from "../../UserLocation.type";
 
 const CitySelect: FC<CitySelectProps> = ({
-  cityValue,
   citiesList,
   cityId,
+  selectedCity,
   setCityId,
-  setCityValue,
   setSelectedCity,
 }) => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
 
   const filteredCities: CityType[] = useMemo(
     () =>
-      citiesList.filter((item) =>
-        item.name.toLowerCase().includes(cityValue.toLowerCase())
+      citiesList.filter((city) =>
+        city.name.toLowerCase().includes(selectedCity.toLowerCase())
       ),
-    [citiesList, cityValue]
+    [citiesList, selectedCity]
   );
 
   useEffect(() => {
     const city = citiesList.find((item) => item.id === cityId);
 
-    if (city) {
-      setSelectedCity(city.name);
-      setCityValue(city.name);
-    }
+    city && setSelectedCity(city.name);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [citiesList, cityId]);
 
   const handleChangeValue = (e: ChangeEvent<HTMLInputElement>) => {
-    setCityValue(e.target.value);
-    setSelectedCity("");
+    setMenuIsOpen(true);
+    setSelectedCity(e.target.value);
     setCityId(0);
   };
 
   const handleSelect = (
     e: MouseEvent<HTMLButtonElement> | TouchEvent<HTMLButtonElement>
   ) => {
-    const index = +e.currentTarget.value;
-    const city = filteredCities.find((item) => item.id === index);
+    const id = +e.currentTarget.value;
+    const city = filteredCities.find((city) => city.id === id);
     if (city) {
       setSelectedCity(city.name);
-      setCityValue(city.name);
       setCityId(city.id);
       setMenuIsOpen(false);
     }
@@ -71,7 +66,7 @@ const CitySelect: FC<CitySelectProps> = ({
         <input
           type="text"
           name="city"
-          value={cityValue}
+          value={selectedCity}
           data-automation="cityInput"
           onChange={handleChangeValue}
         />
@@ -82,7 +77,7 @@ const CitySelect: FC<CitySelectProps> = ({
             type="button"
             onClick={() => setMenuIsOpen(!menuIsOpen)}
           >
-            <span className={arrowClassNames} />
+            <span className={arrowClassNames}></span>
           </button>
         ) : null}
       </span>
