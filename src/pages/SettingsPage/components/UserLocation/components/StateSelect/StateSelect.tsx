@@ -6,8 +6,10 @@ import {
   MouseEvent,
   TouchEvent,
   useEffect,
+  useRef,
 } from "react";
 import { GetCity } from "react-country-state-city";
+import { CSSTransition } from "react-transition-group";
 
 import { CityType, StateType } from "../../UserLocation.type";
 import { StateSelectProps } from "./StateSelect.type";
@@ -29,6 +31,7 @@ const StateSelect: FC<StateSelectProps> = ({
   setCityId,
 }) => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
+  const stateRef = useRef(null);
 
   const filteredStates: StateType[] = useMemo(
     () =>
@@ -75,20 +78,38 @@ const StateSelect: FC<StateSelectProps> = ({
 
   const toggleMenu = () => setMenuIsOpen(!menuIsOpen);
 
+  const animation = !!countryId && !!(stateId || stateList.length);
+
+  const transitionClassNames = {
+    enter: styles["select-menu-enter"],
+    enterActive: styles["select-menu-enter-active"],
+    exit: styles["select-menu-exit"],
+    exitActive: styles["select-menu-exit-active"],
+  };
+
   return (
-    <label className={styles["location-form__label"]}>
-      <Field
-        menuIsOpen={menuIsOpen}
-        selectedValue={selectedState}
-        toggleMenu={toggleMenu}
-        handleChangeValue={handleChangeValue}
-      />
-      <SelectMenu
-        menuIsOpen={menuIsOpen}
-        filteredList={filteredStates}
-        handleSelect={handleSelect}
-      />
-    </label>
+    <CSSTransition
+      in={animation}
+      nodeRef={stateRef}
+      timeout={200}
+      mountOnEnter
+      unmountOnExit
+      classNames={transitionClassNames}
+    >
+      <label ref={stateRef} className={styles["location-form__label"]}>
+        <Field
+          menuIsOpen={menuIsOpen}
+          selectedValue={selectedState}
+          toggleMenu={toggleMenu}
+          handleChangeValue={handleChangeValue}
+        />
+        <SelectMenu
+          menuIsOpen={menuIsOpen}
+          filteredList={filteredStates}
+          handleSelect={handleSelect}
+        />
+      </label>
+    </CSSTransition>
   );
 };
 

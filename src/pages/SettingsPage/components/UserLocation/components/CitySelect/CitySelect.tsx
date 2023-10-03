@@ -6,7 +6,9 @@ import {
   MouseEvent,
   TouchEvent,
   useEffect,
+  useRef,
 } from "react";
+import { CSSTransition } from "react-transition-group";
 
 import { CitySelectProps } from "./CitySelect.type";
 import styles from "../../UserLocation.module.scss";
@@ -22,6 +24,7 @@ const CitySelect: FC<CitySelectProps> = ({
   setSelectedCity,
 }) => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
+  const cityRef = useRef(null);
 
   const filteredCities: CityType[] = useMemo(
     () =>
@@ -58,20 +61,38 @@ const CitySelect: FC<CitySelectProps> = ({
 
   const toggleMenu = () => setMenuIsOpen(!menuIsOpen);
 
+  const animation = !!stateId && !!(cityId || citiesList.length);
+
+  const transitionClassNames = {
+    enter: styles["select-menu-enter"],
+    enterActive: styles["select-menu-enter-active"],
+    exit: styles["select-menu-exit"],
+    exitActive: styles["select-menu-exit-active"],
+  };
+
   return (
-    <label className={styles["location-form__label"]}>
-      <Field
-        menuIsOpen={menuIsOpen}
-        selectedValue={selectedCity}
-        toggleMenu={toggleMenu}
-        handleChangeValue={handleChangeValue}
-      />
-      <SelectMenu
-        menuIsOpen={menuIsOpen}
-        filteredList={filteredCities}
-        handleSelect={handleSelect}
-      />
-    </label>
+    <CSSTransition
+      in={animation}
+      nodeRef={cityRef}
+      timeout={200}
+      mountOnEnter
+      unmountOnExit
+      classNames={transitionClassNames}
+    >
+      <label ref={cityRef} className={styles["location-form__label"]}>
+        <Field
+          menuIsOpen={menuIsOpen}
+          selectedValue={selectedCity}
+          toggleMenu={toggleMenu}
+          handleChangeValue={handleChangeValue}
+        />
+        <SelectMenu
+          menuIsOpen={menuIsOpen}
+          filteredList={filteredCities}
+          handleSelect={handleSelect}
+        />
+      </label>
+    </CSSTransition>
   );
 };
 

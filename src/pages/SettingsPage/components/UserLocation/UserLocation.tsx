@@ -1,9 +1,7 @@
 import { FC, useState, FormEvent, useEffect } from "react";
 import { GetCountries, GetState, GetCity } from "react-country-state-city";
-// import { CSSTransition } from "react-transition-group";
 
 import { CityType, CountriesType, StateType } from "./UserLocation.type";
-
 import styles from "./UserLocation.module.scss";
 
 import { UIbutton } from "@/src/components";
@@ -97,22 +95,21 @@ const UserLocation: FC = () => {
         setStateId={setStateId}
         setCityId={setCityId}
       />
-      {countryId && (stateId || stateList.length) ? (
-        <StateSelect
-          stateList={stateList}
-          countryId={countryId}
-          stateId={stateId}
-          selectedState={selectedState}
-          setStateId={setStateId}
-          setCityId={setCityId}
-          setSelectedState={setSelectedState}
-          setSelectedCity={setSelectedCity}
-          setIsLoading={setIsLoading}
-          setCitiesList={setCitiesList}
-        />
-      ) : null}
+      <StateSelect
+        stateList={stateList}
+        countryId={countryId}
+        stateId={stateId}
+        selectedState={selectedState}
+        setStateId={setStateId}
+        setCityId={setCityId}
+        setSelectedState={setSelectedState}
+        setSelectedCity={setSelectedCity}
+        setIsLoading={setIsLoading}
+        setCitiesList={setCitiesList}
+      />
       {stateId && (cityId || citiesList.length) ? (
         <CitySelect
+          stateId={stateId}
           citiesList={citiesList}
           cityId={cityId}
           selectedCity={selectedCity}
