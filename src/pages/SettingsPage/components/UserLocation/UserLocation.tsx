@@ -77,7 +77,7 @@ const UserLocation: FC = () => {
     }
   };
   const transitionTimeOut = 300;
-  const buttonIsDisabled = isLoading;
+  const buttonIsDisabled = isLoading || !countryId;
   return (
     <form onSubmit={handleSubmit} className={styles["location-form"]}>
       <CountrySelect
@@ -100,22 +100,22 @@ const UserLocation: FC = () => {
         countryId={countryId}
         stateId={stateId}
         selectedState={selectedState}
+        transitionTimeOut={transitionTimeOut}
         setStateId={setStateId}
         setCityId={setCityId}
         setSelectedState={setSelectedState}
         setSelectedCity={setSelectedCity}
         setIsLoading={setIsLoading}
         setCitiesList={setCitiesList}
-        transitionTimeOut={transitionTimeOut}
       />
       <CitySelect
         stateId={stateId}
         citiesList={citiesList}
         cityId={cityId}
         selectedCity={selectedCity}
+        transitionTimeOut={transitionTimeOut}
         setSelectedCity={setSelectedCity}
         setCityId={setCityId}
-        transitionTimeOut={transitionTimeOut}
       />
 
       <UIbutton

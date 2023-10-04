@@ -1,18 +1,9 @@
-import {
-  ChangeEvent,
-  FC,
-  useMemo,
-  useState,
-  MouseEvent,
-  TouchEvent,
-  useEffect,
-  useRef,
-} from "react";
+import { FC, useState, useEffect, useRef } from "react";
 import { CSSTransition } from "react-transition-group";
 
 import { CitySelectProps } from "./CitySelect.type";
 import styles from "../../UserLocation.module.scss";
-import { CityType } from "../../UserLocation.type";
+
 import Field from "../Field/Field";
 import SelectMenu from "../SelectMenu/SelectMenu";
 
@@ -28,40 +19,12 @@ const CitySelect: FC<CitySelectProps> = ({
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const cityRef = useRef(null);
 
-  const filteredCities: CityType[] = useMemo(
-    () =>
-      citiesList.filter((city) =>
-        city.name.toLowerCase().includes(selectedCity.toLowerCase())
-      ),
-    [citiesList, selectedCity]
-  );
-
   useEffect(() => {
     const city = citiesList.find((item) => item.id === cityId);
 
     city && setSelectedCity(city.name);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [citiesList, cityId]);
-
-  const handleChangeValue = (e: ChangeEvent<HTMLInputElement>) => {
-    setMenuIsOpen(true);
-    setSelectedCity(e.target.value);
-    setCityId(0);
-  };
-
-  const handleSelect = (
-    e: MouseEvent<HTMLButtonElement> | TouchEvent<HTMLButtonElement>
-  ) => {
-    const id = +e.currentTarget.value;
-    const city = filteredCities.find((city) => city.id === id);
-    if (city) {
-      setSelectedCity(city.name);
-      setCityId(city.id);
-      setMenuIsOpen(false);
-    }
-  };
-
-  const toggleMenu = () => setMenuIsOpen(!menuIsOpen);
 
   const animation = !!stateId && !!(cityId || citiesList.length);
 
@@ -83,15 +46,19 @@ const CitySelect: FC<CitySelectProps> = ({
     >
       <label ref={cityRef} className={styles["location-form__label"]}>
         <Field
-          menuIsOpen={menuIsOpen}
+          selectMenuIsOpen={menuIsOpen}
           selectedValue={selectedCity}
-          toggleMenu={toggleMenu}
-          handleChangeValue={handleChangeValue}
+          setSelectMenuIsOpen={setMenuIsOpen}
+          setSelectedValue={setSelectedCity}
+          setId={setCityId}
         />
         <SelectMenu
           menuIsOpen={menuIsOpen}
-          filteredList={filteredCities}
-          handleSelect={handleSelect}
+          data={citiesList}
+          selectedValue={selectedCity}
+          setSelectedValue={setSelectedCity}
+          setId={setCityId}
+          setSelectMenuIsOpen={setMenuIsOpen}
         />
       </label>
     </CSSTransition>

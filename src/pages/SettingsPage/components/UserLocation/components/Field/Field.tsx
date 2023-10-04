@@ -1,19 +1,45 @@
-import { FC } from "react";
+import { ChangeEvent, FC } from "react";
 import cn from "classnames";
 
 import { FieldProps } from "./Field.type";
 import styles from "./Field.module.scss";
 
 const Field: FC<FieldProps> = ({
-  menuIsOpen,
+  selectMenuIsOpen,
   icon,
   selectedValue,
-  toggleMenu,
-  handleChangeValue,
+  setIcon,
+  setSelectMenuIsOpen,
+  setSelectedValue,
+  setId,
+  setStateData,
+  setStateSelectedValue,
+  setStateId,
+  setCitiesData,
+  setCitySelectedValue,
+  setCityId,
 }) => {
+  const handleChangeValue = (e: ChangeEvent<HTMLInputElement>) => {
+    setSelectMenuIsOpen(true);
+    setSelectedValue(e.target.value);
+    setId(0);
+
+    setIcon && setIcon("");
+
+    setStateData && setStateData([]);
+    setStateSelectedValue && setStateSelectedValue("");
+    setStateId && setStateId(0);
+
+    setCitiesData && setCitiesData([]);
+    setCitySelectedValue && setCitySelectedValue("");
+    setCityId && setCityId(0);
+  };
+
+  const toggleMenu = () => setSelectMenuIsOpen(!selectMenuIsOpen);
+
   const arrowClassNames = cn(styles["arrow"], {
-    [styles["arrow--down"]]: !menuIsOpen,
-    [styles["arrow--up"]]: menuIsOpen,
+    [styles["arrow--down"]]: !selectMenuIsOpen,
+    [styles["arrow--up"]]: selectMenuIsOpen,
   });
 
   const iconClassName = cn({ [styles["flag"]]: icon });

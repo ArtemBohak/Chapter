@@ -1,17 +1,6 @@
-import {
-  ChangeEvent,
-  FC,
-  useMemo,
-  useState,
-  MouseEvent,
-  TouchEvent,
-  useEffect,
-  useRef,
-} from "react";
-import { GetCity } from "react-country-state-city";
+import { FC, useState, useEffect, useRef } from "react";
 import { CSSTransition } from "react-transition-group";
 
-import { CityType, StateType } from "../../UserLocation.type";
 import { StateSelectProps } from "./StateSelect.type";
 import styles from "../../UserLocation.module.scss";
 
@@ -34,50 +23,11 @@ const StateSelect: FC<StateSelectProps> = ({
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const stateRef = useRef(null);
 
-  const filteredStates: StateType[] = useMemo(
-    () =>
-      stateList.filter((state: StateType) =>
-        state.name.toLowerCase().includes(selectedState.toLowerCase())
-      ),
-    [stateList, selectedState]
-  );
-
   useEffect(() => {
     const state = stateList.find((state) => state.id === stateId);
     state && setSelectedState(state.name);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [stateId, stateList]);
-
-  const handleChangeValue = (e: ChangeEvent<HTMLInputElement>) => {
-    setMenuIsOpen(true);
-    setCitiesList([]);
-    setSelectedState(e.target.value);
-    setSelectedCity("");
-    setCityId(0);
-    setStateId(0);
-  };
-
-  const handleSelect = (
-    e: MouseEvent<HTMLButtonElement> | TouchEvent<HTMLButtonElement>
-  ) => {
-    setSelectedCity("");
-    setCitiesList([]);
-    const id = +e.currentTarget.value;
-    const state = filteredStates.find((state) => state.id === id);
-
-    if (state) {
-      setSelectedState(state.name);
-      setStateId(state.id);
-      setIsLoading(true);
-      setMenuIsOpen(false);
-      GetCity(countryId, state.id).then((result: CityType[]) => {
-        setCitiesList(result);
-        setIsLoading(false);
-      });
-    }
-  };
-
-  const toggleMenu = () => setMenuIsOpen(!menuIsOpen);
 
   const animation = !!countryId && !!(stateId || stateList.length);
 
@@ -99,15 +49,26 @@ const StateSelect: FC<StateSelectProps> = ({
     >
       <label ref={stateRef} className={styles["location-form__label"]}>
         <Field
-          menuIsOpen={menuIsOpen}
+          selectMenuIsOpen={menuIsOpen}
           selectedValue={selectedState}
-          toggleMenu={toggleMenu}
-          handleChangeValue={handleChangeValue}
+          setSelectedValue={setSelectedState}
+          setSelectMenuIsOpen={setMenuIsOpen}
+          setId={setStateId}
+          setCitiesData={setCitiesList}
+          setCitySelectedValue={setSelectedCity}
+          setCityId={setCityId}
         />
         <SelectMenu
+          type="state"
           menuIsOpen={menuIsOpen}
-          filteredList={filteredStates}
-          handleSelect={handleSelect}
+          data={stateList}
+          selectedValue={selectedState}
+          setSelectedValue={setSelectedState}
+          setId={setStateId}
+          setSelectMenuIsOpen={setMenuIsOpen}
+          setIsLoading={setIsLoading}
+          countryId={countryId}
+          setCitiesData={setCitiesList}
         />
       </label>
     </CSSTransition>

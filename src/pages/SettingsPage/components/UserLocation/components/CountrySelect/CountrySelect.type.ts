@@ -2,6 +2,9 @@ import { Dispatch, SetStateAction } from "react";
 import { CityType, CountriesType, StateType } from "../../UserLocation.type";
 
 export type CountrySelectProps = {
+  countryList: CountriesType[];
+  selectedCountry: string;
+  countryId: number;
   setSelectedState: Dispatch<SetStateAction<string>>;
   setSelectedCity: Dispatch<SetStateAction<string>>;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
@@ -12,7 +15,4 @@ export type CountrySelectProps = {
   setCountryList: Dispatch<SetStateAction<CountriesType[]>>;
   setCitiesList: Dispatch<SetStateAction<CityType[]>>;
   setStateId: Dispatch<SetStateAction<number>>;
-  countryList: CountriesType[];
-  selectedCountry: string;
-  countryId: number;
 };
