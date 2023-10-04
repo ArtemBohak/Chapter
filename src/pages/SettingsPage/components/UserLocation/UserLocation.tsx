@@ -78,7 +78,13 @@ const UserLocation: FC = () => {
   };
 
   const transitionTimeOut = 300;
-  const buttonIsDisabled = isLoading || !countryId;
+  const buttonIsDisabled =
+    isLoading ||
+    !countryId ||
+    (cityId === initialValues.cityId &&
+      stateId === initialValues.stateId &&
+      countryId === initialValues.countryId);
+
   return (
     <form onSubmit={handleSubmit} className={styles["location-form"]}>
       <CountrySelect
