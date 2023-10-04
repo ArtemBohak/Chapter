@@ -1,0 +1,6 @@
+.auth-by {
+  @apply flex flex-col w-full mb-5-xs;
+  &__container {
+    @apply flex flex-col gap-1-md;
+  }
+}

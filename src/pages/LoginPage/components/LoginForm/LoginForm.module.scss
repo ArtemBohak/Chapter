@@ -1,0 +1,6 @@
+.login-form {
+  @apply max-w-[320px];
+  &__button {
+    @apply bg-primary text-white w-full h-11 rounded-[5px] mb-[10px];
+  }
+}
