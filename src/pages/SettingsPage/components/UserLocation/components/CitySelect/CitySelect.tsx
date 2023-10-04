@@ -26,7 +26,8 @@ const CitySelect: FC<CitySelectProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [citiesList, cityId]);
 
-  const animation = !!stateId && !!(cityId || citiesList.length);
+  const isShowing =
+    !!(stateId && citiesList.length) || !!(citiesList.length && cityId);
 
   const transitionClassNames = {
     enter: styles["select-menu-enter"],
@@ -37,7 +38,7 @@ const CitySelect: FC<CitySelectProps> = ({
 
   return (
     <CSSTransition
-      in={animation}
+      in={isShowing}
       nodeRef={cityRef}
       timeout={transitionTimeOut}
       mountOnEnter

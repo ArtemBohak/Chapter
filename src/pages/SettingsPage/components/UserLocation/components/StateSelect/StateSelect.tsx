@@ -29,7 +29,8 @@ const StateSelect: FC<StateSelectProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [stateId, stateList]);
 
-  const animation = !!countryId && !!(stateId || stateList.length);
+  const isShowing =
+    !!(countryId && stateList.length) || !!(stateList.length && stateId);
 
   const transitionClassNames = {
     enter: styles["select-menu-enter"],
@@ -40,7 +41,7 @@ const StateSelect: FC<StateSelectProps> = ({
 
   return (
     <CSSTransition
-      in={animation}
+      in={isShowing}
       nodeRef={stateRef}
       timeout={transitionTimeOut}
       mountOnEnter

@@ -10,9 +10,9 @@ import StateSelect from "./components/StateSelect/StateSelect";
 import CitySelect from "./components/CitySelect/CitySelect";
 
 const initialValues = {
-  countryId: 0,
-  stateId: 0,
-  cityId: 0,
+  countryId: 230,
+  stateId: 4676,
+  cityId: 109897,
 };
 
 const UserLocation: FC = () => {
@@ -76,6 +76,7 @@ const UserLocation: FC = () => {
       // setIsLoading(false);
     }
   };
+
   const transitionTimeOut = 300;
   const buttonIsDisabled = isLoading || !countryId;
   return (
