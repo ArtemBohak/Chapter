@@ -15,22 +15,22 @@ const ProfileLayout: FC = () => {
 
   const dispatch = useAppDispatch();
 
-  // useEffect(() => {
-  //   if (getTokenFromLC()) {
-  //     dispatch(fetchIsAuthUser());
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+  useEffect(() => {
+    if (getTokenFromLC()) {
+      dispatch(fetchIsAuthUser());
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  // useEffect(() => {
-  //   if (!userSlice.loading && !userSlice.isAuth) {
-  //     redirect("/");
-  //   }
-  // }, [userSlice.isAuth, userSlice.loading]);
+  useEffect(() => {
+    if (!userSlice.loading && !userSlice.isAuth) {
+      redirect("/");
+    }
+  }, [userSlice.isAuth, userSlice.loading]);
 
-  // if (!getTokenFromLC()) {
-  //   return <Navigate to={links.LOG_IN} replace={true} />;
-  // }
+  if (!getTokenFromLC()) {
+    return <Navigate to={links.LOG_IN} replace={true} />;
+  }
 
   return (
     <>
@@ -41,9 +41,10 @@ const ProfileLayout: FC = () => {
             <ProfileHeader />
           </NavigationTogglerProvider>
           <main>
-            {/* <div className={styles["profile-layout__body"]}> */}
             <Outlet />
-            {/* </div> */}
+            {/* <div className={styles["profile-layout__body"]}>
+              <Outlet />
+            </div> */}
           </main>
         </div>
       ) : (
