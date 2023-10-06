@@ -3,7 +3,7 @@ import { Outlet, Navigate } from "react-router-dom";
 import { links } from "@/src/utils/links/links.types";
 
 import { PublicHeader } from "./components/PublicHeader";
-import { getTokenFromLC } from "@/src/utils/localstorage";
+import { getTokenFromLC } from "@/src/utils";
 
 const PublicLayout: FC = () => {
   if (getTokenFromLC()) {

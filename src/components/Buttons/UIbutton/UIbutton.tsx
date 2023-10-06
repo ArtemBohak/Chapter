@@ -37,6 +37,7 @@ const UIbutton: FC<UIButtonProps> = ({
 
   const colorClassName = cn({
     "btn--primary": color === "primary",
+    "btn--secondary": color === "secondary",
   });
 
   const alignIconClassName = cn({
