@@ -1,0 +1,93 @@
+.bookmarks-block {
+   @apply w-[12px] h-[80%] font-normal;
+   display: flex;
+   flex-direction: column;
+   gap: 2px;
+   text-shadow: black 0.1px 0.1px 0.1px;
+   transform: translateX(10px) translateY(5%) translateZ(-53px) rotateY(90deg);
+ }
+ .bookmark {
+   @apply w-full h-[5px] rounded-r-[2px] px-[25%] flex items-center select-none cursor-pointer;
+   position: relative;
+   &:hover {
+ 
+    }
+    &__text {
+      @apply h-full flex items-end py-[10%] w-fit z-50 font-normal;
+      line-height: 1.5;
+      color: rgb(255, 255, 255);
+      font-size: 0.14em;
+      vertical-align: bottom;
+     }
+    &:nth-child(1) {
+       // background-color: rgb(209, 196, 10);
+    &::before {
+      content: "";
+      height: 2.5px;
+      width: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-top: 3px solid rgb(204, 134, 4);
+      border-right: 3px solid transparent;
+    }
+    &::after {
+      content: "";
+      height: 2.5px;
+      width: 100%;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      border-bottom: 3px solid rgb(204, 134, 4);
+      border-right: 3px solid transparent;
+ 
+    } 
+   }
+
+    &:nth-child(2) {
+ //   background-color: rgb(0, 138, 32);
+       &::before {
+         content: "";
+         height: 2.5px;
+         width: 100%;
+         position: absolute;
+         left: 0;
+         top: 0;
+         border-top: 3px solid rgb(0, 138, 32);
+         border-right: 2px solid transparent;
+       }
+       &::after {
+         content: "";
+         height: 2.5px;
+         width: 100%;
+         position: absolute;
+         left: 0;
+         bottom: 0;
+         border-bottom: 3px solid rgb(0, 138, 32);
+         border-right: 2px solid transparent;
+       }
+    }
+    &:nth-child(3) {
+       // background-color: rgb(138, 44, 0);
+       &::before {        
+         content: "";
+         height: 2.5px;
+         width: 100%;
+         position: absolute;
+         left: 0;
+         top: 0;
+         border-top: 3px solid rgb(138, 44, 0);
+         border-right: 2px solid transparent;
+       }
+       &::after {
+         content: "";
+         height: 2.5px;
+         width: 100%;
+         position: absolute;
+         left: 0;
+         bottom: 0;
+         border-bottom: 3px solid rgb(138, 44, 0);
+         border-right: 2px solid transparent;
+       }
+    }
+ }

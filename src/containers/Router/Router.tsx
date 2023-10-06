@@ -46,7 +46,7 @@ const router = createBrowserRouter([
           },
         ],
       },
-      { path: "/ui-page", element: <UIPage /> },
+      // { path: "/ui-page", element: <UIPage /> },
     ],
   },
   {
@@ -61,9 +61,9 @@ const router = createBrowserRouter([
         path: links.SETTINGS,
         element: <SettingsPage />,
       },
-      { path: "/ui-page", element: <UIPage /> },
     ],
   },
+  { path: "/ui-page", element: <UIPage /> },
   { path: "*", element: <ErrorPage /> },
 ]);
 

@@ -2,6 +2,8 @@ $book-width: 30px;
 $book-height: 80px;
 $book-color: rgb(199, 164, 50);
 $book-lines: 2px;
+$randomNumber: random(130);
+$book-wrappre: ".book-wrapper";
 
 .book-wrapper {
    z-index: 0;
@@ -13,9 +15,39 @@ $book-lines: 2px;
     transition: all 0.4s ease;
     position: relative;
     cursor: pointer;
+   //  &:nth-child(1) {
+   //    height: calc($book-height / 1.1);
+   //  }
+   //  &:nth-child(2) {
+   //    height: calc($book-height / 1.3);
+   //  }
+   //  &:nth-child(3) {
+   //    height: calc($book-height / .9);
+   //  }
+   //  &:nth-child(4) {
+   //    height: calc($book-height / 1);
+   //  }
+   //  &:nth-child(5) {
+   //    height: calc($book-height / 1.1);
+   //  }
+   //  &:nth-child(6) {
+   //    height: calc($book-height / 0.9);
+   //  }
+   //  &:nth-child(7) {
+   //    height: calc($book-height / 0.8);
+   //  }
+   //  &:nth-child(8) {
+   //    height: calc($book-height / 1.2);
+   //  }
+   //  &:nth-child(9) {
+   //    height: calc($book-height / 1.3);
+   //  }
+   //  &:nth-child(10) {
+   //    height: calc($book-height / 1.1);
+   //  }
   & span {
    position: absolute;
-   display: block;
+   display: flex;
    backface-visibility: visible;
   }
   .top {
@@ -44,40 +76,39 @@ $book-lines: 2px;
    background-color: inherit;
    transform-style: preserve-3d;
    transition: all 0.4s ease;
-   cursor: pointer;
    position: relative;
    // animation: bookScale 2s ease forwards;
    z-index: 100;
    scale: 600%;
    &:nth-child(1) {
-     transform: rotateX(-5deg) rotateY(-95deg) translateZ(5px);
+     transform: rotateX(-4deg) rotateY(-95deg) translateZ(5px);
    }
    &:nth-child(2) {
-     transform: rotateX(-5deg) rotateY(-95deg) translateZ(10px);
+     transform: rotateX(-4deg) rotateY(-95deg) translateZ(10px);
    }
    &:nth-child(3) {
-     transform: rotateX(-5deg) rotateY(-95deg) translateZ(15px);
+     transform: rotateX(-4deg) rotateY(-95deg) translateZ(15px);
    }
    &:nth-child(4) {
-     transform: rotateX(-5deg) rotateY(-95deg) translateZ(20px);
+     transform: rotateX(-4deg) rotateY(-95deg) translateZ(20px);
    }
    &:nth-child(5) {
-     transform: rotateX(-5deg) rotateY(-95deg) translateZ(25px);
+     transform: rotateX(-4deg) rotateY(-95deg) translateZ(25px);
    }
    &:nth-child(6) {
-     transform: rotateX(-5deg) rotateY(-95deg) translateZ(30px);
+     transform: rotateX(-4deg) rotateY(-95deg) translateZ(30px);
    }
    &:nth-child(7) {
-     transform: rotateX(-5deg) rotateY(-95deg) translateZ(35px);
+     transform: rotateX(-4deg) rotateY(-95deg) translateZ(35px);
    }
    &:nth-child(8) {
-     transform: rotateX(-5deg) rotateY(-95deg) translateZ(40px);
+     transform: rotateX(-4deg) rotateY(-95deg) translateZ(40px);
    }
    &:nth-child(9) {
-     transform: rotateX(-5deg) rotateY(-95deg) translateZ(45px);
+     transform: rotateX(-4deg) rotateY(-95deg) translateZ(45px);
    }
    &:nth-child(10) {
-     transform: rotateX(-5deg) rotateY(-95deg) translateZ(50px);
+     transform: rotateX(-4deg) rotateY(-95deg) translateZ(50px);
    }
    @media (min-width: 768px) {
     scale: 800%;
@@ -86,8 +117,9 @@ $book-lines: 2px;
    }
  & span {
   position: absolute;
-  display: block;
+  display: flex;
   backface-visibility: visible;
+  
  }
  & .lable {
    @apply rounded-none;
@@ -119,6 +151,8 @@ $book-lines: 2px;
    @apply opacity-100 w-[30px] h-full border border-black rounded-[2px];
    box-shadow: inset 0px 0px 5px rgb(0, 0, 0);
    background-color: inherit;
+  //  background: url('../../../assets/WEBP/lather.png');
+  //  background-size: 30px;
     &__title {
         @apply z-30 p-1 text-center inline-flex text-[6px] text-white py-2 items-center m-0 justify-center;
         writing-mode: vertical-rl;
@@ -150,7 +184,8 @@ $book-lines: 2px;
    border-left: 1px solid black;
    border-right: 1px solid black;
    transform: translateY(-48.8%) translateZ(-25px) rotateX(90deg);
-   background: url('https://www.shutterstock.com/image-photo/front-side-closed-book-paper-250nw-197847575.jpg');
+   background: url('../../../assets/WEBP/paper.png') round;
+   background-size: 10px;
 }
 
 
@@ -158,71 +193,143 @@ $book-lines: 2px;
    @apply h-full w-[50px] relative;
    transform: translate3d(-25px,0px,-25px) rotateY(90deg);
    // box-shadow: inset 0px 0px 10px rgb(0, 0, 0);
-   border-left: 2px solid rgba(0, 0, 0, 0.7);
+  //  border-left: 1px solid rgb(0, 0, 0);
    background-color: inherit;
+   // border-radius: 0 1px 1px 0;
    // border-left: 2px solid black;
- 
+   background: url('../../../assets/WEBP/lather.png');
+   background-size: 30px;
+   background-repeat: round;
 }
 
 .right {
    @apply h-full w-[50px] relative;
    transform: translate3d(5px,0px,-25px) rotateY(90deg);
-   box-shadow: inset 0px 0px 10px rgb(0, 0, 0);
-   border-left: 2px solid rgba(0, 0, 0, 0.7);
-   // border: 1px solid black;
+   box-shadow: inset 0px 0px 5px rgb(0, 0, 0);
+   // border-left: 1px solid black;
+   // border-radius: 0 1px 1px 0;
    background-color: inherit;
-   // background: url('https://media.istockphoto.com/id/902979432/photo/the-dirty-and-scratched-old-dark-blue-book-cover-background.jpg?s=612x612&w=0&k=20&c=cHSvOSunp6sUkVXInIiR026VFso-E1HXd_ElAutNdRg=');
-   // background-size: cover;
+   background: url('../../../assets/WEBP/lather.png');
+   background-size: 30px;
+   background-repeat: round;
 }
 .back {
    @apply h-[99%] w-[98%] relative rounded-[2px];
    transform: translateZ(-49.5px)  translateY(0.7%);
    background-color: rgb(255, 255, 255);
-   background: url('https://www.shutterstock.com/image-photo/front-side-closed-book-paper-250nw-197847575.jpg') repeat;
+   background: url('../../../assets/WEBP/paper.png') round;
+   background-size: 10px;
 }
 
 
+.bookmarks-block {
+   @apply w-[12px] h-[80%] font-normal;
+   display: flex !important;
+   flex-direction: column;
+   gap: 2px;
+   text-shadow: black 0.1px 0.1px 0.1px;
+   transform: translateX(10px) translateY(5%) translateZ(-53px) rotateY(90deg);
+}
 .bookmark {
-   @apply w-[10px] h-[5px] font-normal fixed rounded-r-[2px] select-none;
-   transform: translateX(15px) translateZ(-55px) translateY(100%) rotateY(90deg);
-   background-color: rgb(1, 139, 36);
-   &__text {
-      margin: 0;
-      color: white;
-      font-size: 2px;
-      padding: 1.5px;
+   @apply w-full h-[5px] rounded-r-[2px] pl-[3px] px-[5%] flex items-end justify-start  cursor-pointer;
+   position: relative !important;
+   &:nth-child(1) {
+      // background-color: rgb(209, 196, 10);
+   &::before {
+      z-index: -10;
+      content: "";
+      height: 2.5px;
+      width: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-top: 3px solid rgb(204, 134, 4);
+      border-right: 3px solid transparent;
    }
-}
-.bookmark2 {
-   @apply w-[10px] h-[5px] font-normal fixed rounded-r-[2px] select-none;
-   transform: translateX(15px) translateZ(-55px) translateY(220%) rotateY(90deg);
-   background-color: rgb(15, 89, 158);
+   &::after {
+      z-index: -10;
+      content: "";
+      height: 2.5px;
+      width: 100%;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      border-bottom: 3px solid rgb(204, 134, 4);
+      border-right: 3px solid transparent;
 
-   align-items: center;
-   &__text {
-    
-      color: white;
-      font-size: 2px;
-      padding: 1.5px;
-   
    }
-}
-.bookmark3 {
-   @apply w-[10px] h-[5px] font-normal fixed rounded-r-[2px] select-none;
-   transform: translateX(15px) translateZ(-55px) translateY(340%) rotateY(90deg);
-   background-color: rgb(230, 115, 8);
+
+   &:hover {
+
+   }
+
+   }
+   &:nth-child(2) {
+//   background-color: rgb(0, 138, 32);
+      &::before {
+         z-index: -10;
+         content: "";
+         height: 2.5px;
+         width: 100%;
+         position: absolute;
+         left: 0;
+         top: 0;
+         border-top: 3px solid rgb(0, 138, 32);
+         border-right: 2px solid transparent;
+      }
+      &::after {
+         z-index: -10;
+         content: "";
+         height: 2.5px;
+         width: 100%;
+         position: absolute;
+         left: 0;
+         bottom: 0;
+         border-bottom: 3px solid rgb(0, 138, 32);
+         border-right: 2px solid transparent;
+   
+      }
+   }
+   &:nth-child(3) {
+      // background-color: rgb(138, 44, 0);
+      &::before {
+         z-index: -10;
+         content: "";
+         height: 2.5px;
+         width: 100%;
+         position: absolute;
+         left: 0;
+         top: 0;
+         border-top: 3px solid rgb(138, 44, 0);
+         border-right: 2px solid transparent;
+      }
+      &::after {
+         z-index: -10;
+         content: "";
+         height: 2.5px;
+         width: 100%;
+         position: absolute;
+         left: 0;
+         bottom: 0;
+         border-bottom: 3px solid rgb(138, 44, 0);
+         border-right: 2px solid transparent;
+   
+      }
+   }
+   
+ 
    &__text {
-      color: white;
-      font-size: 2px;
-      padding: 1.5px;
+      @apply inline-block w-full h-[5px] py-[1.5px];
+      margin: 0;
+      color: rgb(255, 255, 255);
+      font-size: 0.14em;
    }
 }
 
 .book-info {
-   @apply m-0 text-[6px] font-normal text-white select-none flex flex-col w-full h-full;
+   @apply m-0 text-[6px] font-normal text-white flex flex-col w-full h-full;
+   text-shadow: black 0.3px 0.2px 0.3px;
    overflow: hidden;
-   transform: rotateY(360deg);
-
    &__title {
       @apply m-0 text-[0.8em] mx-1 mt-1 font-normal relative text-center;
       border-bottom: 1px solid rgb(255, 255, 255);
@@ -230,23 +337,27 @@ $book-lines: 2px;
       text-size-adjust: auto;
 
    }
-   &__title-input {
-      @apply relative top-0 left-[1px] inline m-0 text-[0.8em] 
-      my-1 max-w-[45px] p-[1px] text-center h-[12px] font-normal;
-      background-color: rgba(255, 255, 255, 0.26);
-      overflow : auto;
-      overflow: hidden;
-      resize: none;
-      outline: none;
-      margin-bottom: 3px;
-      caret-color: rgb(252, 252, 252);
-      caret-shape: underscore;
-   }
    &__author {
       @apply m-0 text-[0.6em] text-center mb-1;
    }
    &__annotation {
-      @apply m-0 text-[0.4em] px-[2px];
+      @apply m-0 text-[0.4em] px-[2px] ;
+      &::-webkit-scrollbar {
+         width: 1px;
+       }
+       &::-webkit-scrollbar-track {
+         background: inherit;
+         border-radius: 50%;
+       }
+       &::-webkit-scrollbar-thumb {
+         background: #e9e9e9;
+         border-radius: 2px;
+       }
+       &::-webkit-scrollbar-thumb:hover {
+         background: #555;
+       }
+      overflow-y: scroll;
+      line-height: normal;
       text-indent: 1px;
       
    }
