@@ -1,12 +1,12 @@
 .info-label {
-  @apply flex gap-[82px] laptop:gap-[182px];
+  @apply flex gap-[82px] md:gap-[182px];
 
   &__text {
-    @apply text-grey-1000 text-xs laptop:text-base;
+    @apply text-grey-1000 text-xs md:text-base;
   }
 
   &__input {
-    @apply outline-none w-full max-w-[120px] laptop:max-w-[214px] bg-inherit border-b border-b-[#FFD18C] transition-all duration-100 text-xs laptop:text-base;
+    @apply outline-none w-full max-w-[120px] md:max-w-[214px] bg-inherit border-b border-b-[#FFD18C] transition-all duration-100 text-xs md:text-base;
 
     &:disabled {
       @apply border-transparent;

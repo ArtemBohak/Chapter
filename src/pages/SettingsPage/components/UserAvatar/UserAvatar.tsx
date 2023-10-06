@@ -20,6 +20,12 @@ const UserAvatar: FC<AvatarProps> = ({ avatarUrl }) => {
       <img
         src={avatarUrl || defaultUserAvatar}
         alt="avatar"
+        width="210"
+        className={`${styles["avatar__image"]} ${styles["avatar__image--tab"]}`}
+      />
+      <img
+        src={avatarUrl || defaultUserAvatar}
+        alt="avatar"
         width="216"
         className={`${styles["avatar__image"]} ${styles["avatar__image--desc"]}`}
       />

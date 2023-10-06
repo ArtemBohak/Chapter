@@ -5,7 +5,7 @@
     @apply relative;
   }
   &__button.button {
-    @apply w-full max-w-[316px] mx-auto h-[48px] mt-[6px];
+    @apply w-full max-w-[316px] mx-auto h-[40px] md:h-[48px] mt-[6px];
   }
 }
 

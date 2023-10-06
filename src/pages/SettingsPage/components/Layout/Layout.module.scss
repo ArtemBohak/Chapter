@@ -2,15 +2,15 @@
   @apply w-full  relative rounded-lg bg-[#FAFAFA];
 
   &--base {
-    @apply px-1-xs py-1-md laptop:p-2-xs;
+    @apply px-1-xs py-1-md md:p-2-xs;
   }
 
   &--story {
-    @apply px-0-md py-1-sm laptop:p-1-md;
+    @apply px-0-md py-1-sm md:p-0-md laptop:p-1-md;
   }
 
   &-width {
-    @apply w-full laptop:max-w-none;
+    @apply w-full md:max-w-none;
 
     &--full {
       @apply w-full;
@@ -18,6 +18,6 @@
   }
 
   &__title {
-    @apply text-sm laptop:text-base mb-1-md;
+    @apply text-sm md:text-base mb-1-md;
   }
 }

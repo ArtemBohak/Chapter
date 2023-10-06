@@ -1,5 +1,5 @@
 .image-upload {
-  @apply max-w-[328px] laptop:max-w-[224px] mx-auto block laptop:mx-0 cursor-pointer;
+  @apply max-w-[328px] md:max-w-[224px] mx-auto block md:mx-0 cursor-pointer;
 
   &__input {
     @apply w-[0.1px] h-[0.1px] opacity-0 hidden absolute z-[-1] leading-[1.75];
@@ -14,6 +14,6 @@
   }
 
   &__button {
-    @apply w-full laptop:max-w-[224px] min-h-[44px] flex justify-center items-center gap-[14px] rounded-lg border bg-grey-1030 border-[#F79400] transition-all duration-150;
+    @apply w-full  min-h-[44px] flex justify-center items-center gap-[14px] rounded-lg border bg-grey-1030 border-[#F79400] transition-all duration-150;
   }
 }
