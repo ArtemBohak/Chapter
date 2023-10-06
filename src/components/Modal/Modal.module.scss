@@ -5,3 +5,7 @@
 .body {
   @apply absolute;
 }
+
+.no-scroll {
+  @apply overflow-hidden;
+}

@@ -71,6 +71,21 @@ const data = [
     repostsList: [],
     commentsList: [],
   },
+  {
+    name: "Alex Merri",
+    time: randomDate(),
+    totalLikes: 231,
+    totalReposts: 1233,
+    totalComments: 12,
+    id: "4",
+    img: postImage,
+    avatar: userImage,
+    text: testText,
+    followList: ["2", "1"],
+    likesList: [],
+    repostsList: [],
+    commentsList: [],
+  },
 ];
 
 // __________________________________ //

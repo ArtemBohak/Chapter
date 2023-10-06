@@ -15,6 +15,7 @@ export type ModalProps = {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
   transitionClassName: ITransitionArgs;
+  disableScroll?: boolean;
   transitionTimeOut?: number;
   portal?: boolean;
   backdropClassName?: string;

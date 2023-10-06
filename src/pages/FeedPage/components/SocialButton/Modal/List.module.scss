@@ -9,10 +9,9 @@
 }
 
 .list {
-  @apply flex flex-col pr-[28px] md:pr-[40px] gap-[40px] max-h-screen md:max-h-[382px] overflow-y-auto;
+  @apply flex flex-col pr-[28px] md:pr-[40px] gap-[40px] max-h-screen md:max-h-[382px] pb-[100px] md:pb-0 overflow-y-auto;
 }
 
 .item {
   @apply w-full;
 }
-// max-h-[404px]

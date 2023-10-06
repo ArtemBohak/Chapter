@@ -36,6 +36,6 @@
   }
 
   &__body {
-    @apply relative w-full md:max-w-[658px] md:rounded-[16px] md:bg-[#F2F2F2] md:pt-[30px] md:pb-[50px] md:px-[40px] mx-auto laptop:mx-0 laptop:ml-auto laptop:mr-[30px];
+    @apply relative w-full max-h-screen md:max-h-none md:max-w-[658px] md:rounded-[16px] md:bg-[#F2F2F2] md:pt-[30px] md:pb-[50px] md:px-[40px] mx-auto laptop:mx-0 laptop:ml-auto laptop:mr-[30px];
   }
 }

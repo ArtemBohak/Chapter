@@ -16,6 +16,7 @@ const Modal: FC<ModalProps> = ({
   portal = false,
   backdropClassName,
   bodyClassName,
+  disableScroll = false,
   ...props
 }) => {
   const nodeRef = useRef(null);
@@ -32,6 +33,13 @@ const Modal: FC<ModalProps> = ({
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (disableScroll) {
+      isOpen && document.body.classList.add(styles["no-scroll"]);
+      !isOpen && document.body.classList.remove(styles["no-scroll"]);
+    }
+  }, [isOpen, disableScroll]);
 
   const onHandleClick = (e: MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
