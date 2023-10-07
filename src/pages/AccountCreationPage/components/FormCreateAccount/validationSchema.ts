@@ -14,7 +14,7 @@ export default Yup.object({
     .required("Password is required")
     .matches(
       baseValidation,
-      "Password must be at least 8 characters, including uppercase letters and special characters"
+      "Password must be at least 8 characters, including uppercase letters, one number and Latin letters only. Space symbol is not included."
     ),
   confirm_password: Yup.string()
     .oneOf([Yup.ref("password"), ""], "Passwords must match")
