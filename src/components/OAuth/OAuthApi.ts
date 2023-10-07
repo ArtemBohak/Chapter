@@ -8,7 +8,7 @@ import {
   oAuthRejected,
 } from "@/src/redux/slices/user";
 import { links, setTokenToLS } from "@/src/utils";
-import { ApiData } from "./OAuth.type";
+import { CredentialData, UserData } from "./OAuth.type";
 
 abstract class OAuthApi {
   private url = [links.ACCOUNT_CREATION, links.FEED];
@@ -27,6 +27,17 @@ abstract class OAuthApi {
     this.dispatch(oAuthPending());
   }
 
+  protected handleCredentials({ token, tokenExpires }: CredentialData) {
+    setTokenToLS({
+      token,
+      tokenExpires,
+    });
+  }
+
+  protected handleData(user: UserData) {
+    this.dispatch(oAuthFulfilled(user));
+  }
+
   private handleError(error: string) {
     this.dispatch(oAuthRejected(error));
   }
@@ -40,14 +51,6 @@ abstract class OAuthApi {
   protected redirect(hasNickName: boolean, id?: number) {
     const [accountCreate, feed] = this.url;
     return hasNickName ? feed : accountCreate + "/" + id;
-  }
-
-  protected handleData({ user, token, tokenExpires }: ApiData) {
-    setTokenToLS({
-      token,
-      tokenExpires,
-    });
-    this.dispatch(oAuthFulfilled(user));
   }
 
   protected tryCatchWrapper(cb: () => AxiosPromise) {
