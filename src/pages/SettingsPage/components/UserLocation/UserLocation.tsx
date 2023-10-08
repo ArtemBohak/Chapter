@@ -18,44 +18,35 @@ const initialValues = {
 const UserLocation: FC = () => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const [countryId, setCountryId] = useState(0);
+  const [countryId, setCountryId] = useState(initialValues.countryId);
   const [selectedCountry, setSelectedCountry] = useState("");
   const [countryList, setCountryList] = useState<Array<CountriesType>>([]);
 
-  const [stateId, setStateId] = useState(0);
+  const [stateId, setStateId] = useState(initialValues.stateId);
   const [selectedState, setSelectedState] = useState("");
   const [stateList, setStateList] = useState<Array<StateType>>([]);
 
-  const [cityId, setCityId] = useState(0);
+  const [cityId, setCityId] = useState(initialValues.cityId);
   const [selectedCity, setSelectedCity] = useState("");
   const [citiesList, setCitiesList] = useState<Array<CityType>>([]);
 
   useEffect(() => {
-    setCountryId(initialValues.countryId);
-    setStateId(initialValues.stateId);
-    setCityId(initialValues.cityId);
-  }, []);
+    (async () => {
+      try {
+        setIsLoading(true);
 
-  useEffect(() => {
-    GetCountries().then((countries: CountriesType[]) => {
-      setCountryList(countries);
-    });
-  }, []);
+        const countries = await GetCountries();
+        setCountryList(countries);
 
-  useEffect(() => {
-    setIsLoading(true);
-    GetState(countryId).then((states: StateType[]) => {
-      setStateList(states);
-      setIsLoading(false);
-    });
-  }, [countryId]);
+        const state = await GetState(countryId);
+        setStateList(state);
 
-  useEffect(() => {
-    setIsLoading(true);
-    GetCity(countryId, stateId).then((cities: CityType[]) => {
-      setCitiesList(cities);
-      setIsLoading(false);
-    });
+        const city = await GetCity(countryId, stateId);
+        setCitiesList(city);
+      } finally {
+        setIsLoading(false);
+      }
+    })();
   }, [countryId, stateId]);
 
   const handleSubmit = async (e: FormEvent) => {
