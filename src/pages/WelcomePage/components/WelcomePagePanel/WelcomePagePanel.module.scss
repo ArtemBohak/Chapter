@@ -1,0 +1,29 @@
+.panel-container {
+  @apply w-full 
+  flex flex-col items-center 
+  -mt-4 px-5;
+}
+
+.panel {
+  @apply flex flex-col gap-2 w-full laptop:gap-8
+  max-w-[327px] laptop:max-w-[570px] base:pl-4;
+}
+
+.panel-description {
+  @apply text-center laptop:text-left;
+
+  & h2 {
+    @apply text-xxl font-medium leading-6 laptop:text-h1_lg laptop:leading-[70px]
+
+  }
+
+  & h3 {
+    @apply leading-6 text-base tracking-wider font-light 
+    laptop:tracking-normal laptop:text-h3_lg laptop:leading-[46px];
+  }
+}
+
+.panel-buttons {
+  @apply flex flex-col gap-5 laptop:flex-row
+  mb-4
+}
