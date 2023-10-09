@@ -1,9 +1,14 @@
 .strop-down-menu {
   @apply absolute overflow-hidden w-full h-full min-h-[120px] max-h-[250px] end-0 z-40 rounded-md;
+
   &-container {
-    @apply overflow-scroll p-[12px] w-full h-full  flex flex-col gap-1 bg-[#FAFAFA];
+    @apply overflow-scroll p-[12px] w-full h-full  flex flex-col gap-1 bg-[#FAFAFA] border;
     & > button {
-      @apply bg-transparent text-start flex gap-1 text-xs laptop:text-sm;
+      @apply bg-transparent text-start flex gap-1 text-xs laptop:text-sm outline-none max-w-fit;
+
+      &:hover {
+        @apply text-orange;
+      }
     }
   }
 }
@@ -13,7 +18,7 @@
     @apply -translate-y-full;
 
     &-active {
-      @apply translate-y-0 transition-transform duration-200;
+      @apply translate-y-0 transition-all duration-200;
     }
   }
 
@@ -21,7 +26,7 @@
     @apply translate-y-0;
 
     &-active {
-      @apply -translate-y-full transition-transform duration-200;
+      @apply -translate-y-full transition-all duration-200;
     }
   }
 }
