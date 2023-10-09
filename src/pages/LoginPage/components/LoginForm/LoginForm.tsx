@@ -9,7 +9,6 @@ import validationSchema from "./validationSchema";
 import LoginApi from "./LoginApi";
 import { links } from "@/src/utils/links/links.types";
 import { useNavigate } from "react-router-dom";
-import { ErrorStatus } from "@/src/pages/RegisterPage/components/RegisterForm/RegisterForm.type";
 
 const LoginPageForm: FC = () => {
   const navigate = useNavigate();
@@ -17,11 +16,12 @@ const LoginPageForm: FC = () => {
   const onHandleSubmit = async (values: ILoginPage, setErrors: setErrors) => {
     const { status, data } = await LoginApi(values);
 
-    if (status === ErrorStatus.UNPROCESSABLE_ENTITY) {
-      setErrors({ ["email"]: " ", ["password"]: "wrong email or password" });
-    } else {
+    if (status === 200) {
       localStorage.setItem("token", data.token);
       navigate(links.FEED);
+    }
+    if (status === 422) {
+      setErrors({ ["email"]: " ", ["password"]: "wrong email or password" });
     }
   };
   return (

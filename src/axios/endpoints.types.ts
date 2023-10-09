@@ -9,7 +9,7 @@ export enum EndpointsEnum {
   CONFIRM = "auth/email/confirm",
   FORGOT_PASSWORD = "auth/forgot/password",
   RESET_PASSWORD = "auth/reset/password",
-  PROFILE = "users/me",
+  PROFILE = "auth/me",
   REFRESH = "auth/refresh",
   LOGOUT = "auth/logout",
   FACEBOOK_LOGIN = "auth/facebook/login",
