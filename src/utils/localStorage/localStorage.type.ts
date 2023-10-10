@@ -1,1 +1,1 @@
-export type CredArgs = { token: string; tokenExpires: string };
+export type CredArgs = { token: string; tokenExpires?: number };

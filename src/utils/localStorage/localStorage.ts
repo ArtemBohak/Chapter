@@ -5,7 +5,9 @@ export const getTokenFromLC = (): string | null => {
 };
 
 export const setTokenToLS = (cred: CredArgs) => {
-  Object.keys(cred).map((i) =>
-    localStorage.setItem(i, cred[i as keyof CredArgs])
-  );
+  Object.keys(cred).map((i) => {
+    if (cred[i as keyof CredArgs]) {
+      localStorage.setItem(i, cred[i as keyof CredArgs] + "");
+    }
+  });
 };

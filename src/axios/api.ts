@@ -13,6 +13,7 @@ const api = axios.create({
 
 api.interceptors.request.use((request) => {
   if (getTokenFromLC()) {
+    console.log(getTokenFromLC());
     request.headers.Authorization = `Bearer ${getTokenFromLC()}`;
   }
   return request;
@@ -37,7 +38,7 @@ api.interceptors.response.use(
       error.config._isRetry = true;
       try {
         const response = await TokenService.refreshToken();
-        const { token } = await response.data;
+        const { token } = response.data;
 
         localStorage.setItem("token", token);
 

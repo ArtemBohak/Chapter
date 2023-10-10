@@ -8,7 +8,8 @@ import {
   oAuthRejected,
 } from "@/src/redux/slices/user";
 import { links, setTokenToLS } from "@/src/utils";
-import { CredentialData, UserData } from "./OAuth.type";
+import { UserData } from "./OAuth.type";
+import { CredArgs } from "@/src/utils/localStorage/localStorage.type";
 
 abstract class OAuthApi {
   private url = [links.ACCOUNT_CREATION, links.FEED];
@@ -27,11 +28,8 @@ abstract class OAuthApi {
     this.dispatch(oAuthPending());
   }
 
-  protected handleCredentials({ token, tokenExpires }: CredentialData) {
-    setTokenToLS({
-      token,
-      tokenExpires,
-    });
+  protected handleCredentials(cred: CredArgs) {
+    setTokenToLS(cred);
   }
 
   protected handleData(user: UserData) {

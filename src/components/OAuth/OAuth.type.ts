@@ -43,9 +43,4 @@ export type OAuthApiArgs = {
   setAuthCode?: (data: string) => void;
 };
 
-export type CredentialData = {
-  token: string;
-  tokenExpires: string;
-};
-
 export type UserData = IUserStore;
