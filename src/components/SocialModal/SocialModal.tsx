@@ -1,12 +1,12 @@
 import { FC } from "react";
 
-import { ListProps } from "./List.type";
-import styles from "./List.module.scss";
+import { SocialModalProps } from "./SocialModal.type";
+import styles from "./SocialModal.module.scss";
 
 import { Icon, IconEnum } from "@/src/components";
-import Likes from "./Likes/Likes";
+import Item from "./Item/Item";
 
-const List: FC<ListProps> = ({ title, data, setIsOpen }) => {
+const SocialModal: FC<SocialModalProps> = ({ title, data, setIsOpen }) => {
   return (
     <>
       <div className={styles["title"]}>
@@ -18,14 +18,12 @@ const List: FC<ListProps> = ({ title, data, setIsOpen }) => {
       <ul className={styles["list"]}>
         {data.map((i) => (
           <li key={i.id} className={styles["item"]}>
-            {title.toLowerCase() === "likes" && (
-              <Likes
-                avatar={i.avatar}
-                name={i.name}
-                id={i.id}
-                followList={i.followList}
-              />
-            )}
+            <Item
+              avatar={i.avatar}
+              name={i.name}
+              id={i.id}
+              dataList={i.dataList}
+            />
           </li>
         ))}
       </ul>
@@ -33,4 +31,4 @@ const List: FC<ListProps> = ({ title, data, setIsOpen }) => {
   );
 };
 
-export default List;
+export default SocialModal;

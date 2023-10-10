@@ -15,12 +15,3 @@ export type SocialButtonProps = {
   title: Title.COMMENTS | Title.LIKES | Title.SHARED;
   size?: number | undefined;
 };
-
-export type Data =
-  | {
-      id: string;
-      name: string;
-      followList: string[];
-      avatar: string;
-    }[]
-  | [];

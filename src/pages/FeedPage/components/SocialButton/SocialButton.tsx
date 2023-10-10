@@ -3,33 +3,32 @@ import cn from "classnames";
 
 import { useFindById } from "@/src/hooks";
 import { SocialButtonProps, Title } from "./SocialButton.type";
-import { Data } from "./SocialButton.type";
+import { Data } from "@/src/components/SocialModal";
 import styles from "./SocialButton.module.scss";
 
-import { Icon, Modal } from "@/src/components";
-import List from "./Modal/List";
+import { Icon, Modal, SocialModal } from "@/src/components";
 
 //
 import userImage from "../FeedsList/assets/user.png";
 const likesList = [
-  { id: "2", name: "Alex Space", avatar: userImage, followList: ["1"] },
+  { id: "2", name: "Alex Space", avatar: userImage, dataList: ["1"] },
   {
     id: "3",
     name: "Alex Space",
     avatar: userImage,
-    followList: ["1", "2"],
+    dataList: ["1", "2"],
   },
-  { id: "4", name: "Alex Space", avatar: userImage, followList: ["3"] },
-  { id: "5", name: "Alex Space", avatar: userImage, followList: ["2"] },
-  { id: "6", name: "Alex Space", avatar: userImage, followList: ["1"] },
-  { id: "7", name: "Alex Space", avatar: userImage, followList: ["1"] },
-  { id: "8", name: "Alex Space", avatar: userImage, followList: ["1"] },
-  { id: "9", name: "Alex Space", avatar: userImage, followList: ["1"] },
-  { id: "10", name: "Alex Space", avatar: userImage, followList: ["1"] },
-  { id: "11", name: "Alex Space", avatar: userImage, followList: ["1"] },
-  { id: "12", name: "Alex Space", avatar: userImage, followList: ["1"] },
-  { id: "13", name: "Alex Space", avatar: userImage, followList: ["1"] },
-  { id: "14", name: "Alex Space", avatar: userImage, followList: ["1"] },
+  { id: "4", name: "Alex Space", avatar: userImage, dataList: ["3"] },
+  { id: "5", name: "Alex Space", avatar: userImage, dataList: ["2"] },
+  { id: "6", name: "Alex Space", avatar: userImage, dataList: ["1"] },
+  { id: "7", name: "Alex Space", avatar: userImage, dataList: ["1"] },
+  { id: "8", name: "Alex Space", avatar: userImage, dataList: ["1"] },
+  { id: "9", name: "Alex Space", avatar: userImage, dataList: ["1"] },
+  { id: "10", name: "Alex Space", avatar: userImage, dataList: ["1"] },
+  { id: "11", name: "Alex Space", avatar: userImage, dataList: ["1"] },
+  { id: "12", name: "Alex Space", avatar: userImage, dataList: ["1"] },
+  { id: "13", name: "Alex Space", avatar: userImage, dataList: ["1"] },
+  { id: "14", name: "Alex Space", avatar: userImage, dataList: ["1"] },
 ];
 
 const sharesList: Data = [];
@@ -110,7 +109,7 @@ const SocialButton: FC<SocialButtonProps> = ({
         transitionClassName={transition}
         swipeIsOn
       >
-        <List setIsOpen={setIsShow} title={title} data={data} />
+        <SocialModal setIsOpen={setIsShow} title={title} data={data} />
       </Modal>
     </>
   );

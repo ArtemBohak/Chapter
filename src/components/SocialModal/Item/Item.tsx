@@ -2,14 +2,14 @@ import { FC, useState } from "react";
 
 import { useAppSelector } from "@/src/redux/hooks";
 import { useFindById } from "@/src/hooks";
-import { LikesParams } from "./Likes.type";
-import styles from "./Likes.module.scss";
+import { ItemParams } from "./Item.type";
+import styles from "./Item.module.scss";
 
 import { UIbutton } from "@/src/components";
 
-const Likes: FC<LikesParams> = ({ avatar, name, id, followList }) => {
+const Item: FC<ItemParams> = ({ avatar, name, id, dataList }) => {
   const { user } = useAppSelector((state) => state.userSlice);
-  const [isFollowing] = useFindById(user.id + 1 + "", followList);
+  const [isFollowing] = useFindById(user.id + 1 + "", dataList);
 
   const [isFollow, setIsFollow] = useState(isFollowing);
 
@@ -19,19 +19,19 @@ const Likes: FC<LikesParams> = ({ avatar, name, id, followList }) => {
   };
 
   return (
-    <div className={styles["likes"]}>
-      <div className={styles["likes__content"]}>
+    <div className={styles["item"]}>
+      <div className={styles["item__content"]}>
         <img
           src={avatar}
           alt=""
           width="38"
-          className={styles["likes__content-image"]}
+          className={styles["item__content-image"]}
         />
         <img
           src={avatar}
           alt=""
           width="78"
-          className={styles["likes__content-image-tab"]}
+          className={styles["item__content-image-tab"]}
         />
         <p>{name}</p>
       </div>
@@ -39,7 +39,7 @@ const Likes: FC<LikesParams> = ({ avatar, name, id, followList }) => {
         variant={isFollow ? "outlined" : "contained"}
         onClick={onHandleClick}
         dataAutomation="clickButton"
-        className={styles["likes__button"]}
+        className={styles["item__button"]}
       >
         {isFollow ? "Unfollow" : "Follow"}
       </UIbutton>
@@ -47,4 +47,4 @@ const Likes: FC<LikesParams> = ({ avatar, name, id, followList }) => {
   );
 };
 
-export default Likes;
+export default Item;
