@@ -32,10 +32,9 @@ class FacebookApi extends OAuthApi {
     const res = await this.facebook(this.token);
     const { token, user } = res.data;
 
-    this.handleData(user);
-    if (user.nickName) this.handleCredentials({ token });
+    user.nickName && this.handleData(user, { token });
 
-    this.navigate(this.redirect(user.nickName, user.id));
+    this.redirect(user);
 
     return res;
   });

@@ -10,7 +10,7 @@ import { IAccountCreate } from "./FormCreateAccount.type";
 import api from "@/src/axios/api";
 import { EndpointsEnum } from "@/src/axios/endpoints.types";
 import { useDebounce } from "@/src/hooks/useDebounce";
-import { useAppSelector } from "@/src/redux/hooks";
+
 import styles from "./FormCreateAccount.module.scss";
 
 import UIbutton from "@/src/components/Buttons/UIbutton/UIbutton";
@@ -25,9 +25,8 @@ const initialValues: IAccountCreate = {
 };
 
 const FormCreateAccount: FC = () => {
-  const { user } = useAppSelector((state) => state.userSlice);
-  const fullname =
-    user.firstName && user.lastName ? user.firstName + " " + user.lastName : "";
+  const LSFullName = localStorage.getItem("fullName");
+  const fullname = LSFullName ? LSFullName : "";
 
   const [isLoadingNk, setIsLoadingNk] = useState<boolean>(false);
   const [nkErrorMessage, setNkErrorMessage] = useState<string | null>(null);
@@ -70,7 +69,7 @@ const FormCreateAccount: FC = () => {
         firstName,
         lastName,
       });
-
+      localStorage.removeItem("fullName");
       navigate(links.LOG_IN);
     } catch (e) {
       if (e instanceof AxiosError) {

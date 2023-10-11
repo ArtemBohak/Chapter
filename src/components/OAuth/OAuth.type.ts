@@ -1,5 +1,4 @@
-import { SetURLSearchParams } from "react-router-dom";
-
+import { SetURLSearchParams, NavigateFunction } from "react-router-dom";
 import { AppDispatch } from "@/src/redux/store";
 import { IUserStore } from "@/src/redux/types/user";
 import {
@@ -34,7 +33,7 @@ export type OAuthProps = {
 export type SocialsProps = { stateId: string } & OAuthProps;
 
 export type OAuthApiArgs = {
-  navigate: (data: string) => void;
+  navigate: NavigateFunction;
   dispatch: AppDispatch;
   setIsLoading: (data: boolean) => void;
   redirectUri?: string;

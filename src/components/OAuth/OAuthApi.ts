@@ -1,15 +1,14 @@
-import { SetURLSearchParams } from "react-router-dom";
+import { SetURLSearchParams, NavigateFunction } from "react-router-dom";
 import { AxiosError, AxiosPromise } from "axios";
-
 import { AppDispatch } from "@/src/redux/store";
 import {
   oAuthPending,
   oAuthFulfilled,
   oAuthRejected,
 } from "@/src/redux/slices/user";
-import { links, setTokenToLS } from "@/src/utils";
+import { links, setDataToLS } from "@/src/utils";
 import { UserData } from "./OAuth.type";
-import { CredArgs } from "@/src/utils/localStorage/localStorage.type";
+import { LocaleStorageArgs } from "@/src/utils/localStorage/localStorage.type";
 
 abstract class OAuthApi {
   private url = [links.ACCOUNT_CREATION, links.FEED];
@@ -18,7 +17,7 @@ abstract class OAuthApi {
     protected token: string | undefined,
     private setSearchParams: SetURLSearchParams | undefined,
     private setAuthCode: ((data: string) => void) | undefined,
-    protected navigate: (data: string) => void,
+    protected navigate: NavigateFunction,
     private dispatch: AppDispatch,
     private setIsLoading: (data: boolean) => void
   ) {}
@@ -28,12 +27,9 @@ abstract class OAuthApi {
     this.dispatch(oAuthPending());
   }
 
-  protected handleCredentials(cred: CredArgs) {
-    setTokenToLS(cred);
-  }
-
-  protected handleData(user: UserData) {
+  protected handleData(user: UserData, cred: LocaleStorageArgs) {
     this.dispatch(oAuthFulfilled(user));
+    setDataToLS(cred);
   }
 
   private handleError(error: string) {
@@ -46,9 +42,13 @@ abstract class OAuthApi {
     this.setAuthCode && this.setAuthCode("");
   }
 
-  protected redirect(hasNickName: boolean, id?: number) {
-    const [accountCreate, feed] = this.url;
-    return hasNickName ? feed : accountCreate + "/" + id;
+  protected redirect(user: UserData) {
+    const [accountCreate] = this.url;
+
+    if (!user.nickname) {
+      setDataToLS({ fullName: user.firstName + " " + user.lastName });
+      this.navigate(accountCreate + "/" + user.id);
+    }
   }
 
   protected tryCatchWrapper(cb: () => AxiosPromise) {

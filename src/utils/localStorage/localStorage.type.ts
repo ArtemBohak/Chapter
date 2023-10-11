@@ -1,1 +1,5 @@
-export type CredArgs = { token: string; tokenExpires?: number };
+export type LocaleStorageArgs = {
+  token?: string;
+  tokenExpires?: number;
+  fullName?: string;
+};
