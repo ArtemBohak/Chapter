@@ -48,7 +48,7 @@ abstract class OAuthApi {
       user.lastName ? ` ${user.lastName}` : ""
     }`;
 
-    if (!user.nickname) {
+    if (!user.nickName) {
       setDataToLS({
         fullName,
       });
