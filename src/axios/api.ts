@@ -13,7 +13,6 @@ const api = axios.create({
 
 api.interceptors.request.use((request) => {
   if (getTokenFromLC()) {
-    console.log(getTokenFromLC());
     request.headers.Authorization = `Bearer ${getTokenFromLC()}`;
   }
   return request;
