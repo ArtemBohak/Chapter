@@ -44,9 +44,14 @@ abstract class OAuthApi {
 
   protected redirect(user: UserData) {
     const [accountCreate] = this.url;
+    const fullName = `${user.firstName ? user.firstName : ""}${
+      user.lastName ? ` ${user.lastName}` : ""
+    }`;
 
     if (!user.nickname) {
-      setDataToLS({ fullName: user.firstName + " " + user.lastName });
+      setDataToLS({
+        fullName,
+      });
       this.navigate(accountCreate + "/" + user.id);
     }
   }
