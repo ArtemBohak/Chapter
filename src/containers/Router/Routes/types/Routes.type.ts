@@ -1,6 +1,6 @@
 import { ReactElement } from "react";
 
-export interface RoutesProps {
+export interface IRoutesProps {
   component: ReactElement;
   redirectUrl?: string;
 }

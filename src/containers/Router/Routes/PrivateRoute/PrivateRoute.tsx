@@ -1,11 +1,11 @@
 import { FC } from "react";
 import { Navigate } from "react-router-dom";
 
-import { RoutesProps } from "../types/Routes.type";
+import { IRoutesProps } from "../types/Routes.type";
 import { useAppSelector } from "@/src/redux/hooks";
 import { getTokenFromLC, links } from "@/src/utils";
 
-const PrivateRoute: FC<RoutesProps> = ({
+const PrivateRoute: FC<IRoutesProps> = ({
   component: Component,
   redirectUrl = links.LOG_IN,
 }) => {

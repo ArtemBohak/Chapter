@@ -3,6 +3,7 @@ import { OAuthApiArgs, OAuthApiEndPoints } from "../OAuth.type";
 import { googleOAuthApi, api, EndpointsEnum } from "@/src/axios";
 
 const { VITE_GOOGLE_CLIENT_ID, VITE_GOOGLE_CLIENT_SECRET } = import.meta.env;
+
 class GoogleApi extends OAuthApi {
   private redirectUri: string | undefined;
   private googleOAuthGrandType = "authorization_code";

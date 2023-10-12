@@ -11,8 +11,6 @@ import { UserData } from "./OAuth.type";
 import { LocaleStorageArgs } from "@/src/utils/localStorage/localStorage.type";
 
 abstract class OAuthApi {
-  private url = [links.ACCOUNT_CREATION, links.FEED];
-
   constructor(
     protected token: string | undefined,
     private setSearchParams: SetURLSearchParams | undefined,
@@ -43,8 +41,7 @@ abstract class OAuthApi {
   }
 
   protected redirect(user: UserData, url?: string) {
-    const [accountCreate] = this.url;
-    const redirectUrl = url ? url : `${accountCreate}/${user.id}`;
+    const redirectUrl = url ? url : `${links.ACCOUNT_CREATION}/${user.id}`;
     const fullName = `${user.firstName ? user.firstName : ""}${
       user.lastName ? ` ${user.lastName}` : ""
     }`;
