@@ -17,7 +17,7 @@ abstract class OAuthApi {
     protected token: string | undefined,
     private setSearchParams: SetURLSearchParams | undefined,
     private setAuthCode: ((data: string) => void) | undefined,
-    protected navigate: NavigateFunction,
+    private navigate: NavigateFunction,
     private dispatch: AppDispatch,
     private setIsLoading: (data: boolean) => void
   ) {}
@@ -42,18 +42,16 @@ abstract class OAuthApi {
     this.setAuthCode && this.setAuthCode("");
   }
 
-  protected redirect(user: UserData) {
+  protected redirect(user: UserData, url?: string) {
     const [accountCreate] = this.url;
+    const redirectUrl = url ? url : `${accountCreate}/${user.id}`;
     const fullName = `${user.firstName ? user.firstName : ""}${
       user.lastName ? ` ${user.lastName}` : ""
     }`;
-
-    if (!user.nickName) {
-      setDataToLS({
-        fullName,
-      });
-      this.navigate(accountCreate + "/" + user.id);
-    }
+    setDataToLS({
+      fullName,
+    });
+    this.navigate(redirectUrl);
   }
 
   protected tryCatchWrapper(cb: () => AxiosPromise) {
