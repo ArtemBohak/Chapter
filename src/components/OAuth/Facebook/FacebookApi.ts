@@ -34,7 +34,7 @@ class FacebookApi extends OAuthApi {
 
     user.nickName && this.handleData(user, { token });
 
-    this.redirect(user);
+    !user.nickName && this.redirect(user);
 
     return res;
   });

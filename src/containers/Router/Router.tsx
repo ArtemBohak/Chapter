@@ -1,5 +1,5 @@
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
-import RestrictedRoute from "./Routes/RestrictedRoute/RestrictedRoute";
+import PublicRoute from "./Routes/PublicRoute/PublicRoute";
 import PrivateRoute from "./Routes/PrivateRoute/PrivateRoute";
 import {
   RegisterPage,
@@ -19,7 +19,7 @@ import { links } from "@/src/utils/links/links.types";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <RestrictedRoute component={<PublicLayout />} />,
+    element: <PublicRoute component={<PublicLayout />} />,
     children: [
       {
         index: true,
