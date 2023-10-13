@@ -4,7 +4,7 @@ import { getTokenFromLC } from "@/src/utils";
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
-  withCredentials: false,
+  withCredentials: true,
   method: "get, post, put, delete, patch",
   headers: {
     "X-Requested-With": "XMLHttpRequest",
