@@ -23,7 +23,7 @@ const PasswordField: FC<PasswordFieldProps> = ({
   defaultValue,
   dataAutomation,
   strength,
-  strengthMessage = "Password must be at least 8 characters long, including uppercase letters and special characters",
+  strengthMessage = "Password must include Latin letters, at least one uppercase, one number, and all special symbols, space symbol not included",
   helperLink,
   additionalLabel,
   customErrorMessage,
