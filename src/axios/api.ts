@@ -1,6 +1,11 @@
 import axios from "axios";
 import TokenService from "@/src//services/token";
-import { getTokenFromLC, setDataToLS } from "@/src/utils";
+import {
+  accessTokenIsExpired,
+  getTokenFromLC,
+  removeCredFromLS,
+  setDataToLS,
+} from "@/src/utils";
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
@@ -11,21 +16,34 @@ const api = axios.create({
   },
 });
 
-api.interceptors.request.use((request) => {
-  if (getTokenFromLC()) {
-    request.headers.Authorization = `Bearer ${getTokenFromLC()}`;
+api.interceptors.request.use(
+  async (config) => {
+    if (getTokenFromLC())
+      config.headers.Authorization = "Bearer" + " " + getTokenFromLC();
+
+    if (getTokenFromLC() && accessTokenIsExpired()) {
+      try {
+        const response = await TokenService.refreshToken();
+        const { token, tokenExpires } = response.data;
+        setDataToLS({ token, tokenExpires });
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    }
+
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
   }
-  return request;
-});
+);
 
 api.interceptors.response.use(
   (response) => {
     return response;
   },
   async (error) => {
-    if (!getTokenFromLC()) {
-      return Promise.reject(error);
-    }
+    if (!getTokenFromLC()) return Promise.reject(error);
 
     const originalRequest = error.config;
 
@@ -42,7 +60,7 @@ api.interceptors.response.use(
 
         return api.request(originalRequest);
       } catch (e) {
-        console.log("User doesn`t authorized");
+        removeCredFromLS("token", "tokenExpires");
         return Promise.reject(error);
       }
     }

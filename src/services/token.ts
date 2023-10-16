@@ -3,8 +3,8 @@ import { EndpointsEnum } from "../axios/endpoints.types";
 
 type RefreshTokenType = {
   token: string;
-  refreshToken: string;
   tokenExpires: number;
+  // refreshToken?: string;
 };
 
 class TokenService {

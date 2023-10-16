@@ -13,3 +13,7 @@ export const setDataToLS = (data: LocaleStorageArgs) => {
     }
   });
 };
+
+export const removeCredFromLS = (...args: string[]) => {
+  args.forEach((i) => localStorage.removeItem(i));
+};

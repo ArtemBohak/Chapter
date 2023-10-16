@@ -16,6 +16,7 @@ const PublicRoute: FC<IRoutesProps> = ({
   const url = location.state ? location.state : redirectUrl;
 
   if (loading) return <Loader />;
+
   return !isAuth ? Component : <Navigate to={url} replace />;
 };
 

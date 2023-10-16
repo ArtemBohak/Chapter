@@ -6,7 +6,6 @@ import { fetchIsAuthUser } from "@/src/redux/slices";
 
 const App = () => {
   const dispatch = useAppDispatch();
-
   useEffect(() => {
     if (getTokenFromLC()) {
       dispatch(fetchIsAuthUser());

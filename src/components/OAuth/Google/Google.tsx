@@ -29,7 +29,6 @@ const Google: FC<SocialsProps> = ({
   const { state, code, currentLocation, setSearchParams } = useGetUrlParams();
   const [googleAuthCode, setGoogleAuthCode] = useState(code);
   const [isLoading, setIsLoading] = useState(false);
-
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
