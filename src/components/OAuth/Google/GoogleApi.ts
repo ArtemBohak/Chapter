@@ -13,20 +13,11 @@ class GoogleApi extends OAuthApi {
   constructor({
     token,
     redirectUri,
-    setSearchParams,
     navigate,
     setIsLoading,
-    setAuthCode,
     dispatch,
   }: OAuthApiArgs) {
-    super(
-      token,
-      setSearchParams,
-      setAuthCode,
-      navigate,
-      dispatch,
-      setIsLoading
-    );
+    super(token, navigate, dispatch, setIsLoading);
     this.redirectUri = redirectUri;
 
     this.login();
@@ -54,9 +45,9 @@ class GoogleApi extends OAuthApi {
     const cred = await this.getGoogleAuthCode();
     const res = await this.google(cred.data.id_token);
 
-    const { token, user } = res.data;
+    const { token, tokenExpires, user } = res.data;
 
-    user.nickName && this.handleData(user, { token });
+    user.nickName && this.handleData(user, { token, tokenExpires });
 
     !user.nickName && this.redirect(user);
 

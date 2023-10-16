@@ -1,6 +1,6 @@
 import axios from "axios";
 import TokenService from "@/src//services/token";
-import { getTokenFromLC } from "@/src/utils";
+import { getTokenFromLC, setDataToLS } from "@/src/utils";
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
@@ -37,9 +37,8 @@ api.interceptors.response.use(
       error.config._isRetry = true;
       try {
         const response = await TokenService.refreshToken();
-        const { token } = response.data;
-
-        localStorage.setItem("token", token);
+        const { token, tokenExpires } = response.data;
+        setDataToLS({ token, tokenExpires });
 
         return api.request(originalRequest);
       } catch (e) {

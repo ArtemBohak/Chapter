@@ -1,4 +1,4 @@
-import { SetURLSearchParams, NavigateFunction } from "react-router-dom";
+import { NavigateFunction } from "react-router-dom";
 import { AppDispatch } from "@/src/redux/store";
 import { IUserStore } from "@/src/redux/types/user";
 import {
@@ -6,6 +6,7 @@ import {
   ButtonVariantType,
   ButtonSizeType,
 } from "../Buttons/UIbutton/UIbutton.type";
+import { Dispatch, SetStateAction } from "react";
 
 export enum OAuthApiEndPoints {
   GOOGLE_TOKEN = "/token",
@@ -31,15 +32,13 @@ export type OAuthProps = {
 };
 
 export type SocialsProps = { stateId: string } & OAuthProps;
-
+export type SetIsLoadingType = Dispatch<SetStateAction<boolean>>;
 export type OAuthApiArgs = {
   navigate: NavigateFunction;
   dispatch: AppDispatch;
-  setIsLoading: (data: boolean) => void;
+  setIsLoading: SetIsLoadingType;
   redirectUri?: string;
   token?: string;
-  setSearchParams?: SetURLSearchParams;
-  setAuthCode?: (data: string) => void;
 };
 
 export type UserData = IUserStore;

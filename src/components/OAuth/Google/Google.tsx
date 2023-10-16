@@ -43,12 +43,13 @@ const Google: FC<SocialsProps> = ({
       new GoogleApi({
         token: googleAuthCode,
         redirectUri: currentLocation,
-        setSearchParams,
         navigate,
         setIsLoading,
-        setAuthCode: setGoogleAuthCode,
         dispatch,
       });
+
+      setGoogleAuthCode("");
+      setSearchParams("");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentLocation, googleAuthCode, oAuthVariant, stateId, state]);

@@ -12,6 +12,7 @@ import { links } from "@/src/utils/links/links.types";
 import { ErrorStatus } from "@/src/pages/RegisterPage/components/RegisterForm/RegisterForm.type";
 import { useAppDispatch } from "@/src/redux/hooks";
 import { oAuthFulfilled } from "@/src/redux/slices";
+import { setDataToLS } from "@/src/utils";
 
 const LoginPageForm: FC = () => {
   const dispatch = useAppDispatch();
@@ -23,7 +24,7 @@ const LoginPageForm: FC = () => {
       setErrors({ ["email"]: " ", ["password"]: "wrong email or password" });
     } else {
       dispatch(oAuthFulfilled(data.user));
-      localStorage.setItem("token", data.token);
+      setDataToLS({ token: data.token, tokenExpires: data.tokenExpires });
     }
   };
   return (

@@ -1,4 +1,4 @@
-import { SetURLSearchParams, NavigateFunction } from "react-router-dom";
+import { NavigateFunction } from "react-router-dom";
 import { AxiosError, AxiosPromise } from "axios";
 import { AppDispatch } from "@/src/redux/store";
 import {
@@ -7,17 +7,15 @@ import {
   oAuthRejected,
 } from "@/src/redux/slices/user";
 import { links, setDataToLS } from "@/src/utils";
-import { UserData } from "./OAuth.type";
+import { SetIsLoadingType, UserData } from "./OAuth.type";
 import { LocaleStorageArgs } from "@/src/utils/localStorage/localStorage.type";
 
 abstract class OAuthApi {
   constructor(
     protected token: string | undefined,
-    private setSearchParams: SetURLSearchParams | undefined,
-    private setAuthCode: ((data: string) => void) | undefined,
     private navigate: NavigateFunction,
     private dispatch: AppDispatch,
-    private setIsLoading: (data: boolean) => void
+    private setIsLoading: SetIsLoadingType
   ) {}
 
   private handleRequest() {
@@ -32,12 +30,6 @@ abstract class OAuthApi {
 
   private handleError(error: string) {
     this.dispatch(oAuthRejected(error));
-  }
-
-  private resetData() {
-    this.setIsLoading(false);
-    this.setSearchParams && this.setSearchParams("");
-    this.setAuthCode && this.setAuthCode("");
   }
 
   protected redirect(user: UserData, url?: string) {
@@ -59,7 +51,7 @@ abstract class OAuthApi {
       } catch (error) {
         if (error instanceof AxiosError) this.handleError(error.message);
       } finally {
-        this.resetData();
+        this.setIsLoading(false);
       }
     };
   }
