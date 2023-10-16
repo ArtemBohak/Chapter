@@ -1,11 +1,6 @@
 import axios from "axios";
 import TokenService from "@/src//services/token";
-import {
-  accessTokenIsExpired,
-  getTokenFromLC,
-  removeCredFromLS,
-  setDataToLS,
-} from "@/src/utils";
+import { getTokenFromLC, removeCredFromLS, setDataToLS } from "@/src/utils";
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
@@ -20,16 +15,6 @@ api.interceptors.request.use(
   async (config) => {
     if (getTokenFromLC())
       config.headers.Authorization = "Bearer" + " " + getTokenFromLC();
-
-    if (getTokenFromLC() && accessTokenIsExpired()) {
-      try {
-        const response = await TokenService.refreshToken();
-        const { token, tokenExpires } = response.data;
-        setDataToLS({ token, tokenExpires });
-      } catch (error) {
-        return Promise.reject(error);
-      }
-    }
 
     return config;
   },
@@ -55,8 +40,8 @@ api.interceptors.response.use(
       error.config._isRetry = true;
       try {
         const response = await TokenService.refreshToken();
-        const { token, tokenExpires } = response.data;
-        setDataToLS({ token, tokenExpires });
+        const { token } = response.data;
+        setDataToLS({ token });
 
         return api.request(originalRequest);
       } catch (e) {

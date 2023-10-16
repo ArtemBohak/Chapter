@@ -24,7 +24,7 @@ const LoginPageForm: FC = () => {
       setErrors({ ["email"]: " ", ["password"]: "wrong email or password" });
     } else {
       dispatch(oAuthFulfilled(data.user));
-      setDataToLS({ token: data.token, tokenExpires: data.tokenExpires });
+      setDataToLS({ token: data.token });
     }
   };
   return (

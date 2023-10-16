@@ -16,9 +16,9 @@ class FacebookApi extends OAuthApi {
 
   private login = this.tryCatchWrapper(async () => {
     const res = await this.facebook(this.token);
-    const { token, tokenExpires, user } = res.data;
+    const { token, user } = res.data;
 
-    user.nickName && this.handleData(user, { token, tokenExpires });
+    user.nickName && this.handleData(user, { token });
 
     !user.nickName && this.redirect(user);
 

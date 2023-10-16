@@ -45,9 +45,9 @@ class GoogleApi extends OAuthApi {
     const cred = await this.getGoogleAuthCode();
     const res = await this.google(cred.data.id_token);
 
-    const { token, tokenExpires, user } = res.data;
+    const { token, user } = res.data;
 
-    user.nickName && this.handleData(user, { token, tokenExpires });
+    user.nickName && this.handleData(user, { token });
 
     !user.nickName && this.redirect(user);
 
