@@ -45,7 +45,7 @@ api.interceptors.response.use(
 
         return api.request(originalRequest);
       } catch (e) {
-        removeCredFromLS("token", "tokenExpires");
+        removeCredFromLS("token");
         return Promise.reject(error);
       }
     }
