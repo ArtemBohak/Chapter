@@ -7,3 +7,4 @@ export {
 } from "./localStorage/localStorage";
 export { accessTokenIsExpired } from "./accessTokenIsExpired/accessTokenIsExpired";
 export { getCookieByName } from "./getCookie/getCookie";
+export { default as checkIsCyrillic } from "./checkIsCyrillic/checkIsCyrillic";

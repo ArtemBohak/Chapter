@@ -10,7 +10,7 @@ import { IAccountCreate } from "./FormCreateAccount.type";
 import api from "@/src/axios/api";
 import { EndpointsEnum } from "@/src/axios/endpoints.types";
 import { useDebounce } from "@/src/hooks/useDebounce";
-
+import { checkIsCyrillic } from "@/src/utils";
 import styles from "./FormCreateAccount.module.scss";
 
 import UIbutton from "@/src/components/Buttons/UIbutton/UIbutton";
@@ -90,6 +90,7 @@ const FormCreateAccount: FC = () => {
     }
   }, [debouncedNickname]);
 
+  // const cyryllic = /[\wа-яіІ]+/gi.test(fullname) ? styles["cyrillic"] : "";
   return (
     <div className={cn(styles["form-create-account"])}>
       <Formik
@@ -102,61 +103,67 @@ const FormCreateAccount: FC = () => {
           isValid,
           dirty,
           values,
-        }: FormikProps<IAccountCreate>) => (
-          <Form>
-            <TextField
-              id="fullname"
-              name="fullname"
-              label="Full Name"
-              value={values.fullname}
-              placeholder="Full Name"
-              dataAutomation="fullname"
-              showSuccessIcon={true}
-            />
-            <TextField
-              id="nickName"
-              name="nickName"
-              label="Nickname"
-              value={nickname ? `@${nickname}` : ""}
-              placeholder="nickname"
-              dataAutomation="nickname"
-              showSuccessIcon={true}
-              onChange={onHandleChange}
-              disabled={isLoadingNk}
-              customErrorMessage={nkErrorMessage}
-            />
-            <PasswordField
-              id="password"
-              name="password"
-              label="Create password"
-              placeholder="Enter your password"
-              strength
-              dataAutomation="password"
-            />
-            <PasswordField
-              id="confirm_password"
-              name="confirm_password"
-              label="Confirm password"
-              placeholder="Re-enter your password"
-              dataAutomation="confirm_password"
-            />
-            <UIbutton
-              type="submit"
-              fullWidth
-              dataAutomation="submitButton"
-              className="p-[12px] text-sm"
-              disabled={!isValid || !dirty}
-              isLoading={isSubmitting}
-            >
-              Submit
-            </UIbutton>
-            {errorMessageForm ? (
-              <p className="text-red text-s text-center mt-1 mr-2">
-                {errorMessageForm}
-              </p>
-            ) : null}
-          </Form>
-        )}
+        }: FormikProps<IAccountCreate>) => {
+          // console.log(values.fullname.match(cyrillicString));
+          return (
+            <Form>
+              <TextField
+                id="fullname"
+                name="fullname"
+                label="Full Name"
+                value={values.fullname}
+                placeholder="Full Name"
+                dataAutomation="fullname"
+                showSuccessIcon={true}
+                className={
+                  checkIsCyrillic(values.fullname) ? styles["cyrillic"] : ""
+                }
+              />
+              <TextField
+                id="nickName"
+                name="nickName"
+                label="Nickname"
+                value={nickname ? `@${nickname}` : ""}
+                placeholder="nickname"
+                dataAutomation="nickname"
+                showSuccessIcon={true}
+                onChange={onHandleChange}
+                disabled={isLoadingNk}
+                customErrorMessage={nkErrorMessage}
+              />
+              <PasswordField
+                id="password"
+                name="password"
+                label="Create password"
+                placeholder="Enter your password"
+                strength
+                dataAutomation="password"
+              />
+              <PasswordField
+                id="confirm_password"
+                name="confirm_password"
+                label="Confirm password"
+                placeholder="Re-enter your password"
+                dataAutomation="confirm_password"
+              />
+              <UIbutton
+                type="submit"
+                fullWidth
+                dataAutomation="submitButton"
+                className="p-[12px] text-sm"
+                disabled={!isValid || !dirty}
+                isLoading={isSubmitting}
+              >
+                Submit
+              </UIbutton>
+              {errorMessageForm ? (
+                <p className="text-red text-s text-center mt-1 mr-2">
+                  {errorMessageForm}
+                </p>
+              ) : null}
+            </Form>
+          );
+        }}
       </Formik>
     </div>
   );
