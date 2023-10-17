@@ -1,5 +1,6 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 
+import { useOutsideClick } from "@/src/hooks";
 import { CountrySelectProps } from "./CountrySelect.type";
 import styles from "../../UserLocation.module.scss";
 
@@ -22,6 +23,9 @@ const CountrySelect: FC<CountrySelectProps> = ({
 }) => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const [icon, setIcon] = useState("");
+  const countryRef = useRef(null);
+
+  useOutsideClick(countryRef, setMenuIsOpen);
 
   useEffect(() => {
     const country = countryList.find((country) => country.id === countryId);
@@ -33,7 +37,7 @@ const CountrySelect: FC<CountrySelectProps> = ({
   }, [countryList, countryId]);
 
   return (
-    <label className={styles["location-form__label"]}>
+    <label className={styles["location-form__label"]} ref={countryRef}>
       <Field
         icon={icon}
         selectMenuIsOpen={menuIsOpen}

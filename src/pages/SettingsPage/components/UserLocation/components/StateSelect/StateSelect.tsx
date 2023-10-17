@@ -6,6 +6,7 @@ import styles from "../../UserLocation.module.scss";
 
 import Field from "../Field/Field";
 import SelectMenu from "../SelectMenu/SelectMenu";
+import { useOutsideClick } from "@/src/hooks";
 
 const StateSelect: FC<StateSelectProps> = ({
   stateList,
@@ -22,6 +23,7 @@ const StateSelect: FC<StateSelectProps> = ({
 }) => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const stateRef = useRef(null);
+  useOutsideClick(stateRef, setMenuIsOpen);
 
   useEffect(() => {
     const state = stateList.find((state) => state.id === stateId);
