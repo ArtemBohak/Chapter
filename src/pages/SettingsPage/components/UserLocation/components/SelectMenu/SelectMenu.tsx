@@ -82,8 +82,8 @@ const SelectMenu: FC<SelectMenuProps> = ({
       unmountOnExit
       classNames={transitionClassNames}
     >
-      <span className={styles["strop-down-menu"]}>
-        <span ref={menuRef} className={styles["strop-down-menu-container"]}>
+      <span className={styles["strop-down-menu"]} кef={menuRef}>
+        <span className={styles["strop-down-menu-container"]}>
           {filteredData.map(({ id, name, emoji }) => (
             <button
               type="button"

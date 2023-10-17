@@ -1,13 +1,13 @@
 .strop-down-menu {
-  @apply absolute overflow-hidden w-full h-full min-h-[120px] max-h-[250px] end-0 z-40 rounded-md;
+  @apply absolute overflow-hidden w-full h-full min-h-[120px] max-h-[130px] end-0 z-40 rounded-lg  border border-grey-1010 bg-[#FAFAFA];
 
   &-container {
-    @apply overflow-scroll p-[12px] w-full h-full  flex flex-col gap-1 bg-[#FAFAFA] border;
+    @apply overflow-scroll py-1-sm pl-1-xs w-full h-full  flex flex-col gap-1-xs;
     & > button {
-      @apply bg-transparent text-start flex gap-1 text-xs laptop:text-sm outline-none max-w-fit;
+      @apply bg-transparent text-start flex gap-1 text-xs laptop:text-sm outline-none w-full transition-colors duration-150;
 
       &:hover {
-        @apply text-orange;
+        @apply bg-grey-1030;
       }
     }
   }
