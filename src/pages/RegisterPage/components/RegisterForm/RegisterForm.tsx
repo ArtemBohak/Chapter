@@ -1,7 +1,7 @@
-import { FC, useState } from "react";
+import { FC, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Formik, Form, FormikHelpers } from "formik";
-
+import { CSSTransition } from "react-transition-group";
 import cn from "classnames";
 
 import RegisterFormApi from "./RegisterFormApi";
@@ -28,6 +28,7 @@ const initialValues: RegisterAccountValues = {
 
 const RegisterForm: FC<RegisterFormProps> = ({ className, ...props }) => {
   const [step, setStep] = useState(Steps.FIRST);
+  const nodeRef = useRef(null);
 
   const navigate = useNavigate();
 
@@ -81,9 +82,18 @@ const RegisterForm: FC<RegisterFormProps> = ({ className, ...props }) => {
     }
   };
 
-  const renderNextStep = (value: string) =>
-    step > Steps.FIRST ? (
-      <>
+  const renderNextStep = (value: string) => (
+    <CSSTransition
+      nodeRef={nodeRef}
+      in={isNextStep}
+      timeout={300}
+      classNames={{
+        enter: styles["register-form__hash-input--enter"],
+        enterActive: styles["register-form__hash-input--enter-active"],
+      }}
+      unmountOnExit
+    >
+      <div ref={nodeRef}>
         <FormNotification />
         <TextField
           id={RegisterAccountKey.HASH}
@@ -92,9 +102,9 @@ const RegisterForm: FC<RegisterFormProps> = ({ className, ...props }) => {
           label="Sign up code"
           value={value}
         />
-      </>
-    ) : null;
-
+      </div>
+    </CSSTransition>
+  );
   return (
     <Formik
       initialValues={initialValues}
