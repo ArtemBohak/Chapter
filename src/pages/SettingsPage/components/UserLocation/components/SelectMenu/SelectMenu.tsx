@@ -12,7 +12,7 @@ const SelectMenu: FC<SelectMenuProps> = ({
   data,
   selectedValue,
   countryId,
-  transitionTimeOut = 200,
+  transitionTimeOut = 150,
   setIcon,
   setSelectedState,
   setStateData,
@@ -82,8 +82,8 @@ const SelectMenu: FC<SelectMenuProps> = ({
       unmountOnExit
       classNames={transitionClassNames}
     >
-      <span className={styles["strop-down-menu"]} кef={menuRef}>
-        <span className={styles["strop-down-menu-container"]}>
+      <span className={styles["strop-down-menu"]}>
+        <span className={styles["strop-down-menu-container"]} ref={menuRef}>
           {filteredData.map(({ id, name, emoji }) => (
             <button
               type="button"
