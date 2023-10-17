@@ -14,6 +14,6 @@ export const setDataToLS = (data: LocaleStorageArgs) => {
   });
 };
 
-export const removeCredFromLS = (...args: string[]) => {
+export const removeDataFromLS = (...args: string[]) => {
   args.forEach((i) => localStorage.removeItem(i));
 };

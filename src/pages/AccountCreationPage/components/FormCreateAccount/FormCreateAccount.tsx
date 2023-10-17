@@ -10,7 +10,7 @@ import { IAccountCreate } from "./FormCreateAccount.type";
 import api from "@/src/axios/api";
 import { EndpointsEnum } from "@/src/axios/endpoints.types";
 import { useDebounce } from "@/src/hooks/useDebounce";
-import { checkIsCyrillic } from "@/src/utils";
+import { checkIsCyrillic, deleteCookie, removeDataFromLS } from "@/src/utils";
 import styles from "./FormCreateAccount.module.scss";
 
 import UIbutton from "@/src/components/Buttons/UIbutton/UIbutton";
@@ -69,7 +69,8 @@ const FormCreateAccount: FC = () => {
         firstName,
         lastName,
       });
-      localStorage.removeItem("fullName");
+      removeDataFromLS("fullName");
+      deleteCookie("email", "userId");
       navigate(links.LOG_IN);
     } catch (e) {
       if (e instanceof AxiosError) {
@@ -90,7 +91,6 @@ const FormCreateAccount: FC = () => {
     }
   }, [debouncedNickname]);
 
-  // const cyryllic = /[\wа-яіІ]+/gi.test(fullname) ? styles["cyrillic"] : "";
   return (
     <div className={cn(styles["form-create-account"])}>
       <Formik

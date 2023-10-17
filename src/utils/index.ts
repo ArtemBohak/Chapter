@@ -3,8 +3,8 @@ export { links } from "./links/links.types";
 export {
   setDataToLS,
   getTokenFromLC,
-  removeCredFromLS,
+  removeDataFromLS,
 } from "./localStorage/localStorage";
 export { accessTokenIsExpired } from "./accessTokenIsExpired/accessTokenIsExpired";
-export { getCookieByName } from "./getCookie/getCookie";
+export { getCookie, setCookie, deleteCookie } from "./cookies/cookies";
 export { default as checkIsCyrillic } from "./checkIsCyrillic/checkIsCyrillic";
