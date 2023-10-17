@@ -1,1 +1,1 @@
-export const cyrillicPattern = /^[А-ЯЁа-яёіІ\s'`-]+$/u;
+export const cyrillicPattern = /^([\wа-яА-ЯіІ]{1,})+([\w\sа-яА-ЯіІ]{1,})+$/i;

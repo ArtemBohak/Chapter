@@ -32,7 +32,9 @@ export type OAuthProps = {
 };
 
 export type SocialsProps = { stateId: string } & OAuthProps;
+
 export type SetIsLoadingType = Dispatch<SetStateAction<boolean>>;
+
 export type OAuthApiArgs = {
   navigate: NavigateFunction;
   dispatch: AppDispatch;

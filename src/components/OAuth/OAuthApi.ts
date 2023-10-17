@@ -43,7 +43,7 @@ abstract class OAuthApi {
     this.navigate(redirectUrl);
   }
 
-  protected tryCatchWrapper(cb: () => AxiosPromise) {
+  protected tryCatchWrapper(cb: () => AxiosPromise<UserData>) {
     return async () => {
       this.handleRequest();
       try {

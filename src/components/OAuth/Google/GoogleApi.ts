@@ -1,6 +1,7 @@
 import OAuthApi from "../OAuthApi";
 import { OAuthApiArgs, OAuthApiEndPoints } from "../OAuth.type";
 import { googleOAuthApi, api, EndpointsEnum } from "@/src/axios";
+import { AxiosPromise } from "axios";
 
 const { VITE_GOOGLE_CLIENT_ID, VITE_GOOGLE_CLIENT_SECRET } = import.meta.env;
 
@@ -23,7 +24,7 @@ class GoogleApi extends OAuthApi {
     this.login();
   }
 
-  private async google(googleIdToken: string) {
+  private async google(googleIdToken: string): AxiosPromise {
     return api.post(EndpointsEnum.GOOGLE_LOGIN, {
       idToken: googleIdToken,
     });
