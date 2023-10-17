@@ -47,7 +47,7 @@ const RegisterForm: FC<RegisterFormProps> = ({ className, ...props }) => {
           hash,
         });
 
-        setCookie({ email, userId: id });
+        setCookie({ email, userId: id }, undefined, 604800);
         if (status === ErrorStatus.NOTFOUND)
           return setFieldError(RegisterAccountKey.HASH, ErrorMessage.HASH);
 
@@ -66,8 +66,8 @@ const RegisterForm: FC<RegisterFormProps> = ({ className, ...props }) => {
       }
       if (
         status === ErrorStatus.UNPROCESSABLE_ENTITY &&
-        getCookie("email") &&
-        getCookie("userId")
+        getCookie("userId") &&
+        getCookie("email") === email
       )
         return navigate(`${links.ACCOUNT_CREATION}/${getCookie("userId")}`);
 
