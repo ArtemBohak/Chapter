@@ -5,6 +5,7 @@ export {
   getTokenFromLC,
   removeDataFromLS,
 } from "./localStorage/localStorage";
-export { accessTokenIsExpired } from "./accessTokenIsExpired/accessTokenIsExpired";
+export { checkAccessToken } from "./checkAccessToken/checkAccessToken";
 export { getCookie, setCookie, deleteCookie } from "./cookies/cookies";
 export { default as checkIsCyrillic } from "./checkIsCyrillic/checkIsCyrillic";
+export { default as hashingString } from "./hashingString/hashingString";

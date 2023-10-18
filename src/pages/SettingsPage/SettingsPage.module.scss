@@ -1,0 +1,27 @@
+.settings {
+  @apply pt-[88px] md:pt-[108px] md:pb-2-md laptop:pt-[172px] laptop:pb-5-lg  laptop:bg-grey-1030;
+
+  &__container {
+    @apply w-full max-w-[328px] md:max-w-[672px] laptop:max-w-[962px] mx-auto md:px-[58px] laptop:px-[120px] bg-[#fefefe];
+
+    &-top {
+      @apply pb-2-xs md:pb-3-md md:pt-3-xs laptop:pb-1-lg laptop:pt-[66px] md:border-t md:border-l md:border-l-grey-1010 md:border-r md:border-r-grey-1010 md:border-t-grey-1010  border-b border-b-grey-1010 md:rounded-t-lg laptop:border-t-0 laptop:border-l-0 laptop:border-r-0 md:flex md:gap-2-xs laptop:gap-5-xs;
+    }
+    &-bottom {
+      @apply pt-2-xs pb-2-lg md:pb-3-xs md:pt-3-xs laptop:pb-4-xs laptop:pt-3-lg md:border-b  md:border-b-grey-1010 md:border-l md:border-l-grey-1010 md:border-r md:border-r-grey-1010  laptop:border-l-0 laptop:border-r-0 laptop:border-b-0;
+    }
+  }
+
+  &__input-wrapper {
+    @apply mt-1-xs md:mt-0 w-full;
+  }
+}
+
+.form-wrapper {
+  &__top-spacing {
+    @apply mt-1-lg;
+  }
+  &__bottom-spacing {
+    @apply mb-2-xs laptop:mb-2-lg;
+  }
+}

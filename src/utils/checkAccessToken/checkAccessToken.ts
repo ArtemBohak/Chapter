@@ -1,6 +1,6 @@
 import { getExpiresTokenValueFromLS } from "../localStorage/localStorage";
 
-export const accessTokenIsExpired = (): boolean => {
+export const checkAccessToken = (): boolean => {
   const tokenExpires = getExpiresTokenValueFromLS();
 
   if (tokenExpires) {
