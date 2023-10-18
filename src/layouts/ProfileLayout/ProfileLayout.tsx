@@ -41,9 +41,10 @@ const ProfileLayout: FC = () => {
             <ProfileHeader />
           </NavigationTogglerProvider>
           <main>
-            <div className={styles["profile-layout__body"]}>
+            <Outlet />
+            {/* <div className={styles["profile-layout__body"]}>
               <Outlet />
-            </div>
+            </div> */}
           </main>
         </div>
       ) : (

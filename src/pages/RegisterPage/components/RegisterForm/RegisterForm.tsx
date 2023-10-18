@@ -2,11 +2,9 @@ import { FC, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Formik, Form, FormikHelpers } from "formik";
 import { CSSTransition } from "react-transition-group";
-import cn from "classnames";
 
 import RegisterFormApi from "./RegisterFormApi";
 import {
-  type RegisterFormProps,
   RegisterAccountValues,
   EmailStatus,
   ErrorMessage,
@@ -26,7 +24,7 @@ const initialValues: RegisterAccountValues = {
   hash: "",
 };
 
-const RegisterForm: FC<RegisterFormProps> = ({ className, ...props }) => {
+const RegisterForm: FC = () => {
   const [step, setStep] = useState(Steps.FIRST);
   const nodeRef = useRef(null);
 
@@ -102,10 +100,9 @@ const RegisterForm: FC<RegisterFormProps> = ({ className, ...props }) => {
       initialValues={initialValues}
       validationSchema={validationSchema(isNextStep)}
       onSubmit={onHandleSubmit}
-      {...props}
     >
       {({ isSubmitting, dirty, isValid, values }) => (
-        <Form className={cn(styles["register-form"], className)}>
+        <Form className={styles["register-form"]}>
           <TextField
             id={RegisterAccountKey.EMAIL}
             name={RegisterAccountKey.EMAIL}
