@@ -34,7 +34,7 @@ const ProfileLayout: FC = () => {
 
   return (
     <>
-      {!userSlice.loading && !userSlice.isAuth ? (
+      {!userSlice.loading && userSlice.isAuth ? (
         <div className={styles["profile-layout"]}>
           <NavigationTogglerProvider>
             <SidebarNavigation />
