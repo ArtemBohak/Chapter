@@ -126,7 +126,7 @@ const UserLocation: FC = () => {
         disabled={buttonIsDisabled}
         type="submit"
       >
-        Save
+        Save changes
       </UIbutton>
     </form>
   );
