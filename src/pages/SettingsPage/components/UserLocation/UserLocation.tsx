@@ -53,14 +53,15 @@ const UserLocation: FC = () => {
     e.preventDefault();
     try {
       setIsLoading(true);
-      const userLocation = [selectedCountry];
-      selectedCity && userLocation.unshift(selectedCity);
+
       setTimeout(() => {
         console.log({
           countryId,
           stateId,
           cityId,
-          userLocation,
+          userLocation: selectedCity
+            ? selectedCity.concat(", ", selectedCountry)
+            : selectedCountry,
         });
         setIsLoading(false);
       }, 1000);
