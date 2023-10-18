@@ -11,25 +11,23 @@ const IconButton: FC<IconButtonProps> = ({
   onHandleSave,
   classNames,
 }) => {
+  const onHandleClick = () => {
+    if (isEditing) return onHandleSave();
+    onHandleEdit();
+  };
   return (
     <>
-      {isEditing ? (
-        <button
-          onClick={onHandleSave}
-          className={`${styles["icon-button"]} ${classNames}`}
-          data-automation="clickButton"
-        >
+      <button
+        onClick={onHandleClick}
+        data-automation="clickButton"
+        className={`${styles["icon-button"]} ${classNames}`}
+      >
+        {isEditing ? (
           <Icon icon={IconEnum.Save} />
-        </button>
-      ) : (
-        <button
-          onClick={onHandleEdit}
-          className={`${styles["icon-button"]} ${classNames}`}
-          data-automation="clickButton"
-        >
+        ) : (
           <Icon icon={IconEnum.Edit} />
-        </button>
-      )}
+        )}
+      </button>
     </>
   );
 };

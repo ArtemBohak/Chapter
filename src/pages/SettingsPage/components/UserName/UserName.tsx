@@ -26,7 +26,7 @@ const UserName: FC = () => {
           className={styles["info-label__input"]}
           onChange={onHandleChange}
           disabled={!isEditing}
-          data-automation="userName"
+          data-automation="userNameInput"
         />
       </label>
     </>

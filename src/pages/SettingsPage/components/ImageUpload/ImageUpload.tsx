@@ -43,9 +43,12 @@ const ImageUpload: FC<ImageUploadProps> = ({ setAvatarUrl }) => {
         accept="image/*"
         data-automation="uploadInput"
       />
-      <span className={styles["image-upload__button"]}>
+      <button
+        className={styles["image-upload__button"]}
+        data-automation="clickButton"
+      >
         <Icon icon={IconEnum.Camera} size={20} /> <span>Upload new photo</span>
-      </span>
+      </button>
     </label>
   );
 };

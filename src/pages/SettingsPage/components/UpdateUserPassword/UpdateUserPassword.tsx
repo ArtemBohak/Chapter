@@ -31,7 +31,7 @@ const UpdateUserPassword: FC = () => {
         return (
           <Form className={styles["update-password"]}>
             <PasswordField
-              dataAutomation="oldPassword"
+              dataAutomation="oldPasswordInput"
               id="oldPassword"
               name="oldPassword"
               autoComplete="current-password"
@@ -40,7 +40,7 @@ const UpdateUserPassword: FC = () => {
               className={`${styles["update-password__input"]} ${styles["input"]}`}
             />
             <PasswordField
-              dataAutomation="newPassword"
+              dataAutomation="newPasswordInput"
               id="newPassword"
               name="newPassword"
               autoComplete="new-password"
@@ -51,7 +51,7 @@ const UpdateUserPassword: FC = () => {
               strength
             />
             <PasswordField
-              dataAutomation="confirmNewPassword"
+              dataAutomation="confirmNewPasswordInput"
               id="confirmNewPassword"
               name="confirmNewPassword"
               autoComplete="new-password"
