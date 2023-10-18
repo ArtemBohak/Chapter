@@ -1,6 +1,6 @@
 import { FC, FormEvent, useState } from "react";
 
-import FilesService from "@/src/services/image/Files";
+import FilesService from "@/src/services/Files/Files";
 import { useAppSelector } from "@/src/redux/hooks";
 import styles from "./ImageUpload.module.scss";
 import { ImageUploadProps } from "./ImageUpload.type";

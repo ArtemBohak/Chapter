@@ -1,5 +1,5 @@
 import axios, { AxiosPromise } from "axios";
-import { EndpointsEnum } from "../axios/endpoints.types";
+import { EndpointsEnum } from "@/src/axios";
 
 type RefreshTokenType = {
   token: string;
