@@ -433,6 +433,54 @@
       },
       "setIdx": 0,
       "setId": 3,
+          "M981.33 810.665c0 22.636-8.991 44.339-24.996 60.339-16 16.005-37.709 24.996-60.339 24.996h-767.999c-22.632 0-44.337-8.991-60.34-24.996-16.003-16-24.994-37.704-24.994-60.339v-469.331c0-22.632 8.991-44.337 24.994-60.34s37.708-24.994 60.34-24.994h170.666l85.334-128h255.999l85.335 128h170.665c22.63 0 44.339 8.99 60.339 24.994 16.005 16.003 24.996 37.708 24.996 60.34v469.331z",
+          "M511.996 725.335c94.258 0 170.669-76.411 170.669-170.67 0-94.255-76.411-170.665-170.669-170.665-94.257 0-170.667 76.41-170.667 170.665 0 94.259 76.41 170.67 170.667 170.67z"
+        ],
+        "attrs": [
+          {
+            "fill": "none",
+            "strokeLinejoin": "round",
+            "strokeLinecap": "round",
+            "strokeMiterlimit": "4",
+            "strokeWidth": 102.4
+          },
+          {
+            "fill": "none",
+            "strokeLinejoin": "round",
+            "strokeLinecap": "round",
+            "strokeMiterlimit": "4",
+            "strokeWidth": 102.4
+          }
+        ],
+        "isMulticolor": false,
+        "isMulticolor2": false,
+        "grid": 0,
+        "tags": ["camera"]
+      },
+      "attrs": [
+        {
+          "fill": "none",
+          "strokeLinejoin": "round",
+          "strokeLinecap": "round",
+          "strokeMiterlimit": "4",
+          "strokeWidth": 102.4
+        },
+        {
+          "fill": "none",
+          "strokeLinejoin": "round",
+          "strokeLinecap": "round",
+          "strokeMiterlimit": "4",
+          "strokeWidth": 102.4
+        }
+      ],
+      "properties": {
+        "order": 13,
+        "id": 0,
+        "name": "camera",
+        "prevSize": 32
+      },
+      "setIdx": 0,
+      "setId": 5,
       "iconIdx": 0
     },
     {
@@ -459,6 +507,91 @@
       "setIdx": 0,
       "setId": 2,
       "iconIdx": 2
+          "M909.312 293.478l-178.79-178.688c-11.582-11.585-27.585-18.751-45.261-18.751s-33.678 7.166-45.261 18.751l-493.261 493.21c-11.575 11.488-18.74 27.404-18.74 44.994 0 0.094 0 0.187 0.001 0.281l-0-0.014v178.739c0 35.346 28.654 64 64 64v0h672c17.673 0 32-14.327 32-32s-14.327-32-32-32v0h-402.739l448-448c11.585-11.582 18.751-27.585 18.751-45.261s-7.166-33.678-18.751-45.261l-0-0zM370.688 832h-178.688v-178.688l352-352 178.739 178.739-352 352zM768 434.739l-178.688-178.688 95.949-96.051 178.739 178.739-96 96z"
+        ],
+        "attrs": [
+          {
+            "fill": "rgb(247, 148, 0)"
+          }
+        ],
+        "isMulticolor": false,
+        "isMulticolor2": false,
+        "grid": 0,
+        "tags": ["edit"],
+        "colorPermutations": {
+          "12542542541": [
+            {
+              "f": 0
+            }
+          ],
+          "247148012542542541": [
+            {
+              "f": 0
+            }
+          ]
+        }
+      },
+      "attrs": [
+        {
+          "fill": "rgb(247, 148, 0)"
+        }
+      ],
+      "properties": {
+        "order": 14,
+        "id": 1,
+        "name": "edit",
+        "prevSize": 32
+      },
+      "setIdx": 0,
+      "setId": 4,
+      "iconIdx": 0
+    },
+    {
+      "icon": {
+        "paths": [
+          "M725.35 896v-341.35h-426.701v341.35M298.65 128v213.35h341.35M810.65 896h-597.299c-47.138 0-85.35-38.213-85.35-85.35v0-597.299c0-47.138 38.213-85.35 85.35-85.35v0h469.299l213.35 213.35v469.299c0 0.015 0 0.033 0 0.051 0 47.109-38.19 85.299-85.299 85.299-0.018 0-0.036-0-0.054-0l0.003 0z"
+        ],
+        "attrs": [
+          {
+            "fill": "none",
+            "stroke": "rgb(246, 148, 0)",
+            "strokeLinejoin": "round",
+            "strokeLinecap": "round",
+            "strokeMiterlimit": "4",
+            "strokeWidth": 102.4
+          }
+        ],
+        "isMulticolor": false,
+        "isMulticolor2": false,
+        "grid": 0,
+        "tags": ["save"],
+        "colorPermutations": {
+          "24614801247148012542542541": [
+            {
+              "s": 0
+            }
+          ]
+        }
+      },
+      "attrs": [
+        {
+          "fill": "none",
+          "stroke": "rgb(246, 148, 0)",
+          "strokeLinejoin": "round",
+          "strokeLinecap": "round",
+          "strokeMiterlimit": "4",
+          "strokeWidth": 102.4
+        }
+      ],
+      "properties": {
+        "order": 15,
+        "id": 2,
+        "name": "save",
+        "prevSize": 32
+      },
+      "setIdx": 0,
+      "setId": 4,
+      "iconIdx": 0
     }
   ],
   "height": 1024,

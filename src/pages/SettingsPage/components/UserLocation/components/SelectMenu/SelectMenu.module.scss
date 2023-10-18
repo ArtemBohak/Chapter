@@ -1,0 +1,32 @@
+.strop-down-menu {
+  @apply absolute overflow-hidden w-full  end-0 z-40  bg-[#FAFAFA];
+
+  &-container {
+    @apply overflow-scroll w-full h-full min-h-fit  max-h-[130px] py-1-sm pl-1-xs  rounded-lg  border border-grey-1010 flex flex-col gap-1-xs;
+    & > button {
+      @apply bg-transparent text-start flex gap-1 text-xs laptop:text-sm outline-none w-full transition-colors duration-150;
+
+      &:hover {
+        @apply bg-grey-1030;
+      }
+    }
+  }
+}
+
+.select-menu {
+  &-enter {
+    @apply -translate-y-full;
+
+    &-active {
+      @apply translate-y-0 transition-all duration-150;
+    }
+  }
+
+  &-exit {
+    @apply translate-y-0;
+
+    &-active {
+      @apply -translate-y-full transition-all duration-150;
+    }
+  }
+}

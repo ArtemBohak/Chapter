@@ -1,0 +1,28 @@
+.location-form {
+  @apply flex flex-col gap-[10px];
+
+  &__label {
+    @apply relative;
+  }
+  &__button.button {
+    @apply w-full max-w-[316px] mx-auto h-[40px] md:h-[48px] mt-[6px];
+  }
+}
+
+.select-menu {
+  &-enter {
+    @apply opacity-0 scale-0;
+
+    &-active {
+      @apply opacity-100 scale-100 transition-all duration-300;
+    }
+  }
+
+  &-exit {
+    @apply opacity-100 scale-100;
+
+    &-active {
+      @apply opacity-0 scale-0 transition-all duration-300;
+    }
+  }
+}
