@@ -1,25 +1,21 @@
-import { SetURLSearchParams } from "react-router-dom";
+import { NavigateFunction } from "react-router-dom";
 import { AxiosError, AxiosPromise } from "axios";
-
 import { AppDispatch } from "@/src/redux/store";
 import {
   oAuthPending,
   oAuthFulfilled,
   oAuthRejected,
 } from "@/src/redux/slices/user";
-import { links, setTokenToLS } from "@/src/utils";
-import { CredentialData, UserData } from "./OAuth.type";
+import { links, setDataToLS } from "@/src/utils";
+import { SetIsLoadingType, UserData } from "./OAuth.type";
+import { LocaleStorageArgs } from "@/src/utils/localStorage/localStorage.type";
 
 abstract class OAuthApi {
-  private url = [links.ACCOUNT_CREATION, links.FEED];
-
   constructor(
     protected token: string | undefined,
-    private setSearchParams: SetURLSearchParams | undefined,
-    private setAuthCode: ((data: string) => void) | undefined,
-    protected navigate: (data: string) => void,
+    private navigate: NavigateFunction,
     private dispatch: AppDispatch,
-    private setIsLoading: (data: boolean) => void
+    private setIsLoading: SetIsLoadingType
   ) {}
 
   private handleRequest() {
@@ -27,33 +23,27 @@ abstract class OAuthApi {
     this.dispatch(oAuthPending());
   }
 
-  protected handleCredentials({ token, tokenExpires }: CredentialData) {
-    setTokenToLS({
-      token,
-      tokenExpires,
-    });
-  }
-
-  protected handleData(user: UserData) {
+  protected handleData(user: UserData, cred: LocaleStorageArgs) {
     this.dispatch(oAuthFulfilled(user));
+    setDataToLS(cred);
   }
 
   private handleError(error: string) {
     this.dispatch(oAuthRejected(error));
   }
 
-  private resetData() {
-    this.setIsLoading(false);
-    this.setSearchParams && this.setSearchParams("");
-    this.setAuthCode && this.setAuthCode("");
+  protected redirect(user: UserData, url?: string) {
+    const redirectUrl = url ? url : `${links.ACCOUNT_CREATION}/${user.id}`;
+    const fullName = `${user.firstName ? user.firstName : ""}${
+      user.lastName ? ` ${user.lastName}` : ""
+    }`;
+    setDataToLS({
+      fullName,
+    });
+    this.navigate(redirectUrl);
   }
 
-  protected redirect(hasNickName: boolean, id?: number) {
-    const [accountCreate, feed] = this.url;
-    return hasNickName ? feed : accountCreate + "/" + id;
-  }
-
-  protected tryCatchWrapper(cb: () => AxiosPromise) {
+  protected tryCatchWrapper(cb: () => AxiosPromise<UserData>) {
     return async () => {
       this.handleRequest();
       try {
@@ -61,7 +51,7 @@ abstract class OAuthApi {
       } catch (error) {
         if (error instanceof AxiosError) this.handleError(error.message);
       } finally {
-        this.resetData();
+        this.setIsLoading(false);
       }
     };
   }

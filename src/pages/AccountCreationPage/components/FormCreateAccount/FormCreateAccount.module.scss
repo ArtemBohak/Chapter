@@ -1,3 +1,14 @@
 .form-create-account {
   @apply max-w-[320px] w-full mx-auto;
 }
+
+.cyrillic {
+  @apply font-montserrat;
+  & input {
+    @apply font-montserrat;
+
+    &::placeholder {
+      @apply font-poppins;
+    }
+  }
+}

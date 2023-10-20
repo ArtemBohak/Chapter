@@ -22,10 +22,6 @@ export enum Steps {
   SECOND = 2,
 }
 
-export type RegisterFormProps = {
-  className?: string;
-};
-
 export type RegisterAccountValues = {
   [RegisterAccountKey.EMAIL]: string;
   [RegisterAccountKey.HASH]: string;

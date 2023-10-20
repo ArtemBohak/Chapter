@@ -66,12 +66,12 @@ const Facebook: FC<SocialsProps> = ({
     ) {
       new FacebookApi({
         token: facebookAuthCode,
-        setSearchParams,
         navigate,
         setIsLoading,
-        setAuthCode: setFacebookAuthCode,
         dispatch,
       });
+      setSearchParams("");
+      setFacebookAuthCode("");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [faceBookState, facebookAuthCode, oAuthVariant, stateId]);

@@ -3,22 +3,8 @@ import { EndpointsEnum, api } from "@/src/axios";
 import { OAuthApiArgs } from "../OAuth.type";
 
 class FacebookApi extends OAuthApi {
-  constructor({
-    token,
-    setSearchParams,
-    navigate,
-    setIsLoading,
-    setAuthCode,
-    dispatch,
-  }: OAuthApiArgs) {
-    super(
-      token,
-      setSearchParams,
-      setAuthCode,
-      navigate,
-      dispatch,
-      setIsLoading
-    );
+  constructor({ token, navigate, setIsLoading, dispatch }: OAuthApiArgs) {
+    super(token, navigate, dispatch, setIsLoading);
 
     this.login();
   }
@@ -30,12 +16,11 @@ class FacebookApi extends OAuthApi {
 
   private login = this.tryCatchWrapper(async () => {
     const res = await this.facebook(this.token);
-    const { token, tokenExpires, user } = res.data;
+    const { token, user } = res.data;
 
-    this.handleData(user);
-    if (user.nickName) this.handleCredentials({ token, tokenExpires });
+    user.nickName && this.handleData(user, { token });
 
-    this.navigate(this.redirect(user.nickName, user.id));
+    !user.nickName && this.redirect(user);
 
     return res;
   });
