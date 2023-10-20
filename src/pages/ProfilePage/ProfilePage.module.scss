@@ -1,6 +1,6 @@
 
 .profile-conteiner {
-@apply flex gap-5 h-full w-full;
+@apply flex gap-5 h-full w-full mt-[78px] laptop:mt-[172px] px-[24px] laptop:px-[72px];
 @media (max-width: 769px) {
     @apply flex-col justify-center items-center;
 }

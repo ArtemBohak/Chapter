@@ -1,19 +1,21 @@
 import { ChangeEvent, FC, useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import cn from "classnames";
 import { AxiosError } from "axios";
-
 import { Formik, Form, FormikProps, FormikHelpers } from "formik";
 
-import UIbutton from "@/src/components/Buttons/UIbutton/UIbutton";
-import { TextField, PasswordField } from "@/src/components/Fields";
-
 import validationSchema from "./validationSchema";
+
 import { IAccountCreate } from "./FormCreateAccount.type";
 import api from "@/src/axios/api";
 import { EndpointsEnum } from "@/src/axios/endpoints.types";
 import { useDebounce } from "@/src/hooks/useDebounce";
-
+import { checkIsCyrillic, deleteCookie, removeDataFromLS } from "@/src/utils";
 import styles from "./FormCreateAccount.module.scss";
+
+import UIbutton from "@/src/components/Buttons/UIbutton/UIbutton";
+import { TextField, PasswordField } from "@/src/components/Fields";
+import { links } from "@/src/utils";
 
 const initialValues: IAccountCreate = {
   fullname: "",
@@ -23,6 +25,9 @@ const initialValues: IAccountCreate = {
 };
 
 const FormCreateAccount: FC = () => {
+  const LSFullName = localStorage.getItem("fullName");
+  const fullname = LSFullName ? LSFullName : "";
+
   const [isLoadingNk, setIsLoadingNk] = useState<boolean>(false);
   const [nkErrorMessage, setNkErrorMessage] = useState<string | null>(null);
   const [errorMessageForm, setErrorMessageForm] = useState<
@@ -30,8 +35,8 @@ const FormCreateAccount: FC = () => {
   >(null);
   const [nickname, setNickname] = useState<string>("");
   const debouncedNickname = useDebounce(nickname, 500);
-
-  const userId = "123";
+  const navigate = useNavigate();
+  const { userId } = useParams();
 
   function handleNicknameChange(nickname: string) {
     try {
@@ -55,19 +60,18 @@ const FormCreateAccount: FC = () => {
       setSubmitting(true);
 
       const [firstName, lastName] = values.fullname.split(" ");
-      const { nickName, confirm_password } = values;
+      const { nickName, confirm_password, password } = values;
 
-      const data = await api.patch(
-        `${EndpointsEnum.REGISTRATION_FINALY}/${userId}`,
-        {
-          nickName: nickName,
-          password: confirm_password,
-          firstName,
-          lastName,
-        }
-      );
-
-      console.log(data);
+      await api.patch(`${EndpointsEnum.REGISTRATION_FINALY}/${userId}`, {
+        nickName: nickName,
+        password,
+        confirmPassword: confirm_password,
+        firstName,
+        lastName,
+      });
+      removeDataFromLS("fullName");
+      deleteCookie("email", "userId");
+      navigate(links.LOG_IN);
     } catch (e) {
       if (e instanceof AxiosError) {
         setErrorMessageForm(e.response?.data.message || e.response?.data.error);
@@ -75,6 +79,11 @@ const FormCreateAccount: FC = () => {
       setSubmitting(false);
     }
   }
+
+  const onHandleChange = (e: ChangeEvent<HTMLInputElement>) =>
+    e.currentTarget.value[0] === "@"
+      ? setNickname(e.currentTarget.value.slice(1))
+      : setNickname(e.currentTarget.value);
 
   useEffect(() => {
     if (debouncedNickname !== "") {
@@ -85,65 +94,76 @@ const FormCreateAccount: FC = () => {
   return (
     <div className={cn(styles["form-create-account"])}>
       <Formik
-        initialValues={initialValues}
+        initialValues={{ ...initialValues, fullname }}
         validationSchema={validationSchema}
         onSubmit={handleCreateAccount}
       >
-        {({ isSubmitting, isValid, dirty }: FormikProps<IAccountCreate>) => (
-          <Form>
-            <TextField
-              id="fullname"
-              name="fullname"
-              label="Full Name"
-              placeholder="Full Name"
-              dataAutomation="fullname"
-              showSuccessIcon={true}
-            />
-            <TextField
-              id="nickName"
-              name="nickName"
-              label="Nickname"
-              placeholder="nickname"
-              dataAutomation="nickname"
-              showSuccessIcon={true}
-              onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                setNickname(e.currentTarget.value)
-              }
-              disabled={isLoadingNk}
-              customErrorMessage={nkErrorMessage}
-            />
-            <PasswordField
-              id="password"
-              name="password"
-              label="Create password"
-              placeholder="Enter your password"
-              strength
-              dataAutomation="password"
-            />
-            <PasswordField
-              id="confirm_password"
-              name="confirm_password"
-              label="Confirm password"
-              placeholder="Re-enter your password"
-              dataAutomation="confirm_password"
-            />
-            <UIbutton
-              type="submit"
-              fullWidth
-              dataAutomation="submitButton"
-              className="p-[12px] text-sm"
-              disabled={!isValid || !dirty}
-              isLoading={isSubmitting}
-            >
-              Submit
-            </UIbutton>
-            {errorMessageForm ? (
-              <p className="text-red text-s text-center mt-1 mr-2">
-                {errorMessageForm}
-              </p>
-            ) : null}
-          </Form>
-        )}
+        {({
+          isSubmitting,
+          isValid,
+          dirty,
+          values,
+        }: FormikProps<IAccountCreate>) => {
+          // console.log(values.fullname.match(cyrillicString));
+          return (
+            <Form>
+              <TextField
+                id="fullname"
+                name="fullname"
+                label="Full Name"
+                value={values.fullname}
+                placeholder="Full Name"
+                dataAutomation="fullname"
+                showSuccessIcon={true}
+                className={
+                  checkIsCyrillic(values.fullname) ? styles["cyrillic"] : ""
+                }
+              />
+              <TextField
+                id="nickName"
+                name="nickName"
+                label="Nickname"
+                value={nickname ? `@${nickname}` : ""}
+                placeholder="nickname"
+                dataAutomation="nickname"
+                showSuccessIcon={true}
+                onChange={onHandleChange}
+                disabled={isLoadingNk}
+                customErrorMessage={nkErrorMessage}
+              />
+              <PasswordField
+                id="password"
+                name="password"
+                label="Create password"
+                placeholder="Enter your password"
+                strength
+                dataAutomation="password"
+              />
+              <PasswordField
+                id="confirm_password"
+                name="confirm_password"
+                label="Confirm password"
+                placeholder="Re-enter your password"
+                dataAutomation="confirm_password"
+              />
+              <UIbutton
+                type="submit"
+                fullWidth
+                dataAutomation="submitButton"
+                className="p-[12px] text-sm"
+                disabled={!isValid || !dirty}
+                isLoading={isSubmitting}
+              >
+                Submit
+              </UIbutton>
+              {errorMessageForm ? (
+                <p className="text-red text-s text-center mt-1 mr-2">
+                  {errorMessageForm}
+                </p>
+              ) : null}
+            </Form>
+          );
+        }}
       </Formik>
     </div>
   );

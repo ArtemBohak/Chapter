@@ -17,4 +17,7 @@ export enum IconEnum {
   AddPost = "add-post",
   EditProfile = "edit-profile",
   Location = "location-icon",
+  Camera = "camera",
+  Edit = "edit",
+  Save = "save",
 }

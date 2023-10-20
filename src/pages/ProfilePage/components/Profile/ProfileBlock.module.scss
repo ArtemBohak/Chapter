@@ -16,6 +16,9 @@
     @media (min-width: 1367px) {
         @apply flex-col;
     }
+    &__fulname {
+        @apply max-w-full;
+    }
     &__status {
         @apply max-w-[387px];
     }
@@ -28,7 +31,7 @@
     }
     
     .buttons-block {
-    @apply flex flex-wrap w-full gap-2;
+    @apply flex w-full gap-2;
     
     @media (min-width: 1024px) {
         @apply flex flex-col my-[16px] gap-2;

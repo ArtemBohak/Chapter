@@ -1,0 +1,9 @@
+
+.button-posts {
+    @apply w-1/2 active:bg-[#FFC368] rounded-none rounded-tl-sm;
+ 
+}
+
+.button-liked {
+        @apply w-1/2 active:bg-[#FFC368] rounded-none rounded-tr-sm;
+}

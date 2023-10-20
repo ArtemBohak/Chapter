@@ -1,31 +1,34 @@
 import axios from "axios";
-import TokenService from "@/src//services/token";
-import { getTokenFromLC } from "@/src/utils";
+import { TokenService } from "@/src/services";
+import { getTokenFromLC, removeDataFromLS, setDataToLS } from "@/src/utils";
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
-  withCredentials: false,
+  withCredentials: true,
   method: "get, post, put, delete, patch",
   headers: {
     "X-Requested-With": "XMLHttpRequest",
   },
 });
 
-api.interceptors.request.use((request) => {
-  if (getTokenFromLC()) {
-    request.headers.Authorization = `Bearer ${getTokenFromLC()}`;
+api.interceptors.request.use(
+  async (config) => {
+    if (getTokenFromLC())
+      config.headers.Authorization = "Bearer" + " " + getTokenFromLC();
+
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
   }
-  return request;
-});
+);
 
 api.interceptors.response.use(
   (response) => {
     return response;
   },
   async (error) => {
-    if (!getTokenFromLC()) {
-      return Promise.reject(error);
-    }
+    if (!getTokenFromLC()) return Promise.reject(error);
 
     const originalRequest = error.config;
 
@@ -37,13 +40,12 @@ api.interceptors.response.use(
       error.config._isRetry = true;
       try {
         const response = await TokenService.refreshToken();
-        const { token } = await response.data;
-
-        localStorage.setItem("token", token);
+        const { token } = response.data;
+        setDataToLS({ token });
 
         return api.request(originalRequest);
       } catch (e) {
-        console.log("User doesn`t authorized");
+        removeDataFromLS("token");
         return Promise.reject(error);
       }
     }

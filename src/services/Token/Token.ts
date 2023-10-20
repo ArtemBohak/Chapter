@@ -1,10 +1,10 @@
 import axios, { AxiosPromise } from "axios";
-import { EndpointsEnum } from "../axios/endpoints.types";
+import { EndpointsEnum } from "@/src/axios";
 
 type RefreshTokenType = {
   token: string;
-  refreshToken: string;
   tokenExpires: number;
+  // refreshToken?: string;
 };
 
 class TokenService {
