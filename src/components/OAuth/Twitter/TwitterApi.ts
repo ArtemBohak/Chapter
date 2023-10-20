@@ -22,29 +22,14 @@ class TwitterApi extends OAuthApi {
     const qs = new URLSearchParams(options).toString();
     return `${rootUrl}?${qs}`;
   }
-  constructor({
-    token,
-    setSearchParams,
-    navigate,
-    setAuthCode,
-    setIsLoading,
-    dispatch,
-  }: OAuthApiArgs) {
-    super(
-      token,
-      setSearchParams,
-      setAuthCode,
-      navigate,
-      dispatch,
-      setIsLoading
-    );
+  constructor({ token, navigate, setIsLoading, dispatch }: OAuthApiArgs) {
+    super(token, navigate, dispatch, setIsLoading);
 
     this.login();
   }
 
   private login() {
     console.log("POST auth/twitter/login => ", this.token);
-    this.navigate("/");
   }
 }
 

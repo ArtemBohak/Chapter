@@ -13,7 +13,7 @@ import {
   RegisterAccountKey,
 } from "./RegisterForm.type";
 import { validationSchema } from "./validationSchema";
-import { links } from "@/src/utils";
+import { getCookie, links, setCookie } from "@/src/utils";
 import styles from "./RegisterForm.module.scss";
 
 import { UIbutton, TextField } from "@/src/components";
@@ -46,9 +46,11 @@ const RegisterForm: FC = () => {
           hash,
         });
 
-        return status === ErrorStatus.NOTFOUND
-          ? setFieldError(RegisterAccountKey.HASH, ErrorMessage.HASH)
-          : navigate(`${links.ACCOUNT_CREATION}/${id}`);
+        setCookie({ email, userId: id }, undefined, 604800);
+        if (status === ErrorStatus.NOTFOUND)
+          return setFieldError(RegisterAccountKey.HASH, ErrorMessage.HASH);
+
+        return navigate(`${links.ACCOUNT_CREATION}/${id}`);
       }
       const { error, status } = await RegisterFormApi.fetchUserRegData({
         email,
@@ -61,6 +63,12 @@ const RegisterForm: FC = () => {
         resetForm({ values: { email, hash } });
         return setStep(step + 1);
       }
+      if (
+        status === ErrorStatus.UNPROCESSABLE_ENTITY &&
+        getCookie("userId") &&
+        getCookie("email") === email
+      )
+        return navigate(`${links.ACCOUNT_CREATION}/${getCookie("userId")}`);
 
       if (status === ErrorStatus.UNPROCESSABLE_ENTITY)
         return setFieldError(RegisterAccountKey.EMAIL, ErrorMessage.EMAIL);

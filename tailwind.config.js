@@ -89,6 +89,7 @@ export default {
       },
       fontFamily: {
         poppins: ["Poppins"],
+        montserrat: ["Montserrat"],
       },
     },
   },
