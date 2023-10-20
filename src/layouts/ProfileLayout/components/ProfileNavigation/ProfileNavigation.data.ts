@@ -22,7 +22,7 @@ export const topNavigation: NavigationLinkProps[] = [
   },
   {
     id: "4",
-    path: "/",
+    path: "/profile",
     icon: IconEnum.User,
     name: "Profile",
   },

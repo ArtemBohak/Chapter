@@ -1,0 +1,43 @@
+
+.profile-wrapper {
+    @apply laptop:w-1/3 h-full flex flex-col justify-center items-center;
+    }
+    
+    .profile-avatar {
+        @apply min-w-[60px] max-w-[120px] md:max-w-[160px] base:max-w-[240px] max-h-[220px] w-full h-full object-cover;
+        & img {
+         @apply w-full h-[120px] md:h-[160px] base:h-[220px];
+         
+        }
+    }
+    
+    .info-block {
+    @apply flex flex-wrap items-center justify-start gap-3 w-full mb-[16px];
+    @media (min-width: 1367px) {
+        @apply flex-col;
+    }
+    &__status {
+        @apply max-w-[387px];
+    }
+    &__text {
+        @apply flex flex-col justify-center items-start laptop:items-center;
+        & .nickname {
+            @apply text-xs md:text-base text-grey-1000 font-normal;
+        }
+    }
+    }
+    
+    .buttons-block {
+    @apply flex flex-wrap w-full gap-2;
+    
+    @media (min-width: 1024px) {
+        @apply flex flex-col my-[16px] gap-2;
+    }
+    
+    & .button-add-post, .button-edit-profile {
+        @apply max-w-[470px];
+    & svg {
+    @apply w-[24px] h-[24px] laptop:w-[32px] laptop:h-[32px];
+    }
+    }
+    }

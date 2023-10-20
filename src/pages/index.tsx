@@ -7,3 +7,4 @@ export { default as ForgotPasswordPage } from "./ForgotPasswordPage/ForgotPasswo
 export { default as UIPage } from "./UIPage/UIPage";
 export { default as FeedPage } from "./FeedPage/FeedPage";
 export { default as SettingsPage } from "./Settings/Settings";
+export { default as ProfilePage } from "./ProfilePage/ProfilePage";
