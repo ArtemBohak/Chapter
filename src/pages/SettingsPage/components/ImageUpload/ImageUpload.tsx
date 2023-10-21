@@ -1,6 +1,6 @@
 import { FC, FormEvent, useState } from "react";
 
-import FilesService from "@/src/services/image/Files";
+import FilesService from "@/src/services/Files/Files";
 import { useAppSelector } from "@/src/redux/hooks";
 import styles from "./ImageUpload.module.scss";
 import { ImageUploadProps } from "./ImageUpload.type";
@@ -43,12 +43,12 @@ const ImageUpload: FC<ImageUploadProps> = ({ setAvatarUrl }) => {
         accept="image/*"
         data-automation="uploadInput"
       />
-      <button
+      <span
         className={styles["image-upload__button"]}
         data-automation="clickButton"
       >
         <Icon icon={IconEnum.Camera} size={20} /> <span>Upload new photo</span>
-      </button>
+      </span>
     </label>
   );
 };

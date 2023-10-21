@@ -1,1 +1,1 @@
-export default /^[A-Za-z\s]+$/;
+export default /^([\wа-яА-ЯіІ]{2,})+\s+([\w\sа-яА-ЯіІ]{2,})+$/i;

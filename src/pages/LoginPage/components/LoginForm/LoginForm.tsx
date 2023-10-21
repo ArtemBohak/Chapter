@@ -8,11 +8,14 @@ import { ILoginPage, setErrors } from "./LoginForm.type";
 import validationSchema from "./validationSchema";
 import LoginApi from "./LoginApi";
 import { links } from "@/src/utils/links/links.types";
-import { useNavigate } from "react-router-dom";
+
 import { ErrorStatus } from "@/src/pages/RegisterPage/components/RegisterForm/RegisterForm.type";
+import { useAppDispatch } from "@/src/redux/hooks";
+import { oAuthFulfilled } from "@/src/redux/slices";
+import { setDataToLS } from "@/src/utils";
 
 const LoginPageForm: FC = () => {
-  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const onHandleSubmit = async (values: ILoginPage, setErrors: setErrors) => {
     const { status, data } = await LoginApi(values);
@@ -20,8 +23,8 @@ const LoginPageForm: FC = () => {
     if (status === ErrorStatus.UNPROCESSABLE_ENTITY) {
       setErrors({ ["email"]: " ", ["password"]: "wrong email or password" });
     } else {
-      localStorage.setItem("token", data.token);
-      navigate(links.FEED);
+      dispatch(oAuthFulfilled(data.user));
+      setDataToLS({ token: data.token });
     }
   };
   return (

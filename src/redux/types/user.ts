@@ -1,7 +1,7 @@
 export interface IUserStore {
   id: number;
   email: string;
-  nickname: string;
+  nickName: string;
   firstName: string;
   lastName: string;
   avatarUrl?: string | null;

@@ -1,1 +1,1 @@
-export { getUrlParams, getCookie } from "./helpers";
+export { getUrlParams } from "./helpers";

@@ -1,5 +1,6 @@
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
-
+import PublicRoute from "./Routes/PublicRoute/PublicRoute";
+import PrivateRoute from "./Routes/PrivateRoute/PrivateRoute";
 import {
   RegisterPage,
   WelcomePage,
@@ -18,7 +19,7 @@ import { links } from "@/src/utils/links/links.types";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <PublicLayout />,
+    element: <PublicRoute component={<PublicLayout />} />,
     children: [
       {
         index: true,
@@ -33,7 +34,7 @@ const router = createBrowserRouter([
             element: <RegisterPage />,
           },
           {
-            path: "account-creation/:id",
+            path: links.ACCOUNT_CREATION + "/:userId",
             element: <AccountCreationPage />,
           },
           {
@@ -50,7 +51,7 @@ const router = createBrowserRouter([
     ],
   },
   {
-    element: <ProfileLayout />,
+    element: <PrivateRoute component={<ProfileLayout />} />,
     children: [
       {
         index: true,
