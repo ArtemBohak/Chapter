@@ -44,12 +44,13 @@ const Twitter: FC<SocialsProps> = ({
     ) {
       new TwitterApi({
         token: twitterAuthCode,
-        setSearchParams,
         navigate,
-        setAuthCode: setTwitterAuthCode,
         setIsLoading,
         dispatch,
       });
+
+      setSearchParams("");
+      setTwitterAuthCode("");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state, stateId, twitterAuthCode, oAuthVariant]);

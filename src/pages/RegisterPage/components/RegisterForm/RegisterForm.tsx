@@ -2,11 +2,9 @@ import { FC, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Formik, Form, FormikHelpers } from "formik";
 import { CSSTransition } from "react-transition-group";
-import cn from "classnames";
 
 import RegisterFormApi from "./RegisterFormApi";
 import {
-  type RegisterFormProps,
   RegisterAccountValues,
   EmailStatus,
   ErrorMessage,
@@ -15,7 +13,7 @@ import {
   RegisterAccountKey,
 } from "./RegisterForm.type";
 import { validationSchema } from "./validationSchema";
-import { links } from "@/src/utils";
+import { getCookie, links, setCookie } from "@/src/utils";
 import styles from "./RegisterForm.module.scss";
 
 import { UIbutton, TextField } from "@/src/components";
@@ -26,7 +24,7 @@ const initialValues: RegisterAccountValues = {
   hash: "",
 };
 
-const RegisterForm: FC<RegisterFormProps> = ({ className, ...props }) => {
+const RegisterForm: FC = () => {
   const [step, setStep] = useState(Steps.FIRST);
   const nodeRef = useRef(null);
 
@@ -48,9 +46,11 @@ const RegisterForm: FC<RegisterFormProps> = ({ className, ...props }) => {
           hash,
         });
 
-        return status === ErrorStatus.NOTFOUND
-          ? setFieldError(RegisterAccountKey.HASH, ErrorMessage.HASH)
-          : navigate(`${links.ACCOUNT_CREATION}/${id}`);
+        setCookie({ email, userId: id }, undefined, 604800);
+        if (status === ErrorStatus.NOTFOUND)
+          return setFieldError(RegisterAccountKey.HASH, ErrorMessage.HASH);
+
+        return navigate(`${links.ACCOUNT_CREATION}/${id}`);
       }
       const { error, status } = await RegisterFormApi.fetchUserRegData({
         email,
@@ -63,6 +63,12 @@ const RegisterForm: FC<RegisterFormProps> = ({ className, ...props }) => {
         resetForm({ values: { email, hash } });
         return setStep(step + 1);
       }
+      if (
+        status === ErrorStatus.UNPROCESSABLE_ENTITY &&
+        getCookie("userId") &&
+        getCookie("email") === email
+      )
+        return navigate(`${links.ACCOUNT_CREATION}/${getCookie("userId")}`);
 
       if (status === ErrorStatus.UNPROCESSABLE_ENTITY)
         return setFieldError(RegisterAccountKey.EMAIL, ErrorMessage.EMAIL);
@@ -102,10 +108,9 @@ const RegisterForm: FC<RegisterFormProps> = ({ className, ...props }) => {
       initialValues={initialValues}
       validationSchema={validationSchema(isNextStep)}
       onSubmit={onHandleSubmit}
-      {...props}
     >
       {({ isSubmitting, dirty, isValid, values }) => (
-        <Form className={cn(styles["register-form"], className)}>
+        <Form className={styles["register-form"]}>
           <TextField
             id={RegisterAccountKey.EMAIL}
             name={RegisterAccountKey.EMAIL}

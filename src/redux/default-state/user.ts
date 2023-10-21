@@ -4,7 +4,7 @@ export const defaultUserState: IUserStore = {
   id: 0,
   firstName: "",
   lastName: "",
-  nickname: "",
+  nickName: "",
   avatarUrl: null,
   location: null,
   userStatus: null,
