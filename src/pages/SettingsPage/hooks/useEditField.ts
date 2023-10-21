@@ -1,24 +1,38 @@
+import { useAppDispatch } from "@/src/redux/hooks";
 import { ChangeEvent, RefObject, useEffect, useState } from "react";
+import { ProfileUpdateApi } from "../utils/ProfileUpdateApi";
 
 const useEditField = (
-  textValue: string,
-  nodeRef: RefObject<HTMLTextAreaElement | HTMLInputElement>
+  textValue: string | null,
+  nodeRef: RefObject<HTMLTextAreaElement | HTMLInputElement>,
+  userStatus: boolean
 ) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [value, setValue] = useState(textValue);
+  const [value, setValue] = useState<string | null>(textValue);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (isEditing) {
+    if (isEditing && value) {
       nodeRef.current?.focus();
       nodeRef.current?.setSelectionRange(value.length, value.length);
     }
-  }, [isEditing, nodeRef, value.length]);
+  }, [isEditing, nodeRef, value]);
 
   const onHandleEdit = () => setIsEditing(true);
 
   const onHandleSave = async () => {
     setIsEditing(false);
-    if (value !== textValue) console.log(value);
+    const profile = new ProfileUpdateApi(dispatch);
+    if (value !== textValue) {
+      userStatus &&
+        profile.userSave({
+          userStatus: value,
+        });
+      if (!userStatus && value) {
+        const [firstName, lastName] = value.split(" ");
+        if (firstName && lastName) profile.userSave({ firstName, lastName });
+      }
+    }
   };
 
   const onHandleChange = (

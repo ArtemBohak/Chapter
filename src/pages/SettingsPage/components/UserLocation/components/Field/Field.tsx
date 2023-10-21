@@ -12,9 +12,9 @@ const Field: FC<FieldProps> = ({
   setSelectMenuIsOpen,
   setSelectedValue,
   setId,
-  setStateData,
-  setStateSelectedValue,
-  setStateId,
+  setRegionData,
+  setRegionSelectedValue,
+  setRegionId,
   setCitiesData,
   setCitySelectedValue,
   setCityId,
@@ -26,9 +26,9 @@ const Field: FC<FieldProps> = ({
 
     setIcon && setIcon("");
 
-    setStateData && setStateData([]);
-    setStateSelectedValue && setStateSelectedValue("");
-    setStateId && setStateId(0);
+    setRegionData && setRegionData([]);
+    setRegionSelectedValue && setRegionSelectedValue("");
+    setRegionId && setRegionId(0);
 
     setCitiesData && setCitiesData([]);
     setCitySelectedValue && setCitySelectedValue("");

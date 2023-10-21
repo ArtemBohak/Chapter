@@ -1,32 +1,37 @@
 import { FC, useState, FormEvent, useEffect } from "react";
 import { GetCountries, GetState, GetCity } from "react-country-state-city";
 
-import { CityType, CountriesType, StateType } from "./UserLocation.type";
+import {
+  CityType,
+  CountriesType,
+  StateType,
+  UserLocationProps,
+} from "./UserLocation.type";
+import { ProfileUpdateApi } from "../../utils/ProfileUpdateApi";
+import { useAppDispatch } from "@/src/redux/hooks";
 import styles from "./UserLocation.module.scss";
 
 import { UIbutton } from "@/src/components";
 import CountrySelect from "./components/CountrySelect/CountrySelect";
-import StateSelect from "./components/StateSelect/StateSelect";
+import RegionSelect from "./components/RegionSelect/RegionSelect";
 import CitySelect from "./components/CitySelect/CitySelect";
 
-const initialValues = {
-  countryId: 230,
-  stateId: 4676,
-  cityId: 109897,
-};
-
-const UserLocation: FC = () => {
+const UserLocation: FC<UserLocationProps> = ({ country, region, city }) => {
+  const initialCountry = country ? +country : 0;
+  const initialRegion = region ? +region : 0;
+  const initialCity = city ? +city : 0;
+  const dispatch = useAppDispatch();
   const [isLoading, setIsLoading] = useState(false);
 
-  const [countryId, setCountryId] = useState(initialValues.countryId);
+  const [countryId, setCountryId] = useState(initialCountry);
   const [selectedCountry, setSelectedCountry] = useState("");
   const [countryList, setCountryList] = useState<Array<CountriesType>>([]);
 
-  const [stateId, setStateId] = useState(initialValues.stateId);
-  const [selectedState, setSelectedState] = useState("");
-  const [stateList, setStateList] = useState<Array<StateType>>([]);
+  const [regionId, setRegionId] = useState(initialRegion);
+  const [selectedRegion, setSelectedRegion] = useState("");
+  const [regionList, setRegionList] = useState<Array<StateType>>([]);
 
-  const [cityId, setCityId] = useState(initialValues.cityId);
+  const [cityId, setCityId] = useState(initialCity);
   const [selectedCity, setSelectedCity] = useState("");
   const [citiesList, setCitiesList] = useState<Array<CityType>>([]);
 
@@ -39,46 +44,40 @@ const UserLocation: FC = () => {
         setCountryList(countries);
 
         const state = await GetState(countryId);
-        setStateList(state);
+        setRegionList(state);
 
-        const city = await GetCity(countryId, stateId);
+        const city = await GetCity(countryId, regionId);
         setCitiesList(city);
       } finally {
         setIsLoading(false);
       }
     })();
-  }, [countryId, stateId]);
+  }, [countryId, regionId]);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    try {
-      setIsLoading(true);
+    const profile = new ProfileUpdateApi(dispatch, setIsLoading);
 
-      setTimeout(() => {
-        console.log({
-          countryId,
-          stateId,
-          cityId,
-          userLocation: selectedCity
-            ? selectedCity.concat(", ", selectedCountry)
-            : selectedCountry,
-        });
-        setIsLoading(false);
-      }, 1000);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      // setIsLoading(false);
-    }
+    await profile.userSave({
+      country: countryId,
+      region: regionId,
+      city: cityId,
+    });
+
+    console.log({
+      userLocation: selectedCity
+        ? selectedCity.concat(", ", selectedCountry)
+        : selectedCountry,
+    });
   };
 
   const transitionTimeOut = 300;
   const buttonIsDisabled =
     isLoading ||
     !countryId ||
-    (cityId === initialValues.cityId &&
-      stateId === initialValues.stateId &&
-      countryId === initialValues.countryId);
+    (cityId === initialCity &&
+      regionId === initialRegion &&
+      countryId === initialCountry);
 
   return (
     <form onSubmit={handleSubmit} className={styles["location-form"]}>
@@ -89,29 +88,29 @@ const UserLocation: FC = () => {
         setCountryId={setCountryId}
         setSelectedCountry={setSelectedCountry}
         setIsLoading={setIsLoading}
-        setStateList={setStateList}
+        setRegionList={setRegionList}
         setCitiesList={setCitiesList}
         setCountryList={setCountryList}
         setSelectedCity={setSelectedCity}
-        setSelectedState={setSelectedState}
-        setStateId={setStateId}
+        setSelectedRegion={setSelectedRegion}
+        setRegionId={setRegionId}
         setCityId={setCityId}
       />
-      <StateSelect
-        stateList={stateList}
+      <RegionSelect
+        regionList={regionList}
         countryId={countryId}
-        stateId={stateId}
-        selectedState={selectedState}
+        regionId={regionId}
+        selectedRegion={selectedRegion}
         transitionTimeOut={transitionTimeOut}
-        setStateId={setStateId}
+        setRegionId={setRegionId}
         setCityId={setCityId}
-        setSelectedState={setSelectedState}
+        setSelectedRegion={setSelectedRegion}
         setSelectedCity={setSelectedCity}
         setIsLoading={setIsLoading}
         setCitiesList={setCitiesList}
       />
       <CitySelect
-        stateId={stateId}
+        regionId={regionId}
         citiesList={citiesList}
         cityId={cityId}
         selectedCity={selectedCity}

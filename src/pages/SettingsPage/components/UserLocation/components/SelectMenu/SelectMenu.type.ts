@@ -13,8 +13,8 @@ export type SelectMenuProps = {
   setSelectMenuIsOpen: Dispatch<SetStateAction<boolean>>;
   setIsLoading?: Dispatch<SetStateAction<boolean>>;
   setIcon?: Dispatch<SetStateAction<string>>;
-  setSelectedState?: Dispatch<SetStateAction<string>>;
-  setStateData?: Dispatch<SetStateAction<StateType[]>>;
+  setSelectedRegion?: Dispatch<SetStateAction<string>>;
+  setRegionData?: Dispatch<SetStateAction<StateType[]>>;
   setSelectedCity?: Dispatch<SetStateAction<string>>;
   setCitiesData?: Dispatch<SetStateAction<CityType[]>>;
 };

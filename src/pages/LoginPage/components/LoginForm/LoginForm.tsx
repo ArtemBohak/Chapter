@@ -11,7 +11,7 @@ import { links } from "@/src/utils/links/links.types";
 
 import { ErrorStatus } from "@/src/pages/RegisterPage/components/RegisterForm/RegisterForm.type";
 import { useAppDispatch } from "@/src/redux/hooks";
-import { oAuthFulfilled } from "@/src/redux/slices";
+import { userFulfilled } from "@/src/redux/slices";
 import { setDataToLS } from "@/src/utils";
 
 const LoginPageForm: FC = () => {
@@ -23,7 +23,7 @@ const LoginPageForm: FC = () => {
     if (status === ErrorStatus.UNPROCESSABLE_ENTITY) {
       setErrors({ ["email"]: " ", ["password"]: "wrong email or password" });
     } else {
-      dispatch(oAuthFulfilled(data.user));
+      dispatch(userFulfilled(data.user));
       setDataToLS({ token: data.token });
     }
   };

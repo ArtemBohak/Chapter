@@ -1,37 +1,29 @@
 import { FC, FormEvent, useState } from "react";
 
-import FilesService from "@/src/services/Files/Files";
-import { useAppSelector } from "@/src/redux/hooks";
-import styles from "./ImageUpload.module.scss";
+import { useAppDispatch } from "@/src/redux/hooks";
+import { ProfileUpdateApi } from "../../utils/ProfileUpdateApi";
 import { ImageUploadProps } from "./ImageUpload.type";
+import styles from "./ImageUpload.module.scss";
 
 import { Icon, IconEnum } from "@/src/components";
 
-const ImageUpload: FC<ImageUploadProps> = ({ setAvatarUrl }) => {
-  const { user } = useAppSelector((state) => state.userSlice);
+const ImageUpload: FC<ImageUploadProps> = ({ setAvatarUrl, id }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useAppDispatch();
 
   const handleChange = async (e: FormEvent<HTMLInputElement>) => {
-    setIsLoading(true);
-    try {
-      if (!e.currentTarget.files?.length) return;
-      const [file] = e.currentTarget.files;
+    if (!e.currentTarget.files?.length) return;
+    const [file] = e.currentTarget.files;
 
-      const res = await FilesService.upload({
-        file,
-        id: user.id + 1 + "",
-        avatar: true,
-        alt: "user avatar",
-        height: 640,
-        width: 640,
-        radius: 50,
-      });
+    const profile = new ProfileUpdateApi(dispatch, setIsLoading);
 
-      setAvatarUrl(res?.eager[0].secure_url);
-    } finally {
-      setIsLoading(false);
-    }
+    const res = await profile.imageSave({ file, id });
+
+    setAvatarUrl(res?.eager[0].secure_url);
+
+    await profile.userSave({ avatarUrl: res?.eager[0].secure_url });
   };
+
   return (
     <label className={styles["image-upload"]}>
       <input

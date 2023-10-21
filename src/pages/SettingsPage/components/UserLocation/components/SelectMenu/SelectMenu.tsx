@@ -14,8 +14,8 @@ const SelectMenu: FC<SelectMenuProps> = ({
   countryId,
   transitionTimeOut = 150,
   setIcon,
-  setSelectedState,
-  setStateData,
+  setSelectedRegion,
+  setRegionData,
   setCitiesData,
   setSelectedValue,
   setId,
@@ -36,8 +36,8 @@ const SelectMenu: FC<SelectMenuProps> = ({
   const handleSelect = (
     e: MouseEvent<HTMLButtonElement> | TouchEvent<HTMLButtonElement>
   ) => {
-    setSelectedState && setSelectedState("");
-    setStateData && setStateData([]);
+    setSelectedRegion && setSelectedRegion("");
+    setRegionData && setRegionData([]);
     setSelectedCity && setSelectedCity("");
     setCitiesData && setCitiesData([]);
     const id = +e.currentTarget.value;
@@ -52,7 +52,7 @@ const SelectMenu: FC<SelectMenuProps> = ({
 
       if (type === "country") {
         GetState(result.id).then((result: StateType[]) => {
-          setStateData && setStateData(result);
+          setRegionData && setRegionData(result);
           setIsLoading && setIsLoading(false);
         });
       }

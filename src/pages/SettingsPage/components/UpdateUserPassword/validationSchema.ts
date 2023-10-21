@@ -9,7 +9,7 @@ export default Yup.object({
     .matches(baseValidation, ErrorMessages.NEW_PASSWORD)
     .notOneOf([Yup.ref("oldPassword")], ErrorMessages.NEW_PASSWORD),
 
-  confirmNewPassword: Yup.string()
+  repeatNewPassword: Yup.string()
     .oneOf([Yup.ref("newPassword")], ErrorMessages.CONFIRM_NEW_PASSWORD)
     .required(ErrorMessages.CONFIRM_NEW_PASSWORD),
 });

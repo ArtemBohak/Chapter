@@ -1,16 +1,22 @@
 import { FC, useRef } from "react";
+import cn from "classnames";
 
 import { useEditField } from "../../hooks";
 import styles from "./UserName.module.scss";
 
 import IconButton from "../IconButton/IconButton";
+import { UserNameProps } from "./UserName.type";
+import { checkIsCyrillic } from "@/src/utils";
 
-const fullName = "Mattew Downroy";
-
-const UserName: FC = () => {
+const UserName: FC<UserNameProps> = ({ firstName, lastName }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const { isEditing, value, onHandleEdit, onHandleSave, onHandleChange } =
-    useEditField(fullName, inputRef);
+    useEditField(firstName + " " + lastName, inputRef, false);
+
+  const inputValue = value ? value : "";
+  const inputClassName = cn(styles["info-label__input"], {
+    ["cyrillic"]: checkIsCyrillic(inputValue),
+  });
   return (
     <>
       <IconButton
@@ -22,8 +28,8 @@ const UserName: FC = () => {
         <span className={styles["info-label__text"]}>Full Name</span>
         <input
           ref={inputRef}
-          value={value}
-          className={styles["info-label__input"]}
+          value={inputValue}
+          className={inputClassName}
           onChange={onHandleChange}
           disabled={!isEditing}
           data-automation="userNameInput"

@@ -63,7 +63,7 @@ class FilesService {
         folder: path || defaultPath,
         format,
         overwrite,
-        public_id: avatar ? id : id + "_" + nanoid(),
+        public_id: avatar ? id + "" : id + "_" + nanoid(),
         tags: imageTags,
         timestamp: Math.floor(Date.now() / 1000),
       };

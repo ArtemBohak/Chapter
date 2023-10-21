@@ -3,6 +3,8 @@ import { Formik, Form, FormikHelpers } from "formik";
 
 import { InitialValues, ErrorMessages } from "./UpdateUserPassword.type";
 import validationSchema from "./validationSchema";
+import { ProfileUpdateApi } from "../../utils/ProfileUpdateApi";
+import { useAppDispatch } from "@/src/redux/hooks";
 import styles from "./UpdateUserPassword.module.scss";
 
 import { PasswordField, UIbutton } from "@/src/components";
@@ -10,15 +12,19 @@ import { PasswordField, UIbutton } from "@/src/components";
 const initialValues: InitialValues = {
   oldPassword: "",
   newPassword: "",
-  confirmNewPassword: "",
+  repeatNewPassword: "",
 };
 
 const UpdateUserPassword: FC = () => {
+  const dispatch = useAppDispatch();
+
   const onHandleSubmit = async (
     values: InitialValues,
     { setSubmitting }: FormikHelpers<InitialValues>
   ) => {
-    console.log(values);
+    const profile = new ProfileUpdateApi(dispatch);
+    await profile.updatePassword(values);
+
     setSubmitting(false);
   };
   return (
@@ -51,9 +57,9 @@ const UpdateUserPassword: FC = () => {
               strength
             />
             <PasswordField
-              dataAutomation="confirmNewPasswordInput"
-              id="confirmNewPassword"
-              name="confirmNewPassword"
+              dataAutomation="repeatNewPasswordInput"
+              id="repeatNewPassword"
+              name="repeatNewPassword"
               autoComplete="new-password"
               label="Repeat new password"
               additionalLabel={ErrorMessages.CONFIRM_NEW_PASSWORD}

@@ -2,9 +2,9 @@ import { NavigateFunction } from "react-router-dom";
 import { AxiosError, AxiosPromise } from "axios";
 import { AppDispatch } from "@/src/redux/store";
 import {
-  oAuthPending,
-  oAuthFulfilled,
-  oAuthRejected,
+  userPending,
+  userFulfilled,
+  userRejected,
 } from "@/src/redux/slices/user";
 import { links, setDataToLS } from "@/src/utils";
 import { SetIsLoadingType, UserData } from "./OAuth.type";
@@ -20,16 +20,16 @@ abstract class OAuthApi {
 
   private handleRequest() {
     this.setIsLoading(true);
-    this.dispatch(oAuthPending());
+    this.dispatch(userPending());
   }
 
   protected handleData(user: UserData, cred: LocaleStorageArgs) {
-    this.dispatch(oAuthFulfilled(user));
+    this.dispatch(userFulfilled(user));
     setDataToLS(cred);
   }
 
   private handleError(error: string) {
-    this.dispatch(oAuthRejected(error));
+    this.dispatch(userRejected(error));
   }
 
   protected redirect(user: UserData, url?: string) {

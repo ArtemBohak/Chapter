@@ -1,6 +1,6 @@
 export type FileUploadArgs = {
   file: File | string;
-  id: string;
+  id: number;
   avatar: boolean;
   path?: string;
   format?: string;

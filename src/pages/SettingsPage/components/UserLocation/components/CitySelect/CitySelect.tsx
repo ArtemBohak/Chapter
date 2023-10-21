@@ -10,7 +10,7 @@ import { useOutsideClick } from "@/src/hooks";
 
 const CitySelect: FC<CitySelectProps> = ({
   citiesList,
-  stateId,
+  regionId,
   cityId,
   selectedCity,
   transitionTimeOut,
@@ -29,7 +29,7 @@ const CitySelect: FC<CitySelectProps> = ({
   }, [citiesList, cityId]);
 
   const isShowing =
-    !!(stateId && citiesList.length) || !!(citiesList.length && cityId);
+    !!(regionId && citiesList.length) || !!(citiesList.length && cityId);
 
   const transitionClassNames = {
     enter: styles["select-menu-enter"],

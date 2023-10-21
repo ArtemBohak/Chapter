@@ -113,9 +113,7 @@ const FormCreateAccount: FC = () => {
               placeholder="Full Name"
               dataAutomation="fullname"
               showSuccessIcon={true}
-              className={
-                checkIsCyrillic(values.fullname) ? styles["cyrillic"] : ""
-              }
+              className={checkIsCyrillic(values.fullname) ? "cyrillic" : ""}
             />
             <TextField
               id="nickName"

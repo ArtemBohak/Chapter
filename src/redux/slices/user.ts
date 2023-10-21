@@ -30,16 +30,22 @@ export const userSlice = createSlice({
   name: "userSlice",
   initialState,
   reducers: {
-    oAuthPending(state) {
+    userPending: (state) => {
       state.error = null;
     },
-    oAuthFulfilled: (state, action) => {
+    userFulfilled: (state, action) => {
       state.user = action.payload;
       state.isAuth = true;
       state.error = null;
     },
-    oAuthRejected: (state, action) => {
+    userRejected: (state, action) => {
       state.error = action.payload;
+    },
+    logout: (state) => {
+      state.user = initialState.user;
+      state.error = initialState.error;
+      state.isAuth = initialState.isAuth;
+      state.loading = initialState.loading;
     },
   },
   extraReducers: (builder) => {
@@ -61,6 +67,6 @@ export const userSlice = createSlice({
   },
 });
 
-export const { oAuthPending, oAuthFulfilled, oAuthRejected } =
+export const { userPending, userFulfilled, userRejected, logout } =
   userSlice.actions;
 export default userSlice.reducer;

@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 
 export type ImageUploadProps = {
-  setAvatarUrl: Dispatch<SetStateAction<string>>;
+  setAvatarUrl: Dispatch<SetStateAction<string | null>>;
+  id: number;
 };
