@@ -103,67 +103,64 @@ const FormCreateAccount: FC = () => {
           isValid,
           dirty,
           values,
-        }: FormikProps<IAccountCreate>) => {
-          // console.log(values.fullname.match(cyrillicString));
-          return (
-            <Form>
-              <TextField
-                id="fullname"
-                name="fullname"
-                label="Full Name"
-                value={values.fullname}
-                placeholder="Full Name"
-                dataAutomation="fullname"
-                showSuccessIcon={true}
-                className={
-                  checkIsCyrillic(values.fullname) ? styles["cyrillic"] : ""
-                }
-              />
-              <TextField
-                id="nickName"
-                name="nickName"
-                label="Nickname"
-                value={nickname ? `@${nickname}` : ""}
-                placeholder="nickname"
-                dataAutomation="nickname"
-                showSuccessIcon={true}
-                onChange={onHandleChange}
-                disabled={isLoadingNk}
-                customErrorMessage={nkErrorMessage}
-              />
-              <PasswordField
-                id="password"
-                name="password"
-                label="Create password"
-                placeholder="Enter your password"
-                strength
-                dataAutomation="password"
-              />
-              <PasswordField
-                id="confirm_password"
-                name="confirm_password"
-                label="Confirm password"
-                placeholder="Re-enter your password"
-                dataAutomation="confirm_password"
-              />
-              <UIbutton
-                type="submit"
-                fullWidth
-                dataAutomation="submitButton"
-                className="p-[12px] text-sm"
-                disabled={!isValid || !dirty}
-                isLoading={isSubmitting}
-              >
-                Submit
-              </UIbutton>
-              {errorMessageForm ? (
-                <p className="text-red text-s text-center mt-1 mr-2">
-                  {errorMessageForm}
-                </p>
-              ) : null}
-            </Form>
-          );
-        }}
+        }: FormikProps<IAccountCreate>) => (
+          <Form>
+            <TextField
+              id="fullname"
+              name="fullname"
+              label="Full Name"
+              value={values.fullname}
+              placeholder="Full Name"
+              dataAutomation="fullname"
+              showSuccessIcon={true}
+              className={
+                checkIsCyrillic(values.fullname) ? styles["cyrillic"] : ""
+              }
+            />
+            <TextField
+              id="nickName"
+              name="nickName"
+              label="Nickname"
+              value={nickname ? `@${nickname}` : ""}
+              placeholder="nickname"
+              dataAutomation="nickname"
+              showSuccessIcon={true}
+              onChange={onHandleChange}
+              disabled={isLoadingNk}
+              customErrorMessage={nkErrorMessage}
+            />
+            <PasswordField
+              id="password"
+              name="password"
+              label="Create password"
+              placeholder="Enter your password"
+              strength
+              dataAutomation="password"
+            />
+            <PasswordField
+              id="confirm_password"
+              name="confirm_password"
+              label="Confirm password"
+              placeholder="Re-enter your password"
+              dataAutomation="confirm_password"
+            />
+            <UIbutton
+              type="submit"
+              fullWidth
+              dataAutomation="submitButton"
+              className="p-[12px] text-sm"
+              disabled={!isValid || !dirty}
+              isLoading={isSubmitting}
+            >
+              Submit
+            </UIbutton>
+            {errorMessageForm ? (
+              <p className="text-red text-s text-center mt-1 mr-2">
+                {errorMessageForm}
+              </p>
+            ) : null}
+          </Form>
+        )}
       </Formik>
     </div>
   );
