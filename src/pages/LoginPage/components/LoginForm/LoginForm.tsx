@@ -31,7 +31,8 @@ const LoginPageForm: FC = () => {
         provider: "email",
         deletedUserDate: response.deletedUserDate,
       });
-      navigate(links.RESTORE);
+
+      return navigate(links.RESTORE);
     }
     if (status === apiErrorStatus.UNPROCESSABLE_ENTITY) {
       setErrors({ ["email"]: " ", ["password"]: "wrong email or password" });
