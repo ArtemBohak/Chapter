@@ -16,4 +16,5 @@ export enum EndpointsEnum {
   FACEBOOK_LOGIN = "auth/facebook/login",
   GOOGLE_LOGIN = "auth/google/login",
   TWITTER_LOGIN = "auth/twitter/login",
+  GOOGLE_RESTORE = "auth/restoring-user-by-google",
 }

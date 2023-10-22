@@ -1,6 +1,9 @@
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+
+import { links } from "@/src/utils";
 import PublicRoute from "./Routes/PublicRoute/PublicRoute";
 import PrivateRoute from "./Routes/PrivateRoute/PrivateRoute";
+import RestrictedRoute from "./Routes/RestrictedRoute/RestrictedRoute";
 import {
   RegisterPage,
   WelcomePage,
@@ -11,10 +14,9 @@ import {
   UIPage,
   FeedPage,
   SettingsPage,
+  RestorePage,
 } from "@/src/pages";
-
 import { PublicLayout, ProfileLayout } from "@/src/layouts";
-import { links } from "@/src/utils/links/links.types";
 
 const router = createBrowserRouter([
   {
@@ -35,7 +37,12 @@ const router = createBrowserRouter([
           },
           {
             path: links.ACCOUNT_CREATION + "/:userId",
-            element: <AccountCreationPage />,
+            element: (
+              <RestrictedRoute
+                component={<AccountCreationPage />}
+                checkingKey="userId"
+              />
+            ),
           },
           {
             path: links.LOG_IN,
@@ -44,6 +51,15 @@ const router = createBrowserRouter([
           {
             path: links.FORGOT_PASSWORD,
             element: <ForgotPasswordPage />,
+          },
+          {
+            path: links.RESTORE,
+            element: (
+              <RestrictedRoute
+                component={<RestorePage />}
+                checkingKey="provider"
+              />
+            ),
           },
         ],
       },

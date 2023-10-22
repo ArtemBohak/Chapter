@@ -9,22 +9,36 @@ import validationSchema from "./validationSchema";
 import LoginApi from "./LoginApi";
 import { links } from "@/src/utils/links/links.types";
 
-import { ErrorStatus } from "@/src/pages/RegisterPage/components/RegisterForm/RegisterForm.type";
+import { apiErrorMsg, apiErrorStatus, removeDataFromLS } from "@/src/utils";
 import { useAppDispatch } from "@/src/redux/hooks";
 import { userFulfilled } from "@/src/redux/slices";
 import { setDataToLS } from "@/src/utils";
+import { useNavigate } from "react-router-dom";
 
 const LoginPageForm: FC = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const onHandleSubmit = async (values: ILoginPage, setErrors: setErrors) => {
-    const { status, data } = await LoginApi(values);
+    const response = await LoginApi(values);
+    const { status, data } = response;
 
-    if (status === ErrorStatus.UNPROCESSABLE_ENTITY) {
+    if (
+      response.status === apiErrorStatus.FORBIDDEN &&
+      response.message === apiErrorMsg.ACCOUNT_DELETED
+    ) {
+      setDataToLS({
+        provider: "email",
+        deletedUserDate: response.deletedUserDate,
+      });
+      navigate(links.RESTORE);
+    }
+    if (status === apiErrorStatus.UNPROCESSABLE_ENTITY) {
       setErrors({ ["email"]: " ", ["password"]: "wrong email or password" });
     } else {
-      dispatch(userFulfilled(data.user));
+      removeDataFromLS("deletedUserDate", "provider");
       setDataToLS({ token: data.token });
+      dispatch(userFulfilled(data.user));
     }
   };
   return (

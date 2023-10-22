@@ -7,11 +7,10 @@ import RegisterFormApi from "./RegisterFormApi";
 import {
   RegisterAccountValues,
   EmailStatus,
-  ErrorMessage,
-  ErrorStatus,
   Steps,
   RegisterAccountKey,
 } from "./RegisterForm.type";
+import { apiErrorMsg, apiErrorStatus } from "@/src/utils";
 import { validationSchema } from "./validationSchema";
 import { getCookie, links, setCookie } from "@/src/utils";
 import styles from "./RegisterForm.module.scss";
@@ -47,8 +46,11 @@ const RegisterForm: FC = () => {
         });
 
         setCookie({ email, userId: id }, undefined, 604800);
-        if (status === ErrorStatus.NOTFOUND)
-          return setFieldError(RegisterAccountKey.HASH, ErrorMessage.HASH);
+        if (status === apiErrorStatus.NOTFOUND)
+          return setFieldError(
+            RegisterAccountKey.HASH,
+            apiErrorMsg.INVALID_HASH
+          );
 
         return navigate(`${links.ACCOUNT_CREATION}/${id}`);
       }
@@ -57,21 +59,24 @@ const RegisterForm: FC = () => {
       });
 
       if (
-        status === ErrorStatus.UNPROCESSABLE_ENTITY &&
+        status === apiErrorStatus.UNPROCESSABLE_ENTITY &&
         RegisterFormApi.formatErrorResponse(error) === EmailStatus.UNCONFIRMED
       ) {
         resetForm({ values: { email, hash } });
         return setStep(step + 1);
       }
       if (
-        status === ErrorStatus.UNPROCESSABLE_ENTITY &&
+        status === apiErrorStatus.UNPROCESSABLE_ENTITY &&
         getCookie("userId") &&
         getCookie("email") === email
       )
         return navigate(`${links.ACCOUNT_CREATION}/${getCookie("userId")}`);
 
-      if (status === ErrorStatus.UNPROCESSABLE_ENTITY)
-        return setFieldError(RegisterAccountKey.EMAIL, ErrorMessage.EMAIL);
+      if (status === apiErrorStatus.UNPROCESSABLE_ENTITY)
+        return setFieldError(
+          RegisterAccountKey.EMAIL,
+          apiErrorMsg.EMAIL_IN_USE
+        );
 
       resetForm({ values: { email, hash } });
       setStep(step + 1);

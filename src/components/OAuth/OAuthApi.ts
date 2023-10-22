@@ -6,7 +6,14 @@ import {
   userFulfilled,
   userRejected,
 } from "@/src/redux/slices/user";
-import { links, setDataToLS } from "@/src/utils";
+import {
+  apiErrorMsg,
+  apiErrorStatus,
+  links,
+  removeDataFromLS,
+  setCookie,
+  setDataToLS,
+} from "@/src/utils";
 import { SetIsLoadingType, UserData } from "./OAuth.type";
 import { LocaleStorageArgs } from "@/src/utils/localStorage/localStorage.type";
 
@@ -24,6 +31,7 @@ abstract class OAuthApi {
   }
 
   protected handleData(user: UserData, cred: LocaleStorageArgs) {
+    removeDataFromLS("deletedUserDate", "provider");
     this.dispatch(userFulfilled(user));
     setDataToLS(cred);
   }
@@ -37,6 +45,11 @@ abstract class OAuthApi {
     const fullName = `${user.firstName ? user.firstName : ""}${
       user.lastName ? ` ${user.lastName}` : ""
     }`;
+    setCookie(
+      { email: user.userEmail, userId: user.id + "" },
+      undefined,
+      604800
+    );
     setDataToLS({
       fullName,
     });
@@ -49,7 +62,16 @@ abstract class OAuthApi {
       try {
         await cb();
       } catch (error) {
-        if (error instanceof AxiosError) this.handleError(error.message);
+        if (error instanceof AxiosError) {
+          if (
+            error.response?.data.status === apiErrorStatus.FORBIDDEN &&
+            error.response?.data.error === apiErrorMsg.ACCOUNT_DELETED
+          ) {
+            setDataToLS({ provider: "google" });
+            return this.navigate(links.RESTORE);
+          }
+          this.handleError(error.message);
+        }
       } finally {
         this.setIsLoading(false);
       }
