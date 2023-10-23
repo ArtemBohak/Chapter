@@ -10,7 +10,7 @@ import {
   Steps,
   RegisterAccountKey,
 } from "./RegisterForm.type";
-import { apiErrorMsg, apiErrorStatus, keyValue } from "@/src/utils";
+import { apiUiMessage, apiErrorStatus, keyValue } from "@/src/utils";
 import { validationSchema } from "./validationSchema";
 import { getCookie, links, setCookie } from "@/src/utils";
 import styles from "./RegisterForm.module.scss";
@@ -49,7 +49,7 @@ const RegisterForm: FC = () => {
         if (status === apiErrorStatus.NOTFOUND)
           return setFieldError(
             RegisterAccountKey.HASH,
-            apiErrorMsg.INVALID_HASH
+            apiUiMessage.INVALID_HASH
           );
 
         return navigate(`${links.ACCOUNT_CREATION}/${id}`);
@@ -77,7 +77,7 @@ const RegisterForm: FC = () => {
       if (status === apiErrorStatus.UNPROCESSABLE_ENTITY)
         return setFieldError(
           RegisterAccountKey.EMAIL,
-          apiErrorMsg.EMAIL_IN_USE
+          apiUiMessage.EMAIL_IN_USE
         );
 
       resetForm({ values: { email, hash } });

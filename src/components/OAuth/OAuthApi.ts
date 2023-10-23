@@ -8,7 +8,7 @@ import {
 } from "@/src/redux/slices/user";
 import {
   accountDeletionTerm,
-  apiErrorMsg,
+  apiErrorMessage,
   apiErrorStatus,
   deleteCookie,
   keyValue,
@@ -16,9 +16,6 @@ import {
   setCookie,
   setDataToLS,
   setDate,
-  // deleteCookie,
-  // setDate,
-  // accountDeletionTerm,
 } from "@/src/utils";
 import { SetIsLoadingType, UserData } from "./OAuth.type";
 import { LocaleStorageArgs } from "@/src/utils/localStorage/localStorage.type";
@@ -71,7 +68,7 @@ abstract class OAuthApi {
         if (error instanceof AxiosError) {
           if (
             error.response?.data.status === apiErrorStatus.FORBIDDEN &&
-            error.response?.data.message === apiErrorMsg.ACCOUNT_DELETED
+            error.response?.data.message === apiErrorMessage.ACCOUNT_DELETED
           ) {
             deleteCookie(keyValue.RESTORE_EMAIL);
             setCookie(

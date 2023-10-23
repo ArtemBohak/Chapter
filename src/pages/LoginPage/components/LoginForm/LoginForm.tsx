@@ -6,7 +6,7 @@ import validationSchema from "./validationSchema";
 import LoginApi from "./LoginApi";
 import { links } from "@/src/utils/links/links.types";
 import {
-  apiErrorMsg,
+  apiErrorMessage,
   apiErrorStatus,
   setCookie,
   setDate,
@@ -14,7 +14,6 @@ import {
   setDataToLS,
   deleteCookie,
   keyValue,
-  // deleteCookie,
 } from "@/src/utils";
 import { useAppDispatch } from "@/src/redux/hooks";
 import { userFulfilled } from "@/src/redux/slices";
@@ -34,7 +33,7 @@ const LoginPageForm: FC = () => {
 
     if (
       response.status === apiErrorStatus.FORBIDDEN &&
-      response.message === apiErrorMsg.ACCOUNT_DELETED
+      response.message === apiErrorMessage.ACCOUNT_DELETED
     ) {
       deleteCookie(keyValue.RESTORE_TOKEN);
       setCookie(

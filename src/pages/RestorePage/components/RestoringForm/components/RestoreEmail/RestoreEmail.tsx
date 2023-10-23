@@ -3,9 +3,9 @@ import { FormValues } from "./RestoreEmail.type";
 import { Formik, FormikHelpers, Form } from "formik";
 import { useNavigate } from "react-router-dom";
 import {
-  apiErrorMsg,
+  apiErrorMessage,
   apiErrorStatus,
-  apiErrors,
+  apiUiMessage,
   deleteCookie,
   keyValue,
   links,
@@ -41,9 +41,9 @@ const RestoreEmail: FC = () => {
       if (error instanceof AxiosError) {
         if (
           error.response?.status === apiErrorStatus.FORBIDDEN &&
-          error.response?.data.error === apiErrors.WRONG_HASH
+          error.response?.data.error === apiErrorMessage.WRONG_HASH
         ) {
-          setFieldError("hash", apiErrorMsg.INVALID_RECOVERY_CODE);
+          setFieldError("hash", apiUiMessage.INVALID_RECOVERY_CODE);
         }
       }
     } finally {
