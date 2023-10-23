@@ -29,9 +29,9 @@ const RestoreMessage: FC = () => {
   }, [deadLine]);
   return (
     <>
-      <p>Your account has been deleted. Do you want to restore?</p>
+      <h3>Your account has been deleted. Do you want to restore?</h3>
       <p>
-        {days} {+days > 1 ? "Days" : "Day"} {hours}
+        {days} {+days > 1 ? "Days" : "Day"} {hours}{" "}
         {+hours > 1 ? "Hours" : "Hour"} {minutes}{" "}
         {+minutes > 1 ? "Minutes" : "Minute"} {seconds}{" "}
         {+seconds > 1 ? "Seconds" : "Second"}

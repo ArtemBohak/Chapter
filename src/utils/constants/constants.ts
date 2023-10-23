@@ -6,7 +6,7 @@ export enum keyValue {
   STATE_ID = "stateId",
   DELETED_ACCOUNT_TIME_STAMP = "deletedUserDate",
   RESTORE_EMAIL = "restoringEmail",
-  TOKEN = "token",
+  ACCESS_TOKEN = "token",
   FULL_NAME = "fullName",
   RESTORE_TOKEN = "restoreToken",
   GOOGLE = "google",

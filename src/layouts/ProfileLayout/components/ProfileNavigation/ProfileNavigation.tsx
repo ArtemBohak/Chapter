@@ -14,6 +14,7 @@ const ProfileNavigation: FC = () => {
       <NavigationList
         className={styles["profile-navigation__bottom-nav-list"]}
         items={bottomNavigation}
+        isBottom
       />
     </nav>
   );

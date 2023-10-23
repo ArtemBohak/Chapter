@@ -50,7 +50,7 @@ api.interceptors.response.use(
 
         return api.request(originalRequest);
       } catch (e) {
-        removeDataFromLS(keyValue.TOKEN);
+        removeDataFromLS(keyValue.ACCESS_TOKEN);
         return Promise.reject(error);
       }
     }

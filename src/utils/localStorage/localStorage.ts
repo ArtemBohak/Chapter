@@ -2,7 +2,7 @@ import { keyValue } from "..";
 import { LocaleStorageArgs } from "./localStorage.type";
 
 export const getTokenFromLC = (): string | null => {
-  return localStorage.getItem(keyValue.TOKEN);
+  return localStorage.getItem(keyValue.ACCESS_TOKEN);
 };
 export const getExpiresTokenValueFromLS = (): string | null =>
   localStorage.getItem(keyValue.TOKEN_EXPIRES);

@@ -35,10 +35,4 @@ export const bottomNavigation: NavigationLinkProps[] = [
     icon: IconEnum.Settings,
     name: "Settings",
   },
-  {
-    id: "6",
-    path: "/",
-    icon: IconEnum.SignOut,
-    name: "Logout",
-  },
 ];
