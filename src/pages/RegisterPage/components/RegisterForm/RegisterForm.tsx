@@ -10,7 +10,7 @@ import {
   Steps,
   RegisterAccountKey,
 } from "./RegisterForm.type";
-import { apiErrorMsg, apiErrorStatus } from "@/src/utils";
+import { apiErrorMsg, apiErrorStatus, keyValue } from "@/src/utils";
 import { validationSchema } from "./validationSchema";
 import { getCookie, links, setCookie } from "@/src/utils";
 import styles from "./RegisterForm.module.scss";
@@ -45,7 +45,7 @@ const RegisterForm: FC = () => {
           hash,
         });
 
-        setCookie({ email, userId: id }, undefined, 604800);
+        setCookie({ email, userId: id }, 604800);
         if (status === apiErrorStatus.NOTFOUND)
           return setFieldError(
             RegisterAccountKey.HASH,
@@ -67,10 +67,12 @@ const RegisterForm: FC = () => {
       }
       if (
         status === apiErrorStatus.UNPROCESSABLE_ENTITY &&
-        getCookie("userId") &&
-        getCookie("email") === email
+        getCookie(keyValue.USER_ID) &&
+        getCookie(keyValue.EMAIL) === email
       )
-        return navigate(`${links.ACCOUNT_CREATION}/${getCookie("userId")}`);
+        return navigate(
+          `${links.ACCOUNT_CREATION}/${getCookie(keyValue.USER_ID)}`
+        );
 
       if (status === apiErrorStatus.UNPROCESSABLE_ENTITY)
         return setFieldError(

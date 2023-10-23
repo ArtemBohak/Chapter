@@ -7,4 +7,5 @@ export interface IRoutesProps {
 
 export interface IRestrictedRouteProps extends IRoutesProps {
   checkingKey: string;
+  checkingById?: boolean;
 }

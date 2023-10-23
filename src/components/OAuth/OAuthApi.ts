@@ -7,12 +7,18 @@ import {
   userRejected,
 } from "@/src/redux/slices/user";
 import {
+  accountDeletionTerm,
   apiErrorMsg,
   apiErrorStatus,
+  deleteCookie,
+  keyValue,
   links,
-  removeDataFromLS,
   setCookie,
   setDataToLS,
+  setDate,
+  // deleteCookie,
+  // setDate,
+  // accountDeletionTerm,
 } from "@/src/utils";
 import { SetIsLoadingType, UserData } from "./OAuth.type";
 import { LocaleStorageArgs } from "@/src/utils/localStorage/localStorage.type";
@@ -31,9 +37,13 @@ abstract class OAuthApi {
   }
 
   protected handleData(user: UserData, cred: LocaleStorageArgs) {
-    removeDataFromLS("deletedUserDate", "provider");
-    this.dispatch(userFulfilled(user));
+    deleteCookie(
+      keyValue.DELETED_ACCOUNT_TIME_STAMP,
+      keyValue.RESTORE_EMAIL,
+      keyValue.RESTORE_TOKEN
+    );
     setDataToLS(cred);
+    this.dispatch(userFulfilled(user));
   }
 
   private handleError(error: string) {
@@ -45,11 +55,7 @@ abstract class OAuthApi {
     const fullName = `${user.firstName ? user.firstName : ""}${
       user.lastName ? ` ${user.lastName}` : ""
     }`;
-    setCookie(
-      { email: user.userEmail, userId: user.id + "" },
-      undefined,
-      604800
-    );
+    setCookie({ email: user.userEmail, userId: user.id + "" }, 604800);
     setDataToLS({
       fullName,
     });
@@ -65,9 +71,20 @@ abstract class OAuthApi {
         if (error instanceof AxiosError) {
           if (
             error.response?.data.status === apiErrorStatus.FORBIDDEN &&
-            error.response?.data.error === apiErrorMsg.ACCOUNT_DELETED
+            error.response?.data.message === apiErrorMsg.ACCOUNT_DELETED
           ) {
-            setDataToLS({ provider: "google" });
+            deleteCookie(keyValue.RESTORE_EMAIL);
+            setCookie(
+              {
+                deletedUserDate:
+                  setDate(
+                    error.response.data.deletedUserDate,
+                    accountDeletionTerm
+                  ) + "",
+                restoreToken: error.response.data.restoreToken,
+              },
+              setDate(error.response.data.deletedUserDate, accountDeletionTerm)
+            );
             return this.navigate(links.RESTORE);
           }
           this.handleError(error.message);

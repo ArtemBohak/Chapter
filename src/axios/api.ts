@@ -1,6 +1,11 @@
 import axios from "axios";
 import { TokenService } from "@/src/services";
-import { getTokenFromLC, removeDataFromLS, setDataToLS } from "@/src/utils";
+import {
+  getTokenFromLC,
+  keyValue,
+  removeDataFromLS,
+  setDataToLS,
+} from "@/src/utils";
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
@@ -45,7 +50,7 @@ api.interceptors.response.use(
 
         return api.request(originalRequest);
       } catch (e) {
-        removeDataFromLS("token");
+        removeDataFromLS(keyValue.TOKEN);
         return Promise.reject(error);
       }
     }

@@ -1,19 +1,28 @@
 import { FC } from "react";
 import { Form, Formik, FormikProps } from "formik";
-import styles from "./LoginForm.module.scss";
-import { PasswordField, TextField } from "@/src/components/Fields";
-import { UIbutton } from "@/src/components/Buttons";
-import { ILoginPage, setErrors } from "./LoginForm.type";
+import { useNavigate } from "react-router-dom";
 
 import validationSchema from "./validationSchema";
 import LoginApi from "./LoginApi";
 import { links } from "@/src/utils/links/links.types";
-
-import { apiErrorMsg, apiErrorStatus, removeDataFromLS } from "@/src/utils";
+import {
+  apiErrorMsg,
+  apiErrorStatus,
+  setCookie,
+  setDate,
+  accountDeletionTerm,
+  setDataToLS,
+  deleteCookie,
+  keyValue,
+  // deleteCookie,
+} from "@/src/utils";
 import { useAppDispatch } from "@/src/redux/hooks";
 import { userFulfilled } from "@/src/redux/slices";
-import { setDataToLS } from "@/src/utils";
-import { useNavigate } from "react-router-dom";
+import styles from "./LoginForm.module.scss";
+
+import { PasswordField, TextField } from "@/src/components/Fields";
+import { UIbutton } from "@/src/components/Buttons";
+import { ILoginPage, setErrors } from "./LoginForm.type";
 
 const LoginPageForm: FC = () => {
   const dispatch = useAppDispatch();
@@ -27,17 +36,26 @@ const LoginPageForm: FC = () => {
       response.status === apiErrorStatus.FORBIDDEN &&
       response.message === apiErrorMsg.ACCOUNT_DELETED
     ) {
-      setDataToLS({
-        provider: "email",
-        deletedUserDate: response.deletedUserDate,
-      });
+      deleteCookie(keyValue.RESTORE_TOKEN);
+      setCookie(
+        {
+          deletedUserDate:
+            setDate(response.deletedUserDate, accountDeletionTerm) + "",
+          restoringEmail: values.email,
+        },
+        setDate(response.deletedUserDate, accountDeletionTerm)
+      );
 
       return navigate(links.RESTORE);
     }
     if (status === apiErrorStatus.UNPROCESSABLE_ENTITY) {
       setErrors({ ["email"]: " ", ["password"]: "wrong email or password" });
     } else {
-      removeDataFromLS("deletedUserDate", "provider");
+      deleteCookie(
+        keyValue.DELETED_ACCOUNT_TIME_STAMP,
+        keyValue.RESTORE_EMAIL,
+        keyValue.RESTORE_TOKEN
+      );
       setDataToLS({ token: data.token });
       dispatch(userFulfilled(data.user));
     }

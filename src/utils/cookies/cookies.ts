@@ -8,19 +8,27 @@ export const getCookie = (key: string) =>
 
 export const setCookie = (
   cookieValue: CookieValue,
-  cookiePath: string | undefined = undefined,
-  cookieExpirationValue: number | undefined = undefined
+  cookieExpirationValue?: number | string | Date,
+  cookiePath?: string
 ) => {
-  const path = cookiePath ? "path=" + cookiePath + ";" : "path=/;";
-  const expires = cookieExpirationValue
-    ? "max-age=" + cookieExpirationValue
-    : "";
+  const path = cookiePath ? "path=" + cookiePath : "path=/";
+  let expires = "";
+
+  if (
+    typeof cookieExpirationValue === "number" ||
+    typeof cookieExpirationValue === "string"
+  ) {
+    expires = "max-age=" + cookieExpirationValue;
+  }
+  if (cookieExpirationValue instanceof Date) {
+    expires = "expires=" + cookieExpirationValue.toUTCString();
+  }
 
   Object.keys(cookieValue).forEach(
     (i: keyof CookieValue) =>
-      (document.cookie = `${i}=${cookieValue[i]}; ${path}; ${expires}`)
+      (document.cookie = `${i}=${cookieValue[i]};${path};${expires};`)
   );
 };
 
 export const deleteCookie = (...args: string[]) =>
-  args.forEach((item) => setCookie({ [item]: "" }, undefined, -1));
+  args.forEach((item) => setCookie({ [item]: "" }, -1));

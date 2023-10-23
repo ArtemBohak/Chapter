@@ -10,7 +10,12 @@ import { IAccountCreate } from "./FormCreateAccount.type";
 import api from "@/src/axios/api";
 import { EndpointsEnum } from "@/src/axios/endpoints.types";
 import { useDebounce } from "@/src/hooks/useDebounce";
-import { checkIsCyrillic, deleteCookie, removeDataFromLS } from "@/src/utils";
+import {
+  checkIsCyrillic,
+  deleteCookie,
+  keyValue,
+  removeDataFromLS,
+} from "@/src/utils";
 import styles from "./FormCreateAccount.module.scss";
 
 import UIbutton from "@/src/components/Buttons/UIbutton/UIbutton";
@@ -69,8 +74,8 @@ const FormCreateAccount: FC = () => {
         firstName,
         lastName,
       });
-      removeDataFromLS("fullName");
-      deleteCookie("email", "userId");
+      removeDataFromLS(keyValue.FULL_NAME);
+      deleteCookie(keyValue.EMAIL, keyValue.USER_ID);
       navigate(links.LOG_IN);
     } catch (e) {
       if (e instanceof AxiosError) {
