@@ -1,9 +1,12 @@
-import { EndpointsEnum, api } from "@/src/axios";
-import { UIbutton } from "@/src/components";
-import { getCookie, keyValue } from "@/src/utils";
-import { AxiosError } from "axios";
 import { FC, useState } from "react";
+import { AxiosError } from "axios";
+
+import { EndpointsEnum, api } from "@/src/axios";
+import { getCookie, keyValue } from "@/src/utils";
 import { RestoreButtonProps } from "./RestoreButton.type";
+import styles from "./RestoreButton.module.scss";
+
+import { UIbutton } from "@/src/components";
 
 const RestoreButton: FC<RestoreButtonProps> = ({
   setRestoringProvider,
@@ -46,6 +49,8 @@ const RestoreButton: FC<RestoreButtonProps> = ({
       disabled={loading}
       dataAutomation="clickButton"
       onClick={onHandleClick}
+      fullWidth
+      className={`${styles["restore-btn"]} ${styles["button"]}`}
     >
       Recover account
     </UIbutton>

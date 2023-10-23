@@ -1,9 +1,11 @@
 import { FC } from "react";
 import { NavLink } from "react-router-dom";
 import cn from "classnames";
-import { links } from "@/src/utils/links/links.types";
 
+import { links } from "@/src/utils/links/links.types";
 import { useNavigationToggler } from "@/src/context/NavigationToggler";
+import { useAppSelector } from "@/src/redux/hooks";
+import styles from "./ProfileHeader.module.scss";
 
 import {
   UserAvatar,
@@ -14,20 +16,15 @@ import {
   IconEnum,
 } from "@/src/components";
 
-import styles from "./ProfileHeader.module.scss";
-import { useAppSelector } from "@/src/redux/hooks";
-
+import defaultAvatar from "@/src/assets/SVG/default-user-avatar.svg";
 const ProfileHeader: FC = () => {
   const { isActiveMenu, setIsActiveMenu } = useNavigationToggler();
-  const { loading, user } = useAppSelector((store) => store.userSlice);
+  const { user } = useAppSelector((store) => store.userSlice);
   const { firstName, lastName, avatarUrl } = user;
 
-  const defaultUserAvatar = "https://i.postimg.cc/LX0WVXCB/Follow-web-1.webp";
-
   const getUserAvatar = () => {
-    return loading ? defaultUserAvatar : avatarUrl || defaultUserAvatar;
+    return avatarUrl ? avatarUrl : defaultAvatar;
   };
-
   return (
     <header className={styles["profile-header"]}>
       <div className={styles["profile-header__container"]}>

@@ -1,10 +1,9 @@
-import { BlockAuth } from "@/src/components";
 import { FC, useState } from "react";
 import { keyValue } from "@/src/utils";
+import styles from "./RestorePage.module.scss";
 
-import RestoreMessage from "./components/RestoreMessage/RestoreMessage";
-import RestoreButton from "./components/RestoreButton/RestoreButton";
-import RestoringForm from "./components/RestoringForm/RestoringForm";
+import RestoreWindow from "./components/RestoreWindow/RestoreWindow";
+import RestoreForm from "./components/RestoreForm/RestoreForm";
 
 const RestorePage: FC = () => {
   const [restoringFormIsOpen, setRestoringFormIsOpen] = useState(false);
@@ -12,19 +11,20 @@ const RestorePage: FC = () => {
     keyValue.GOOGLE | keyValue.EMAIL | ""
   >("");
   return (
-    <BlockAuth>
-      {restoringFormIsOpen ? (
-        <RestoringForm restoringProvider={restoringProvider} />
-      ) : (
-        <>
-          <RestoreMessage />
-          <RestoreButton
-            setRestoringProvider={setRestoringProvider}
-            setRestoringFormIsOpen={setRestoringFormIsOpen}
-          />
-        </>
-      )}
-    </BlockAuth>
+    <section className={styles["restore-page"]}>
+      <div className={styles["restore-page-container"]}>
+        {restoringFormIsOpen ? (
+          <RestoreForm restoringProvider={restoringProvider} />
+        ) : (
+          <>
+            <RestoreWindow
+              setRestoringProvider={setRestoringProvider}
+              setRestoringFormIsOpen={setRestoringFormIsOpen}
+            />
+          </>
+        )}
+      </div>
+    </section>
   );
 };
 
