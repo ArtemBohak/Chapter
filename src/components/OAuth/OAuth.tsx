@@ -9,11 +9,7 @@ import Twitter from "./Twitter/Twitter";
 import Facebook from "./Facebook/Facebook";
 import Google from "./Google/Google";
 
-const {
-  VITE_BASE_OAUTH_STATE,
-  VITE_STATE_ID_COOKIE_LIFETIME,
-  VITE_GOOGLE_CLIENT_ID,
-} = import.meta.env;
+const { VITE_BASE_OAUTH_STATE, VITE_GOOGLE_CLIENT_ID } = import.meta.env;
 
 const OAuth: FC<OAuthProps> = (props) => {
   const [cStateId] = getCookies(keyValue.STATE_ID);
@@ -22,12 +18,7 @@ const OAuth: FC<OAuthProps> = (props) => {
 
   useEffect(() => {
     if (!cStateId) {
-      setCookies(
-        { stateId: nanoid() },
-        VITE_STATE_ID_COOKIE_LIFETIME,
-        undefined,
-        true
-      );
+      setCookies({ stateId: nanoid() }, undefined, undefined, true);
     }
   }, [cStateId]);
 

@@ -23,7 +23,7 @@ export const setCookies = (
 ) => {
   const path = cookiePath ? "path=" + cookiePath : "path=/";
   let expires = "";
-  const secureFlag = isSecure ? ";Secure;" : ";";
+  const secureFlag = isSecure ? "Secure" : "";
 
   if (
     typeof cookieExpirationValue === "number" ||
@@ -35,10 +35,10 @@ export const setCookies = (
     expires = "expires=" + cookieExpirationValue.toUTCString();
   }
 
-  Object.keys(cookieValue).forEach((i: keyof CookieValue) => {
-    console.log(`${i}=${cookieValue[i]};${path};${expires}${secureFlag}`);
-    return (document.cookie = `${i}=${cookieValue[i]};${path};${expires}${secureFlag}`);
-  });
+  Object.keys(cookieValue).forEach(
+    (i: keyof CookieValue) =>
+      (document.cookie = `${i}=${cookieValue[i]};${path};${expires};${secureFlag}`)
+  );
 };
 
 export const deleteCookie = (...args: string[]) =>
