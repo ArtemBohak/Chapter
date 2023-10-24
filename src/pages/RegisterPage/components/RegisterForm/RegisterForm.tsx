@@ -62,7 +62,7 @@ const RegisterForm: FC = () => {
 
         return navigate(`${links.ACCOUNT_CREATION}/${id}`);
       }
-      const { error, statusCode, message } =
+      const { error, statusCode, message, status } =
         await RegisterFormApi.fetchUserRegData({
           email,
         });
@@ -71,7 +71,7 @@ const RegisterForm: FC = () => {
         return setFieldError(RegisterAccountKey.EMAIL, message);
 
       if (
-        statusCode === apiErrorStatus.UNPROCESSABLE_ENTITY &&
+        status === apiErrorStatus.UNPROCESSABLE_ENTITY &&
         RegisterFormApi.formatErrorResponse(error) === EmailStatus.UNCONFIRMED
       ) {
         resetForm({ values: { email, hash } });
@@ -79,13 +79,13 @@ const RegisterForm: FC = () => {
       }
 
       if (
-        statusCode === apiErrorStatus.UNPROCESSABLE_ENTITY &&
+        status === apiErrorStatus.UNPROCESSABLE_ENTITY &&
         cUId &&
         cEmail === email
       )
         return navigate(`${links.ACCOUNT_CREATION}/${cUId}`);
 
-      if (statusCode === apiErrorStatus.UNPROCESSABLE_ENTITY)
+      if (status === apiErrorStatus.UNPROCESSABLE_ENTITY)
         return setFieldError(
           RegisterAccountKey.EMAIL,
           apiUiMessage.EMAIL_IN_USE
