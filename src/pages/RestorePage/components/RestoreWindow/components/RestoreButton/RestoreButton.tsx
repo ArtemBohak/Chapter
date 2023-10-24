@@ -1,29 +1,32 @@
 import { FC, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { AxiosError } from "axios";
 
 import { EndpointsEnum, api } from "@/src/axios";
-import { getCookie, keyValue } from "@/src/utils";
+
 import { RestoreButtonProps } from "./RestoreButton.type";
 import styles from "./RestoreButton.module.scss";
 
 import { UIbutton } from "@/src/components";
+import { links } from "@/src/utils";
 
 const RestoreButton: FC<RestoreButtonProps> = ({
-  setRestoringProvider,
   setRestoringFormIsOpen,
+  email,
+  token,
 }) => {
-  const email = getCookie(keyValue.RESTORE_EMAIL);
-  const token = getCookie(keyValue.RESTORE_TOKEN);
-
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const onHandleClick = async () => {
+    if (!email && !token) return navigate(links.LOG_IN);
+
     setLoading(true);
     try {
       if (email) {
-        await api.post(EndpointsEnum.EMAIL_RESTORE, { email });
-
-        setRestoringProvider(keyValue.EMAIL);
+        await api.post(EndpointsEnum.EMAIL_RESTORE, {
+          email,
+        });
       }
 
       if (token) {
@@ -32,7 +35,6 @@ const RestoreButton: FC<RestoreButtonProps> = ({
           {},
           { headers: { Authorization: "Bearer" + " " + token } }
         );
-        setRestoringProvider(keyValue.GOOGLE);
       }
       setRestoringFormIsOpen(true);
     } catch (error) {

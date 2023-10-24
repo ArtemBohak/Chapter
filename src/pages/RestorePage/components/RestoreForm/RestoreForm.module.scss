@@ -1,3 +1,7 @@
 .restore-form {
-  @apply w-full max-w-[328px] py-[148px] px-2-md mx-auto rounded-[16px] text-center bg-[#FDFDFD];
+  @apply relative w-full max-w-[328px] md:max-w-[632px] laptop:max-w-[1166px] px-2-md md:px-4-xs laptop:px-[82px] mx-auto rounded-[16px] text-center bg-[#FDFDFD];
+
+  &__button {
+    @apply absolute top-[20px] right-[20px] bg-transparent outline-none;
+  }
 }

@@ -6,6 +6,15 @@ export const getCookie = (key: string) =>
     .find((item) => item.startsWith(`${key}=`))
     ?.split("=")[1];
 
+export const getCookies = (...args: string[]) =>
+  args.map(
+    (i) =>
+      document.cookie
+        .split("; ")
+        .find((item) => item.startsWith(`${i}=`))
+        ?.split("=")[1]
+  );
+
 export const setCookie = (
   cookieValue: CookieValue,
   cookieExpirationValue?: number | string | Date,

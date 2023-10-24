@@ -1,15 +1,13 @@
 import { FC, useEffect, useState } from "react";
 
 import { getCookie, keyValue, timer } from "@/src/utils";
-import { RestoreButtonProps } from "../RestoreButton/RestoreButton.type";
+
 import styles from "./RestoreWindow.module.scss";
 
-import RestoreButton from "../RestoreButton/RestoreButton";
+import RestoreButton from "./components/RestoreButton/RestoreButton";
+import { RestoreWindowProps } from "./RestoreWindow.type";
 
-const RestoreWindow: FC<RestoreButtonProps> = ({
-  setRestoringProvider,
-  setRestoringFormIsOpen,
-}) => {
+const RestoreWindow: FC<RestoreWindowProps> = (props) => {
   const timeValue = getCookie(keyValue.DELETED_ACCOUNT_TIME_STAMP);
 
   const deadLine = timeValue ? new Date(timeValue).getTime() : 0;
@@ -44,10 +42,7 @@ const RestoreWindow: FC<RestoreButtonProps> = ({
         {+hours > 1 ? "Hours" : "Hour"} {minutes}{" "}
         {+minutes > 1 ? "Minutes" : "Minute"}
       </p>
-      <RestoreButton
-        setRestoringProvider={setRestoringProvider}
-        setRestoringFormIsOpen={setRestoringFormIsOpen}
-      />
+      <RestoreButton {...props} />
     </div>
   );
 };

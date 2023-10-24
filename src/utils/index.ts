@@ -8,7 +8,12 @@ export {
   getExpiresTokenValueFromLS,
 } from "./localStorage/localStorage";
 export { checkAccessToken } from "./checkAccessToken/checkAccessToken";
-export { getCookie, setCookie, deleteCookie } from "./cookies/cookies";
+export {
+  getCookie,
+  getCookies,
+  setCookie,
+  deleteCookie,
+} from "./cookies/cookies";
 export { default as checkIsCyrillic } from "./checkIsCyrillic/checkIsCyrillic";
 export { default as hashingString } from "./hashingString/hashingString";
 export {
@@ -18,4 +23,8 @@ export {
   apiErrorMessage,
 } from "./apiStatus/apiStatus.type";
 export { setDate, timer } from "./date/date";
-export { accountDeletionTerm, keyValue } from "./constants/constants";
+export {
+  accountDeletionTerm,
+  redirectTimeoutValue,
+  keyValue,
+} from "./constants/constants";

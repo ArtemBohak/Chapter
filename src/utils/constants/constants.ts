@@ -1,5 +1,7 @@
 export const accountDeletionTerm = 30;
 
+export const redirectTimeoutValue = 1000 * 60;
+
 export enum keyValue {
   USER_ID = "userId",
   EMAIL = "email",
