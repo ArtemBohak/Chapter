@@ -2,7 +2,7 @@ import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { RestoringFormProps } from "./RestoreForm.type";
-import { deleteCookie, getCookie, keyValue } from "@/src/utils";
+import { deleteCookie, getCookies, keyValue } from "@/src/utils";
 import styles from "./RestoreForm.module.scss";
 
 import RestoreEmail from "./components/RestoreEmail/RestoreEmail";
@@ -15,8 +15,10 @@ const RestoreForm: FC<RestoringFormProps> = ({
 }) => {
   const navigate = useNavigate();
 
+  const [cRestoreToken] = getCookies(keyValue.RESTORE_TOKEN);
+
   const onHandleClick = () => {
-    getCookie(keyValue.RESTORE_TOKEN) &&
+    cRestoreToken &&
       deleteCookie(
         keyValue.DELETED_ACCOUNT_TIME_STAMP,
         keyValue.RESTORE_EMAIL,

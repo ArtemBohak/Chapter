@@ -2,7 +2,7 @@ import { FC, useEffect } from "react";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { nanoid } from "@reduxjs/toolkit";
 
-import { getCookie, keyValue, setCookie } from "@/src/utils";
+import { getCookies, keyValue, setCookie } from "@/src/utils";
 import { OAuthProps, OAuthVariant } from "./OAuth.type";
 
 import Twitter from "./Twitter/Twitter";
@@ -16,15 +16,15 @@ const {
 } = import.meta.env;
 
 const OAuth: FC<OAuthProps> = (props) => {
-  const stateId = getCookie(keyValue.STATE_ID)
-    ? getCookie(keyValue.STATE_ID)
-    : VITE_BASE_OAUTH_STATE;
+  const [cStateId] = getCookies(keyValue.STATE_ID);
+
+  const stateId = cStateId ? cStateId : VITE_BASE_OAUTH_STATE;
 
   useEffect(() => {
-    if (!getCookie(keyValue.STATE_ID)) {
+    if (!cStateId) {
       setCookie({ stateId: nanoid() }, VITE_STATE_ID_COOKIE_LIFETIME);
     }
-  }, []);
+  }, [cStateId]);
 
   if (props.oAuthVariant === OAuthVariant.GOOGLE)
     return (

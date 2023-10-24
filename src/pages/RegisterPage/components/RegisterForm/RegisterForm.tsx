@@ -10,9 +10,15 @@ import {
   Steps,
   RegisterAccountKey,
 } from "./RegisterForm.type";
-import { apiUiMessage, apiErrorStatus, keyValue } from "@/src/utils";
+import {
+  apiUiMessage,
+  apiErrorStatus,
+  keyValue,
+  getCookies,
+  links,
+  setCookie,
+} from "@/src/utils";
 import { validationSchema } from "./validationSchema";
-import { getCookie, links, setCookie } from "@/src/utils";
 import styles from "./RegisterForm.module.scss";
 
 import { UIbutton, TextField } from "@/src/components";
@@ -26,6 +32,8 @@ const initialValues: RegisterAccountValues = {
 const RegisterForm: FC = () => {
   const [step, setStep] = useState(Steps.FIRST);
   const nodeRef = useRef(null);
+
+  const [cUId, cEmail] = getCookies(keyValue.USER_ID, keyValue.EMAIL);
 
   const navigate = useNavigate();
 
@@ -54,34 +62,39 @@ const RegisterForm: FC = () => {
 
         return navigate(`${links.ACCOUNT_CREATION}/${id}`);
       }
-      const { error, status } = await RegisterFormApi.fetchUserRegData({
-        email,
-      });
+      const { error, statusCode, message } =
+        await RegisterFormApi.fetchUserRegData({
+          email,
+        });
+
+      if (statusCode === apiErrorStatus.BAD_REQUEST)
+        return setFieldError(RegisterAccountKey.EMAIL, message);
 
       if (
-        status === apiErrorStatus.UNPROCESSABLE_ENTITY &&
+        statusCode === apiErrorStatus.UNPROCESSABLE_ENTITY &&
         RegisterFormApi.formatErrorResponse(error) === EmailStatus.UNCONFIRMED
       ) {
         resetForm({ values: { email, hash } });
         return setStep(step + 1);
       }
-      if (
-        status === apiErrorStatus.UNPROCESSABLE_ENTITY &&
-        getCookie(keyValue.USER_ID) &&
-        getCookie(keyValue.EMAIL) === email
-      )
-        return navigate(
-          `${links.ACCOUNT_CREATION}/${getCookie(keyValue.USER_ID)}`
-        );
 
-      if (status === apiErrorStatus.UNPROCESSABLE_ENTITY)
+      if (
+        statusCode === apiErrorStatus.UNPROCESSABLE_ENTITY &&
+        cUId &&
+        cEmail === email
+      )
+        return navigate(`${links.ACCOUNT_CREATION}/${cUId}`);
+
+      if (statusCode === apiErrorStatus.UNPROCESSABLE_ENTITY)
         return setFieldError(
           RegisterAccountKey.EMAIL,
           apiUiMessage.EMAIL_IN_USE
         );
 
-      resetForm({ values: { email, hash } });
-      setStep(step + 1);
+      if (!error) {
+        resetForm({ values: { email, hash } });
+        setStep(step + 1);
+      }
     } finally {
       setSubmitting(false);
     }

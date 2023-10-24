@@ -20,12 +20,13 @@ const UpdateUserPassword: FC = () => {
 
   const onHandleSubmit = async (
     values: InitialValues,
-    { setSubmitting }: FormikHelpers<InitialValues>
+    { setSubmitting, resetForm }: FormikHelpers<InitialValues>
   ) => {
     const profile = new ProfileUpdateApi(dispatch);
     await profile.updatePassword(values);
 
     setSubmitting(false);
+    resetForm();
   };
   return (
     <Formik
@@ -33,7 +34,7 @@ const UpdateUserPassword: FC = () => {
       onSubmit={onHandleSubmit}
       validationSchema={validationSchema}
     >
-      {({ isSubmitting, dirty, isValid }) => {
+      {({ isSubmitting, dirty, isValid, values }) => {
         return (
           <Form className={styles["update-password"]}>
             <PasswordField
@@ -43,6 +44,7 @@ const UpdateUserPassword: FC = () => {
               autoComplete="current-password"
               additionalLabel={ErrorMessages.OLD_PASSWORD}
               label="Old password"
+              value={values.oldPassword}
               className={`${styles["update-password__input"]} ${styles["input"]}`}
             />
             <PasswordField
@@ -53,6 +55,7 @@ const UpdateUserPassword: FC = () => {
               additionalLabel={ErrorMessages.NEW_PASSWORD}
               strengthMessage={ErrorMessages.NEW_PASSWORD}
               label="New password"
+              value={values.newPassword}
               className={`${styles["update-password__input"]} ${styles["input"]}`}
               strength
             />
@@ -62,6 +65,7 @@ const UpdateUserPassword: FC = () => {
               name="repeatNewPassword"
               autoComplete="new-password"
               label="Repeat new password"
+              value={values.repeatNewPassword}
               additionalLabel={ErrorMessages.CONFIRM_NEW_PASSWORD}
               className={`${styles["update-password__input"]} ${styles["input"]}`}
             />

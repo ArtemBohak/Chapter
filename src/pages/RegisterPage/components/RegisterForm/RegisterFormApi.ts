@@ -21,7 +21,7 @@ class RegisterFormApi {
       if (
         error instanceof AxiosError &&
         error.response &&
-        error.response.data.status < 500
+        error.response.status < 500
       ) {
         return error.response.data;
       } else console.log(error);

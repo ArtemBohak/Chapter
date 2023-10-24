@@ -8,7 +8,7 @@ import RestoreWindow from "./components/RestoreWindow/RestoreWindow";
 import RestoreForm from "./components/RestoreForm/RestoreForm";
 
 const RestorePage: FC = () => {
-  const [email, token] = getCookies(
+  const [cEmail, cToken] = getCookies(
     keyValue.RESTORE_EMAIL,
     keyValue.RESTORE_TOKEN
   );
@@ -22,23 +22,23 @@ const RestorePage: FC = () => {
   >();
 
   useEffect(() => {
-    email && setRestoringProvider(keyValue.EMAIL);
-    token && setRestoringProvider(keyValue.GOOGLE);
+    cEmail && setRestoringProvider(keyValue.EMAIL);
+    cToken && setRestoringProvider(keyValue.GOOGLE);
 
-    !email && !token && navigate(links.LOG_IN);
+    !cEmail && !cToken && navigate(links.LOG_IN);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [email, token]);
+  }, [cEmail, cToken]);
 
   return (
     <section className={styles["restore-page"]}>
       <div className={styles["restore-page-container"]}>
         {restoringFormIsOpen ? (
-          <RestoreForm restoringProvider={restoringProvider} email={email} />
+          <RestoreForm restoringProvider={restoringProvider} email={cEmail} />
         ) : (
           <RestoreWindow
             setRestoringFormIsOpen={setRestoringFormIsOpen}
-            email={email}
-            token={token}
+            email={cEmail}
+            token={cToken}
           />
         )}
       </div>

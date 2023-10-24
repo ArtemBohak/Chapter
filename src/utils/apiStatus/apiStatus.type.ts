@@ -13,6 +13,7 @@ export enum apiErrorStatus {
   FORBIDDEN = 403,
   NOTFOUND = 404,
   UNPROCESSABLE_ENTITY = 422,
+  BAD_REQUEST = 400,
 }
 
 export enum apiSuccessStatus {

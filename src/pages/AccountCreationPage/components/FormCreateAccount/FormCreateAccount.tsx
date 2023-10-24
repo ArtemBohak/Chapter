@@ -75,7 +75,13 @@ const FormCreateAccount: FC = () => {
         lastName,
       });
       removeDataFromLS(keyValue.FULL_NAME);
-      deleteCookie(keyValue.EMAIL, keyValue.USER_ID);
+      deleteCookie(
+        keyValue.EMAIL,
+        keyValue.USER_ID,
+        keyValue.DELETED_ACCOUNT_TIME_STAMP,
+        keyValue.RESTORE_EMAIL,
+        keyValue.RESTORE_TOKEN
+      );
       navigate(links.LOG_IN);
     } catch (e) {
       if (e instanceof AxiosError) {
