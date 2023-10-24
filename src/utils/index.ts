@@ -11,7 +11,7 @@ export { checkAccessToken } from "./checkAccessToken/checkAccessToken";
 export {
   getCookie,
   getCookies,
-  setCookie,
+  setCookies,
   deleteCookie,
 } from "./cookies/cookies";
 export { default as checkIsCyrillic } from "./checkIsCyrillic/checkIsCyrillic";

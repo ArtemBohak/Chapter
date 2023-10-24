@@ -15,13 +15,15 @@ export const getCookies = (...args: string[]) =>
         ?.split("=")[1]
   );
 
-export const setCookie = (
+export const setCookies = (
   cookieValue: CookieValue,
   cookieExpirationValue?: number | string | Date,
-  cookiePath?: string
+  cookiePath?: string,
+  isSecure: boolean = false
 ) => {
   const path = cookiePath ? "path=" + cookiePath : "path=/";
   let expires = "";
+  const secureFlag = isSecure ? ";Secure;" : ";";
 
   if (
     typeof cookieExpirationValue === "number" ||
@@ -33,11 +35,11 @@ export const setCookie = (
     expires = "expires=" + cookieExpirationValue.toUTCString();
   }
 
-  Object.keys(cookieValue).forEach(
-    (i: keyof CookieValue) =>
-      (document.cookie = `${i}=${cookieValue[i]};${path};${expires};`)
-  );
+  Object.keys(cookieValue).forEach((i: keyof CookieValue) => {
+    console.log(`${i}=${cookieValue[i]};${path};${expires}${secureFlag}`);
+    return (document.cookie = `${i}=${cookieValue[i]};${path};${expires}${secureFlag}`);
+  });
 };
 
 export const deleteCookie = (...args: string[]) =>
-  args.forEach((item) => setCookie({ [item]: "" }, -1));
+  args.forEach((item) => setCookies({ [item]: "" }, -1));

@@ -8,7 +8,7 @@ import { links } from "@/src/utils/links/links.types";
 import {
   apiErrorMessage,
   apiErrorStatus,
-  setCookie,
+  setCookies,
   setDate,
   accountDeletionTerm,
   setDataToLS,
@@ -36,14 +36,15 @@ const LoginPageForm: FC = () => {
       response.message === apiErrorMessage.ACCOUNT_DELETED
     ) {
       deleteCookie(keyValue.RESTORE_TOKEN);
-      setCookie(
-        {
-          deletedUserDate:
-            setDate(response.deletedUserDate, accountDeletionTerm) + "",
-          restoringEmail: values.email,
-        },
-        setDate(response.deletedUserDate, accountDeletionTerm)
+      const expiresValue = setDate(
+        response.deletedUserDate,
+        accountDeletionTerm
       );
+      const cValue = {
+        deletedUserDate: expiresValue + "",
+        restoringEmail: values.email,
+      };
+      setCookies(cValue, expiresValue, undefined, true);
 
       return navigate(links.RESTORE);
     }

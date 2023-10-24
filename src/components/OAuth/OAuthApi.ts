@@ -13,7 +13,7 @@ import {
   deleteCookie,
   keyValue,
   links,
-  setCookie,
+  setCookies,
   setDataToLS,
   setDate,
 } from "@/src/utils";
@@ -52,7 +52,12 @@ abstract class OAuthApi {
     const fullName = `${user.firstName ? user.firstName : ""}${
       user.lastName ? ` ${user.lastName}` : ""
     }`;
-    setCookie({ email: user.userEmail, userId: user.id + "" }, 604800);
+    setCookies(
+      { email: user.userEmail, userId: user.id + "" },
+      604800,
+      undefined,
+      true
+    );
     setDataToLS({
       fullName,
     });
@@ -71,17 +76,16 @@ abstract class OAuthApi {
             error.response?.data.message === apiErrorMessage.ACCOUNT_DELETED
           ) {
             deleteCookie(keyValue.RESTORE_EMAIL);
-            setCookie(
-              {
-                deletedUserDate:
-                  setDate(
-                    error.response.data.deletedUserDate,
-                    accountDeletionTerm
-                  ) + "",
-                restoreToken: error.response.data.restoreToken,
-              },
-              setDate(error.response.data.deletedUserDate, accountDeletionTerm)
+
+            const expiresDate = setDate(
+              error.response.data.deletedUserDate,
+              accountDeletionTerm
             );
+            const cValue = {
+              deletedUserDate: expiresDate + "",
+              restoreToken: error.response.data.restoreToken,
+            };
+            setCookies(cValue, expiresDate, undefined, true);
             return this.navigate(links.RESTORE);
           }
           this.handleError(error.message);

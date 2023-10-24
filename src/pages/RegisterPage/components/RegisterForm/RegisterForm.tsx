@@ -16,7 +16,7 @@ import {
   keyValue,
   getCookies,
   links,
-  setCookie,
+  setCookies,
 } from "@/src/utils";
 import { validationSchema } from "./validationSchema";
 import styles from "./RegisterForm.module.scss";
@@ -53,7 +53,7 @@ const RegisterForm: FC = () => {
           hash,
         });
 
-        setCookie({ email, userId: id }, 604800);
+        setCookies({ email, userId: id }, 604800, undefined, true);
         if (status === apiErrorStatus.NOTFOUND)
           return setFieldError(
             RegisterAccountKey.HASH,
