@@ -8,6 +8,7 @@ import { useAppDispatch } from "@/src/redux/hooks";
 import styles from "./UpdateUserPassword.module.scss";
 
 import { PasswordField, UIbutton } from "@/src/components";
+import { apiErrorMessage, apiErrorStatus, apiUiMessage } from "@/src/utils";
 
 const initialValues: InitialValues = {
   oldPassword: "",
@@ -20,12 +21,18 @@ const UpdateUserPassword: FC = () => {
 
   const onHandleSubmit = async (
     values: InitialValues,
-    { setSubmitting, resetForm }: FormikHelpers<InitialValues>
+    { setSubmitting, resetForm, setFieldError }: FormikHelpers<InitialValues>
   ) => {
     const profile = new ProfileUpdateApi(dispatch);
-    await profile.updatePassword(values);
+    const res = await profile.updatePassword(values);
 
     setSubmitting(false);
+    if (
+      res?.response?.data.status === apiErrorStatus.BAD_REQUEST &&
+      res?.response?.data.error === apiErrorMessage.UPDATE_PASSWORD
+    ) {
+      return setFieldError("oldPassword", apiUiMessage.WRONG_PASSWORD);
+    }
     resetForm();
   };
   return (

@@ -2,6 +2,7 @@ import { combineReducers } from "redux";
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 
 import { userSlice } from "../slices";
+import { setResponseApiInterceptor } from "@/src/axios";
 
 const rootReducer = combineReducers({
   [userSlice.name]: userSlice.reducer,
@@ -23,5 +24,5 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   unknown,
   Action<string>
 >;
-
 export const store = makeStore();
+setResponseApiInterceptor(store);

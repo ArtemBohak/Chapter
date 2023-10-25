@@ -1,5 +1,5 @@
-import OAuthApi from "../OAuthApi";
 import { OAuthApiArgs } from "../OAuth.type";
+import { AuthApiConstructor } from "@/src/services";
 
 const {
   VITE_TWITTER_STATE,
@@ -7,7 +7,7 @@ const {
   VITE_TWITTER_CODE_VERIFIER,
 } = import.meta.env;
 
-class TwitterApi extends OAuthApi {
+class TwitterApi extends AuthApiConstructor {
   static createRedirectUrl(redirectUri: string, stateId: string) {
     const rootUrl = import.meta.env.VITE_TWITTER_AUTH_CODE_BASE_URL;
     const options = {
@@ -23,7 +23,7 @@ class TwitterApi extends OAuthApi {
     return `${rootUrl}?${qs}`;
   }
   constructor({ token, navigate, setIsLoading, dispatch }: OAuthApiArgs) {
-    super(token, navigate, dispatch, setIsLoading);
+    super(dispatch, token, setIsLoading, navigate);
 
     this.login();
   }

@@ -1,13 +1,17 @@
-import { EndpointsEnum, api } from "@/src/axios";
 import { ImageSaveArgs, ProfileUpdateApiArgs } from "./ProfileUpdateApi.type";
-import { FilesService, UserApiConstructor } from "@/src/services";
+import { EndpointsEnum, api } from "@/src/axios";
+import {
+  FilesService,
+  AuthApiConstructor,
+  SetIsLoadingType,
+} from "@/src/services";
 import { AppDispatch } from "@/src/redux/store";
-import { SetIsLoadingType } from "@/src/services/UserApiConstructor/UserApiConstructor.type";
+
 import { logout } from "@/src/redux/slices";
 
-export class ProfileUpdateApi extends UserApiConstructor {
+export class ProfileUpdateApi extends AuthApiConstructor {
   constructor(dispatch: AppDispatch, setIsLoading?: SetIsLoadingType) {
-    super(dispatch, setIsLoading);
+    super(dispatch, undefined, setIsLoading);
   }
 
   async imageSave(payload: ImageSaveArgs) {

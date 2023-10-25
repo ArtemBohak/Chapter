@@ -1,11 +1,14 @@
-import axios from "axios";
-import { TokenService } from "@/src/services";
+import axios, { AxiosResponse } from "axios";
+import { ToolkitStore } from "@reduxjs/toolkit/dist/configureStore";
 import {
   getTokenFromLC,
   keyValue,
   removeDataFromLS,
   setDataToLS,
 } from "@/src/utils";
+import { logout } from "../redux/slices";
+import { EndpointsEnum } from ".";
+import { RefreshTokenType } from "./axios.type";
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
@@ -28,34 +31,43 @@ api.interceptors.request.use(
   }
 );
 
-api.interceptors.response.use(
-  (response) => {
-    return response;
-  },
-  async (error) => {
-    if (!getTokenFromLC()) return Promise.reject(error);
+export const setResponseApiInterceptor = (store: ToolkitStore) =>
+  api.interceptors.response.use(
+    (response) => {
+      return response;
+    },
+    async (error) => {
+      if (!getTokenFromLC()) return Promise.reject(error);
 
-    const originalRequest = error.config;
+      const originalRequest = error.config;
 
-    if (
-      error.response.status === 401 &&
-      error.config &&
-      !originalRequest._retry
-    ) {
-      error.config._isRetry = true;
-      try {
-        const response = await TokenService.refreshToken();
-        const { token } = response.data;
-        setDataToLS({ token });
+      if (
+        error.response.status === 401 &&
+        error.config &&
+        !originalRequest._retry
+      ) {
+        error.config._isRetry = true;
+        try {
+          const {
+            data: { token },
+          }: AxiosResponse<RefreshTokenType> = await axios.post(
+            import.meta.env.VITE_API_BASE_URL + EndpointsEnum.REFRESH,
+            null,
+            {
+              withCredentials: true,
+            }
+          );
 
-        return api.request(originalRequest);
-      } catch (e) {
-        removeDataFromLS(keyValue.ACCESS_TOKEN);
-        return Promise.reject(error);
+          setDataToLS({ token });
+
+          return api.request(originalRequest);
+        } catch (e) {
+          removeDataFromLS(keyValue.ACCESS_TOKEN);
+          store.dispatch(logout());
+          return Promise.reject(error);
+        }
       }
+      throw error;
     }
-    throw error;
-  }
-);
-
+  );
 export default api;

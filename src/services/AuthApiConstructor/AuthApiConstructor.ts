@@ -1,39 +1,41 @@
+import { AxiosError } from "axios";
 import { NavigateFunction } from "react-router-dom";
-import { AxiosError, AxiosPromise } from "axios";
+
+import {
+  SetIsLoadingType,
+  User,
+  cbArgs,
+  cbFunc,
+} from "./AuthApiConstructor.type";
 import { AppDispatch } from "@/src/redux/store";
+import { userFulfilled, userPending, userRejected } from "@/src/redux/slices";
 import {
-  userPending,
-  userFulfilled,
-  userRejected,
-} from "@/src/redux/slices/user";
-import {
-  accountDeletionTerm,
-  apiErrorMessage,
-  apiErrorStatus,
   deleteCookie,
   keyValue,
+  setDataToLS,
+  LocaleStorageArgs,
   links,
   setCookies,
-  setDataToLS,
+  apiErrorStatus,
+  apiErrorMessage,
+  accountDeletionTerm,
   setDate,
 } from "@/src/utils";
-import { SetIsLoadingType, UserData } from "./OAuth.type";
-import { LocaleStorageArgs } from "@/src/utils/localStorage/localStorage.type";
 
-abstract class OAuthApi {
+export default abstract class AuthApiConstructor {
   constructor(
-    protected token: string | undefined,
-    private navigate: NavigateFunction,
-    private dispatch: AppDispatch,
-    private setIsLoading: SetIsLoadingType
+    protected dispatch: AppDispatch,
+    protected token?: string,
+    protected setIsLoading?: SetIsLoadingType,
+    private navigate?: NavigateFunction
   ) {}
 
   private handleRequest() {
-    this.setIsLoading(true);
+    this.setIsLoading && this.setIsLoading(true);
     this.dispatch(userPending());
   }
 
-  protected handleData(user: UserData, cred: LocaleStorageArgs) {
+  protected handleData(user: User, cred: LocaleStorageArgs) {
     deleteCookie(
       keyValue.DELETED_ACCOUNT_TIME_STAMP,
       keyValue.RESTORE_EMAIL,
@@ -43,11 +45,7 @@ abstract class OAuthApi {
     this.dispatch(userFulfilled(user));
   }
 
-  private handleError(error: string) {
-    this.dispatch(userRejected(error));
-  }
-
-  protected redirect(user: UserData, url?: string) {
+  protected redirect(user: User, url?: string) {
     const redirectUrl = url ? url : `${links.ACCOUNT_CREATION}/${user.id}`;
     const fullName = `${user.firstName ? user.firstName : ""}${
       user.lastName ? ` ${user.lastName}` : ""
@@ -61,14 +59,18 @@ abstract class OAuthApi {
     setDataToLS({
       fullName,
     });
-    this.navigate(redirectUrl);
+    this.navigate && this.navigate(redirectUrl);
   }
 
-  protected tryCatchWrapper(cb: () => AxiosPromise<UserData>) {
-    return async () => {
+  private handleError(error: string) {
+    this.dispatch(userRejected(error));
+  }
+
+  protected tryCatchWrapper(cb: cbFunc) {
+    return async (payload?: cbArgs) => {
       this.handleRequest();
       try {
-        await cb();
+        await cb(payload);
       } catch (error) {
         if (error instanceof AxiosError) {
           if (
@@ -86,15 +88,15 @@ abstract class OAuthApi {
               restoreToken: error.response.data.restoreToken,
             };
             setCookies(cValue, expiresDate, undefined, true);
-            return this.navigate(links.RESTORE);
+            if (this.navigate) return this.navigate(links.RESTORE);
           }
+
           this.handleError(error.message);
+          return error;
         }
       } finally {
-        this.setIsLoading(false);
+        this.setIsLoading && this.setIsLoading(false);
       }
     };
   }
 }
-
-export default OAuthApi;

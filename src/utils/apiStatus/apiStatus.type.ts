@@ -3,11 +3,13 @@ export enum apiUiMessage {
   EMAIL_IN_USE = "Email address is already in use.",
   INVALID_HASH = "Invalid sign up code.",
   INVALID_RECOVERY_CODE = "Incorrect code",
+  WRONG_PASSWORD = "Wrong password",
 }
 
 export enum apiErrorMessage {
   WRONG_HASH = "Wrong hash",
   ACCOUNT_DELETED = "Account was deleted. Do you want to restore?",
+  UPDATE_PASSWORD = "Incorrect old password!",
 }
 export enum apiErrorStatus {
   FORBIDDEN = 403,
