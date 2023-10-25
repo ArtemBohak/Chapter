@@ -8,7 +8,7 @@ export {
   getExpiresTokenValueFromLS,
 } from "./localStorage/localStorage";
 export { type LocaleStorageArgs } from "./localStorage/localStorage.type";
-export { checkAccessToken } from "./checkAccessToken/checkAccessToken";
+export { tokenIsValid } from "./tokenIsValid/tokenIsValid";
 export {
   getCookie,
   getCookies,
