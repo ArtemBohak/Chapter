@@ -2,6 +2,12 @@ import { AxiosError } from "axios";
 import { NavigateFunction } from "react-router-dom";
 
 import {
+  SetIsLoadingType,
+  User,
+  cbArgs,
+  cbFunc,
+} from "./AuthApiConstructor.type";
+import {
   apiErrorStatus,
   apiErrorMessage,
   LocaleStorageArgs,
@@ -9,14 +15,11 @@ import {
   keysValue,
 } from "@/src/types";
 import {
-  SetIsLoadingType,
-  User,
-  cbArgs,
-  cbFunc,
-} from "./AuthApiConstructor.type";
-
-import { AppDispatch } from "@/src/redux/store";
-import { userFulfilled, userPending, userRejected } from "@/src/redux/slices";
+  userFulfilled,
+  userPending,
+  userRejected,
+  AppDispatch,
+} from "@/src/redux";
 import {
   deleteCookie,
   setDataToLS,

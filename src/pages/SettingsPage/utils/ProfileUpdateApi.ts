@@ -5,9 +5,7 @@ import {
   AuthApiConstructor,
   SetIsLoadingType,
 } from "@/src/services";
-import { AppDispatch } from "@/src/redux/store";
-
-import { logout } from "@/src/redux/slices";
+import { AppDispatch, logout } from "@/src/redux";
 
 export class ProfileUpdateApi extends AuthApiConstructor {
   constructor(dispatch: AppDispatch, setIsLoading?: SetIsLoadingType) {

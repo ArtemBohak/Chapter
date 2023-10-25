@@ -1,10 +1,11 @@
 import axios, { AxiosResponse } from "axios";
 import { ToolkitStore } from "@reduxjs/toolkit/dist/configureStore";
+
+import { logout } from "@/src/redux";
 import { keysValue } from "@/src/types";
-import { getTokenFromLC, removeDataFromLS, setDataToLS } from "@/src/utils";
-import { logout } from "../redux/slices";
 import { EndpointsEnum } from ".";
 import { RefreshTokenType } from "./axios.type";
+import { getTokenFromLC, removeDataFromLS, setDataToLS } from "@/src/utils";
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,

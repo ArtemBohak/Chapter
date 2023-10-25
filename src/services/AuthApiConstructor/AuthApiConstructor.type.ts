@@ -1,6 +1,6 @@
-import { IUserStore } from "@/src/redux";
-import { AxiosPromise } from "axios";
 import { Dispatch, SetStateAction } from "react";
+import { AxiosPromise } from "axios";
+import { IUserStore } from "@/src/redux";
 
 export type SetIsLoadingType = Dispatch<SetStateAction<boolean>>;
 
