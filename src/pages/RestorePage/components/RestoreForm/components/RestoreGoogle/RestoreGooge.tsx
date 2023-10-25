@@ -12,27 +12,23 @@ const RestoreGoogle: FC = () => {
 
   useEffect(() => {
     const t = setTimeout(() => {
+      navigate(links.LOG_IN);
+    }, redirectTimeoutValue);
+
+    return () => {
+      clearTimeout(t);
       deleteCookie(
         keysValue.DELETED_ACCOUNT_TIME_STAMP,
         keysValue.RESTORE_EMAIL,
         keysValue.RESTORE_TOKEN
       );
-      navigate(links.LOG_IN);
-    }, redirectTimeoutValue);
-
-    return () => clearTimeout(t);
+    };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const onHandleClick = () => {
-    deleteCookie(
-      keysValue.DELETED_ACCOUNT_TIME_STAMP,
-      keysValue.RESTORE_EMAIL,
-      keysValue.RESTORE_TOKEN
-    );
-    navigate(links.LOG_IN);
-  };
+  const onHandleClick = () => navigate(links.LOG_IN);
+
   return (
     <div className={styles["google-wrapper"]}>
       <h3>Your profile has been successfully restored!</h3>
