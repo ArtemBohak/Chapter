@@ -4,23 +4,17 @@ import cn from "classnames";
 import { AxiosError } from "axios";
 import { Formik, Form, FormikProps, FormikHelpers } from "formik";
 
-import validationSchema from "./validationSchema";
-
-import { IAccountCreate } from "./FormCreateAccount.type";
 import api from "@/src/axios/api";
+import { IAccountCreate } from "./FormCreateAccount.type";
+import { links, keysValue } from "@/src/types";
 import { EndpointsEnum } from "@/src/axios/endpoints.types";
 import { useDebounce } from "@/src/hooks/useDebounce";
-import {
-  checkIsCyrillic,
-  deleteCookie,
-  keyValue,
-  removeDataFromLS,
-} from "@/src/utils";
+import { checkIsCyrillic, deleteCookie, removeDataFromLS } from "@/src/utils";
+import validationSchema from "./validationSchema";
 import styles from "./FormCreateAccount.module.scss";
 
 import UIbutton from "@/src/components/Buttons/UIbutton/UIbutton";
 import { TextField, PasswordField } from "@/src/components/Fields";
-import { links } from "@/src/utils";
 
 const initialValues: IAccountCreate = {
   fullname: "",
@@ -74,13 +68,13 @@ const FormCreateAccount: FC = () => {
         firstName,
         lastName,
       });
-      removeDataFromLS(keyValue.FULL_NAME);
+      removeDataFromLS(keysValue.FULL_NAME);
       deleteCookie(
-        keyValue.EMAIL,
-        keyValue.USER_ID,
-        keyValue.DELETED_ACCOUNT_TIME_STAMP,
-        keyValue.RESTORE_EMAIL,
-        keyValue.RESTORE_TOKEN
+        keysValue.EMAIL,
+        keysValue.USER_ID,
+        keysValue.DELETED_ACCOUNT_TIME_STAMP,
+        keysValue.RESTORE_EMAIL,
+        keysValue.RESTORE_TOKEN
       );
       navigate(links.LOG_IN);
     } catch (e) {

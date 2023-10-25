@@ -1,4 +1,4 @@
-import { FileUploadArgs } from "@/src/services/Files/Files.type";
+import { FileUploadArgs } from "@/src/types";
 import { UserData } from "@/src/services/AuthApiConstructor/AuthApiConstructor.type";
 
 export type ProfileUpdateApiArgs = UserData;

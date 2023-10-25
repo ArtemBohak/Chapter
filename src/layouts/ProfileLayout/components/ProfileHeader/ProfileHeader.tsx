@@ -2,9 +2,9 @@ import { FC } from "react";
 import { NavLink } from "react-router-dom";
 import cn from "classnames";
 
-import { links } from "@/src/utils/links/links.types";
+import { links } from "@/src/types";
 import { useNavigationToggler } from "@/src/context/NavigationToggler";
-import { useAppSelector } from "@/src/redux/hooks";
+import { useAppSelector } from "@/src/redux";
 import styles from "./ProfileHeader.module.scss";
 
 import {

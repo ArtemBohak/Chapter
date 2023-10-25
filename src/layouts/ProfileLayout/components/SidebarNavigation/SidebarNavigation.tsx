@@ -2,9 +2,8 @@ import { FC } from "react";
 import { NavLink } from "react-router-dom";
 import cn from "classnames";
 
+import { links } from "@/src/types";
 import { ProfileNavigation } from "../ProfileNavigation";
-import { links } from "@/src/utils/links/links.types";
-
 import { useNavigationToggler } from "@/src/context/NavigationToggler";
 import styles from "./SidebarNavigation.module.scss";
 

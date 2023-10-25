@@ -1,6 +1,6 @@
 import { FC, FormEvent, useState } from "react";
 
-import { useAppDispatch } from "@/src/redux/hooks";
+import { useAppDispatch } from "@/src/redux";
 import { ProfileUpdateApi } from "../../utils/ProfileUpdateApi";
 import { ImageUploadProps } from "./ImageUpload.type";
 import styles from "./ImageUpload.module.scss";

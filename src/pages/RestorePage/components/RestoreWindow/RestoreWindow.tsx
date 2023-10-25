@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from "react";
 
-import { getCookies, keyValue, timer } from "@/src/utils";
+import { keysValue } from "@/src/types";
+import { getCookies, timer } from "@/src/utils";
 
 import styles from "./RestoreWindow.module.scss";
 
@@ -8,7 +9,7 @@ import RestoreButton from "./components/RestoreButton/RestoreButton";
 import { RestoreWindowProps } from "./RestoreWindow.type";
 
 const RestoreWindow: FC<RestoreWindowProps> = (props) => {
-  const [cTimeValue] = getCookies(keyValue.DELETED_ACCOUNT_TIME_STAMP);
+  const [cTimeValue] = getCookies(keysValue.DELETED_ACCOUNT_TIME_STAMP);
 
   const deadLine = cTimeValue ? new Date(cTimeValue).getTime() : 0;
   const times = timer(deadLine);

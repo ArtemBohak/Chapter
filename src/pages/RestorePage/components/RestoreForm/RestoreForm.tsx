@@ -2,7 +2,8 @@ import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { RestoringFormProps } from "./RestoreForm.type";
-import { deleteCookie, getCookies, keyValue } from "@/src/utils";
+import { keysValue } from "@/src/types";
+import { deleteCookie, getCookies } from "@/src/utils";
 import styles from "./RestoreForm.module.scss";
 
 import RestoreEmail from "./components/RestoreEmail/RestoreEmail";
@@ -15,14 +16,14 @@ const RestoreForm: FC<RestoringFormProps> = ({
 }) => {
   const navigate = useNavigate();
 
-  const [cRestoreToken] = getCookies(keyValue.RESTORE_TOKEN);
+  const [cRestoreToken] = getCookies(keysValue.RESTORE_TOKEN);
 
   const onHandleClick = () => {
     cRestoreToken &&
       deleteCookie(
-        keyValue.DELETED_ACCOUNT_TIME_STAMP,
-        keyValue.RESTORE_EMAIL,
-        keyValue.RESTORE_TOKEN
+        keysValue.DELETED_ACCOUNT_TIME_STAMP,
+        keysValue.RESTORE_EMAIL,
+        keysValue.RESTORE_TOKEN
       );
     navigate(-1);
   };
@@ -35,8 +36,8 @@ const RestoreForm: FC<RestoringFormProps> = ({
       >
         <Icon icon={IconEnum.Cross} size={32} />
       </button>
-      {restoringProvider === keyValue.EMAIL && <RestoreEmail {...props} />}
-      {restoringProvider === keyValue.GOOGLE && <RestoreGoogle />}
+      {restoringProvider === keysValue.EMAIL && <RestoreEmail {...props} />}
+      {restoringProvider === keysValue.GOOGLE && <RestoreGoogle />}
     </div>
   );
 };

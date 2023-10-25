@@ -4,8 +4,7 @@ import cn from "classnames";
 
 import { useNavigationToggler } from "@/src/context/NavigationToggler";
 import { NavigationListProps } from "./NavigationList.type";
-import { fetchIsLogoutUser } from "@/src/redux/slices";
-import { useAppDispatch } from "@/src/redux/hooks";
+import { useAppDispatch, fetchIsLogoutUser } from "@/src/redux";
 import "./NavigationList.scss";
 
 import { Icon, IconEnum } from "../../../../components/Icon";

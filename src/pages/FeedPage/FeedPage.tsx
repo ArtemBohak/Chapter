@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { useAppSelector } from "@/src/redux/hooks";
+import { useAppSelector } from "@/src/redux";
 
 const FeedPage: FC = () => {
   const userSlice = useAppSelector((state) => state.userSlice);

@@ -2,13 +2,13 @@ import { FC } from "react";
 import { Formik, Form, FormikHelpers } from "formik";
 
 import { InitialValues, ErrorMessages } from "./UpdateUserPassword.type";
+import { apiErrorMessage, apiErrorStatus, apiUiMessage } from "@/src/types";
 import validationSchema from "./validationSchema";
 import { ProfileUpdateApi } from "../../utils/ProfileUpdateApi";
-import { useAppDispatch } from "@/src/redux/hooks";
+import { useAppDispatch } from "@/src/redux";
 import styles from "./UpdateUserPassword.module.scss";
 
 import { PasswordField, UIbutton } from "@/src/components";
-import { apiErrorMessage, apiErrorStatus, apiUiMessage } from "@/src/utils";
 
 const initialValues: InitialValues = {
   oldPassword: "",

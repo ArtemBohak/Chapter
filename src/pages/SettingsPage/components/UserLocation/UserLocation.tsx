@@ -8,7 +8,7 @@ import {
   UserLocationProps,
 } from "./UserLocation.type";
 import { ProfileUpdateApi } from "../../utils/ProfileUpdateApi";
-import { useAppDispatch } from "@/src/redux/hooks";
+import { useAppDispatch } from "@/src/redux";
 import styles from "./UserLocation.module.scss";
 
 import { UIbutton } from "@/src/components";

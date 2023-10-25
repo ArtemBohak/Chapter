@@ -1,6 +1,6 @@
 import { NavigateFunction } from "react-router-dom";
-import { AppDispatch } from "@/src/redux/store";
-import { IUserStore } from "@/src/redux/types/user";
+
+import { AppDispatch, IUserStore } from "@/src/redux";
 import {
   ButtonColorType,
   ButtonVariantType,

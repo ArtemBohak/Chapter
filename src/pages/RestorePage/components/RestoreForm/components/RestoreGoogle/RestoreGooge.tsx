@@ -1,12 +1,8 @@
 import { FC, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import {
-  deleteCookie,
-  keyValue,
-  links,
-  redirectTimeoutValue,
-} from "@/src/utils";
+import { links, keysValue } from "@/src/types";
+import { deleteCookie, redirectTimeoutValue } from "@/src/utils";
 import styles from "./RestoreGoogle.module.scss";
 
 import { UIbutton } from "@/src/components";
@@ -17,9 +13,9 @@ const RestoreGoogle: FC = () => {
   useEffect(() => {
     const t = setTimeout(() => {
       deleteCookie(
-        keyValue.DELETED_ACCOUNT_TIME_STAMP,
-        keyValue.RESTORE_EMAIL,
-        keyValue.RESTORE_TOKEN
+        keysValue.DELETED_ACCOUNT_TIME_STAMP,
+        keysValue.RESTORE_EMAIL,
+        keysValue.RESTORE_TOKEN
       );
       navigate(links.LOG_IN);
     }, redirectTimeoutValue);
@@ -31,9 +27,9 @@ const RestoreGoogle: FC = () => {
 
   const onHandleClick = () => {
     deleteCookie(
-      keyValue.DELETED_ACCOUNT_TIME_STAMP,
-      keyValue.RESTORE_EMAIL,
-      keyValue.RESTORE_TOKEN
+      keysValue.DELETED_ACCOUNT_TIME_STAMP,
+      keysValue.RESTORE_EMAIL,
+      keysValue.RESTORE_TOKEN
     );
     navigate(links.LOG_IN);
   };

@@ -10,14 +10,8 @@ import {
   Steps,
   RegisterAccountKey,
 } from "./RegisterForm.type";
-import {
-  apiUiMessage,
-  apiErrorStatus,
-  keyValue,
-  getCookies,
-  links,
-  setCookies,
-} from "@/src/utils";
+import { apiUiMessage, apiErrorStatus, links, keysValue } from "@/src/types";
+import { getCookies, setCookies } from "@/src/utils";
 import { validationSchema } from "./validationSchema";
 import styles from "./RegisterForm.module.scss";
 
@@ -33,7 +27,7 @@ const RegisterForm: FC = () => {
   const [step, setStep] = useState(Steps.FIRST);
   const nodeRef = useRef(null);
 
-  const [cUId, cEmail] = getCookies(keyValue.USER_ID, keyValue.EMAIL);
+  const [cUId, cEmail] = getCookies(keysValue.USER_ID, keysValue.EMAIL);
 
   const navigate = useNavigate();
 

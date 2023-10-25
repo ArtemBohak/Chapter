@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
 
-import { useAppDispatch } from "@/src/redux/hooks";
+import { useAppDispatch } from "@/src/redux";
 import { ProfileUpdateApi } from "../../utils/ProfileUpdateApi";
 import styles from "./UserAccountDeletion.module.scss";
 

@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
 
-import { useAppSelector } from "@/src/redux/hooks";
+import { useAppSelector } from "@/src/redux";
 import styles from "./SettingsPage.module.scss";
 
 import {

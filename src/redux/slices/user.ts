@@ -1,9 +1,11 @@
 import { createAsyncThunk, createSlice, isAnyOf } from "@reduxjs/toolkit";
+
 import { IUserStore } from "../types/user";
 import { defaultUserState } from "../default-state/user";
 import { EndpointsEnum } from "@/src/axios/endpoints.types";
 import api from "@/src/axios/api";
-import { keyValue, removeDataFromLS } from "@/src/utils";
+import { keysValue } from "@/src/types";
+import { removeDataFromLS } from "@/src/utils";
 
 export interface IUserState {
   user: IUserStore;
@@ -25,7 +27,7 @@ export const fetchIsLogoutUser = createAsyncThunk(
   "user/fetchIsLogoutUser",
   async () => {
     const response = await api.post(EndpointsEnum.LOGOUT, {});
-    removeDataFromLS(keyValue.ACCESS_TOKEN);
+    removeDataFromLS(keysValue.ACCESS_TOKEN);
     return await response.data;
   }
 );

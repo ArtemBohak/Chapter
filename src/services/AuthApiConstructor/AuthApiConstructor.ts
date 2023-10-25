@@ -2,22 +2,25 @@ import { AxiosError } from "axios";
 import { NavigateFunction } from "react-router-dom";
 
 import {
+  apiErrorStatus,
+  apiErrorMessage,
+  LocaleStorageArgs,
+  links,
+  keysValue,
+} from "@/src/types";
+import {
   SetIsLoadingType,
   User,
   cbArgs,
   cbFunc,
 } from "./AuthApiConstructor.type";
+
 import { AppDispatch } from "@/src/redux/store";
 import { userFulfilled, userPending, userRejected } from "@/src/redux/slices";
 import {
   deleteCookie,
-  keyValue,
   setDataToLS,
-  LocaleStorageArgs,
-  links,
   setCookies,
-  apiErrorStatus,
-  apiErrorMessage,
   accountDeletionTerm,
   setDate,
 } from "@/src/utils";
@@ -37,9 +40,9 @@ export default abstract class AuthApiConstructor {
 
   protected handleData(user: User, cred: LocaleStorageArgs) {
     deleteCookie(
-      keyValue.DELETED_ACCOUNT_TIME_STAMP,
-      keyValue.RESTORE_EMAIL,
-      keyValue.RESTORE_TOKEN
+      keysValue.DELETED_ACCOUNT_TIME_STAMP,
+      keysValue.RESTORE_EMAIL,
+      keysValue.RESTORE_TOKEN
     );
     setDataToLS(cred);
     this.dispatch(userFulfilled(user));
@@ -77,7 +80,7 @@ export default abstract class AuthApiConstructor {
             error.response?.data.status === apiErrorStatus.FORBIDDEN &&
             error.response?.data.message === apiErrorMessage.ACCOUNT_DELETED
           ) {
-            deleteCookie(keyValue.RESTORE_EMAIL);
+            deleteCookie(keysValue.RESTORE_EMAIL);
 
             const expiresDate = setDate(
               error.response.data.deletedUserDate,

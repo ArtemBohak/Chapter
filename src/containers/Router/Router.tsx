@@ -1,6 +1,7 @@
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 
-import { keyValue, links } from "@/src/utils";
+import { links, keysValue } from "@/src/types";
+
 import PublicRoute from "./Routes/PublicRoute/PublicRoute";
 import PrivateRoute from "./Routes/PrivateRoute/PrivateRoute";
 import RestrictedRoute from "./Routes/RestrictedRoute/RestrictedRoute";
@@ -40,7 +41,7 @@ const router = createBrowserRouter([
             element: (
               <RestrictedRoute
                 component={<AccountCreationPage />}
-                checkingKey={keyValue.USER_ID}
+                checkingKey={keysValue.USER_ID}
                 checkingById
               />
             ),
@@ -58,7 +59,7 @@ const router = createBrowserRouter([
             element: (
               <RestrictedRoute
                 component={<RestorePage />}
-                checkingKey={keyValue.DELETED_ACCOUNT_TIME_STAMP}
+                checkingKey={keysValue.DELETED_ACCOUNT_TIME_STAMP}
               />
             ),
           },

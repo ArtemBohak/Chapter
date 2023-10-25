@@ -1,7 +1,8 @@
 import { FC, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { getCookies, keyValue, links } from "@/src/utils";
+import { links, keysValue } from "@/src/types";
+import { getCookies } from "@/src/utils";
 import styles from "./RestorePage.module.scss";
 
 import RestoreWindow from "./components/RestoreWindow/RestoreWindow";
@@ -9,8 +10,8 @@ import RestoreForm from "./components/RestoreForm/RestoreForm";
 
 const RestorePage: FC = () => {
   const [cEmail, cToken] = getCookies(
-    keyValue.RESTORE_EMAIL,
-    keyValue.RESTORE_TOKEN
+    keysValue.RESTORE_EMAIL,
+    keysValue.RESTORE_TOKEN
   );
 
   const navigate = useNavigate();
@@ -18,12 +19,12 @@ const RestorePage: FC = () => {
   const [restoringFormIsOpen, setRestoringFormIsOpen] = useState(false);
 
   const [restoringProvider, setRestoringProvider] = useState<
-    keyValue.GOOGLE | keyValue.EMAIL
+    keysValue.GOOGLE | keysValue.EMAIL
   >();
 
   useEffect(() => {
-    cEmail && setRestoringProvider(keyValue.EMAIL);
-    cToken && setRestoringProvider(keyValue.GOOGLE);
+    cEmail && setRestoringProvider(keysValue.EMAIL);
+    cToken && setRestoringProvider(keysValue.GOOGLE);
 
     !cEmail && !cToken && navigate(links.LOG_IN);
     // eslint-disable-next-line react-hooks/exhaustive-deps

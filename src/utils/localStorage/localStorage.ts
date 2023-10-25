@@ -1,11 +1,10 @@
-import { keyValue } from "..";
-import { LocaleStorageArgs } from "./localStorage.type";
+import { LocaleStorageArgs, keysValue } from "@/src/types";
 
 export const getTokenFromLC = (): string | null => {
-  return localStorage.getItem(keyValue.ACCESS_TOKEN);
+  return localStorage.getItem(keysValue.ACCESS_TOKEN);
 };
 export const getExpiresTokenValueFromLS = (): string | null =>
-  localStorage.getItem(keyValue.TOKEN_EXPIRES);
+  localStorage.getItem(keysValue.TOKEN_EXPIRES);
 
 export const setDataToLS = (data: LocaleStorageArgs) =>
   Object.keys(data).map((i) =>

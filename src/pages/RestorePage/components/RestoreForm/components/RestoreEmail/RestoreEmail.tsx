@@ -8,10 +8,10 @@ import {
   apiErrorMessage,
   apiErrorStatus,
   apiUiMessage,
-  deleteCookie,
-  keyValue,
   links,
-} from "@/src/utils";
+  keysValue,
+} from "@/src/types";
+import { deleteCookie } from "@/src/utils";
 import { EndpointsEnum, api } from "@/src/axios";
 import { validationSchema } from "./validationSchema";
 import styles from "./RestoreEmail.module.scss";
@@ -35,9 +35,9 @@ const RestoreEmail: FC<RestoreEmailProps> = ({ email }) => {
       });
 
       deleteCookie(
-        keyValue.DELETED_ACCOUNT_TIME_STAMP,
-        keyValue.RESTORE_EMAIL,
-        keyValue.RESTORE_TOKEN
+        keysValue.DELETED_ACCOUNT_TIME_STAMP,
+        keysValue.RESTORE_EMAIL,
+        keysValue.RESTORE_TOKEN
       );
 
       return navigate(links.LOG_IN);

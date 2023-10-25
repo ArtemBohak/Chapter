@@ -1,4 +1,4 @@
-import { IUserStore } from "@/src/redux/types/user";
+import { IUserStore } from "@/src/redux";
 import { AxiosPromise } from "axios";
 import { Dispatch, SetStateAction } from "react";
 

@@ -1,5 +1,5 @@
-import { useAppDispatch } from "@/src/redux/hooks";
 import { ChangeEvent, RefObject, useEffect, useState } from "react";
+import { useAppDispatch } from "@/src/redux";
 import { ProfileUpdateApi } from "../utils/ProfileUpdateApi";
 
 const useEditField = (

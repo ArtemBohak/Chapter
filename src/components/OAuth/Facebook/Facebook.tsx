@@ -9,7 +9,7 @@ import FacebookLogin, {
 import FacebookApi from "./FacebookApi";
 import { useGetUrlParams } from "../hooks";
 import { getUrlParams } from "../helpers";
-import { useAppDispatch } from "@/src/redux/hooks";
+import { useAppDispatch } from "@/src/redux";
 import { SocialsProps, OAuthVariant } from "../OAuth.type";
 import styles from "../OAuth.module.scss";
 

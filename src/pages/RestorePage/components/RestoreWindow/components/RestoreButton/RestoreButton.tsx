@@ -5,10 +5,10 @@ import { AxiosError } from "axios";
 import { EndpointsEnum, api } from "@/src/axios";
 
 import { RestoreButtonProps } from "./RestoreButton.type";
+import { links } from "@/src/types";
 import styles from "./RestoreButton.module.scss";
 
 import { UIbutton } from "@/src/components";
-import { links } from "@/src/utils";
 
 const RestoreButton: FC<RestoreButtonProps> = ({
   setRestoringFormIsOpen,

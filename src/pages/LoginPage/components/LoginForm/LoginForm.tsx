@@ -4,19 +4,15 @@ import { useNavigate } from "react-router-dom";
 
 import validationSchema from "./validationSchema";
 import LoginApi from "./LoginApi";
-import { links } from "@/src/utils/links/links.types";
+import { apiErrorMessage, apiErrorStatus, links, keysValue } from "@/src/types";
 import {
-  apiErrorMessage,
-  apiErrorStatus,
   setCookies,
   setDate,
   accountDeletionTerm,
   setDataToLS,
   deleteCookie,
-  keyValue,
 } from "@/src/utils";
-import { useAppDispatch } from "@/src/redux/hooks";
-import { userFulfilled } from "@/src/redux/slices";
+import { useAppDispatch, userFulfilled } from "@/src/redux";
 import styles from "./LoginForm.module.scss";
 
 import { PasswordField, TextField } from "@/src/components/Fields";
@@ -35,7 +31,7 @@ const LoginPageForm: FC = () => {
       response.status === apiErrorStatus.FORBIDDEN &&
       response.message === apiErrorMessage.ACCOUNT_DELETED
     ) {
-      deleteCookie(keyValue.RESTORE_TOKEN);
+      deleteCookie(keysValue.RESTORE_TOKEN);
       const expiresValue = setDate(
         response.deletedUserDate,
         accountDeletionTerm
@@ -52,9 +48,9 @@ const LoginPageForm: FC = () => {
       setErrors({ ["email"]: " ", ["password"]: "wrong email or password" });
     } else {
       deleteCookie(
-        keyValue.DELETED_ACCOUNT_TIME_STAMP,
-        keyValue.RESTORE_EMAIL,
-        keyValue.RESTORE_TOKEN
+        keysValue.DELETED_ACCOUNT_TIME_STAMP,
+        keysValue.RESTORE_EMAIL,
+        keysValue.RESTORE_TOKEN
       );
       setDataToLS({ token: data.token });
       dispatch(userFulfilled(data.user));
