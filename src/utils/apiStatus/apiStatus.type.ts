@@ -3,7 +3,7 @@ export enum apiUiMessage {
   EMAIL_IN_USE = "Email address is already in use.",
   INVALID_HASH = "Invalid sign up code.",
   INVALID_RECOVERY_CODE = "Incorrect code",
-  WRONG_PASSWORD = "Wrong password",
+  WRONG_PASSWORD = "Try again!",
 }
 
 export enum apiErrorMessage {
