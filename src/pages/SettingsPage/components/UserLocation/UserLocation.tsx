@@ -1,5 +1,6 @@
-import { FC, useState, FormEvent, useEffect } from "react";
+import { FC, useState, FormEvent, useEffect, useRef } from "react";
 import { GetCountries, GetState, GetCity } from "react-country-state-city";
+import { CSSTransition } from "react-transition-group";
 
 import {
   CityType,
@@ -11,7 +12,7 @@ import { ProfileUpdateApi } from "../../utils/ProfileUpdateApi";
 import { useAppDispatch } from "@/src/redux";
 import styles from "./UserLocation.module.scss";
 
-import { UIbutton } from "@/src/components";
+import { Loader, UIbutton } from "@/src/components";
 import CountrySelect from "./components/CountrySelect/CountrySelect";
 import RegionSelect from "./components/RegionSelect/RegionSelect";
 import CitySelect from "./components/CitySelect/CitySelect";
@@ -22,6 +23,7 @@ const UserLocation: FC<UserLocationProps> = ({ country, region, city }) => {
   const initialCity = city ? +city : 0;
   const dispatch = useAppDispatch();
   const [isLoading, setIsLoading] = useState(false);
+  const [initialLoading, setInitialLoading] = useState(true);
 
   const [countryId, setCountryId] = useState(initialCountry);
   const [selectedCountry, setSelectedCountry] = useState("");
@@ -35,11 +37,11 @@ const UserLocation: FC<UserLocationProps> = ({ country, region, city }) => {
   const [selectedCity, setSelectedCity] = useState("");
   const [citiesList, setCitiesList] = useState<Array<CityType>>([]);
 
+  const nodeRef = useRef(null);
+
   useEffect(() => {
     (async () => {
       try {
-        setIsLoading(true);
-
         const countries = await GetCountries();
         setCountryList(countries);
 
@@ -49,7 +51,7 @@ const UserLocation: FC<UserLocationProps> = ({ country, region, city }) => {
         const city = await GetCity(countryId, regionId);
         setCitiesList(city);
       } finally {
-        setIsLoading(false);
+        setInitialLoading(false);
       }
     })();
   }, [countryId, regionId]);
@@ -71,64 +73,83 @@ const UserLocation: FC<UserLocationProps> = ({ country, region, city }) => {
     });
   };
 
-  const transitionTimeOut = 300;
+  const transitionTimeOut = 150;
   const buttonIsDisabled =
     isLoading ||
-    !countryId ||
     (cityId === initialCity &&
       regionId === initialRegion &&
       countryId === initialCountry);
 
-  return (
-    <form onSubmit={handleSubmit} className={styles["location-form"]}>
-      <CountrySelect
-        selectedCountry={selectedCountry}
-        countryList={countryList}
-        countryId={countryId}
-        setCountryId={setCountryId}
-        setSelectedCountry={setSelectedCountry}
-        setIsLoading={setIsLoading}
-        setRegionList={setRegionList}
-        setCitiesList={setCitiesList}
-        setCountryList={setCountryList}
-        setSelectedCity={setSelectedCity}
-        setSelectedRegion={setSelectedRegion}
-        setRegionId={setRegionId}
-        setCityId={setCityId}
-      />
-      <RegionSelect
-        regionList={regionList}
-        countryId={countryId}
-        regionId={regionId}
-        selectedRegion={selectedRegion}
-        transitionTimeOut={transitionTimeOut}
-        setRegionId={setRegionId}
-        setCityId={setCityId}
-        setSelectedRegion={setSelectedRegion}
-        setSelectedCity={setSelectedCity}
-        setIsLoading={setIsLoading}
-        setCitiesList={setCitiesList}
-      />
-      <CitySelect
-        regionId={regionId}
-        citiesList={citiesList}
-        cityId={cityId}
-        selectedCity={selectedCity}
-        transitionTimeOut={transitionTimeOut}
-        setSelectedCity={setSelectedCity}
-        setCityId={setCityId}
-      />
+  const transitionClassNames = {
+    enter: styles["select-menu-enter"],
+    enterActive: styles["select-menu-enter-active"],
+  };
 
-      <UIbutton
-        className={`${styles["location-form__button"]} ${styles["button"]}`}
-        dataAutomation="submitButton"
-        isLoading={isLoading}
-        disabled={buttonIsDisabled}
-        type="submit"
+  return (
+    <>
+      <Loader width={200} height={60} isShown={initialLoading} />
+      <CSSTransition
+        in={!initialLoading}
+        nodeRef={nodeRef}
+        timeout={transitionTimeOut}
+        mountOnEnter
+        classNames={transitionClassNames}
       >
-        Save changes
-      </UIbutton>
-    </form>
+        <form
+          onSubmit={handleSubmit}
+          className={styles["location-form"]}
+          ref={nodeRef}
+        >
+          <CountrySelect
+            selectedCountry={selectedCountry}
+            countryList={countryList}
+            countryId={countryId}
+            setCountryId={setCountryId}
+            setSelectedCountry={setSelectedCountry}
+            setIsLoading={setIsLoading}
+            setRegionList={setRegionList}
+            setCitiesList={setCitiesList}
+            setCountryList={setCountryList}
+            setSelectedCity={setSelectedCity}
+            setSelectedRegion={setSelectedRegion}
+            setRegionId={setRegionId}
+            setCityId={setCityId}
+          />
+          <RegionSelect
+            regionList={regionList}
+            countryId={countryId}
+            regionId={regionId}
+            selectedRegion={selectedRegion}
+            transitionTimeOut={transitionTimeOut}
+            setRegionId={setRegionId}
+            setCityId={setCityId}
+            setSelectedRegion={setSelectedRegion}
+            setSelectedCity={setSelectedCity}
+            setIsLoading={setIsLoading}
+            setCitiesList={setCitiesList}
+          />
+          <CitySelect
+            regionId={regionId}
+            citiesList={citiesList}
+            cityId={cityId}
+            selectedCity={selectedCity}
+            transitionTimeOut={transitionTimeOut}
+            setSelectedCity={setSelectedCity}
+            setCityId={setCityId}
+          />
+
+          <UIbutton
+            className={`${styles["location-form__button"]} ${styles["button"]}`}
+            dataAutomation="submitButton"
+            isLoading={isLoading}
+            disabled={buttonIsDisabled}
+            type="submit"
+          >
+            Save changes
+          </UIbutton>
+        </form>
+      </CSSTransition>
+    </>
   );
 };
 

@@ -3,4 +3,6 @@ export interface ILoaderProps {
   width?: number;
   speed?: number;
   interval?: number;
+  isShown?: boolean;
+  timeTransition?: number;
 }
