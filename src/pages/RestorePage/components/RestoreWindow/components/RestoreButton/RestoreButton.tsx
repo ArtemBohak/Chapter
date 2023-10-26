@@ -5,10 +5,11 @@ import { AxiosError } from "axios";
 import { EndpointsEnum, api } from "@/src/axios";
 
 import { RestoreButtonProps } from "./RestoreButton.type";
-import { links } from "@/src/types";
+import { apiErrorStatus, keysValue, links } from "@/src/types";
 import styles from "./RestoreButton.module.scss";
 
 import { UIbutton } from "@/src/components";
+import { deleteCookie } from "@/src/utils";
 
 const RestoreButton: FC<RestoreButtonProps> = ({
   setRestoringFormIsOpen,
@@ -39,7 +40,14 @@ const RestoreButton: FC<RestoreButtonProps> = ({
       setRestoringFormIsOpen(true);
     } catch (error) {
       if (error instanceof AxiosError) {
-        console.log(error);
+        if (error.response?.data.status === apiErrorStatus.FORBIDDEN) {
+          deleteCookie(
+            keysValue.DELETED_ACCOUNT_TIME_STAMP,
+            keysValue.RESTORE_EMAIL,
+            keysValue.RESTORE_TOKEN
+          );
+          navigate(links.LOG_IN);
+        }
       }
     } finally {
       setLoading(false);

@@ -23,7 +23,6 @@ const RestoreGoogle: FC = () => {
         keysValue.RESTORE_TOKEN
       );
     };
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
