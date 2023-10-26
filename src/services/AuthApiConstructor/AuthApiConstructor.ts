@@ -2,19 +2,19 @@ import { AxiosError } from "axios";
 import { NavigateFunction } from "react-router-dom";
 
 import {
-  SetIsLoadingType,
-  User,
-  cbArgs,
-  cbFunc,
-} from "./AuthApiConstructor.type";
-import {
   apiErrorStatus,
   apiErrorMessage,
   LocaleStorageArgs,
   links,
   keysValue,
 } from "@/src/types";
-import { userLoading, updateUser, userError, AppDispatch } from "@/src/redux";
+import {
+  userLoading,
+  updateUser,
+  userError,
+  AppDispatch,
+  store,
+} from "@/src/redux";
 import {
   deleteCookie,
   setDataToLS,
@@ -23,9 +23,16 @@ import {
   setDate,
 } from "@/src/utils";
 
+import {
+  SetIsLoadingType,
+  User,
+  cbArgs,
+  cbFunc,
+} from "./AuthApiConstructor.type";
+
 export default abstract class AuthApiConstructor {
+  protected dispatch: AppDispatch = store.dispatch;
   constructor(
-    protected dispatch: AppDispatch,
     protected token?: string,
     protected setIsLoading?: SetIsLoadingType,
     private navigate?: NavigateFunction

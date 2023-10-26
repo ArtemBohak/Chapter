@@ -3,7 +3,6 @@ import { Formik, FormikHelpers, Form } from "formik";
 import { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
 
-import { FormValues, RestoreEmailProps } from "./RestoreEmail.type";
 import {
   apiErrorMessage,
   apiErrorStatus,
@@ -13,6 +12,8 @@ import {
 } from "@/src/types";
 import { deleteCookie } from "@/src/utils";
 import { EndpointsEnum, api } from "@/src/axios";
+
+import { FormValues, RestoreEmailProps } from "./RestoreEmail.type";
 import { validationSchema } from "./validationSchema";
 import styles from "./RestoreEmail.module.scss";
 

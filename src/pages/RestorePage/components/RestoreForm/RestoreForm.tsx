@@ -1,14 +1,14 @@
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { RestoringFormProps } from "./RestoreForm.type";
 import { keysValue } from "@/src/types";
 import { deleteCookie, getCookies } from "@/src/utils";
+import { RestoringFormProps } from "./RestoreForm.type";
 import styles from "./RestoreForm.module.scss";
 
+import { Icon, IconEnum } from "@/src/components";
 import RestoreEmail from "./components/RestoreEmail/RestoreEmail";
 import RestoreGoogle from "./components/RestoreGoogle/RestoreGooge";
-import { Icon, IconEnum } from "@/src/components";
 
 const RestoreForm: FC<RestoringFormProps> = ({
   restoringProvider,

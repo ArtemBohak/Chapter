@@ -2,9 +2,10 @@ import { FC } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import cn from "classnames";
 
-import { useNavigationToggler } from "@/src/context/NavigationToggler";
-import { NavigationListProps } from "./NavigationList.type";
+import { useNavigationToggler } from "@/src/context";
 import { useAppDispatch, fetchIsLogoutUser } from "@/src/redux";
+
+import { NavigationListProps } from "./NavigationList.type";
 import "./NavigationList.scss";
 
 import { Icon, IconEnum } from "../../../../components/Icon";

@@ -1,14 +1,13 @@
 import { FC, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useGoogleLogin } from "@react-oauth/google";
 
 import GoogleApi from "./GoogleApi";
 import { useGetUrlParams } from "../hooks";
-import { useAppDispatch } from "@/src/redux";
 import { SocialsProps, OAuthVariant } from "../OAuth.type";
 import styles from "../OAuth.module.scss";
 
 import { UIbutton } from "../../Buttons";
-import { useNavigate } from "react-router-dom";
 import { Icon, IconEnum } from "../..";
 
 const { VITE_BASE_OAUTH_STATE, VITE_GOOGLE_STATE, VITE_GOOGLE_REDIRECT_URI } =
@@ -29,7 +28,6 @@ const Google: FC<SocialsProps> = ({
   const { state, code, currentLocation, setSearchParams } = useGetUrlParams();
   const [googleAuthCode, setGoogleAuthCode] = useState(code);
   const [isLoading, setIsLoading] = useState(false);
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -44,7 +42,6 @@ const Google: FC<SocialsProps> = ({
         redirectUri: currentLocation,
         navigate,
         setIsLoading,
-        dispatch,
       });
 
       setGoogleAuthCode("");
@@ -68,7 +65,6 @@ const Google: FC<SocialsProps> = ({
           redirectUri: VITE_GOOGLE_REDIRECT_URI,
           navigate,
           setIsLoading,
-          dispatch,
         });
       }
     },

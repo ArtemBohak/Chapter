@@ -1,7 +1,7 @@
-import api from "@/src/axios/api";
 import { AxiosError } from "axios";
 
-import { EndpointsEnum } from "@/src/axios/endpoints.types";
+import { api, EndpointsEnum } from "@/src/axios";
+
 import { type ApiArgs } from "./RegisterForm.type";
 
 class RegisterFormApi {

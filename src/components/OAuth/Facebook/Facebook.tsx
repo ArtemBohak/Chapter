@@ -9,7 +9,6 @@ import FacebookLogin, {
 import FacebookApi from "./FacebookApi";
 import { useGetUrlParams } from "../hooks";
 import { getUrlParams } from "../helpers";
-import { useAppDispatch } from "@/src/redux";
 import { SocialsProps, OAuthVariant } from "../OAuth.type";
 import styles from "../OAuth.module.scss";
 
@@ -37,7 +36,6 @@ const Facebook: FC<SocialsProps> = ({
   >(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const [facebookCode, faceBookState] = getUrlParams(
@@ -68,7 +66,6 @@ const Facebook: FC<SocialsProps> = ({
         token: facebookAuthCode,
         navigate,
         setIsLoading,
-        dispatch,
       });
       setSearchParams("");
       setFacebookAuthCode("");
@@ -81,7 +78,6 @@ const Facebook: FC<SocialsProps> = ({
       token: codeResponse.accessToken,
       navigate,
       setIsLoading,
-      dispatch,
     });
   };
 

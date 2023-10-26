@@ -1,10 +1,10 @@
-import { OAuthApiArgs } from "../OAuth.type";
 import { EndpointsEnum, api } from "@/src/axios";
 import { AuthApiConstructor } from "@/src/services";
+import { OAuthApiArgs } from "../OAuth.type";
 
 class FacebookApi extends AuthApiConstructor {
-  constructor({ token, navigate, setIsLoading, dispatch }: OAuthApiArgs) {
-    super(dispatch, token, setIsLoading, navigate);
+  constructor({ token, navigate, setIsLoading }: OAuthApiArgs) {
+    super(token, setIsLoading, navigate);
 
     this.login();
   }

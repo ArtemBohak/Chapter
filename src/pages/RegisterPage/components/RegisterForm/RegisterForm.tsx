@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { Formik, Form, FormikHelpers } from "formik";
 import { CSSTransition } from "react-transition-group";
 
+import { apiUiMessage, apiErrorStatus, links, keysValue } from "@/src/types";
+import { getCookies, setCookies } from "@/src/utils";
+
 import RegisterFormApi from "./RegisterFormApi";
 import {
   RegisterAccountValues,
@@ -10,8 +13,6 @@ import {
   Steps,
   RegisterAccountKey,
 } from "./RegisterForm.type";
-import { apiUiMessage, apiErrorStatus, links, keysValue } from "@/src/types";
-import { getCookies, setCookies } from "@/src/utils";
 import { validationSchema } from "./validationSchema";
 import styles from "./RegisterForm.module.scss";
 

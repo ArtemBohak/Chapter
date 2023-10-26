@@ -1,11 +1,11 @@
 import { FC } from "react";
 import { Formik, Form, FormikHelpers } from "formik";
 
-import { InitialValues, ErrorMessages } from "./UpdateUserPassword.type";
 import { apiErrorMessage, apiErrorStatus, apiUiMessage } from "@/src/types";
+
 import validationSchema from "./validationSchema";
+import { InitialValues, ErrorMessages } from "./UpdateUserPassword.type";
 import { ProfileUpdateApi } from "../../utils/ProfileUpdateApi";
-import { useAppDispatch } from "@/src/redux";
 import styles from "./UpdateUserPassword.module.scss";
 
 import { PasswordField, UIbutton } from "@/src/components";
@@ -17,13 +17,11 @@ const initialValues: InitialValues = {
 };
 
 const UpdateUserPassword: FC = () => {
-  const dispatch = useAppDispatch();
-
   const onHandleSubmit = async (
     values: InitialValues,
     { setSubmitting, resetForm, setFieldError }: FormikHelpers<InitialValues>
   ) => {
-    const profile = new ProfileUpdateApi(dispatch);
+    const profile = new ProfileUpdateApi();
     const res = await profile.updatePassword(values);
 
     setSubmitting(false);

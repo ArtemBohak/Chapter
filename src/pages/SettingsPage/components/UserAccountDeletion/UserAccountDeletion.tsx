@@ -1,14 +1,13 @@
 import { FC, useState } from "react";
 
-import { useAppDispatch } from "@/src/redux";
 import { ProfileUpdateApi } from "../../utils/ProfileUpdateApi";
 import styles from "./UserAccountDeletion.module.scss";
 
 const UserAccountDeletion: FC = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const dispatch = useAppDispatch();
+
   const onHandleClick = async () => {
-    const user = new ProfileUpdateApi(dispatch, setIsLoading);
+    const user = new ProfileUpdateApi(setIsLoading);
     await user.deleteAccount();
   };
   return (

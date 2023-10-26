@@ -1,11 +1,11 @@
 import { createAsyncThunk, createSlice, isAnyOf } from "@reduxjs/toolkit";
 
-import { IUserStore } from "../types/user";
-import { defaultUserState } from "../default-state/user";
-import { EndpointsEnum } from "@/src/axios/endpoints.types";
-import api from "@/src/axios/api";
+import { EndpointsEnum, api } from "@/src/axios";
 import { keysValue } from "@/src/types";
 import { removeDataFromLS } from "@/src/utils";
+
+import { IUserStore } from "../types/user";
+import { defaultUserState } from "../default-state/user";
 
 export interface IUserState {
   user: IUserStore;

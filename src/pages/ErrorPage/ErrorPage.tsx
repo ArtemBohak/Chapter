@@ -1,10 +1,12 @@
 import { FC } from "react";
 
-import image from "@/src/assets/WEBP/page-404.webp";
 import styles from "./ErrorPage.module.scss";
 
 import { ErrorLayout } from "./components";
+
 import { UIbutton } from "@/src/components";
+
+import image from "@/src/assets/WEBP/page-404.webp";
 
 const ErrorPage: FC = () => {
   return (

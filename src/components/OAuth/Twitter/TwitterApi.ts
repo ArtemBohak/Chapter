@@ -1,5 +1,5 @@
-import { OAuthApiArgs } from "../OAuth.type";
 import { AuthApiConstructor } from "@/src/services";
+import { OAuthApiArgs } from "../OAuth.type";
 
 const {
   VITE_TWITTER_STATE,
@@ -22,8 +22,8 @@ class TwitterApi extends AuthApiConstructor {
     const qs = new URLSearchParams(options).toString();
     return `${rootUrl}?${qs}`;
   }
-  constructor({ token, navigate, setIsLoading, dispatch }: OAuthApiArgs) {
-    super(dispatch, token, setIsLoading, navigate);
+  constructor({ token, navigate, setIsLoading }: OAuthApiArgs) {
+    super(token, setIsLoading, navigate);
 
     this.login();
   }

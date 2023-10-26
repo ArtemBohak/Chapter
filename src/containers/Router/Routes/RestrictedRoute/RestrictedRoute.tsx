@@ -1,9 +1,10 @@
 import { FC } from "react";
 import { Navigate, useParams } from "react-router-dom";
 
-import { IRestrictedRouteProps } from "../types/Routes.type";
-import { links } from "@/src/types";
 import { getCookies } from "@/src/utils";
+import { links } from "@/src/types";
+
+import { IRestrictedRouteProps } from "../types/Routes.type";
 
 const RestrictedRoute: FC<IRestrictedRouteProps> = ({
   component: Component,

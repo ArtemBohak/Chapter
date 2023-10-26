@@ -1,8 +1,8 @@
 import { AxiosPromise } from "axios";
 
 import { googleOAuthApi, api, EndpointsEnum } from "@/src/axios";
-import { OAuthApiArgs, OAuthApiEndPoints } from "../OAuth.type";
 import { AuthApiConstructor } from "@/src/services";
+import { OAuthApiArgs, OAuthApiEndPoints } from "../OAuth.type";
 
 const { VITE_GOOGLE_CLIENT_ID, VITE_GOOGLE_CLIENT_SECRET } = import.meta.env;
 
@@ -12,14 +12,8 @@ class GoogleApi extends AuthApiConstructor {
   private googleClientId = VITE_GOOGLE_CLIENT_ID;
   private googleClientSecret = VITE_GOOGLE_CLIENT_SECRET;
 
-  constructor({
-    token,
-    redirectUri,
-    navigate,
-    setIsLoading,
-    dispatch,
-  }: OAuthApiArgs) {
-    super(dispatch, token, setIsLoading, navigate);
+  constructor({ token, redirectUri, navigate, setIsLoading }: OAuthApiArgs) {
+    super(token, setIsLoading, navigate);
     this.redirectUri = redirectUri;
 
     this.login();

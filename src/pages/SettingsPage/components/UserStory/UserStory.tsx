@@ -1,9 +1,10 @@
 import { FC, useRef } from "react";
 
 import { useEditField } from "../../hooks";
-import IconButton from "../IconButton/IconButton";
 import { UserStoryProps } from "./UserStory.type";
 import styles from "./UserStory.module.scss";
+
+import IconButton from "../IconButton/IconButton";
 
 const UserStory: FC<UserStoryProps> = ({ userStatus }) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);

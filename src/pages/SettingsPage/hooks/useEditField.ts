@@ -1,6 +1,5 @@
 import { ChangeEvent, RefObject, useEffect, useState } from "react";
 
-import { useAppDispatch } from "@/src/redux";
 import { ProfileUpdateApi } from "../utils/ProfileUpdateApi";
 
 const useEditField = (
@@ -10,7 +9,6 @@ const useEditField = (
 ) => {
   const [isEditing, setIsEditing] = useState(false);
   const [value, setValue] = useState<string | null>(textValue);
-  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (isEditing && value) {
@@ -23,7 +21,7 @@ const useEditField = (
 
   const onHandleSave = async () => {
     setIsEditing(false);
-    const profile = new ProfileUpdateApi(dispatch);
+    const profile = new ProfileUpdateApi();
     if (value !== textValue) {
       userStatus &&
         profile.userSave({

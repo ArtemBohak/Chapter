@@ -3,13 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { AxiosError } from "axios";
 
 import { EndpointsEnum, api } from "@/src/axios";
+import { apiErrorStatus, keysValue, links } from "@/src/types";
+import { deleteCookie } from "@/src/utils";
 
 import { RestoreButtonProps } from "./RestoreButton.type";
-import { apiErrorStatus, keysValue, links } from "@/src/types";
 import styles from "./RestoreButton.module.scss";
 
 import { UIbutton } from "@/src/components";
-import { deleteCookie } from "@/src/utils";
 
 const RestoreButton: FC<RestoreButtonProps> = ({
   setRestoringFormIsOpen,

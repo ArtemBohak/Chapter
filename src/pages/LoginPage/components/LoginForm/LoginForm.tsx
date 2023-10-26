@@ -2,9 +2,8 @@ import { FC } from "react";
 import { Form, Formik, FormikProps } from "formik";
 import { useNavigate } from "react-router-dom";
 
-import validationSchema from "./validationSchema";
-import LoginApi from "./LoginApi";
 import { apiErrorMessage, apiErrorStatus, links, keysValue } from "@/src/types";
+import { useAppDispatch, updateUser } from "@/src/redux";
 import {
   setCookies,
   setDate,
@@ -12,12 +11,13 @@ import {
   setDataToLS,
   deleteCookie,
 } from "@/src/utils";
-import { useAppDispatch, updateUser } from "@/src/redux";
+
+import validationSchema from "./validationSchema";
+import LoginApi from "./LoginApi";
+import { ILoginPage, setErrors } from "./LoginForm.type";
 import styles from "./LoginForm.module.scss";
 
-import { PasswordField, TextField } from "@/src/components/Fields";
-import { UIbutton } from "@/src/components/Buttons";
-import { ILoginPage, setErrors } from "./LoginForm.type";
+import { PasswordField, TextField, UIbutton } from "@/src/components";
 
 const LoginPageForm: FC = () => {
   const dispatch = useAppDispatch();

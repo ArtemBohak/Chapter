@@ -1,9 +1,8 @@
 import { FC } from "react";
+import cn from "classnames";
 
 import { LayoutProps } from "./Layout.type";
 import styles from "./Layout.module.scss";
-
-import cn from "classnames";
 
 const Layout: FC<LayoutProps> = ({
   children,

@@ -1,8 +1,8 @@
 import { FC } from "react";
 
+import styles from "./PublicHeader.module.scss";
 
 import Logo from "@/src/components/SVGComponents/Logo";
-import styles from "./PublicHeader.module.scss";
 
 const PublicHeader: FC = () => {
   return (

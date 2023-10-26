@@ -1,4 +1,5 @@
 import { FC } from "react";
+
 import { useAppSelector } from "@/src/redux";
 
 const FeedPage: FC = () => {

@@ -4,12 +4,12 @@ import cn from "classnames";
 import { AxiosError } from "axios";
 import { Formik, Form, FormikProps, FormikHelpers } from "formik";
 
-import api from "@/src/axios/api";
-import { IAccountCreate } from "./FormCreateAccount.type";
+import { EndpointsEnum, api } from "@/src/axios";
 import { links, keysValue } from "@/src/types";
-import { EndpointsEnum } from "@/src/axios/endpoints.types";
-import { useDebounce } from "@/src/hooks/useDebounce";
+import { useDebounce } from "@/src/hooks";
 import { checkIsCyrillic, deleteCookie, removeDataFromLS } from "@/src/utils";
+
+import { IAccountCreate } from "./FormCreateAccount.type";
 import validationSchema from "./validationSchema";
 import styles from "./FormCreateAccount.module.scss";
 

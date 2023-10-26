@@ -1,5 +1,5 @@
-import api from "@/src/axios/api";
-import { EndpointsEnum } from "@/src/axios/endpoints.types";
+import { api, EndpointsEnum } from "@/src/axios";
+
 import { IForgotPassword } from "./ForgotPassword.types";
 
 const ForgotPasswordApi = (value: IForgotPassword) => {

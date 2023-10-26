@@ -1,12 +1,12 @@
 import { FC, useState, useEffect, useRef } from "react";
 import { CSSTransition } from "react-transition-group";
 
+import { useOutsideClick } from "@/src/hooks";
 import { StateSelectProps } from "./RegionSelect.type";
 import styles from "../../UserLocation.module.scss";
 
 import Field from "../Field/Field";
 import SelectMenu from "../SelectMenu/SelectMenu";
-import { useOutsideClick } from "@/src/hooks";
 
 const StateSelect: FC<StateSelectProps> = ({
   regionList,

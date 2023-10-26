@@ -1,12 +1,13 @@
 import { FC, useRef } from "react";
 import cn from "classnames";
 
+import { checkIsCyrillic } from "@/src/utils";
+
 import { useEditField } from "../../hooks";
+import { UserNameProps } from "./UserName.type";
 import styles from "./UserName.module.scss";
 
 import IconButton from "../IconButton/IconButton";
-import { UserNameProps } from "./UserName.type";
-import { checkIsCyrillic } from "@/src/utils";
 
 const UserName: FC<UserNameProps> = ({ firstName, lastName }) => {
   const inputRef = useRef<HTMLInputElement>(null);

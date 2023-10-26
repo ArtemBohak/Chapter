@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { links, keysValue } from "@/src/types";
 import { getCookies } from "@/src/utils";
+
 import styles from "./RestorePage.module.scss";
 
 import RestoreWindow from "./components/RestoreWindow/RestoreWindow";

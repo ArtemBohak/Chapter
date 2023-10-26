@@ -3,8 +3,9 @@ import { NavLink } from "react-router-dom";
 import cn from "classnames";
 
 import { links } from "@/src/types";
-import { useNavigationToggler } from "@/src/context/NavigationToggler";
+import { useNavigationToggler } from "@/src/context";
 import { useAppSelector } from "@/src/redux";
+
 import styles from "./ProfileHeader.module.scss";
 
 import {
@@ -17,6 +18,7 @@ import {
 } from "@/src/components";
 
 import defaultAvatar from "@/src/assets/SVG/default-user-avatar.svg";
+
 const ProfileHeader: FC = () => {
   const { isActiveMenu, setIsActiveMenu } = useNavigationToggler();
   const { user } = useAppSelector((store) => store.userSlice);

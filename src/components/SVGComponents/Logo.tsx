@@ -1,9 +1,11 @@
 import { FC } from "react";
-import cn from "classnames";
 import { NavLink } from "react-router-dom";
+import cn from "classnames";
 
 import { links } from "@/src/types";
+
 import { type LogoProps } from "@/src/components/SVGComponents/logo.type";
+
 import logo from "src/assets/SVG/logo.svg";
 
 const Logo: FC<LogoProps> = ({ className, alt }) => {

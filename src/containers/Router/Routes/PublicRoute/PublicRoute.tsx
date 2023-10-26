@@ -2,8 +2,9 @@ import { FC } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 
 import { links } from "@/src/types";
-import { IRoutesProps } from "../types/Routes.type";
 import { useAppSelector } from "@/src/redux";
+
+import { IRoutesProps } from "../types/Routes.type";
 
 import { Loader } from "@/src/components";
 

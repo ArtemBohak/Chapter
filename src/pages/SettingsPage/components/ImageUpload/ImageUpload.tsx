@@ -1,6 +1,5 @@
 import { FC, FormEvent, useState } from "react";
 
-import { useAppDispatch } from "@/src/redux";
 import { ProfileUpdateApi } from "../../utils/ProfileUpdateApi";
 import { ImageUploadProps } from "./ImageUpload.type";
 import styles from "./ImageUpload.module.scss";
@@ -9,13 +8,12 @@ import { Icon, IconEnum } from "@/src/components";
 
 const ImageUpload: FC<ImageUploadProps> = ({ setAvatarUrl, id }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const dispatch = useAppDispatch();
 
   const handleChange = async (e: FormEvent<HTMLInputElement>) => {
     if (!e.currentTarget.files?.length) return;
     const [file] = e.currentTarget.files;
 
-    const profile = new ProfileUpdateApi(dispatch, setIsLoading);
+    const profile = new ProfileUpdateApi(setIsLoading);
 
     const res = await profile.imageSave({ file, id });
 

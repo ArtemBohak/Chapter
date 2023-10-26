@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 
 import TwitterApi from "./TwitterApi";
 import { useGetUrlParams } from "../hooks";
-import { useAppDispatch } from "@/src/redux";
 import { SocialsProps, OAuthVariant } from "../OAuth.type";
 import styles from "../OAuth.module.scss";
 
@@ -28,7 +27,6 @@ const Twitter: FC<SocialsProps> = ({
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
 
   const twitterRedirectUrl = TwitterApi.createRedirectUrl(
     currentLocation,
@@ -46,7 +44,6 @@ const Twitter: FC<SocialsProps> = ({
         token: twitterAuthCode,
         navigate,
         setIsLoading,
-        dispatch,
       });
 
       setSearchParams("");

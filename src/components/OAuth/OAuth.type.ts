@@ -1,12 +1,12 @@
+import { Dispatch, SetStateAction } from "react";
 import { NavigateFunction } from "react-router-dom";
 
-import { AppDispatch, IUserStore } from "@/src/redux";
+import { IUserStore } from "@/src/redux";
 import {
   ButtonColorType,
   ButtonVariantType,
   ButtonSizeType,
 } from "../Buttons/UIbutton/UIbutton.type";
-import { Dispatch, SetStateAction } from "react";
 
 export enum OAuthApiEndPoints {
   GOOGLE_TOKEN = "/token",
@@ -37,7 +37,6 @@ export type SetIsLoadingType = Dispatch<SetStateAction<boolean>>;
 
 export type OAuthApiArgs = {
   navigate: NavigateFunction;
-  dispatch: AppDispatch;
   setIsLoading: SetIsLoadingType;
   redirectUri?: string;
   token?: string;

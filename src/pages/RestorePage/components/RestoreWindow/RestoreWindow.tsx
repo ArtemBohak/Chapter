@@ -3,10 +3,10 @@ import { FC, useEffect, useState } from "react";
 import { keysValue } from "@/src/types";
 import { getCookies, timer } from "@/src/utils";
 
+import { RestoreWindowProps } from "./RestoreWindow.type";
 import styles from "./RestoreWindow.module.scss";
 
 import RestoreButton from "./components/RestoreButton/RestoreButton";
-import { RestoreWindowProps } from "./RestoreWindow.type";
 
 const RestoreWindow: FC<RestoreWindowProps> = (props) => {
   const [cTimeValue] = getCookies(keysValue.DELETED_ACCOUNT_TIME_STAMP);

@@ -3,6 +3,7 @@ import { nanoid } from "@reduxjs/toolkit";
 import { uploadFilesApi } from "@/src/axios";
 import { hashingString } from "@/src/utils";
 import { FileUploadArgs } from "@/src/types";
+
 import { Params, UploadParams, Path } from "./Files.type";
 
 const {

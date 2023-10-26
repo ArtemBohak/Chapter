@@ -9,7 +9,6 @@ import {
   UserLocationProps,
 } from "./UserLocation.type";
 import { ProfileUpdateApi } from "../../utils/ProfileUpdateApi";
-import { useAppDispatch } from "@/src/redux";
 import styles from "./UserLocation.module.scss";
 
 import { Loader, UIbutton } from "@/src/components";
@@ -21,7 +20,7 @@ const UserLocation: FC<UserLocationProps> = ({ country, region, city }) => {
   const initialCountry = country ? +country : 0;
   const initialRegion = region ? +region : 0;
   const initialCity = city ? +city : 0;
-  const dispatch = useAppDispatch();
+
   const [isLoading, setIsLoading] = useState(false);
   const [initialLoading, setInitialLoading] = useState(true);
 
@@ -58,7 +57,7 @@ const UserLocation: FC<UserLocationProps> = ({ country, region, city }) => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const profile = new ProfileUpdateApi(dispatch, setIsLoading);
+    const profile = new ProfileUpdateApi(setIsLoading);
 
     await profile.userLocationSave({
       country: countryId,
