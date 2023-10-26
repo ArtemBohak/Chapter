@@ -12,7 +12,7 @@ import {
   setDataToLS,
   deleteCookie,
 } from "@/src/utils";
-import { useAppDispatch, userFulfilled } from "@/src/redux";
+import { useAppDispatch, updateUser } from "@/src/redux";
 import styles from "./LoginForm.module.scss";
 
 import { PasswordField, TextField } from "@/src/components/Fields";
@@ -53,7 +53,7 @@ const LoginPageForm: FC = () => {
         keysValue.RESTORE_TOKEN
       );
       setDataToLS({ token: data.token });
-      dispatch(userFulfilled(data.user));
+      dispatch(updateUser(data.user));
     }
   };
   return (

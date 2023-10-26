@@ -109,7 +109,10 @@ const PasswordField: FC<PasswordFieldProps> = ({
           </p>
         ) : null}
       </div>
-      {strength && passwordValue && passwordStrength >= 0 ? (
+      {strength &&
+      passwordValue &&
+      field.value.length &&
+      passwordStrength >= 0 ? (
         <div
           className={cn(
             styles["strength-progress"],

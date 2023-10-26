@@ -14,12 +14,7 @@ import {
   links,
   keysValue,
 } from "@/src/types";
-import {
-  userFulfilled,
-  userPending,
-  userRejected,
-  AppDispatch,
-} from "@/src/redux";
+import { userLoading, updateUser, userError, AppDispatch } from "@/src/redux";
 import {
   deleteCookie,
   setDataToLS,
@@ -38,7 +33,7 @@ export default abstract class AuthApiConstructor {
 
   private handleRequest() {
     this.setIsLoading && this.setIsLoading(true);
-    this.dispatch(userPending());
+    this.dispatch(userLoading());
   }
 
   protected handleData(user: User, cred: LocaleStorageArgs) {
@@ -48,7 +43,7 @@ export default abstract class AuthApiConstructor {
       keysValue.RESTORE_TOKEN
     );
     setDataToLS(cred);
-    this.dispatch(userFulfilled(user));
+    this.dispatch(updateUser(user));
   }
 
   protected redirect(user: User, url?: string) {
@@ -69,7 +64,7 @@ export default abstract class AuthApiConstructor {
   }
 
   private handleError(error: string) {
-    this.dispatch(userRejected(error));
+    this.dispatch(userError(error));
   }
 
   protected tryCatchWrapper(cb: cbFunc) {

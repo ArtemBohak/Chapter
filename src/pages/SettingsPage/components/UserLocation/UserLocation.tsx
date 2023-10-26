@@ -58,7 +58,7 @@ const UserLocation: FC<UserLocationProps> = ({ country, region, city }) => {
     e.preventDefault();
     const profile = new ProfileUpdateApi(dispatch, setIsLoading);
 
-    await profile.userSave({
+    await profile.userLocationSave({
       country: countryId,
       region: regionId,
       city: cityId,

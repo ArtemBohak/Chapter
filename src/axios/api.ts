@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { ToolkitStore } from "@reduxjs/toolkit/dist/configureStore";
 
-import { logout } from "@/src/redux";
+import { logoutUser } from "@/src/redux";
 import { keysValue } from "@/src/types";
 import { EndpointsEnum } from ".";
 import { RefreshTokenType } from "./axios.type";
@@ -60,7 +60,7 @@ export const setResponseApiInterceptor = (store: ToolkitStore) =>
           return api.request(originalRequest);
         } catch (e) {
           removeDataFromLS(keysValue.ACCESS_TOKEN);
-          store.dispatch(logout());
+          store.dispatch(logoutUser());
           return Promise.reject(error);
         }
       }

@@ -43,22 +43,28 @@ export const userSlice = createSlice({
   name: "userSlice",
   initialState,
   reducers: {
-    userPending: (state) => {
+    userLoading: (state) => {
       state.error = null;
     },
-    userFulfilled: (state, action) => {
+    updateUser: (state, action) => {
       state.user = action.payload;
       state.isAuth = true;
       state.error = null;
     },
-    userRejected: (state, action) => {
-      state.error = action.payload;
+    updateUserLocation: (state, { payload: { country, region, city } }) => {
+      state.user.country = country;
+      state.user.region = region;
+      state.user.city = city;
+      state.error = null;
     },
-    logout: (state) => {
+    logoutUser: (state) => {
       state.user = initialState.user;
       state.error = initialState.error;
       state.isAuth = initialState.isAuth;
       state.loading = initialState.loading;
+    },
+    userError: (state, action) => {
+      state.error = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -93,6 +99,11 @@ export const userSlice = createSlice({
   },
 });
 
-export const { userPending, userFulfilled, userRejected, logout } =
-  userSlice.actions;
+export const {
+  userLoading,
+  updateUser,
+  updateUserLocation,
+  logoutUser,
+  userError,
+} = userSlice.actions;
 export default userSlice.reducer;

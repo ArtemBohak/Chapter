@@ -5,7 +5,7 @@ import {
   AuthApiConstructor,
   SetIsLoadingType,
 } from "@/src/services";
-import { AppDispatch, logout } from "@/src/redux";
+import { AppDispatch, logoutUser, updateUserLocation } from "@/src/redux";
 
 export class ProfileUpdateApi extends AuthApiConstructor {
   constructor(dispatch: AppDispatch, setIsLoading?: SetIsLoadingType) {
@@ -38,9 +38,18 @@ export class ProfileUpdateApi extends AuthApiConstructor {
       await api.patch(EndpointsEnum.PROFILE, payload)
   );
 
+  userLocationSave = this.tryCatchWrapper(
+    async (payload: ProfileUpdateApiArgs) => {
+      const res = await api.patch(EndpointsEnum.PROFILE, payload);
+
+      this.dispatch(updateUserLocation(res.data));
+      return res;
+    }
+  );
+
   deleteAccount = this.tryCatchWrapper(async () => {
     const res = await api.delete(EndpointsEnum.PROFILE);
-    this.dispatch(logout());
+    this.dispatch(logoutUser());
     localStorage.clear();
     return res;
   });
