@@ -38,11 +38,15 @@ const Profile: FC = () => {
           </h4>
           <div className="flex text-sm gap-4 text-center">
             <p>
-              <span className="text-black font-bold">{myFollowersCount}</span>{" "}
+              <span className="text-black font-bold">
+                {myFollowersCount?.toString()}
+              </span>{" "}
               followers
             </p>
             <p>
-              <span className="text-black font-bold">{myFollowingCount}</span>{" "}
+              <span className="text-black font-bold">
+                {myFollowingCount?.toString()}
+              </span>{" "}
               follow
             </p>
           </div>
@@ -71,6 +75,7 @@ const Profile: FC = () => {
           Edit profile
         </UIbutton>
       </div>
+      <div className="w-full bg-emerald-600 h-[100px]"></div>
     </div>
   );
 };

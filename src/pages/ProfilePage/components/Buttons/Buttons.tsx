@@ -1,27 +1,43 @@
 import { UIbutton } from "@/src/components";
 import { FC } from "react";
 import styles from "./Buttons.module.scss";
+import { ButtonsEnum } from "../ProfilePage.type";
 
-const Buttons: FC = () => {
-  const handleButtonClick = () => {};
+interface ButtonsProps {
+  currentView: string;
+  changeView: (e: React.MouseEvent) => void;
+}
+
+const Buttons: FC<ButtonsProps> = ({ currentView, changeView }) => {
   return (
-    <div>
+    <div className={styles["buttons-block"]}>
       <UIbutton
-        className={styles["button-posts"]}
+        id="posts"
+        className={
+          currentView === ButtonsEnum.posts
+            ? styles["button-posts__active"]
+            : styles["button-posts"]
+        }
         fullWidth={false}
-        onClick={handleButtonClick}
+        onClick={changeView}
+        size="medium"
         color="secondary"
-        dataAutomation="posts"
+        dataAutomation="postsButton"
       >
         Posts
       </UIbutton>
       <UIbutton
-        id=""
-        className={styles["button-liked"]}
+        id="liked"
+        className={
+          currentView === ButtonsEnum.liked
+            ? styles["button-liked__active"]
+            : styles["button-liked"]
+        }
         fullWidth={false}
-        onClick={handleButtonClick}
+        onClick={changeView}
+        size="medium"
         color="secondary"
-        dataAutomation="posts"
+        dataAutomation="likedButton"
       >
         Liked
       </UIbutton>

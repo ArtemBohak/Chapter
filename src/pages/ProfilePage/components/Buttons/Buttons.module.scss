@@ -1,9 +1,20 @@
 
+.buttons-block {
+@apply flex bg-white;
+}
+
 .button-posts {
-    @apply w-1/2 active:bg-[#FFC368] rounded-none rounded-tl-sm;
- 
+    @apply w-1/2 rounded-none rounded-tl-sm;
+    &__active {
+        @apply  w-1/2 rounded-none rounded-tl-sm bg-[#FFC368] text-white;
+    }
 }
 
 .button-liked {
-        @apply w-1/2 active:bg-[#FFC368] rounded-none rounded-tr-sm;
+        @apply w-1/2 rounded-none rounded-tr-sm;
+
+    &__active {
+        @apply  w-1/2 rounded-none rounded-tr-sm bg-[#FFC368] text-white;
+    }
 }
+

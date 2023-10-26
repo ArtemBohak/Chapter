@@ -1,8 +1,31 @@
-
 .profile-conteiner {
-@apply flex gap-5 h-full w-full mt-[78px] laptop:mt-[172px] px-[24px] laptop:px-[72px];
+@apply flex align-top gap-5 w-full pt-[78px] laptop:pt-[172px] px-[24px] laptop:px-[72px] ;
 @media (max-width: 769px) {
     @apply flex-col justify-center items-center;
+
 }
 }
 
+.view-block-container {
+    @apply md:w-2/3;
+    // &::-webkit-scrollbar{
+    //     width: 10px;
+    // }
+    // &::-webkit-scrollbar-track {
+    //     border-radius: 0px 3px 3px 0px;
+    //     margin-top: 51px;
+    //   }
+    //   &::-webkit-scrollbar-thumb {
+    //     background: #FFC368; 
+    //     border-radius: 10px;
+    //   }
+}
+
+.view-block-wrapper {
+    @apply flex flex-col items-center justify-center; 
+    z-index: 100;
+    background: url('../../assets/WEBP/backgroundPosts.webp') no-repeat;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    
+}
