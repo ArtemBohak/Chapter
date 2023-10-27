@@ -36,7 +36,7 @@ export class ProfileUpdateApi extends UserApiConstructor {
   userSave = this.tryCatchWrapper(async (payload: ProfileUpdateApiArgs) => {
     const res = await api.patch(EndpointsEnum.PROFILE, payload);
 
-    this.handleUserUpdateData(res.data);
+    this.handleUserData(res.data);
     return res;
   });
 

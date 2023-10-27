@@ -18,7 +18,7 @@ class FacebookApi extends UserApiConstructor {
     const res = await this.facebook(this.token);
     const { token, user } = res.data;
 
-    user.nickName && this.handleUserAuthData(user, { token });
+    user.nickName && this.handleUserData(user, { token });
 
     !user.nickName && this.redirect(user);
 

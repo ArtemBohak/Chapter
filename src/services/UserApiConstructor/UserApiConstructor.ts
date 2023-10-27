@@ -44,17 +44,15 @@ export default abstract class UserApiConstructor {
     this.dispatch(userLoading());
   }
 
-  protected handleUserAuthData(user: User, cred: LocaleStorageArgs) {
-    deleteCookie(
-      keysValue.DELETED_ACCOUNT_TIME_STAMP,
-      keysValue.RESTORE_EMAIL,
-      keysValue.RESTORE_TOKEN
-    );
-    setDataToLS(cred);
-    this.dispatch(updateUser(user));
-  }
-
-  protected handleUserUpdateData(user: User) {
+  protected handleUserData(user: User, cred?: LocaleStorageArgs) {
+    if (cred) {
+      deleteCookie(
+        keysValue.DELETED_ACCOUNT_TIME_STAMP,
+        keysValue.RESTORE_EMAIL,
+        keysValue.RESTORE_TOKEN
+      );
+      setDataToLS(cred);
+    }
     this.dispatch(updateUser(user));
   }
 
