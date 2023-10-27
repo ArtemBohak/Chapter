@@ -14,6 +14,7 @@ import {
   userError,
   AppDispatch,
   store,
+  logoutUser,
 } from "@/src/redux";
 import {
   deleteCookie,
@@ -28,10 +29,10 @@ import {
   User,
   cbArgs,
   cbFunc,
-} from "./AuthApiConstructor.type";
+} from "./UserApiConstructor.type";
 
-export default abstract class AuthApiConstructor {
-  protected dispatch: AppDispatch = store.dispatch;
+export default abstract class UserApiConstructor {
+  private dispatch: AppDispatch = store.dispatch;
   constructor(
     protected token?: string,
     protected setIsLoading?: SetIsLoadingType,
@@ -43,13 +44,17 @@ export default abstract class AuthApiConstructor {
     this.dispatch(userLoading());
   }
 
-  protected handleData(user: User, cred: LocaleStorageArgs) {
+  protected handleUserAuthData(user: User, cred: LocaleStorageArgs) {
     deleteCookie(
       keysValue.DELETED_ACCOUNT_TIME_STAMP,
       keysValue.RESTORE_EMAIL,
       keysValue.RESTORE_TOKEN
     );
     setDataToLS(cred);
+    this.dispatch(updateUser(user));
+  }
+
+  protected handleUserUpdateData(user: User) {
     this.dispatch(updateUser(user));
   }
 
@@ -68,6 +73,11 @@ export default abstract class AuthApiConstructor {
       fullName,
     });
     this.navigate && this.navigate(redirectUrl);
+  }
+
+  protected resetUserData() {
+    this.dispatch(logoutUser());
+    localStorage.clear();
   }
 
   private handleError(error: string) {

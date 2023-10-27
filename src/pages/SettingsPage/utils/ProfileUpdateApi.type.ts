@@ -1,5 +1,5 @@
 import { FileUploadArgs } from "@/src/types";
-import { UserData } from "@/src/services/AuthApiConstructor/AuthApiConstructor.type";
+import { UserData } from "@/src/services/UserApiConstructor/UserApiConstructor.type";
 
 export type ProfileUpdateApiArgs = UserData;
 

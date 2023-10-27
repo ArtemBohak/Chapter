@@ -1,4 +1,4 @@
-import { AuthApiConstructor } from "@/src/services";
+import { UserApiConstructor } from "@/src/services";
 import { OAuthApiArgs } from "../OAuth.type";
 
 const {
@@ -7,7 +7,7 @@ const {
   VITE_TWITTER_CODE_VERIFIER,
 } = import.meta.env;
 
-class TwitterApi extends AuthApiConstructor {
+class TwitterApi extends UserApiConstructor {
   static createRedirectUrl(redirectUri: string, stateId: string) {
     const rootUrl = import.meta.env.VITE_TWITTER_AUTH_CODE_BASE_URL;
     const options = {

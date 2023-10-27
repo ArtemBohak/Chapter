@@ -1,14 +1,13 @@
 import { EndpointsEnum, api } from "@/src/axios";
 import {
   FilesService,
-  AuthApiConstructor,
+  UserApiConstructor,
   SetIsLoadingType,
 } from "@/src/services";
-import { logoutUser, updateUserLocation } from "@/src/redux";
 
 import { ImageSaveArgs, ProfileUpdateApiArgs } from "./ProfileUpdateApi.type";
 
-export class ProfileUpdateApi extends AuthApiConstructor {
+export class ProfileUpdateApi extends UserApiConstructor {
   constructor(setIsLoading?: SetIsLoadingType) {
     super(undefined, setIsLoading);
   }
@@ -34,24 +33,16 @@ export class ProfileUpdateApi extends AuthApiConstructor {
       await api.post(EndpointsEnum.UPDATE_PASSWORD, payload)
   );
 
-  userSave = this.tryCatchWrapper(
-    async (payload: ProfileUpdateApiArgs) =>
-      await api.patch(EndpointsEnum.PROFILE, payload)
-  );
+  userSave = this.tryCatchWrapper(async (payload: ProfileUpdateApiArgs) => {
+    const res = await api.patch(EndpointsEnum.PROFILE, payload);
 
-  userLocationSave = this.tryCatchWrapper(
-    async (payload: ProfileUpdateApiArgs) => {
-      const res = await api.patch(EndpointsEnum.PROFILE, payload);
-
-      this.dispatch(updateUserLocation(res.data));
-      return res;
-    }
-  );
+    this.handleUserUpdateData(res.data);
+    return res;
+  });
 
   deleteAccount = this.tryCatchWrapper(async () => {
     const res = await api.delete(EndpointsEnum.PROFILE);
-    this.dispatch(logoutUser());
-    localStorage.clear();
+    this.resetUserData();
     return res;
   });
 }

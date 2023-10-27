@@ -1,8 +1,8 @@
 import { EndpointsEnum, api } from "@/src/axios";
-import { AuthApiConstructor } from "@/src/services";
+import { UserApiConstructor } from "@/src/services";
 import { OAuthApiArgs } from "../OAuth.type";
 
-class FacebookApi extends AuthApiConstructor {
+class FacebookApi extends UserApiConstructor {
   constructor({ token, navigate, setIsLoading }: OAuthApiArgs) {
     super(token, setIsLoading, navigate);
 
@@ -18,7 +18,7 @@ class FacebookApi extends AuthApiConstructor {
     const res = await this.facebook(this.token);
     const { token, user } = res.data;
 
-    user.nickName && this.handleData(user, { token });
+    user.nickName && this.handleUserAuthData(user, { token });
 
     !user.nickName && this.redirect(user);
 
