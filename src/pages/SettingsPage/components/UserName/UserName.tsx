@@ -11,8 +11,14 @@ import IconButton from "../IconButton/IconButton";
 
 const UserName: FC<UserNameProps> = ({ firstName, lastName }) => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const { isEditing, value, onHandleEdit, onHandleSave, onHandleChange } =
-    useEditField(firstName + " " + lastName, inputRef, false);
+  const {
+    isEditing,
+    value,
+    onHandleEdit,
+    onHandleSave,
+    onHandleChange,
+    onHandleFocus,
+  } = useEditField(firstName + " " + lastName, inputRef, false);
 
   const inputValue = value ? value : "";
   const inputClassName = cn(styles["info-label__input"], {
@@ -33,6 +39,7 @@ const UserName: FC<UserNameProps> = ({ firstName, lastName }) => {
           className={inputClassName}
           onChange={onHandleChange}
           disabled={!isEditing}
+          onFocus={onHandleFocus}
           data-automation="userNameInput"
         />
       </label>

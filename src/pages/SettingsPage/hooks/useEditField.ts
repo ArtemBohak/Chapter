@@ -11,11 +11,10 @@ const useEditField = (
   const [value, setValue] = useState<string | null>(textValue);
 
   useEffect(() => {
-    if (isEditing && value) {
+    if (isEditing) {
       nodeRef.current?.focus();
-      nodeRef.current?.setSelectionRange(value.length, value.length);
     }
-  }, [isEditing, nodeRef, value]);
+  }, [isEditing, nodeRef]);
 
   const onHandleEdit = () => setIsEditing(true);
 
@@ -38,6 +37,12 @@ const useEditField = (
     e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => setValue(e.currentTarget.value);
 
+  const onHandleFocus = (
+    e: React.FocusEvent<HTMLTextAreaElement | HTMLInputElement, Element>
+  ) => {
+    if (value) e.currentTarget.setSelectionRange(value.length, value.length);
+  };
+
   return {
     isEditing,
     value,
@@ -45,6 +50,7 @@ const useEditField = (
     onHandleEdit,
     onHandleSave,
     onHandleChange,
+    onHandleFocus,
   };
 };
 

@@ -9,8 +9,14 @@ import IconButton from "../IconButton/IconButton";
 const UserStory: FC<UserStoryProps> = ({ userStatus }) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  const { isEditing, value, onHandleEdit, onHandleSave, onHandleChange } =
-    useEditField(userStatus, textareaRef, true);
+  const {
+    isEditing,
+    value,
+    onHandleEdit,
+    onHandleSave,
+    onHandleChange,
+    onHandleFocus,
+  } = useEditField(userStatus, textareaRef, true);
   const inputValue = value ? value : "";
   return (
     <>
@@ -25,6 +31,7 @@ const UserStory: FC<UserStoryProps> = ({ userStatus }) => {
         value={inputValue}
         disabled={!isEditing}
         onChange={onHandleChange}
+        onFocus={onHandleFocus}
         data-automation="userStoryTextArea"
       />
     </>
