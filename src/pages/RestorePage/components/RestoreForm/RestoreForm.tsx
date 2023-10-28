@@ -8,7 +8,7 @@ import styles from "./RestoreForm.module.scss";
 
 import { Icon, IconEnum } from "@/src/components";
 import RestoreEmail from "./components/RestoreEmail/RestoreEmail";
-import RestoreGoogle from "./components/RestoreGoogle/RestoreGooge";
+import RestoreGoogle from "./components/RestoreGoogle/RestoreGoogle";
 
 const RestoreForm: FC<RestoringFormProps> = ({
   restoringProvider,
