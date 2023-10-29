@@ -15,7 +15,7 @@ export class ProfileUpdateApi extends UserApiConstructor {
   async imageSave(payload: ImageSaveArgs) {
     try {
       this.setIsLoading && this.setIsLoading(true);
-      return await FilesService.upload({
+      return await new FilesService().upload({
         avatar: true,
         alt: "user avatar",
         height: 640,

@@ -1,15 +1,14 @@
-import { FileUploadArgs } from "@/src/types";
+import { FileArgs } from "@/src/types";
 
-export type Params = { public_id: string; timestamp: number };
-
-export type UploadParams = {
+export type Params = {
+  public_id: string;
+  timestamp: number;
   context?: string;
-  folder: string;
-  eager: string;
-  overwrite: boolean;
+  folder?: string;
+  eager?: string;
+  overwrite?: boolean;
   allowed_formats?: string[];
-} & Partial<FileUploadArgs> &
-  Params;
+} & Partial<FileArgs>;
 
 export enum Path {
   AVATAR = "chapter/avatars",

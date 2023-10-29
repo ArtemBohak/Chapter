@@ -1,7 +1,7 @@
-export type FileUploadArgs = {
+export type FileArgs = {
   file: File | string;
-  id: number;
-  avatar: boolean;
+  id: number | string;
+  avatar?: boolean;
   path?: string;
   format?: string;
   height?: number;
