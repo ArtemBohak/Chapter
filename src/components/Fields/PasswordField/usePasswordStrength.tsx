@@ -1,9 +1,6 @@
 import { useState } from "react";
 
-import {
-  specialCharsValidation,
-  lowerUppercaseCharsValidation,
-} from "@/src/utils/regex/password-regex";
+import { lowerUppercaseCharsValidation } from "@/src/utils/regex/password-regex";
 
 export enum TypePasswordStrength {
   WEAK = "weak",
@@ -22,7 +19,7 @@ const getEvaluatePassword = (password: string): number => {
   let score: number = 0;
 
   if (password.length >= 8) score += 1;
-  if (password.match(specialCharsValidation)) score += 1;
+  if (password.match(/.*\d.*/g)) score += 1;
   if (password.match(lowerUppercaseCharsValidation)) score += 1;
 
   return score;

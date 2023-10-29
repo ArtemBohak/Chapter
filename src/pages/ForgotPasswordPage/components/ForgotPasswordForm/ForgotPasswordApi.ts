@@ -1,16 +1,21 @@
 import { api, EndpointsEnum } from "@/src/axios";
 
 import { IForgotPassword } from "./ForgotPassword.types";
+import { isAxiosError } from "axios";
 
-const ForgotPasswordApi = (value: IForgotPassword) => {
-  api
-    .post(EndpointsEnum.FORGOT_PASSWORD, value)
-    .then((res) => {
-      console.log(res);
-    })
-    .catch((err) => {
-      console.warn(err);
-    });
+const ForgotPasswordApi = async (value: IForgotPassword) => {
+
+  try {
+    const response = await api.post(EndpointsEnum.FORGOT_PASSWORD, value)
+
+    return response;
+  } catch (error) {
+    if ( isAxiosError(error)) {
+   
+     return error.response?.data;
+    }
+   }
+
 };
 
 export default ForgotPasswordApi;

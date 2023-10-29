@@ -9,4 +9,5 @@ export enum links {
   FEED = "/feed",
   SETTINGS = "/settings",
   NOT_FOUND = "/404",
+  PASSWORD_CHANGE = '/auth/password-change'
 }
