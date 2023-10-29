@@ -8,3 +8,4 @@ export { default as UIPage } from "./UIPage/UIPage";
 export { default as FeedPage } from "./FeedPage/FeedPage";
 export { default as ProfilePage } from "./ProfilePage/ProfilePage";
 export { default as SettingsPage } from "./SettingsPage/SettingsPage";
+export { default as PasswordChange } from "./PasswordChange/PasswordChange";
