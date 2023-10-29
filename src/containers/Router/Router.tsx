@@ -11,6 +11,7 @@ import {
   UIPage,
   FeedPage,
   SettingsPage,
+  PasswordChange,
 } from "@/src/pages";
 
 import { PublicLayout, ProfileLayout } from "@/src/layouts";
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
           {
             path: links.FORGOT_PASSWORD,
             element: <ForgotPasswordPage />,
+          },
+          {
+            path: links.PASSWORD_CHANGE + "/:userId",
+            element: <PasswordChange />,
           },
         ],
       },
