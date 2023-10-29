@@ -4,9 +4,9 @@ import { Form, Formik, FormikHelpers, FormikProps } from "formik";
 import validationSchema from "./validationSchema";
 import { PasswordField, UIbutton } from "@/src/components";
 import PasswordChangeApi from "./PasswordChangeApi";
-import { ErrorStatus } from "@/src/pages/RegisterPage/components/RegisterForm/RegisterForm.type";
+
 import { useNavigate, useParams } from "react-router-dom";
-import { links } from "@/src/utils";
+import { links, apiErrorStatus } from "@/src/types";
 
 const PasswordChangeForm: FC = () => {
   const { userId } = useParams();
@@ -24,8 +24,8 @@ const PasswordChangeForm: FC = () => {
     const { status } = await PasswordChangeApi({ password, hash: userId });
 
     if (
-      status === ErrorStatus.UNPROCESSABLE_ENTITY ||
-      status === ErrorStatus.NOTFOUND
+      status === apiErrorStatus.UNPROCESSABLE_ENTITY ||
+      status === apiErrorStatus.NOTFOUND
     ) {
       setFieldError("password", "something went wrong");
     }
