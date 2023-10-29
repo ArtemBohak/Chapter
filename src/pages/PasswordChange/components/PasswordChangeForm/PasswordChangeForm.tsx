@@ -5,10 +5,12 @@ import validationSchema from "./validationSchema";
 import { PasswordField, UIbutton } from "@/src/components";
 import PasswordChangeApi from "./PasswordChangeApi";
 import { ErrorStatus } from "@/src/pages/RegisterPage/components/RegisterForm/RegisterForm.type";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { links } from "@/src/utils";
 
 const PasswordChangeForm: FC = () => {
   const { userId } = useParams();
+  const navigate = useNavigate();
 
   const initialValues: IPasswordChange = {
     password: "",
@@ -21,8 +23,15 @@ const PasswordChangeForm: FC = () => {
   ) => {
     const { status } = await PasswordChangeApi({ password, hash: userId });
 
-    if (status === ErrorStatus.UNPROCESSABLE_ENTITY) {
+    if (
+      status === ErrorStatus.UNPROCESSABLE_ENTITY ||
+      status === ErrorStatus.NOTFOUND
+    ) {
       setFieldError("password", "something went wrong");
+    }
+
+    if (status === 204) {
+      navigate(links.LOG_IN);
     }
   };
 
