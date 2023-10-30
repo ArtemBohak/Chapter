@@ -10,7 +10,8 @@ import { IAccountCreate } from "./FormCreateAccount.type";
 import api from "@/src/axios/api";
 import { EndpointsEnum } from "@/src/axios/endpoints.types";
 import { useDebounce } from "@/src/hooks/useDebounce";
-import { checkIsCyrillic, deleteCookie, removeDataFromLS } from "@/src/utils";
+import { cyrillicPattern, deleteCookie, removeDataFromLS } from "@/src/utils";
+import "@/src/extensions/string.extensions";
 import styles from "./FormCreateAccount.module.scss";
 
 import UIbutton from "@/src/components/Buttons/UIbutton/UIbutton";
@@ -104,7 +105,6 @@ const FormCreateAccount: FC = () => {
           dirty,
           values,
         }: FormikProps<IAccountCreate>) => {
-          // console.log(values.fullname.match(cyrillicString));
           return (
             <Form>
               <TextField
@@ -116,7 +116,9 @@ const FormCreateAccount: FC = () => {
                 dataAutomation="fullname"
                 showSuccessIcon={true}
                 className={
-                  checkIsCyrillic(values.fullname) ? styles["cyrillic"] : ""
+                  values.fullname.isCyrillic(cyrillicPattern)
+                    ? styles["cyrillic"]
+                    : ""
                 }
               />
               <TextField

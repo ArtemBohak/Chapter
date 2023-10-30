@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 
-import { type Data } from "@/src/pages/FeedPage/components/SocialButton/SocialButton.type";
+import { type Data } from "@/src/pages/FeedPage/components/_olderComponents/SocialButton/SocialButton.type";
 
 const useFindById = (id: string, data: string[] | Data) => {
   const isIncluded = useMemo(

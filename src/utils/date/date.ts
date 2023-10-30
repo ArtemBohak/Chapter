@@ -1,4 +1,4 @@
-const formatDate = (date: Date) => {
+export const formatDate = (date: Date) => {
   const delta = Date.now() - date.getTime();
   const second = 1000;
   const minute = second * 60;
@@ -25,5 +25,3 @@ const formatDate = (date: Date) => {
   if (minutes > 1) return minutes + " min";
   if (minutes > 0) return "1 min";
 };
-
-export default formatDate;

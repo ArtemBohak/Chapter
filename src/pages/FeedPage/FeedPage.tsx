@@ -1,17 +1,11 @@
 import { FC } from "react";
+import "@/src/extensions/string.extensions";
 
 import styles from "./FeedPage.module.scss";
 
-import { FeedsList } from "./components";
-
 const FeedPage: FC = () => {
-  return (
-    <section className={styles["feed"]}>
-      <div className={styles["feed__container"]}>
-        <FeedsList />
-      </div>
-    </section>
-  );
+  console.log("fix".limit(1));
+  return <section className={styles["feed"]}></section>;
 };
 
 export default FeedPage;

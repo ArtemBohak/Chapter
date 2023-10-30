@@ -1,6 +1,7 @@
 import { FC, useRef, useState } from "react";
 
-import { formatDate, limitText } from "@/src/utils";
+import { formatDate } from "@/src/utils";
+import "@/src/extensions/string.extensions";
 import { useFindById } from "@/src/hooks";
 import { useAppSelector } from "@/src/redux/hooks";
 import { FeedProps, TextSize } from "./Feed.type";
@@ -48,7 +49,7 @@ const Feed: FC<FeedProps> = ({
   const onHandleReadMore = () => setIsReadMore(!isReadMore);
 
   const renderText =
-    isReadMore && text.length > wordSize ? limitText(text, sentenceSize) : text;
+    isReadMore && text.length > wordSize ? text.limit(sentenceSize) : text;
 
   const renderReadMoreBtn =
     text.length > wordSize && isReadMore ? (
