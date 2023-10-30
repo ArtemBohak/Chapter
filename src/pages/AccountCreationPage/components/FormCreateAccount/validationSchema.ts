@@ -1,6 +1,6 @@
 import * as Yup from "yup";
-import { baseValidation } from "@/src/utils/regex/password-regex";
-import simpleStringRegex from "@/src/utils/regex/simple-string";
+
+import { simpleStringRegex, baseValidation } from "@/src/utils";
 
 export default Yup.object({
   fullname: Yup.string()

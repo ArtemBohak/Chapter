@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 
-import { emailValidation } from "@/src/utils/regex/email-regex";
+import { emailValidation } from "@/src/utils";
 
 export default Yup.object({
   email: Yup.string()
