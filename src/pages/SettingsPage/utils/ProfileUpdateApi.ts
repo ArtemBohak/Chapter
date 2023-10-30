@@ -29,8 +29,6 @@ export class ProfileUpdateApi extends UserApiConstructor {
       await this.userSave({
         avatarUrl: res?.eager[0].secure_url,
       });
-
-      return res;
     } finally {
       this.setIsLoading && this.setIsLoading(false);
     }
