@@ -19,6 +19,12 @@ class FilesService {
 
   private formats = ["webp"];
 
+  constructor(
+    private id: string | number,
+    private file?: File | string,
+    private avatar?: boolean
+  ) {}
+
   private createSignature(params: Params) {
     const baseString = Object.keys(params)
       .map((key) => `${key}=${params[key as keyof Params]}`)
@@ -28,13 +34,12 @@ class FilesService {
   }
 
   private imageTransformString({
-    avatar,
     transform,
     height = 216,
     width = 216,
     radius = 10,
   }: Partial<FileArgs>) {
-    if (avatar)
+    if (this.avatar)
       return transform
         ? transform
         : `c_thumb,h_${height},w_${width}/r_${radius}`;
@@ -43,10 +48,7 @@ class FilesService {
   }
 
   async upload({
-    file,
-    id,
     path,
-    avatar,
     overwrite = true,
     format = "webp",
     tags = [],
@@ -55,25 +57,25 @@ class FilesService {
     ...args
   }: FileArgs) {
     try {
-      const defaultPath = avatar ? Path.AVATAR : Path.POSTS;
+      const defaultPath = this.avatar ? Path.AVATAR : Path.POSTS;
       const imageTags = tags.length ? tags : [...defaultPath.split("/")];
       const context = `alt=${alt ? alt : defaultPath.split("/")}`;
 
       const params = {
         allowed_formats: [...this.formats, ...formats],
         context,
-        eager: this.imageTransformString({ avatar, ...args }),
+        eager: this.imageTransformString({ ...args }),
         folder: path || defaultPath,
         format,
         overwrite,
-        public_id: avatar ? id + "" : id + "_" + nanoid(),
+        public_id: this.avatar ? `${this.id}` : this.id + "_" + nanoid(),
         tags: imageTags,
         timestamp: Math.floor(Date.now() / 1000),
       };
       const signature = this.createSignature(params);
 
       const res = await uploadFilesApi.post(`${this.cloudName}/image/upload`, {
-        file,
+        file: this.file,
         api_key: this.apiKey,
         signature,
         ...params,
@@ -85,10 +87,10 @@ class FilesService {
     }
   }
 
-  async delete(id: string) {
+  async delete() {
     try {
       const params = {
-        public_id: id,
+        public_id: this.id,
         timestamp: Math.floor(Date.now() / 1000),
       };
 

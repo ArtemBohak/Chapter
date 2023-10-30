@@ -1,7 +1,4 @@
 export type FileArgs = {
-  file: File | string;
-  id: number | string;
-  avatar?: boolean;
   path?: string;
   format?: string;
   height?: number;

@@ -6,20 +6,14 @@ import styles from "./ImageUpload.module.scss";
 
 import { Icon, IconEnum } from "@/src/components";
 
-const ImageUpload: FC<ImageUploadProps> = ({ setAvatarUrl, id }) => {
+const ImageUpload: FC<ImageUploadProps> = ({ id }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = async (e: FormEvent<HTMLInputElement>) => {
     if (!e.currentTarget.files?.length) return;
     const [file] = e.currentTarget.files;
 
-    const profile = new ProfileUpdateApi(setIsLoading);
-
-    const res = await profile.imageSave({ file, id });
-
-    setAvatarUrl(res?.eager[0].secure_url);
-
-    await profile.userSave({ avatarUrl: res?.eager[0].secure_url });
+    await new ProfileUpdateApi(setIsLoading).imageSave(id, file);
   };
 
   return (

@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 
 import { useAppSelector } from "@/src/redux";
 import styles from "./SettingsPage.module.scss";
@@ -18,6 +18,10 @@ const SettingsPage: FC = () => {
   const { user } = useAppSelector((state) => state.userSlice);
   const [avatarUrl, setAvatarUrl] = useState<string | null>(user.avatarUrl);
 
+  useEffect(() => {
+    setAvatarUrl(user.avatarUrl);
+  }, [user.avatarUrl]);
+
   return (
     <section className={styles["settings"]}>
       <div
@@ -25,7 +29,7 @@ const SettingsPage: FC = () => {
       >
         <UserAvatar avatarUrl={avatarUrl} userEmail={user.userEmail} />
         <div className={styles["settings__input-wrapper"]}>
-          <ImageUpload setAvatarUrl={setAvatarUrl} id={user.id} />
+          <ImageUpload id={user.id} />
           <Layout className={styles["form-wrapper__top-spacing"]} customSpacing>
             <UserStory userStatus={user.userStatus} />
           </Layout>

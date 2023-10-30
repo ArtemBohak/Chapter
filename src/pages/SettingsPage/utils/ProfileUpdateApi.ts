@@ -5,24 +5,32 @@ import {
   SetIsLoadingType,
 } from "@/src/services";
 
-import { ImageSaveArgs, ProfileUpdateApiArgs } from "./ProfileUpdateApi.type";
+import { ProfileUpdateApiArgs } from "./ProfileUpdateApi.type";
 
 export class ProfileUpdateApi extends UserApiConstructor {
+  private userAvatarParams = {
+    alt: "user avatar",
+    height: 640,
+    width: 640,
+    radius: 50,
+  };
+
   constructor(setIsLoading?: SetIsLoadingType) {
     super(undefined, setIsLoading);
   }
 
-  async imageSave(payload: ImageSaveArgs) {
+  async imageSave(id: string | number, file: File) {
     try {
       this.setIsLoading && this.setIsLoading(true);
-      return await new FilesService().upload({
-        avatar: true,
-        alt: "user avatar",
-        height: 640,
-        width: 640,
-        radius: 50,
-        ...payload,
+
+      const res = await new FilesService(id, file, true).upload(
+        this.userAvatarParams
+      );
+      await this.userSave({
+        avatarUrl: res?.eager[0].secure_url,
       });
+
+      return res;
     } finally {
       this.setIsLoading && this.setIsLoading(false);
     }

@@ -1,7 +1,7 @@
 import { FileArgs } from "@/src/types";
 
 export type Params = {
-  public_id: string;
+  public_id: string | number;
   timestamp: number;
   context?: string;
   folder?: string;
