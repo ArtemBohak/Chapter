@@ -4,8 +4,11 @@ import "@/src/extensions/string.extensions";
 import styles from "./FeedPage.module.scss";
 
 const FeedPage: FC = () => {
-  console.log("fix".limit(1));
-  return <section className={styles["feed"]}></section>;
+  return (
+    <section className={styles["feed"]}>
+      <div className={styles["feed__container"]}></div>
+    </section>
+  );
 };
 
 export default FeedPage;
