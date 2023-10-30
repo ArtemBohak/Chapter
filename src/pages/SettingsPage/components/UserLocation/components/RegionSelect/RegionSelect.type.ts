@@ -2,15 +2,15 @@ import { Dispatch, SetStateAction } from "react";
 import { CityType, StateType } from "../../UserLocation.type";
 
 export type StateSelectProps = {
-  stateList: StateType[];
+  regionList: StateType[];
   countryId: number;
-  stateId: number;
-  selectedState: string;
+  regionId: number;
+  selectedRegion: string;
   transitionTimeOut: number;
-  setSelectedState: Dispatch<SetStateAction<string>>;
+  setSelectedRegion: Dispatch<SetStateAction<string>>;
   setSelectedCity: Dispatch<SetStateAction<string>>;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
   setCitiesList: Dispatch<SetStateAction<CityType[]>>;
   setCityId: Dispatch<SetStateAction<number>>;
-  setStateId: Dispatch<SetStateAction<number>>;
+  setRegionId: Dispatch<SetStateAction<number>>;
 };

@@ -6,21 +6,40 @@ export const getCookie = (key: string) =>
     .find((item) => item.startsWith(`${key}=`))
     ?.split("=")[1];
 
-export const setCookie = (
+export const getCookies = (...args: string[]) =>
+  args.map(
+    (i) =>
+      document.cookie
+        .split("; ")
+        .find((item) => item.startsWith(`${i}=`))
+        ?.split("=")[1]
+  );
+
+export const setCookies = (
   cookieValue: CookieValue,
-  cookiePath: string | undefined = undefined,
-  cookieExpirationValue: number | undefined = undefined
+  cookieExpirationValue?: number | string | Date,
+  cookiePath?: string,
+  isSecure: boolean = false
 ) => {
-  const path = cookiePath ? "path=" + cookiePath + ";" : "path=/;";
-  const expires = cookieExpirationValue
-    ? "max-age=" + cookieExpirationValue
-    : "";
+  const path = cookiePath ? "path=" + cookiePath : "path=/";
+  let expires = "";
+  const secureFlag = isSecure ? "Secure" : "";
+
+  if (
+    typeof cookieExpirationValue === "number" ||
+    typeof cookieExpirationValue === "string"
+  ) {
+    expires = "max-age=" + cookieExpirationValue;
+  }
+  if (cookieExpirationValue instanceof Date) {
+    expires = "expires=" + cookieExpirationValue.toUTCString();
+  }
 
   Object.keys(cookieValue).forEach(
     (i: keyof CookieValue) =>
-      (document.cookie = `${i}=${cookieValue[i]}; ${path}; ${expires}`)
+      (document.cookie = `${i}=${cookieValue[i]};${path};${expires};${secureFlag}`)
   );
 };
 
 export const deleteCookie = (...args: string[]) =>
-  args.forEach((item) => setCookie({ [item]: "" }, undefined, -1));
+  args.forEach((item) => setCookies({ [item]: "" }, -1));

@@ -1,30 +1,59 @@
 import { FC } from "react";
 import { Form, Formik, FormikProps } from "formik";
-import styles from "./LoginForm.module.scss";
-import { PasswordField, TextField } from "@/src/components/Fields";
-import { UIbutton } from "@/src/components/Buttons";
-import { ILoginPage, setErrors } from "./LoginForm.type";
+import { useNavigate } from "react-router-dom";
+
+import { apiErrorMessage, apiErrorStatus, links, keysValue } from "@/src/types";
+import { useAppDispatch, updateUser } from "@/src/redux";
+import {
+  setCookies,
+  setDate,
+  accountDeletionTerm,
+  setDataToLS,
+  deleteCookie,
+} from "@/src/utils";
 
 import validationSchema from "./validationSchema";
 import LoginApi from "./LoginApi";
-import { links } from "@/src/utils/links/links.types";
+import { ILoginPage, setErrors } from "./LoginForm.type";
+import styles from "./LoginForm.module.scss";
 
-import { ErrorStatus } from "@/src/pages/RegisterPage/components/RegisterForm/RegisterForm.type";
-import { useAppDispatch } from "@/src/redux/hooks";
-import { oAuthFulfilled } from "@/src/redux/slices";
-import { setDataToLS } from "@/src/utils";
+import { PasswordField, TextField, UIbutton } from "@/src/components";
 
 const LoginPageForm: FC = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const onHandleSubmit = async (values: ILoginPage, setErrors: setErrors) => {
-    const { status, data } = await LoginApi(values);
+    const response = await LoginApi(values);
+    const { status, data } = response;
 
-    if (status === ErrorStatus.UNPROCESSABLE_ENTITY) {
+    if (
+      response.status === apiErrorStatus.FORBIDDEN &&
+      response.message === apiErrorMessage.ACCOUNT_DELETED
+    ) {
+      deleteCookie(keysValue.RESTORE_TOKEN);
+      const expiresValue = setDate(
+        response.deletedUserDate,
+        accountDeletionTerm
+      );
+      const cValue = {
+        deletedUserDate: expiresValue + "",
+        restoringEmail: values.email,
+      };
+      setCookies(cValue, expiresValue, undefined, true);
+
+      return navigate(links.RESTORE);
+    }
+    if (status === apiErrorStatus.UNPROCESSABLE_ENTITY) {
       setErrors({ ["email"]: " ", ["password"]: "wrong email or password" });
     } else {
-      dispatch(oAuthFulfilled(data.user));
+      deleteCookie(
+        keysValue.DELETED_ACCOUNT_TIME_STAMP,
+        keysValue.RESTORE_EMAIL,
+        keysValue.RESTORE_TOKEN
+      );
       setDataToLS({ token: data.token });
+      dispatch(updateUser(data.user));
     }
   };
   return (

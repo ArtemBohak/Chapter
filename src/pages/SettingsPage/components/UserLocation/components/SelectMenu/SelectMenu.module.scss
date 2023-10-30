@@ -2,7 +2,7 @@
   @apply absolute overflow-hidden w-full  end-0 z-40  bg-[#FAFAFA];
 
   &-container {
-    @apply overflow-scroll w-full h-full min-h-fit  max-h-[130px] py-1-sm pl-1-xs  rounded-lg  border border-grey-1010 flex flex-col gap-1-xs;
+    @apply overflow-y-auto overflow-x-hidden w-full h-full min-h-fit  max-h-[130px] py-1-sm pl-1-xs  rounded-lg  border border-grey-1010 flex flex-col gap-1-xs;
     & > button {
       @apply bg-transparent text-start flex gap-1 text-xs laptop:text-sm outline-none w-full transition-colors duration-150;
 

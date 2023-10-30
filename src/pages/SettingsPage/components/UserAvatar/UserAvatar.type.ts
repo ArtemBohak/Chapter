@@ -1,1 +1,1 @@
-export type AvatarProps = { avatarUrl: string };
+export type AvatarProps = { avatarUrl: string | null; userEmail: string };

@@ -1,7 +1,7 @@
 export type InitialValues = {
   oldPassword: string;
   newPassword: string;
-  confirmNewPassword: string;
+  repeatNewPassword: string;
 };
 
 export enum ErrorMessages {

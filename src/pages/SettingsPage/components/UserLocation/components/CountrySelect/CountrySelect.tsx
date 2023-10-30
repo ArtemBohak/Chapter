@@ -8,12 +8,12 @@ import Field from "../Field/Field";
 import SelectMenu from "../SelectMenu/SelectMenu";
 
 const CountrySelect: FC<CountrySelectProps> = ({
-  setSelectedState,
+  setSelectedRegion,
   setSelectedCity,
   setCityId,
-  setStateId,
+  setRegionId,
   setIsLoading,
-  setStateList,
+  setRegionList,
   setSelectedCountry,
   setCitiesList,
   setCountryId,
@@ -46,9 +46,9 @@ const CountrySelect: FC<CountrySelectProps> = ({
         setIcon={setIcon}
         setSelectedValue={setSelectedCountry}
         setId={setCountryId}
-        setStateData={setStateList}
-        setStateSelectedValue={setSelectedState}
-        setStateId={setStateId}
+        setRegionData={setRegionList}
+        setRegionSelectedValue={setSelectedRegion}
+        setRegionId={setRegionId}
         setCitiesData={setCitiesList}
         setCitySelectedValue={setSelectedCity}
         setCityId={setCityId}
@@ -63,8 +63,8 @@ const CountrySelect: FC<CountrySelectProps> = ({
         setSelectMenuIsOpen={setMenuIsOpen}
         setIsLoading={setIsLoading}
         setIcon={setIcon}
-        setSelectedState={setSelectedState}
-        setStateData={setStateList}
+        setSelectedRegion={setSelectedRegion}
+        setRegionData={setRegionList}
         setSelectedCity={setSelectedCity}
         setCitiesData={setCitiesList}
       />

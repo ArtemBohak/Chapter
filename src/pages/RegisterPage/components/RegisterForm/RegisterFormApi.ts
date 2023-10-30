@@ -1,7 +1,7 @@
-import api from "@/src/axios/api";
 import { AxiosError } from "axios";
 
-import { EndpointsEnum } from "@/src/axios/endpoints.types";
+import { api, EndpointsEnum } from "@/src/axios";
+
 import { type ApiArgs } from "./RegisterForm.type";
 
 class RegisterFormApi {
@@ -21,7 +21,7 @@ class RegisterFormApi {
       if (
         error instanceof AxiosError &&
         error.response &&
-        error.response.data.status < 500
+        error.response.status < 500
       ) {
         return error.response.data;
       } else console.log(error);

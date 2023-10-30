@@ -1,5 +1,6 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 
+import { useAppSelector } from "@/src/redux";
 import styles from "./SettingsPage.module.scss";
 
 import {
@@ -14,18 +15,23 @@ import {
 } from "./components";
 
 const SettingsPage: FC = () => {
-  const [avatarUrl, setAvatarUrl] = useState("");
+  const { user } = useAppSelector((state) => state.userSlice);
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(user.avatarUrl);
+
+  useEffect(() => {
+    setAvatarUrl(user.avatarUrl);
+  }, [user.avatarUrl]);
 
   return (
     <section className={styles["settings"]}>
       <div
         className={`${styles["settings__container"]} ${styles["settings__container-top"]}`}
       >
-        <UserAvatar avatarUrl={avatarUrl} />
+        <UserAvatar avatarUrl={avatarUrl} userEmail={user.userEmail} />
         <div className={styles["settings__input-wrapper"]}>
-          <ImageUpload setAvatarUrl={setAvatarUrl} />
+          <ImageUpload id={user.id} />
           <Layout className={styles["form-wrapper__top-spacing"]} customSpacing>
-            <UserStory />
+            <UserStory userStatus={user.userStatus} />
           </Layout>
         </div>
       </div>
@@ -37,14 +43,18 @@ const SettingsPage: FC = () => {
           className={styles["form-wrapper__bottom-spacing"]}
           fullWidth
         >
-          <UserName />
+          <UserName firstName={user.firstName} lastName={user.lastName} />
         </Layout>
         <Layout
           title="Location"
           className={styles["form-wrapper__bottom-spacing"]}
           fullWidth
         >
-          <UserLocation />
+          <UserLocation
+            country={user.country}
+            region={user.region}
+            city={user.city}
+          />
         </Layout>
         <Layout
           title="Update password"

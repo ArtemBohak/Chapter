@@ -1,6 +1,7 @@
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
-import PublicRoute from "./Routes/PublicRoute/PublicRoute";
-import PrivateRoute from "./Routes/PrivateRoute/PrivateRoute";
+
+import { links, keysValue } from "@/src/types";
+
 import {
   RegisterPage,
   WelcomePage,
@@ -11,11 +12,14 @@ import {
   UIPage,
   FeedPage,
   SettingsPage,
+  RestorePage,
   PasswordChange,
 } from "@/src/pages";
-
 import { PublicLayout, ProfileLayout } from "@/src/layouts";
-import { links } from "@/src/utils/links/links.types";
+
+import PublicRoute from "./Routes/PublicRoute/PublicRoute";
+import PrivateRoute from "./Routes/PrivateRoute/PrivateRoute";
+import RestrictedRoute from "./Routes/RestrictedRoute/RestrictedRoute";
 
 const router = createBrowserRouter([
   {
@@ -36,7 +40,13 @@ const router = createBrowserRouter([
           },
           {
             path: links.ACCOUNT_CREATION + "/:userId",
-            element: <AccountCreationPage />,
+            element: (
+              <RestrictedRoute
+                component={<AccountCreationPage />}
+                checkingKey={keysValue.USER_ID}
+                checkingById
+              />
+            ),
           },
           {
             path: links.LOG_IN,
@@ -49,6 +59,15 @@ const router = createBrowserRouter([
           {
             path: links.PASSWORD_CHANGE + "/:userId",
             element: <PasswordChange />,
+          },
+          {
+            path: links.RESTORE,
+            element: (
+              <RestrictedRoute
+                component={<RestorePage />}
+                checkingKey={keysValue.DELETED_ACCOUNT_TIME_STAMP}
+              />
+            ),
           },
         ],
       },

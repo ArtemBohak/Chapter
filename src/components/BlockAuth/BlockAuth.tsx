@@ -2,7 +2,6 @@ import { FC } from "react";
 import cn from "classnames";
 
 import { BlockAuthProps } from "./BlockAuth.type";
-
 import styles from "./BlockAuth.module.scss";
 
 const BlockAuth: FC<BlockAuthProps> = ({

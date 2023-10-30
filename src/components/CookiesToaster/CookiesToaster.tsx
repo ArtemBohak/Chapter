@@ -1,7 +1,9 @@
 import { FC, useState } from "react";
-import CookiesImage from "@/src/assets/WEBP/CookiesGirl.webp";
+
 import styles from "./CookiesToaster.module.scss";
+
 import { Icon, IconEnum } from "..";
+import CookiesImage from "@/src/assets/WEBP/CookiesGirl.webp";
 
 const CookiesToaster: FC = () => {
   const [toasterHide, setToasterHide] = useState(

@@ -1,29 +1,14 @@
-export type FileUploadArgs = {
-  file: File | string;
-  id: string;
-  avatar: boolean;
-  path?: string;
-  format?: string;
-  height?: number;
-  width?: number;
-  overwrite?: boolean;
-  transform?: string;
-  tags?: string[];
-  radius?: number;
-  formats?: string[] | [];
-  alt?: string;
-};
+import { FileArgs } from "@/src/types";
 
-export type Params = { public_id: string; timestamp: number };
-
-export type UploadParams = {
+export type Params = {
+  public_id: string | number;
+  timestamp: number;
   context?: string;
-  folder: string;
-  eager: string;
-  overwrite: boolean;
+  folder?: string;
+  eager?: string;
+  overwrite?: boolean;
   allowed_formats?: string[];
-} & Partial<FileUploadArgs> &
-  Params;
+} & Partial<FileArgs>;
 
 export enum Path {
   AVATAR = "chapter/avatars",

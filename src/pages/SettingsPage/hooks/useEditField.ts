@@ -1,29 +1,47 @@
 import { ChangeEvent, RefObject, useEffect, useState } from "react";
 
+import { ProfileUpdateApi } from "../utils/ProfileUpdateApi";
+
 const useEditField = (
-  textValue: string,
-  nodeRef: RefObject<HTMLTextAreaElement | HTMLInputElement>
+  textValue: string | null,
+  nodeRef: RefObject<HTMLTextAreaElement | HTMLInputElement>,
+  userStatus: boolean
 ) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [value, setValue] = useState(textValue);
+  const [value, setValue] = useState<string | null>(textValue);
 
   useEffect(() => {
     if (isEditing) {
       nodeRef.current?.focus();
-      nodeRef.current?.setSelectionRange(value.length, value.length);
     }
-  }, [isEditing, nodeRef, value.length]);
+  }, [isEditing, nodeRef]);
 
   const onHandleEdit = () => setIsEditing(true);
 
   const onHandleSave = async () => {
     setIsEditing(false);
-    if (value !== textValue) console.log(value);
+    const profile = new ProfileUpdateApi();
+    if (value !== textValue) {
+      userStatus &&
+        profile.userSave({
+          userStatus: value,
+        });
+      if (!userStatus && value) {
+        const [firstName, lastName] = value.split(" ");
+        if (firstName && lastName) profile.userSave({ firstName, lastName });
+      }
+    }
   };
 
   const onHandleChange = (
     e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => setValue(e.currentTarget.value);
+
+  const onHandleFocus = (
+    e: React.FocusEvent<HTMLTextAreaElement | HTMLInputElement, Element>
+  ) => {
+    if (value) e.currentTarget.setSelectionRange(value.length, value.length);
+  };
 
   return {
     isEditing,
@@ -32,6 +50,7 @@ const useEditField = (
     onHandleEdit,
     onHandleSave,
     onHandleChange,
+    onHandleFocus,
   };
 };
 

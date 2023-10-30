@@ -1,11 +1,11 @@
 import { FC, useState, useEffect } from "react";
 import cn from "classnames";
 
-import { Icon, IconEnum } from "@/src/components";
 import { MenuTogglerProps } from "./MenuToggler.type";
-import { UIbutton } from "../Buttons";
-
 import "./MenuToggler.scss";
+
+import { UIbutton } from "../Buttons";
+import { Icon, IconEnum } from "@/src/components";
 
 const MenuToggler: FC<MenuTogglerProps> = ({
   isActive = false,

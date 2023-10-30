@@ -1,10 +1,10 @@
 import { FC } from "react";
 import { Outlet } from "react-router-dom";
 
+import styles from "./ProfileLayout.module.scss";
+
 import { ProfileHeader, SidebarNavigation } from "./components";
 import { NavigationTogglerProvider } from "src/context/NavigationToggler";
-
-import styles from "./ProfileLayout.module.scss";
 
 const ProfileLayout: FC = () => (
   <div className={styles["profile-layout"]}>
