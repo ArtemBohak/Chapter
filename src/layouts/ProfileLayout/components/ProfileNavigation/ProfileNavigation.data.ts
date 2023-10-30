@@ -1,5 +1,5 @@
-import { IconEnum } from "../../../../components/Icon";
 import { NavigationLinkProps } from "./ProfileNavigation.type";
+import { IconEnum } from "../../../../components/Icon";
 
 export const topNavigation: NavigationLinkProps[] = [
   {
@@ -34,11 +34,5 @@ export const bottomNavigation: NavigationLinkProps[] = [
     path: "/settings",
     icon: IconEnum.Settings,
     name: "Settings",
-  },
-  {
-    id: "6",
-    path: "/",
-    icon: IconEnum.SignOut,
-    name: "Logout",
   },
 ];

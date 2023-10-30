@@ -4,19 +4,18 @@ import cn from "classnames";
 import { AxiosError } from "axios";
 import { Formik, Form, FormikProps, FormikHelpers } from "formik";
 
-import validationSchema from "./validationSchema";
-
-import { IAccountCreate } from "./FormCreateAccount.type";
-import api from "@/src/axios/api";
-import { EndpointsEnum } from "@/src/axios/endpoints.types";
-import { useDebounce } from "@/src/hooks/useDebounce";
+import { EndpointsEnum, api } from "@/src/axios";
+import { links, keysValue } from "@/src/types";
+import { useDebounce } from "@/src/hooks";
 import { cyrillicPattern, deleteCookie, removeDataFromLS } from "@/src/utils";
 import "@/src/extensions/string.extensions";
+
+import { IAccountCreate } from "./FormCreateAccount.type";
+import validationSchema from "./validationSchema";
 import styles from "./FormCreateAccount.module.scss";
 
 import UIbutton from "@/src/components/Buttons/UIbutton/UIbutton";
 import { TextField, PasswordField } from "@/src/components/Fields";
-import { links } from "@/src/utils";
 
 const initialValues: IAccountCreate = {
   fullname: "",
@@ -70,8 +69,14 @@ const FormCreateAccount: FC = () => {
         firstName,
         lastName,
       });
-      removeDataFromLS("fullName");
-      deleteCookie("email", "userId");
+      removeDataFromLS(keysValue.FULL_NAME);
+      deleteCookie(
+        keysValue.EMAIL,
+        keysValue.USER_ID,
+        keysValue.DELETED_ACCOUNT_TIME_STAMP,
+        keysValue.RESTORE_EMAIL,
+        keysValue.RESTORE_TOKEN
+      );
       navigate(links.LOG_IN);
     } catch (e) {
       if (e instanceof AxiosError) {
@@ -104,68 +109,64 @@ const FormCreateAccount: FC = () => {
           isValid,
           dirty,
           values,
-        }: FormikProps<IAccountCreate>) => {
-          return (
-            <Form>
-              <TextField
-                id="fullname"
-                name="fullname"
-                label="Full Name"
-                value={values.fullname}
-                placeholder="Full Name"
-                dataAutomation="fullname"
-                showSuccessIcon={true}
-                className={
-                  values.fullname.isCyrillic(cyrillicPattern)
-                    ? styles["cyrillic"]
-                    : ""
-                }
-              />
-              <TextField
-                id="nickName"
-                name="nickName"
-                label="Nickname"
-                value={nickname ? `@${nickname}` : ""}
-                placeholder="nickname"
-                dataAutomation="nickname"
-                showSuccessIcon={true}
-                onChange={onHandleChange}
-                disabled={isLoadingNk}
-                customErrorMessage={nkErrorMessage}
-              />
-              <PasswordField
-                id="password"
-                name="password"
-                label="Create password"
-                placeholder="Enter your password"
-                strength
-                dataAutomation="password"
-              />
-              <PasswordField
-                id="confirm_password"
-                name="confirm_password"
-                label="Confirm password"
-                placeholder="Re-enter your password"
-                dataAutomation="confirm_password"
-              />
-              <UIbutton
-                type="submit"
-                fullWidth
-                dataAutomation="submitButton"
-                className="p-[12px] text-sm"
-                disabled={!isValid || !dirty}
-                isLoading={isSubmitting}
-              >
-                Submit
-              </UIbutton>
-              {errorMessageForm ? (
-                <p className="text-red text-s text-center mt-1 mr-2">
-                  {errorMessageForm}
-                </p>
-              ) : null}
-            </Form>
-          );
-        }}
+        }: FormikProps<IAccountCreate>) => (
+          <Form>
+            <TextField
+              id="fullname"
+              name="fullname"
+              label="Full Name"
+              value={values.fullname}
+              placeholder="Full Name"
+              dataAutomation="fullname"
+              showSuccessIcon={true}
+              className={
+                values.fullname.isCyrillic(cyrillicPattern) ? "cyrillic" : ""
+              }
+            />
+            <TextField
+              id="nickName"
+              name="nickName"
+              label="Nickname"
+              value={nickname ? `@${nickname}` : ""}
+              placeholder="nickname"
+              dataAutomation="nickname"
+              showSuccessIcon={true}
+              onChange={onHandleChange}
+              disabled={isLoadingNk}
+              customErrorMessage={nkErrorMessage}
+            />
+            <PasswordField
+              id="password"
+              name="password"
+              label="Create password"
+              placeholder="Enter your password"
+              strength
+              dataAutomation="password"
+            />
+            <PasswordField
+              id="confirm_password"
+              name="confirm_password"
+              label="Confirm password"
+              placeholder="Re-enter your password"
+              dataAutomation="confirm_password"
+            />
+            <UIbutton
+              type="submit"
+              fullWidth
+              dataAutomation="submitButton"
+              className="p-[12px] text-sm"
+              disabled={!isValid || !dirty}
+              isLoading={isSubmitting}
+            >
+              Submit
+            </UIbutton>
+            {errorMessageForm ? (
+              <p className="text-red text-s text-center mt-1 mr-2">
+                {errorMessageForm}
+              </p>
+            ) : null}
+          </Form>
+        )}
       </Formik>
     </div>
   );

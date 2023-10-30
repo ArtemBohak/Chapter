@@ -18,6 +18,17 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
   &::-webkit-scrollbar {
-    display: none;
+    @apply hidden;
+  }
+}
+
+.cyrillic {
+  @apply font-montserrat;
+  & input {
+    @apply font-montserrat;
+
+    &::placeholder {
+      @apply font-poppins;
+    }
   }
 }

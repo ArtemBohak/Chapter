@@ -1,0 +1,23 @@
+.restore-email {
+  @apply pt-[116px] pb-[62px] md:py-[96px] laptop:py-[84px];
+
+  & > h3 {
+    @apply mb-3-xs text-[28px] md:text-[38px] laptop:text-[50px];
+  }
+
+  &__form {
+    @apply md:max-w-[318px] mx-auto mb-[78px] md:mb-4-xs;
+
+    &-button.button {
+      @apply min-h-[42px] md:min-h-[48px] text-base;
+    }
+  }
+
+  &__resent-btn {
+    @apply bg-transparent text-xs outline-none;
+
+    & > span {
+      @apply text-[#0000EB];
+    }
+  }
+}

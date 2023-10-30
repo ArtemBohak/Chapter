@@ -10,9 +10,13 @@ export enum EndpointsEnum {
   FORGOT_PASSWORD = "auth/forgot/password",
   RESET_PASSWORD = "auth/reset/password",
   PROFILE = "users/me",
+  UPDATE_PASSWORD = "users/update-password",
   REFRESH = "auth/refresh",
   LOGOUT = "auth/logout",
   FACEBOOK_LOGIN = "auth/facebook/login",
   GOOGLE_LOGIN = "auth/google/login",
   TWITTER_LOGIN = "auth/twitter/login",
+  GOOGLE_RESTORE = "auth/restoring-user-by-google",
+  EMAIL_RESTORE = "auth/restoring-user",
+  CONFIRM_EMAIL_RESTORE = "auth/confirm-restoring-user",
 }

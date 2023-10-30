@@ -1,3 +1,9 @@
+export type UserLocationProps = {
+  country: number | null;
+  region: number | null;
+  city: number | null;
+};
+
 export type CountriesType = {
   capital: string;
   currency: string;

@@ -1,8 +1,11 @@
 import { FC } from "react";
 import { Formik, Form, FormikHelpers } from "formik";
 
-import { InitialValues, ErrorMessages } from "./UpdateUserPassword.type";
+import { apiErrorMessage, apiErrorStatus, apiUiMessage } from "@/src/types";
+
 import validationSchema from "./validationSchema";
+import { InitialValues, ErrorMessages } from "./UpdateUserPassword.type";
+import { ProfileUpdateApi } from "../../utils/ProfileUpdateApi";
 import styles from "./UpdateUserPassword.module.scss";
 
 import { PasswordField, UIbutton } from "@/src/components";
@@ -10,16 +13,25 @@ import { PasswordField, UIbutton } from "@/src/components";
 const initialValues: InitialValues = {
   oldPassword: "",
   newPassword: "",
-  confirmNewPassword: "",
+  repeatNewPassword: "",
 };
 
 const UpdateUserPassword: FC = () => {
   const onHandleSubmit = async (
     values: InitialValues,
-    { setSubmitting }: FormikHelpers<InitialValues>
+    { setSubmitting, resetForm, setFieldError }: FormikHelpers<InitialValues>
   ) => {
-    console.log(values);
+    const profile = new ProfileUpdateApi();
+    const res = await profile.updatePassword(values);
+
     setSubmitting(false);
+    if (
+      res?.response?.data.status === apiErrorStatus.BAD_REQUEST &&
+      res?.response?.data.error === apiErrorMessage.UPDATE_PASSWORD
+    ) {
+      return setFieldError("oldPassword", apiUiMessage.WRONG_PASSWORD);
+    }
+    resetForm();
   };
   return (
     <Formik
@@ -27,7 +39,7 @@ const UpdateUserPassword: FC = () => {
       onSubmit={onHandleSubmit}
       validationSchema={validationSchema}
     >
-      {({ isSubmitting, dirty, isValid }) => {
+      {({ isSubmitting, dirty, isValid, values }) => {
         return (
           <Form className={styles["update-password"]}>
             <PasswordField
@@ -37,6 +49,7 @@ const UpdateUserPassword: FC = () => {
               autoComplete="current-password"
               additionalLabel={ErrorMessages.OLD_PASSWORD}
               label="Old password"
+              value={values.oldPassword}
               className={`${styles["update-password__input"]} ${styles["input"]}`}
             />
             <PasswordField
@@ -47,15 +60,17 @@ const UpdateUserPassword: FC = () => {
               additionalLabel={ErrorMessages.NEW_PASSWORD}
               strengthMessage={ErrorMessages.NEW_PASSWORD}
               label="New password"
+              value={values.newPassword}
               className={`${styles["update-password__input"]} ${styles["input"]}`}
               strength
             />
             <PasswordField
-              dataAutomation="confirmNewPasswordInput"
-              id="confirmNewPassword"
-              name="confirmNewPassword"
+              dataAutomation="repeatNewPasswordInput"
+              id="repeatNewPassword"
+              name="repeatNewPassword"
               autoComplete="new-password"
               label="Repeat new password"
+              value={values.repeatNewPassword}
               additionalLabel={ErrorMessages.CONFIRM_NEW_PASSWORD}
               className={`${styles["update-password__input"]} ${styles["input"]}`}
             />

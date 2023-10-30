@@ -9,9 +9,9 @@ export type FieldProps = {
   setSelectedValue: Dispatch<SetStateAction<string>>;
   setId: Dispatch<SetStateAction<number>>;
   setIcon?: Dispatch<SetStateAction<string>>;
-  setStateData?: Dispatch<SetStateAction<StateType[]>>;
-  setStateSelectedValue?: Dispatch<SetStateAction<string>>;
-  setStateId?: Dispatch<SetStateAction<number>>;
+  setRegionData?: Dispatch<SetStateAction<StateType[]>>;
+  setRegionSelectedValue?: Dispatch<SetStateAction<string>>;
+  setRegionId?: Dispatch<SetStateAction<number>>;
   setCitiesData?: Dispatch<SetStateAction<CityType[]>>;
   setCitySelectedValue?: Dispatch<SetStateAction<string>>;
   setCityId?: Dispatch<SetStateAction<number>>;

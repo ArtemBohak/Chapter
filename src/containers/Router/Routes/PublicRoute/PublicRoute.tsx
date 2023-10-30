@@ -1,8 +1,9 @@
 import { FC } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 
-import { useAppSelector } from "@/src/redux/hooks";
-import { links } from "@/src/utils";
+import { links } from "@/src/types";
+import { useAppSelector } from "@/src/redux";
+
 import { IRoutesProps } from "../types/Routes.type";
 
 import { Loader } from "@/src/components";

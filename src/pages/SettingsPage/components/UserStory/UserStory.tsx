@@ -1,19 +1,23 @@
 import { FC, useRef } from "react";
 
 import { useEditField } from "../../hooks";
+import { UserStoryProps } from "./UserStory.type";
 import styles from "./UserStory.module.scss";
 
 import IconButton from "../IconButton/IconButton";
 
-const text =
-  "Embracing life's journey with open arms and a heart full of gratitude. Chasing dreams, one step at a time, with unwavering determination. Spreading positivity and kindness wherever I go, making the world a better place.";
-
-const UserStory: FC = () => {
+const UserStory: FC<UserStoryProps> = ({ userStatus }) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  const { isEditing, value, onHandleEdit, onHandleSave, onHandleChange } =
-    useEditField(text, textareaRef);
-
+  const {
+    isEditing,
+    value,
+    onHandleEdit,
+    onHandleSave,
+    onHandleChange,
+    onHandleFocus,
+  } = useEditField(userStatus, textareaRef, true);
+  const inputValue = value ? value : "";
   return (
     <>
       <IconButton
@@ -24,9 +28,10 @@ const UserStory: FC = () => {
       <textarea
         className={styles["bio-text"]}
         ref={textareaRef}
-        value={value}
+        value={inputValue}
         disabled={!isEditing}
         onChange={onHandleChange}
+        onFocus={onHandleFocus}
         data-automation="userStoryTextArea"
       />
     </>

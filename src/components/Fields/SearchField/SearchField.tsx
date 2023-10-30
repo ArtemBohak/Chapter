@@ -2,11 +2,10 @@ import { FC } from "react";
 import cn from "classnames";
 import { Formik, Form } from "formik";
 
-import { TextField } from "../TextField";
-
 import { SearchFieldProps } from "./SearchField.type";
-
 import "./SearchField.scss";
+
+import { TextField } from "../TextField";
 
 const SearchField: FC<SearchFieldProps> = ({ className, ...props }) => {
   return (

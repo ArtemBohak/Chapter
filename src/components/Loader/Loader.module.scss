@@ -1,3 +1,19 @@
 .loader {
   @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50;
+
+  &-enter {
+    @apply opacity-0 scale-0;
+
+    &-active {
+      @apply opacity-100 scale-100 transition-all duration-150;
+    }
+  }
+
+  &-exit {
+    @apply opacity-100 scale-100;
+
+    &-active {
+      @apply opacity-0 scale-0 transition-all duration-150;
+    }
+  }
 }

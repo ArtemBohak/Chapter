@@ -1,8 +1,9 @@
-import { useAppDispatch } from "@/src/redux/hooks";
-import { Router } from "..";
 import { useEffect } from "react";
+
+import { useAppDispatch, fetchIsAuthUser } from "@/src/redux";
 import { getTokenFromLC } from "@/src/utils";
-import { fetchIsAuthUser } from "@/src/redux/slices";
+
+import { Router } from "..";
 
 const App = () => {
   const dispatch = useAppDispatch();

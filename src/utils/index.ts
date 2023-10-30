@@ -5,4 +5,4 @@ export * from "./localStorage/localStorage";
 export * from "./tokenIsValid/tokenIsValid";
 export * from "./cookies/cookies";
 export * from "./date/date";
-export * from "./links/links.types";
+export * from "./constants/constants";

@@ -1,12 +1,11 @@
+import { FC } from "react";
 import { Form, Formik } from "formik";
 
 import { IForgotPassword } from "./ForgotPassword.types";
-import { TextField, UIbutton } from "@/src/components";
-import { FC } from "react";
-
+import ForgotPasswordApi from "./ForgotPasswordApi";
 import validationSchema from "./validationSchema";
 
-import ForgotPasswordApi from "./ForgotPasswordApi";
+import { TextField, UIbutton } from "@/src/components";
 
 const initialValues: IForgotPassword = { email: "" };
 

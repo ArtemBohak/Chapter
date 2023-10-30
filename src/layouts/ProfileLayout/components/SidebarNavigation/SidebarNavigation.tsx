@@ -2,11 +2,12 @@ import { FC } from "react";
 import { NavLink } from "react-router-dom";
 import cn from "classnames";
 
-import { ProfileNavigation } from "../ProfileNavigation";
-import { links } from "@/src/utils/links/links.types";
+import { links } from "@/src/types";
+import { useNavigationToggler } from "@/src/context";
 
-import { useNavigationToggler } from "@/src/context/NavigationToggler";
 import styles from "./SidebarNavigation.module.scss";
+
+import { ProfileNavigation } from "../ProfileNavigation";
 
 const SidebarNavigation: FC = () => {
   const { isActiveMenu } = useNavigationToggler();

@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { links } from "@/src/utils";
+import { links } from "@/src/types";
 import styles from "@/src/pages/RegisterPage/RegisterPage.module.scss";
 
 import { AuthLink, Delimiter, AuthBy, BlockAuth } from "@/src/components";

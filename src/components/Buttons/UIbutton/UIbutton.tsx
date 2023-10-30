@@ -1,11 +1,11 @@
 import { FC } from "react";
+import { Link } from "react-router-dom";
 import cn from "classnames";
 
-import { Icon } from "../../Icon";
 import { UIButtonProps } from "./UIbutton.type";
-
 import "./UIbutton.scss";
-import { Link } from "react-router-dom";
+
+import { Icon } from "../../Icon";
 
 const UIbutton: FC<UIButtonProps> = ({
   isLoading = false,
