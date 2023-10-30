@@ -1,0 +1,11 @@
+.icon-button {
+  @apply bg-transparent absolute top-1-xs right-1-xs outline-none w-[40px] h-[40px] laptop:w-[48] laptop:h-[48] flex justify-center items-center rounded-[50%] transition-colors duration-150;
+
+  &:hover {
+    @apply bg-[#FFE6C1];
+  }
+
+  & > svg {
+    @apply w-[20px] h-[20px] laptop:w-[28px] laptop:h-[28px] cursor-pointer pointer-events-auto;
+  }
+}

@@ -1,0 +1,28 @@
+.strop-down-container {
+  @apply relative block;
+  & > .icon {
+    @apply absolute left-[12px] top-[50%] translate-y-[-50%];
+  }
+  & > input {
+    @apply w-full h-[40px] md:h-[48px] py-[12px] pl-[12px] pr-[40px] text-xs md:text-sm outline-none rounded-md border border-grey-1000 bg-inherit;
+  }
+
+  .flag {
+    @apply pl-[30px];
+  }
+}
+
+.arrow-btn {
+  @apply absolute block top-[50%] translate-y-[-50%] right-[18px] bg-transparent p-1 outline-none;
+
+  .arrow {
+    @apply inline-block p-[4px] border-r-[2px] border-b-[2px] border-black transition-transform duration-150;
+
+    &--up {
+      @apply rotate-[-135deg];
+    }
+    &--down {
+      @apply rotate-45;
+    }
+  }
+}

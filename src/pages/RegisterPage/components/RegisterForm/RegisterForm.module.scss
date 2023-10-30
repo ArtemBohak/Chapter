@@ -1,0 +1,17 @@
+.register-form {
+  @apply max-w-[326px] mb-1-xs;
+
+  &__hash-input--enter {
+    @apply opacity-0 scale-0;
+  }
+  &__hash-input--enter-active {
+    @apply opacity-100 scale-100 transition-all duration-300;
+  }
+
+  &__button {
+    @apply h-full max-h-[42px] laptop:max-h-[50px];
+    &__hash-container {
+      @apply overflow-hidden;
+    }
+  }
+}

@@ -1,0 +1,7 @@
+.header {
+  @apply fixed top-0 left-0 right-0 z-50;
+
+  & &__container {
+    @apply max-w-[1808px] w-full px-[24px] py-[24px] laptop:pt-[70px] laptop:px-[80px];
+  }
+}

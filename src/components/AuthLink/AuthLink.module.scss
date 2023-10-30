@@ -1,0 +1,11 @@
+.auth-link {
+  @apply text-sm mb-[30px] sm:mb-[30px] md:mb-[100px] text-center;
+
+  &__text {
+    @apply font-medium;
+  }
+
+  &__link {
+    @apply text-blue font-semibold;
+  }
+}

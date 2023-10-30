@@ -1,0 +1,9 @@
+.menu-toggler {
+  &.btn {
+    @apply p-1;
+  }
+
+  &.btn &__icon {
+    @apply m-0;
+  }
+}

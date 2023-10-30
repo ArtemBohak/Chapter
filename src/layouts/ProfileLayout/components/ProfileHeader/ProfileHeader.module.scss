@@ -1,0 +1,39 @@
+.profile-header {
+  @apply fixed w-full shadow-bottom z-30 py-1-md bg-white md:shadow-none md:py-1-xl laptop:pl-[260px] laptop_md:py-4-xs laptop_md:pl-[310px];
+
+  &__heading {
+    @apply hidden text-black text-[26px] font-bold md:inline-block md:text-[30px] laptop_md:text-[36px] capitalize;
+  }
+
+  &__container {
+    @apply flex justify-between items-center w-full px-2-md mx-auto laptop_md:max-w-[94%];
+  }
+
+  &__logo-name {
+    @apply absolute left-1/2 translate-x-[-50%] text-lg font-semibold md:hidden;
+  }
+
+  &__auth-side {
+    @apply flex md:justify-end md:w-full;
+  }
+
+  &__search-wrapper {
+    @apply hidden md:inline-block;
+  }
+
+  &__menu-toggler {
+    @apply -ml-1 mr-1-xs w-[40px] h-[40px] md:-ml-2 md:w-[52px] md:h-[52px] laptop:hidden;
+  }
+
+  &__search-field {
+    @apply hidden w-[200px] md:block md:w-[300px] laptop_md:w-[400px];
+  }
+
+  &__user-avatar {
+    @apply hidden ml-[16px] w-[40px] md:inline-flex md:w-[52px];
+  }
+
+  .add-post-button {
+    @apply hidden md:inline-flex md:ml-4;
+  }
+}
