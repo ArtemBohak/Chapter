@@ -7,7 +7,8 @@ import { Formik, Form, FormikProps, FormikHelpers } from "formik";
 import { EndpointsEnum, api } from "@/src/axios";
 import { links, keysValue } from "@/src/types";
 import { useDebounce } from "@/src/hooks";
-import { checkIsCyrillic, deleteCookie, removeDataFromLS } from "@/src/utils";
+import { cyrillicPattern, deleteCookie, removeDataFromLS } from "@/src/utils";
+import "@/src/extensions/string.extensions";
 
 import { IAccountCreate } from "./FormCreateAccount.type";
 import validationSchema from "./validationSchema";
@@ -118,7 +119,9 @@ const FormCreateAccount: FC = () => {
               placeholder="Full Name"
               dataAutomation="fullname"
               showSuccessIcon={true}
-              className={checkIsCyrillic(values.fullname) ? "cyrillic" : ""}
+              className={
+                values.fullname.isCyrillic(cyrillicPattern) ? "cyrillic" : ""
+              }
             />
             <TextField
               id="nickName"

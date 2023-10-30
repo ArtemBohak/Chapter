@@ -1,7 +1,8 @@
 import { FC, useRef } from "react";
 import cn from "classnames";
 
-import { checkIsCyrillic } from "@/src/utils";
+import { cyrillicPattern } from "@/src/utils";
+import "@/src/extensions/string.extensions";
 
 import { useEditField } from "../../hooks";
 import { UserNameProps } from "./UserName.type";
@@ -19,10 +20,10 @@ const UserName: FC<UserNameProps> = ({ firstName, lastName }) => {
     onHandleChange,
     onHandleFocus,
   } = useEditField(firstName + " " + lastName, inputRef, false);
-
   const inputValue = value ? value : "";
+
   const inputClassName = cn(styles["info-label__input"], {
-    ["cyrillic"]: checkIsCyrillic(inputValue),
+    ["cyrillic"]: inputValue.isCyrillic(cyrillicPattern),
   });
   return (
     <>
