@@ -10,8 +10,8 @@ const Feeds: FC = () => {
   return (
     <ul className={styles["feeds-list"]}>
       {ids.map((i) => (
-        <li>
-          <Feed key={i} />
+        <li key={i}>
+          <Feed />
         </li>
       ))}
     </ul>

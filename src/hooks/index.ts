@@ -1,3 +1,3 @@
-export { default as useFindById } from "./useFindById/useFindById";
-export { useDebounce } from "./useDebounce";
-export { useOutsideClick } from "./useOusideClick";
+export { useFindUserId } from "./useFindUserId/useFindUserId";
+export { useDebounce } from "./useDebounce/useDebounce";
+export { useOutsideClick } from "./useOusideClick/useOusideClick";

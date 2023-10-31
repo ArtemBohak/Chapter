@@ -530,6 +530,84 @@
       "setIdx": 0,
       "setId": 4,
       "iconIdx": 0
+    },
+    {
+      "icon": {
+        "paths": [
+          "M889.18 196.688c-21.791-21.802-47.671-39.098-76.145-50.898-28.481-11.8-59.003-17.874-89.832-17.874-30.822 0-61.349 6.074-89.827 17.874s-54.353 29.095-76.145 50.898l-45.227 45.227-45.227-45.227c-44.018-44.019-103.721-68.749-165.973-68.749s-121.954 24.73-165.973 68.749c-44.018 44.019-68.748 103.721-68.748 165.973s24.73 121.954 68.748 165.973l377.173 377.175 377.175-377.175c21.798-21.792 39.096-47.667 50.893-76.145 11.803-28.479 17.879-59.003 17.879-89.829s-6.076-61.351-17.879-89.829c-11.796-28.478-29.095-54.353-50.893-76.145v0z"
+        ],
+        "attrs": [
+          {
+            "fill": "none",
+            "strokeLinejoin": "round",
+            "strokeLinecap": "round",
+            "strokeMiterlimit": "4",
+            "strokeWidth": 136.53333333333333
+          }
+        ],
+        "isMulticolor": false,
+        "isMulticolor2": false,
+        "grid": 0,
+        "tags": ["heart"],
+        "colorPermutations": {}
+      },
+      "attrs": [
+        {
+          "fill": "none",
+          "strokeLinejoin": "round",
+          "strokeLinecap": "round",
+          "strokeMiterlimit": "4",
+          "strokeWidth": 136.53333333333333
+        }
+      ],
+      "properties": {
+        "order": 16,
+        "id": 0,
+        "name": "heart",
+        "prevSize": 32
+      },
+      "setIdx": 0,
+      "setId": 5,
+      "iconIdx": 0
+    },
+    {
+      "icon": {
+        "paths": [
+          "M896 640c0 22.63-8.99 44.335-24.994 60.339s-37.709 24.994-60.339 24.994h-512l-170.667 170.667v-682.667c0-22.632 8.99-44.337 24.994-60.34s37.708-24.994 60.34-24.994h597.333c22.63 0 44.335 8.99 60.339 24.994s24.994 37.708 24.994 60.34v426.667z"
+        ],
+        "attrs": [
+          {
+            "fill": "none",
+            "strokeLinejoin": "round",
+            "strokeLinecap": "round",
+            "strokeMiterlimit": "4",
+            "strokeWidth": 85.33333333333333
+          }
+        ],
+        "isMulticolor": false,
+        "isMulticolor2": false,
+        "grid": 0,
+        "tags": ["message"],
+        "colorPermutations": {}
+      },
+      "attrs": [
+        {
+          "fill": "none",
+          "strokeLinejoin": "round",
+          "strokeLinecap": "round",
+          "strokeMiterlimit": "4",
+          "strokeWidth": 85.33333333333333
+        }
+      ],
+      "properties": {
+        "order": 17,
+        "id": 0,
+        "name": "message",
+        "prevSize": 32
+      },
+      "setIdx": 3,
+      "setId": 2,
+      "iconIdx": 0
     }
   ],
   "height": 1024,

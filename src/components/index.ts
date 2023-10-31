@@ -11,5 +11,4 @@ export { UserAvatar } from "./UserAvatar";
 export { MenuToggler } from "./MenuToggler";
 export { NavigationList } from "../layouts/ProfileLayout/components/NavigationList";
 export { Modal } from "./Modal";
-export { SocialModal } from "./SocialModal";
 export { Loader } from "./Loader";

@@ -14,6 +14,7 @@ import {
   SettingsPage,
   RestorePage,
   PasswordChange,
+  PostPage,
 } from "@/src/pages";
 import { PublicLayout, ProfileLayout } from "@/src/layouts";
 
@@ -82,6 +83,7 @@ const router = createBrowserRouter([
         path: links.FEED,
         element: <FeedPage />,
       },
+      { path: links.FEED + "/:postId", element: <PostPage /> },
       {
         path: links.SETTINGS,
         element: <SettingsPage />,

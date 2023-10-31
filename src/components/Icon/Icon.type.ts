@@ -15,7 +15,7 @@ export enum IconEnum {
   Cross = "cross",
   ArrowRight = "arrow-right",
   Likes = "heart",
-  Comments = "comments",
+  Comments = "message",
   Share = "share",
   Camera = "camera",
   Edit = "edit",
