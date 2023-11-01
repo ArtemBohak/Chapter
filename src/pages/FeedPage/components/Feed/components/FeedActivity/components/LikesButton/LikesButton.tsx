@@ -7,7 +7,7 @@ import { LikesButtonProps } from "./LikesButton.type";
 import styles from "../../FeedActivity.module.scss";
 import likesButtonStyles from "./LikesButton.module.scss";
 
-import { Icon, IconEnum, Modal } from "@/src/components";
+import { Icon, IconEnum, LikesModal } from "@/src/components";
 
 const LikesButton: FC<LikesButtonProps> = ({ likesList, totalLikes, id }) => {
   const { fetchData } = useFeedContext();
@@ -55,9 +55,7 @@ const LikesButton: FC<LikesButtonProps> = ({ likesList, totalLikes, id }) => {
       >
         {likedValue} <span className={styles["icon-button__text"]}>likes</span>
       </button>
-      <Modal isOpen={modalIsOpen} setIsOpen={setModalIsOpen}>
-        modal
-      </Modal>
+      <LikesModal isOpen={modalIsOpen} setIsOpen={setModalIsOpen} />
     </div>
   );
 };

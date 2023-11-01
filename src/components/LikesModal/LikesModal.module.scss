@@ -1,12 +1,8 @@
-.likes-button {
-  @apply flex gap-[5px];
-}
-
 .modal {
-  @apply fixed top-0 left-0 w-full h-full bg-white md:backdrop-blur-sm md:bg-[#1c1c1c33];
+  @apply fixed top-0 left-0 w-full h-full bg-white  md:backdrop-blur-sm md:bg-[#1c1c1c33] pt-[78px];
 
   &__body {
-    @apply w-full top-[100px];
+    @apply static w-full px-2-md text-center;
   }
 
   &-enter {
