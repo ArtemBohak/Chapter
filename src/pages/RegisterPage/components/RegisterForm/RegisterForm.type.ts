@@ -3,16 +3,6 @@ export enum RegisterAccountKey {
   HASH = "hash",
 }
 
-export enum ErrorMessage {
-  EMAIL = "Email address is already in use.",
-  HASH = "Invalid sign up code.",
-}
-
-export enum ErrorStatus {
-  NOTFOUND = 404,
-  UNPROCESSABLE_ENTITY = 422,
-}
-
 export enum EmailStatus {
   CONFIRMED = "active",
   UNCONFIRMED = "inactive",

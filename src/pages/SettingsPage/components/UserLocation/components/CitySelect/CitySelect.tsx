@@ -1,16 +1,17 @@
 import { FC, useState, useEffect, useRef } from "react";
 import { CSSTransition } from "react-transition-group";
 
+import { useOutsideClick } from "@/src/hooks";
+
 import { CitySelectProps } from "./CitySelect.type";
 import styles from "../../UserLocation.module.scss";
 
 import Field from "../Field/Field";
 import SelectMenu from "../SelectMenu/SelectMenu";
-import { useOutsideClick } from "@/src/hooks";
 
 const CitySelect: FC<CitySelectProps> = ({
   citiesList,
-  stateId,
+  regionId,
   cityId,
   selectedCity,
   transitionTimeOut,
@@ -29,7 +30,7 @@ const CitySelect: FC<CitySelectProps> = ({
   }, [citiesList, cityId]);
 
   const isShowing =
-    !!(stateId && citiesList.length) || !!(citiesList.length && cityId);
+    !!(regionId && citiesList.length) || !!(citiesList.length && cityId);
 
   const transitionClassNames = {
     enter: styles["select-menu-enter"],

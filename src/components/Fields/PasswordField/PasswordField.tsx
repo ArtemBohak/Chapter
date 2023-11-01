@@ -1,18 +1,16 @@
 import { ChangeEvent, FC, useState } from "react";
 import { Link } from "react-router-dom";
-import cn from "classnames";
 import { Field, ErrorMessage, useField, useFormikContext } from "formik";
+import cn from "classnames";
 
 import { PasswordFieldProps } from "./PasswordField.type";
-
-import { Icon, IconEnum } from "@/src/components/Icon";
-
 import {
   usePasswordStrength,
   TypePasswordStrength,
 } from "./usePasswordStrength";
-
 import styles from "./PasswordField.module.scss";
+
+import { Icon, IconEnum } from "@/src/components/Icon";
 
 const PasswordField: FC<PasswordFieldProps> = ({
   id,
@@ -109,7 +107,10 @@ const PasswordField: FC<PasswordFieldProps> = ({
           </p>
         ) : null}
       </div>
-      {strength && passwordValue && passwordStrength >= 0 ? (
+      {strength &&
+      passwordValue &&
+      field.value.length &&
+      passwordStrength >= 0 ? (
         <div
           className={cn(
             styles["strength-progress"],

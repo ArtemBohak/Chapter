@@ -1,6 +1,10 @@
-import axios from "axios";
-import { TokenService } from "@/src/services";
+import axios, { AxiosResponse } from "axios";
+
+import { logoutUser, store } from "@/src/redux";
 import { getTokenFromLC, removeDataFromLS, setDataToLS } from "@/src/utils";
+import { keysValue } from "@/src/types";
+import { EndpointsEnum } from ".";
+import { RefreshTokenType } from "./axios.type";
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
@@ -39,13 +43,22 @@ api.interceptors.response.use(
     ) {
       error.config._isRetry = true;
       try {
-        const response = await TokenService.refreshToken();
-        const { token } = response.data;
+        const {
+          data: { token },
+        }: AxiosResponse<RefreshTokenType> = await axios.post(
+          import.meta.env.VITE_API_BASE_URL + EndpointsEnum.REFRESH,
+          null,
+          {
+            withCredentials: true,
+          }
+        );
+
         setDataToLS({ token });
 
         return api.request(originalRequest);
       } catch (e) {
-        removeDataFromLS("token");
+        removeDataFromLS(keysValue.ACCESS_TOKEN);
+        store.dispatch(logoutUser());
         return Promise.reject(error);
       }
     }

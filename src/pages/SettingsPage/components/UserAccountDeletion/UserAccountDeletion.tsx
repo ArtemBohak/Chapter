@@ -1,21 +1,14 @@
 import { FC, useState } from "react";
 
+import { ProfileUpdateApi } from "../../utils/ProfileUpdateApi";
 import styles from "./UserAccountDeletion.module.scss";
 
 const UserAccountDeletion: FC = () => {
   const [isLoading, setIsLoading] = useState(false);
+
   const onHandleClick = async () => {
-    try {
-      setIsLoading(true);
-      setTimeout(() => {
-        console.log("clicked");
-        setIsLoading(false);
-      }, 2000);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      // setIsLoading(false);
-    }
+    const user = new ProfileUpdateApi(setIsLoading);
+    await user.deleteAccount();
   };
   return (
     <div className={styles["account-delete"]}>

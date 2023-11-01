@@ -1,12 +1,14 @@
 export interface IUserStore {
   id: number;
-  email: string;
+  userEmail: string;
   nickName: string;
   firstName: string;
   lastName: string;
-  avatarUrl?: string | null;
-  userStatus?: string | null;
-  location?: string | null;
+  avatarUrl: string | null;
+  userStatus: string | null;
+  country: number | null;
+  region: number | null;
+  city: number | null;
   provider: string;
   socialId: number | string | null;
   createdAt: string;

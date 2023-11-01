@@ -1,10 +1,10 @@
-import { BlockAuth } from "@/src/components";
 import { FC, useState } from "react";
 
+import styles from "./ForgotPasswordPage.module.scss";
+
+import { BlockAuth } from "@/src/components";
 import ForgotPasswordForm from "./components/ForgotPasswordForm/ForgotPasswordForm";
 import ForgotPasswordMessage from "./components/ForgotPasswordMessage/ForgotPasswordMessage";
-
-import styles from "./ForgotPasswordPage.module.scss";
 
 const ForgotPasswordPage: FC = () => {
   const [submitted, setSbmitted] = useState(false);

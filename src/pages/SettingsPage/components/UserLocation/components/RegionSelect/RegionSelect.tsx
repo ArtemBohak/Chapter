@@ -1,24 +1,24 @@
 import { FC, useState, useEffect, useRef } from "react";
 import { CSSTransition } from "react-transition-group";
 
-import { StateSelectProps } from "./StateSelect.type";
+import { useOutsideClick } from "@/src/hooks";
+import { StateSelectProps } from "./RegionSelect.type";
 import styles from "../../UserLocation.module.scss";
 
 import Field from "../Field/Field";
 import SelectMenu from "../SelectMenu/SelectMenu";
-import { useOutsideClick } from "@/src/hooks";
 
 const StateSelect: FC<StateSelectProps> = ({
-  stateList,
+  regionList,
   countryId,
-  stateId,
-  selectedState,
+  regionId,
+  selectedRegion,
   transitionTimeOut,
-  setSelectedState,
+  setSelectedRegion,
   setSelectedCity,
   setIsLoading,
   setCitiesList,
-  setStateId,
+  setRegionId,
   setCityId,
 }) => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
@@ -26,13 +26,13 @@ const StateSelect: FC<StateSelectProps> = ({
   useOutsideClick(stateRef, setMenuIsOpen);
 
   useEffect(() => {
-    const state = stateList.find((state) => state.id === stateId);
-    state && setSelectedState(state.name);
+    const state = regionList.find((state) => state.id === regionId);
+    state && setSelectedRegion(state.name);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [stateId, stateList]);
+  }, [regionId, regionList]);
 
   const isShowing =
-    !!(countryId && stateList.length) || !!(stateList.length && stateId);
+    !!(countryId && regionList.length) || !!(regionList.length && regionId);
 
   const transitionClassNames = {
     enter: styles["select-menu-enter"],
@@ -53,10 +53,10 @@ const StateSelect: FC<StateSelectProps> = ({
       <label ref={stateRef} className={styles["location-form__label"]}>
         <Field
           selectMenuIsOpen={menuIsOpen}
-          selectedValue={selectedState}
-          setSelectedValue={setSelectedState}
+          selectedValue={selectedRegion}
+          setSelectedValue={setSelectedRegion}
           setSelectMenuIsOpen={setMenuIsOpen}
-          setId={setStateId}
+          setId={setRegionId}
           setCitiesData={setCitiesList}
           setCitySelectedValue={setSelectedCity}
           setCityId={setCityId}
@@ -64,10 +64,10 @@ const StateSelect: FC<StateSelectProps> = ({
         <SelectMenu
           type="state"
           menuIsOpen={menuIsOpen}
-          data={stateList}
-          selectedValue={selectedState}
-          setSelectedValue={setSelectedState}
-          setId={setStateId}
+          data={regionList}
+          selectedValue={selectedRegion}
+          setSelectedValue={setSelectedRegion}
+          setId={setRegionId}
           setSelectMenuIsOpen={setMenuIsOpen}
           setIsLoading={setIsLoading}
           countryId={countryId}

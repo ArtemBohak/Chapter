@@ -2,20 +2,29 @@ import { FC } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import cn from "classnames";
 
-import { useNavigationToggler } from "@/src/context/NavigationToggler";
+import { useNavigationToggler } from "@/src/context";
+import { useAppDispatch, fetchIsLogoutUser } from "@/src/redux";
 
-import { Icon } from "../../../../components/Icon";
 import { NavigationListProps } from "./NavigationList.type";
-
 import "./NavigationList.scss";
 
-const NavigationList: FC<NavigationListProps> = ({ items, className }) => {
+import { Icon, IconEnum } from "../../../../components/Icon";
+
+const NavigationList: FC<NavigationListProps> = ({
+  items,
+  className,
+  isBottom = false,
+}) => {
+  const dispatch = useAppDispatch();
   const location = useLocation();
   const { setIsActiveMenu } = useNavigationToggler();
 
   function handleClickNavLink() {
     setIsActiveMenu && setIsActiveMenu(false);
   }
+  const handleBtnClick = async () => {
+    dispatch(fetchIsLogoutUser());
+  };
 
   return (
     <ul className={cn("navigation-list", className)}>
@@ -33,6 +42,20 @@ const NavigationList: FC<NavigationListProps> = ({ items, className }) => {
           </NavLink>
         </li>
       ))}
+      {isBottom && (
+        <li className="navigation-list__item">
+          <button
+            onClick={handleBtnClick}
+            className="navigation-list__link navigation-list__button"
+          >
+            <Icon
+              icon={IconEnum.SignOut}
+              className="navigation-list__link-icon"
+            />
+            Logout
+          </button>
+        </li>
+      )}
     </ul>
   );
 };

@@ -1,11 +1,10 @@
 import { FC } from "react";
 
-import LoginForm from "./components/LoginForm/LoginForm";
-import BlockAuth from "@/src/components/BlockAuth/BlockAuth";
-import { AuthBy, AuthLink, Delimiter } from "@/src/components";
-
+import { links } from "@/src/types";
 import styles from "./LoginPage.module.scss";
-import { links } from "@/src/utils/links/links.types";
+
+import { AuthBy, AuthLink, Delimiter, BlockAuth } from "@/src/components";
+import LoginForm from "./components/LoginForm/LoginForm";
 
 const LoginPage: FC = () => {
   return (
