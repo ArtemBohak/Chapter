@@ -6,7 +6,7 @@ import styles from "../../FeedActivity.module.scss";
 
 import { Icon, IconEnum } from "@/src/components";
 
-const CommentsButton: FC<CommentsButtonProps> = ({ totalComments, id }) => {
+const CommentsButton: FC<CommentsButtonProps> = ({ totalComments = 0, id }) => {
   const { fetchData } = useFeedContext();
   const onHandleClick = () => {
     fetchData(id);

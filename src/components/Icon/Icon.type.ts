@@ -20,4 +20,5 @@ export enum IconEnum {
   Camera = "camera",
   Edit = "edit",
   Save = "save",
+  Back = "back-arrow",
 }

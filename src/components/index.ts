@@ -12,4 +12,3 @@ export { MenuToggler } from "./MenuToggler";
 export { NavigationList } from "../layouts/ProfileLayout/components/NavigationList";
 export { Modal } from "./Modal";
 export { Loader } from "./Loader";
-export { LikesModal } from "./LikesModal";
