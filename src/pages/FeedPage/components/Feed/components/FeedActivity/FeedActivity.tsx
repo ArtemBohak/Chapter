@@ -1,20 +1,22 @@
 import { FC } from "react";
 
-import { IPostActivityProps } from "./PostActivity.type";
-import styles from "./PostActivity.module.scss";
+import { FeedActivityProps } from "./FeedActivity.type";
+import styles from "./FeedActivity.module.scss";
 
 import LikesButton from "./components/LikesButton/LikesButton";
 import CommentsButton from "./components/CommentsButton/CommentsButton";
+import FeedDate from "./components/FeedDate/FeedDate";
 
-const PostActivity: FC<IPostActivityProps> = (props) => {
+const FeedActivity: FC<FeedActivityProps> = (props) => {
   return (
     <div className={styles["feed-activity-wrapper"]}>
       <div className={styles["feed-activity-wrapper__icons"]}>
         <LikesButton {...props} />
         <CommentsButton {...props} />
       </div>
+      <FeedDate {...props} />
     </div>
   );
 };
 
-export default PostActivity;
+export default FeedActivity;

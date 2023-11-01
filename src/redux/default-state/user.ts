@@ -10,7 +10,7 @@ export const defaultUserState: IUserStore = {
   region: null,
   city: null,
   userStatus: null,
-  userEmail: "",
+  email: "",
   provider: "",
   socialId: null,
   createdAt: "",

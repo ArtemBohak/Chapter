@@ -1,5 +1,3 @@
-import { idList } from "@/src/types";
+import { FeedProps } from "../../Feed.type";
 
-export interface IFollowButtonProps {
-  followList: idList;
-}
+export type FollowButtonProps = Pick<FeedProps, "followList" | "id">;

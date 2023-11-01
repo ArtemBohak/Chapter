@@ -3,4 +3,4 @@ export * from "./localStorage/localStorage.type";
 export * from "./links/links.types";
 export * from "./keysValue/keysValue";
 export * from "./files/files.type";
-export * from "./app/posts";
+export * from "./app/feed.type";

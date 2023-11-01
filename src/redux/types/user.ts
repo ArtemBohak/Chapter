@@ -1,6 +1,6 @@
 export interface IUserStore {
   id: number;
-  userEmail: string;
+  email: string;
   nickName: string;
   firstName: string;
   lastName: string;

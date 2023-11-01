@@ -1,4 +1,3 @@
-export interface IUserProps {
-  avatar: string | null;
-  nickName: string;
-}
+import { FeedProps } from "../../Feed.type";
+
+export type UserProps = Pick<FeedProps, "avatar" | "nickName">;

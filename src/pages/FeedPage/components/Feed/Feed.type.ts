@@ -1,11 +1,3 @@
-import { idList } from "@/src/types";
+import { Feed } from "../../types/FeedPage.types";
 
-export interface IFeedProps {
-  avatar: string | null;
-  nickName: string;
-  followList: idList;
-  image: string;
-  likesList: idList;
-  likesValue: number;
-  commentsValue: number;
-}
+export type FeedProps = Feed;

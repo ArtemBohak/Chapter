@@ -1,20 +1,23 @@
 import { FC, useState } from "react";
 import cn from "classnames";
 
-import styles from "../../PostActivity.module.scss";
+import { useFindUserId } from "@/src/hooks";
+import { useFeedContext } from "@/src/pages/FeedPage/context";
+import { LikesButtonProps } from "./LikesButton.type";
+import styles from "../../FeedActivity.module.scss";
 
 import { Icon, IconEnum } from "@/src/components";
-import { ILikesButtonProps } from "./LikesButton.type";
-import { useFindUserId } from "@/src/hooks";
 
-const LikesButton: FC<ILikesButtonProps> = ({ likesList, likesValue }) => {
+const LikesButton: FC<LikesButtonProps> = ({ likesList, totalLikes, id }) => {
+  const { fetchData } = useFeedContext();
   const [liked] = useFindUserId(likesList);
 
   const [isLiked, setIsLiked] = useState(liked);
-  const [likedValue, setLikedValue] = useState(likesValue);
+  const [likedValue, setLikedValue] = useState(totalLikes);
 
   const onHandleClick = () => {
     setIsLiked(!isLiked);
+    fetchData(id);
 
     isLiked && setLikedValue(likedValue - 1);
     !isLiked && setLikedValue(likedValue + 1);
@@ -37,7 +40,6 @@ const LikesButton: FC<ILikesButtonProps> = ({ likesList, likesValue }) => {
         disableFill={isLiked}
         className={iconStyles}
       />
-
       <span>
         {likedValue} <span className={styles["icon-button__text"]}>likes</span>
       </span>

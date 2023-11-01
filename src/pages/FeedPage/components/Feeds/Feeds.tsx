@@ -1,17 +1,17 @@
 import { FC } from "react";
 
+import { useFeedContext } from "../../context";
 import styles from "./Feeds.module.scss";
 
 import Feed from "../Feed/Feed";
 
-const ids = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
-
 const Feeds: FC = () => {
+  const { feeds } = useFeedContext();
   return (
     <ul className={styles["feeds-list"]}>
-      {ids.map((i) => (
-        <li key={i}>
-          <Feed />
+      {feeds.map((i) => (
+        <li key={i.id}>
+          <Feed {...i} />
         </li>
       ))}
     </ul>

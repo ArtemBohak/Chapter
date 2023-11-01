@@ -1,12 +1,16 @@
 import { FC } from "react";
 
-import { ICommentsButtonProps } from "./CommentsButton.type";
-import styles from "../../PostActivity.module.scss";
+import { CommentsButtonProps } from "./CommentsButton.type";
+import { useFeedContext } from "@/src/pages/FeedPage/context";
+import styles from "../../FeedActivity.module.scss";
 
 import { Icon, IconEnum } from "@/src/components";
 
-const CommentsButton: FC<ICommentsButtonProps> = ({ commentsValue }) => {
-  const onHandleClick = () => {};
+const CommentsButton: FC<CommentsButtonProps> = ({ totalComments, id }) => {
+  const { fetchData } = useFeedContext();
+  const onHandleClick = () => {
+    fetchData(id);
+  };
 
   return (
     <button
@@ -20,7 +24,7 @@ const CommentsButton: FC<ICommentsButtonProps> = ({ commentsValue }) => {
         className={styles["icon-button__icon"]}
       />
       <span>
-        {commentsValue}
+        {totalComments}{" "}
         <span className={styles["icon-button__text"]}>comments</span>
       </span>
     </button>

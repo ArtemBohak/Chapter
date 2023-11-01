@@ -1,0 +1,11 @@
+.date {
+  @apply text-xxs text-[#6c6c6c] font-normal md:text-base;
+
+  &__text {
+    @apply hidden laptop:inline;
+
+    &--accent {
+      @apply text-[#F69400];
+    }
+  }
+}

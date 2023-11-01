@@ -62,7 +62,7 @@ export default abstract class UserApiConstructor {
       user.lastName ? ` ${user.lastName}` : ""
     }`;
     setCookies(
-      { email: user.userEmail, userId: user.id + "" },
+      { email: user.email, userId: user.id + "" },
       604800,
       undefined,
       true

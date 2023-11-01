@@ -1,18 +1,20 @@
 import { FC } from "react";
+import { Link } from "react-router-dom";
 
-import { IFeedImageProps } from "./FeedImage.type";
+import { FeedImageProps } from "./FeedImage.type";
 import styles from "./FeedImage.module.scss";
+import { links } from "@/src/types";
 
-import temp from "../../../../assets/feed-image.png";
-
-const FeedImage: FC<IFeedImageProps> = ({ image = temp }) => (
-  <img
-    src={image}
-    alt="feed image"
-    width={845}
-    height={385}
-    className={styles["feed-image"]}
-  />
+const FeedImage: FC<FeedImageProps> = ({ image, id }) => (
+  <Link to={links.FEED + `/${id}`}>
+    <img
+      src={image}
+      alt="feed image"
+      width={845}
+      height={385}
+      className={styles["feed-image"]}
+    />
+  </Link>
 );
 
 export default FeedImage;

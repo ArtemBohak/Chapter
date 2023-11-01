@@ -5,7 +5,7 @@ import styles from "./UserAvatar.module.scss";
 
 import defaultUserAvatar from "@/src/assets/SVG/default-user-avatar.svg";
 
-const UserAvatar: FC<AvatarProps> = ({ avatarUrl, userEmail }) => {
+const UserAvatar: FC<AvatarProps> = ({ avatarUrl, email }) => {
   return (
     <div className={styles["avatar"]}>
       <img
@@ -29,7 +29,7 @@ const UserAvatar: FC<AvatarProps> = ({ avatarUrl, userEmail }) => {
         height="216"
         className={`${styles["avatar__image"]} ${styles["avatar__image--desc"]}`}
       />
-      <p className={styles["avatar__email"]}>{userEmail || ""}</p>
+      <p className={styles["avatar__email"]}>{email || ""}</p>
     </div>
   );
 };

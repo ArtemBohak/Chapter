@@ -1,17 +1,19 @@
 import { FC, useState } from "react";
 
-import { IFollowButtonProps } from "./FollowButton.type";
+import { useFindUserId } from "@/src/hooks";
+import { useFeedContext } from "@/src/pages/FeedPage/context";
+import { FollowButtonProps } from "./FollowButton.type";
 
 import FeedButton from "../../../FeedButton/FeedButton";
-import { useFindUserId } from "@/src/hooks";
 
-const FollowButton: FC<IFollowButtonProps> = ({ followList }) => {
+const FollowButton: FC<FollowButtonProps> = ({ followList, id }) => {
+  const { fetchData } = useFeedContext();
   const [isFollowing] = useFindUserId(followList);
-
   const [isFollow, setIsFollow] = useState(isFollowing);
 
   const onHandleClick = () => {
     setIsFollow(!isFollow);
+    fetchData(id);
   };
   const btnVariant = isFollow ? "outlined" : "contained";
   return (
