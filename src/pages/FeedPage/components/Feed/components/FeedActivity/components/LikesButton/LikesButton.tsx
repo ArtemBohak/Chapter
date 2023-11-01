@@ -5,8 +5,9 @@ import { useFindUserId } from "@/src/hooks";
 import { useFeedContext } from "@/src/pages/FeedPage/context";
 import { LikesButtonProps } from "./LikesButton.type";
 import styles from "../../FeedActivity.module.scss";
+import likesButtonStyles from "./LikesButton.module.scss";
 
-import { Icon, IconEnum } from "@/src/components";
+import { Icon, IconEnum, Modal } from "@/src/components";
 
 const LikesButton: FC<LikesButtonProps> = ({ likesList, totalLikes, id }) => {
   const { fetchData } = useFeedContext();
@@ -15,12 +16,17 @@ const LikesButton: FC<LikesButtonProps> = ({ likesList, totalLikes, id }) => {
   const [isLiked, setIsLiked] = useState(liked);
   const [likedValue, setLikedValue] = useState(totalLikes);
 
-  const onHandleClick = () => {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const onHandleLikesClick = () => {
     setIsLiked(!isLiked);
     fetchData(id);
 
     isLiked && setLikedValue(likedValue - 1);
     !isLiked && setLikedValue(likedValue + 1);
+  };
+  const onHandleModal = () => {
+    setModalIsOpen(true);
   };
 
   const iconStyles = cn(
@@ -29,21 +35,30 @@ const LikesButton: FC<LikesButtonProps> = ({ likesList, totalLikes, id }) => {
   );
 
   return (
-    <button
-      onClick={onHandleClick}
-      data-automation="clickButton"
-      className={styles["icon-button"]}
-    >
-      <Icon
-        icon={IconEnum.Likes}
-        removeInlineStyle
-        disableFill={isLiked}
-        className={iconStyles}
-      />
-      <span>
+    <div className={likesButtonStyles["likes-button"]}>
+      <button
+        onClick={onHandleLikesClick}
+        data-automation="clickButton"
+        className={styles["icon-button"]}
+      >
+        <Icon
+          icon={IconEnum.Likes}
+          removeInlineStyle
+          disableFill={isLiked}
+          className={iconStyles}
+        />
+      </button>
+      <button
+        onClick={onHandleModal}
+        data-automation="clickButton"
+        className={styles["icon-button"]}
+      >
         {likedValue} <span className={styles["icon-button__text"]}>likes</span>
-      </span>
-    </button>
+      </button>
+      <Modal isOpen={modalIsOpen} setIsOpen={setModalIsOpen}>
+        modal
+      </Modal>
+    </div>
   );
 };
 

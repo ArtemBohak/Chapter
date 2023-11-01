@@ -1,5 +1,5 @@
 .feed {
-  @apply h-screen overflow-y-auto bg-[url('src/assets/WEBP/feed-bg.webp')] bg-auto bg-no-repeat bg-center pt-[88px] md:pt-[108px] laptop:pt-[176px];
+  @apply relative h-screen overflow-y-auto bg-[url('src/assets/WEBP/feed-bg.webp')] bg-auto bg-no-repeat bg-center pt-[88px] md:pt-[108px] laptop:pt-[176px];
 
   &__container {
     @apply max-w-[962px] mx-auto px-2-md md:px-4-xl laptop:px-0;
