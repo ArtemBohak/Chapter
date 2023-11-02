@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import { FeedActivityProps } from "../../../../FeedActivity.type";
+import { FeedActivityProps } from "../../../../Feed/components/FeedActivity/FeedActivity.type";
 import { idList } from "@/src/types";
 
 export interface Like {

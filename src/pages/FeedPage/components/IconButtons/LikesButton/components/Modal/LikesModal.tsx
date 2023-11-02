@@ -1,5 +1,6 @@
-import { FC, useRef } from "react";
+import { FC } from "react";
 
+import { useGetScreenSize } from "@/src/hooks";
 import { LikesModalProps } from "./LikesModal.type";
 import styles from "./LikesModal.module.scss";
 
@@ -13,7 +14,7 @@ const LikesModal: FC<LikesModalProps> = ({
   totalLikes,
   likesData,
 }) => {
-  const { current: screenSize } = useRef(window.innerWidth);
+  const [screenSize] = useGetScreenSize();
 
   const isMobScreen = screenSize < 769;
 

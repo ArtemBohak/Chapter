@@ -1,14 +1,4 @@
-interface ITransitionArgs {
-  appear?: string;
-  appearActive?: string;
-  appearDone?: string;
-  enter?: string;
-  enterActive?: string;
-  enterDone?: string;
-  exit?: string;
-  exitActive?: string;
-  exitDone?: string;
-}
+import { ITransitionArgs } from "../Animation/Animation.type";
 
 export type ModalProps = {
   children: React.ReactNode;

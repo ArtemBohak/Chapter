@@ -1,9 +1,10 @@
 import { FC, useRef } from "react";
 import ContentLoader from "react-content-loader";
-import { CSSTransition } from "react-transition-group";
 
 import { ILoaderProps } from "./Loader.type";
 import styles from "./Loader.module.scss";
+
+import { Animation } from "@/src/components";
 
 const Loader: FC<ILoaderProps> = ({
   height = 160,
@@ -21,14 +22,15 @@ const Loader: FC<ILoaderProps> = ({
     exit: styles["loader-exit"],
     exitActive: styles["loader-exit-active"],
   };
+
   return (
-    <CSSTransition
-      in={isShown}
+    <Animation
       nodeRef={nodeRef}
+      isMount={isShown}
       timeout={timeTransition}
+      classNames={transitionClassNames}
       mountOnEnter
       unmountOnExit
-      classNames={transitionClassNames}
     >
       <div ref={nodeRef}>
         <ContentLoader
@@ -47,7 +49,7 @@ const Loader: FC<ILoaderProps> = ({
           <circle cx="238" cy="86" r="8" />
         </ContentLoader>
       </div>
-    </CSSTransition>
+    </Animation>
   );
 };
 

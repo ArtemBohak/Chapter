@@ -1,4 +1,4 @@
-import { FeedActivityProps } from "../../FeedActivity.type";
+import { FeedActivityProps } from "../../Feed/components/FeedActivity/FeedActivity.type";
 
 export type LikesButtonProps = Pick<
   FeedActivityProps,

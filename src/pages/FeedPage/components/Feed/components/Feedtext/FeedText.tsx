@@ -1,11 +1,12 @@
-import { FC, useRef, useState } from "react";
+import { FC, useState } from "react";
 
 import "@/src/extensions/string.extensions";
 import { FeedTextProps, Words } from "./FeedText.type";
+import { useGetScreenSize } from "@/src/hooks";
 import styles from "./FeedText.module.scss";
 
 const FeedText: FC<FeedTextProps> = ({ title, text }) => {
-  const { current: screenSize } = useRef(window.innerWidth);
+  const [screenSize] = useGetScreenSize();
   const [isShowingFullText, setIsShowingFullText] = useState(false);
 
   const textSize =

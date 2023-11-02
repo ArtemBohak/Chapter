@@ -1,18 +1,19 @@
 import { createPortal } from "react-dom";
 import { FC, MouseEvent, useEffect, useRef } from "react";
-import { CSSTransition } from "react-transition-group";
 import cn from "classnames";
 
 import { ModalProps } from "./Modal.type";
 import useSwipe from "./hooks/useSwipe";
 import styles from "./Modal.module.scss";
 
+import { Animation } from "@/src/components";
+
 const Modal: FC<ModalProps> = ({
   setIsOpen,
   isOpen,
   children,
   transitionClassName,
-  transitionTimeOut = 0,
+  transitionTimeOut,
   portal = false,
   backdropClassName,
   bodyClassName,
@@ -51,11 +52,11 @@ const Modal: FC<ModalProps> = ({
 
   if (portal)
     return createPortal(
-      <CSSTransition
+      <Animation
+        isMount={isOpen}
         nodeRef={nodeRef}
-        in={isOpen}
         timeout={transitionTimeOut}
-        classNames={{ ...transitionClassName }}
+        classNames={transitionClassName}
         mountOnEnter
         unmountOnExit
       >
@@ -67,16 +68,16 @@ const Modal: FC<ModalProps> = ({
         >
           <div className={bodyClassNames}>{children}</div>
         </div>
-      </CSSTransition>,
+      </Animation>,
       document.getElementById("modal-root")!
     );
 
   return (
-    <CSSTransition
+    <Animation
       nodeRef={nodeRef}
-      in={isOpen}
+      isMount={isOpen}
       timeout={transitionTimeOut}
-      classNames={{ ...transitionClassName }}
+      classNames={transitionClassName}
       mountOnEnter
       unmountOnExit
     >
@@ -88,7 +89,7 @@ const Modal: FC<ModalProps> = ({
       >
         <div className={bodyClassNames}>{children}</div>
       </div>
-    </CSSTransition>
+    </Animation>
   );
 };
 

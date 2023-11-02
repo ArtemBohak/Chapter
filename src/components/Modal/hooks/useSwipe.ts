@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { UseSwipeProps } from "./useSwipe.type";
+import { useGetScreenSize } from "@/src/hooks";
 
 const useSwipe = ({
   setIsOpen,
@@ -10,7 +11,8 @@ const useSwipe = ({
   swipeOnscreen = 769,
 }: UseSwipeProps) => {
   const [touchStart, setTouchStart] = useState(0);
-  const { current: screenSize } = useRef(window.innerWidth);
+
+  const [screenSize] = useGetScreenSize();
 
   useEffect(() => {
     const handleTouchStart = (e: TouchEvent) =>

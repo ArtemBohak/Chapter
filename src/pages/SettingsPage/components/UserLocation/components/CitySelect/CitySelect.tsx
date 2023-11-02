@@ -1,5 +1,4 @@
 import { FC, useState, useEffect, useRef } from "react";
-import { CSSTransition } from "react-transition-group";
 
 import { useOutsideClick } from "@/src/hooks";
 
@@ -8,6 +7,7 @@ import styles from "../../UserLocation.module.scss";
 
 import Field from "../Field/Field";
 import SelectMenu from "../SelectMenu/SelectMenu";
+import { Animation } from "@/src/components";
 
 const CitySelect: FC<CitySelectProps> = ({
   citiesList,
@@ -40,8 +40,8 @@ const CitySelect: FC<CitySelectProps> = ({
   };
 
   return (
-    <CSSTransition
-      in={isShowing}
+    <Animation
+      isMount={isShowing}
       nodeRef={cityRef}
       timeout={transitionTimeOut}
       mountOnEnter
@@ -65,7 +65,7 @@ const CitySelect: FC<CitySelectProps> = ({
           setSelectMenuIsOpen={setMenuIsOpen}
         />
       </label>
-    </CSSTransition>
+    </Animation>
   );
 };
 

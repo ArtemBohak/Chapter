@@ -1,3 +1,3 @@
-export * from "./useContext";
+export * from "./useFeedContext";
 
 export { default as FeedProvider } from "./FeedProvider";

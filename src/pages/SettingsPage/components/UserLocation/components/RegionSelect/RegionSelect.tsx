@@ -1,5 +1,4 @@
 import { FC, useState, useEffect, useRef } from "react";
-import { CSSTransition } from "react-transition-group";
 
 import { useOutsideClick } from "@/src/hooks";
 import { StateSelectProps } from "./RegionSelect.type";
@@ -7,6 +6,7 @@ import styles from "../../UserLocation.module.scss";
 
 import Field from "../Field/Field";
 import SelectMenu from "../SelectMenu/SelectMenu";
+import { Animation } from "@/src/components";
 
 const StateSelect: FC<StateSelectProps> = ({
   regionList,
@@ -42,8 +42,8 @@ const StateSelect: FC<StateSelectProps> = ({
   };
 
   return (
-    <CSSTransition
-      in={isShowing}
+    <Animation
+      isMount={isShowing}
       nodeRef={stateRef}
       timeout={transitionTimeOut}
       mountOnEnter
@@ -74,7 +74,7 @@ const StateSelect: FC<StateSelectProps> = ({
           setCitiesData={setCitiesList}
         />
       </label>
-    </CSSTransition>
+    </Animation>
   );
 };
 

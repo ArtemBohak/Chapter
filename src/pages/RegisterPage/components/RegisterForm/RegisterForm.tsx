@@ -1,7 +1,6 @@
 import { FC, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Formik, Form, FormikHelpers } from "formik";
-import { CSSTransition } from "react-transition-group";
 
 import { apiUiMessage, apiErrorStatus, links, keysValue } from "@/src/types";
 import { getCookies, setCookies } from "@/src/utils";
@@ -16,7 +15,7 @@ import {
 import { validationSchema } from "./validationSchema";
 import styles from "./RegisterForm.module.scss";
 
-import { UIbutton, TextField } from "@/src/components";
+import { UIbutton, TextField, Animation } from "@/src/components";
 import FormNotification from "../FormNotification/FormNotification";
 
 const initialValues: RegisterAccountValues = {
@@ -96,9 +95,9 @@ const RegisterForm: FC = () => {
   };
 
   const renderNextStep = (value: string) => (
-    <CSSTransition
+    <Animation
+      isMount={isNextStep}
       nodeRef={nodeRef}
-      in={isNextStep}
       timeout={300}
       classNames={{
         enter: styles["register-form__hash-input--enter"],
@@ -116,8 +115,9 @@ const RegisterForm: FC = () => {
           value={value}
         />
       </div>
-    </CSSTransition>
+    </Animation>
   );
+
   return (
     <Formik
       initialValues={initialValues}

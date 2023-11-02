@@ -8,6 +8,7 @@ import FollowButton from "./components/FollowButton/FollowButton";
 import FeedImage from "./components/FeedImage/FeedImage";
 import FeedActivity from "./components/FeedActivity/FeedActivity";
 import FeedText from "./components/FeedText/FeedText";
+import FeedComments from "./components/FeedComments/FeedComments";
 
 const Feed: FC<FeedProps> = (props) => {
   return (
@@ -27,7 +28,9 @@ const Feed: FC<FeedProps> = (props) => {
       </div>
       <div
         className={`${styles["feed-item__wrapper"]} ${styles["feed-item__wrapper--bottom"]}`}
-      ></div>
+      >
+        <FeedComments {...props} />
+      </div>
     </div>
   );
 };

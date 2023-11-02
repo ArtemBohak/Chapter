@@ -1,6 +1,5 @@
 import { FC, useState, FormEvent, useEffect, useRef } from "react";
 import { GetCountries, GetState, GetCity } from "react-country-state-city";
-import { CSSTransition } from "react-transition-group";
 
 import {
   CityType,
@@ -11,7 +10,7 @@ import {
 import { ProfileUpdateApi } from "../../utils/ProfileUpdateApi";
 import styles from "./UserLocation.module.scss";
 
-import { Loader, UIbutton } from "@/src/components";
+import { Animation, Loader, UIbutton } from "@/src/components";
 import CountrySelect from "./components/CountrySelect/CountrySelect";
 import RegionSelect from "./components/RegionSelect/RegionSelect";
 import CitySelect from "./components/CitySelect/CitySelect";
@@ -87,8 +86,8 @@ const UserLocation: FC<UserLocationProps> = ({ country, region, city }) => {
   return (
     <>
       <Loader width={200} height={60} isShown={initialLoading} />
-      <CSSTransition
-        in={!initialLoading}
+      <Animation
+        isMount={!initialLoading}
         nodeRef={nodeRef}
         timeout={transitionTimeOut}
         mountOnEnter
@@ -147,7 +146,7 @@ const UserLocation: FC<UserLocationProps> = ({ country, region, city }) => {
             Save changes
           </UIbutton>
         </form>
-      </CSSTransition>
+      </Animation>
     </>
   );
 };

@@ -5,7 +5,7 @@ import { useFindUserId } from "@/src/hooks";
 import { useFeedContext } from "@/src/pages/FeedPage/context";
 import { LikesButtonProps } from "./LikesButton.type";
 import { Like } from "./components/Modal/LikesModal.type";
-import styles from "../../FeedActivity.module.scss";
+import styles from "../IconButtons.module.scss";
 import likesButtonStyles from "./LikesButton.module.scss";
 
 import { Icon, IconEnum } from "@/src/components";
@@ -141,7 +141,10 @@ const LikesButton: FC<LikesButtonProps> = ({
         data-automation="clickButton"
         className={styles["icon-button"]}
       >
-        {likedValue} <span className={styles["icon-button__text"]}>likes</span>
+        {likedValue}{" "}
+        <span className={styles["icon-button__text"]}>
+          like{totalLikes > 1 ? "s" : ""}
+        </span>
       </button>
       <LikesModal
         isOpen={modalIsOpen}
