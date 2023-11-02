@@ -1,7 +1,7 @@
 .feed-comments {
   @apply mb-1-xs;
   &__text-wrapper {
-    @apply flex justify-between;
+    @apply flex justify-between mb-1-md md:mb-2-md;
   }
 
   &__content-wrapper {

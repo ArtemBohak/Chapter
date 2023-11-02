@@ -18,7 +18,7 @@ const comments = [
     firstName: "Mary",
     lastName: "Reeves",
     nickName: "@maryreeves",
-    date: Date.now(),
+    date: Date.now() - 10002102111,
     text: "It's a shame that the Harry Potter books are over 😭",
     likesList: [1, 2, 168],
     subComments: [
@@ -30,7 +30,7 @@ const comments = [
         firstName: "Mary",
         lastName: "Reeves",
         nickName: "@maryreeves",
-        date: Date.now(),
+        date: Date.now() - 10002102,
         text: "It's a shame that the Harry Potter books are over 😭",
         likesList: [1, 2, 168],
       },
