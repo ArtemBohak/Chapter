@@ -4,11 +4,92 @@ import cn from "classnames";
 import { useFindUserId } from "@/src/hooks";
 import { useFeedContext } from "@/src/pages/FeedPage/context";
 import { LikesButtonProps } from "./LikesButton.type";
+import { Like } from "./components/Modal/LikesModal.type";
 import styles from "../../FeedActivity.module.scss";
 import likesButtonStyles from "./LikesButton.module.scss";
 
 import { Icon, IconEnum } from "@/src/components";
-import { LikesModal } from "./components/LikesModal";
+import { LikesModal } from "./components/Modal";
+
+const dataLikes = [
+  {
+    avatar: null,
+    firstName: "Kristin",
+    lastName: "Wood",
+    likesList: [1, 12, 168],
+    id: 0,
+  },
+  {
+    avatar: null,
+    firstName: "Kristin",
+    lastName: "Wood",
+    likesList: [1, 12, 168],
+    id: 1,
+  },
+  {
+    avatar: null,
+    firstName: "Kristin",
+    lastName: "Wood",
+    likesList: [],
+    id: 2,
+  },
+  {
+    avatar: null,
+    firstName: "Kristin",
+    lastName: "Wood",
+    likesList: [1, 12],
+    id: 3,
+  },
+  {
+    avatar: null,
+    firstName: "Kristin",
+    lastName: "Wood",
+    likesList: [1, 12, 168],
+    id: 4,
+  },
+  {
+    avatar: null,
+    firstName: "Kristin",
+    lastName: "Wood",
+    likesList: [1, 12, 168],
+    id: 5,
+  },
+  {
+    avatar: null,
+    firstName: "Kristin",
+    lastName: "Wood",
+    likesList: [1, 12],
+    id: 6,
+  },
+  {
+    avatar: null,
+    firstName: "Kristin",
+    lastName: "Wood",
+    likesList: [1, 12],
+    id: 7,
+  },
+  {
+    avatar: null,
+    firstName: "Kristin",
+    lastName: "Wood",
+    likesList: [1, 12],
+    id: 8,
+  },
+  {
+    avatar: null,
+    firstName: "Kristin",
+    lastName: "Wood",
+    likesList: [1, 12, 168],
+    id: 9,
+  },
+  {
+    avatar: null,
+    firstName: "Kristin",
+    lastName: "Wood",
+    likesList: [1, 12],
+    id: 10,
+  },
+];
 
 const LikesButton: FC<LikesButtonProps> = ({
   likesList,
@@ -22,6 +103,7 @@ const LikesButton: FC<LikesButtonProps> = ({
   const [likedValue, setLikedValue] = useState(totalLikes);
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [likes, setLikes] = useState<Array<Like>>([]);
 
   const onHandleLikesClick = () => {
     setIsLiked(!isLiked);
@@ -30,7 +112,8 @@ const LikesButton: FC<LikesButtonProps> = ({
     isLiked && setLikedValue(likedValue - 1);
     !isLiked && setLikedValue(likedValue + 1);
   };
-  const onHandleModal = () => {
+  const onHandleModalOpenClick = () => {
+    setLikes(dataLikes);
     setModalIsOpen(true);
   };
 
@@ -54,7 +137,7 @@ const LikesButton: FC<LikesButtonProps> = ({
         />
       </button>
       <button
-        onClick={onHandleModal}
+        onClick={onHandleModalOpenClick}
         data-automation="clickButton"
         className={styles["icon-button"]}
       >
@@ -64,6 +147,7 @@ const LikesButton: FC<LikesButtonProps> = ({
         isOpen={modalIsOpen}
         setIsOpen={setModalIsOpen}
         totalLikes={likedValue}
+        likesData={likes}
       />
     </div>
   );

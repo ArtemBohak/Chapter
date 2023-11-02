@@ -1,0 +1,19 @@
+.like-item {
+  @apply flex justify-between items-center;
+
+  &__text-content {
+    @apply flex items-center gap-0-sm md:gap-1-xs;
+
+    & > img {
+      @apply rounded-[33px];
+    }
+
+    & > p {
+      @apply text-xs font-semibold md:text-sm md:font-medium;
+    }
+  }
+
+  &__button {
+    @apply md:max-h-[32px] md:max-w-[100px] md:text-xs;
+  }
+}

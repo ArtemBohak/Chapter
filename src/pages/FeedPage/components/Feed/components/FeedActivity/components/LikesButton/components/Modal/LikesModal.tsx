@@ -4,12 +4,14 @@ import { LikesModalProps } from "./LikesModal.type";
 import styles from "./LikesModal.module.scss";
 
 import { Modal, Icon, IconEnum } from "@/src/components";
+import Likes from "./Likes/Likes";
 
 const LikesModal: FC<LikesModalProps> = ({
   isOpen,
   setIsOpen,
   title = "Likes",
   totalLikes,
+  likesData,
 }) => {
   const { current: screenSize } = useRef(window.innerWidth);
 
@@ -49,7 +51,9 @@ const LikesModal: FC<LikesModalProps> = ({
           {title} {`(${totalLikes})`}
         </h4>
       </div>
-      <div className={styles["modal__body-content"]}></div>
+      <div className={styles["modal__body-content"]}>
+        <Likes likesData={likesData} />
+      </div>
     </Modal>
   );
 };

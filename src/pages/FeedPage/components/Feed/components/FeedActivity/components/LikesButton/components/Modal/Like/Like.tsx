@@ -20,7 +20,7 @@ const Like: FC<LikeProps> = ({
   const { fetchData } = useFeedContext();
 
   const onHandleClick = () => {
-    setFollowing(!isFollow);
+    setFollowing(!following);
     fetchData(id);
   };
 
@@ -28,11 +28,17 @@ const Like: FC<LikeProps> = ({
   const btnVariant = following ? "outlined" : "contained";
   return (
     <div className={styles["like-item"]}>
-      <img src={avatarUrl} alt="user avatar" width={32} height={32} />
-      <p>
-        <span>{firstName}</span> <span>{lastName}</span>
-      </p>
-      <FeedButton onHandleClick={onHandleClick} variant={btnVariant}>
+      <div className={styles["like-item__text-content"]}>
+        <img src={avatarUrl} alt="user avatar" width={32} height={32} />
+        <p>
+          <span>{firstName}</span> <span>{lastName}</span>
+        </p>
+      </div>
+      <FeedButton
+        onHandleClick={onHandleClick}
+        variant={btnVariant}
+        className={styles["like-item__button"]}
+      >
         {following ? "Unfollow" : "Follow"}
       </FeedButton>
     </div>
