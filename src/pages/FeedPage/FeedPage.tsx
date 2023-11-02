@@ -3,8 +3,8 @@ import "@/src/extensions/string.extensions";
 
 import styles from "./FeedPage.module.scss";
 
-import Feeds from "./components/Feeds/Feeds";
 import { FeedProvider } from "./context";
+import { Feeds } from "./components";
 
 const FeedPage: FC = () => {
   return (

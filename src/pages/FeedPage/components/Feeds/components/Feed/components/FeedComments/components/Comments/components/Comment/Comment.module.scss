@@ -1,0 +1,43 @@
+.comment {
+  @apply flex gap-0-sm md:gap-2-xs;
+
+  &__image {
+    @apply w-[24px] h-[24px] md:w-[44px] md:h-[44px];
+    & > img {
+      @apply rounded-[25px];
+    }
+  }
+
+  &__content {
+    @apply w-full;
+  }
+
+  &__data {
+    @apply flex justify-between mb-0-sm md:mb-1-xs;
+    & > p {
+      @apply text-xxs font-normal md:text-sm;
+    }
+  }
+
+  &__user {
+    @apply flex items-center gap-0-sm md:gap-1-xs;
+
+    & > h5 {
+      @apply mb-0 font-medium text-xxs md:text-lg;
+    }
+    & > p {
+      @apply font-normal text-xxs md:text-sm;
+    }
+  }
+
+  &__text {
+    @apply mb-0-sm md:mb-1-xs;
+    & > p {
+      @apply text-[#070707] text-xxs font-normal md:text-[18px];
+    }
+  }
+
+  &__buttons {
+    @apply flex gap-1-xs md:gap-3-xs;
+  }
+}

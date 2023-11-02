@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Feed } from "../types/FeedPage.types";
+import { Feed } from "../FeedPage.types";
 
 export interface IFeedProviderProps {
   children: ReactNode;

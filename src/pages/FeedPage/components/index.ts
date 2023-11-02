@@ -1,1 +1,1 @@
-export { default as FeedsList } from "./_olderComponents/FeedsList/FeedsList";
+export { default as Feeds } from "./Feeds/Feeds";

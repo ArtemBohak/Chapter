@@ -1,0 +1,17 @@
+.icon-button {
+  @apply bg-transparent outline-none flex gap-0-sm items-center text-xxs md:text-base text-[#6C6C6C];
+
+  &__text {
+    &-hidden {
+      @apply hidden md:inline;
+    }
+  }
+
+  &__icon {
+    @apply stroke-[#6C6C6C] w-[16px] h-[16px] md:w-[24px] md:h-[24px];
+
+    &.liked {
+      @apply fill-[#D22219];
+    }
+  }
+}

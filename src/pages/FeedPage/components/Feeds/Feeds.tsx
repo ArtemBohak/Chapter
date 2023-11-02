@@ -3,7 +3,7 @@ import { FC } from "react";
 import { useFeedContext } from "../../context";
 import styles from "./Feeds.module.scss";
 
-import Feed from "../Feed/Feed";
+import { Feed } from "./components";
 
 const Feeds: FC = () => {
   const { feeds } = useFeedContext();
