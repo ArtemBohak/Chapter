@@ -46,7 +46,7 @@ const LikesModal: FC<LikesModalProps> = ({
           <Icon icon={icon} size={isMobScreen ? 26 : 32} />
         </button>
         <h4>
-          {title} ({totalLikes})
+          {title} {`(${totalLikes})`}
         </h4>
       </div>
       <div className={styles["modal__body-content"]}></div>
