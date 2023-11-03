@@ -34,6 +34,18 @@ const comments = [
         text: "It's a shame that the Harry Potter books are over 😭",
         likesList: [1, 2, 168],
       },
+      {
+        id: 1,
+        totalComments: 10,
+        totalLikes: 10,
+        avatar: null,
+        firstName: "Marta",
+        lastName: "Reeves",
+        nickName: "@maryreeves",
+        date: Date.now() - 10002102,
+        text: "It's a shame that the Harry Potter books are over 😭",
+        likesList: [1, 2, 168],
+      },
     ],
   },
   {
@@ -85,6 +97,13 @@ const FeedComments: FC<FeedCommentsProps> = ({ totalComments = 0, id }) => {
   );
   const filterBtnClassNames = `${styles["feed-comments__button"]} ${styles["feed-comments__button-filter"]}`;
 
+  const transitionClassNames = {
+    enter: styles["feed-comments-enter"],
+    enterActive: styles["feed-comments-enter-active"],
+    exit: styles["feed-comments-exit"],
+    exitActive: styles["feed-comments-exit-active"],
+  };
+
   const renderTogglerBtn = (
     <button
       onClick={onHandleCommentsToggle}
@@ -99,6 +118,7 @@ const FeedComments: FC<FeedCommentsProps> = ({ totalComments = 0, id }) => {
     <Animation
       isMount={!commentsIsHide}
       nodeRef={btnRef}
+      classNames={transitionClassNames}
       mountOnEnter
       unmountOnExit
     >
@@ -116,13 +136,6 @@ const FeedComments: FC<FeedCommentsProps> = ({ totalComments = 0, id }) => {
       </button>
     </Animation>
   );
-
-  const transitionClassNames = {
-    enter: styles["feed-comments-enter"],
-    enterActive: styles["feed-comments-enter-active"],
-    exit: styles["feed-comments-exit"],
-    exitActive: styles["feed-comments-exit-active"],
-  };
 
   const renderComments = (
     <Animation
