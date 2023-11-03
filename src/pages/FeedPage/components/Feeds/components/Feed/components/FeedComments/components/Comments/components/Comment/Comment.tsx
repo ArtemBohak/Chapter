@@ -22,6 +22,13 @@ const Comment: FC<CommentProps> = ({
 }) => {
   const avatarUrl = avatar ? avatar : defaultAvatar;
 
+  const onHandleTagClick = () => {};
+
+  const formattedText = text.addNode(
+    "@",
+    onHandleTagClick,
+    `${styles["comment__text-button"]}`
+  );
   return (
     <div className={styles["comment"]}>
       <div className={styles["comment__image"]}>
@@ -38,7 +45,7 @@ const Comment: FC<CommentProps> = ({
           <p>{getDate(date)}</p>
         </div>
         <div className={styles["comment__text"]}>
-          <p>{text}</p>
+          <p>{formattedText}</p>
         </div>
         <div className={styles["comment__buttons"]}>
           <LikesButton likesList={likesList} totalLikes={totalLikes} id={id} />

@@ -35,6 +35,9 @@
     & > p {
       @apply text-[#070707] text-xxs font-normal md:text-[18px];
     }
+    &-button {
+      @apply text-[#0000EB] bg-transparent;
+    }
   }
 
   &__buttons {
