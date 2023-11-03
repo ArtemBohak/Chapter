@@ -48,6 +48,18 @@ const comments = [
     text: "It's a shame that the Harry Potter books are over 😭",
     likesList: [1, 2, 168],
   },
+  {
+    id: 2,
+    totalComments: 110,
+    totalLikes: 120,
+    avatar: null,
+    firstName: "Mary",
+    lastName: "Reeves",
+    nickName: "@maryreeves",
+    date: Date.now() - 1002111,
+    text: "It's a shame that the Harry Potter books are over 😭",
+    likesList: [1, 2, 168],
+  },
 ];
 
 const FeedComments: FC<FeedCommentsProps> = ({ totalComments = 0, id }) => {

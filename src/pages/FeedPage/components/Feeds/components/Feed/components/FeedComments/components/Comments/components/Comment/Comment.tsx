@@ -1,9 +1,10 @@
-import { FC } from "react";
+import { FC, MouseEvent } from "react";
 
 import { CommentProps } from "./Comment.type";
 import { getDate } from "@/src/utils";
 import styles from "./Comment.module.scss";
 
+import { TextTagging } from "@/src/components";
 import { LikesButton, CommentsButton } from "../../../../../";
 
 import defaultAvatar from "@/src/assets/SVG/default-user-avatar.svg";
@@ -22,13 +23,10 @@ const Comment: FC<CommentProps> = ({
 }) => {
   const avatarUrl = avatar ? avatar : defaultAvatar;
 
-  const onHandleTagClick = () => {};
+  const onHandleTagClick = (e: MouseEvent<HTMLButtonElement>) => {
+    console.log(e.currentTarget.value);
+  };
 
-  const formattedText = text.addNode(
-    "@",
-    onHandleTagClick,
-    `${styles["comment__text-button"]}`
-  );
   return (
     <div className={styles["comment"]}>
       <div className={styles["comment__image"]}>
@@ -45,7 +43,13 @@ const Comment: FC<CommentProps> = ({
           <p>{getDate(date)}</p>
         </div>
         <div className={styles["comment__text"]}>
-          <p>{formattedText}</p>
+          {
+            <TextTagging
+              text={text}
+              onClick={onHandleTagClick}
+              className={styles["comment__text-button"]}
+            />
+          }
         </div>
         <div className={styles["comment__buttons"]}>
           <LikesButton likesList={likesList} totalLikes={totalLikes} id={id} />

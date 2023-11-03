@@ -13,3 +13,4 @@ export { NavigationList } from "../layouts/ProfileLayout/components/NavigationLi
 export { Modal } from "./Modal";
 export { Loader } from "./Loader";
 export { Animation } from "./Animation";
+export { TextTagging } from "./TextTagging";

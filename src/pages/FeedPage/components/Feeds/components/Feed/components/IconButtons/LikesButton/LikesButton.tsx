@@ -115,6 +115,7 @@ const LikesButton: FC<LikesButtonProps> = ({
   };
   const onHandleModalOpenClick = () => {
     setLikes(dataLikes);
+    fetchData(id);
     setModalIsOpen(true);
   };
 
