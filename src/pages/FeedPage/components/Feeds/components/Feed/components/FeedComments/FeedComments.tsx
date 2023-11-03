@@ -21,13 +21,13 @@ const comments = [
     date: Date.now() - 10002102111,
     text: "Thank you for sharing your impressions of the book, I agree with @Vilkkyyyy, it was just a great post! Full of magic and enchantment. I read it with pleasure and look forward to the new one!",
     likesList: [1, 2, 168],
-    subComments: [
+    comments: [
       {
         id: 0,
         totalComments: 10,
         totalLikes: 10,
         avatar: null,
-        firstName: "Mary",
+        firstName: "Alex",
         lastName: "Reeves",
         nickName: "@maryreeves",
         date: Date.now() - 10002102,

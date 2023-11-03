@@ -14,6 +14,8 @@ export type CommentsData = Pick<
   | "likesList"
 >;
 
-export type Comment = { subComments?: CommentsData[] } & CommentsData;
+export type Comment = { comments?: CommentsData[] } & CommentsData;
 
-export type CommentsProps = { comments: Array<Comment> };
+export type CommentsArray = Array<Comment>;
+
+export type CommentsProps = { comments: CommentsArray };

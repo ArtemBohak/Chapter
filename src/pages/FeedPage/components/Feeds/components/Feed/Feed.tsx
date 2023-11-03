@@ -10,6 +10,7 @@ import {
   FeedImage,
   FeedText,
   FeedComments,
+  // FeedForm,
 } from "./components";
 
 const Feed: FC<FeedProps> = (props) => {
@@ -34,7 +35,9 @@ const Feed: FC<FeedProps> = (props) => {
         <div className={styles["feed-item__comments"]}>
           <FeedComments {...props} />
         </div>
-        <div className={styles["feed-item__form"]}></div>
+        <div className={styles["feed-item__form"]}>
+          {/* <FeedForm {...props} /> */}
+        </div>
       </div>
     </div>
   );
