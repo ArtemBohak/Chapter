@@ -1,3 +1,3 @@
 import { Comment } from "../../Comments.type";
 
-export type CommentProps = Comment;
+export type CommentProps = { hideCommentBtn?: boolean } & Comment;

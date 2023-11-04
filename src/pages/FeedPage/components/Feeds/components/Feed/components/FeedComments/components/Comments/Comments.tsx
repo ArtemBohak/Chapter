@@ -20,12 +20,12 @@ const Comments: FC<CommentsProps> = ({ comments }) => {
       [styles["feed__sub-list-item--second"]]: counter === 2,
       [styles["feed__sub-list-item--third"]]: counter === 3,
     });
-
+    const hideCommentBtn = counter === 3;
     return (
       <ul className={styles["feed__list"]}>
         {comments.map((i) => (
           <li key={i.id} className={itemClassNames}>
-            <Comment {...i} />
+            <Comment {...i} hideCommentBtn={hideCommentBtn} />
             {i.comments && renderComments(i.comments)}
           </li>
         ))}

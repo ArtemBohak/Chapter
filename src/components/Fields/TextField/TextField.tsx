@@ -20,7 +20,6 @@ const TextField: FC<TextFieldProps> = ({
   dataAutomation,
   helperLink,
   customErrorMessage,
-
   onChange,
   ...props
 }) => {

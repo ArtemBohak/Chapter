@@ -10,6 +10,7 @@ export enum apiErrorMessage {
   WRONG_HASH = "Wrong hash",
   ACCOUNT_DELETED = "Account was deleted. Do you want to restore?",
   UPDATE_PASSWORD = "Incorrect old password!",
+  NICKNAME_IN_USE = "Nickname is aviable to used",
 }
 export enum apiErrorStatus {
   FORBIDDEN = 403,

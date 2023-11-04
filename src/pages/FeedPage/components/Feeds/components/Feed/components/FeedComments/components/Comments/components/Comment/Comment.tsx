@@ -20,6 +20,7 @@ const Comment: FC<CommentProps> = ({
   likesList,
   id,
   text,
+  hideCommentBtn = true,
 }) => {
   const avatarUrl = avatar ? avatar : defaultAvatar;
 
@@ -51,13 +52,16 @@ const Comment: FC<CommentProps> = ({
             />
           }
         </div>
+
         <div className={styles["comment__buttons"]}>
           <LikesButton likesList={likesList} totalLikes={totalLikes} id={id} />
-          <CommentsButton
-            textValue={totalComments > 1 ? "replies" : "reply"}
-            id={id}
-            totalComments={totalComments}
-          />
+          {!hideCommentBtn ? (
+            <CommentsButton
+              textValue={totalComments > 1 ? "replies" : "reply"}
+              id={id}
+              totalComments={totalComments}
+            />
+          ) : null}
         </div>
       </div>
     </div>
