@@ -2,14 +2,14 @@ import { FC, useState } from "react";
 import { Formik, Form, Field, FormikHelpers } from "formik";
 import cn from "classnames";
 
-import { Values, FeedFormProps } from "./FeedForm.type";
-import styles from "./FeedForm.module.scss";
+import { Values, CommentsFormProps } from "./CommentsForm.type";
+import styles from "./CommentsForm.module.scss";
 
 import { UIbutton } from "@/src/components";
 
 const initialValues = { comments: "" };
 
-const FeedForm: FC<FeedFormProps> = ({ id }) => {
+const CommentsForm: FC<CommentsFormProps> = ({ id }) => {
   const [isFocused, setIsFocused] = useState(false);
 
   const onHandleSubmit = (
@@ -63,4 +63,4 @@ const FeedForm: FC<FeedFormProps> = ({ id }) => {
   );
 };
 
-export default FeedForm;
+export default CommentsForm;

@@ -7,7 +7,12 @@ import cn from "classnames";
 import { EndpointsEnum, api } from "@/src/axios";
 import { links, keysValue, apiErrorMessage } from "@/src/types";
 import { useDebounce } from "@/src/hooks";
-import { cyrillicPattern, deleteCookie, removeDataFromLS } from "@/src/utils";
+import {
+  cyrillicPattern,
+  deleteCookie,
+  getDataFromLS,
+  removeDataFromLS,
+} from "@/src/utils";
 import "@/src/extensions/string.extensions";
 
 import { IAccountCreate } from "./FormCreateAccount.type";
@@ -69,6 +74,7 @@ const FormCreateAccount: FC = () => {
         confirmPassword: confirm_password,
         firstName,
         lastName,
+        IsAccessCookie: getDataFromLS("cookieAccept") || false,
       });
       removeDataFromLS(keysValue.FULL_NAME);
       deleteCookie(
