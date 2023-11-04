@@ -1,4 +1,9 @@
-import { createAsyncThunk, createSlice, isAnyOf } from "@reduxjs/toolkit";
+import {
+  PayloadAction,
+  createAsyncThunk,
+  createSlice,
+  isAnyOf,
+} from "@reduxjs/toolkit";
 
 import { EndpointsEnum, api } from "@/src/axios";
 import { keysValue } from "@/src/types";
@@ -7,12 +12,16 @@ import { removeDataFromLS } from "@/src/utils";
 import { IUserStore } from "../types/user";
 import { defaultUserState } from "../default-state/user";
 
+import defaultAvatar from "@/src/assets/SVG/default-user-avatar.svg";
+
 export interface IUserState {
   user: IUserStore;
   loading: boolean;
   error?: string | null;
   isAuth: boolean;
 }
+
+type Action = PayloadAction<IUserStore>;
 
 export const fetchIsAuthUser = createAsyncThunk<IUserStore>(
   "user/fetchIsAuthUser",
@@ -46,8 +55,13 @@ export const userSlice = createSlice({
     userLoading: (state) => {
       state.error = null;
     },
-    updateUser: (state, action) => {
-      state.user = action.payload;
+    updateUser: (state, action: Action) => {
+      state.user = {
+        ...action.payload,
+        avatarUrl: action.payload.avatarUrl
+          ? action.payload.avatarUrl
+          : defaultAvatar,
+      };
       state.isAuth = true;
       state.error = null;
     },
@@ -64,7 +78,12 @@ export const userSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchIsAuthUser.fulfilled, (state, action) => {
-        state.user = action.payload;
+        state.user = {
+          ...action.payload,
+          avatarUrl: action.payload.avatarUrl
+            ? action.payload.avatarUrl
+            : defaultAvatar,
+        };
         state.isAuth = true;
         state.loading = false;
         state.error = null;

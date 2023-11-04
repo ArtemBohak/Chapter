@@ -7,6 +7,10 @@
     @apply overflow-hidden;
   }
 
+  &__form-wrapper {
+    @apply pt-1-xs md:pt-2-xs;
+  }
+
   &__button {
     @apply bg-transparent text-xs md:text-lg laptop:text-xxl text-[#6C6C6C];
 

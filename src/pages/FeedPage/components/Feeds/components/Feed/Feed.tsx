@@ -32,11 +32,8 @@ const Feed: FC<FeedProps> = (props) => {
       <div
         className={`${styles["feed-item__wrapper"]} ${styles["feed-item__wrapper--bottom"]}`}
       >
-        <div className={styles["feed-item__comments"]}>
+        <div>
           <FeedComments {...props} />
-        </div>
-        <div className={styles["feed-item__form"]}>
-          {/* <FeedForm {...props} /> */}
         </div>
       </div>
     </div>

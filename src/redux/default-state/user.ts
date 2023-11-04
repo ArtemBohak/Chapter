@@ -1,11 +1,13 @@
 import { IUserStore } from "../types/user";
 
+import defaultAvatar from "@/src/assets/SVG/default-user-avatar.svg";
+
 export const defaultUserState: IUserStore = {
   id: 0,
   firstName: "",
   lastName: "",
   nickName: "",
-  avatarUrl: null,
+  avatarUrl: defaultAvatar,
   country: null,
   region: null,
   city: null,

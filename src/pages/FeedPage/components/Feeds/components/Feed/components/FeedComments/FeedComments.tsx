@@ -161,6 +161,7 @@ const FeedComments: FC<FeedCommentsProps> = ({ totalComments = 0, id }) => {
       <div className={styles["feed-comments__content-wrapper"]}>
         {renderComments}
       </div>
+      <div className={styles["feed-comments__form-wrapper"]}></div>
     </div>
   );
 };
