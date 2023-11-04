@@ -21,5 +21,9 @@
 
   &:disabled {
     @apply bg-grey-1010;
+
+    &:hover {
+      @apply bg-grey-1010;
+    }
   }
 }

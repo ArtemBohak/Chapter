@@ -21,4 +21,5 @@ export enum IconEnum {
   Edit = "edit",
   Save = "save",
   Back = "back-arrow",
+  Smile = "smile",
 }

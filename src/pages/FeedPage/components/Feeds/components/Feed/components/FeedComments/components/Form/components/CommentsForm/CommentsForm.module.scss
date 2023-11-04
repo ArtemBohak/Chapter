@@ -1,20 +1,19 @@
-.comments {
-  @apply flex justify-between gap-2-lg md:gap-1-xs items-start;
-
+.comments-form {
+  &__wrapper {
+    @apply relative;
+  }
   &__field {
-    @apply resize-none min-h-min w-full py-[8px] px-[10px] md:px-[20px]  text-xxs md:text-base laptop:text-lg rounded-md border border-solid border-[#B3B3B3] outline-none transition-all duration-100 ease-linear bg-inherit;
+    @apply block w-full mb-0-md md:mb-1-md resize-none min-h-min py-[8px] pl-[10px] pr-[20px] md:pl-[20px] md:pr-[40px] text-xxs md:text-base laptop:text-[18px] rounded-lg border border-solid border-[#B3B3B3] outline-none  bg-inherit h-[50px] md:h-[132px] overflow-y-auto;
+  }
 
-    max-width: calc(100% - 100% / 3);
-
-    &--unfocused {
-      @apply h-[30px] md:h-[40px] laptop:h-[44px];
-    }
-    &--focused {
-      @apply h-[70px] md:h-[80px] laptop:h-[108px];
+  &__icon-button {
+    @apply bg-transparent outline-none absolute top-[10px] right-[10px] text-inherit;
+    & > svg {
+      @apply stroke-[#6c6c6c];
     }
   }
 
-  &__button.btn {
-    @apply max-h-[30px] md:max-h-[40px] laptop:max-h-[44px] w-full max-w-[98px] md:max-w-[198px] text-xxs md:text-sm laptop:text-base;
+  &__button {
+    @apply w-full max-w-[90px] max-h-[50px] md:max-w-[150px];
   }
 }

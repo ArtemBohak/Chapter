@@ -630,6 +630,45 @@
       "setIdx": 0,
       "setId": 6,
       "iconIdx": 0
+    },
+    {
+      "icon": {
+        "paths": [
+          "M341.338 597.335c0 0 64 85.335 170.668 85.335 106.665 0 170.665-85.335 170.665-85.335M384.004 384.004h0.427M640.005 384.004h0.425M938.67 512.005c0 235.643-191.022 426.665-426.665 426.665s-426.668-191.022-426.668-426.665c0-235.642 191.025-426.668 426.668-426.668s426.665 191.025 426.665 426.668z"
+        ],
+        "attrs": [
+          {
+            "fill": "none",
+            "strokeLinejoin": "round",
+            "strokeLinecap": "round",
+            "strokeMiterlimit": "4",
+            "strokeWidth": 102.4
+          }
+        ],
+        "isMulticolor": false,
+        "isMulticolor2": false,
+        "grid": 0,
+        "tags": ["smile"],
+        "colorPermutations": {}
+      },
+      "attrs": [
+        {
+          "fill": "none",
+          "strokeLinejoin": "round",
+          "strokeLinecap": "round",
+          "strokeMiterlimit": "4",
+          "strokeWidth": 102.4
+        }
+      ],
+      "properties": {
+        "order": 15,
+        "id": 1,
+        "name": "smile",
+        "prevSize": 32
+      },
+      "setIdx": 1,
+      "setId": 5,
+      "iconIdx": 0
     }
   ],
   "height": 1024,

@@ -7,7 +7,7 @@ import { useGetScreenSize } from "@/src/hooks";
 import styles from "./FeedComments.module.scss";
 
 import { Animation, Icon, IconEnum } from "@/src/components";
-import { Comments } from "./components";
+import { Comments, Form } from "./components";
 
 const comments = [
   {
@@ -161,7 +161,9 @@ const FeedComments: FC<FeedCommentsProps> = ({ totalComments = 0, id }) => {
       <div className={styles["feed-comments__content-wrapper"]}>
         {renderComments}
       </div>
-      <div className={styles["feed-comments__form-wrapper"]}></div>
+      <div className={styles["feed-comments__form-wrapper"]}>
+        <Form id={id} />
+      </div>
     </div>
   );
 };

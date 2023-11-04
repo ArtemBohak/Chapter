@@ -11,6 +11,8 @@ const FeedButton: FC<IFeedButtonProps> = ({
   onHandleClick,
   className,
   variant = "contained",
+  type = "button",
+  dataAutomation = "clickButton",
 }) => {
   const classnames = cn(
     styles["feed-button"],
@@ -21,12 +23,17 @@ const FeedButton: FC<IFeedButtonProps> = ({
     },
     className
   );
+  const onClick = () => {
+    onHandleClick && onHandleClick();
+  };
+
   return (
     <button
-      onClick={onHandleClick}
+      type={type}
+      onClick={onClick}
       className={classnames}
       disabled={isLoading || isDisabled}
-      data-automation="clickButton"
+      data-automation={dataAutomation}
     >
       {children}
     </button>

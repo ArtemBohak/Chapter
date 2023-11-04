@@ -1,16 +1,17 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { Formik, Form, Field, FormikHelpers } from "formik";
-import cn from "classnames";
 
+import { useGetScreenSize } from "@/src/hooks";
 import { Values, CommentsFormProps } from "./CommentsForm.type";
 import styles from "./CommentsForm.module.scss";
 
-import { UIbutton } from "@/src/components";
+import { Icon, IconEnum } from "@/src/components";
+import { FeedButton } from "../../../../..";
 
 const initialValues = { comments: "" };
 
 const CommentsForm: FC<CommentsFormProps> = ({ id }) => {
-  const [isFocused, setIsFocused] = useState(false);
+  const [screenSize] = useGetScreenSize();
 
   const onHandleSubmit = (
     values: Values,
@@ -22,40 +23,41 @@ const CommentsForm: FC<CommentsFormProps> = ({ id }) => {
     resetForm();
   };
 
-  const onHandleBlur = () => setIsFocused(false);
-  const onHandleFocus = () => setIsFocused(true);
+  const onHandleIconClick = () => {};
 
-  const baseClassName = (dirty: boolean) =>
-    cn(styles["comments__field"], {
-      [styles["comments__field--focused"]]: dirty || isFocused,
-      [styles["comments__field--unfocused"]]: !(dirty || isFocused),
-    });
+  const iconSize = screenSize < 769 ? 20 : 24;
 
   return (
     <Formik initialValues={initialValues} onSubmit={onHandleSubmit}>
       {({ isSubmitting, values, dirty }) => {
         return (
-          <Form className={styles["comments"]}>
-            <Field
-              id="comments"
-              placeholder="Add a comment"
-              name="comments"
-              component="textarea"
-              data-automation="commentsInput"
-              value={values.comments}
-              onBlur={onHandleBlur}
-              onFocus={onHandleFocus}
-              className={baseClassName(dirty)}
-            />
-            <UIbutton
+          <Form className={styles["comments-form"]}>
+            <div className={styles["comments-form__wrapper"]}>
+              <Field
+                id="comments"
+                placeholder="Add a comment ..."
+                name="comments"
+                component="textarea"
+                data-automation="commentsInput"
+                value={values.comments}
+                className={styles["comments-form__field"]}
+              />
+              <button
+                onClick={onHandleIconClick}
+                className={styles["comments-form__icon-button"]}
+              >
+                <Icon icon={IconEnum.Smile} size={iconSize} removeInlineStyle />
+              </button>
+            </div>
+            <FeedButton
               type="submit"
               dataAutomation="submitButton"
               isLoading={isSubmitting}
-              disabled={!dirty || isSubmitting}
-              className={`${styles["comments__button"]} ${styles["btn"]}`}
+              isDisabled={!dirty || isSubmitting}
+              className={styles["comments-form__button"]}
             >
               Send
-            </UIbutton>
+            </FeedButton>
           </Form>
         );
       }}
