@@ -1,9 +1,9 @@
 import { FC } from "react";
-import "@/src/extensions/string.extensions";
 
+import "@/src/extensions/string.extensions";
+import { FeedProvider } from "./context";
 import styles from "./FeedPage.module.scss";
 
-import { FeedProvider } from "./context";
 import { Feeds } from "./components";
 
 const FeedPage: FC = () => {
