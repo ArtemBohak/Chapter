@@ -10,7 +10,6 @@ import {
   FeedImage,
   FeedText,
   FeedComments,
-  // FeedForm,
 } from "./components";
 
 const Feed: FC<FeedProps> = (props) => {

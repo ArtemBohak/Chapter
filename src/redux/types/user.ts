@@ -4,7 +4,7 @@ export interface IUserStore {
   nickName: string;
   firstName: string;
   lastName: string;
-  avatarUrl: string;
+  avatarUrl: string | null;
   userStatus: string | null;
   country: number | null;
   region: number | null;

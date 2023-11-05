@@ -21,8 +21,6 @@ export interface IUserState {
   isAuth: boolean;
 }
 
-type Action = PayloadAction<IUserStore>;
-
 export const fetchIsAuthUser = createAsyncThunk<IUserStore>(
   "user/fetchIsAuthUser",
   async () => {
@@ -55,7 +53,7 @@ export const userSlice = createSlice({
     userLoading: (state) => {
       state.error = null;
     },
-    updateUser: (state, action: Action) => {
+    updateUser: (state, action: PayloadAction<IUserStore>) => {
       state.user = {
         ...action.payload,
         avatarUrl: action.payload.avatarUrl
@@ -71,7 +69,7 @@ export const userSlice = createSlice({
       state.isAuth = initialState.isAuth;
       state.loading = initialState.loading;
     },
-    userError: (state, action) => {
+    userError: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
     },
   },
