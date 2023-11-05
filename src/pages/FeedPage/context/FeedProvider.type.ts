@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Feed } from "../FeedPage.types";
+import { IPost } from "@/src/types";
 
 export interface IFeedProviderProps {
   children: ReactNode;
@@ -7,5 +7,5 @@ export interface IFeedProviderProps {
 
 export type FeedContextType = {
   fetchData: (id: string | number) => void;
-  feeds: Array<Feed>;
+  feeds: Array<IPost>;
 };

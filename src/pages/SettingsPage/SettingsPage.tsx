@@ -16,7 +16,7 @@ import {
 
 const SettingsPage: FC = () => {
   const { user } = useAppSelector((state) => state.userSlice);
-  const [avatarUrl, setAvatarUrl] = useState<string | null>(user.avatarUrl);
+  const [avatarUrl, setAvatarUrl] = useState(user.avatarUrl);
 
   useEffect(() => {
     setAvatarUrl(user.avatarUrl);

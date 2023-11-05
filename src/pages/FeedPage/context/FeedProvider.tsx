@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { FeedContext } from "./useFeedContext";
+import { FeedContext } from "./hooks/useFeedContext";
 import { IFeedProviderProps } from "./FeedProvider.type";
 
 import temp from "../assets/feed-image.png";
