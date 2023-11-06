@@ -12,25 +12,25 @@ import {
   PostComments,
 } from "./components";
 
-const Post: FC<PostProps> = ({ pageVariant, ...props }) => {
+const Post: FC<PostProps> = ({ pageVariant, nodeRef, ...props }) => {
   if (pageVariant === "feed")
     return (
-      <div className={styles["feed-item"]}>
+      <div className={styles["post-item"]}>
         <div
-          className={`${styles["feed-item__wrapper"]} ${styles["feed-item__wrapper--top"]}`}
+          className={`${styles["post-item__wrapper"]} ${styles["post-item__wrapper--top"]}`}
         >
-          <div className={styles["feed-item__user"]}>
+          <div className={styles["post-item__user"]}>
             <User {...props} />
             <FollowButton {...props} />
           </div>
-          <div className={styles["feed-item__image"]}>
-            <PostImage {...props} />
+          <div className={styles["post-item__image"]}>
+            <PostImage {...props} pageVariant={pageVariant} />
             <PostActivity {...props} />
           </div>
           <PostText {...props} />
         </div>
         <div
-          className={`${styles["feed-item__wrapper"]} ${styles["feed-item__wrapper--bottom"]}`}
+          className={`${styles["post-item__wrapper"]} ${styles["post-item__wrapper--bottom"]}`}
         >
           <div>
             <PostComments {...props} />
@@ -40,30 +40,7 @@ const Post: FC<PostProps> = ({ pageVariant, ...props }) => {
     );
 
   if (pageVariant === "post")
-    return (
-      <div className={styles["feed-item"]}>
-        <div
-          className={`${styles["feed-item__wrapper"]} ${styles["feed-item__wrapper--top"]}`}
-        >
-          <div className={styles["feed-item__user"]}>
-            <User {...props} />
-            <FollowButton {...props} />
-          </div>
-          <div className={styles["feed-item__image"]}>
-            <PostImage {...props} />
-            <PostActivity {...props} />
-          </div>
-          <PostText {...props} />
-        </div>
-        <div
-          className={`${styles["feed-item__wrapper"]} ${styles["feed-item__wrapper--bottom"]}`}
-        >
-          <div>
-            <PostComments {...props} />
-          </div>
-        </div>
-      </div>
-    );
+    return <div className={styles["post-item"]} ref={nodeRef}></div>;
 };
 
 export default Post;

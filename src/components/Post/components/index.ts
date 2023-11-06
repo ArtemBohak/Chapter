@@ -6,3 +6,4 @@ export { default as PostText } from "./PostText/PostText";
 export { default as FollowButton } from "./FollowButton/FollowButton";
 export { CommentsButton, LikesButton } from "./IconButtons";
 export { default as User } from "./User/User";
+export { default as PostDate } from "./PostDate/PostDate";

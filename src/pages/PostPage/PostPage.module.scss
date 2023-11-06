@@ -4,4 +4,8 @@
   &__container {
     @apply max-w-[962px] mx-auto px-2-md md:px-4-xl laptop:px-0;
   }
+
+  &__loader {
+    @apply bg-transparent;
+  }
 }

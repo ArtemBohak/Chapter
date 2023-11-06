@@ -1,8 +1,8 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import styles from "./PostPage.module.scss";
-import { Post } from "@/src/components";
+import { Animation, Loader, Post } from "@/src/components";
 
 import temp from "./assets/temp.png";
 import { IPost } from "@/src/types";
@@ -24,6 +24,7 @@ const feeds = {
 };
 
 const PostPage: FC = () => {
+  const nodeRef = useRef(null);
   const { postId } = useParams();
   const [post, setPost] = useState<IPost | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -36,11 +37,20 @@ const PostPage: FC = () => {
       console.log(postId);
     }, 1000);
   }, [postId]);
+
   return (
     <section className={styles["post"]}>
       <div className={styles["post__container"]}>
-        {post && <Post pageVariant="post" {...post} />}
+        <Animation
+          nodeRef={nodeRef}
+          isMount={!!post && !isLoading}
+          mountOnEnter
+          unmountOnExit
+        >
+          {post && <Post pageVariant="post" nodeRef={nodeRef} {...post} />}
+        </Animation>
       </div>
+      <Loader isShown={isLoading} classNames={styles["post__loader"]} />
     </section>
   );
 };

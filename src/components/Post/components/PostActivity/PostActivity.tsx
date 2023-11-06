@@ -3,7 +3,7 @@ import { FC } from "react";
 import { PostActivityProps } from "./PostActivity.type";
 import styles from "./PostActivity.module.scss";
 
-import { PostDate } from "./components";
+import { PostDate } from "../";
 import { LikesButton, CommentsButton } from "..";
 
 const PostActivity: FC<PostActivityProps> = (props) => {
