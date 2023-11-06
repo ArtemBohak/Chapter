@@ -15,7 +15,9 @@ const TextTagging: FC<TextTaggingProps> = ({
   const renderString = (value: string) => {
     if (value.includes(searchValue)) {
       const formattedValue = value.replace(nickNameCharsRegex, "");
+
       const symbol = value.replace(symbolsCharsRegex, "");
+
       return (
         <>
           <button

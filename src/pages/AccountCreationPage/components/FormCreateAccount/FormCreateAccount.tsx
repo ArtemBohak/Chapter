@@ -7,13 +7,7 @@ import cn from "classnames";
 import { EndpointsEnum, api } from "@/src/axios";
 import { links, keysValue, apiErrorMessage } from "@/src/types";
 import { useDebounce } from "@/src/hooks";
-import {
-  cyrillicPattern,
-  deleteCookie,
-  getDataFromLS,
-  removeDataFromLS,
-} from "@/src/utils";
-import "@/src/extensions/string.extensions";
+import { deleteCookie, getDataFromLS, removeDataFromLS } from "@/src/utils";
 
 import { IAccountCreate } from "./FormCreateAccount.type";
 import validationSchema from "./validationSchema";
@@ -132,9 +126,6 @@ const FormCreateAccount: FC = () => {
               placeholder="Full Name"
               dataAutomation="fullname"
               showSuccessIcon={true}
-              className={
-                values.fullname.isCyrillic(cyrillicPattern) ? "cyrillic" : ""
-              }
             />
             <TextField
               id="nickName"

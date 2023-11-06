@@ -20,19 +20,20 @@ const useEditField = (
   const onHandleEdit = () => setIsEditing(true);
 
   const onHandleSave = async () => {
-    setIsEditing(false);
     const profile = new ProfileUpdateApi();
     if (value !== textValue) {
       if (userStatus && value)
         profile.userSave({
           userStatus: value?.trim(),
         });
+
       if (!userStatus && value) {
-        if (!simpleStringRegex.test(value)) return setValue(textValue);
+        if (!simpleStringRegex.test(value)) return;
         const [firstName, lastName] = value.trim().split(" ");
         if (firstName && lastName) profile.userSave({ firstName, lastName });
       }
     }
+    setIsEditing(false);
   };
 
   const onHandleChange = (
