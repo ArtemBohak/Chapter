@@ -22,12 +22,12 @@ const useEditField = (
     setIsEditing(false);
     const profile = new ProfileUpdateApi();
     if (value !== textValue) {
-      userStatus &&
+      if (userStatus && value)
         profile.userSave({
-          userStatus: value,
+          userStatus: value?.trim(),
         });
       if (!userStatus && value) {
-        const [firstName, lastName] = value.split(" ");
+        const [firstName, lastName] = value.trim().split(" ");
         if (firstName && lastName) profile.userSave({ firstName, lastName });
       }
     }

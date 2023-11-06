@@ -12,7 +12,6 @@ export const validationSchema = (type: boolean) => {
 
   return Yup.object().shape({
     [RegisterAccountKey.EMAIL]: Yup.string()
-      .email("Please enter a valid email address.")
       .matches(emailValidation, "Please enter a valid email address.")
       .required("Email is required"),
   });

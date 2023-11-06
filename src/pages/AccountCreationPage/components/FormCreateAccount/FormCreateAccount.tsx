@@ -65,13 +65,13 @@ const FormCreateAccount: FC = () => {
       setErrorMessageForm(null);
       setSubmitting(true);
 
-      const [firstName, lastName] = values.fullname.split(" ");
+      const [firstName, lastName] = values.fullname.trim().split(" ");
       const { nickName, confirm_password, password } = values;
 
       await api.patch(`${EndpointsEnum.REGISTRATION_FINALLY}/${userId}`, {
-        nickName: nickName,
-        password,
-        confirmPassword: confirm_password,
+        nickName: nickName.trim(),
+        password: password.trim(),
+        confirmPassword: confirm_password.trim(),
         firstName,
         lastName,
         IsAccessCookie: getDataFromLS("cookieAccept") || false,
