@@ -38,6 +38,32 @@ const Post: FC<PostProps> = ({ pageVariant, ...props }) => {
         </div>
       </div>
     );
+
+  if (pageVariant === "post")
+    return (
+      <div className={styles["feed-item"]}>
+        <div
+          className={`${styles["feed-item__wrapper"]} ${styles["feed-item__wrapper--top"]}`}
+        >
+          <div className={styles["feed-item__user"]}>
+            <User {...props} />
+            <FollowButton {...props} />
+          </div>
+          <div className={styles["feed-item__image"]}>
+            <PostImage {...props} />
+            <PostActivity {...props} />
+          </div>
+          <PostText {...props} />
+        </div>
+        <div
+          className={`${styles["feed-item__wrapper"]} ${styles["feed-item__wrapper--bottom"]}`}
+        >
+          <div>
+            <PostComments {...props} />
+          </div>
+        </div>
+      </div>
+    );
 };
 
 export default Post;

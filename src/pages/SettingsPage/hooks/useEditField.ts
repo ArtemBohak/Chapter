@@ -1,6 +1,7 @@
 import { ChangeEvent, RefObject, useEffect, useState } from "react";
 
 import { ProfileUpdateApi } from "../utils/ProfileUpdateApi";
+import { simpleStringRegex } from "@/src/utils";
 
 const useEditField = (
   textValue: string | null,
@@ -27,6 +28,7 @@ const useEditField = (
           userStatus: value?.trim(),
         });
       if (!userStatus && value) {
+        if (!simpleStringRegex.test(value)) return setValue(textValue);
         const [firstName, lastName] = value.trim().split(" ");
         if (firstName && lastName) profile.userSave({ firstName, lastName });
       }
