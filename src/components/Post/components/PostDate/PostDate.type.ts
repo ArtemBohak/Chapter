@@ -1,6 +1,3 @@
-import { PostActivityProps } from "../../PostActivity.type";
+import { PostProps } from "../../Post.type";
 
-export type PostDateProps = Pick<
-  PostActivityProps,
-  "date" | "firstName" | "lastName"
->;
+export type PostDateProps = Pick<PostProps, "date">;

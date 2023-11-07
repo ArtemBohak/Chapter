@@ -1,6 +1,6 @@
 import { PostProps } from "../../Post.type";
 
-export type PostTextProps = Pick<PostProps, "text" | "title">;
+export type PostTextProps = Pick<PostProps, "text">;
 
 export enum Words {
   ScreenSize = 769,

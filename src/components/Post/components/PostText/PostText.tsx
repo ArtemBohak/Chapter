@@ -5,7 +5,7 @@ import { PostTextProps, Words } from "./PostText.type";
 import { useGetScreenSize } from "@/src/hooks";
 import styles from "./PostText.module.scss";
 
-const PostText: FC<PostTextProps> = ({ title, text }) => {
+const PostText: FC<PostTextProps> = ({ text }) => {
   const [screenSize] = useGetScreenSize();
   const [isShowingFullText, setIsShowingFullText] = useState(false);
 
@@ -26,8 +26,7 @@ const PostText: FC<PostTextProps> = ({ title, text }) => {
     ) : null;
 
   return (
-    <div className={styles["feed-text"]}>
-      <h4>{title}</h4>
+    <div className={styles["post-text"]}>
       <p>
         {renderText} {renderButton}
       </p>
