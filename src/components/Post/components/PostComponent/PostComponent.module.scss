@@ -1,0 +1,32 @@
+.item {
+  &-post {
+    @apply relative pt-[242px];
+    &__image {
+      @apply rounded-t-lg overflow-hidden absolute top-0 left-0 w-full z-0;
+    }
+
+    &__content {
+      @apply bg-[#FCFCFC] rounded-lg border border-[#C4C4C4]  py-1-xs md:py-3-lg laptop:py-3-lg  relative z-10;
+
+      &-wrapper {
+        @apply px-1-xs md:px-2-lg laptop:px-5-xl;
+      }
+    }
+
+    &__user {
+      @apply flex items-center justify-between mb-1-lg md:mb-3-xs pt-[6px];
+
+      &-content {
+        @apply flex gap-0-sm items-center;
+      }
+
+      &-text {
+        @apply flex-col;
+
+        .nickname {
+          @apply font-medium leading-normal mb-[-4px];
+        }
+      }
+    }
+  }
+}
