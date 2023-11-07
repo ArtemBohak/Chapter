@@ -27,6 +27,7 @@ const FormCreateAccount: FC = () => {
   const LSFullName = localStorage.getItem("fullName");
   const fullname = LSFullName ? LSFullName : "";
 
+  const [nkIsLoading, setNkIsLoading] = useState(false);
   const [nkErrorMessage, setNkErrorMessage] = useState<string | null>(null);
   const [errorMessageForm, setErrorMessageForm] = useState<
     string | null | undefined
@@ -38,6 +39,7 @@ const FormCreateAccount: FC = () => {
 
   async function handleNicknameChange(nickname: string) {
     try {
+      setNkIsLoading(true);
       await api.post(`${EndpointsEnum.NICKNAME_VALIDATION}/${nickname}`, null);
     } catch (e) {
       if (e instanceof AxiosError) {
@@ -48,6 +50,8 @@ const FormCreateAccount: FC = () => {
         }
         setNkErrorMessage("");
       }
+    } finally {
+      setNkIsLoading(false);
     }
   }
 
@@ -158,7 +162,7 @@ const FormCreateAccount: FC = () => {
               fullWidth
               dataAutomation="submitButton"
               className="p-[12px] text-sm"
-              disabled={!isValid || !dirty || !!nkErrorMessage}
+              disabled={!isValid || !dirty || !!nkErrorMessage || nkIsLoading}
               isLoading={isSubmitting}
             >
               Submit
