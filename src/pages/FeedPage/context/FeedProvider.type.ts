@@ -7,5 +7,7 @@ export interface IFeedProviderProps {
 
 export type FeedContextType = {
   fetchData: (id: string | number) => void;
-  feeds: Array<IPost>;
+  feeds: Array<IPost> | [];
 };
+
+export type Feeds = Array<IPost> | [];

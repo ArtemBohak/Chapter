@@ -1,11 +1,11 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 
 import { FeedContext } from "./hooks/useFeedContext";
-import { IFeedProviderProps } from "./FeedProvider.type";
+import { Feeds, IFeedProviderProps } from "./FeedProvider.type";
 
 import temp from "../assets/feed-image.png";
 const list = [1, 2, 3, 168];
-const feeds = [
+const feedsList = [
   {
     id: 1,
     avatar: null,
@@ -54,6 +54,12 @@ const feeds = [
 ];
 
 const FeedProvider: FC<IFeedProviderProps> = ({ children }) => {
+  const [feeds, setFeeds] = useState<Feeds>([]);
+
+  useEffect(() => {
+    setFeeds(feedsList);
+  }, []);
+
   const fetchData = (id: string | number) => {
     console.log(id);
   };
