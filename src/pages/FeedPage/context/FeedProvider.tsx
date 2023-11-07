@@ -4,7 +4,6 @@ import { FeedContext } from "./hooks/useFeedContext";
 import { IFeedProviderProps } from "./FeedProvider.type";
 
 import temp from "../assets/feed-image.png";
-
 const list = [1, 2, 3, 168];
 const feeds = [
   {

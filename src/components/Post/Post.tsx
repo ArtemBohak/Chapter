@@ -12,10 +12,10 @@ import {
   PostComments,
 } from "./components";
 
-const Post: FC<PostProps> = ({ pageVariant, feedRef, nodeRef, ...props }) => {
+const Post: FC<PostProps> = ({ pageVariant, nodeRef, ...props }) => {
   if (pageVariant === "feed")
     return (
-      <div className={styles["post-item"]} ref={feedRef}>
+      <div className={styles["post-item"]} ref={nodeRef}>
         <div
           className={`${styles["post-item__wrapper"]} ${styles["post-item__wrapper--top"]}`}
         >
