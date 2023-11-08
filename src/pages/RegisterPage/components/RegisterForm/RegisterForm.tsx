@@ -17,6 +17,7 @@ import styles from "./RegisterForm.module.scss";
 
 import { UIbutton, TextField, Animation } from "@/src/components";
 import FormNotification from "../FormNotification/FormNotification";
+import ResentOTP from "../ResentOTP/ResentOTP";
 
 const initialValues: RegisterAccountValues = {
   email: "",
@@ -25,6 +26,7 @@ const initialValues: RegisterAccountValues = {
 
 const RegisterForm: FC = () => {
   const [step, setStep] = useState(Steps.FIRST);
+  const [emailValue, setEmailValue] = useState("");
   const nodeRef = useRef(null);
 
   const [cUId, cEmail] = getCookies(keysValue.USER_ID, keysValue.EMAIL);
@@ -58,6 +60,7 @@ const RegisterForm: FC = () => {
 
         return navigate(`${links.ACCOUNT_CREATION}/${id}`);
       }
+      setEmailValue(email);
       const { error, statusCode, message, status } =
         await RegisterFormApi.fetchUserRegData({
           email,
@@ -121,36 +124,39 @@ const RegisterForm: FC = () => {
   );
 
   return (
-    <Formik
-      initialValues={initialValues}
-      validationSchema={validationSchema(isNextStep)}
-      onSubmit={onHandleSubmit}
-    >
-      {({ isSubmitting, dirty, isValid, values }) => (
-        <Form className={styles["register-form"]}>
-          <TextField
-            id={RegisterAccountKey.EMAIL}
-            name={RegisterAccountKey.EMAIL}
-            value={values.email}
-            dataAutomation={`${RegisterAccountKey.EMAIL}Input`}
-            label="Your email"
-            className={isNextStep ? "mb-0" : ""}
-            disabled={isNextStep}
-          />
-          {renderNextStep(values.hash)}
-          <UIbutton
-            className={styles["register-form__button"]}
-            dataAutomation="submitButton"
-            type="submit"
-            fullWidth
-            isLoading={isSubmitting}
-            disabled={isSubmitting || !isValid || !dirty}
-          >
-            Create new account
-          </UIbutton>
-        </Form>
-      )}
-    </Formik>
+    <div className={styles["register"]}>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema(isNextStep)}
+        onSubmit={onHandleSubmit}
+      >
+        {({ isSubmitting, dirty, isValid, values }) => (
+          <Form className={styles["register-form"]}>
+            <TextField
+              id={RegisterAccountKey.EMAIL}
+              name={RegisterAccountKey.EMAIL}
+              value={values.email}
+              dataAutomation={`${RegisterAccountKey.EMAIL}Input`}
+              label="Your email"
+              className={isNextStep ? "mb-0" : ""}
+              disabled={isNextStep}
+            />
+            {renderNextStep(values.hash)}
+            <UIbutton
+              className={styles["register-form__button"]}
+              dataAutomation="submitButton"
+              type="submit"
+              fullWidth
+              isLoading={isSubmitting}
+              disabled={isSubmitting || !isValid || !dirty}
+            >
+              Create new account
+            </UIbutton>
+          </Form>
+        )}
+      </Formik>
+      {step === Steps.SECOND ? <ResentOTP email={emailValue} /> : null}
+    </div>
   );
 };
 

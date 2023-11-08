@@ -1,0 +1,15 @@
+.resent-wrapper {
+  @apply mt-1-xs text-center;
+
+  &__button {
+    @apply bg-transparent font-normal text-xs mb-0-sm mx-auto;
+
+    & > span {
+      @apply text-[#0000EB];
+    }
+  }
+
+  & > p {
+    @apply text-xxs;
+  }
+}
