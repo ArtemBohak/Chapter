@@ -90,6 +90,7 @@ export default {
       fontFamily: {
         poppins: ["Poppins"],
         montserrat: ["Montserrat"],
+        raleway: ['Raleway']
       },
     },
   },

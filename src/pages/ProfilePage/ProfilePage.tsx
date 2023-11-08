@@ -1,10 +1,9 @@
 import { FC, useState } from "react";
-
 import styles from "./ProfilePage.module.scss";
 import Profile from "./components/Profile/Profile";
-import Posts from "./components/Posts/Posts";
 import Buttons from "./components/Buttons/Buttons";
 import { ButtonsEnum } from "./components/ProfilePage.type";
+import Posts from "./components/Posts/Posts";
 import Liked from "./components/Liked/Liked";
 
 const ProfilePage: FC = () => {
@@ -27,11 +26,11 @@ const ProfilePage: FC = () => {
 
   return (
     <>
-      <div className={styles["profile-conteiner"]}>
+      <div className={styles["profile-wrapper"]}>
         <Profile />
-        <div className={styles["view-block-container"]}>
-          <Buttons changeView={changeView} currentView={currentView} />
-          <div className={styles["view-block-wrapper"]}>
+        <div className={styles["view-block-wrapper"]}>
+          <div className={styles["view-block-container"]}>
+            <Buttons changeView={changeView} currentView={currentView} />
             {currentView === ButtonsEnum.posts ? <Posts /> : <Liked />}
           </div>
         </div>
