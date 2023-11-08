@@ -4,9 +4,13 @@ import { PostComponentProps } from "./PostComponent.type";
 import styles from "./PostComponent.module.scss";
 
 import {
+  CommentsButton,
   FollowButton,
+  LikesButton,
+  PostComments,
   PostDate,
   PostImage,
+  PostText,
   PostTitle,
   UserAvatar,
   UserNickName,
@@ -22,8 +26,12 @@ const PostComponent: FC<PostComponentProps> = ({
       <PostImage {...props} pageVariant={pageVariant} />
     </div>
     <div className={styles["item-post__content"]}>
-      <div className={styles["item-post__content-wrapper"]}>
-        <PostTitle {...props} />
+      <div
+        className={`${styles["item-post__content-wrapper"]} ${styles["item-post__content-wrapper-top"]}`}
+      >
+        <div className={styles["item-post__title"]}>
+          <PostTitle {...props} />
+        </div>
         <div className={styles["item-post__user"]}>
           <div className={styles["item-post__user-content"]}>
             <UserAvatar {...props} />
@@ -32,8 +40,27 @@ const PostComponent: FC<PostComponentProps> = ({
               <PostDate {...props} />
             </div>
           </div>
-          <FollowButton {...props} />
+          <FollowButton
+            {...props}
+            classNames={styles["item-post__user-button"]}
+          />
         </div>
+        <div className={styles["item-post__text"]}>
+          <PostText {...props} />
+        </div>
+        <div className={styles["item-post__icons-wrapper"]}>
+          <LikesButton {...props} hiddenText />
+          <CommentsButton
+            {...props}
+            hiddenText
+            textValue={props.totalComments > 1 ? "comments" : "comment"}
+          />
+        </div>
+      </div>
+      <div
+        className={`${styles["item-post__content-wrapper"]} ${styles["item-post__content-wrapper-bottom"]}`}
+      >
+        <PostComments {...props} />
       </div>
     </div>
   </div>

@@ -15,7 +15,7 @@ const PostButton: FC<IPostButtonProps> = ({
   dataAutomation = "clickButton",
 }) => {
   const classnames = cn(
-    styles["feed-button"],
+    styles["post-button"],
     {
       [styles["loading"]]: isLoading,
       [styles["contained"]]: variant === "contained",

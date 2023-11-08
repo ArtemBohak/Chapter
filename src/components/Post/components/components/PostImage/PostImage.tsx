@@ -13,7 +13,7 @@ const PostImage: FC<PostImageProps> = ({ image, id, pageVariant }) =>
         alt="post image"
         width={845}
         height={385}
-        className={styles["image__feed"]}
+        className={`${styles["image"]} ${styles["image__feed"]}`}
       />
     </Link>
   ) : (
@@ -22,7 +22,7 @@ const PostImage: FC<PostImageProps> = ({ image, id, pageVariant }) =>
       alt="post image"
       width={845}
       height={385}
-      className={styles["post-image__post"]}
+      className={`${styles["image"]} ${styles["image__post"]}`}
     />
   );
 

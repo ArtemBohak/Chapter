@@ -5,7 +5,12 @@ import { FollowButtonProps } from "./FollowButton.type";
 
 import { PostButton } from "..";
 
-const FollowButton: FC<FollowButtonProps> = ({ followList, id, fetchData }) => {
+const FollowButton: FC<FollowButtonProps> = ({
+  followList,
+  id,
+  fetchData,
+  classNames,
+}) => {
   const [isFollowing] = useFindUserId(followList);
   const [isFollow, setIsFollow] = useState(isFollowing);
 
@@ -15,7 +20,11 @@ const FollowButton: FC<FollowButtonProps> = ({ followList, id, fetchData }) => {
   };
   const btnVariant = isFollow ? "outlined" : "contained";
   return (
-    <PostButton onHandleClick={onHandleClick} variant={btnVariant}>
+    <PostButton
+      onHandleClick={onHandleClick}
+      variant={btnVariant}
+      className={classNames}
+    >
       {isFollow ? "Unfollow" : "Follow"}
     </PostButton>
   );
