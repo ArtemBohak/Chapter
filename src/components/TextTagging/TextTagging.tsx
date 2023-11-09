@@ -1,22 +1,24 @@
 import { FC, Fragment } from "react";
 
-import { nickNameCharsRegex, symbolsCharsRegex } from "@/src/utils";
+import {
+  isNickNameCheckingPattern,
+  replaceLettersPattern,
+  replaceSymbolsPattern,
+} from "@/src/utils";
 import { TextTaggingProps } from "./TextTagging.type";
 
 const TextTagging: FC<TextTaggingProps> = ({
   text,
   className,
   onClick,
-  searchValue = "@",
   textClassName = "",
 }) => {
   const textArray = text.split(" ");
 
   const renderString = (value: string) => {
-    if (value.includes(searchValue)) {
-      const formattedValue = value.replace(nickNameCharsRegex, "");
-
-      const symbol = value.replace(symbolsCharsRegex, "");
+    if (isNickNameCheckingPattern.test(value)) {
+      const formattedValue = value.replace(replaceSymbolsPattern, "");
+      const symbol = value.replace(replaceLettersPattern, "");
 
       return (
         <>
@@ -27,7 +29,7 @@ const TextTagging: FC<TextTaggingProps> = ({
           >
             {formattedValue}
           </button>
-          {`${symbol}`}
+          {symbol}
         </>
       );
     }
