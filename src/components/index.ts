@@ -12,3 +12,4 @@ export { MenuToggler } from "./MenuToggler";
 export { NavigationList } from "../layouts/ProfileLayout/components/NavigationList";
 export { CookiesToaster } from "./CookiesToaster";
 export { BookShelf } from "./BookShelf"
+export { Loader } from "./Loader";

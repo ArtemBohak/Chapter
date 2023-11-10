@@ -1,10 +1,11 @@
 import { FC } from "react";
+import { Link } from "react-router-dom";
+
+import { links } from "@/src/types";
 
 import { UIbutton } from "@/src/components";
 import { IconEnum } from "@/src/components/Icon";
 import CookiesToaster from "@/src/components/CookiesToaster/CookiesToaster";
-import { Link } from "react-router-dom";
-import { links } from "@/src/utils/links/links.types";
 
 const UIPage: FC = () => {
   return (

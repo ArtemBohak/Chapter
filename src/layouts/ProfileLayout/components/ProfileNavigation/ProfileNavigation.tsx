@@ -1,8 +1,9 @@
 import { FC } from "react";
-import { NavigationList } from "../NavigationList";
 
 import { topNavigation, bottomNavigation } from "./ProfileNavigation.data";
 import styles from "./ProfileNavigation.module.scss";
+
+import { NavigationList } from "../NavigationList";
 
 const ProfileNavigation: FC = () => {
   return (
@@ -14,6 +15,7 @@ const ProfileNavigation: FC = () => {
       <NavigationList
         className={styles["profile-navigation__bottom-nav-list"]}
         items={bottomNavigation}
+        isBottom
       />
     </nav>
   );

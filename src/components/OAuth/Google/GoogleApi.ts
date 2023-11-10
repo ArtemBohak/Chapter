@@ -1,37 +1,25 @@
-import OAuthApi from "../OAuthApi";
-import { OAuthApiArgs, OAuthApiEndPoints } from "../OAuth.type";
+import { AxiosPromise } from "axios";
+
 import { googleOAuthApi, api, EndpointsEnum } from "@/src/axios";
+import { UserApiConstructor } from "@/src/services";
+import { OAuthApiArgs, OAuthApiEndPoints } from "../OAuth.type";
 
 const { VITE_GOOGLE_CLIENT_ID, VITE_GOOGLE_CLIENT_SECRET } = import.meta.env;
-class GoogleApi extends OAuthApi {
+
+class GoogleApi extends UserApiConstructor {
   private redirectUri: string | undefined;
   private googleOAuthGrandType = "authorization_code";
   private googleClientId = VITE_GOOGLE_CLIENT_ID;
   private googleClientSecret = VITE_GOOGLE_CLIENT_SECRET;
 
-  constructor({
-    token,
-    redirectUri,
-    setSearchParams,
-    navigate,
-    setIsLoading,
-    setAuthCode,
-    dispatch,
-  }: OAuthApiArgs) {
-    super(
-      token,
-      setSearchParams,
-      setAuthCode,
-      navigate,
-      dispatch,
-      setIsLoading
-    );
+  constructor({ token, redirectUri, navigate, setIsLoading }: OAuthApiArgs) {
+    super(token, setIsLoading, navigate);
     this.redirectUri = redirectUri;
 
     this.login();
   }
 
-  private async google(googleIdToken: string) {
+  private async google(googleIdToken: string): AxiosPromise {
     return api.post(EndpointsEnum.GOOGLE_LOGIN, {
       idToken: googleIdToken,
     });
@@ -53,10 +41,12 @@ class GoogleApi extends OAuthApi {
     const cred = await this.getGoogleAuthCode();
     const res = await this.google(cred.data.id_token);
 
-    const { token, tokenExpires, user } = res.data;
-    if (user.nickName) this.handleData({ token, tokenExpires, user });
+    const { token, user } = res.data;
 
-    this.navigate(this.redirect(user.nickName, user.id));
+    user.nickName && this.handleUserData(user, { token });
+
+    !user.nickName && this.redirect(user);
+
     return res;
   });
 }

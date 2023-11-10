@@ -1,13 +1,12 @@
 import { FC, ChangeEvent } from "react";
 import { Link } from "react-router-dom";
-import cn from "classnames";
 import { Field, ErrorMessage, useField, useFormikContext } from "formik";
-
-import { Icon, IconEnum } from "@/src/components/Icon";
+import cn from "classnames";
 
 import { TextFieldProps } from "./TextField.type";
-
 import "./TextField.scss";
+
+import { Icon, IconEnum } from "@/src/components/Icon";
 
 const TextField: FC<TextFieldProps> = ({
   id,

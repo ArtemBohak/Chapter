@@ -1,5 +1,7 @@
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 
+import { links, keysValue } from "@/src/types";
+
 import {
   RegisterPage,
   WelcomePage,
@@ -10,15 +12,19 @@ import {
   UIPage,
   FeedPage,
   SettingsPage,
+  RestorePage,
+  PasswordChange,
 } from "@/src/pages";
-
 import { PublicLayout, ProfileLayout } from "@/src/layouts";
-import { links } from "@/src/utils/links/links.types";
+
+import PublicRoute from "./Routes/PublicRoute/PublicRoute";
+import PrivateRoute from "./Routes/PrivateRoute/PrivateRoute";
+import RestrictedRoute from "./Routes/RestrictedRoute/RestrictedRoute";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <PublicLayout />,
+    element: <PublicRoute component={<PublicLayout />} />,
     children: [
       {
         index: true,
@@ -33,8 +39,14 @@ const router = createBrowserRouter([
             element: <RegisterPage />,
           },
           {
-            path: "account-creation/:id",
-            element: <AccountCreationPage />,
+            path: links.ACCOUNT_CREATION + "/:userId",
+            element: (
+              <RestrictedRoute
+                component={<AccountCreationPage />}
+                checkingKey={keysValue.USER_ID}
+                checkingById
+              />
+            ),
           },
           {
             path: links.LOG_IN,
@@ -44,13 +56,26 @@ const router = createBrowserRouter([
             path: links.FORGOT_PASSWORD,
             element: <ForgotPasswordPage />,
           },
+          {
+            path: links.PASSWORD_CHANGE + "/:userId",
+            element: <PasswordChange />,
+          },
+          {
+            path: links.RESTORE,
+            element: (
+              <RestrictedRoute
+                component={<RestorePage />}
+                checkingKey={keysValue.DELETED_ACCOUNT_TIME_STAMP}
+              />
+            ),
+          },
         ],
       },
       // { path: "/ui-page", element: <UIPage /> },
     ],
   },
   {
-    element: <ProfileLayout />,
+    element: <PrivateRoute component={<ProfileLayout />} />,
     children: [
       {
         index: true,

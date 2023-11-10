@@ -1,18 +1,16 @@
 import { ChangeEvent, FC, useState } from "react";
 import { Link } from "react-router-dom";
-import cn from "classnames";
 import { Field, ErrorMessage, useField, useFormikContext } from "formik";
+import cn from "classnames";
 
 import { PasswordFieldProps } from "./PasswordField.type";
-
-import { Icon, IconEnum } from "@/src/components/Icon";
-
 import {
   usePasswordStrength,
   TypePasswordStrength,
 } from "./usePasswordStrength";
-
 import styles from "./PasswordField.module.scss";
+
+import { Icon, IconEnum } from "@/src/components/Icon";
 
 const PasswordField: FC<PasswordFieldProps> = ({
   id,
@@ -23,7 +21,9 @@ const PasswordField: FC<PasswordFieldProps> = ({
   defaultValue,
   dataAutomation,
   strength,
+  strengthMessage = "Password must be at least 8 characters long, include only Latin letters, one uppercase letter, one number, space symbol mustn't be included",
   helperLink,
+  additionalLabel,
   customErrorMessage,
   ...props
 }) => {
@@ -77,11 +77,8 @@ const PasswordField: FC<PasswordFieldProps> = ({
           />
         </div>
       </label>
-      {strength && meta.value && !meta.touched && (
-        <p className={styles["text-field__requirements"]}>
-          Password must be at least 8 characters long, including uppercase
-          letters and special characters
-        </p>
+      {strength && !additionalLabel && meta.value && !meta.touched && (
+        <p className={styles["text-field__requirements"]}>{strengthMessage}</p>
       )}
       <div className={styles["text-field__helper-box"]}>
         {isErrorValidation ? (
@@ -104,8 +101,16 @@ const PasswordField: FC<PasswordFieldProps> = ({
             {customErrorMessage}
           </p>
         ) : null}
+        {additionalLabel && !customErrorMessage && !isErrorValidation ? (
+          <p className={styles["text-field__label-sub-text"]}>
+            {additionalLabel}
+          </p>
+        ) : null}
       </div>
-      {strength && passwordValue && passwordStrength >= 0 ? (
+      {strength &&
+      passwordValue &&
+      field.value.length &&
+      passwordStrength >= 0 ? (
         <div
           className={cn(
             styles["strength-progress"],

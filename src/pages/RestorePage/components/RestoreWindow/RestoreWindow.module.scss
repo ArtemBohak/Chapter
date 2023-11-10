@@ -1,0 +1,9 @@
+.restore-msg {
+  @apply w-full max-w-[328px] md:max-w-[672px] laptop:max-w-[838px] mx-auto text-center;
+  & > h1 {
+    @apply mb-2-xs md:text-[38px] laptop:text-[50px];
+  }
+  & > p {
+    @apply text-lg mb-3-xs md:text-[32px] laptop:text-[42px];
+  }
+}

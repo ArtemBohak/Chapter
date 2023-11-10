@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 
 import TwitterApi from "./TwitterApi";
 import { useGetUrlParams } from "../hooks";
-import { useAppDispatch } from "@/src/redux/hooks";
 import { SocialsProps, OAuthVariant } from "../OAuth.type";
 import styles from "../OAuth.module.scss";
 
@@ -28,7 +27,6 @@ const Twitter: FC<SocialsProps> = ({
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
 
   const twitterRedirectUrl = TwitterApi.createRedirectUrl(
     currentLocation,
@@ -44,12 +42,12 @@ const Twitter: FC<SocialsProps> = ({
     ) {
       new TwitterApi({
         token: twitterAuthCode,
-        setSearchParams,
         navigate,
-        setAuthCode: setTwitterAuthCode,
         setIsLoading,
-        dispatch,
       });
+
+      setSearchParams("");
+      setTwitterAuthCode("");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state, stateId, twitterAuthCode, oAuthVariant]);

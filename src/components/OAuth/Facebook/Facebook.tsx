@@ -9,7 +9,6 @@ import FacebookLogin, {
 import FacebookApi from "./FacebookApi";
 import { useGetUrlParams } from "../hooks";
 import { getUrlParams } from "../helpers";
-import { useAppDispatch } from "@/src/redux/hooks";
 import { SocialsProps, OAuthVariant } from "../OAuth.type";
 import styles from "../OAuth.module.scss";
 
@@ -37,7 +36,6 @@ const Facebook: FC<SocialsProps> = ({
   >(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const [facebookCode, faceBookState] = getUrlParams(
@@ -54,7 +52,8 @@ const Facebook: FC<SocialsProps> = ({
       setFacebookErrorMessage(error_message);
       setSearchParams("");
     }
-  }, [error_message, setFacebookErrorMessage, setSearchParams]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [error_message]);
 
   useEffect(() => {
     if (
@@ -65,12 +64,11 @@ const Facebook: FC<SocialsProps> = ({
     ) {
       new FacebookApi({
         token: facebookAuthCode,
-        setSearchParams,
         navigate,
         setIsLoading,
-        setAuthCode: setFacebookAuthCode,
-        dispatch,
       });
+      setSearchParams("");
+      setFacebookAuthCode("");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [faceBookState, facebookAuthCode, oAuthVariant, stateId]);
@@ -80,7 +78,6 @@ const Facebook: FC<SocialsProps> = ({
       token: codeResponse.accessToken,
       navigate,
       setIsLoading,
-      dispatch,
     });
   };
 

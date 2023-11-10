@@ -1,7 +1,7 @@
-import { SetURLSearchParams } from "react-router-dom";
+import { Dispatch, SetStateAction } from "react";
+import { NavigateFunction } from "react-router-dom";
 
-import { AppDispatch } from "@/src/redux/store";
-import { IUserStore } from "@/src/redux/types/user";
+import { IUserStore } from "@/src/redux";
 import {
   ButtonColorType,
   ButtonVariantType,
@@ -33,18 +33,13 @@ export type OAuthProps = {
 
 export type SocialsProps = { stateId: string } & OAuthProps;
 
+export type SetIsLoadingType = Dispatch<SetStateAction<boolean>>;
+
 export type OAuthApiArgs = {
-  navigate: (data: string) => void;
-  dispatch: AppDispatch;
-  setIsLoading: (data: boolean) => void;
+  navigate: NavigateFunction;
+  setIsLoading: SetIsLoadingType;
   redirectUri?: string;
   token?: string;
-  setSearchParams?: SetURLSearchParams;
-  setAuthCode?: (data: string) => void;
 };
 
-export type ApiData = {
-  user: IUserStore;
-  token: string;
-  tokenExpires: string;
-};
+export type UserData = IUserStore;
