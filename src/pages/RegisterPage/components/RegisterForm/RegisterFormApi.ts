@@ -36,6 +36,7 @@ class RegisterFormApi {
   ) {
     const [, formattedErrorMessage] = message
       .split(firstDelimiter)
+      // eslint-disable-next-line no-unexpected-multiline
       [i].split(secondDelimiter);
 
     return formattedErrorMessage.toLowerCase();
