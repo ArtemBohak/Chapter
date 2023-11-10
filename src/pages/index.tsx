@@ -10,3 +10,4 @@ export { default as ProfilePage } from "./ProfilePage/ProfilePage";
 export { default as SettingsPage } from "./SettingsPage/SettingsPage";
 export { default as RestorePage } from "./RestorePage/RestorePage";
 export { default as PasswordChange } from "./PasswordChange/PasswordChange";
+export { default as GuestProfilePage } from "./GuestProfilePage/GuestProfilePage";

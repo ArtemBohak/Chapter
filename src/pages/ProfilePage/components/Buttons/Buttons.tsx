@@ -1,7 +1,7 @@
 import { UIbutton } from "@/src/components";
 import { FC } from "react";
 import styles from "./Buttons.module.scss";
-import { ButtonsEnum } from "../ProfilePage.type";
+import { ButtonsEnum } from "./Buttons.type";
 
 interface ButtonsProps {
   currentView: string;

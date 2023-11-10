@@ -15,6 +15,7 @@ import {
   ProfilePage,
   RestorePage,
   PasswordChange,
+  GuestProfilePage,
 } from "@/src/pages";
 import { PublicLayout, ProfileLayout } from "@/src/layouts";
 
@@ -87,7 +88,8 @@ const router = createBrowserRouter([
         path: links.SETTINGS,
         element: <SettingsPage />,
       },
-      { path: "/profile", element: <ProfilePage /> },
+      { path: links.PROFILE, element: <ProfilePage /> },
+      { path: links.GUEST_PROFILE, element: <GuestProfilePage /> },
       { path: "/ui-page", element: <UIPage /> },
     ],
   },
