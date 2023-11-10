@@ -1,0 +1,20 @@
+.books-page-header__wrapper {
+    @apply flex justify-between h-[84px] py-[18px];
+}
+
+.back-to-profile {
+    font-size: 20px !important;
+    padding: 0 !important;
+    font-weight: 600 !important;
+    & svg {
+        margin: 0 !important;
+    }
+}
+
+.button-edit {
+    @apply text-grey-1000;
+}
+
+.button-confirm {
+    background-color: green !important;
+}

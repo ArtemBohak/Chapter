@@ -14,6 +14,7 @@ import {
   SettingsPage,
   RestorePage,
   PasswordChange,
+  BooksPage,
 } from "@/src/pages";
 import { PublicLayout, ProfileLayout } from "@/src/layouts";
 
@@ -85,6 +86,10 @@ const router = createBrowserRouter([
       {
         path: links.SETTINGS,
         element: <SettingsPage />,
+      },
+      {
+        path: "/books",
+        element: <BooksPage />,
       },
     ],
   },

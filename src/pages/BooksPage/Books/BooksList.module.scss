@@ -1,0 +1,14 @@
+.books-list__wrapper {
+    @apply flex flex-wrap gap-4 pt-6;
+}
+
+.book__wrapper {
+    @apply laptop_md:max-w-[225px] laptop_md:max-h-[362px] relative;
+
+    & img {
+        @apply mb-2 rounded-xl h-[88%] w-full;
+    }
+    & p {
+        @apply h-[12%] font-semibold;
+    }
+}

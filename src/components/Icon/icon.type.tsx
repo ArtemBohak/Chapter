@@ -14,7 +14,13 @@ export enum IconEnum {
   Menu = "menu",
   Cross = "cross",
   ArrowRight = "arrow-right",
+  ArrowLeft = "arrow-left",
   Camera = "camera",
   Edit = "edit",
   Save = "save",
+  NextSlide = "next-slide",
+  EditBook = "edit-book",
+  Book = "book",
+  FavoriteActive = "favorite-active",
+  Close = "close",
 }
