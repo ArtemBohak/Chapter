@@ -9,4 +9,3 @@ export { default as FeedPage } from "./FeedPage/FeedPage";
 export { default as SettingsPage } from "./SettingsPage/SettingsPage";
 export { default as RestorePage } from "./RestorePage/RestorePage";
 export { default as PasswordChange } from "./PasswordChange/PasswordChange";
-export { default as PostPage } from "./PostPage/PostPage";

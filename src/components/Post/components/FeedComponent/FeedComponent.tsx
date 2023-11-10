@@ -17,11 +17,7 @@ import {
   PostDate,
 } from "../components";
 
-const FeedComponent: FC<FeedComponentProps> = ({
-  pageVariant,
-  nodeRef,
-  ...props
-}) => (
+const FeedComponent: FC<FeedComponentProps> = ({ nodeRef, ...props }) => (
   <div className={styles["item-feed"]} ref={nodeRef}>
     <div
       className={`${styles["item-feed__wrapper"]} ${styles["item-feed__wrapper--top"]}`}
@@ -34,7 +30,7 @@ const FeedComponent: FC<FeedComponentProps> = ({
         <FollowButton {...props} />
       </div>
       <div className={styles["item-feed__image"]}>
-        <PostImage {...props} pageVariant={pageVariant} />
+        <PostImage {...props} />
       </div>
       <div className={styles["item-feed__activity"]}>
         <div className={styles["item-feed__activity-icons"]}>

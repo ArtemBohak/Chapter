@@ -2,13 +2,12 @@ import { FC } from "react";
 
 import { PostProps } from "./Post.type";
 
-import { PostComponent, FeedComponent } from "./components";
+import { FeedComponent } from "./components";
 
 const Post: FC<PostProps> = ({ pageVariant, ...props }) => {
-  if (pageVariant === "feed")
-    return <FeedComponent {...props} pageVariant={pageVariant} />;
+  if (pageVariant === "feed") return <FeedComponent {...props} />;
 
-  return <PostComponent {...props} pageVariant={pageVariant} />;
+  return null;
 };
 
 export default Post;
