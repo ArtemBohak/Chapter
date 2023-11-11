@@ -20,4 +20,5 @@ export enum EndpointsEnum {
   EMAIL_RESTORE = "auth/restoring-user",
   CONFIRM_EMAIL_RESTORE = "auth/confirm-restoring-user",
   NICKNAME_VALIDATION = "auth/nickname-validation",
+  RESENT_OTP = "auth/refresh-unique-token",
 }

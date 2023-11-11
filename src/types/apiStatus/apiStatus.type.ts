@@ -20,6 +20,7 @@ export enum apiErrorStatus {
   NOTFOUND = 404,
   UNPROCESSABLE_ENTITY = 422,
   BAD_REQUEST = 400,
+  TOO_MANY_REQUEST = 429,
 }
 
 export enum apiSuccessStatus {

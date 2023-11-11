@@ -84,8 +84,8 @@ class FilesService {
 
       return res.data;
     } catch (error) {
-      // console.log(error);
       if (error instanceof AxiosError) return error;
+      console.log(error);
     }
   }
 
@@ -106,6 +106,7 @@ class FilesService {
       return res.data;
     } catch (error) {
       if (error instanceof AxiosError) return error;
+      console.log(error);
     }
   }
 }

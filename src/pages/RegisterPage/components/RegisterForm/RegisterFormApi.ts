@@ -1,5 +1,6 @@
 import { AxiosError } from "axios";
 
+import { store, userError } from "@/src/redux";
 import { api, EndpointsEnum } from "@/src/axios";
 
 import { type ApiArgs } from "./RegisterForm.type";
@@ -18,13 +19,19 @@ class RegisterFormApi {
 
       return response.data;
     } catch (error) {
-      if (
-        error instanceof AxiosError &&
-        error.response &&
-        error.response.status < 500
-      ) {
-        return error.response.data;
-      } else console.log(error);
+      if (error instanceof AxiosError) {
+        store.dispatch(
+          userError(
+            error.response?.data.error ||
+              error.response?.data.message ||
+              error.response?.statusText ||
+              error.message
+          )
+        );
+
+        if (error.response && error.response.status < 500)
+          return error.response.data;
+      }
     }
   }
 
