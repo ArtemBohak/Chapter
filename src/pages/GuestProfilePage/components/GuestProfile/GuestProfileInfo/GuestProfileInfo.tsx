@@ -1,28 +1,8 @@
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import styles from "./GuestProfileInfo.module.scss";
 import { Icon, IconEnum, UIbutton, UserAvatar } from "@/src/components";
-import GuestProfileApi from "../../GuestProfileApi/GuestProfileApi";
-import { useParams } from "react-router-dom";
 
 const GuestProfileInfo: FC = () => {
-  //This is not finished
-  // const [guestProfileData, setGuestProfileData] = useState(null);
-  // const { Id }: any = useParams();
-  // const getUserInfo = async () => {
-  //   try {
-  //     const response = await GuestProfileApi(Id);
-  //     const { data } = response;
-  //     setGuestProfileData(data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getUserInfo();
-  // }, []);
-
-  // console.log(guestProfileData);
   return (
     <>
       <div className={styles["profile-info"]}>

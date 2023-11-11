@@ -51,8 +51,6 @@ const PasswordField: FC<PasswordFieldProps> = ({
     setFieldValue(field.name, event.target.value);
   };
 
-  console.log();
-
   return (
     <div className={cn(styles["text-field"], validationClassname, className)}>
       <label htmlFor={id} className={styles["text-field__label"]}>
@@ -70,7 +68,6 @@ const PasswordField: FC<PasswordFieldProps> = ({
             className={styles["text-field__input"]}
             onChange={onHandleChangeField}
           />
-          {}
           <Icon
             icon={isVisiblePassword ? IconEnum.Eye : IconEnum.Eye_Off}
             size={18}
