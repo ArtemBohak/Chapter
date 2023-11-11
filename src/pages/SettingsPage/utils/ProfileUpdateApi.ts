@@ -5,7 +5,8 @@ import {
   SetIsLoadingType,
 } from "@/src/services";
 
-import { ProfileUpdateApiArgs } from "./ProfileUpdateApi.type";
+import { ProfileUpdateApiArgs, SetErrorType } from "./ProfileUpdateApi.type";
+import { apiUiMessage } from "@/src/types";
 
 export class ProfileUpdateApi extends UserApiConstructor {
   private userAvatarParams = {
@@ -15,17 +16,25 @@ export class ProfileUpdateApi extends UserApiConstructor {
     radius: 50,
   };
 
-  constructor(setIsLoading?: SetIsLoadingType) {
+  constructor(
+    setIsLoading?: SetIsLoadingType,
+    private setError?: SetErrorType
+  ) {
     super(undefined, setIsLoading);
   }
 
   async imageSave(id: string | number, file: File) {
     try {
+      this.setError && this.setError(null);
       this.setIsLoading && this.setIsLoading(true);
 
       const res = await new FilesService(id, file, true).upload(
         this.userAvatarParams
       );
+
+      if (res.code)
+        return this.setError && this.setError(apiUiMessage.ERROR_MESSAGE);
+
       await this.userSave({
         avatarUrl: res?.eager[0].secure_url,
       });

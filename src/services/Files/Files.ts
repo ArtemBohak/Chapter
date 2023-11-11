@@ -1,4 +1,5 @@
 import { nanoid } from "@reduxjs/toolkit";
+import { AxiosError } from "axios";
 
 import { uploadFilesApi } from "@/src/axios";
 import { hashingString } from "@/src/utils";
@@ -83,7 +84,8 @@ class FilesService {
 
       return res.data;
     } catch (error) {
-      console.log(error);
+      // console.log(error);
+      if (error instanceof AxiosError) return error;
     }
   }
 
@@ -103,7 +105,7 @@ class FilesService {
       });
       return res.data;
     } catch (error) {
-      console.log(error);
+      if (error instanceof AxiosError) return error;
     }
   }
 }

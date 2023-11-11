@@ -4,6 +4,7 @@ export enum apiUiMessage {
   INVALID_HASH = "Invalid sign up code.",
   INVALID_RECOVERY_CODE = "Incorrect code",
   WRONG_PASSWORD = "Try again!",
+  ERROR_MESSAGE = "Something wrong! Reload or try again later.",
 }
 
 export enum apiErrorMessage {
@@ -11,7 +12,9 @@ export enum apiErrorMessage {
   ACCOUNT_DELETED = "Account was deleted. Do you want to restore?",
   UPDATE_PASSWORD = "Incorrect old password!",
   NICKNAME_IN_USE = "Nickname is aviable to used",
+  CANCELED = "ERR_CANCELED",
 }
+
 export enum apiErrorStatus {
   FORBIDDEN = 403,
   NOTFOUND = 404,
