@@ -36,15 +36,13 @@ const RegisterForm: FC = () => {
   const isNextStep = step > Steps.FIRST;
 
   const onHandleSubmit = async (
-    { email: emailValue, hash: hashValue }: RegisterAccountValues,
+    { email, hash }: RegisterAccountValues,
     {
       setFieldError,
       resetForm,
       setSubmitting,
     }: FormikHelpers<RegisterAccountValues>
   ) => {
-    const email = emailValue.trim();
-    const hash = hashValue.trim();
     try {
       if (step === Steps.SECOND) {
         const { status, id } = await RegisterFormApi.fetchUserRegData({

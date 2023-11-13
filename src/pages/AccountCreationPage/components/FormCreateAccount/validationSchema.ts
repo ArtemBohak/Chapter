@@ -12,17 +12,23 @@ export default Yup.object({
     .matches(
       simpleStringRegex,
       "Fullname field cannot contain any special symbols or numbers"
-    ),
+    )
+    .trim(),
   nickName: Yup.string()
     .matches(nickNameCharsRegex, "Please enter a valid Nickname")
-    .required("Please enter a valid Nickname"),
+    .required("Please enter a valid Nickname")
+    .min(4, "Please enter a valid Nickname")
+    .trim(),
+
   password: Yup.string()
     .required("Password is required")
     .matches(
       baseValidation,
       "Password must be at least 8 characters, including uppercase letters, one number and Latin letters only. Space symbol is not included."
-    ),
+    )
+    .trim(),
   confirm_password: Yup.string()
     .oneOf([Yup.ref("password"), ""], "Passwords must match")
+    .trim()
     .required("Confirm Password is required"),
 });

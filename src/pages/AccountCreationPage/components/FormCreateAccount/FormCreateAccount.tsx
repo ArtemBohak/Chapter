@@ -39,8 +39,13 @@ const FormCreateAccount: FC = () => {
 
   async function handleNicknameChange(nickname: string) {
     try {
-      setNkIsLoading(true);
-      await api.post(`${EndpointsEnum.NICKNAME_VALIDATION}/${nickname}`, null);
+      if (nickname.trim().length >= 4) {
+        setNkIsLoading(true);
+        await api.post(
+          `${EndpointsEnum.NICKNAME_VALIDATION}/${nickname}`,
+          null
+        );
+      }
     } catch (e) {
       if (e instanceof AxiosError) {
         if (e.response?.data.message !== apiErrorMessage.NICKNAME_IN_USE) {
@@ -63,13 +68,13 @@ const FormCreateAccount: FC = () => {
       setErrorMessageForm(null);
       setSubmitting(true);
 
-      const [firstName, lastName] = values.fullname.trim().split(" ");
+      const [firstName, lastName] = values.fullname.split(" ");
       const { nickName, confirm_password, password } = values;
 
       await api.patch(`${EndpointsEnum.REGISTRATION_FINALLY}/${userId}`, {
-        nickName: nickName.trim(),
-        password: password.trim(),
-        confirmPassword: confirm_password.trim(),
+        nickName,
+        password,
+        confirmPassword: confirm_password,
         firstName,
         lastName,
         IsAccessCookie: getDataFromLS("cookieAccept") || false,
