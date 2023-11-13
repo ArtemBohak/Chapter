@@ -2,5 +2,9 @@ import { ModalProps } from "../Modal.type";
 
 export type UseSwipeProps = Pick<
   ModalProps,
-  "axis" | "setIsOpen" | "touchDistinction" | "swipeOnscreen" | "swipeIsOn"
+  | "axis"
+  | "setIsOpen"
+  | "touchDistinction"
+  | "enableSwipeOnScreen"
+  | "enableSwipe"
 >;

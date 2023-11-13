@@ -12,6 +12,6 @@ export type ModalProps = {
   bodyClassName?: string;
   axis?: "clientX" | "clientY";
   touchDistinction?: number;
-  swipeOnscreen?: number;
-  swipeIsOn?: boolean;
+  enableSwipeOnScreen?: number;
+  enableSwipe?: boolean;
 };

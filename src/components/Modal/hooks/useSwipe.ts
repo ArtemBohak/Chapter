@@ -5,10 +5,10 @@ import { useGetScreenSize } from "@/src/hooks";
 
 const useSwipe = ({
   setIsOpen,
-  swipeIsOn = false,
+  enableSwipe = false,
   axis = "clientX",
   touchDistinction = 200,
-  swipeOnscreen = 769,
+  enableSwipeOnScreen = 769,
 }: UseSwipeProps) => {
   const [touchStart, setTouchStart] = useState(0);
 
@@ -23,7 +23,7 @@ const useSwipe = ({
       if (touchStart - touchEnd > touchDistinction) setIsOpen(false);
     };
 
-    if (swipeIsOn && screenSize < swipeOnscreen) {
+    if (enableSwipe && screenSize < enableSwipeOnScreen) {
       window.addEventListener("touchstart", handleTouchStart);
       window.addEventListener("touchend", handleTouchEnd);
     }
@@ -34,12 +34,12 @@ const useSwipe = ({
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
-    screenSize,
-    touchStart,
     axis,
+    enableSwipe,
+    enableSwipeOnScreen,
+    screenSize,
     touchDistinction,
-    swipeIsOn,
-    swipeOnscreen,
+    touchStart,
   ]);
 };
 

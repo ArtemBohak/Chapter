@@ -38,7 +38,7 @@ const LikesModal: FC<LikesModalProps> = ({
       backdropClassName={styles["modal"]}
       bodyClassName={styles["modal__body"]}
       transitionTimeOut={200}
-      swipeIsOn={isMobScreen}
+      enableSwipe={isMobScreen}
     >
       <div className={styles["modal__body-header"]}>
         <button
