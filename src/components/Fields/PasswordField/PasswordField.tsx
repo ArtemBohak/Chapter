@@ -68,7 +68,7 @@ const PasswordField: FC<PasswordFieldProps> = ({
             className={styles["text-field__input"]}
             onChange={onHandleChangeField}
           />
-          {passwordValue.length ? (
+          {field.value.length ? (
             <Icon
               icon={isVisiblePassword ? IconEnum.Eye : IconEnum.Eye_Off}
               size={18}
