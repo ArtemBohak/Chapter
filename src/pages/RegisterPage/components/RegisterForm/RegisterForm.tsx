@@ -59,10 +59,12 @@ const RegisterForm: FC = () => {
         return navigate(`${links.ACCOUNT_CREATION}/${id}`);
       }
       setEmailValue(email);
-      const { error, statusCode, message, status } =
+      const { error, statusCode, message, status, id } =
         await RegisterFormApi.fetchUserRegData({
           email,
         });
+
+      if (id) return navigate(`${links.ACCOUNT_CREATION}/${id}`);
 
       if (statusCode === apiErrorStatus.BAD_REQUEST)
         return setFieldError(RegisterAccountKey.EMAIL, message);
