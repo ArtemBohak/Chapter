@@ -20,7 +20,7 @@ const Comment: FC<CommentProps> = ({
   likesList,
   id,
   text,
-  hideCommentBtn = true,
+  hideCommentBtn = false,
 }) => {
   const avatarUrl = avatar ? avatar : defaultAvatar;
 

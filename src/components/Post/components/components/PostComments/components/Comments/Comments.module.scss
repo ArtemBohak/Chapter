@@ -13,12 +13,5 @@
     &--first {
       @apply pl-3-xs md:pl-5-xs;
     }
-    &--second {
-      @apply pl-4-xs md:pl-[60px];
-    }
-
-    &--third {
-      @apply pl-5-xs md:pl-[70px];
-    }
   }
 }
