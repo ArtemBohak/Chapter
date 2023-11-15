@@ -1,19 +1,29 @@
 .resent-wrapper {
-  @apply mt-1-xs text-center;
+  @apply pt-3-xs pb-2-xs text-center;
 
-  &__button {
-    @apply bg-transparent font-normal text-xs mb-0-sm mx-auto;
-
-    & > span {
-      @apply text-[#0000EB];
-    }
+  &__message {
+    @apply text-xs mb-0-sm;
   }
 
-  & > p {
-    @apply text-xxs;
+  &__btn-text {
+    @apply font-normal text-xxs;
+  }
+
+  &__button {
+    @apply bg-transparent text-[#0000EB] underline  inline transition-all duration-150;
+
+    &::disabled {
+      @apply animate-pulse pointer-events-none;
+    }
   }
 }
 
-.error {
-  @apply text-red;
+.modal {
+  &-text {
+    @apply text-[20px] md:text-[30px] laptop:text-[50px] font-semibold mb-3-xs;
+  }
+
+  &-btn {
+    @apply max-w-[316px] mx-auto;
+  }
 }

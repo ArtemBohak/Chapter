@@ -1,27 +1,26 @@
 import { FC, useState } from "react";
+import { AxiosError } from "axios";
 
 import { ResentOTPProps } from "./ResentOTP.type";
-import { AxiosError } from "axios";
-import cn from "classnames";
-
 import { EndpointsEnum, api } from "@/src/axios";
 import { apiErrorStatus } from "@/src/types";
-import styles from "./ResentOTP.module.scss";
 import { useAppDispatch, userError } from "@/src/redux";
+import styles from "./ResentOTP.module.scss";
+import { Loader, ModalWindow, UIbutton } from "@/src/components";
 
 const ResentOTP: FC<ResentOTPProps> = ({ email }) => {
   const dispatch = useAppDispatch();
-  const [error, setError] = useState<string | null>(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const onHandleClick = async () => {
+    setIsLoading(true);
     try {
-      setError(null);
-
       await api.patch(EndpointsEnum.RESENT_OTP, { email });
     } catch (error) {
       if (error instanceof AxiosError) {
         if (error.response?.data.status === apiErrorStatus.TOO_MANY_REQUEST)
-          return setError(error.response?.data.error);
+          return setIsOpen(true);
 
         dispatch(
           userError(
@@ -32,21 +31,40 @@ const ResentOTP: FC<ResentOTPProps> = ({ email }) => {
           )
         );
       }
+    } finally {
+      setIsLoading(false);
     }
   };
-  const errorMessageClassNames = cn({ [styles["error"]]: error });
+
+  const onClick = () => setIsOpen(false);
 
   return (
     <div className={styles["resent-wrapper"]}>
-      <button
-        onClick={onHandleClick}
-        className={styles["resent-wrapper__button"]}
-      >
-        Send the <span>code</span> again?
-      </button>
-      <p className={errorMessageClassNames}>
-        {error ? error : "You can only send 3 requests in 24 hours"}
+      <p className={styles["resent-wrapper__message"]}>
+        3 attempt per 24 hours.
       </p>
+      <p className={styles["resent-wrapper__btn-text"]}>
+        Send the code again?{" "}
+        <button
+          onClick={onHandleClick}
+          disabled={isLoading}
+          className={styles["resent-wrapper__button"]}
+        >
+          Click here.
+        </button>
+      </p>
+      <ModalWindow isOpen={isOpen} setIsOpen={setIsOpen}>
+        <p className={styles["modal-text"]}>
+          You have exhausted all attempts. <br />
+          Try again tomorrow.
+        </p>
+        <div className={styles["modal-btn"]}>
+          <UIbutton dataAutomation="clickButton" onClick={onClick} fullWidth>
+            Confirm
+          </UIbutton>
+        </div>
+      </ModalWindow>
+      <Loader isShown={isLoading} />
     </div>
   );
 };

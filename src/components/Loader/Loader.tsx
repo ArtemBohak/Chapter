@@ -11,9 +11,10 @@ const Loader: FC<ILoaderProps> = ({
   width = 400,
   speed = 2,
   interval = 0.1,
-  isShown = true,
+  isShown = false,
   timeTransition = 150,
-  classNames,
+  wrapperClassNames,
+  loaderClassnames,
   ...props
 }) => {
   const nodeRef = useRef(null);
@@ -33,13 +34,13 @@ const Loader: FC<ILoaderProps> = ({
       mountOnEnter
       unmountOnExit
     >
-      <div ref={nodeRef}>
+      <div ref={nodeRef} className={`${styles["loader"]} ${wrapperClassNames}`}>
         <ContentLoader
           viewBox="0 0 400 160"
           height={height}
           width={width}
           backgroundColor="transparent"
-          className={`${styles["loader"]} ${classNames}`}
+          className={loaderClassnames}
           speed={speed}
           interval={interval}
           title=""

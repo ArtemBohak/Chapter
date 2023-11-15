@@ -4,7 +4,7 @@ export type ModalProps = {
   children: React.ReactNode;
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
-  transitionClassName: ITransitionArgs;
+  transitionClassName?: ITransitionArgs;
   disableScroll?: boolean;
   transitionTimeOut?: number;
   portal?: boolean;
