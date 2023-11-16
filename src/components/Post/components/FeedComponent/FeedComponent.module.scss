@@ -1,0 +1,41 @@
+.item {
+  &-feed {
+    @apply bg-[#FCFCFC] rounded-lg border border-[#C4C4C4]  py-2-xs md:py-3-lg laptop:py-3-lg;
+
+    &__wrapper {
+      @apply px-1-xs md:px-2-lg laptop:px-5-xl;
+
+      &--top {
+        @apply border-b border-b-grey-1010;
+      }
+
+      &--bottom {
+        @apply pt-1-xs md:pt-2-md;
+      }
+    }
+
+    &__user {
+      @apply flex items-center justify-between mb-1-lg md:mb-3-xs;
+
+      &-content {
+        @apply flex items-center gap-0-sm md:gap-1-xs laptop:gap-1-md;
+      }
+    }
+
+    &__image {
+      @apply mb-1-xs laptop:mb-2-md;
+    }
+
+    &__activity {
+      @apply flex justify-between mb-1-md md:mb-3-xs;
+
+      &-icons {
+        @apply flex gap-1-md md:gap-2-xs;
+      }
+
+      &-text {
+        @apply flex gap-[2px];
+      }
+    }
+  }
+}

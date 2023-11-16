@@ -1,10 +1,10 @@
 export interface IUserStore {
   id: number;
-  userEmail: string;
+  email: string;
   nickName: string;
   firstName: string;
   lastName: string;
-  avatarUrl: string | null;
+  avatarUrl: string;
   userStatus: string | null;
   country: number | null;
   region: number | null;
@@ -17,6 +17,7 @@ export interface IUserStore {
   photo?: string | null;
   role: IUserRole;
   status: IUserStatus;
+  location: string | null;
   myFollowersCount: number | null;
   myFollowingCount: number | null;
 }

@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { lowerUppercaseCharsValidation } from "@/src/utils/regex/password-regex";
+import { lowerUppercaseCharsValidation } from "@/src/utils";
 
 export enum TypePasswordStrength {
   WEAK = "weak",

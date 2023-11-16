@@ -1,10 +1,20 @@
-export const formatDate = (date: Date) => {
-  const delta = Date.now() - date.getTime();
+export const formatDate = (dateValue: Date | string | number) => {
+  const date = new Date(dateValue);
+  return date.toLocaleString("en-GB", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
+  });
+};
+
+export const getDate = (date: Date | string | number) => {
+  const inDate = new Date(date);
+
+  const delta = Date.now() - inDate.getTime();
   const second = 1000;
   const minute = second * 60;
   const hour = minute * 60;
   const day = hour * 24;
-
   const month = day * 30;
   const year = day * 365;
 
@@ -14,16 +24,23 @@ export const formatDate = (date: Date) => {
   const hours = Math.floor((delta % day) / hour);
   const minutes = Math.floor(((delta % day) % hour) / minute);
 
-  if (years >= 5) return years + " years";
-  if (years > 0) return years + " year";
-  if (months > 1) return months + " months";
-  if (months > 0) return months + " month";
-  if (days > 1) return days + " days";
-  if (days > 0) return days + " day";
-  if (hours > 1) return hours + " hours";
-  if (hours > 0) return hours + " hour";
-  if (minutes > 1) return minutes + " min";
-  if (minutes > 0) return "1 min";
+  const dateTime = inDate.toLocaleString("en-GB", {
+    day: "2-digit",
+    month: "short",
+  });
+
+  const hoursTime = inDate.toLocaleString("en-GB", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+
+  if (years >= 1) return `${years}yr ago`;
+  if (years < 1 && months >= 1) return `${dateTime}.`;
+  if (months < 1 && days >= 1) return `${days}d ago`;
+  if (days < 1 && hours >= 1) return `${hours}h ago`;
+  if (hours < 1 && minutes > 30) return `${hoursTime}`;
+  if (minutes <= 30 && minutes > 1) return `${minutes}min ago`;
+  return "less than a minute ago";
 };
 
 export const setDate = (dateValue: Date, value: number) => {

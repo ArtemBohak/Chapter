@@ -4,7 +4,7 @@ interface String {
   isCyrillic(this: string, pattern: RegExp): boolean;
 }
 
-String.prototype.limit = function (length, delimiter = "...") {
+String.prototype.limit = function (length, delimiter = "") {
   return this.split(" ").slice(0, length).join(" ") + delimiter;
 };
 
