@@ -6,5 +6,5 @@ export interface ILoaderProps {
   isShown?: boolean;
   timeTransition?: number;
   wrapperClassNames?: string;
-  loaderClassnames?: string;
+  loaderClassNames?: string;
 }

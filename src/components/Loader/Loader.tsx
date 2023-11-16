@@ -14,7 +14,7 @@ const Loader: FC<ILoaderProps> = ({
   isShown = false,
   timeTransition = 150,
   wrapperClassNames,
-  loaderClassnames,
+  loaderClassNames,
   ...props
 }) => {
   const nodeRef = useRef(null);
@@ -40,7 +40,7 @@ const Loader: FC<ILoaderProps> = ({
           height={height}
           width={width}
           backgroundColor="transparent"
-          className={loaderClassnames}
+          className={loaderClassNames}
           speed={speed}
           interval={interval}
           title=""
