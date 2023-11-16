@@ -5,6 +5,7 @@ import styles from "./ProfileLayout.module.scss";
 
 import { ProfileHeader, SidebarNavigation } from "./components";
 import { NavigationTogglerProvider } from "src/context/NavigationToggler";
+import { CookiesToaster } from "@/src/components/CookiesToaster";
 
 const ProfileLayout: FC = () => (
   <div className={styles["profile-layout"]}>
@@ -14,6 +15,7 @@ const ProfileLayout: FC = () => (
     </NavigationTogglerProvider>
     <main>
       <Outlet />
+      <CookiesToaster />
     </main>
   </div>
 );

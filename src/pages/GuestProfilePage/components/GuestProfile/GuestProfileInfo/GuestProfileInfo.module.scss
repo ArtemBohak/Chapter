@@ -1,0 +1,39 @@
+.profile-info {
+    @apply flex laptop_md:pl-[36px] items-center laptop_md:items-end md:items-start justify-between gap-3 w-full md:mb-2;
+
+    &__wrapper {
+        @apply flex flex-col flex-wrap justify-between;
+    }
+    &__avatar {
+        @apply min-w-[60px]  max-w-[120px] md:max-w-[125px] w-full h-full object-cover rounded-2xl;
+        & img {
+         @apply w-full h-[120px] laptop:h-[125px] m-auto;
+        }
+    }
+    &__fulname {
+        @apply break-words mb-0 font-semibold text-base laptop:text-h4_lg;
+    }
+    &__nickname {
+        @apply text-xs md:text-base text-grey-1000 mb-[8px] tracking-[0.176px];
+    }
+    &__address {
+        @apply text-xs text-grey-1000 flex items-end font-normal mb-[24px] md:text-base;
+        & svg {
+            @apply w-3 h-3 md:w-4 md:h-4;
+        }
+      }
+    &__social-counters {
+        @apply flex text-xs laptop:text-base gap-4 text-center;
+        & span {
+            @apply laptop:text-lg font-bold text-sm;
+        }
+    }
+    &__status {
+        @apply laptop_md:pl-[36px] max-w-full text-xs md:text-base md:mb-6 leading-6;
+    }
+  
+}
+
+.button-follow {
+    @apply hidden md:block laptop_md:hidden justify-self-end md:w-2/6 max-w-[160px];
+}

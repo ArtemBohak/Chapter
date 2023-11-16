@@ -14,7 +14,11 @@ export enum IconEnum {
   Menu = "menu",
   Cross = "cross",
   ArrowRight = "arrow-right",
+  AddPost = "add-post",
+  EditProfile = "edit-profile",
+  Location = "location-icon",
   Camera = "camera",
   Edit = "edit",
   Save = "save",
+  UserAdd = "User-add",
 }
