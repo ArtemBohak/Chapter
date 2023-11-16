@@ -5,7 +5,6 @@ import styles from "@/src/pages/RegisterPage/RegisterPage.module.scss";
 
 import { AuthLink, Delimiter, AuthBy, BlockAuth } from "@/src/components";
 import { RegisterForm } from "@/src/pages/RegisterPage/components";
-import { CookiesToaster } from "@/src/components/CookiesToaster";
 
 const RegisterPage: FC = () => (
   <BlockAuth
@@ -23,7 +22,6 @@ const RegisterPage: FC = () => (
         link={links.LOG_IN}
       />
     </div>
-    <CookiesToaster />
   </BlockAuth>
 );
 

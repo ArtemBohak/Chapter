@@ -22,4 +22,8 @@ export enum IconEnum {
   Save = "save",
   Back = "back-arrow",
   Smile = "smile",
+  AddPost = "add-post",
+  EditProfile = "edit-profile",
+  Location = "location-icon",
+  UserAdd = "User-add",
 }

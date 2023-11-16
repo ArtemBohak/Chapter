@@ -18,6 +18,8 @@ export interface IUserStore {
   role: IUserRole;
   status: IUserStatus;
   location: string | null;
+  myFollowersCount: number | null;
+  myFollowingCount: number | null;
 }
 
 export interface IUserRole {

@@ -12,8 +12,10 @@ import {
   UIPage,
   FeedPage,
   SettingsPage,
+  ProfilePage,
   RestorePage,
   PasswordChange,
+  GuestProfilePage,
 } from "@/src/pages";
 import { PublicLayout, ProfileLayout } from "@/src/layouts";
 
@@ -86,10 +88,13 @@ const router = createBrowserRouter([
         path: links.SETTINGS,
         element: <SettingsPage />,
       },
+      { path: links.PROFILE, element: <ProfilePage /> },
+      { path: links.GUEST_PROFILE, element: <GuestProfilePage /> },
       { path: "/ui-page", element: <UIPage /> },
     ],
   },
   { path: "*", element: <ErrorPage /> },
+  // { path: "/profile", element: <ProfilePage /> },
 ]);
 
 const Router = () => {

@@ -23,12 +23,12 @@
 }
 
 .cyrillic {
-  @apply font-montserrat;
+  @apply font-raleway;
   & input {
-    @apply font-montserrat;
+    @apply font-raleway;
 
     &::placeholder {
-      @apply font-poppins;
+      @apply font-raleway;
     }
   }
 }
