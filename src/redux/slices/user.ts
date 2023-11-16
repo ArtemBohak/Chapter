@@ -53,6 +53,10 @@ export const userSlice = createSlice({
     userLoading: (state) => {
       state.error = null;
     },
+    setUserCredData: (state, action) => {
+      state.user.email = action.payload.email;
+      state.user.id = action.payload.id;
+    },
     updateUser: (state, action: PayloadAction<IUserStore>) => {
       state.user = {
         ...action.payload,
@@ -110,6 +114,11 @@ export const userSlice = createSlice({
   },
 });
 
-export const { userLoading, updateUser, logoutUser, userError } =
-  userSlice.actions;
+export const {
+  userLoading,
+  updateUser,
+  logoutUser,
+  userError,
+  setUserCredData,
+} = userSlice.actions;
 export default userSlice.reducer;

@@ -58,17 +58,17 @@ const UserLocation: FC<UserLocationProps> = ({ country, region, city }) => {
     e.preventDefault();
     const profile = new ProfileUpdateApi(setIsLoading);
 
+    const location = selectedCity
+      ? selectedCity.concat(", ", selectedCountry)
+      : selectedCountry;
+
     await profile.userSave({
       country: countryId,
       region: regionId,
       city: cityId,
     });
 
-    console.log({
-      userLocation: selectedCity
-        ? selectedCity.concat(", ", selectedCountry)
-        : selectedCountry,
-    });
+    console.log({ location });
   };
 
   const transitionTimeOut = 150;

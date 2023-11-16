@@ -17,6 +17,7 @@ export interface IUserStore {
   photo?: string | null;
   role: IUserRole;
   status: IUserStatus;
+  location: string | null;
 }
 
 export interface IUserRole {

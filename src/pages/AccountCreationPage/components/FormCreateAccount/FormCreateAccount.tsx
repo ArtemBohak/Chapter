@@ -15,6 +15,7 @@ import styles from "./FormCreateAccount.module.scss";
 
 import UIbutton from "@/src/components/Buttons/UIbutton/UIbutton";
 import { TextField, PasswordField } from "@/src/components/Fields";
+import { useAppSelector } from "@/src/redux";
 
 const initialValues: IAccountCreate = {
   fullname: "",
@@ -36,10 +37,12 @@ const FormCreateAccount: FC = () => {
   const debouncedNickname = useDebounce(nickname, 500);
   const navigate = useNavigate();
   const { userId } = useParams();
+  const { email } = useAppSelector((state) => state.userSlice.user);
 
   async function handleNicknameChange(nickname: string) {
     try {
       if (nickname.trim().length >= 4) {
+        setNkErrorMessage(null);
         setNkIsLoading(true);
         await api.post(
           `${EndpointsEnum.NICKNAME_VALIDATION}/${nickname}`,
@@ -53,7 +56,6 @@ const FormCreateAccount: FC = () => {
             e.response?.data.error || "Nickname already exist"
           );
         }
-        setNkErrorMessage("");
       }
     } finally {
       setNkIsLoading(false);
@@ -78,6 +80,7 @@ const FormCreateAccount: FC = () => {
         firstName,
         lastName,
         IsAccessCookie: getDataFromLS("cookieAccept") || false,
+        email,
       });
       removeDataFromLS(keysValue.FULL_NAME);
       deleteCookie(

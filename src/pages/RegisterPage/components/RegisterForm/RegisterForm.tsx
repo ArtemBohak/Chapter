@@ -2,10 +2,10 @@ import { FC, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Formik, Form, FormikHelpers } from "formik";
 
-import { apiUiMessage, apiErrorStatus, links, keysValue } from "@/src/types";
-import { getCookies, setCookies } from "@/src/utils";
+import { apiUiMessage, apiErrorStatus, links } from "@/src/types";
 
 import RegisterFormApi from "./RegisterFormApi";
+import { useAppDispatch, setUserCredData } from "@/src/redux";
 import {
   RegisterAccountValues,
   EmailStatus,
@@ -28,8 +28,7 @@ const RegisterForm: FC = () => {
   const [step, setStep] = useState(Steps.FIRST);
   const [emailValue, setEmailValue] = useState("");
   const nodeRef = useRef(null);
-
-  const [cUId, cEmail] = getCookies(keysValue.USER_ID, keysValue.EMAIL);
+  const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
 
@@ -45,26 +44,35 @@ const RegisterForm: FC = () => {
   ) => {
     try {
       if (step === Steps.SECOND) {
-        const { status, id } = await RegisterFormApi.fetchUserRegData({
+        const { status, id, email } = await RegisterFormApi.fetchUserRegData({
           hash,
         });
 
-        setCookies({ email, userId: id }, 604800, undefined, true);
         if (status === apiErrorStatus.NOTFOUND)
           return setFieldError(
             RegisterAccountKey.HASH,
             apiUiMessage.INVALID_HASH
           );
-
+        if (id && email) dispatch(setUserCredData({ id, email }));
         return navigate(`${links.ACCOUNT_CREATION}/${id}`);
       }
       setEmailValue(email);
-      const { error, statusCode, message, status, id } =
-        await RegisterFormApi.fetchUserRegData({
-          email,
-        });
 
-      if (id) return navigate(`${links.ACCOUNT_CREATION}/${id}`);
+      const {
+        error,
+        statusCode,
+        message,
+        status,
+        id,
+        email: emailValue,
+      } = await RegisterFormApi.fetchUserRegData({
+        email,
+      });
+
+      if (id && emailValue) {
+        dispatch(setUserCredData({ id, email: emailValue }));
+        return navigate(`${links.ACCOUNT_CREATION}/${id}`);
+      }
 
       if (statusCode === apiErrorStatus.BAD_REQUEST)
         return setFieldError(RegisterAccountKey.EMAIL, message);
@@ -76,13 +84,6 @@ const RegisterForm: FC = () => {
         resetForm({ values: { email, hash } });
         return setStep(step + 1);
       }
-
-      if (
-        status === apiErrorStatus.UNPROCESSABLE_ENTITY &&
-        cUId &&
-        cEmail === email
-      )
-        return navigate(`${links.ACCOUNT_CREATION}/${cUId}`);
 
       if (status === apiErrorStatus.UNPROCESSABLE_ENTITY)
         return setFieldError(

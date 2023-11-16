@@ -17,6 +17,7 @@ export const defaultUserState: IUserStore = {
   socialId: null,
   createdAt: "",
   updatedAt: "",
+  location: null,
   role: {
     id: 0,
     name: "",

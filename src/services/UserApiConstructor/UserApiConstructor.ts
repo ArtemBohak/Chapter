@@ -61,12 +61,7 @@ export default abstract class UserApiConstructor {
     const fullName = `${user.firstName ? user.firstName : ""}${
       user.lastName ? ` ${user.lastName}` : ""
     }`;
-    setCookies(
-      { email: user.email, userId: user.id + "" },
-      604800,
-      undefined,
-      true
-    );
+
     setDataToLS({
       fullName,
     });
