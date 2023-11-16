@@ -5,7 +5,7 @@ import { Formik, Form, FormikHelpers } from "formik";
 import { apiUiMessage, apiErrorStatus, links } from "@/src/types";
 
 import RegisterFormApi from "./RegisterFormApi";
-import { useAppDispatch, setUserCredData } from "@/src/redux";
+import { useAppDispatch, updateUserId } from "@/src/redux";
 import {
   RegisterAccountValues,
   EmailStatus,
@@ -53,7 +53,7 @@ const RegisterForm: FC = () => {
             RegisterAccountKey.HASH,
             apiUiMessage.INVALID_HASH
           );
-        if (id && email) dispatch(setUserCredData({ id, email }));
+        if (id && email) dispatch(updateUserId({ id, email }));
         return navigate(`${links.ACCOUNT_CREATION}/${id}`);
       }
       setEmailValue(email);
@@ -70,7 +70,7 @@ const RegisterForm: FC = () => {
       });
 
       if (id && emailValue) {
-        dispatch(setUserCredData({ id, email: emailValue }));
+        dispatch(updateUserId({ id, email: emailValue }));
         return navigate(`${links.ACCOUNT_CREATION}/${id}`);
       }
 

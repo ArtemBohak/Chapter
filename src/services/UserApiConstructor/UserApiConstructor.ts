@@ -15,6 +15,7 @@ import {
   AppDispatch,
   store,
   logoutUser,
+  updateUserId,
 } from "@/src/redux";
 import {
   deleteCookie,
@@ -61,7 +62,7 @@ export default abstract class UserApiConstructor {
     const fullName = `${user.firstName ? user.firstName : ""}${
       user.lastName ? ` ${user.lastName}` : ""
     }`;
-
+    this.dispatch(updateUserId({ id: user.id, email: user.email }));
     setDataToLS({
       fullName,
     });
