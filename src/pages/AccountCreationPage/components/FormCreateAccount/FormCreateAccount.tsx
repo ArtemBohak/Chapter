@@ -113,7 +113,6 @@ const FormCreateAccount: FC = () => {
     if (debouncedNickname !== "") {
       handleNicknameChange(debouncedNickname);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedNickname]);
 
   return (

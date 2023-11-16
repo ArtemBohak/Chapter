@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { ForgotPasswordProps } from "../ForgotPasswordProps.types";
 import styles from "../../ForgotPasswordPage.module.scss";
 
 const ForgotPasswordMessage: FC<ForgotPasswordProps> = ({ setSubmitted }) => {
