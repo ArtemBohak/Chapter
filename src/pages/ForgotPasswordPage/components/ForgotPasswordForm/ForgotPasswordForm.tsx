@@ -2,6 +2,7 @@ import { FC } from "react";
 import { Form, Formik } from "formik";
 
 import { IForgotPassword } from "./ForgotPassword.types";
+import { ForgotPasswordProps } from "../ForgotPasswordProps.types";
 import ForgotPasswordApi from "./ForgotPasswordApi";
 import validationSchema from "./validationSchema";
 
