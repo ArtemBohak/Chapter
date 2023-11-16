@@ -1,3 +1,3 @@
 export type ImageUploadProps = {
-  id: number;
+  id: number | string;
 };

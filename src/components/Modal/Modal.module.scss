@@ -1,0 +1,11 @@
+.backdrop {
+  @apply absolute z-50;
+}
+
+.body {
+  @apply absolute;
+}
+
+.no-scroll {
+  @apply overflow-hidden;
+}

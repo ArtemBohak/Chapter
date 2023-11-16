@@ -16,7 +16,7 @@ import {
 
 const SettingsPage: FC = () => {
   const { user } = useAppSelector((state) => state.userSlice);
-  const [avatarUrl, setAvatarUrl] = useState<string | null>(user.avatarUrl);
+  const [avatarUrl, setAvatarUrl] = useState(user.avatarUrl);
 
   useEffect(() => {
     setAvatarUrl(user.avatarUrl);
@@ -27,7 +27,7 @@ const SettingsPage: FC = () => {
       <div
         className={`${styles["settings__container"]} ${styles["settings__container-top"]}`}
       >
-        <UserAvatar avatarUrl={avatarUrl} userEmail={user.userEmail} />
+        <UserAvatar avatarUrl={avatarUrl} email={user.email} />
         <div className={styles["settings__input-wrapper"]}>
           <ImageUpload id={user.id} />
           <Layout className={styles["form-wrapper__top-spacing"]} customSpacing>

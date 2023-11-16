@@ -1,8 +1,4 @@
 import { FC, useRef } from "react";
-import cn from "classnames";
-
-import { cyrillicPattern } from "@/src/utils";
-import "@/src/extensions/string.extensions";
 
 import { useEditField } from "../../hooks";
 import { UserNameProps } from "./UserName.type";
@@ -22,9 +18,6 @@ const UserName: FC<UserNameProps> = ({ firstName, lastName }) => {
   } = useEditField(firstName + " " + lastName, inputRef, false);
   const inputValue = value ? value : "";
 
-  const inputClassName = cn(styles["info-label__input"], {
-    ["cyrillic"]: inputValue.isCyrillic(cyrillicPattern),
-  });
   return (
     <>
       <IconButton
@@ -37,8 +30,8 @@ const UserName: FC<UserNameProps> = ({ firstName, lastName }) => {
         <input
           ref={inputRef}
           value={inputValue}
-          className={inputClassName}
           onChange={onHandleChange}
+          className={styles["info-label__input"]}
           disabled={!isEditing}
           onFocus={onHandleFocus}
           data-automation="userNameInput"

@@ -17,16 +17,11 @@ import {
   IconEnum,
 } from "@/src/components";
 
-import defaultAvatar from "@/src/assets/SVG/default-user-avatar.svg";
-
 const ProfileHeader: FC = () => {
   const { isActiveMenu, setIsActiveMenu } = useNavigationToggler();
   const { user } = useAppSelector((store) => store.userSlice);
   const { firstName, lastName, avatarUrl } = user;
 
-  const getUserAvatar = () => {
-    return avatarUrl ? avatarUrl : defaultAvatar;
-  };
   return (
     <header className={styles["profile-header"]}>
       <div className={styles["profile-header__container"]}>
@@ -76,7 +71,7 @@ const ProfileHeader: FC = () => {
             Add post
           </UIbutton>
           <UserAvatar
-            src={getUserAvatar()}
+            src={avatarUrl}
             alt={`${firstName} ${lastName}`}
             className={cn(styles["profile-header__user-avatar"])}
           />

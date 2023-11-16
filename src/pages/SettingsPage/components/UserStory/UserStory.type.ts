@@ -1,1 +1,3 @@
-export type UserStoryProps = { userStatus: string | null };
+import { IUserStore } from "@/src/redux";
+
+export type UserStoryProps = Pick<IUserStore, "userStatus">;

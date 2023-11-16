@@ -1,0 +1,17 @@
+.feed {
+  &__list {
+    @apply flex flex-col gap-1-xs md:gap-2-xs;
+  }
+  &__item {
+    @apply flex flex-col gap-1-xs;
+
+    &.border {
+      @apply pb-1-xs border-b border-b-[#D0D0D0] last:border-b-0;
+    }
+  }
+  &__sub-list-item {
+    &--first {
+      @apply pl-3-xs md:pl-5-xs;
+    }
+  }
+}

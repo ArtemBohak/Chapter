@@ -1,0 +1,13 @@
+.post-text {
+  & > h4 {
+    @apply md:text-lg laptop:text-xxl mb-0-md md:mb-1-md;
+  }
+
+  & > p {
+    @apply text-xs md:text-base laptop:text-[18px] font-light leading-[194.908%];
+  }
+
+  & button {
+    @apply bg-transparent outline-none text-[#0000EB];
+  }
+}

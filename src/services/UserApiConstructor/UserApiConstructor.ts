@@ -61,12 +61,7 @@ export default abstract class UserApiConstructor {
     const fullName = `${user.firstName ? user.firstName : ""}${
       user.lastName ? ` ${user.lastName}` : ""
     }`;
-    setCookies(
-      { email: user.userEmail, userId: user.id + "" },
-      604800,
-      undefined,
-      true
-    );
+
     setDataToLS({
       fullName,
     });
@@ -104,10 +99,15 @@ export default abstract class UserApiConstructor {
               restoreToken: error.response.data.restoreToken,
             };
             setCookies(cValue, expiresDate, undefined, true);
-            if (this.navigate) return this.navigate(links.RESTORE);
+            return this.navigate && this.navigate(links.RESTORE);
           }
 
-          this.handleError(error.message);
+          this.handleError(
+            error.response?.data.error ||
+              error.response?.data.message ||
+              error.response?.statusText ||
+              error.message
+          );
           return error;
         }
       } finally {

@@ -1,6 +1,7 @@
 import { ChangeEvent, RefObject, useEffect, useState } from "react";
 
 import { ProfileUpdateApi } from "../utils/ProfileUpdateApi";
+import { simpleStringRegex } from "@/src/utils";
 
 const useEditField = (
   textValue: string | null,
@@ -19,18 +20,20 @@ const useEditField = (
   const onHandleEdit = () => setIsEditing(true);
 
   const onHandleSave = async () => {
-    setIsEditing(false);
     const profile = new ProfileUpdateApi();
     if (value !== textValue) {
-      userStatus &&
+      if (userStatus && value)
         profile.userSave({
-          userStatus: value,
+          userStatus: value?.trim(),
         });
+
       if (!userStatus && value) {
-        const [firstName, lastName] = value.split(" ");
+        if (!simpleStringRegex.test(value)) return;
+        const [firstName, lastName] = value.trim().split(" ");
         if (firstName && lastName) profile.userSave({ firstName, lastName });
       }
     }
+    setIsEditing(false);
   };
 
   const onHandleChange = (

@@ -1,0 +1,5 @@
+.post-title {
+  & > h4 {
+    @apply font-medium md:text-lg laptop:text-xxl mb-0;
+  }
+}
