@@ -706,6 +706,63 @@
       "setIdx": 1,
       "setId": 4,
       "iconIdx": 0
+    },
+    {
+      "icon": {
+        "paths": [
+          "M170.662 432.785c0-191.89 152.82-347.447 341.334-347.447 188.512 0 341.334 155.557 341.334 347.447 0 190.386-108.943 412.548-278.917 491.995-39.624 18.519-85.212 18.519-124.835 0-169.973-79.447-278.915-301.609-278.915-491.995z",
+          "M640 426.662c0 70.692-57.308 128-128 128s-128-57.308-128-128c0-70.692 57.308-128 128-128s128 57.308 128 128z"
+        ],
+        "attrs": [
+          {
+            "fill": "none",
+            "stroke": "rgb(108, 108, 108)",
+            "strokeLinejoin": "miter",
+            "strokeLinecap": "butt",
+            "strokeMiterlimit": "4",
+            "strokeWidth": 76.80000000000001
+          },
+          {
+            "fill": "none",
+            "stroke": "rgb(108, 108, 108)",
+            "strokeLinejoin": "miter",
+            "strokeLinecap": "butt",
+            "strokeMiterlimit": "4",
+            "strokeWidth": 76.80000000000001
+          }
+        ],
+        "isMulticolor": false,
+        "isMulticolor2": false,
+        "grid": 0,
+        "tags": ["locationIcon"]
+      },
+      "attrs": [
+        {
+          "fill": "none",
+          "stroke": "rgb(108, 108, 108)",
+          "strokeLinejoin": "miter",
+          "strokeLinecap": "butt",
+          "strokeMiterlimit": "4",
+          "strokeWidth": 76.80000000000001
+        },
+        {
+          "fill": "none",
+          "stroke": "rgb(108, 108, 108)",
+          "strokeLinejoin": "miter",
+          "strokeLinecap": "butt",
+          "strokeMiterlimit": "4",
+          "strokeWidth": 76.80000000000001
+        }
+      ],
+      "properties": {
+        "order": 27,
+        "id": 0,
+        "name": "location-icon",
+        "prevSize": 32
+      },
+      "setIdx": 0,
+      "setId": 5,
+      "iconIdx": 0
     }
   ],
   "height": 1024,
