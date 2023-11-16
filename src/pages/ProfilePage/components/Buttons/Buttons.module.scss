@@ -1,0 +1,44 @@
+
+.buttons-block {
+@apply flex bg-white sticky top-[-12px] md:top-[8px] laptop:top-0 w-full;
+
+@media (min-width: 1681px) {
+    &::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        width: 50%;
+        height: 200px;
+        background-color: inherit;
+    
+    } 
+}
+@media (min-width: 1921px) {
+    &::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        width: 56%;
+        height: 200px;
+        background-color: inherit;
+    
+    } 
+}
+
+}
+
+.button-posts {
+    @apply w-1/2 rounded-none rounded-tl-sm;
+    &__active {
+        @apply  w-1/2 rounded-none rounded-tl-sm bg-[#FFC368] text-white;
+    }
+}
+
+.button-liked {
+        @apply w-1/2 rounded-none rounded-tr-sm;
+
+    &__active {
+        @apply  w-1/2 rounded-none rounded-tr-sm bg-[#FFC368] text-white;
+    }
+}
+

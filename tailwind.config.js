@@ -88,8 +88,7 @@ export default {
         h5_lg: "20px",
       },
       fontFamily: {
-        poppins: ["Poppins"],
-        montserrat: ["Montserrat"],
+        raleway: ['Raleway'],
       },
     },
   },

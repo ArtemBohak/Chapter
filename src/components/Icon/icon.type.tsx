@@ -23,4 +23,8 @@ export enum IconEnum {
   Book = "book",
   FavoriteActive = "favorite-active",
   Close = "close",
+  AddPost = "add-post",
+  EditProfile = "edit-profile",
+  Location = "location-icon",
+  UserAdd = "User-add",
 }

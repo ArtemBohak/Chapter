@@ -10,6 +10,8 @@ export const defaultUserState: IUserStore = {
   region: null,
   city: null,
   userStatus: null,
+  myFollowersCount: 0,
+  myFollowingCount: 0,
   userEmail: "",
   provider: "",
   socialId: null,

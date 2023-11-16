@@ -17,6 +17,8 @@ export interface IUserStore {
   photo?: string | null;
   role: IUserRole;
   status: IUserStatus;
+  myFollowersCount: number | null;
+  myFollowingCount: number | null;
 }
 
 export interface IUserRole {
