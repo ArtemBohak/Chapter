@@ -1,1 +1,3 @@
-export type AvatarProps = { avatarUrl: string | null; userEmail: string };
+import { IUserStore } from "@/src/redux";
+
+export type AvatarProps = Pick<IUserStore, "avatarUrl" | "email">;

@@ -1,10 +1,10 @@
 import { FC, MouseEvent, TouchEvent, useMemo, useRef } from "react";
-import { CSSTransition } from "react-transition-group";
 import { GetState, GetCity } from "react-country-state-city";
 
 import { CityType, StateType } from "../../UserLocation.type";
 import { SelectMenuProps } from "./SelectMenu.type";
 import styles from "./SelectMenu.module.scss";
+import { Animation } from "@/src/components";
 
 const SelectMenu: FC<SelectMenuProps> = ({
   type,
@@ -74,8 +74,8 @@ const SelectMenu: FC<SelectMenuProps> = ({
   };
 
   return (
-    <CSSTransition
-      in={menuIsOpen}
+    <Animation
+      isMount={menuIsOpen}
       nodeRef={menuRef}
       timeout={transitionTimeOut}
       mountOnEnter
@@ -98,7 +98,7 @@ const SelectMenu: FC<SelectMenuProps> = ({
           ))}
         </span>
       </span>
-    </CSSTransition>
+    </Animation>
   );
 };
 

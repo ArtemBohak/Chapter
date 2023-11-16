@@ -5,4 +5,6 @@ export interface ILoaderProps {
   interval?: number;
   isShown?: boolean;
   timeTransition?: number;
+  wrapperClassNames?: string;
+  loaderClassNames?: string;
 }

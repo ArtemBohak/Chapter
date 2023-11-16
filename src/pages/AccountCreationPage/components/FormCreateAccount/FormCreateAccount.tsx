@@ -1,14 +1,13 @@
 import { ChangeEvent, FC, useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import cn from "classnames";
 import { AxiosError } from "axios";
 import { Formik, Form, FormikProps, FormikHelpers } from "formik";
+import cn from "classnames";
 
 import { EndpointsEnum, api } from "@/src/axios";
-import { links, keysValue } from "@/src/types";
+import { links, keysValue, apiErrorMessage } from "@/src/types";
 import { useDebounce } from "@/src/hooks";
-import { cyrillicPattern, deleteCookie, removeDataFromLS } from "@/src/utils";
-import "@/src/extensions/string.extensions";
+import { deleteCookie, getDataFromLS, removeDataFromLS } from "@/src/utils";
 
 import { IAccountCreate } from "./FormCreateAccount.type";
 import validationSchema from "./validationSchema";
@@ -16,6 +15,7 @@ import styles from "./FormCreateAccount.module.scss";
 
 import UIbutton from "@/src/components/Buttons/UIbutton/UIbutton";
 import { TextField, PasswordField } from "@/src/components/Fields";
+import { useAppSelector } from "@/src/redux";
 
 const initialValues: IAccountCreate = {
   fullname: "",
@@ -28,7 +28,7 @@ const FormCreateAccount: FC = () => {
   const LSFullName = localStorage.getItem("fullName");
   const fullname = LSFullName ? LSFullName : "";
 
-  const [isLoadingNk, setIsLoadingNk] = useState<boolean>(false);
+  const [nkIsLoading, setNkIsLoading] = useState(false);
   const [nkErrorMessage, setNkErrorMessage] = useState<string | null>(null);
   const [errorMessageForm, setErrorMessageForm] = useState<
     string | null | undefined
@@ -37,17 +37,28 @@ const FormCreateAccount: FC = () => {
   const debouncedNickname = useDebounce(nickname, 500);
   const navigate = useNavigate();
   const { userId } = useParams();
+  const { email } = useAppSelector((state) => state.userSlice.user);
 
-  function handleNicknameChange(nickname: string) {
+  async function handleNicknameChange(nickname: string) {
     try {
-      setIsLoadingNk(true);
-      console.log("nickname", nickname);
+      if (nickname.trim().length >= 4) {
+        setNkErrorMessage(null);
+        setNkIsLoading(true);
+        await api.post(
+          `${EndpointsEnum.NICKNAME_VALIDATION}/${nickname}`,
+          null
+        );
+      }
     } catch (e) {
       if (e instanceof AxiosError) {
-        setNkErrorMessage(e.response?.data || "nickname already exist");
+        if (e.response?.data.message !== apiErrorMessage.NICKNAME_IN_USE) {
+          return setNkErrorMessage(
+            e.response?.data.error || "Nickname already exist"
+          );
+        }
       }
     } finally {
-      setIsLoadingNk(false);
+      setNkIsLoading(false);
     }
   }
 
@@ -62,12 +73,14 @@ const FormCreateAccount: FC = () => {
       const [firstName, lastName] = values.fullname.split(" ");
       const { nickName, confirm_password, password } = values;
 
-      await api.patch(`${EndpointsEnum.REGISTRATION_FINALY}/${userId}`, {
-        nickName: nickName,
+      await api.patch(`${EndpointsEnum.REGISTRATION_FINALLY}/${userId}`, {
+        nickName,
         password,
         confirmPassword: confirm_password,
         firstName,
         lastName,
+        IsAccessCookie: getDataFromLS("cookieAccept") || false,
+        email,
       });
       removeDataFromLS(keysValue.FULL_NAME);
       deleteCookie(
@@ -86,15 +99,21 @@ const FormCreateAccount: FC = () => {
     }
   }
 
-  const onHandleChange = (e: ChangeEvent<HTMLInputElement>) =>
-    e.currentTarget.value[0] === "@"
-      ? setNickname(e.currentTarget.value.slice(1))
-      : setNickname(e.currentTarget.value);
+  const onHandleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (
+      !e.currentTarget.value.startsWith("@") &&
+      e.currentTarget.value.length
+    ) {
+      return setNickname("@" + e.currentTarget.value);
+    }
+    setNickname(e.currentTarget.value);
+  };
 
   useEffect(() => {
     if (debouncedNickname !== "") {
       handleNicknameChange(debouncedNickname);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedNickname]);
 
   return (
@@ -119,20 +138,16 @@ const FormCreateAccount: FC = () => {
               placeholder="Full Name"
               dataAutomation="fullname"
               showSuccessIcon={true}
-              className={
-                values.fullname.isCyrillic(cyrillicPattern) ? "cyrillic" : ""
-              }
             />
             <TextField
               id="nickName"
               name="nickName"
               label="Nickname"
-              value={nickname ? `@${nickname}` : ""}
+              value={nickname}
               placeholder="nickname"
               dataAutomation="nickname"
               showSuccessIcon={true}
               onChange={onHandleChange}
-              disabled={isLoadingNk}
               customErrorMessage={nkErrorMessage}
             />
             <PasswordField
@@ -155,7 +170,7 @@ const FormCreateAccount: FC = () => {
               fullWidth
               dataAutomation="submitButton"
               className="p-[12px] text-sm"
-              disabled={!isValid || !dirty}
+              disabled={!isValid || !dirty || !!nkErrorMessage || nkIsLoading}
               isLoading={isSubmitting}
             >
               Submit

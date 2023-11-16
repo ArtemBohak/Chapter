@@ -1,11 +1,12 @@
 export enum EndpointsEnum {
   USERS = "users/",
+  USERS_PROFILE = "users/profile/",
   UPLOAD_FILES = "files/upload",
   FILES = "files/",
   LOGIN = "auth/email/login",
   ADMIN_LOGIN = "auth/admin/email/login",
   REGISTRATION = "auth/email/register",
-  REGISTRATION_FINALY = "auth/email/register/finaly",
+  REGISTRATION_FINALLY = "auth/email/register/finaly",
   CONFIRM = "auth/email/confirm",
   FORGOT_PASSWORD = "auth/forgot/password",
   RESET_PASSWORD = "auth/reset/password",
@@ -19,4 +20,6 @@ export enum EndpointsEnum {
   GOOGLE_RESTORE = "auth/restoring-user-by-google",
   EMAIL_RESTORE = "auth/restoring-user",
   CONFIRM_EMAIL_RESTORE = "auth/confirm-restoring-user",
+  NICKNAME_VALIDATION = "auth/nickname-validation",
+  RESENT_OTP = "auth/refresh-unique-token",
 }

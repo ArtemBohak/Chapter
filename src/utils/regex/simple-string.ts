@@ -1,1 +1,11 @@
-export default /^([\wа-яА-ЯіІ]{2,})+\s+([\w\sа-яА-ЯіІ]{2,})+$/i;
+export const nickNameCharsRegex = /^@[a-zA-Z]+$/;
+
+export const simpleStringRegex =
+  /^(?:[a-zA-ZґҐіІєЄщЩ\u0400-\u04FF]+(?:['`ʼ\s]*[a-zA-Z\u0400-\u04FF]+)*)+$/;
+
+export const isNickNameCheckingPattern =
+  /^@[a-zA-Z'`]+[!@#$%^&*()_+{}|[\]\\:;"'<>,.?/]*$/;
+
+export const replaceSymbolsPattern = /[!@#$%^&*()_+{}|[\]\\:;"'<>,.?/]+$/g;
+
+export const replaceLettersPattern = /^@[a-zA-Z'`]+/g;

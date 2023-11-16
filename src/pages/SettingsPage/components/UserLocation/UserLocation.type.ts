@@ -1,8 +1,6 @@
-export type UserLocationProps = {
-  country: number | null;
-  region: number | null;
-  city: number | null;
-};
+import { IUserStore } from "@/src/redux";
+
+export type UserLocationProps = Pick<IUserStore, "country" | "city" | "region">;
 
 export type CountriesType = {
   capital: string;

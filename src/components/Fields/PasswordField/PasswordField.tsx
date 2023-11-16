@@ -68,13 +68,15 @@ const PasswordField: FC<PasswordFieldProps> = ({
             className={styles["text-field__input"]}
             onChange={onHandleChangeField}
           />
-          <Icon
-            icon={isVisiblePassword ? IconEnum.Eye : IconEnum.Eye_Off}
-            size={18}
-            color="#8E8E93"
-            onClick={() => setIsVisiblePassword(!isVisiblePassword)}
-            className={styles["text-field__icon"]}
-          />
+          {field.value.length ? (
+            <Icon
+              icon={isVisiblePassword ? IconEnum.Eye : IconEnum.Eye_Off}
+              size={18}
+              color="#8E8E93"
+              onClick={() => setIsVisiblePassword(!isVisiblePassword)}
+              className={styles["text-field__icon"]}
+            />
+          ) : null}
         </div>
       </label>
       {strength && !additionalLabel && meta.value && !meta.touched && (

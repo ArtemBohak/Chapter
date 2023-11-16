@@ -1,14 +1,20 @@
 import { FC } from "react";
 
-import { useAppSelector } from "@/src/redux";
+import "@/src/extensions/string.extensions";
+import { FeedProvider } from "./context";
+import styles from "./FeedPage.module.scss";
+
+import { Feeds } from "./components";
 
 const FeedPage: FC = () => {
-  const userSlice = useAppSelector((state) => state.userSlice);
-
   return (
-    <div className="py-[120px] px-[20px]">
-      <h1>Feed page - {userSlice.user.firstName}</h1>
-    </div>
+    <FeedProvider>
+      <section className={styles["feed"]}>
+        <div className={styles["feed__container"]}>
+          <Feeds />
+        </div>
+      </section>
+    </FeedProvider>
   );
 };
 

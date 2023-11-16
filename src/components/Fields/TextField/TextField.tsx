@@ -54,7 +54,7 @@ const TextField: FC<TextFieldProps> = ({
             className={"text-field__input"}
             onChange={onHandleChangeField}
           />
-          {showSuccessIcon && isSuccessValidation ? (
+          {showSuccessIcon && isSuccessValidation && !customErrorMessage ? (
             <Icon icon={IconEnum.Ok} size={20} className="text-field__icon" />
           ) : null}
         </div>

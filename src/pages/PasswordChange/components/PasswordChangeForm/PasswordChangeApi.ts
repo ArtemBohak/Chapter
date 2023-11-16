@@ -3,17 +3,18 @@ import { EndpointsEnum } from "@/src/axios/endpoints.types";
 import { isAxiosError } from "axios";
 import { ApiArgs } from "./PasswordChange.type";
 
-const PasswordChangeApi = async ({password, hash}: ApiArgs) => {
+const PasswordChangeApi = async ({ password, hash }: ApiArgs) => {
   try {
-    const response = await api.post(EndpointsEnum.RESET_PASSWORD, {password, hash});
-  
+    const response = await api.post(EndpointsEnum.RESET_PASSWORD, {
+      password,
+      hash,
+    });
+
     return response;
-    
   } catch (error) {
-   if ( isAxiosError(error)) {
-  
-    return error.response?.data;
-   }
+    if (isAxiosError(error)) {
+      return error.response?.data;
+    }
   }
 };
 

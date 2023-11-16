@@ -1,0 +1,14 @@
+.buttons-block {
+    @apply flex  w-full gap-2 laptop_md:flex-col;
+    
+    @media (max-width: 320px) {
+        flex-wrap: wrap;
+    }
+    
+    & .button-add-post, .button-edit-profile {
+        @apply max-w-[470px] min-w-[159.5px];
+        & svg {
+            @apply w-[24px] h-[24px] laptop:w-[32px] laptop:h-[32px];
+        }
+    }
+    }

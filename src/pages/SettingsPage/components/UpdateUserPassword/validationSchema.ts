@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 
-import { baseValidation } from "@/src/utils/regex/password-regex";
+import { baseValidation } from "@/src/utils";
 
 import { ErrorMessages } from "./UpdateUserPassword.type";
 
