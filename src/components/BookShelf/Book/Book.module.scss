@@ -1,19 +1,16 @@
 .book {
     @apply h-[90px] max-w-[60px] relative
     laptop_md:max-w-[123px] laptop_md:h-[235px] mt-2;
- 
-    // padding-inline: 5px;
     font-weight: 600;
     cursor: pointer;
     
     & img {
-        @apply h-[87%] w-full object-cover mb-[7px] rounded-lg;
+        @apply h-[80%] w-full object-cover mb-[7px] rounded-lg;
         box-shadow: 7px 7px 7px rgb(102, 102, 102);
         outline: none !important;
     }
     & p {
-        @apply h-[13%];
-        font-size: 12px;
+        @apply h-[20%] text-xs text-center;
         outline: none !important;
     }
 }

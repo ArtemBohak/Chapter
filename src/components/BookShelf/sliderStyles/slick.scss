@@ -1,5 +1,4 @@
 /* Slider */
-
 .slick-slider {
     position: relative;
     display: block;
@@ -13,11 +12,11 @@
     -ms-touch-action: none;
     touch-action: none;
     -webkit-tap-highlight-color: transparent;
-    padding-left: 10px;
     margin-top: 0;
     outline: none !important;
     width: 100%;
- 
+    max-width: 430px;
+
 }
 .slick-list {
     position: relative;
@@ -49,7 +48,6 @@
     left: 0;
     top: 0;
     display: flex;
-    gap: 10px;
     margin-left: 0;
     margin-right: 0;
 
@@ -73,8 +71,9 @@
     height: 100%;
     min-height: 1px;
     outline: none;
+    margin: 0 1px;
     & div {
-    @apply max-w-[60px] laptop_md:max-w-[123px] ;
+    @apply max-w-[60px] laptop_md:max-w-[123px];
     outline: none;    
     }
     [dir="rtl"] & {
@@ -112,7 +111,7 @@
     }
     &:hover {
         outline: none;
-       
+
     }
 }
 .slick-arrow.slick-hidden {

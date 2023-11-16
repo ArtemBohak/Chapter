@@ -1,25 +1,26 @@
 import { FC } from "react";
 import Slider from "react-slick";
-import "slick-carousel/slick/slick.scss";
-import "slick-carousel/slick/slick-theme.scss";
+import "./sliderStyles/slick-theme.scss";
+import "./sliderStyles/slick.scss";
 import "./sliderStyles/sliderStyles.scss";
-import { Icon, IconEnum } from "..";
-import IcoMoon from "react-icomoon";
+import { Icon, IconEnum } from "@/src/components/Icon";
+import Book from "./Book/Book";
+import { Link } from "react-router-dom";
+import { links } from "@/src/types";
 
 const BookShelf: FC = () => {
   function SampleNextArrow({ ...props }) {
-    const { className, style, onClick, icon } = props;
+    const { className, style, onClick } = props;
     return (
       <div
         className={className}
         style={{
           ...style,
-          display: "block",
-          background: "green",
+          display: innerWidth < 1367 ? "none" : "block",
         }}
         onClick={onClick}
       >
-        <Icon icon={IconEnum.ArrowRight} />
+        <Icon icon={IconEnum.NextSlide} width={32} height={32} color="orange" />
       </div>
     );
   }
@@ -29,29 +30,35 @@ const BookShelf: FC = () => {
     return (
       <div
         className={className}
-        style={{ ...style, display: "none", background: "green" }}
+        style={{ ...style, display: "none" }}
         onClick={onClick}
       ></div>
     );
   }
   const settings = {
-    slide: "p",
     adaptiveHeight: false,
     dots: false,
     infinite: true,
     speed: 500,
     slidesToShow: innerWidth < 480 ? 5 : 3,
-    slidesToScroll: innerWidth < 480 ? 1 : 3,
+    slidesToScroll: innerWidth < 480 ? 5 : 3,
     swipeToSlide: false,
-    centerPadding: "10px",
+    centerPadding: "20px",
     nextArrow: <SampleNextArrow />,
-    prevArrow: (
-      <SamplePrevArrow className={""} style={{}} onClick={undefined} />
-    ),
+    prevArrow: <SamplePrevArrow />,
   };
   return (
-    <div className="">
+    <div className="flex flex-col  h-full w-full">
+      <div className="flex justify-between">
+        <h6 className="favorite-books-title">Favorite books</h6>
+        <Link className="text-[#6C6C6C]" to={"/books"}>
+          see all
+        </Link>
+      </div>
       <Slider {...settings}>
+        {[...new Array(7)].map((_, i) => (
+          <Book key={i} />
+        ))}
         <div className="slide-item-wrapper">
           <img
             src="https://s3-alpha-sig.figma.com/img/0c6e/a6af/3905a1d6b763f5466f2b801f33344a99?Expires=1700438400&Signature=St7Ux88i1EY3iVQrvsfJC1bOClTjYdKRXr912iuHEuvAulHdqIFHYpy0-WbmB1hEqjGmiIfwa83mpJROghPGA8kqW4YivqPS1t-pRcTvmXdQqc24dbEuruxe8yo5LomJodEca~SJiXAe2A4rHlAymMR5klVjC1mZxKYIiM5RgExTPDlylJ~DQhDrxN~RRZpBixvlubm68-BCsEN3puhvc-lovhHX61FpudQwzwlPDv4Vi9rGcQjzaWYbkqEFIDnMJ0gSYKebcQOib-wmWwa1hiNqZO2SEq~YF7Z-~ByRDj3wWRPca2oqwhIliJDLzfUbccu1jvr4lPw5zJ8tZ995sw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
@@ -88,13 +95,13 @@ const BookShelf: FC = () => {
         </div>
         <div className="slide-item-wrapper">
           <img
-            src="https://s3-alpha-sig.figma.com/img/1301/9fc3/91290971b5c5588d4f5b7a498522b07e?Expires=1700438400&Signature=EJcS5zB64~7HkylXirulosn4ZcdQ~E0~0ezFrRuPL2hN7R3HtsZ4-8wEi8zGyF2bVvo8DH23VU9t2uI3LvmDvNuzpV0e8TrGFocB~wEEYoEmvB3sLEaUY20lRyH8vBUuh~uP127Syf1OgkPIYpWJVDPEHPBQlvP2cAXnpT9buTrQBXIHW6a0C0HKahwDqWqcgGUYbzkblEtY73~opCZA8NVORblZ9RT8E-Ku6NAf07uhotlm5aamUSvWlx~1as0TqS8lj6iXGk84Hd5ih5P7~CUdxsmurxXlw17Z82tPgY1Z22-ueU4IbDUdryLRKKcr1f8R7smtuSA5bYjTgBEl1g__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
+            src="https://s3-alpha-sig.figma.com/img/080a/6645/dd3305c6ab4b5dfc3bb8644992a63c28?Expires=1700438400&Signature=fZ2N~J~eSlWzfhb5aXe6KJCLED-g~CaksueCXLiXsFmIdbS3Sa~32AcMnPqwbx~0Dpv5KlDsqLOBGbhTugUp808PINw~9Nsg14rs2cMI0GDfDqfYd9Q9gNcaQ9uDLEN6VyBk1o1Lb3UC2i9uXDwwHslx9Y1oOg0q0YQZuA9fw9eq91OngMZ3kQtErpX~~G5stTl4xII0U1t0P5U0ZAeNQaDzAXjWTr6rL4C6s0Y-ZBEHT5n6Y7JaWjsi3grtwjl51WcZnvBPrPkFIbS4w13ygcG~2Z5swCvq~Nm7MfcMCdNuuk2vZIQHkkEQPwSUtrRKu9mO8xiLJUOeRUlqS2ESgA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
             alt=""
           />
         </div>
         <div className="slide-item-wrapper">
           <img
-            src="https://s3-alpha-sig.figma.com/img/1301/9fc3/91290971b5c5588d4f5b7a498522b07e?Expires=1700438400&Signature=EJcS5zB64~7HkylXirulosn4ZcdQ~E0~0ezFrRuPL2hN7R3HtsZ4-8wEi8zGyF2bVvo8DH23VU9t2uI3LvmDvNuzpV0e8TrGFocB~wEEYoEmvB3sLEaUY20lRyH8vBUuh~uP127Syf1OgkPIYpWJVDPEHPBQlvP2cAXnpT9buTrQBXIHW6a0C0HKahwDqWqcgGUYbzkblEtY73~opCZA8NVORblZ9RT8E-Ku6NAf07uhotlm5aamUSvWlx~1as0TqS8lj6iXGk84Hd5ih5P7~CUdxsmurxXlw17Z82tPgY1Z22-ueU4IbDUdryLRKKcr1f8R7smtuSA5bYjTgBEl1g__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
+            src="https://s3-alpha-sig.figma.com/img/095a/c6ea/49ebc2987a2fd5d7f19b6bba28d99580?Expires=1700438400&Signature=KuzzojZaPk-w-LnUOwcOYXtG5gDNd-bmEm3ETNdYtNd9G1BMxB36rUlx7Nc1mT6F3gYZl6fAGzr0pVLHNCHc-ksZDN9LrUMVoYhij7kG9O7XMNaO7PQFxycV0ETJR2-vkIqx0929zpUFNRRClF5DdbwnFFnPMFDzGPPHpkz1CISH8SLSE7-aAHIHjKgdeK3E15ppvlx0NOZ9EIqw9SnVcKNpmmR~e~1utz4T5A~B25~x76OCYn3X1Yf6-XXEWiU0Z99mcNWzklDmSYOzK01MEz1mYsxm8DFzVnhl-4SJr9~a3a1d55wTSJh4HaJtVhJL-t2ZNYCs0IH5o4xLik6Vrg__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4"
             alt=""
           />
         </div>
