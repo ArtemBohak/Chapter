@@ -14,8 +14,10 @@ import { Animation, Loader, UIbutton } from "@/src/components";
 import CountrySelect from "./components/CountrySelect/CountrySelect";
 import RegionSelect from "./components/RegionSelect/RegionSelect";
 import CitySelect from "./components/CitySelect/CitySelect";
+import { useAppSelector } from "@/src/redux";
 
 const UserLocation: FC<UserLocationProps> = ({ country, region, city }) => {
+  const { location } = useAppSelector((state) => state.userSlice.user);
   const initialCountry = country ? +country : 0;
   const initialRegion = region ? +region : 0;
   const initialCity = city ? +city : 0;
@@ -26,6 +28,7 @@ const UserLocation: FC<UserLocationProps> = ({ country, region, city }) => {
   const [countryId, setCountryId] = useState(initialCountry);
   const [selectedCountry, setSelectedCountry] = useState("");
   const [countryList, setCountryList] = useState<Array<CountriesType>>([]);
+  const [icon, setIcon] = useState("");
 
   const [regionId, setRegionId] = useState(initialRegion);
   const [selectedRegion, setSelectedRegion] = useState("");
@@ -36,6 +39,10 @@ const UserLocation: FC<UserLocationProps> = ({ country, region, city }) => {
   const [citiesList, setCitiesList] = useState<Array<CityType>>([]);
 
   const nodeRef = useRef(null);
+
+  useEffect(() => {
+    location && setSelectedCountry(location);
+  }, [location]);
 
   useEffect(() => {
     (async () => {
@@ -63,12 +70,19 @@ const UserLocation: FC<UserLocationProps> = ({ country, region, city }) => {
       : selectedCountry;
 
     await profile.userSave({
-      country: countryId,
-      region: regionId,
-      city: cityId,
+      location,
     });
+    setSelectedCountry(location);
+    setCountryId(0);
+    setIcon("");
 
-    console.log({ location });
+    setRegionList([]);
+    setSelectedRegion("");
+    setRegionId(0);
+
+    setCitiesList([]);
+    setSelectedCity("");
+    setCityId(0);
   };
 
   const transitionTimeOut = 150;
@@ -99,9 +113,11 @@ const UserLocation: FC<UserLocationProps> = ({ country, region, city }) => {
           ref={nodeRef}
         >
           <CountrySelect
+            icon={icon}
             selectedCountry={selectedCountry}
             countryList={countryList}
             countryId={countryId}
+            setIcon={setIcon}
             setCountryId={setCountryId}
             setSelectedCountry={setSelectedCountry}
             setIsLoading={setIsLoading}
