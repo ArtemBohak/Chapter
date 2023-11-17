@@ -50,7 +50,9 @@ const LoginPageForm: FC = () => {
       deleteCookie(
         keysValue.DELETED_ACCOUNT_TIME_STAMP,
         keysValue.RESTORE_EMAIL,
-        keysValue.RESTORE_TOKEN
+        keysValue.RESTORE_TOKEN,
+        keysValue.EMAIL,
+        keysValue.USER_ID
       );
       setDataToLS({ token: data.token });
       dispatch(updateUser(data.user));

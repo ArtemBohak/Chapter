@@ -2,10 +2,11 @@ import { FC, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Formik, Form, FormikHelpers } from "formik";
 
-import { apiUiMessage, apiErrorStatus, links } from "@/src/types";
+import { apiUiMessage, apiErrorStatus, links, keysValue } from "@/src/types";
 
 import RegisterFormApi from "./RegisterFormApi";
 import { useAppDispatch, updateUserId } from "@/src/redux";
+import { getCookies, setCookies } from "@/src/utils";
 import {
   RegisterAccountValues,
   EmailStatus,
@@ -28,6 +29,7 @@ const RegisterForm: FC = () => {
   const [step, setStep] = useState(Steps.FIRST);
   const [emailValue, setEmailValue] = useState("");
   const nodeRef = useRef(null);
+  const [cUId, cEmail] = getCookies(keysValue.USER_ID, keysValue.EMAIL);
   const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
@@ -53,7 +55,10 @@ const RegisterForm: FC = () => {
             RegisterAccountKey.HASH,
             apiUiMessage.INVALID_HASH
           );
-        if (id && email) dispatch(updateUserId({ id, email }));
+        if (id && email) {
+          setCookies({ email, userId: id }, 604800, undefined, true);
+          dispatch(updateUserId({ id, email }));
+        }
         return navigate(`${links.ACCOUNT_CREATION}/${id}`);
       }
       setEmailValue(email);
@@ -69,13 +74,20 @@ const RegisterForm: FC = () => {
         email,
       });
 
+      if (statusCode === apiErrorStatus.BAD_REQUEST)
+        return setFieldError(RegisterAccountKey.EMAIL, message);
+
       if (id && emailValue) {
         dispatch(updateUserId({ id, email: emailValue }));
         return navigate(`${links.ACCOUNT_CREATION}/${id}`);
       }
 
-      if (statusCode === apiErrorStatus.BAD_REQUEST)
-        return setFieldError(RegisterAccountKey.EMAIL, message);
+      if (
+        status === apiErrorStatus.UNPROCESSABLE_ENTITY &&
+        cUId &&
+        cEmail === emailValue
+      )
+        return navigate(`${links.ACCOUNT_CREATION}/${cUId}`);
 
       if (
         status === apiErrorStatus.UNPROCESSABLE_ENTITY &&

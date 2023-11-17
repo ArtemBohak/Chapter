@@ -50,7 +50,9 @@ export default abstract class UserApiConstructor {
       deleteCookie(
         keysValue.DELETED_ACCOUNT_TIME_STAMP,
         keysValue.RESTORE_EMAIL,
-        keysValue.RESTORE_TOKEN
+        keysValue.RESTORE_TOKEN,
+        keysValue.USER_ID,
+        keysValue.EMAIL
       );
       setDataToLS(cred);
     }
@@ -63,6 +65,12 @@ export default abstract class UserApiConstructor {
       user.lastName ? ` ${user.lastName}` : ""
     }`;
     this.dispatch(updateUserId({ id: user.id, email: user.email }));
+    setCookies(
+      { email: user.email, userId: user.id + "" },
+      604800,
+      undefined,
+      true
+    );
     setDataToLS({
       fullName,
     });
