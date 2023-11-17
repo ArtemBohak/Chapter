@@ -1,5 +1,5 @@
 import { FC, useState, FormEvent, useEffect, useRef } from "react";
-import { GetCountries, GetState, GetCity } from "react-country-state-city";
+import { GetCountries } from "react-country-state-city";
 
 import {
   CityType,
@@ -10,7 +10,7 @@ import {
 import { ProfileUpdateApi } from "../../utils/ProfileUpdateApi";
 import styles from "./UserLocation.module.scss";
 
-import { Animation, Loader, UIbutton } from "@/src/components";
+import { UIbutton } from "@/src/components";
 import CountrySelect from "./components/CountrySelect/CountrySelect";
 import RegionSelect from "./components/RegionSelect/RegionSelect";
 import CitySelect from "./components/CitySelect/CitySelect";
@@ -23,7 +23,6 @@ const UserLocation: FC<UserLocationProps> = ({ country, region, city }) => {
   const initialCity = city ? +city : 0;
 
   const [isLoading, setIsLoading] = useState(false);
-  const [initialLoading, setInitialLoading] = useState(true);
 
   const [countryId, setCountryId] = useState(initialCountry);
   const [selectedCountry, setSelectedCountry] = useState("");
@@ -49,14 +48,8 @@ const UserLocation: FC<UserLocationProps> = ({ country, region, city }) => {
       try {
         const countries = await GetCountries();
         setCountryList(countries);
-
-        const state = await GetState(countryId);
-        setRegionList(state);
-
-        const city = await GetCity(countryId, regionId);
-        setCitiesList(city);
-      } finally {
-        setInitialLoading(false);
+      } catch (error) {
+        console.log(error);
       }
     })();
   }, [countryId, regionId]);
@@ -92,78 +85,62 @@ const UserLocation: FC<UserLocationProps> = ({ country, region, city }) => {
       regionId === initialRegion &&
       countryId === initialCountry);
 
-  const transitionClassNames = {
-    enter: styles["select-menu-enter"],
-    enterActive: styles["select-menu-enter-active"],
-  };
-
   return (
-    <>
-      <Loader width={200} height={60} isShown={initialLoading} />
-      <Animation
-        isMount={!initialLoading}
-        nodeRef={nodeRef}
-        timeout={transitionTimeOut}
-        mountOnEnter
-        classNames={transitionClassNames}
-      >
-        <form
-          onSubmit={handleSubmit}
-          className={styles["location-form"]}
-          ref={nodeRef}
-        >
-          <CountrySelect
-            icon={icon}
-            selectedCountry={selectedCountry}
-            countryList={countryList}
-            countryId={countryId}
-            setIcon={setIcon}
-            setCountryId={setCountryId}
-            setSelectedCountry={setSelectedCountry}
-            setIsLoading={setIsLoading}
-            setRegionList={setRegionList}
-            setCitiesList={setCitiesList}
-            setCountryList={setCountryList}
-            setSelectedCity={setSelectedCity}
-            setSelectedRegion={setSelectedRegion}
-            setRegionId={setRegionId}
-            setCityId={setCityId}
-          />
-          <RegionSelect
-            regionList={regionList}
-            countryId={countryId}
-            regionId={regionId}
-            selectedRegion={selectedRegion}
-            transitionTimeOut={transitionTimeOut}
-            setRegionId={setRegionId}
-            setCityId={setCityId}
-            setSelectedRegion={setSelectedRegion}
-            setSelectedCity={setSelectedCity}
-            setIsLoading={setIsLoading}
-            setCitiesList={setCitiesList}
-          />
-          <CitySelect
-            regionId={regionId}
-            citiesList={citiesList}
-            cityId={cityId}
-            selectedCity={selectedCity}
-            transitionTimeOut={transitionTimeOut}
-            setSelectedCity={setSelectedCity}
-            setCityId={setCityId}
-          />
+    <form
+      onSubmit={handleSubmit}
+      className={styles["location-form"]}
+      ref={nodeRef}
+    >
+      <CountrySelect
+        icon={icon}
+        selectedCountry={selectedCountry}
+        countryList={countryList}
+        countryId={countryId}
+        setIcon={setIcon}
+        setCountryId={setCountryId}
+        setSelectedCountry={setSelectedCountry}
+        setIsLoading={setIsLoading}
+        setRegionList={setRegionList}
+        setCitiesList={setCitiesList}
+        setCountryList={setCountryList}
+        setSelectedCity={setSelectedCity}
+        setSelectedRegion={setSelectedRegion}
+        setRegionId={setRegionId}
+        setCityId={setCityId}
+      />
+      <RegionSelect
+        regionList={regionList}
+        countryId={countryId}
+        regionId={regionId}
+        selectedRegion={selectedRegion}
+        transitionTimeOut={transitionTimeOut}
+        setRegionId={setRegionId}
+        setCityId={setCityId}
+        setSelectedRegion={setSelectedRegion}
+        setSelectedCity={setSelectedCity}
+        setIsLoading={setIsLoading}
+        setCitiesList={setCitiesList}
+      />
+      <CitySelect
+        regionId={regionId}
+        citiesList={citiesList}
+        cityId={cityId}
+        selectedCity={selectedCity}
+        transitionTimeOut={transitionTimeOut}
+        setSelectedCity={setSelectedCity}
+        setCityId={setCityId}
+      />
 
-          <UIbutton
-            className={`${styles["location-form__button"]} ${styles["button"]}`}
-            dataAutomation="submitButton"
-            isLoading={isLoading}
-            disabled={buttonIsDisabled}
-            type="submit"
-          >
-            Save changes
-          </UIbutton>
-        </form>
-      </Animation>
-    </>
+      <UIbutton
+        className={`${styles["location-form__button"]} ${styles["button"]}`}
+        dataAutomation="submitButton"
+        isLoading={isLoading}
+        disabled={buttonIsDisabled}
+        type="submit"
+      >
+        Save changes
+      </UIbutton>
+    </form>
   );
 };
 
