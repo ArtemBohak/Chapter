@@ -20,7 +20,6 @@ import styles from "./FormCreateAccount.module.scss";
 
 import UIbutton from "@/src/components/Buttons/UIbutton/UIbutton";
 import { TextField, PasswordField } from "@/src/components/Fields";
-// import { useAppSelector } from "@/src/redux";
 
 const initialValues: IAccountCreate = {
   fullname: "",
@@ -42,8 +41,7 @@ const FormCreateAccount: FC = () => {
   const debouncedNickname = useDebounce(nickname, 500);
   const navigate = useNavigate();
   const { userId } = useParams();
-  const [email] = getCookies("email");
-  // const { email } = useAppSelector((state) => state.userSlice.user);
+  const [email] = getCookies(keysValue.EMAIL);
 
   async function handleNicknameChange(nickname: string) {
     try {

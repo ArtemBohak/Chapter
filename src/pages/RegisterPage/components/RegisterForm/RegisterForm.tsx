@@ -5,7 +5,6 @@ import { Formik, Form, FormikHelpers } from "formik";
 import { apiUiMessage, apiErrorStatus, links, keysValue } from "@/src/types";
 
 import RegisterFormApi from "./RegisterFormApi";
-import { useAppDispatch, updateUserId } from "@/src/redux";
 import { getCookies, setCookies } from "@/src/utils";
 import {
   RegisterAccountValues,
@@ -30,7 +29,6 @@ const RegisterForm: FC = () => {
   const [emailValue, setEmailValue] = useState("");
   const nodeRef = useRef(null);
   const [cUId, cEmail] = getCookies(keysValue.USER_ID, keysValue.EMAIL);
-  const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
 
@@ -56,36 +54,24 @@ const RegisterForm: FC = () => {
             apiUiMessage.INVALID_HASH
           );
         if (id && email) {
-          setCookies({ email, userId: id }, 604800, undefined, true);
-          dispatch(updateUserId({ id, email }));
+          setCookies({ email, userId: String(id) }, 604800, undefined, true);
         }
         return navigate(`${links.ACCOUNT_CREATION}/${id}`);
       }
       setEmailValue(email);
 
-      const {
-        error,
-        statusCode,
-        message,
-        status,
-        id,
-        email: emailValue,
-      } = await RegisterFormApi.fetchUserRegData({
-        email,
-      });
+      const { error, statusCode, message, status } =
+        await RegisterFormApi.fetchUserRegData({
+          email,
+        });
 
       if (statusCode === apiErrorStatus.BAD_REQUEST)
         return setFieldError(RegisterAccountKey.EMAIL, message);
 
-      if (id && emailValue) {
-        dispatch(updateUserId({ id, email: emailValue }));
-        return navigate(`${links.ACCOUNT_CREATION}/${id}`);
-      }
-
       if (
         status === apiErrorStatus.UNPROCESSABLE_ENTITY &&
         cUId &&
-        cEmail === emailValue
+        cEmail === email
       )
         return navigate(`${links.ACCOUNT_CREATION}/${cUId}`);
 
