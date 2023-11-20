@@ -37,7 +37,7 @@ const LoginPageForm: FC = () => {
         accountDeletionTerm
       );
       const cValue = {
-        deletedUserDate: expiresValue + "",
+        deletedUserDate: String(expiresValue),
         restoringEmail: values.email,
       };
       setCookies(cValue, expiresValue, undefined, true);

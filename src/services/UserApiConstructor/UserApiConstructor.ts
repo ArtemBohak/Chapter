@@ -44,20 +44,6 @@ export default abstract class UserApiConstructor {
     this.dispatch(userLoading());
   }
 
-  protected handleUserData(user: User, cred?: LocaleStorageArgs) {
-    if (cred) {
-      deleteCookie(
-        keysValue.DELETED_ACCOUNT_TIME_STAMP,
-        keysValue.RESTORE_EMAIL,
-        keysValue.RESTORE_TOKEN,
-        keysValue.USER_ID,
-        keysValue.EMAIL
-      );
-      setDataToLS(cred);
-    }
-    this.dispatch(updateUser(user));
-  }
-
   protected redirect(user: User, url?: string) {
     const redirectUrl = url ? url : `${links.ACCOUNT_CREATION}/${user.id}`;
     const fullName = `${user.firstName ? user.firstName : ""}${
@@ -74,6 +60,20 @@ export default abstract class UserApiConstructor {
       fullName,
     });
     this.navigate && this.navigate(redirectUrl);
+  }
+
+  protected handleUserData(user: User, cred?: LocaleStorageArgs) {
+    if (cred) {
+      deleteCookie(
+        keysValue.DELETED_ACCOUNT_TIME_STAMP,
+        keysValue.RESTORE_EMAIL,
+        keysValue.RESTORE_TOKEN,
+        keysValue.USER_ID,
+        keysValue.EMAIL
+      );
+      setDataToLS(cred);
+    }
+    this.dispatch(updateUser(user));
   }
 
   protected resetUserData() {
@@ -103,7 +103,7 @@ export default abstract class UserApiConstructor {
               accountDeletionTerm
             );
             const cValue = {
-              deletedUserDate: expiresDate + "",
+              deletedUserDate: String(expiresDate),
               restoreToken: error.response.data.restoreToken,
             };
             setCookies(cValue, expiresDate, undefined, true);
