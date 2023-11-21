@@ -4,7 +4,7 @@ import { Icon, IconEnum, UserAvatar } from "@/src/components";
 import defaultUserAvatar from "@/src/assets/SVG/default-user-avatar.svg";
 import { useAppSelector } from "@/src/redux";
 
-const ProfileInfo: FC = ({}) => {
+const ProfileInfo: FC = () => {
   const { user } = useAppSelector((state) => state.userSlice);
 
   const {

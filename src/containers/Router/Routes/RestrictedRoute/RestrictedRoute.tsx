@@ -5,7 +5,6 @@ import { getCookies } from "@/src/utils";
 import { links } from "@/src/types";
 
 import { IRestrictedRouteProps } from "../types/Routes.type";
-import { useAppSelector } from "@/src/redux";
 
 const RestrictedRoute: FC<IRestrictedRouteProps> = ({
   component: Component,
@@ -14,10 +13,10 @@ const RestrictedRoute: FC<IRestrictedRouteProps> = ({
   checkingById = false,
 }) => {
   const { userId } = useParams();
-  const { id } = useAppSelector((state) => state.userSlice.user);
+
   const [result] = getCookies(checkingKey);
 
-  if (checkingById && `${id}` === userId) return Component;
+  if (checkingById && result && result === userId) return Component;
 
   if (!checkingById && result) return Component;
 

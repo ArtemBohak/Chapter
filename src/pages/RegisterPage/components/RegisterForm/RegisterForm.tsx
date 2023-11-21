@@ -2,10 +2,10 @@ import { FC, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Formik, Form, FormikHelpers } from "formik";
 
-import { apiUiMessage, apiErrorStatus, links } from "@/src/types";
+import { apiUiMessage, apiErrorStatus, links, keysValue } from "@/src/types";
 
 import RegisterFormApi from "./RegisterFormApi";
-import { useAppDispatch, setUserCredData } from "@/src/redux";
+import { getCookies, setCookies } from "@/src/utils";
 import {
   RegisterAccountValues,
   EmailStatus,
@@ -28,7 +28,7 @@ const RegisterForm: FC = () => {
   const [step, setStep] = useState(Steps.FIRST);
   const [emailValue, setEmailValue] = useState("");
   const nodeRef = useRef(null);
-  const dispatch = useAppDispatch();
+  const [cUId, cEmail] = getCookies(keysValue.USER_ID, keysValue.EMAIL);
 
   const navigate = useNavigate();
 
@@ -53,29 +53,27 @@ const RegisterForm: FC = () => {
             RegisterAccountKey.HASH,
             apiUiMessage.INVALID_HASH
           );
-        if (id && email) dispatch(setUserCredData({ id, email }));
+        if (id && email) {
+          setCookies({ email, userId: String(id) }, 604800, undefined, true);
+        }
         return navigate(`${links.ACCOUNT_CREATION}/${id}`);
       }
       setEmailValue(email);
 
-      const {
-        error,
-        statusCode,
-        message,
-        status,
-        id,
-        email: emailValue,
-      } = await RegisterFormApi.fetchUserRegData({
-        email,
-      });
-
-      if (id && emailValue) {
-        dispatch(setUserCredData({ id, email: emailValue }));
-        return navigate(`${links.ACCOUNT_CREATION}/${id}`);
-      }
+      const { error, statusCode, message, status } =
+        await RegisterFormApi.fetchUserRegData({
+          email,
+        });
 
       if (statusCode === apiErrorStatus.BAD_REQUEST)
         return setFieldError(RegisterAccountKey.EMAIL, message);
+
+      if (
+        status === apiErrorStatus.UNPROCESSABLE_ENTITY &&
+        cUId &&
+        cEmail === email
+      )
+        return navigate(`${links.ACCOUNT_CREATION}/${cUId}`);
 
       if (
         status === apiErrorStatus.UNPROCESSABLE_ENTITY &&
