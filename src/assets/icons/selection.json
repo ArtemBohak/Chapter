@@ -4,6 +4,80 @@
     {
       "icon": {
         "paths": [
+          "M832 160h-640c-53.019 0-96 42.981-96 96v512c0 53.020 42.981 96 96 96h640c53.020 0 96-42.98 96-96v-512c0-53.019-42.98-96-96-96z",
+          "M672 416c35.347 0 64-28.653 64-64s-28.653-64-64-64c-35.347 0-64 28.653-64 64s28.653 64 64 64z",
+          "M608 671.584l-181.321-180.979c-11.537-11.535-27.046-18.229-43.354-18.711-16.307-0.484-32.186 5.28-44.386 16.111l-242.94 216M448 864.004l246.679-246.679c11.281-11.305 26.381-17.982 42.334-18.722s31.607 4.512 43.887 14.722l147.1 122.679"
+        ],
+        "attrs": [
+          {
+            "fill": "none",
+            "stroke": "rgb(247, 148, 0)",
+            "strokeLinejoin": "round",
+            "strokeLinecap": "butt",
+            "strokeMiterlimit": "4",
+            "strokeWidth": 64
+          },
+          {
+            "fill": "none",
+            "stroke": "rgb(247, 148, 0)",
+            "strokeLinejoin": "miter",
+            "strokeLinecap": "butt",
+            "strokeMiterlimit": "10",
+            "strokeWidth": 64
+          },
+          {
+            "fill": "none",
+            "stroke": "rgb(247, 148, 0)",
+            "strokeLinejoin": "round",
+            "strokeLinecap": "round",
+            "strokeMiterlimit": "4",
+            "strokeWidth": 64
+          }
+        ],
+        "isMulticolor": false,
+        "isMulticolor2": false,
+        "grid": 0,
+        "tags": ["ion_image-outline"]
+      },
+      "attrs": [
+        {
+          "fill": "none",
+          "stroke": "rgb(247, 148, 0)",
+          "strokeLinejoin": "round",
+          "strokeLinecap": "butt",
+          "strokeMiterlimit": "4",
+          "strokeWidth": 64
+        },
+        {
+          "fill": "none",
+          "stroke": "rgb(247, 148, 0)",
+          "strokeLinejoin": "miter",
+          "strokeLinecap": "butt",
+          "strokeMiterlimit": "10",
+          "strokeWidth": 64
+        },
+        {
+          "fill": "none",
+          "stroke": "rgb(247, 148, 0)",
+          "strokeLinejoin": "round",
+          "strokeLinecap": "round",
+          "strokeMiterlimit": "4",
+          "strokeWidth": 64
+        }
+      ],
+      "properties": {
+        "order": 19,
+        "id": 0,
+        "name": "image",
+        "prevSize": 32
+      },
+      "setIdx": 0,
+      "setId": 6,
+      "iconIdx": 0
+    },
+    {
+      "icon": {
+        "paths": [
           "M810 274l-238 238 238 238-60 60-238-238-238 238-60-60 238-238-238-238 60-60 238 238 238-238z"
         ],
         "attrs": [{}],

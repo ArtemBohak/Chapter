@@ -25,4 +25,5 @@ export enum IconEnum {
   EditProfile = "edit-profile",
   Location = "location-icon",
   UserAdd = "User-add",
+  Image = "image",
 }

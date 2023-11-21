@@ -5,7 +5,6 @@ import styles from "./SettingsPage.module.scss";
 
 import {
   User,
-  ImageUpload,
   Layout,
   UserStatus,
   UserName,
@@ -13,6 +12,8 @@ import {
   UserPassword,
   UserAccountDeletion,
 } from "./components";
+import { ImageInput } from "@/src/components";
+import { ProfileUpdateApi } from "./utils/ProfileUpdateApi";
 
 const SettingsPage: FC = () => {
   const { user } = useAppSelector((state) => state.userSlice);
@@ -29,7 +30,12 @@ const SettingsPage: FC = () => {
       >
         <User avatarUrl={avatarUrl} email={user.email} />
         <div className={styles["settings__input-wrapper"]}>
-          <ImageUpload id={user.id} />
+          <ImageInput
+            id={user.id}
+            profileUpdateApi={ProfileUpdateApi}
+            btnVariant="button"
+            imageType="avatar"
+          />
           <Layout className={styles["form-wrapper__top-spacing"]} customSpacing>
             <UserStatus userStatus={user.userStatus} />
           </Layout>
