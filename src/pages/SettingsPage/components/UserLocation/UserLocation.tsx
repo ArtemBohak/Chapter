@@ -1,12 +1,7 @@
 import { FC, useState, FormEvent, useEffect, useRef } from "react";
 import { GetCountries } from "react-country-state-city";
 
-import {
-  CityType,
-  CountriesType,
-  StateType,
-  UserLocationProps,
-} from "./UserLocation.type";
+import { CityType, CountriesType, StateType } from "./UserLocation.type";
 import { ProfileUpdateApi } from "../../utils/ProfileUpdateApi";
 import styles from "./UserLocation.module.scss";
 
@@ -16,24 +11,21 @@ import RegionSelect from "./components/RegionSelect/RegionSelect";
 import CitySelect from "./components/CitySelect/CitySelect";
 import { useAppSelector } from "@/src/redux";
 
-const UserLocation: FC<UserLocationProps> = ({ country, region, city }) => {
+const UserLocation: FC = () => {
   const { location } = useAppSelector((state) => state.userSlice.user);
-  const initialCountry = country ? +country : 0;
-  const initialRegion = region ? +region : 0;
-  const initialCity = city ? +city : 0;
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const [countryId, setCountryId] = useState(initialCountry);
+  const [countryId, setCountryId] = useState(0);
   const [selectedCountry, setSelectedCountry] = useState("");
   const [countryList, setCountryList] = useState<Array<CountriesType>>([]);
   const [icon, setIcon] = useState("");
 
-  const [regionId, setRegionId] = useState(initialRegion);
+  const [regionId, setRegionId] = useState(0);
   const [selectedRegion, setSelectedRegion] = useState("");
   const [regionList, setRegionList] = useState<Array<StateType>>([]);
 
-  const [cityId, setCityId] = useState(initialCity);
+  const [cityId, setCityId] = useState(0);
   const [selectedCity, setSelectedCity] = useState("");
   const [citiesList, setCitiesList] = useState<Array<CityType>>([]);
 
@@ -80,10 +72,7 @@ const UserLocation: FC<UserLocationProps> = ({ country, region, city }) => {
 
   const transitionTimeOut = 150;
   const buttonIsDisabled =
-    isLoading ||
-    (cityId === initialCity &&
-      regionId === initialRegion &&
-      countryId === initialCountry);
+    isLoading || (cityId === 0 && regionId === 0 && countryId === 0);
 
   return (
     <form

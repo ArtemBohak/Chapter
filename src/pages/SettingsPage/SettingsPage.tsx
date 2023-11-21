@@ -4,13 +4,13 @@ import { useAppSelector } from "@/src/redux";
 import styles from "./SettingsPage.module.scss";
 
 import {
-  UserAvatar,
+  User,
   ImageUpload,
   Layout,
-  UserStory,
+  UserStatus,
   UserName,
   UserLocation,
-  UpdateUserPassword,
+  UserPassword,
   UserAccountDeletion,
 } from "./components";
 
@@ -27,11 +27,11 @@ const SettingsPage: FC = () => {
       <div
         className={`${styles["settings__container"]} ${styles["settings__container-top"]}`}
       >
-        <UserAvatar avatarUrl={avatarUrl} email={user.email} />
+        <User avatarUrl={avatarUrl} email={user.email} />
         <div className={styles["settings__input-wrapper"]}>
           <ImageUpload id={user.id} />
           <Layout className={styles["form-wrapper__top-spacing"]} customSpacing>
-            <UserStory userStatus={user.userStatus} />
+            <UserStatus userStatus={user.userStatus} />
           </Layout>
         </div>
       </div>
@@ -50,18 +50,14 @@ const SettingsPage: FC = () => {
           className={styles["form-wrapper__bottom-spacing"]}
           fullWidth
         >
-          <UserLocation
-            country={user.country}
-            region={user.region}
-            city={user.city}
-          />
+          <UserLocation />
         </Layout>
         <Layout
           title="Update password"
           className={styles["form-wrapper__bottom-spacing"]}
           fullWidth
         >
-          <UpdateUserPassword />
+          <UserPassword />
         </Layout>
         <Layout fullWidth>
           <UserAccountDeletion />
