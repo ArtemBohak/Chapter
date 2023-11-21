@@ -6,12 +6,13 @@ import styles from "./Animation.module.scss";
 
 const Animation: FC<IAnimationProps> = ({
   children,
+  classNames,
   isMount,
   nodeRef,
   timeout = 300,
-  classNames,
   mountOnEnter = false,
   unmountOnExit = false,
+  ...props
 }) => {
   const defaultClassNames = {
     enter: styles["animation-enter"],
@@ -30,6 +31,7 @@ const Animation: FC<IAnimationProps> = ({
       classNames={transitionClassNames}
       mountOnEnter={mountOnEnter}
       unmountOnExit={unmountOnExit}
+      {...props}
     >
       {children}
     </CSSTransition>

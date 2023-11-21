@@ -5,6 +5,8 @@ export type CountrySelectProps = {
   countryList: CountriesType[];
   selectedCountry: string;
   countryId: number;
+  icon: string;
+  setIcon: Dispatch<SetStateAction<string>>;
   setSelectedRegion: Dispatch<SetStateAction<string>>;
   setSelectedCity: Dispatch<SetStateAction<string>>;
   setIsLoading: Dispatch<SetStateAction<boolean>>;

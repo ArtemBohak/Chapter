@@ -1,7 +1,7 @@
 export const nickNameCharsRegex = /^@[a-zA-Z]+$/;
 
 export const simpleStringRegex =
-  /^(?:[a-zA-ZґҐіІєЄщЩ\u0400-\u04FF]+(?:['`ʼ\s]*[a-zA-Z\u0400-\u04FF]+)*)+$/;
+  /^[a-zA-Zа-яА-ЯґҐіІєЄщЩ']+([-']?[a-zA-Zа-яА-ЯґҐіІєЄщЩ']+)\s[a-zA-Zа-яА-ЯґҐіІєЄщЩ']+([-']?[a-zA-Zа-яА-ЯґҐіІєЄщЩ']+)$/;
 
 export const isNickNameCheckingPattern =
   /^@[a-zA-Z'`]+[!@#$%^&*()_+{}|[\]\\:;"'<>,.?/]*$/;

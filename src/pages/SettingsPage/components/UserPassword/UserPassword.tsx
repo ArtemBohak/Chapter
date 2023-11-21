@@ -4,9 +4,9 @@ import { Formik, Form, FormikHelpers } from "formik";
 import { apiErrorMessage, apiErrorStatus, apiUiMessage } from "@/src/types";
 
 import validationSchema from "./validationSchema";
-import { InitialValues, ErrorMessages } from "./UpdateUserPassword.type";
+import { InitialValues, ErrorMessages } from "./UserPassword.type";
 import { ProfileUpdateApi } from "../../utils/ProfileUpdateApi";
-import styles from "./UpdateUserPassword.module.scss";
+import styles from "./UserPassword.module.scss";
 
 import { PasswordField, UIbutton } from "@/src/components";
 
@@ -16,7 +16,7 @@ const initialValues: InitialValues = {
   repeatNewPassword: "",
 };
 
-const UpdateUserPassword: FC = () => {
+const UserPassword: FC = () => {
   const onHandleSubmit = async (
     values: InitialValues,
     { setSubmitting, resetForm, setFieldError }: FormikHelpers<InitialValues>
@@ -41,7 +41,7 @@ const UpdateUserPassword: FC = () => {
     >
       {({ isSubmitting, dirty, isValid, values }) => {
         return (
-          <Form className={styles["update-password"]}>
+          <Form className={styles["password"]}>
             <PasswordField
               dataAutomation="oldPasswordInput"
               id="oldPassword"
@@ -50,7 +50,7 @@ const UpdateUserPassword: FC = () => {
               additionalLabel={ErrorMessages.OLD_PASSWORD}
               label="Old password"
               value={values.oldPassword}
-              className={`${styles["update-password__input"]} ${styles["input"]}`}
+              className={`${styles["password__input"]} ${styles["input"]}`}
             />
             <PasswordField
               dataAutomation="newPasswordInput"
@@ -61,7 +61,7 @@ const UpdateUserPassword: FC = () => {
               strengthMessage={ErrorMessages.NEW_PASSWORD}
               label="New password"
               value={values.newPassword}
-              className={`${styles["update-password__input"]} ${styles["input"]}`}
+              className={`${styles["password__input"]} ${styles["input"]}`}
               strength
             />
             <PasswordField
@@ -72,7 +72,7 @@ const UpdateUserPassword: FC = () => {
               label="Repeat new password"
               value={values.repeatNewPassword}
               additionalLabel={ErrorMessages.CONFIRM_NEW_PASSWORD}
-              className={`${styles["update-password__input"]} ${styles["input"]}`}
+              className={`${styles["password__input"]} ${styles["input"]}`}
             />
             <UIbutton
               type="submit"
@@ -80,7 +80,7 @@ const UpdateUserPassword: FC = () => {
               isLoading={isSubmitting}
               disabled={isSubmitting || !isValid || !dirty}
               fullWidth
-              className={`${styles["update-password__button"]} ${styles["button"]}`}
+              className={`${styles["password__button"]} ${styles["button"]}`}
             >
               Update my password
             </UIbutton>
@@ -91,4 +91,4 @@ const UpdateUserPassword: FC = () => {
   );
 };
 
-export default UpdateUserPassword;
+export default UserPassword;

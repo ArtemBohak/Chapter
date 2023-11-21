@@ -17,12 +17,14 @@ const CountrySelect: FC<CountrySelectProps> = ({
   setSelectedCountry,
   setCitiesList,
   setCountryId,
+  setIcon,
+  icon,
   countryId,
   countryList,
   selectedCountry,
 }) => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
-  const [icon, setIcon] = useState("");
+
   const countryRef = useRef(null);
 
   useOutsideClick(countryRef, setMenuIsOpen);

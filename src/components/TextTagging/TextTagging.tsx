@@ -15,7 +15,7 @@ const TextTagging: FC<TextTaggingProps> = ({
 }) => {
   const textArray = text.split(" ");
 
-  const renderString = (value: string) => {
+  const renderButton = (value: string) => {
     if (isNickNameCheckingPattern.test(value)) {
       const formattedValue = value.replace(replaceSymbolsPattern, "");
       const symbol = value.replace(replaceLettersPattern, "");
@@ -39,7 +39,7 @@ const TextTagging: FC<TextTaggingProps> = ({
   return (
     <p className={textClassName}>
       {textArray.map((item, index) => {
-        return <Fragment key={index}>{renderString(item)}</Fragment>;
+        return <Fragment key={index}>{renderButton(item)}</Fragment>;
       })}
     </p>
   );

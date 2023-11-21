@@ -1,5 +1,5 @@
 .profile-layout {
-  @apply bg-white flex flex-col flex-1 w-full h-[100vh] relative overflow-y-auto overflow-hidden;
+  @apply bg-white flex flex-col flex-1 w-full  relative overflow-y-auto overflow-hidden;
 
   &__body {
     @apply w-full px-2-md mx-auto laptop_md:max-w-[94%];
