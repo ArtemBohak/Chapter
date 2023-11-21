@@ -7,7 +7,12 @@ import cn from "classnames";
 import { EndpointsEnum, api } from "@/src/axios";
 import { links, keysValue, apiErrorMessage } from "@/src/types";
 import { useDebounce } from "@/src/hooks";
-import { deleteCookie, getDataFromLS, removeDataFromLS } from "@/src/utils";
+import {
+  deleteCookie,
+  getCookies,
+  getDataFromLS,
+  removeDataFromLS,
+} from "@/src/utils";
 
 import { IAccountCreate } from "./FormCreateAccount.type";
 import validationSchema from "./validationSchema";
@@ -15,7 +20,6 @@ import styles from "./FormCreateAccount.module.scss";
 
 import UIbutton from "@/src/components/Buttons/UIbutton/UIbutton";
 import { TextField, PasswordField } from "@/src/components/Fields";
-import { useAppSelector } from "@/src/redux";
 
 const initialValues: IAccountCreate = {
   fullname: "",
@@ -37,7 +41,7 @@ const FormCreateAccount: FC = () => {
   const debouncedNickname = useDebounce(nickname, 500);
   const navigate = useNavigate();
   const { userId } = useParams();
-  const { email } = useAppSelector((state) => state.userSlice.user);
+  const [email] = getCookies(keysValue.EMAIL);
 
   async function handleNicknameChange(nickname: string) {
     try {

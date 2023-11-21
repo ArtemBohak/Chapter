@@ -6,9 +6,6 @@ export interface IUserStore {
   lastName: string;
   avatarUrl: string;
   userStatus: string | null;
-  country: number | null;
-  region: number | null;
-  city: number | null;
   provider: string;
   socialId: number | string | null;
   createdAt: string;

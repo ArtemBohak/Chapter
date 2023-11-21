@@ -9,8 +9,8 @@ export const useFindUserId = (data: dataList) => {
     useMemo(
       () =>
         data.some((i) => {
-          if (typeof i === "object" && i.id) return i.id + "" === id + "";
-          return i + "" === id + "";
+          if (typeof i === "object" && i.id) return String(i.id) === String(id);
+          return String(i) === String(id);
         }),
       [data, id]
     ),

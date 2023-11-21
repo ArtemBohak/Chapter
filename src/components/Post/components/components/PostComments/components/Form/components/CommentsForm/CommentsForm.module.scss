@@ -1,18 +1,4 @@
 .comments-form {
-  &__wrapper {
-    @apply relative;
-  }
-  &__field {
-    @apply block w-full mb-0-md md:mb-1-md resize-none min-h-min py-[8px] pl-[10px] pr-[20px] md:pl-[20px] md:pr-[40px] text-xxs md:text-base laptop:text-[18px] rounded-lg border border-solid border-[#B3B3B3] outline-none  bg-inherit h-[50px] md:h-[132px] overflow-y-auto;
-  }
-
-  &__icon-button {
-    @apply bg-transparent outline-none absolute top-[10px] right-[10px] text-inherit;
-    & > svg {
-      @apply stroke-[#6c6c6c];
-    }
-  }
-
   &__button {
     @apply w-full max-w-[90px] max-h-[50px] md:max-w-[150px];
   }
