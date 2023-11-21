@@ -217,7 +217,11 @@ const PostComments: FC<PostCommentsProps> = ({
         {renderComments}
       </div>
       <div className={styles["feed-comments__form-wrapper"]}>
-        <Form id={id} fetchData={fetchData} />
+        <Form
+          id={id}
+          fetchData={fetchData}
+          setCommentsIsHide={setCommentsIsHide}
+        />
       </div>
     </div>
   );
