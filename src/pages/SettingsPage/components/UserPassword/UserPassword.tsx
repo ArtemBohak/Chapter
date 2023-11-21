@@ -50,7 +50,7 @@ const UserPassword: FC = () => {
               additionalLabel={ErrorMessages.OLD_PASSWORD}
               label="Old password"
               value={values.oldPassword}
-              className={`${styles["update-password__input"]} ${styles["input"]}`}
+              className={`${styles["password__input"]} ${styles["input"]}`}
             />
             <PasswordField
               dataAutomation="newPasswordInput"
