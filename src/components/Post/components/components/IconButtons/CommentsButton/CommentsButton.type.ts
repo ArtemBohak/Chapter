@@ -1,6 +1,6 @@
-import { PostProps } from "@/src/components/Post/Post.type";
+import { FeedComponentProps } from "../../../FeedComponent/FeedComponent.type";
 
 export type CommentsButtonProps = {
   textValue: string;
   hiddenText?: boolean;
-} & Pick<PostProps, "totalComments" | "id" | "fetchData">;
+} & Pick<FeedComponentProps, "totalComments" | "id" | "fetchData">;

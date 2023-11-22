@@ -3,7 +3,11 @@
     @apply mb-2-xs;
   }
   &__image-wrapper {
-    @apply rounded-lg overflow-hidden mt-2-xs;
+    @apply rounded-lg overflow-hidden mt-2-xs relative;
+
+    & > button {
+      @apply absolute top-1 right-1 bg-transparent;
+    }
   }
 
   &__comment {

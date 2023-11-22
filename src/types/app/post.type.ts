@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react";
+
 export type idList = Array<
   string | number | { [key: string]: [string | number] }
 >;
@@ -17,3 +19,5 @@ export interface IPost {
   title: string;
   text: string;
 }
+
+export type SetIsOpen = { setFormIsOpen: Dispatch<SetStateAction<boolean>> };

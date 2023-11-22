@@ -1,6 +1,6 @@
-import { PostProps } from "../../../Post.type";
+import { FeedComponentProps } from "../../FeedComponent/FeedComponent.type";
 
-export type PostTextProps = Pick<PostProps, "text">;
+export type PostTextProps = Pick<FeedComponentProps, "text">;
 
 export enum Words {
   ScreenSize = 769,

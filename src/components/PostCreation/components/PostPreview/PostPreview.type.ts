@@ -1,3 +1,4 @@
-import { PostProps } from "../../PostCreation.type";
+import { IPost, SetIsOpen } from "@/src/types";
 
-export type PostPreviewProps = PostProps;
+export type PostPreviewProps = Pick<IPost, "text" | "title" | "image"> &
+  SetIsOpen;

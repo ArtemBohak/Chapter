@@ -4,7 +4,7 @@ import { TransitionGroup } from "react-transition-group";
 import { useFeedContext } from "../../context";
 import styles from "./Feeds.module.scss";
 
-import { Animation, Post } from "@/src/components";
+import { Animation, FeedComponent } from "@/src/components";
 
 const Feeds: FC = () => {
   const { feeds, fetchData } = useFeedContext();
@@ -23,7 +23,7 @@ const Feeds: FC = () => {
       {feedsList.map((i) => (
         <Animation key={i.id} nodeRef={i.nodeRef}>
           <li>
-            <Post pageVariant="feed" fetchData={fetchData} {...i} />
+            <FeedComponent fetchData={fetchData} {...i} />
           </li>
         </Animation>
       ))}

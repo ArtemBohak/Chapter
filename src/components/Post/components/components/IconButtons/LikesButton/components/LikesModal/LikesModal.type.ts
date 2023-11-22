@@ -1,8 +1,8 @@
 import { Dispatch, SetStateAction } from "react";
-import { PostProps } from "@/src/components/Post/Post.type";
+import { FeedComponentProps } from "@/src/components/Post/components/FeedComponent/FeedComponent.type";
 
 export type Like = Pick<
-  PostProps,
+  FeedComponentProps,
   "avatar" | "firstName" | "lastName" | "id" | "likesList" | "fetchData"
 >;
 
@@ -11,4 +11,4 @@ export type LikesModalProps = {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
   likesData: Array<Like>;
   title?: string;
-} & Pick<PostProps, "totalLikes" | "fetchData">;
+} & Pick<FeedComponentProps, "totalLikes" | "fetchData">;

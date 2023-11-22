@@ -13,7 +13,7 @@ const PostCreation: FC<PostCreationProps> = ({ setIsOpen, ...props }) => {
   const [formIsOpen, setFormIsOpen] = useState(true);
   const [title, setTitle] = useState("");
   const [image, setImage] = useState("");
-  const [comment, setComment] = useState("");
+  const [text, setText] = useState("");
 
   const onHandleCrossClick = () => setIsOpen(false);
 
@@ -39,17 +39,17 @@ const PostCreation: FC<PostCreationProps> = ({ setIsOpen, ...props }) => {
           <CreatePostForm
             image={image}
             title={title}
-            comment={comment}
+            text={text}
             setFormIsOpen={setFormIsOpen}
             setTitle={setTitle}
-            setComment={setComment}
+            setText={setText}
             setImage={setImage}
           />
         ) : (
           <PostPreview
             image={image}
             title={title}
-            comment={comment}
+            text={text}
             setFormIsOpen={setFormIsOpen}
           />
         )}

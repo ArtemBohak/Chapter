@@ -1,10 +1,11 @@
+import { IPost, SetIsOpen } from "@/src/types";
 import { Dispatch, SetStateAction } from "react";
-import { PostProps } from "../../PostCreation.type";
 
-export type PostCreateValues = Pick<PostProps, "comment" | "title">;
+export type PostValues = Pick<IPost, "text" | "title">;
 
 export type CreatePostFormProps = {
   setImage: Dispatch<SetStateAction<string>>;
   setTitle: Dispatch<SetStateAction<string>>;
-  setComment: Dispatch<SetStateAction<string>>;
-} & PostProps;
+  setText: Dispatch<SetStateAction<string>>;
+} & Pick<IPost, "image" | "title" | "text"> &
+  SetIsOpen;

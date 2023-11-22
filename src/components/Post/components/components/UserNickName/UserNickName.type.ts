@@ -1,5 +1,5 @@
-import { PostProps } from "../../../Post.type";
+import { FeedComponentProps } from "../../FeedComponent/FeedComponent.type";
 
-export type UserNickNameProps = Pick<PostProps, "nickName"> & {
+export type UserNickNameProps = Pick<FeedComponentProps, "nickName"> & {
   classNames?: string;
 };
