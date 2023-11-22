@@ -1,60 +1,51 @@
 import { ChangeEvent, FC, useState } from "react";
 import cn from "classnames";
 
-import { ImageInputProps } from "./ImageInput.type";
-import { FilesService } from "@/src/services";
-import { apiUiMessage } from "@/src/types";
-import styles from "./ImageInput.module.scss";
-import { Icon, IconEnum } from "..";
+import { ImageFieldProps } from "./ImageField.type";
 
-const avatarParams = {
-  alt: "user avatar",
-  height: 640,
-  width: 640,
-  radius: 50,
-};
+import styles from "./ImageField.module.scss";
+import { Icon, IconEnum } from "../..";
+import { ProfileUpdateApi } from "@/src/pages/SettingsPage/utils/ProfileUpdateApi";
 
-const ImageInput: FC<ImageInputProps> = ({
-  profileUpdateApi,
-  id,
+const ImageField: FC<ImageFieldProps> = ({
+  setImage,
+  id = 0,
   btnVariant,
-  iconSize = 20,
   imageType,
+  iconSize = 20,
+  classNames,
 }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const isAvatar = imageType === "avatar";
-  const params = isAvatar ? avatarParams : {};
 
   const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
     try {
-      setError(null);
-      setIsLoading(true);
       if (!e.currentTarget.files?.length) return;
-
       const [file] = e.currentTarget.files;
 
-      const res = await new FilesService(id, file, isAvatar).upload(params);
+      setImage && setImage(URL.createObjectURL(file));
 
-      if (res.code) return setError(apiUiMessage.ERROR_MESSAGE);
-
-      profileUpdateApi &&
-        (await new profileUpdateApi().userSave({
-          avatarUrl: res?.eager[0].secure_url,
-        }));
+      if (isAvatar)
+        await new ProfileUpdateApi(setIsLoading, setError).imageSave(id, file);
     } finally {
       e.target.value = "";
-      setIsLoading(false);
     }
   };
-
-  const classNames = cn({
+  const imageClassNames = cn(
+    styles["image"],
+    {
+      [styles["image-icon-btn"]]: btnVariant === "button",
+    },
+    classNames
+  );
+  const btnClassNames = cn({
     [styles["image__button"]]: btnVariant === "button",
     [styles["image__icon-btn"]]: btnVariant === "icon",
   });
 
   return (
-    <label className={styles["image"]}>
+    <label className={imageClassNames}>
       <input
         disabled={isLoading}
         type="file"
@@ -64,7 +55,7 @@ const ImageInput: FC<ImageInputProps> = ({
         accept="image/*"
         data-automation="uploadInput"
       />
-      <span className={classNames} data-automation="clickButton">
+      <span className={btnClassNames} data-automation="clickButton">
         {btnVariant === "button" ? (
           <>
             <Icon icon={IconEnum.Camera} size={iconSize} />
@@ -80,4 +71,4 @@ const ImageInput: FC<ImageInputProps> = ({
   );
 };
 
-export default ImageInput;
+export default ImageField;

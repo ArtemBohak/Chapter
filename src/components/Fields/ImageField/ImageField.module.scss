@@ -1,5 +1,9 @@
 .image {
-  @apply max-w-[328px] md:max-w-[224px] mx-auto block md:mx-0 cursor-pointer text-center;
+  @apply cursor-pointer text-center;
+
+  &-icon-btn {
+    @apply block max-w-[328px] md:max-w-[224px] mx-auto md:mx-0;
+  }
 
   &__input {
     @apply w-[0.1px] h-[0.1px] opacity-0 hidden absolute z-[-1] leading-[1.75];

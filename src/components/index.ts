@@ -16,4 +16,4 @@ export { Animation } from "./Animation";
 export { TextTagging } from "./TextTagging";
 export { Post } from "./Post";
 export { ModalWindow } from "./ModalWindow";
-export { ImageInput } from "./ImageInput";
+export { PostCreation } from "./PostCreation";

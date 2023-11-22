@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from "react";
 
 import { useAppSelector } from "@/src/redux";
+import { ProfileUpdateApi } from "./utils/ProfileUpdateApi";
 import styles from "./SettingsPage.module.scss";
 
 import {
@@ -12,8 +13,8 @@ import {
   UserPassword,
   UserAccountDeletion,
 } from "./components";
-import { ImageInput } from "@/src/components";
-import { ProfileUpdateApi } from "./utils/ProfileUpdateApi";
+import { ImageField } from "@/src/components";
+import { FilesService } from "@/src/services";
 
 const SettingsPage: FC = () => {
   const { user } = useAppSelector((state) => state.userSlice);
@@ -30,8 +31,9 @@ const SettingsPage: FC = () => {
       >
         <User avatarUrl={avatarUrl} email={user.email} />
         <div className={styles["settings__input-wrapper"]}>
-          <ImageInput
+          <ImageField
             id={user.id}
+            fileService={FilesService}
             profileUpdateApi={ProfileUpdateApi}
             btnVariant="button"
             imageType="avatar"
