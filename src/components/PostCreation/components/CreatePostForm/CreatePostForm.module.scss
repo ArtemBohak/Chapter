@@ -1,0 +1,16 @@
+.form {
+  &__title {
+    @apply mb-2-xs;
+  }
+  &__image-wrapper {
+    @apply rounded-lg overflow-hidden mt-2-xs;
+  }
+
+  &__comment {
+    @apply my-2-xs;
+  }
+
+  &__button-wrapper {
+    @apply w-full md:max-w-[316px] mx-auto;
+  }
+}

@@ -1,6 +1,6 @@
 .create-post {
   &__backdrop {
-    @apply top-0 left-0 w-full h-full overflow-y-auto bg-white md:bg-[#1c1c1c99] pt-[68px];
+    @apply top-0 left-0 w-screen h-screen overflow-y-auto bg-white md:bg-[#1c1c1c99] pt-[68px];
   }
   &__modal {
     @apply w-full px-2-md py-4-xs md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 base:left-3/4 base:-translate-x-2/3  md:max-w-[674px]  bg-white md:rounded-md;

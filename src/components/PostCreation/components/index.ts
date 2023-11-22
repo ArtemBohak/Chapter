@@ -1,1 +1,2 @@
-export { default as CreatePostForm } from "./Form/CreatePostForm";
+export { default as CreatePostForm } from "./CreatePostForm/CreatePostForm";
+export { default as PostPreview } from "./PostPreview/PostPreview";

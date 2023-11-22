@@ -1,11 +1,11 @@
 import { ChangeEvent, FC, useState } from "react";
 import cn from "classnames";
 
-import { ImageFieldProps } from "./ImageField.type";
-
-import styles from "./ImageField.module.scss";
-import { Icon, IconEnum } from "../..";
 import { ProfileUpdateApi } from "@/src/pages/SettingsPage/utils/ProfileUpdateApi";
+import { ImageFieldProps } from "./ImageField.type";
+import styles from "./ImageField.module.scss";
+
+import { Icon, IconEnum } from "../..";
 
 const ImageField: FC<ImageFieldProps> = ({
   setImage,

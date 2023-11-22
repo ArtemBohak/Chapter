@@ -4,23 +4,25 @@ import { PostCreationProps } from "./PostCreation.type";
 import { Icon, IconEnum, Modal } from "..";
 import styles from "./PostCreation.module.scss";
 import { useAppSelector } from "@/src/redux";
-import { CreatePostForm } from "./components";
+import { CreatePostForm, PostPreview } from "./components";
 
 const PostCreation: FC<PostCreationProps> = ({ setIsOpen, ...props }) => {
   const { nickName, avatarUrl } = useAppSelector(
     (state) => state.userSlice.user
   );
-  const [isForm, setIsForm] = useState(true);
-  const [image, setImage] = useState("");
+  const [formIsOpen, setFormIsOpen] = useState(true);
   const [title, setTitle] = useState("");
+  const [image, setImage] = useState("");
   const [comment, setComment] = useState("");
 
   const onHandleCrossClick = () => setIsOpen(false);
+
   return (
     <Modal
       setIsOpen={setIsOpen}
       backdropClassName={styles["create-post__backdrop"]}
       bodyClassName={styles["create-post__modal"]}
+      disableScroll
       {...props}
     >
       <div className={styles["create-post__header"]}>
@@ -33,15 +35,24 @@ const PostCreation: FC<PostCreationProps> = ({ setIsOpen, ...props }) => {
         </button>
       </div>
       <div className={styles["create-post__body"]}>
-        {isForm ? (
+        {formIsOpen ? (
           <CreatePostForm
+            image={image}
+            title={title}
+            comment={comment}
+            setFormIsOpen={setFormIsOpen}
             setTitle={setTitle}
             setComment={setComment}
-            image={image}
             setImage={setImage}
-            setIsForm={setIsForm}
           />
-        ) : null}
+        ) : (
+          <PostPreview
+            image={image}
+            title={title}
+            comment={comment}
+            setFormIsOpen={setFormIsOpen}
+          />
+        )}
       </div>
     </Modal>
   );

@@ -1,11 +1,10 @@
 import { Dispatch, SetStateAction } from "react";
+import { PostProps } from "../../PostCreation.type";
 
-export type FormProps = {
-  image: string;
+export type PostCreateValues = Pick<PostProps, "comment" | "title">;
+
+export type CreatePostFormProps = {
   setImage: Dispatch<SetStateAction<string>>;
-  setIsForm: Dispatch<SetStateAction<boolean>>;
   setTitle: Dispatch<SetStateAction<string>>;
   setComment: Dispatch<SetStateAction<string>>;
-};
-
-export type PostCreateValues = { title: string; comment: string };
+} & PostProps;

@@ -1,5 +1,6 @@
 import { FC } from "react";
-import { Field } from "formik";
+import { ErrorMessage, Field, useField } from "formik";
+import cn from "classnames";
 
 import { TextAreaFieldProps } from "./TextAreaField.type";
 import styles from "./TextAreaField.module.scss";
@@ -7,19 +8,35 @@ import { Icon, IconEnum } from "../..";
 
 const TextAreaField: FC<TextAreaFieldProps> = ({
   dataAutomation,
-  iconSize,
+  iconSize = 24,
   classNames,
   onHandleIconClick,
+  name,
   ...props
 }) => {
+  const [, meta] = useField(name);
+
+  const isErrorValidation = meta.touched && meta.error;
+
+  const validationClassname = cn(styles["text-area__field"], {
+    [styles["error"]]: isErrorValidation,
+  });
   return (
-    <div className={styles["text-area__wrapper"]}>
+    <div className={`${styles["text-area__wrapper"]} ${classNames}`}>
       <Field
         {...props}
+        name={name}
         component="textarea"
         data-automation={dataAutomation}
-        className={`${styles["text-area__field"]} ${classNames}`}
+        className={validationClassname}
       />
+      {isErrorValidation ? (
+        <ErrorMessage
+          name={name || "Field invalid"}
+          component="p"
+          className={styles["text-area-error-message"]}
+        />
+      ) : null}
       <button
         onClick={onHandleIconClick}
         type="button"
