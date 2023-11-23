@@ -14,6 +14,7 @@ const PostCreation: FC<PostCreationProps> = ({ setIsOpen, ...props }) => {
   const [title, setTitle] = useState("");
   const [image, setImage] = useState("");
   const [text, setText] = useState("");
+  const [file, setFile] = useState<File | null>(null);
 
   const onHandleCrossClick = () => setIsOpen(false);
 
@@ -41,12 +42,14 @@ const PostCreation: FC<PostCreationProps> = ({ setIsOpen, ...props }) => {
             title={title}
             text={text}
             setFormIsOpen={setFormIsOpen}
+            setFile={setFile}
             setTitle={setTitle}
             setText={setText}
             setImage={setImage}
           />
         ) : (
           <PostPreview
+            file={file}
             image={image}
             title={title}
             text={text}

@@ -19,14 +19,17 @@ const CreatePostForm: FC<CreatePostFormProps> = ({
   setImage,
   setTitle,
   setText,
+  setFile,
   title,
   text,
   image,
 }) => {
   const { id } = useAppSelector((state) => state.userSlice.user);
+  const initialValues = { title, text };
   const onSubmit = (values: PostValues) => {
     setTitle(values.title);
     setText(values.text);
+
     setFormIsOpen(false);
   };
   const onHandleIconClick = () => {
@@ -35,14 +38,16 @@ const CreatePostForm: FC<CreatePostFormProps> = ({
 
   const onHandleRemoveClick = () => {
     setImage("");
+    setFile(null);
   };
   return (
     <Formik
-      initialValues={{ title, text }}
+      initialValues={initialValues}
       onSubmit={onSubmit}
       validationSchema={validationSchema}
+      validateOnMount
     >
-      {({ values, isValid, touched }) => {
+      {({ values, isValid }) => {
         return (
           <Form>
             <TextField
@@ -59,6 +64,7 @@ const CreatePostForm: FC<CreatePostFormProps> = ({
               imageType="post"
               iconSize={48}
               setImage={setImage}
+              setFile={setFile}
             />
             {image ? (
               <div className={styles["form__image-wrapper"]}>
@@ -84,7 +90,7 @@ const CreatePostForm: FC<CreatePostFormProps> = ({
               <UIbutton
                 type="submit"
                 dataAutomation="submitButton"
-                disabled={!touched || !isValid}
+                disabled={!isValid}
                 fullWidth
               >
                 Confirm

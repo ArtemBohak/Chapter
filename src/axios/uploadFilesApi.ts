@@ -7,7 +7,7 @@ const uploadFilesApi = axios.create({
   baseURL: import.meta.env.VITE_CLOUDINARY_API_BASE_URL,
   headers: { "Content-Type": "multipart/form-data" },
   signal: controller.signal,
-  onUploadProgress: axiosLoadChecker(controller, 1000),
+  onUploadProgress: axiosLoadChecker(controller),
 });
 
 export default uploadFilesApi;

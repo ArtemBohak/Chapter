@@ -47,7 +47,7 @@ const FeedComponent: FC<FeedComponentProps> = ({ nodeRef, ...props }) => (
         </div>
       </div>
       <PostTitle {...props} />
-      <PostText {...props} />
+      <PostText {...props} isLimit />
     </div>
     <div
       className={`${styles["item-feed__wrapper"]} ${styles["item-feed__wrapper--bottom"]}`}

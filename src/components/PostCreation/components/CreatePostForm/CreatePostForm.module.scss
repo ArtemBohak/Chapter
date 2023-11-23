@@ -3,7 +3,7 @@
     @apply mb-2-xs;
   }
   &__image-wrapper {
-    @apply rounded-lg overflow-hidden mt-2-xs relative;
+    @apply rounded-lg overflow-hidden mt-2-xs relative flex justify-center;
 
     & > button {
       @apply absolute top-1 right-1 bg-transparent;

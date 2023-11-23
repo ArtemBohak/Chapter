@@ -1,11 +1,3 @@
 .image {
-  @apply w-full;
-
-  &__feed {
-    @apply max-w-[844px];
-  }
-
-  &__post {
-    @apply max-w-[962px];
-  }
+  @apply w-full max-w-[844px] flex justify-center;
 }

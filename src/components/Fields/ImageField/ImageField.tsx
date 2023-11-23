@@ -9,6 +9,7 @@ import { Icon, IconEnum } from "../..";
 
 const ImageField: FC<ImageFieldProps> = ({
   setImage,
+  setFile,
   id = 0,
   btnVariant,
   imageType,
@@ -23,7 +24,7 @@ const ImageField: FC<ImageFieldProps> = ({
     try {
       if (!e.currentTarget.files?.length) return;
       const [file] = e.currentTarget.files;
-
+      setFile && setFile(file);
       setImage && setImage(URL.createObjectURL(file));
 
       if (isAvatar)

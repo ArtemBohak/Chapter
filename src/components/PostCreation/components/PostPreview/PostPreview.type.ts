@@ -1,4 +1,4 @@
 import { IPost, SetIsOpen } from "@/src/types";
 
 export type PostPreviewProps = Pick<IPost, "text" | "title" | "image"> &
-  SetIsOpen;
+  SetIsOpen & { file: File | null };
