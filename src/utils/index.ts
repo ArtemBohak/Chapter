@@ -6,3 +6,4 @@ export * from "./cookies/cookies";
 export * from "./date/date";
 export * from "./constants/constants";
 export * from "./axiosUploadChecker/axiosUploadChecker";
+export * from "./getIdFromUrl/getIdFromUrl";
