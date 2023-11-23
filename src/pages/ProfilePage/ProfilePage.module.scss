@@ -1,7 +1,7 @@
 .profile-wrapper {
   @apply bg-white flex flex-col items-center laptop_md:flex-row laptop_md:items-start align-top justify-between gap-5 w-full pt-[78px]
 laptop_md:pt-[169px] laptop_md:pl-[80px] laptop_md:pr-[72px]
-h-[100vh] relative overflow-y-auto overflow-hidden;
+h-[100vh] relative  overflow-hidden;
 }
 
 .view-block-wrapper {

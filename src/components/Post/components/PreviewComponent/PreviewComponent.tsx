@@ -17,6 +17,7 @@ import { AxiosError } from "axios";
 
 const PreviewComponent: FC<PreviewComponentProps> = ({
   setFormIsOpen,
+  setIsOpen,
   file,
   ...props
 }) => {
@@ -48,7 +49,6 @@ const PreviewComponent: FC<PreviewComponentProps> = ({
           overwrite: false,
         });
         if (res.code) return setError(apiUiMessage.ERROR_MESSAGE);
-
         body.postUrl = res.secure_url;
         body.postId = res.public_id;
       }
@@ -56,6 +56,7 @@ const PreviewComponent: FC<PreviewComponentProps> = ({
         "🚀 ~ file: PreviewComponent.tsx:36 ~ onHandlePublishClick ~ body:",
         body
       );
+      setIsOpen(false);
     } catch (error) {
       if (error instanceof AxiosError) setError(error.message);
     } finally {

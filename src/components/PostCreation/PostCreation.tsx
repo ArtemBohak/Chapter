@@ -24,12 +24,12 @@ const PostCreation: FC<PostCreationProps> = ({
 
   const onHandleCrossClick = () => setIsOpen(false);
   const backDropClassNames = cn(styles["create-post__backdrop"], {
-    [styles["create-post__backdrop--fixed"]]: !isScreenSize,
-    [styles["create-post__backdrop--static"]]: isScreenSize,
+    [styles["create-post__backdrop--page"]]: isScreenSize,
+    [styles["create-post__backdrop--profile"]]: !isScreenSize,
   });
   const bodyClassNames = cn(styles["create-post__body"], {
-    [styles["create-post__body--fixed"]]: !isScreenSize,
-    [styles["create-post__body--static"]]: isScreenSize,
+    [styles["create-post__body--profile"]]: !isScreenSize,
+    [styles["create-post__body--page"]]: isScreenSize,
   });
   return (
     <Modal
@@ -48,7 +48,7 @@ const PostCreation: FC<PostCreationProps> = ({
           <Icon icon={IconEnum.Cross} size={32} />
         </button>
       </div>
-      <div className={styles["create-post__body"]}>
+      <div className={styles["create-post__content"]}>
         {formIsOpen ? (
           <CreatePostForm
             image={image}
@@ -67,6 +67,7 @@ const PostCreation: FC<PostCreationProps> = ({
             title={title}
             text={text}
             setFormIsOpen={setFormIsOpen}
+            setIsOpen={setIsOpen}
           />
         )}
       </div>
