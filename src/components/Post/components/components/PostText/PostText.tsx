@@ -1,6 +1,5 @@
 import { FC, useState } from "react";
 
-import "@/src/extensions/string.extensions";
 import { PostTextProps, Words } from "./PostText.type";
 import { useGetScreenSize } from "@/src/hooks";
 import styles from "./PostText.module.scss";

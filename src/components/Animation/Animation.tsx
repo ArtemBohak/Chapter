@@ -9,7 +9,7 @@ const Animation: FC<IAnimationProps> = ({
   classNames,
   isMount,
   nodeRef,
-  timeout = 300,
+  timeout = 200,
   mountOnEnter = false,
   unmountOnExit = false,
   ...props

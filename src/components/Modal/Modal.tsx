@@ -10,6 +10,7 @@ import { Animation } from "@/src/components";
 
 const Modal: FC<ModalProps> = ({
   setIsOpen,
+  clearData,
   isOpen,
   children,
   transitionClassName,
@@ -21,11 +22,14 @@ const Modal: FC<ModalProps> = ({
   ...props
 }) => {
   const nodeRef = useRef(null);
-  useSwipe({ setIsOpen, ...props });
+  useSwipe({ setIsOpen, clearData, ...props });
 
   useEffect(() => {
     const handlePressESC = (e: { code: string }) => {
-      if (e.code === "Escape") setIsOpen(false);
+      if (e.code === "Escape") {
+        setIsOpen(false);
+        clearData && clearData();
+      }
     };
     window.addEventListener("keydown", handlePressESC);
 
@@ -44,7 +48,10 @@ const Modal: FC<ModalProps> = ({
 
   const onHandleClick = (e: MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
-    if (e.target === e.currentTarget) setIsOpen(false);
+    if (e.target === e.currentTarget) {
+      setIsOpen(false);
+      clearData && clearData();
+    }
   };
 
   const backDropClassNames = cn(styles["backdrop"], backdropClassName);

@@ -22,7 +22,19 @@ const PostCreation: FC<PostCreationProps> = ({
   const [text, setText] = useState("");
   const [file, setFile] = useState<File | null>(null);
 
-  const onHandleCrossClick = () => setIsOpen(false);
+  const clearData = () => {
+    setTitle("");
+    setFile(null);
+    setText("");
+    setImage("");
+    setFormIsOpen(true);
+  };
+
+  const onHandleCrossClick = () => {
+    setIsOpen(false);
+    clearData();
+  };
+
   const backDropClassNames = cn(styles["create-post__backdrop"], {
     [styles["create-post__backdrop--page"]]: isScreenSize,
     [styles["create-post__backdrop--profile"]]: !isScreenSize,
@@ -31,12 +43,14 @@ const PostCreation: FC<PostCreationProps> = ({
     [styles["create-post__body--profile"]]: !isScreenSize,
     [styles["create-post__body--page"]]: isScreenSize,
   });
+
   return (
     <Modal
       setIsOpen={setIsOpen}
       backdropClassName={backDropClassNames}
       bodyClassName={bodyClassNames}
       disableScroll={disableScroll}
+      clearData={clearData}
       {...props}
     >
       <div className={styles["create-post__header"]}>
@@ -68,6 +82,7 @@ const PostCreation: FC<PostCreationProps> = ({
             text={text}
             setFormIsOpen={setFormIsOpen}
             setIsOpen={setIsOpen}
+            clearData={clearData}
           />
         )}
       </div>
