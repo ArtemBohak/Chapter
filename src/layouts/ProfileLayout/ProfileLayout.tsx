@@ -20,7 +20,12 @@ const ProfileLayout: FC = () => {
       <main>
         <Outlet />
         <CookiesToaster />
-        <PostCreation isOpen={modalIsOpen} setIsOpen={setModalIsOpen} />
+        <PostCreation
+          isOpen={modalIsOpen}
+          setIsOpen={setModalIsOpen}
+          isScreenSize
+          disableScroll
+        />
       </main>
     </div>
   );

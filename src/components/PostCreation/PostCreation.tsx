@@ -1,12 +1,18 @@
 import { FC, useState } from "react";
+import cn from "classnames";
 
-import { PostCreationProps } from "./PostCreation.type";
-import { Icon, IconEnum, Modal } from "..";
-import styles from "./PostCreation.module.scss";
 import { useAppSelector } from "@/src/redux";
+import { PostCreationProps } from "./PostCreation.type";
+import styles from "./PostCreation.module.scss";
 import { CreatePostForm, PostPreview } from "./components";
+import { Icon, IconEnum, Modal } from "..";
 
-const PostCreation: FC<PostCreationProps> = ({ setIsOpen, ...props }) => {
+const PostCreation: FC<PostCreationProps> = ({
+  setIsOpen,
+  isScreenSize = false,
+  disableScroll = false,
+  ...props
+}) => {
   const { nickName, avatarUrl } = useAppSelector(
     (state) => state.userSlice.user
   );
@@ -17,13 +23,20 @@ const PostCreation: FC<PostCreationProps> = ({ setIsOpen, ...props }) => {
   const [file, setFile] = useState<File | null>(null);
 
   const onHandleCrossClick = () => setIsOpen(false);
-
+  const backDropClassNames = cn(styles["create-post__backdrop"], {
+    [styles["create-post__backdrop--fixed"]]: !isScreenSize,
+    [styles["create-post__backdrop--static"]]: isScreenSize,
+  });
+  const bodyClassNames = cn(styles["create-post__body"], {
+    [styles["create-post__body--fixed"]]: !isScreenSize,
+    [styles["create-post__body--static"]]: isScreenSize,
+  });
   return (
     <Modal
       setIsOpen={setIsOpen}
-      backdropClassName={styles["create-post__backdrop"]}
-      bodyClassName={styles["create-post__modal"]}
-      disableScroll
+      backdropClassName={backDropClassNames}
+      bodyClassName={bodyClassNames}
+      disableScroll={disableScroll}
       {...props}
     >
       <div className={styles["create-post__header"]}>
