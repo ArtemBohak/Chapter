@@ -15,15 +15,12 @@ const StateSelect: FC<StateSelectProps> = ({
   selectedRegion,
   transitionTimeOut,
   setSelectedRegion,
-  setSelectedCity,
-  setIsLoading,
-  setCitiesList,
   setRegionId,
-  setCityId,
+  ...props
 }) => {
-  const [menuIsOpen, setMenuIsOpen] = useState(false);
+  const [selectMenuIsOpen, setSelectMenuIsOpen] = useState(false);
   const stateRef = useRef(null);
-  useOutsideClick(stateRef, setMenuIsOpen);
+  useOutsideClick(stateRef, setSelectMenuIsOpen);
 
   useEffect(() => {
     const state = regionList.find((state) => state.id === regionId);
@@ -52,26 +49,23 @@ const StateSelect: FC<StateSelectProps> = ({
     >
       <label ref={stateRef} className={styles["location-form__label"]}>
         <Field
-          selectMenuIsOpen={menuIsOpen}
+          selectMenuIsOpen={selectMenuIsOpen}
           selectedValue={selectedRegion}
           setSelectedValue={setSelectedRegion}
-          setSelectMenuIsOpen={setMenuIsOpen}
+          setSelectMenuIsOpen={setSelectMenuIsOpen}
           setId={setRegionId}
-          setCitiesData={setCitiesList}
-          setCitySelectedValue={setSelectedCity}
-          setCityId={setCityId}
+          {...props}
         />
         <SelectMenu
           type="state"
-          menuIsOpen={menuIsOpen}
+          selectMenuIsOpen={selectMenuIsOpen}
           data={regionList}
           selectedValue={selectedRegion}
           setSelectedValue={setSelectedRegion}
           setId={setRegionId}
-          setSelectMenuIsOpen={setMenuIsOpen}
-          setIsLoading={setIsLoading}
+          setSelectMenuIsOpen={setSelectMenuIsOpen}
           countryId={countryId}
-          setCitiesData={setCitiesList}
+          {...props}
         />
       </label>
     </Animation>

@@ -6,28 +6,23 @@ import styles from "../../UserLocation.module.scss";
 
 import Field from "../Field/Field";
 import SelectMenu from "../SelectMenu/SelectMenu";
+import { useAppSelector } from "@/src/redux";
 
 const CountrySelect: FC<CountrySelectProps> = ({
-  setSelectedRegion,
-  setSelectedCity,
-  setCityId,
-  setRegionId,
-  setIsLoading,
-  setRegionList,
   setSelectedCountry,
-  setCitiesList,
   setCountryId,
   setIcon,
-  icon,
   countryId,
   countryList,
   selectedCountry,
+  ...props
 }) => {
-  const [menuIsOpen, setMenuIsOpen] = useState(false);
+  const [selectMenuIsOpen, setSelectMenuIsOpen] = useState(false);
 
   const countryRef = useRef(null);
+  const { location } = useAppSelector((state) => state.userSlice.user);
 
-  useOutsideClick(countryRef, setMenuIsOpen);
+  useOutsideClick(countryRef, setSelectMenuIsOpen);
 
   useEffect(() => {
     const country = countryList.find((country) => country.id === countryId);
@@ -38,37 +33,34 @@ const CountrySelect: FC<CountrySelectProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [countryList, countryId]);
 
+  useEffect(() => {
+    if (!selectMenuIsOpen && !selectedCountry) {
+      setSelectedCountry(location || "");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location, selectMenuIsOpen, selectedCountry]);
+
   return (
     <label className={styles["location-form__label"]} ref={countryRef}>
       <Field
-        icon={icon}
-        selectMenuIsOpen={menuIsOpen}
+        selectMenuIsOpen={selectMenuIsOpen}
         selectedValue={selectedCountry}
-        setSelectMenuIsOpen={setMenuIsOpen}
+        setSelectMenuIsOpen={setSelectMenuIsOpen}
         setIcon={setIcon}
         setSelectedValue={setSelectedCountry}
         setId={setCountryId}
-        setRegionData={setRegionList}
-        setRegionSelectedValue={setSelectedRegion}
-        setRegionId={setRegionId}
-        setCitiesData={setCitiesList}
-        setCitySelectedValue={setSelectedCity}
-        setCityId={setCityId}
+        {...props}
       />
       <SelectMenu
         type="country"
-        menuIsOpen={menuIsOpen}
+        selectMenuIsOpen={selectMenuIsOpen}
         data={countryList}
         selectedValue={selectedCountry}
         setSelectedValue={setSelectedCountry}
         setId={setCountryId}
-        setSelectMenuIsOpen={setMenuIsOpen}
-        setIsLoading={setIsLoading}
+        setSelectMenuIsOpen={setSelectMenuIsOpen}
         setIcon={setIcon}
-        setSelectedRegion={setSelectedRegion}
-        setRegionData={setRegionList}
-        setSelectedCity={setSelectedCity}
-        setCitiesData={setCitiesList}
+        {...props}
       />
     </label>
   );

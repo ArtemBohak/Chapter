@@ -9,11 +9,8 @@ import { UIbutton } from "@/src/components";
 import CountrySelect from "./components/CountrySelect/CountrySelect";
 import RegionSelect from "./components/RegionSelect/RegionSelect";
 import CitySelect from "./components/CitySelect/CitySelect";
-import { useAppSelector } from "@/src/redux";
 
 const UserLocation: FC = () => {
-  const { location } = useAppSelector((state) => state.userSlice.user);
-
   const [isLoading, setIsLoading] = useState(false);
 
   const [countryId, setCountryId] = useState(0);
@@ -30,10 +27,6 @@ const UserLocation: FC = () => {
   const [citiesList, setCitiesList] = useState<Array<CityType>>([]);
 
   const nodeRef = useRef(null);
-
-  useEffect(() => {
-    location && setSelectedCountry(location);
-  }, [location]);
 
   useEffect(() => {
     (async () => {
