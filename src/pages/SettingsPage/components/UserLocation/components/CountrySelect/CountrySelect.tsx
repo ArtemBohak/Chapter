@@ -1,12 +1,12 @@
 import { FC, useEffect, useRef, useState } from "react";
 
+import { useAppSelector } from "@/src/redux";
 import { useOutsideClick } from "@/src/hooks";
 import { CountrySelectProps } from "./CountrySelect.type";
 import styles from "../../UserLocation.module.scss";
 
 import Field from "../Field/Field";
 import SelectMenu from "../SelectMenu/SelectMenu";
-import { useAppSelector } from "@/src/redux";
 
 const CountrySelect: FC<CountrySelectProps> = ({
   setSelectedCountry,
@@ -17,10 +17,10 @@ const CountrySelect: FC<CountrySelectProps> = ({
   selectedCountry,
   ...props
 }) => {
+  const { location } = useAppSelector((state) => state.userSlice.user);
   const [selectMenuIsOpen, setSelectMenuIsOpen] = useState(false);
 
   const countryRef = useRef(null);
-  const { location } = useAppSelector((state) => state.userSlice.user);
 
   useOutsideClick(countryRef, setSelectMenuIsOpen);
 
