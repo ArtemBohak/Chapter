@@ -1,4 +1,4 @@
-import { MutableRefObject, ReactNode } from "react";
+import { MutableRefObject, ReactNode, RefObject } from "react";
 
 export interface ITransitionArgs {
   appear?: string;
@@ -14,10 +14,11 @@ export interface ITransitionArgs {
 
 export interface IAnimationProps {
   children: ReactNode;
-  isMount: boolean;
-  nodeRef: MutableRefObject<null>;
+  isMount?: boolean;
+  nodeRef: MutableRefObject<null> | RefObject<HTMLElement>;
   timeout?: number;
   classNames?: ITransitionArgs;
   mountOnEnter?: boolean;
   unmountOnExit?: boolean;
+  key?: string | number;
 }

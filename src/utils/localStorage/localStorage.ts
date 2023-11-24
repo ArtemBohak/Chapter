@@ -8,7 +8,7 @@ export const getExpiresTokenValueFromLS = (): string | null =>
 
 export const setDataToLS = (data: LocaleStorageArgs) =>
   Object.keys(data).map((i) =>
-    localStorage.setItem(i, data[i as keyof LocaleStorageArgs] + "")
+    localStorage.setItem(i, String(data[i as keyof LocaleStorageArgs]))
   );
 
 export const getDataFromLS = (key: string): string | null =>

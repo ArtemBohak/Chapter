@@ -1,16 +1,20 @@
 import { FC } from "react";
-import { Formik, Form, Field, FormikHelpers } from "formik";
+import { Formik, Form, FormikHelpers } from "formik";
 
 import { useGetScreenSize } from "@/src/hooks";
 import { Values, CommentsFormProps } from "./CommentsForm.type";
 import styles from "./CommentsForm.module.scss";
 
-import { Icon, IconEnum } from "@/src/components";
+import { TextAreaField } from "@/src/components";
 import { PostButton } from "../../../../..";
 
 const initialValues = { comments: "" };
 
-const CommentsForm: FC<CommentsFormProps> = ({ id, fetchData }) => {
+const CommentsForm: FC<CommentsFormProps> = ({
+  id,
+  fetchData,
+  setCommentsIsHide,
+}) => {
   const [screenSize] = useGetScreenSize();
 
   const onHandleSubmit = (
@@ -19,11 +23,14 @@ const CommentsForm: FC<CommentsFormProps> = ({ id, fetchData }) => {
   ) => {
     fetchData && fetchData(id);
     console.log(values);
+    setCommentsIsHide(false);
     setSubmitting(false);
     resetForm();
   };
 
-  const onHandleIconClick = () => {};
+  const onHandleIconClick = () => {
+    console.log("smile click");
+  };
 
   const iconSize = screenSize < 769 ? 20 : 24;
 
@@ -32,23 +39,15 @@ const CommentsForm: FC<CommentsFormProps> = ({ id, fetchData }) => {
       {({ isSubmitting, values, dirty }) => {
         return (
           <Form className={styles["comments-form"]}>
-            <div className={styles["comments-form__wrapper"]}>
-              <Field
-                id="comments"
-                placeholder="Add a comment ..."
-                name="comments"
-                component="textarea"
-                data-automation="commentsInput"
-                value={values.comments}
-                className={styles["comments-form__field"]}
-              />
-              <button
-                onClick={onHandleIconClick}
-                className={styles["comments-form__icon-button"]}
-              >
-                <Icon icon={IconEnum.Smile} size={iconSize} removeInlineStyle />
-              </button>
-            </div>
+            <TextAreaField
+              id="comments"
+              placeholder="Add a comment ..."
+              name="comments"
+              dataAutomation="commentsInput"
+              value={values.comments}
+              iconSize={iconSize}
+              onHandleIconClick={onHandleIconClick}
+            />
             <PostButton
               type="submit"
               dataAutomation="submitButton"

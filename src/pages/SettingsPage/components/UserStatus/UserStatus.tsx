@@ -1,12 +1,12 @@
 import { FC, useRef } from "react";
 
 import { useEditField } from "../../hooks";
-import { UserStoryProps } from "./UserStory.type";
-import styles from "./UserStory.module.scss";
+import { UserStatusProps } from "./UserStatus.type";
+import styles from "./UserStatus.module.scss";
 
 import IconButton from "../IconButton/IconButton";
 
-const UserStory: FC<UserStoryProps> = ({ userStatus }) => {
+const UserStatus: FC<UserStatusProps> = ({ userStatus }) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const {
@@ -26,7 +26,7 @@ const UserStory: FC<UserStoryProps> = ({ userStatus }) => {
         onHandleSave={onHandleSave}
       />
       <textarea
-        className={styles["bio-text"]}
+        className={styles["status-text"]}
         ref={textareaRef}
         value={inputValue}
         disabled={!isEditing}
@@ -38,4 +38,4 @@ const UserStory: FC<UserStoryProps> = ({ userStatus }) => {
   );
 };
 
-export default UserStory;
+export default UserStatus;
