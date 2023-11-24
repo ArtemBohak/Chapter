@@ -1,5 +1,5 @@
 .books-page-header__wrapper {
-    @apply flex justify-between h-[84px] py-[18px];
+    @apply flex justify-between items-center h-[84px] py-[18px];
 }
 
 .back-to-profile {
@@ -13,8 +13,13 @@
 
 .button-edit {
     @apply text-grey-1000;
+    font-weight: 600 !important;
 }
 
 .button-confirm {
     background-color: green !important;
+}
+
+.button-cancel {
+    font-weight: 600 !important;
 }

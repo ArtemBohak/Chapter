@@ -1,9 +1,20 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import styles from "./BooksPageHeader.module.scss";
 import { IconEnum, UIbutton } from "@/src/components";
+import { links } from "@/src/types";
+import { useBooksPageContext } from "../context/hooks/useBooksPageContext";
+import CancelModal from "../CancelModal/CancelModal";
 
 const BooksPageHeader: FC = () => {
-  const [edit, setEdit] = useState(false);
+  const { edit, setEdit, isModalOpen, setIsModalOpen } = useBooksPageContext();
+
+  const handleCancel = () => {
+    setEdit(!edit);
+    setIsModalOpen(true);
+  };
+  const handleConfirm = () => {
+    setEdit(!edit);
+  };
 
   return (
     <div className={styles["books-page-header__wrapper"]}>
@@ -12,12 +23,14 @@ const BooksPageHeader: FC = () => {
         icon={IconEnum.ArrowLeft}
         color="secondary"
         dataAutomation="Back-to-profile"
+        href={links.PROFILE}
       >
         Back to profile
       </UIbutton>
       {edit ? (
         <div className="flex gap-5">
           <UIbutton
+            onClick={handleCancel}
             className={styles["button-cancel"]}
             color="secondary"
             dataAutomation="Edit-book"
@@ -25,7 +38,7 @@ const BooksPageHeader: FC = () => {
             Cancel
           </UIbutton>
           <UIbutton
-            onClick={() => setEdit(!edit)}
+            onClick={handleConfirm}
             className={styles["button-confirm"]}
             size="small"
             dataAutomation="Add-book"
@@ -42,7 +55,7 @@ const BooksPageHeader: FC = () => {
             color="secondary"
             dataAutomation="Edit-book"
           >
-            {edit ? "Cancel" : "Edit"}
+            Edit
           </UIbutton>
           <UIbutton
             className={styles["button-add"]}
@@ -54,6 +67,7 @@ const BooksPageHeader: FC = () => {
           </UIbutton>
         </div>
       )}
+      <CancelModal isOpen={isModalOpen} setIsOpen={setIsModalOpen} />
     </div>
   );
 };

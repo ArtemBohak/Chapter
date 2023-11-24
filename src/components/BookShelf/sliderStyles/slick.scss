@@ -1,5 +1,6 @@
 /* Slider */
 .slick-slider {
+    @apply max-w-full laptop_md:max-w-[430px];
     position: relative;
     display: block;
     box-sizing: border-box;
@@ -15,7 +16,6 @@
     margin-top: 0;
     outline: none !important;
     width: 100%;
-    max-width: 430px;
 
 }
 .slick-list {
