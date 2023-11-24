@@ -22,7 +22,7 @@ const CreatePostForm: FC<CreatePostFormProps> = ({
   setFile,
   title,
   text,
-  image,
+  imageUrl,
 }) => {
   const { id } = useAppSelector((state) => state.userSlice.user);
   const initialValues = { title, text };
@@ -66,7 +66,7 @@ const CreatePostForm: FC<CreatePostFormProps> = ({
               setImage={setImage}
               setFile={setFile}
             />
-            {image ? (
+            {imageUrl ? (
               <div className={styles["form__image-wrapper"]}>
                 <button
                   onClick={onHandleRemoveClick}
@@ -74,7 +74,7 @@ const CreatePostForm: FC<CreatePostFormProps> = ({
                 >
                   <Icon icon={IconEnum.Cross} size={20} />
                 </button>
-                <img src={image} alt="post image" />
+                <img src={imageUrl} alt="post image" />
               </div>
             ) : null}
             <TextAreaField

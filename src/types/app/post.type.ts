@@ -8,7 +8,7 @@ export interface IPost {
   id: string | number;
   avatar: string | null;
   nickName: string;
-  image: string;
+  imageUrl: string;
   followList: idList;
   likesList: idList;
   totalLikes: number;
@@ -20,4 +20,6 @@ export interface IPost {
   text: string;
 }
 
-export type SetIsOpen = { setFormIsOpen: Dispatch<SetStateAction<boolean>> };
+export type SetFormIsOpenType = {
+  setFormIsOpen: Dispatch<SetStateAction<boolean>>;
+};

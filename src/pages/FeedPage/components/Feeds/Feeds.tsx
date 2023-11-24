@@ -17,11 +17,21 @@ const Feeds: FC = () => {
       })),
     [feeds]
   );
-
+  const transitionClassNames = {
+    enter: styles["feeds-list-enter"],
+    enterActive: styles["feeds-list-enter-active"],
+    exit: styles["feeds-list-exit"],
+    exitActive: styles["feeds-list-exit-active"],
+  };
   return (
     <TransitionGroup component={"ul"} className={styles["feeds-list"]}>
       {feedsList.map((i) => (
-        <Animation key={i.id} nodeRef={i.nodeRef}>
+        <Animation
+          key={i.id}
+          nodeRef={i.nodeRef}
+          classNames={transitionClassNames}
+          timeout={300}
+        >
           <li>
             <FeedComponent fetchData={fetchData} {...i} />
           </li>

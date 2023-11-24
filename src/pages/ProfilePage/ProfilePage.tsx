@@ -32,12 +32,12 @@ const ProfilePage: FC = () => {
         <div className={styles["view-block-container"]}>
           <Buttons changeView={changeView} currentView={currentView} />
           {currentView === ButtonsEnum.posts ? <Posts /> : <Liked />}
-          <PostCreation
-            isOpen={modalIsOpen}
-            setIsOpen={setModalIsOpen}
-            disableScroll
-          />
         </div>
+        <PostCreation
+          isOpen={modalIsOpen}
+          setIsOpen={setModalIsOpen}
+          // disableScroll
+        />
       </div>
     </section>
   );

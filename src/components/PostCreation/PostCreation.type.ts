@@ -1,8 +1,6 @@
 import { ModalProps } from "../Modal/Modal.type";
 
-export type PostCreationProps = Pick<
-  ModalProps,
-  "portal" | "isOpen" | "setIsOpen"
-> & {
+export type PostCreationProps = {
   isScreenSize?: boolean;
-} & Partial<ModalProps>;
+} & Pick<ModalProps, "portal" | "isOpen" | "setIsOpen"> &
+  Partial<ModalProps>;

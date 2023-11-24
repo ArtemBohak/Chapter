@@ -1,11 +1,11 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 interface String {
   limit(this: string, length: number, delimiter?: string): string;
-  getId(
+  getIdFromUrl(
     this: string,
+    sliceValue?: number,
     urlDelimiter?: string,
-    stringDelimiter?: string,
-    sliceValue?: number
+    stringDelimiter?: string
   ): string;
 }
 
@@ -13,10 +13,10 @@ String.prototype.limit = function (length, delimiter = "") {
   return this.split(" ").slice(0, length).join(" ") + delimiter;
 };
 
-String.prototype.getId = function (
+String.prototype.getIdFromUrl = function (
+  sliceValue = -3,
   urlDelimiter = "/",
-  stringDelimiter = ".",
-  sliceValue = -3
+  stringDelimiter = "."
 ) {
   const [id] = this.split(urlDelimiter)
     .slice(sliceValue)

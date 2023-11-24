@@ -1,7 +1,6 @@
 import { FC, useEffect, useState } from "react";
 
 import { useAppSelector } from "@/src/redux";
-import { ProfileUpdateApi } from "./utils/ProfileUpdateApi";
 import styles from "./SettingsPage.module.scss";
 
 import {
@@ -14,7 +13,6 @@ import {
   UserAccountDeletion,
 } from "./components";
 import { ImageField } from "@/src/components";
-import { FilesService } from "@/src/services";
 
 const SettingsPage: FC = () => {
   const { user } = useAppSelector((state) => state.userSlice);
@@ -31,13 +29,7 @@ const SettingsPage: FC = () => {
       >
         <User avatarUrl={avatarUrl} email={user.email} />
         <div className={styles["settings__input-wrapper"]}>
-          <ImageField
-            id={user.id}
-            fileService={FilesService}
-            profileUpdateApi={ProfileUpdateApi}
-            btnVariant="button"
-            imageType="avatar"
-          />
+          <ImageField id={user.id} btnVariant="button" imageType="avatar" />
           <Layout className={styles["form-wrapper__top-spacing"]} customSpacing>
             <UserStatus userStatus={user.userStatus} />
           </Layout>

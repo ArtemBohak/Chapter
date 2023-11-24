@@ -1,6 +1,7 @@
 import { ITransitionArgs } from "../Animation/Animation.type";
 
 export type ModalProps = {
+  setIsOpen: (isOpen: boolean) => void;
   children: React.ReactNode;
   isOpen: boolean;
   transitionClassName?: ITransitionArgs;
@@ -13,6 +14,5 @@ export type ModalProps = {
   touchDistinction?: number;
   enableSwipeOnScreen?: number;
   enableSwipe?: boolean;
-  setIsOpen: (isOpen: boolean) => void;
   clearData?: () => void;
 };
