@@ -1,11 +1,11 @@
 import { Dispatch, SetStateAction } from "react";
 
 export type ImageFieldProps = {
-  setImage?: Dispatch<SetStateAction<string>>;
-  setFile?: Dispatch<SetStateAction<File | null>>;
-  id?: number | string;
   btnVariant: "button" | "icon";
-  imageType: "avatar" | "post";
+  setFile: Dispatch<SetStateAction<File | null>>;
+  setImage?: Dispatch<SetStateAction<string>>;
   iconSize?: number;
   classNames?: string;
+  isLoading?: boolean;
+  error?: string | null;
 };

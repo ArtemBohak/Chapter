@@ -1,37 +1,27 @@
-import { ChangeEvent, FC, useState } from "react";
+import { ChangeEvent, FC } from "react";
 import cn from "classnames";
 
-import { ProfileUpdateApi } from "@/src/pages/SettingsPage/utils/ProfileUpdateApi";
 import { ImageFieldProps } from "./ImageField.type";
 import styles from "./ImageField.module.scss";
 
 import { Icon, IconEnum } from "../..";
 
 const ImageField: FC<ImageFieldProps> = ({
-  setImage,
   setFile,
-  id = 0,
+  setImage,
   btnVariant,
-  imageType,
   iconSize = 20,
   classNames,
+  isLoading,
+  error,
 }) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const isAvatar = imageType === "avatar";
-
   const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
-    try {
-      if (!e.currentTarget.files?.length) return;
-      const [file] = e.currentTarget.files;
-      setFile && setFile(file);
-      setImage && setImage(URL.createObjectURL(file));
+    if (!e.currentTarget.files?.length) return;
+    const [file] = e.currentTarget.files;
+    setFile(file);
+    setImage && setImage(URL.createObjectURL(file));
 
-      if (isAvatar)
-        await new ProfileUpdateApi(setIsLoading, setError).imageSave(id, file);
-    } finally {
-      e.target.value = "";
-    }
+    e.target.value = "";
   };
   const imageClassNames = cn(
     styles["image"],
@@ -50,7 +40,7 @@ const ImageField: FC<ImageFieldProps> = ({
       <input
         disabled={isLoading}
         type="file"
-        name={imageType}
+        name="image"
         className={styles["image__input"]}
         onChange={handleChange}
         accept="image/*"

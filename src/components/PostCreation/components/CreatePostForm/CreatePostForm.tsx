@@ -1,7 +1,6 @@
 import { FC } from "react";
 import { Formik, Form } from "formik";
 
-import { useAppSelector } from "@/src/redux";
 import { validationSchema } from "./validationSchema";
 import { CreatePostFormProps, PostValues } from "./CreatePostForm.type";
 import styles from "./CreatePostForm.module.scss";
@@ -24,7 +23,6 @@ const CreatePostForm: FC<CreatePostFormProps> = ({
   text,
   imageUrl,
 }) => {
-  const { id } = useAppSelector((state) => state.userSlice.user);
   const initialValues = { title, text };
   const onSubmit = (values: PostValues) => {
     setTitle(values.title);
@@ -59,9 +57,7 @@ const CreatePostForm: FC<CreatePostFormProps> = ({
               className={styles["form__title"]}
             />
             <ImageField
-              id={id}
               btnVariant="icon"
-              imageType="post"
               iconSize={48}
               setImage={setImage}
               setFile={setFile}
