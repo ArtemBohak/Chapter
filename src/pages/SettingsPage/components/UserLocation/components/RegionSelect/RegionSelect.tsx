@@ -40,7 +40,7 @@ const StateSelect: FC<StateSelectProps> = ({
 
   return (
     <Animation
-      isMount={isShowing}
+      in={isShowing}
       nodeRef={stateRef}
       timeout={transitionTimeOut}
       mountOnEnter

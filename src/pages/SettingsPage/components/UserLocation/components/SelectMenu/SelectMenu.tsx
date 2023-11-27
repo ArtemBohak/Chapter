@@ -75,7 +75,7 @@ const SelectMenu: FC<SelectMenuProps> = ({
 
   return (
     <Animation
-      isMount={selectMenuIsOpen}
+      in={selectMenuIsOpen}
       nodeRef={menuRef}
       timeout={transitionTimeOut}
       mountOnEnter

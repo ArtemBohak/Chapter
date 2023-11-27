@@ -42,7 +42,7 @@ const CitySelect: FC<CitySelectProps> = ({
 
   return (
     <Animation
-      isMount={isShowing}
+      in={isShowing}
       nodeRef={cityRef}
       timeout={transitionTimeOut}
       mountOnEnter

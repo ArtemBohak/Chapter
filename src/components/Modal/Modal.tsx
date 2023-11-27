@@ -60,7 +60,7 @@ const Modal: FC<ModalProps> = ({
   if (portal)
     return createPortal(
       <Animation
-        isMount={isOpen}
+        in={isOpen}
         nodeRef={nodeRef}
         timeout={transitionTimeOut}
         classNames={transitionClassName}
@@ -82,7 +82,7 @@ const Modal: FC<ModalProps> = ({
   return (
     <Animation
       nodeRef={nodeRef}
-      isMount={isOpen}
+      in={isOpen}
       timeout={transitionTimeOut}
       classNames={transitionClassName}
       mountOnEnter
