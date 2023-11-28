@@ -68,12 +68,13 @@ const Modal: FC<ModalProps> = ({
         unmountOnExit
       >
         <div
-          ref={nodeRef}
           className={backDropClassNames}
           onClick={onHandleClick}
           data-automation="backDropClick"
         >
-          <div className={bodyClassNames}>{children}</div>
+          <div className={bodyClassNames} ref={nodeRef}>
+            {children}
+          </div>
         </div>
       </Animation>,
       document.getElementById("modal-root")!
@@ -89,12 +90,13 @@ const Modal: FC<ModalProps> = ({
       unmountOnExit
     >
       <div
-        ref={nodeRef}
         className={backDropClassNames}
         onClick={onHandleClick}
         data-automation="backDropClick"
       >
-        <div className={bodyClassNames}>{children}</div>
+        <div className={bodyClassNames} ref={nodeRef}>
+          {children}
+        </div>
       </div>
     </Animation>
   );
