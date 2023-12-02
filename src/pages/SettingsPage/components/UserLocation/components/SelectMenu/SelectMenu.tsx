@@ -8,15 +8,15 @@ import { Animation } from "@/src/components";
 
 const SelectMenu: FC<SelectMenuProps> = ({
   type,
-  menuIsOpen,
+  selectMenuIsOpen,
   data,
   selectedValue,
   countryId,
   transitionTimeOut = 150,
   setIcon,
   setSelectedRegion,
-  setRegionData,
-  setCitiesData,
+  setRegionList,
+  setCitiesList,
   setSelectedValue,
   setId,
   setIsLoading,
@@ -37,9 +37,9 @@ const SelectMenu: FC<SelectMenuProps> = ({
     e: MouseEvent<HTMLButtonElement> | TouchEvent<HTMLButtonElement>
   ) => {
     setSelectedRegion && setSelectedRegion("");
-    setRegionData && setRegionData([]);
+    setRegionList && setRegionList([]);
     setSelectedCity && setSelectedCity("");
-    setCitiesData && setCitiesData([]);
+    setCitiesList && setCitiesList([]);
     const id = +e.currentTarget.value;
     const result = filteredData.find((item) => item.id === id);
 
@@ -52,14 +52,14 @@ const SelectMenu: FC<SelectMenuProps> = ({
 
       if (type === "country") {
         GetState(result.id).then((result: StateType[]) => {
-          setRegionData && setRegionData(result);
+          setRegionList && setRegionList(result);
           setIsLoading && setIsLoading(false);
         });
       }
 
       if (type === "state") {
         GetCity(countryId, result.id).then((result: CityType[]) => {
-          setCitiesData && setCitiesData(result);
+          setCitiesList && setCitiesList(result);
           setIsLoading && setIsLoading(false);
         });
       }
@@ -75,7 +75,7 @@ const SelectMenu: FC<SelectMenuProps> = ({
 
   return (
     <Animation
-      isMount={menuIsOpen}
+      in={selectMenuIsOpen}
       nodeRef={menuRef}
       timeout={transitionTimeOut}
       mountOnEnter

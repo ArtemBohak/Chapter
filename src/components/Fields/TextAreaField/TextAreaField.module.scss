@@ -4,13 +4,21 @@
   }
 
   &__field {
-    @apply block w-full mb-0-md md:mb-1-md resize-none min-h-min py-[8px] pl-[10px] pr-[20px] md:pl-[20px] md:pr-[40px] text-xxs md:text-base laptop:text-[18px] rounded-lg border border-solid border-[#B3B3B3] outline-none  bg-inherit h-[50px] md:h-[132px] overflow-y-auto;
+    @apply block w-full resize-none min-h-min py-[14px] pl-[14px] pr-[20px] md:pl-[20px] md:pr-[40px] text-xxs md:text-base laptop:text-[18px] rounded-lg border border-solid border-[#B3B3B3] outline-none  bg-inherit h-[50px] md:h-[132px] overflow-y-auto;
+
+    &.error {
+      @apply border-red;
+    }
   }
 
   &__icon-button {
-    @apply bg-transparent outline-none absolute top-[10px] right-[10px] text-inherit;
+    @apply bg-transparent outline-none absolute top-[10px] right-[10px] md:right-[20px] text-inherit;
     & > svg {
       @apply stroke-[#6c6c6c];
     }
+  }
+
+  &-error-message {
+    @apply text-red text-xxs mt-1 mr-2;
   }
 }

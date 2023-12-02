@@ -7,11 +7,8 @@ import styles from "./Animation.module.scss";
 const Animation: FC<IAnimationProps> = ({
   children,
   classNames,
-  isMount,
-  nodeRef,
-  timeout = 300,
-  mountOnEnter = false,
-  unmountOnExit = false,
+  timeout = 200,
+
   ...props
 }) => {
   const defaultClassNames = {
@@ -25,12 +22,8 @@ const Animation: FC<IAnimationProps> = ({
 
   return (
     <CSSTransition
-      in={isMount}
-      nodeRef={nodeRef}
       timeout={timeout}
       classNames={transitionClassNames}
-      mountOnEnter={mountOnEnter}
-      unmountOnExit={unmountOnExit}
       {...props}
     >
       {children}

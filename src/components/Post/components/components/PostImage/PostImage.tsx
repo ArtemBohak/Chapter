@@ -3,14 +3,15 @@ import { FC } from "react";
 import { PostImageProps } from "./PostImage.type";
 import styles from "./PostImage.module.scss";
 
-const PostImage: FC<PostImageProps> = ({ image }) => (
-  <img
-    src={image}
-    alt="post image"
-    width={845}
-    height={385}
-    className={`${styles["image"]} ${styles["image__post"]}`}
-  />
-);
+const PostImage: FC<PostImageProps> = ({ imageUrl }) => {
+  if (imageUrl)
+    return (
+      <div className={styles["image"]}>
+        <img src={imageUrl} alt="post image" />
+      </div>
+    );
+
+  return null;
+};
 
 export default PostImage;

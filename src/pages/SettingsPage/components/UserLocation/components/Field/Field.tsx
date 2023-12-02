@@ -12,11 +12,11 @@ const Field: FC<FieldProps> = ({
   setSelectMenuIsOpen,
   setSelectedValue,
   setId,
-  setRegionData,
-  setRegionSelectedValue,
+  setRegionList,
+  setSelectedRegion,
   setRegionId,
-  setCitiesData,
-  setCitySelectedValue,
+  setCitiesList,
+  setSelectedCity,
   setCityId,
 }) => {
   const handleChangeValue = (e: ChangeEvent<HTMLInputElement>) => {
@@ -26,12 +26,12 @@ const Field: FC<FieldProps> = ({
 
     setIcon && setIcon("");
 
-    setRegionData && setRegionData([]);
-    setRegionSelectedValue && setRegionSelectedValue("");
+    setRegionList && setRegionList([]);
+    setSelectedRegion && setSelectedRegion("");
     setRegionId && setRegionId(0);
 
-    setCitiesData && setCitiesData([]);
-    setCitySelectedValue && setCitySelectedValue("");
+    setCitiesList && setCitiesList([]);
+    setSelectedCity && setSelectedCity("");
     setCityId && setCityId(0);
   };
 
@@ -53,7 +53,7 @@ const Field: FC<FieldProps> = ({
         name="country"
         value={selectedValue}
         onChange={handleChangeValue}
-        data-automation="countryInput"
+        data-automation="locationInput"
       />
       <button
         className={styles["arrow-btn"]}

@@ -1,1 +1,1 @@
-export { default as Post } from "./Post";
+export { FeedComponent, PreviewComponent } from "./components";

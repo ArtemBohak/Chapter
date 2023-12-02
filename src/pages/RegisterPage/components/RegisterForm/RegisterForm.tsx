@@ -100,7 +100,7 @@ const RegisterForm: FC = () => {
 
   const renderNextStep = (value: string) => (
     <Animation
-      isMount={isNextStep}
+      in={isNextStep}
       nodeRef={nodeRef}
       timeout={300}
       classNames={{

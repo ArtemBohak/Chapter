@@ -4,7 +4,7 @@ export type TextAreaFieldProps = {
   name: string;
   value: string;
   dataAutomation: string;
-  iconSize: number;
-  classNames?: string;
   onHandleIconClick: () => void;
+  iconSize?: number;
+  classNames?: string;
 };

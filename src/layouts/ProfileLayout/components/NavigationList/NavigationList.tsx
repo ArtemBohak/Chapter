@@ -14,6 +14,7 @@ const NavigationList: FC<NavigationListProps> = ({
   items,
   className,
   isBottom = false,
+  setModalIsOpen,
 }) => {
   const dispatch = useAppDispatch();
   const location = useLocation();
@@ -21,6 +22,7 @@ const NavigationList: FC<NavigationListProps> = ({
 
   function handleClickNavLink() {
     setIsActiveMenu && setIsActiveMenu(false);
+    setModalIsOpen(false);
   }
   const handleBtnClick = async () => {
     dispatch(fetchIsLogoutUser());

@@ -171,7 +171,7 @@ const PostComments: FC<PostCommentsProps> = ({
 
   const renderFilterBtn = (
     <Animation
-      isMount={!commentsIsHide}
+      in={!commentsIsHide}
       nodeRef={btnRef}
       classNames={transitionClassNames}
       mountOnEnter
@@ -194,7 +194,7 @@ const PostComments: FC<PostCommentsProps> = ({
 
   const renderComments = (
     <Animation
-      isMount={!commentsIsHide}
+      in={!commentsIsHide}
       nodeRef={commentsRef}
       timeout={300}
       classNames={transitionClassNames}

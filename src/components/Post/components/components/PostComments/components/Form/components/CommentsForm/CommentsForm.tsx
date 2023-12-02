@@ -47,6 +47,7 @@ const CommentsForm: FC<CommentsFormProps> = ({
               value={values.comments}
               iconSize={iconSize}
               onHandleIconClick={onHandleIconClick}
+              classNames={styles["comments-form__field"]}
             />
             <PostButton
               type="submit"

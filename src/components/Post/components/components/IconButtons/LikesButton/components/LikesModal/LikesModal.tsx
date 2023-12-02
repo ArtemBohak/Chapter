@@ -39,6 +39,7 @@ const LikesModal: FC<LikesModalProps> = ({
       bodyClassName={styles["modal__body"]}
       transitionTimeOut={200}
       enableSwipe={isMobScreen}
+      disableScroll
     >
       <div className={styles["modal__body-header"]}>
         <button

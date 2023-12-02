@@ -1,3 +1,3 @@
-import { PostProps } from "../../../Post.type";
+import { FeedComponentProps } from "../../FeedComponent/FeedComponent.type";
 
-export type PostImageProps = Pick<PostProps, "image">;
+export type PostImageProps = Pick<FeedComponentProps, "imageUrl">;

@@ -28,7 +28,7 @@ const Loader: FC<ILoaderProps> = ({
   return (
     <Animation
       nodeRef={nodeRef}
-      isMount={isShown}
+      in={isShown}
       timeout={timeTransition}
       classNames={transitionClassNames}
       mountOnEnter
