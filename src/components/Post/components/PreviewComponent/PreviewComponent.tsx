@@ -1,6 +1,15 @@
 import { FC, useState } from "react";
+import { AxiosError } from "axios";
 
 import { BodyProps, PreviewComponentProps } from "./PreviewComponent.type";
+
+import { useAppSelector } from "@/src/redux";
+import { FilesService } from "@/src/services";
+import { apiUiMessage } from "@/src/types";
+
+import { EndpointsEnum, api } from "@/src/axios";
+import styles from "./PreviewComponent.module.scss";
+
 import {
   PostDate,
   PostFullName,
@@ -8,12 +17,7 @@ import {
   PostText,
   PostTitle,
 } from "../components";
-import { useAppSelector } from "@/src/redux";
 import { UIbutton } from "@/src/components";
-import styles from "./PreviewComponent.module.scss";
-import { FilesService } from "@/src/services";
-import { apiUiMessage } from "@/src/types";
-import { AxiosError } from "axios";
 
 const PreviewComponent: FC<PreviewComponentProps> = ({
   setFormIsOpen,
@@ -52,10 +56,9 @@ const PreviewComponent: FC<PreviewComponentProps> = ({
         if (res.code) return setError(apiUiMessage.ERROR_MESSAGE);
         body.imageUrl = res.secure_url;
       }
-      console.log(
-        "🚀 ~ file: PreviewComponent.tsx:36 ~ onHandlePublishClick ~ body:",
-        body
-      );
+
+      await api.post(EndpointsEnum.CREATE_POST, body);
+
       setIsOpen(false);
       clearData && clearData();
     } catch (error) {
