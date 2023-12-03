@@ -74,9 +74,9 @@ const CreatePostForm: FC<CreatePostFormProps> = ({
               </div>
             ) : null}
             <TextAreaField
-              id="text"
+              id="caption"
               dataAutomation="commentInput"
-              name="text"
+              name="caption"
               placeholder="Add a text"
               value={values.caption}
               onHandleIconClick={onHandleIconClick}
