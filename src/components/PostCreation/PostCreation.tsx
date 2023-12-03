@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import cn from "classnames";
 
 import { useAppSelector } from "@/src/redux";
@@ -11,6 +11,7 @@ const PostCreation: FC<PostCreationProps> = ({
   setIsOpen,
   isScreenSize = false,
   disableScroll = false,
+  isOpen,
   ...props
 }) => {
   const { nickName, avatarUrl } = useAppSelector(
@@ -32,8 +33,11 @@ const PostCreation: FC<PostCreationProps> = ({
 
   const onHandleCrossClick = () => {
     setIsOpen(false);
-    clearData();
   };
+
+  useEffect(() => {
+    !isOpen && clearData();
+  }, [isOpen]);
 
   const backDropClassNames = cn(styles["create-post__backdrop"], {
     [styles["create-post__backdrop--page"]]: isScreenSize,
@@ -50,7 +54,7 @@ const PostCreation: FC<PostCreationProps> = ({
       backdropClassName={backDropClassNames}
       bodyClassName={bodyClassNames}
       disableScroll={disableScroll}
-      clearData={clearData}
+      isOpen={isOpen}
       {...props}
     >
       <div className={styles["create-post__header"]}>
@@ -82,7 +86,6 @@ const PostCreation: FC<PostCreationProps> = ({
             text={text}
             setFormIsOpen={setFormIsOpen}
             setIsOpen={setIsOpen}
-            clearData={clearData}
           />
         )}
       </div>

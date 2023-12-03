@@ -14,5 +14,4 @@ export type ModalProps = {
   touchDistinction?: number;
   enableSwipeOnScreen?: number;
   enableSwipe?: boolean;
-  clearData?: () => void;
 };

@@ -20,7 +20,6 @@ import {
 const PostPreview: FC<PostPreviewProps> = ({
   setFormIsOpen,
   setIsOpen,
-  clearData,
   file,
   ...props
 }) => {
@@ -58,7 +57,6 @@ const PostPreview: FC<PostPreviewProps> = ({
       await api.post(EndpointsEnum.CREATE_POST, body);
 
       setIsOpen(false);
-      clearData && clearData();
     } catch (error) {
       if (error instanceof AxiosError) setError(error.message);
     } finally {
