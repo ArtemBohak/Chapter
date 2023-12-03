@@ -4,7 +4,6 @@ import { Navigate, useLocation } from "react-router-dom";
 import { useAppSelector } from "@/src/redux";
 import { links } from "@/src/types";
 import { IRoutesProps } from "../types/Routes.type";
-import { ModalsProvider } from "@/src/context/ModalsToggler";
 
 const PrivateRoute: FC<IRoutesProps> = ({
   component: Component,
@@ -14,14 +13,10 @@ const PrivateRoute: FC<IRoutesProps> = ({
 
   const { isAuth } = useAppSelector((state) => state.userSlice);
 
-  return (
-    <ModalsProvider>
-      {isAuth ? (
-        Component
-      ) : (
-        <Navigate to={redirectUrl} state={pathname} replace />
-      )}
-    </ModalsProvider>
+  return isAuth ? (
+    Component
+  ) : (
+    <Navigate to={redirectUrl} state={pathname} replace />
   );
 };
 
