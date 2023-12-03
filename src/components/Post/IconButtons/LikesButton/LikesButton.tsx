@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import cn from "classnames";
 
-import { useModalTogglerContext } from "@/src/context";
+import { useModalsContext } from "@/src/context";
 import { useFindUserId } from "@/src/hooks";
 import { LikesButtonProps } from "./LikesButton.type";
 import { Like } from "./components/LikesModal/LikesModal.type";
@@ -98,7 +98,7 @@ const LikesButton: FC<LikesButtonProps> = ({
   hiddenText = false,
   fetchData,
 }) => {
-  const { setHeaderAddPostBtnIsDisabled } = useModalTogglerContext();
+  const { setHeaderAddPostBtnIsDisabled } = useModalsContext();
   const [liked] = useFindUserId(likesList);
 
   const [isLiked, setIsLiked] = useState(liked);

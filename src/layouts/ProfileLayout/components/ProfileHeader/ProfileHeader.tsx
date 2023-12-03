@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import cn from "classnames";
 
 import { links } from "@/src/types";
-import { useNavigationToggler, useModalTogglerContext } from "@/src/context";
+import { useNavigationToggler, useModalsContext } from "@/src/context";
 import { useAppSelector } from "@/src/redux";
 import { ProfileHeaderProps } from "./ProfileHeader.type";
 import styles from "./ProfileHeader.module.scss";
@@ -18,7 +18,7 @@ import {
 } from "@/src/components";
 
 const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
-  const { headerAddPostBtnIsDisabled } = useModalTogglerContext();
+  const { headerAddPostBtnIsDisabled } = useModalsContext();
   const { isActiveMenu, setIsActiveMenu } = useNavigationToggler();
   const { user } = useAppSelector((store) => store.userSlice);
   const { firstName, lastName, avatarUrl } = user;

@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from "react";
 
-import { useModalTogglerContext } from "@/src/context";
+import { useModalsContext } from "@/src/context";
 import styles from "./ProfilePage.module.scss";
 import Profile from "./components/Profile/Profile";
 import Buttons from "./components/Buttons/Buttons";
@@ -10,7 +10,7 @@ import Liked from "./components/UserLikedPosts/UserLikedPosts";
 import { PostCreation } from "@/src/components";
 
 const ProfilePage: FC = () => {
-  const { setHeaderAddPostBtnIsDisabled } = useModalTogglerContext();
+  const { setHeaderAddPostBtnIsDisabled } = useModalsContext();
   const [currentView, setCurrentView] = useState(ButtonsEnum.posts);
 
   const [modalIsOpen, setModalIsOpen] = useState(false);

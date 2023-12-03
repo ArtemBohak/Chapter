@@ -6,7 +6,7 @@ export interface IModalsProviderProps {
 
 type SetModal = Dispatch<SetStateAction<boolean>>;
 
-export type ModalsTogglerContextType = {
+export type ModalsContextType = {
   headerAddPostBtnIsDisabled: boolean;
   setHeaderAddPostBtnIsDisabled: SetModal;
 };

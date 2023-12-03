@@ -1,21 +1,21 @@
 import { FC, useState } from "react";
-import { ModalsTogglerContext } from "./hooks";
+import { ModalsContext } from "./hooks";
 import { IModalsProviderProps } from "./ModalsProvider.type";
 
-const ModalProvider: FC<IModalsProviderProps> = ({ children }) => {
+const ModalsProvider: FC<IModalsProviderProps> = ({ children }) => {
   const [headerAddPostBtnIsDisabled, setHeaderAddPostBtnIsDisabled] =
     useState(false);
 
   return (
-    <ModalsTogglerContext.Provider
+    <ModalsContext.Provider
       value={{
         headerAddPostBtnIsDisabled,
         setHeaderAddPostBtnIsDisabled,
       }}
     >
       {children}
-    </ModalsTogglerContext.Provider>
+    </ModalsContext.Provider>
   );
 };
 
-export default ModalProvider;
+export default ModalsProvider;

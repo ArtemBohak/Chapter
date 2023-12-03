@@ -4,10 +4,9 @@ import { Outlet } from "react-router-dom";
 import styles from "./ProfileLayout.module.scss";
 
 import { ProfileHeader, SidebarNavigation } from "./components";
-import { NavigationTogglerProvider } from "@/src/context";
+import { NavigationTogglerProvider, ModalsProvider } from "@/src/context";
 import { CookiesToaster } from "@/src/components/CookiesToaster";
 import { PostCreation } from "@/src/components";
-import { ModalsProvider } from "@/src/context";
 
 const ProfileLayout: FC = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
