@@ -20,13 +20,13 @@ const PostCreation: FC<PostCreationProps> = ({
   const [formIsOpen, setFormIsOpen] = useState(true);
   const [title, setTitle] = useState("");
   const [image, setImage] = useState("");
-  const [text, setText] = useState("");
+  const [caption, setCaption] = useState("");
   const [file, setFile] = useState<File | null>(null);
 
   const clearData = () => {
     setTitle("");
     setFile(null);
-    setText("");
+    setCaption("");
     setImage("");
     setFormIsOpen(true);
   };
@@ -71,11 +71,11 @@ const PostCreation: FC<PostCreationProps> = ({
           <CreatePostForm
             imageUrl={image}
             title={title}
-            text={text}
+            caption={caption}
             setFormIsOpen={setFormIsOpen}
             setFile={setFile}
             setTitle={setTitle}
-            setText={setText}
+            setCaption={setCaption}
             setImage={setImage}
           />
         ) : (
@@ -83,7 +83,7 @@ const PostCreation: FC<PostCreationProps> = ({
             file={file}
             imageUrl={image}
             title={title}
-            text={text}
+            caption={caption}
             setFormIsOpen={setFormIsOpen}
             setIsOpen={setIsOpen}
           />

@@ -42,7 +42,7 @@ const PostPreview: FC<PostPreviewProps> = ({
       setIsLoading(true);
       const body: BodyProps = {
         title: props.title,
-        text: props.text,
+        caption: props.caption,
         date,
       };
 
@@ -58,7 +58,8 @@ const PostPreview: FC<PostPreviewProps> = ({
 
       setIsOpen(false);
     } catch (error) {
-      if (error instanceof AxiosError) setError(error.message);
+      console.log(error);
+      if (error instanceof AxiosError) setError(apiUiMessage.ERROR_MESSAGE);
     } finally {
       setIsLoading(false);
     }

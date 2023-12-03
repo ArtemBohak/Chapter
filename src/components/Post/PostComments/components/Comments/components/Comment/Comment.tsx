@@ -19,7 +19,7 @@ const Comment: FC<CommentProps> = ({
   nickName,
   likesList,
   id,
-  text = "",
+  caption = "",
   hideCommentBtn = false,
 }) => {
   const avatarUrl = avatar ? avatar : defaultAvatar;
@@ -46,7 +46,7 @@ const Comment: FC<CommentProps> = ({
         <div className={styles["comment__text"]}>
           {
             <TextTagging
-              text={text}
+              text={caption}
               onClick={onHandleTagClick}
               className={styles["comment__text-button"]}
             />

@@ -1,6 +1,6 @@
 import { PostProps } from "../Post.type";
 
-export type PostTextProps = Pick<PostProps, "text"> & {
+export type PostTextProps = Pick<PostProps, "caption"> & {
   isLimit?: boolean;
 };
 

@@ -17,16 +17,16 @@ const CreatePostForm: FC<CreatePostFormProps> = ({
   setFormIsOpen,
   setImage,
   setTitle,
-  setText,
+  setCaption,
   setFile,
   title,
-  text,
+  caption,
   imageUrl,
 }) => {
-  const initialValues = { title, text };
+  const initialValues = { title, caption };
   const onSubmit = (values: PostValues) => {
     setTitle(values.title);
-    setText(values.text);
+    setCaption(values.caption);
 
     setFormIsOpen(false);
   };
@@ -78,7 +78,7 @@ const CreatePostForm: FC<CreatePostFormProps> = ({
               dataAutomation="commentInput"
               name="text"
               placeholder="Add a text"
-              value={values.text}
+              value={values.caption}
               onHandleIconClick={onHandleIconClick}
               classNames={styles["form__comment"]}
             />

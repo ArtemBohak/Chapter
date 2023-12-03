@@ -17,9 +17,9 @@ export interface IPost {
   firstName: string;
   lastName: string;
   title: string;
-  text: string;
+  caption: string;
 }
 
-export type SetFormIsOpenType = {
+export type SetIsOpenType = {
   setFormIsOpen: Dispatch<SetStateAction<boolean>>;
 };

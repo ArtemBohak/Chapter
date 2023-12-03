@@ -10,7 +10,7 @@ export type CommentsData = Pick<
   | "date"
   | "nickName"
   | "id"
-  | "text"
+  | "caption"
   | "likesList"
 >;
 
