@@ -7,7 +7,7 @@ import { ProfileHeader, SidebarNavigation } from "./components";
 import { NavigationTogglerProvider } from "@/src/context";
 import { CookiesToaster } from "@/src/components/CookiesToaster";
 import { PostCreation } from "@/src/components";
-import { ModalsProvider } from "@/src/context/ModalsToggler";
+import { ModalsProvider } from "@/src/context";
 
 const ProfileLayout: FC = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
