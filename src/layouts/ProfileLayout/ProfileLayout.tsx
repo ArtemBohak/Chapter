@@ -4,7 +4,7 @@ import { Outlet } from "react-router-dom";
 import styles from "./ProfileLayout.module.scss";
 
 import { ProfileHeader, SidebarNavigation } from "./components";
-import { NavigationTogglerProvider } from "src/context/NavigationToggler";
+import { NavigationTogglerProvider } from "@/src/context";
 import { CookiesToaster } from "@/src/components/CookiesToaster";
 import { PostCreation } from "@/src/components";
 

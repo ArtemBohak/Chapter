@@ -1,6 +1,7 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import cn from "classnames";
 
+import { useModalTogglerContext } from "@/src/context";
 import { useFindUserId } from "@/src/hooks";
 import { LikesButtonProps } from "./LikesButton.type";
 import { Like } from "./components/LikesModal/LikesModal.type";
@@ -97,13 +98,21 @@ const LikesButton: FC<LikesButtonProps> = ({
   hiddenText = false,
   fetchData,
 }) => {
+  const { setHeaderAddPostBtnIsDisabled } = useModalTogglerContext();
   const [liked] = useFindUserId(likesList);
 
   const [isLiked, setIsLiked] = useState(liked);
   const [likedValue, setLikedValue] = useState(totalLikes);
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
+
   const [likes, setLikes] = useState<Array<Like>>([]);
+
+  useEffect(() => {
+    if (modalIsOpen) return setHeaderAddPostBtnIsDisabled(true);
+    if (!modalIsOpen) return setHeaderAddPostBtnIsDisabled(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [modalIsOpen]);
 
   const onHandleLikesClick = () => {
     setIsLiked(!isLiked);
@@ -112,7 +121,9 @@ const LikesButton: FC<LikesButtonProps> = ({
     isLiked && setLikedValue(likedValue - 1);
     !isLiked && setLikedValue(likedValue + 1);
   };
+
   const onHandleModalOpenClick = () => {
+    setHeaderAddPostBtnIsDisabled(true);
     setLikes(dataLikes);
     fetchData && fetchData(id);
     setModalIsOpen(true);

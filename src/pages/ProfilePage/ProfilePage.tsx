@@ -1,4 +1,6 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
+
+import { useModalTogglerContext } from "@/src/context";
 import styles from "./ProfilePage.module.scss";
 import Profile from "./components/Profile/Profile";
 import Buttons from "./components/Buttons/Buttons";
@@ -8,8 +10,16 @@ import Liked from "./components/UserLikedPosts/UserLikedPosts";
 import { PostCreation } from "@/src/components";
 
 const ProfilePage: FC = () => {
+  const { setHeaderAddPostBtnIsDisabled } = useModalTogglerContext();
   const [currentView, setCurrentView] = useState(ButtonsEnum.posts);
+
   const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  useEffect(() => {
+    if (modalIsOpen) return setHeaderAddPostBtnIsDisabled(true);
+    if (!modalIsOpen) return setHeaderAddPostBtnIsDisabled(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [modalIsOpen]);
 
   const changeView = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -33,11 +43,7 @@ const ProfilePage: FC = () => {
           <Buttons changeView={changeView} currentView={currentView} />
           {currentView === ButtonsEnum.posts ? <Posts /> : <Liked />}
         </div>
-        <PostCreation
-          isOpen={modalIsOpen}
-          setIsOpen={setModalIsOpen}
-          // disableScroll
-        />
+        <PostCreation isOpen={modalIsOpen} setIsOpen={setModalIsOpen} />
       </div>
     </section>
   );
