@@ -6,3 +6,5 @@ export type PostPreviewProps = {
 } & Pick<IPost, "text" | "title" | "imageUrl"> &
   Pick<ModalProps, "setIsOpen" | "clearData"> &
   SetFormIsOpenType;
+
+export type BodyProps = Partial<IPost>;
