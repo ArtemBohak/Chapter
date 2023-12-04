@@ -1,5 +1,5 @@
 import { PostProps } from "../Post.type";
 
-export type UserNickNameProps = Pick<PostProps, "nickName"> & {
+export type UserNickNameProps = {
   classNames?: string;
-};
+} & Required<Pick<PostProps, "nickName">>;

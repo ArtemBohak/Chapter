@@ -10,8 +10,8 @@ const Like: FC<LikeProps> = ({
   avatar,
   firstName,
   lastName,
-  id = 0,
-  likesList = [],
+  id,
+  likesList,
   fetchData,
 }) => {
   const [isFollow] = useFindUserId(likesList);

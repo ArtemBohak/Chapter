@@ -11,15 +11,15 @@ import defaultAvatar from "@/src/assets/SVG/default-user-avatar.svg";
 
 const Comment: FC<CommentProps> = ({
   avatar,
-  totalComments = 0,
+  totalComments,
   totalLikes,
   firstName,
   lastName,
-  date = 0,
+  date,
   nickName,
   likesList,
   id,
-  caption = "",
+  caption,
   hideCommentBtn = false,
 }) => {
   const avatarUrl = avatar ? avatar : defaultAvatar;

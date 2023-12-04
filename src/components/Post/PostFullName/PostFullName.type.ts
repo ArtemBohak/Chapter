@@ -1,3 +1,5 @@
 import { PostProps } from "../Post.type";
 
-export type PostFullNameProps = Pick<PostProps, "firstName" | "lastName">;
+export type PostFullNameProps = Required<
+  Pick<PostProps, "firstName" | "lastName">
+>;

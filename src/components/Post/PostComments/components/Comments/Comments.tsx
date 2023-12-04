@@ -1,7 +1,7 @@
 import { FC } from "react";
 import cn from "classnames";
 
-import { CommentsProps, CommentsArray } from "./Comments.type";
+import { CommentsProps, CommentValues } from "./Comments.type";
 import styles from "./Comments.module.scss";
 
 import { Comment } from "./components";
@@ -16,7 +16,7 @@ const itemClassNames = (value: number) => {
 const Comments: FC<CommentsProps> = ({ comments }) => {
   let counter: number = 0;
 
-  const renderComments = (comments: CommentsArray, step = 1) => {
+  const renderComments = (comments: Array<CommentValues>, step = 1) => {
     counter += step;
 
     if (counter > 1) return;

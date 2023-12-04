@@ -11,7 +11,7 @@ import { PostButton } from "@/src/components/Post/components";
 const initialValues = { comments: "" };
 
 const CommentsForm: FC<CommentsFormProps> = ({
-  id = 0,
+  id,
   fetchData,
   setCommentsIsHide,
 }) => {

@@ -7,9 +7,9 @@ import styles from "../IconButtons.module.scss";
 import { Icon, IconEnum } from "@/src/components";
 
 const CommentsButton: FC<CommentsButtonProps> = ({
-  totalComments = 0,
+  totalComments,
   textValue,
-  id = 0,
+  id,
   hiddenText = false,
   fetchData,
 }) => {

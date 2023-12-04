@@ -92,9 +92,9 @@ const dataLikes = [
 ];
 
 const LikesButton: FC<LikesButtonProps> = ({
-  likesList = [],
-  totalLikes = 0,
-  id = 0,
+  likesList,
+  totalLikes,
+  id,
   hiddenText = false,
   fetchData,
 }) => {

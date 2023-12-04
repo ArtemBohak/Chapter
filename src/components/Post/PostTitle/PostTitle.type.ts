@@ -1,3 +1,3 @@
 import { PostProps } from "../Post.type";
 
-export type PostTitleProps = Pick<PostProps, "title">;
+export type PostTitleProps = Required<Pick<PostProps, "title">>;

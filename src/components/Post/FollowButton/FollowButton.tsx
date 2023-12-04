@@ -6,8 +6,8 @@ import { FollowButtonProps } from "./FollowButton.type";
 import { PostButton } from "../components";
 
 const FollowButton: FC<FollowButtonProps> = ({
-  followList = [],
-  id = 0,
+  followList,
+  id,
   fetchData,
   classNames,
 }) => {

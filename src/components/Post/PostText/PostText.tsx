@@ -4,7 +4,7 @@ import { PostTextProps, Words } from "./PostText.type";
 import { useGetScreenSize } from "@/src/hooks";
 import styles from "./PostText.module.scss";
 
-const PostText: FC<PostTextProps> = ({ caption = "", isLimit = false }) => {
+const PostText: FC<PostTextProps> = ({ caption, isLimit = false }) => {
   const [screenSize] = useGetScreenSize();
   const [isShowingFullText, setIsShowingFullText] = useState(false);
 

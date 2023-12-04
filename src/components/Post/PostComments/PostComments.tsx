@@ -19,7 +19,8 @@ const comments = [
     lastName: "Reeves",
     nickName: "@maryreeves",
     date: Date.now() - 10002102111,
-    text: "Thank you for sharing your impressions of the book, I agree with @Vilkkyyyy, it was just a great post! Full of magic and enchantment. I read it with pleasure and look forward to the new one!",
+    caption:
+      "Thank you for sharing your impressions of the book, I agree with @Vilkkyyyy, it was just a great post! Full of magic and enchantment. I read it with pleasure and look forward to the new one!",
     likesList: [1, 2, 168],
     comments: [
       {
@@ -31,7 +32,7 @@ const comments = [
         lastName: "Reeves",
         nickName: "@maryreeves",
         date: Date.now() - 10002102,
-        text: "It's a shame that the Harry Potter books are over 😭",
+        caption: "It's a shame that the Harry Potter books are over 😭",
         likesList: [1, 2, 168],
       },
       {
@@ -43,7 +44,7 @@ const comments = [
         lastName: "Reeves",
         nickName: "@maryreeves",
         date: Date.now() - 10002102,
-        text: "It's a shame that the Harry Potter books are over 😭",
+        caption: "It's a shame that the Harry Potter books are over 😭",
         likesList: [1, 2, 168],
         comments: [
           {
@@ -55,7 +56,7 @@ const comments = [
             lastName: "Reeves",
             nickName: "@maryreeves",
             date: Date.now() - 10002102,
-            text: "It's a shame that the Harry Potter books are over 😭",
+            caption: "It's a shame that the Harry Potter books are over 😭",
             likesList: [1, 2, 168],
           },
           {
@@ -67,7 +68,7 @@ const comments = [
             lastName: "Reeves",
             nickName: "@maryreeves",
             date: Date.now() - 10002102,
-            text: "It's a shame that the Harry Potter books are over 😭",
+            caption: "It's a shame that the Harry Potter books are over 😭",
             likesList: [1, 2, 168],
             comments: [
               {
@@ -79,7 +80,7 @@ const comments = [
                 lastName: "Reeves",
                 nickName: "@maryreeves",
                 date: Date.now() - 10002102,
-                text: "It's a shame that the Harry Potter books are over 😭",
+                caption: "It's a shame that the Harry Potter books are over 😭",
                 likesList: [1, 2, 168],
               },
               {
@@ -91,7 +92,7 @@ const comments = [
                 lastName: "Reeves",
                 nickName: "@maryreeves",
                 date: Date.now() - 10002102,
-                text: "It's a shame that the Harry Potter books are over 😭",
+                caption: "It's a shame that the Harry Potter books are over 😭",
                 likesList: [1, 2, 168],
               },
             ],
@@ -109,7 +110,7 @@ const comments = [
     lastName: "Reeves",
     nickName: "@maryreeves",
     date: Date.now() - 10002102111,
-    text: "It's a shame that the Harry Potter books are over 😭",
+    caption: "It's a shame that the Harry Potter books are over 😭",
     likesList: [1, 2, 168],
   },
   {
@@ -121,14 +122,14 @@ const comments = [
     lastName: "Reeves",
     nickName: "@maryreeves",
     date: Date.now() - 1002111,
-    text: "It's a shame that the Harry Potter books are over 😭",
+    caption: "It's a shame that the Harry Potter books are over 😭",
     likesList: [1, 2, 168],
   },
 ];
 
 const PostComments: FC<PostCommentsProps> = ({
-  totalComments = 0,
-  id = 0,
+  totalComments,
+  id,
   fetchData,
 }) => {
   const [commentsIsHide, setCommentsIsHide] = useState(true);
