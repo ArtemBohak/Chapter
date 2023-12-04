@@ -7,7 +7,7 @@ import { useGetScreenSize } from "@/src/hooks";
 import styles from "./PostComments.module.scss";
 
 import { Animation, Icon, IconEnum } from "@/src/components";
-import { Comments, Form } from "./components";
+import { Comments, CommentsForm } from "./components";
 
 const comments = [
   {
@@ -218,7 +218,7 @@ const PostComments: FC<PostCommentsProps> = ({
         {renderComments}
       </div>
       <div className={styles["feed-comments__form-wrapper"]}>
-        <Form
+        <CommentsForm
           id={id}
           fetchData={fetchData}
           setCommentsIsHide={setCommentsIsHide}
