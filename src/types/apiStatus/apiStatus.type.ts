@@ -5,13 +5,15 @@ export enum apiUiMessage {
   INVALID_RECOVERY_CODE = "Incorrect code",
   WRONG_PASSWORD = "Try again!",
   ERROR_MESSAGE = "Something wrong! Reload or try again later.",
+  INSPIRED_HASH = "Sign up code is expired",
+  NICKNAME_IN_USE = "Username is taken.",
 }
 
 export enum apiErrorMessage {
   WRONG_HASH = "Wrong hash",
   ACCOUNT_DELETED = "Account was deleted. Do you want to restore?",
   UPDATE_PASSWORD = "Incorrect old password!",
-  NICKNAME_IN_USE = "Nickname is aviable to used",
+  NICKNAME_IN_USE = "User with this nickname already exists.",
   CANCELED = "ERR_CANCELED",
 }
 

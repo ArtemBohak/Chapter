@@ -44,18 +44,29 @@ const RegisterForm: FC = () => {
   ) => {
     try {
       if (step === Steps.SECOND) {
-        const { status, id, email } = await RegisterFormApi.fetchUserRegData({
-          hash,
-        });
+        const { status, id, email, error } =
+          await RegisterFormApi.fetchUserRegData({
+            hash,
+          });
+
+        if (
+          status === apiErrorStatus.BAD_REQUEST &&
+          error === EmailStatus.INVALID_HASH
+        )
+          return setFieldError(
+            RegisterAccountKey.HASH,
+            apiUiMessage.INSPIRED_HASH
+          );
 
         if (status === apiErrorStatus.NOTFOUND)
           return setFieldError(
             RegisterAccountKey.HASH,
             apiUiMessage.INVALID_HASH
           );
-        if (id && email) {
+
+        if (id && email)
           setCookies({ email, userId: String(id) }, 604800, undefined, true);
-        }
+
         return navigate(`${links.ACCOUNT_CREATION}/${id}`);
       }
       setEmailValue(email);

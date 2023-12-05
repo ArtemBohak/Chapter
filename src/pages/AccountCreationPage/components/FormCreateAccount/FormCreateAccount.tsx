@@ -5,7 +5,7 @@ import { Formik, Form, FormikProps, FormikHelpers } from "formik";
 import cn from "classnames";
 
 import { EndpointsEnum, api } from "@/src/axios";
-import { links, keysValue, apiErrorMessage } from "@/src/types";
+import { links, keysValue, apiErrorMessage, apiUiMessage } from "@/src/types";
 import { useDebounce } from "@/src/hooks";
 import {
   deleteCookie,
@@ -55,10 +55,8 @@ const FormCreateAccount: FC = () => {
       }
     } catch (e) {
       if (e instanceof AxiosError) {
-        if (e.response?.data.message !== apiErrorMessage.NICKNAME_IN_USE) {
-          return setNkErrorMessage(
-            e.response?.data.error || "Nickname already exist"
-          );
+        if (e.response?.data.error === apiErrorMessage.NICKNAME_IN_USE) {
+          return setNkErrorMessage(apiUiMessage.NICKNAME_IN_USE);
         }
       }
     } finally {
