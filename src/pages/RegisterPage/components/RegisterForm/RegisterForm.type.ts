@@ -5,7 +5,7 @@ export enum RegisterAccountKey {
 
 export enum EmailStatus {
   CONFIRMED = "active",
-  UNCONFIRMED = "this email has already been registered, but is not confirmed",
+  UNCONFIRMED = "inactive",
 }
 export enum Steps {
   FIRST = 1,

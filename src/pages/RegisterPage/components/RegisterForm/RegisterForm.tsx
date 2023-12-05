@@ -77,7 +77,7 @@ const RegisterForm: FC = () => {
 
       if (
         status === apiErrorStatus.UNPROCESSABLE_ENTITY &&
-        error === EmailStatus.UNCONFIRMED
+        RegisterFormApi.formatErrorResponse(error) === EmailStatus.UNCONFIRMED
       ) {
         resetForm({ values: { email, hash } });
         return setStep(step + 1);
