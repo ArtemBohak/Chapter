@@ -1,6 +1,8 @@
-import { PostProps } from "../../../Post.type";
+import { FeedComponentProps } from "../../FeedComponent/FeedComponent.type";
 
 export type FollowButtonProps = Pick<
-  PostProps,
+  FeedComponentProps,
   "followList" | "id" | "fetchData"
-> & { classNames?: string };
+> & {
+  classNames?: string;
+};

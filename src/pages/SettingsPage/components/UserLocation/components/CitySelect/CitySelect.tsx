@@ -17,10 +17,11 @@ const CitySelect: FC<CitySelectProps> = ({
   transitionTimeOut,
   setCityId,
   setSelectedCity,
+  ...props
 }) => {
-  const [menuIsOpen, setMenuIsOpen] = useState(false);
+  const [selectMenuIsOpen, setSelectMenuIsOpen] = useState(false);
   const cityRef = useRef(null);
-  useOutsideClick(cityRef, setMenuIsOpen);
+  useOutsideClick(cityRef, setSelectMenuIsOpen);
 
   useEffect(() => {
     const city = citiesList.find((item) => item.id === cityId);
@@ -41,7 +42,7 @@ const CitySelect: FC<CitySelectProps> = ({
 
   return (
     <Animation
-      isMount={isShowing}
+      in={isShowing}
       nodeRef={cityRef}
       timeout={transitionTimeOut}
       mountOnEnter
@@ -50,19 +51,21 @@ const CitySelect: FC<CitySelectProps> = ({
     >
       <label ref={cityRef} className={styles["location-form__label"]}>
         <Field
-          selectMenuIsOpen={menuIsOpen}
+          selectMenuIsOpen={selectMenuIsOpen}
           selectedValue={selectedCity}
-          setSelectMenuIsOpen={setMenuIsOpen}
+          setSelectMenuIsOpen={setSelectMenuIsOpen}
           setSelectedValue={setSelectedCity}
           setId={setCityId}
+          {...props}
         />
         <SelectMenu
-          menuIsOpen={menuIsOpen}
+          selectMenuIsOpen={selectMenuIsOpen}
           data={citiesList}
           selectedValue={selectedCity}
           setSelectedValue={setSelectedCity}
           setId={setCityId}
-          setSelectMenuIsOpen={setMenuIsOpen}
+          setSelectMenuIsOpen={setSelectMenuIsOpen}
+          {...props}
         />
       </label>
     </Animation>

@@ -1,3 +1,3 @@
-import { PostProps } from "../../../Post.type";
+import { FeedComponentProps } from "../../FeedComponent/FeedComponent.type";
 
-export type PostDateProps = Pick<PostProps, "date">;
+export type PostDateProps = Pick<FeedComponentProps, "date">;

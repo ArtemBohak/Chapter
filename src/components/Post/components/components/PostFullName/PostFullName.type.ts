@@ -1,3 +1,6 @@
-import { PostProps } from "../../../Post.type";
+import { FeedComponentProps } from "../../FeedComponent/FeedComponent.type";
 
-export type PostFullNameProps = Pick<PostProps, "firstName" | "lastName">;
+export type PostFullNameProps = Pick<
+  FeedComponentProps,
+  "firstName" | "lastName"
+>;

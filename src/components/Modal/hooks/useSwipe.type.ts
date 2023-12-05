@@ -7,4 +7,5 @@ export type UseSwipeProps = Pick<
   | "touchDistinction"
   | "enableSwipeOnScreen"
   | "enableSwipe"
+  | "clearData"
 >;

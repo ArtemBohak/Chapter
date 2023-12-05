@@ -4,7 +4,7 @@ import { TransitionGroup } from "react-transition-group";
 import { useFeedContext } from "../../context";
 import styles from "./Feeds.module.scss";
 
-import { Animation, Post } from "@/src/components";
+import { Animation, FeedComponent } from "@/src/components";
 
 const Feeds: FC = () => {
   const { feeds, fetchData } = useFeedContext();
@@ -17,13 +17,23 @@ const Feeds: FC = () => {
       })),
     [feeds]
   );
-
+  const transitionClassNames = {
+    enter: styles["feeds-list-enter"],
+    enterActive: styles["feeds-list-enter-active"],
+    exit: styles["feeds-list-exit"],
+    exitActive: styles["feeds-list-exit-active"],
+  };
   return (
     <TransitionGroup component={"ul"} className={styles["feeds-list"]}>
       {feedsList.map((i) => (
-        <Animation key={i.id} nodeRef={i.nodeRef}>
+        <Animation
+          key={i.id}
+          nodeRef={i.nodeRef}
+          classNames={transitionClassNames}
+          timeout={300}
+        >
           <li>
-            <Post pageVariant="feed" fetchData={fetchData} {...i} />
+            <FeedComponent fetchData={fetchData} {...i} />
           </li>
         </Animation>
       ))}

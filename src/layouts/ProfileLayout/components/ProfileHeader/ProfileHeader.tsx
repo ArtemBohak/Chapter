@@ -6,6 +6,7 @@ import { links } from "@/src/types";
 import { useNavigationToggler } from "@/src/context";
 import { useAppSelector } from "@/src/redux";
 
+import { ProfileHeaderProps } from "./ProfileHeader.type";
 import styles from "./ProfileHeader.module.scss";
 
 import {
@@ -17,11 +18,14 @@ import {
   IconEnum,
 } from "@/src/components";
 
-const ProfileHeader: FC = () => {
+const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
   const { isActiveMenu, setIsActiveMenu } = useNavigationToggler();
   const { user } = useAppSelector((store) => store.userSlice);
   const { firstName, lastName, avatarUrl } = user;
 
+  const onHandleClick = () => {
+    setModalIsOpen(true);
+  };
   return (
     <header className={styles["profile-header"]}>
       <div className={styles["profile-header__container"]}>
@@ -44,6 +48,7 @@ const ProfileHeader: FC = () => {
             className={styles["profile-header__search-field"]}
           />
           <UIbutton
+            onClick={onHandleClick}
             size="small"
             isCustomIcon
             dataAutomation="addPostButton"

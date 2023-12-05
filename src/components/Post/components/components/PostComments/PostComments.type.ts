@@ -1,6 +1,6 @@
-import { PostProps } from "../../../Post.type";
+import { FeedComponentProps } from "../../FeedComponent/FeedComponent.type";
 
 export type PostCommentsProps = Pick<
-  PostProps,
+  FeedComponentProps,
   "id" | "totalComments" | "fetchData"
 >;
