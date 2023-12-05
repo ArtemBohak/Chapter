@@ -1,0 +1,16 @@
+.add-book-modal {
+    &__body {
+        @apply flex max-w-[670px] w-full absolute top-[40%] left-[40%] bg-[#FDFDFD] p-8 rounded-2xl z-50;
+    }
+    &__backdrop {
+        @apply fixed top-0 left-0 w-full h-full bg-white  md:backdrop-blur-sm md:bg-[#1c1c1c33];
+    }
+    &__wrapper {
+        @apply flex w-full h-full justify-between items-center text-center gap-4;
+    }
+
+}
+
+.form-conteiner {
+    @apply flex w-full gap-2 justify-between;
+}

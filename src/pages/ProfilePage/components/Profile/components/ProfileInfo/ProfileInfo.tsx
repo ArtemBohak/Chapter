@@ -17,6 +17,8 @@ const ProfileInfo: FC = () => {
     userStatus,
   } = user;
 
+  console.log(user);
+
   return (
     <>
       <div className={styles["profile-info"]}>

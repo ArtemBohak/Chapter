@@ -2,18 +2,28 @@ import { FC } from "react";
 import styles from "./BooksPageHeader.module.scss";
 import { IconEnum, UIbutton } from "@/src/components";
 import { links } from "@/src/types";
-import { useBooksPageContext } from "../context/hooks/useBooksPageContext";
+import { useBooksPageContext } from "../../context/hooks/useBooksPageContext";
 import CancelModal from "../CancelModal/CancelModal";
+import AddBookModal from "../AddBookModal/AddBookModal";
 
 const BooksPageHeader: FC = () => {
-  const { edit, setEdit, isModalOpen, setIsModalOpen } = useBooksPageContext();
+  const {
+    edit,
+    setEdit,
+    isCancelModalOpen,
+    setIsCancelModalOpen,
+    isAddBookModalOpen,
+    setIsAddBookModalOpen,
+  } = useBooksPageContext();
 
   const handleCancel = () => {
-    setEdit(!edit);
-    setIsModalOpen(true);
+    setIsCancelModalOpen(true);
   };
   const handleConfirm = () => {
     setEdit(!edit);
+  };
+  const handleAddBook = () => {
+    setIsAddBookModalOpen(true);
   };
 
   return (
@@ -58,6 +68,7 @@ const BooksPageHeader: FC = () => {
             Edit
           </UIbutton>
           <UIbutton
+            onClick={handleAddBook}
             className={styles["button-add"]}
             icon={IconEnum.Book}
             size="small"
@@ -67,7 +78,15 @@ const BooksPageHeader: FC = () => {
           </UIbutton>
         </div>
       )}
-      <CancelModal isOpen={isModalOpen} setIsOpen={setIsModalOpen} />
+      <CancelModal
+        isOpen={isCancelModalOpen}
+        setIsOpen={setIsCancelModalOpen}
+        setEdit={setEdit}
+      />
+      <AddBookModal
+        isOpen={isAddBookModalOpen}
+        setIsOpen={setIsAddBookModalOpen}
+      />
     </div>
   );
 };

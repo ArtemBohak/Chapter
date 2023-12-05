@@ -2,10 +2,14 @@ import { createContext, useContext } from "react";
 import { BooksPageContextType } from "../BooksPageProvider.type";
 
 export const defaultValues: BooksPageContextType = {
-  isModalOpen: false,
-  setIsModalOpen: () => {},
+  isCancelModalOpen: false,
+  setIsCancelModalOpen: () => {},
   edit: false,
-  setEdit: () => {}
+  setEdit: () => {},
+  isDeleteBookModalOpen: false,
+  setIsDeleteBookModalOpen: () => {},
+  books: [],
+  fetchData: () => {}
 };
 
 export const BooksPageContext = createContext<BooksPageContextType>(defaultValues);

@@ -13,13 +13,4 @@
     }
 }
 
-.favorite-button {
-    @apply bg-inherit top-2 left-2 absolute z-50 w-[32px] h-[32px];
-}
-.delete-button {
-    @apply bg-inherit top-2 right-2 absolute z-50 w-[32px] h-[32px];
-    & svg {
-        @apply text-white bg-[#FB0C00] rounded-sm;
-    
-    }
-}
+

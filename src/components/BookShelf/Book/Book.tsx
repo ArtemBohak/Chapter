@@ -1,23 +1,42 @@
 import { FC } from "react";
 import styles from "./Book.module.scss";
 import { BooksProps } from "./BookProps.type";
-import { Icon, IconEnum } from "../../Icon";
+import DeleteBookButton from "./IconButtons/DeleteBookButton/DeleteBookButton";
+import FavoriteBookButton from "./IconButtons/FavoriteBookButton/FavoriteBookButton";
+import BookInfoModal from "../BookInfoModal/BookInfoModal";
+import { useBooksPageContext } from "@/src/pages/BooksPage/context/hooks/useBooksPageContext";
 
-const Book: FC<BooksProps> = ({ className, favoriteButton, deleteButton }) => {
+const Book: FC<BooksProps> = ({
+  id,
+  isFavorite,
+  className,
+  favoriteButton,
+  deleteButton,
+  nameOfBook,
+}) => {
+  const { isBookInfoModalOpen, setIsBookInfoModalOpen } = useBooksPageContext();
+
+  const onHandleClick = () => {
+    setIsBookInfoModalOpen(true);
+    console.log("open", id);
+  };
   return (
     <div className={className || styles["book"]}>
-      <img src="https://i.ibb.co/NWSjYGg/image1984.png" alt="" />
-      <p>Harry Potter and the Philosopher's Stone</p>
+      <img
+        onClick={onHandleClick}
+        src="https://i.ibb.co/hMwh97C/Harry-Potter-Book-Cover.png"
+        alt="BookImage"
+      />
+      <p>{nameOfBook}</p>
       {favoriteButton ? (
-        <button className={styles["favorite-button"]}>
-          {<Icon icon={IconEnum.FavoriteActive} />}
-        </button>
+        <FavoriteBookButton isFavorite={isFavorite} id={id} />
       ) : null}
-      {deleteButton ? (
-        <button className={styles["delete-button"]}>
-          {<Icon icon={IconEnum.Close} />}
-        </button>
-      ) : null}
+      {deleteButton ? <DeleteBookButton /> : null}
+      <BookInfoModal
+        id={id}
+        isOpen={isBookInfoModalOpen}
+        setIsOpen={setIsBookInfoModalOpen}
+      />
     </div>
   );
 };
