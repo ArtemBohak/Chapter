@@ -70,6 +70,7 @@ const RegisterForm: FC = () => {
 
       if (
         status === apiErrorStatus.UNPROCESSABLE_ENTITY &&
+        error === EmailStatus.REGISTRATION_UNCOMPLETED &&
         cUId &&
         cEmail === email
       )
@@ -77,13 +78,16 @@ const RegisterForm: FC = () => {
 
       if (
         status === apiErrorStatus.UNPROCESSABLE_ENTITY &&
-        RegisterFormApi.formatErrorResponse(error) === EmailStatus.UNCONFIRMED
+        error === EmailStatus.UNCONFIRMED
       ) {
         resetForm({ values: { email, hash } });
         return setStep(step + 1);
       }
 
-      if (status === apiErrorStatus.UNPROCESSABLE_ENTITY)
+      if (
+        status === apiErrorStatus.UNPROCESSABLE_ENTITY &&
+        error === EmailStatus.CONFIRMED
+      )
         return setFieldError(
           RegisterAccountKey.EMAIL,
           apiUiMessage.EMAIL_IN_USE
