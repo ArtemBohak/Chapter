@@ -26,7 +26,7 @@ const Google: FC<SocialsProps> = ({
   dataAutomation = "oAuthButton",
   className,
 }) => {
-  const setError = useErrorBoundary(400);
+  const setError = useErrorBoundary();
   const { state, code, currentLocation, setSearchParams } = useGetUrlParams();
   const [googleAuthCode, setGoogleAuthCode] = useState(code);
   const [isLoading, setIsLoading] = useState(false);
