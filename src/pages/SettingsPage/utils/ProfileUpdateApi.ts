@@ -5,7 +5,8 @@ import {
   SetIsLoadingType,
 } from "@/src/services";
 
-import { ProfileUpdateApiArgs, SetErrorType } from "./ProfileUpdateApi.type";
+import { SetErrorType } from "@/src/types";
+import { ProfileUpdateApiArgs } from "./ProfileUpdateApi.type";
 
 export class ProfileUpdateApi extends UserApiConstructor {
   private userAvatarParams = {
@@ -15,11 +16,8 @@ export class ProfileUpdateApi extends UserApiConstructor {
     radius: 50,
   };
 
-  constructor(
-    setIsLoading?: SetIsLoadingType,
-    private setError?: SetErrorType
-  ) {
-    super(undefined, setIsLoading);
+  constructor(setIsLoading?: SetIsLoadingType, setError?: SetErrorType) {
+    super(undefined, setIsLoading, undefined, setError);
   }
 
   async imageSave(id: string | number, file: File) {

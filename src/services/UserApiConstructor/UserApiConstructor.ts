@@ -7,6 +7,7 @@ import {
   LocaleStorageArgs,
   links,
   keysValue,
+  SetErrorType,
 } from "@/src/types";
 import {
   userLoading,
@@ -36,7 +37,8 @@ export default abstract class UserApiConstructor {
   constructor(
     protected token?: string,
     protected setIsLoading?: SetIsLoadingType,
-    private navigate?: NavigateFunction
+    private navigate?: NavigateFunction,
+    protected setError?: SetErrorType
   ) {}
 
   private handleRequest() {
@@ -93,6 +95,7 @@ export default abstract class UserApiConstructor {
         await cb(payload);
       } catch (error) {
         if (error instanceof AxiosError) {
+          this.setError && this.setError(error);
           if (
             error.response?.data.status === apiErrorStatus.FORBIDDEN &&
             error.response?.data.message === apiErrorMessage.ACCOUNT_DELETED
