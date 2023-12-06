@@ -31,7 +31,7 @@ export const useErrorBoundary = ({
   useEffect(() => {
     if (error) {
       if (typeof error === "string") {
-        messageValues.map((i) => {
+        messageValues.forEach((i) => {
           if (i === error) throw new Error(error);
         });
       }
