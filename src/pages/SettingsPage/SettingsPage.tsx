@@ -22,7 +22,7 @@ const SettingsPage: FC = () => {
   const [file, setFile] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const setError = useErrorBoundary(400);
+  const setError = useErrorBoundary({ statusValue: 400 });
 
   useEffect(() => {
     setAvatarUrl(user.avatarUrl);
