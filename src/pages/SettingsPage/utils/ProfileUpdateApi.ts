@@ -24,7 +24,6 @@ export class ProfileUpdateApi extends UserApiConstructor {
 
   async imageSave(id: string | number, file: File) {
     try {
-      this.setError && this.setError(null);
       this.setIsLoading && this.setIsLoading(true);
 
       const res = await new FilesService(id, file, true).upload(
@@ -47,6 +46,7 @@ export class ProfileUpdateApi extends UserApiConstructor {
   updatePassword = this.tryCatchWrapper(
     async (payload: ProfileUpdateApiArgs) => {
       const res = await api.post(EndpointsEnum.UPDATE_PASSWORD, payload);
+
       return res;
     }
   );
