@@ -1,5 +1,5 @@
 .error {
-  @apply h-screen  bg-[#FFC78A] text-[#F9F9F9] relative;
+  @apply h-screen  bg-[#FFC78A] text-[#F9F9F9] relative overflow-y-auto;
 
   &__wrapper {
     @apply w-full text-center px-2-md md:px-3-md absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
@@ -14,7 +14,7 @@
   }
 
   &__button {
-    @apply w-full mx-auto max-w-[316px];
+    @apply w-full mx-auto max-w-[328px] md:max-w-[316px];
 
     &.button {
       @apply font-medium md:text-xxl;
