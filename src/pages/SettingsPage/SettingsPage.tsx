@@ -1,6 +1,8 @@
 import { FC, useEffect, useState } from "react";
 
+import { ProfileUpdateApi } from "./utils/ProfileUpdateApi";
 import { useAppSelector } from "@/src/redux";
+import { useErrorBoundary } from "@/src/hooks";
 import styles from "./SettingsPage.module.scss";
 
 import {
@@ -13,14 +15,14 @@ import {
   UserAccountDeletion,
 } from "./components";
 import { ImageField } from "@/src/components";
-import { ProfileUpdateApi } from "./utils/ProfileUpdateApi";
 
 const SettingsPage: FC = () => {
   const { user } = useAppSelector((state) => state.userSlice);
   const [avatarUrl, setAvatarUrl] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+
+  const setError = useErrorBoundary(400);
 
   useEffect(() => {
     setAvatarUrl(user.avatarUrl);
@@ -29,6 +31,7 @@ const SettingsPage: FC = () => {
   useEffect(() => {
     file &&
       new ProfileUpdateApi(setIsLoading, setError).imageSave(user.id, file);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [file, user.id]);
 
   return (
@@ -42,7 +45,6 @@ const SettingsPage: FC = () => {
             btnVariant="button"
             setFile={setFile}
             isLoading={isLoading}
-            error={error}
           />
           <Layout className={styles["form-wrapper__top-spacing"]} customSpacing>
             <UserStatus userStatus={user.userStatus} />

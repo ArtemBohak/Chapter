@@ -6,7 +6,6 @@ import {
 } from "@/src/services";
 
 import { ProfileUpdateApiArgs, SetErrorType } from "./ProfileUpdateApi.type";
-import { apiUiMessage } from "@/src/types";
 
 export class ProfileUpdateApi extends UserApiConstructor {
   private userAvatarParams = {
@@ -32,8 +31,10 @@ export class ProfileUpdateApi extends UserApiConstructor {
         this.userAvatarParams
       );
 
-      if (res.code)
-        return this.setError && this.setError(apiUiMessage.ERROR_MESSAGE);
+      if (res.code) {
+        this.setError && this.setError(res);
+        return res;
+      }
 
       await this.userSave({
         avatarUrl: res?.eager[0].secure_url,
@@ -44,8 +45,10 @@ export class ProfileUpdateApi extends UserApiConstructor {
   }
 
   updatePassword = this.tryCatchWrapper(
-    async (payload: ProfileUpdateApiArgs) =>
-      await api.post(EndpointsEnum.UPDATE_PASSWORD, payload)
+    async (payload: ProfileUpdateApiArgs) => {
+      const res = await api.post(EndpointsEnum.UPDATE_PASSWORD, payload);
+      return res;
+    }
   );
 
   userSave = this.tryCatchWrapper(async (payload: ProfileUpdateApiArgs) => {
