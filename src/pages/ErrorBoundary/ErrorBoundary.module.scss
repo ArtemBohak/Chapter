@@ -1,6 +1,5 @@
 .error {
   @apply h-screen  bg-[#FFC78A] text-[#F9F9F9] relative;
-  //   pt-[225px] pb-5-xs md:pt-[252px] laptop:pt-[270px]
 
   &__wrapper {
     @apply w-full text-center px-2-md md:px-3-md absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
@@ -25,8 +24,4 @@
 
 .title {
   @apply font-bold md:text-[40px] laptop:text-[60px];
-}
-
-.image {
-  @apply w-full h-full;
 }

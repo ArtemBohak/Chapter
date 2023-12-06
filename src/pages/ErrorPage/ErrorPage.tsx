@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { useNavigate } from "react-router-dom";
 
 import styles from "./ErrorPage.module.scss";
 
@@ -9,6 +10,7 @@ import { UIbutton } from "@/src/components";
 import image from "@/src/assets/WEBP/page-404.webp";
 
 const ErrorPage: FC = () => {
+  const navigate = useNavigate();
   return (
     <ErrorLayout>
       <section className={styles["block-error"]}>
@@ -32,8 +34,7 @@ const ErrorPage: FC = () => {
               </p>
             </div>
             <UIbutton
-              href="/"
-              variant="contained"
+              onClick={() => navigate("/")}
               dataAutomation="navigationButton"
               className={`${styles["block-error__button"]} ${styles["error__btn"]}`}
             >
