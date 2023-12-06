@@ -2,7 +2,7 @@ import { FC } from "react";
 
 import styles from "./ErrorPage.module.scss";
 
-import { ErrorLayout } from "./components";
+import { ErrorLayout } from "@/src/layouts";
 
 import { UIbutton } from "@/src/components";
 
