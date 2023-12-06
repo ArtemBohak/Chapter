@@ -3,8 +3,8 @@ import { UserApiConstructor } from "@/src/services";
 import { OAuthApiArgs } from "../OAuth.type";
 
 class FacebookApi extends UserApiConstructor {
-  constructor({ token, navigate, setIsLoading }: OAuthApiArgs) {
-    super(token, setIsLoading, navigate);
+  constructor({ token, navigate, setIsLoading, setError }: OAuthApiArgs) {
+    super(token, setIsLoading, navigate, setError);
 
     this.login();
   }

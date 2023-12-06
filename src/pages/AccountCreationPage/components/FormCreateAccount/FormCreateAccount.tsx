@@ -6,7 +6,7 @@ import cn from "classnames";
 
 import { EndpointsEnum, api } from "@/src/axios";
 import { links, keysValue, apiErrorMessage } from "@/src/types";
-import { useDebounce } from "@/src/hooks";
+import { useDebounce, useErrorBoundary } from "@/src/hooks";
 import {
   deleteCookie,
   getCookies,
@@ -29,6 +29,7 @@ const initialValues: IAccountCreate = {
 };
 
 const FormCreateAccount: FC = () => {
+  const setError = useErrorBoundary();
   const LSFullName = localStorage.getItem("fullName");
   const fullname = LSFullName ? LSFullName : "";
 
@@ -55,6 +56,7 @@ const FormCreateAccount: FC = () => {
       }
     } catch (e) {
       if (e instanceof AxiosError) {
+        setError(e);
         if (e.response?.data.message !== apiErrorMessage.NICKNAME_IN_USE) {
           return setNkErrorMessage(
             e.response?.data.error || "Nickname already exist"
@@ -97,6 +99,7 @@ const FormCreateAccount: FC = () => {
       navigate(links.LOG_IN);
     } catch (e) {
       if (e instanceof AxiosError) {
+        setError(e);
         setErrorMessageForm(e.response?.data.message || e.response?.data.error);
       }
       setSubmitting(false);
@@ -117,6 +120,7 @@ const FormCreateAccount: FC = () => {
     if (debouncedNickname !== "") {
       handleNicknameChange(debouncedNickname);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedNickname]);
 
   return (

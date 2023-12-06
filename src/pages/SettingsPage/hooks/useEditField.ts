@@ -2,12 +2,14 @@ import { ChangeEvent, RefObject, useEffect, useState } from "react";
 
 import { ProfileUpdateApi } from "../utils/ProfileUpdateApi";
 import { simpleStringRegex } from "@/src/utils";
+import { useErrorBoundary } from "@/src/hooks";
 
 const useEditField = (
   textValue: string | null,
   nodeRef: RefObject<HTMLTextAreaElement | HTMLInputElement>,
   userStatus: boolean
 ) => {
+  const setError = useErrorBoundary();
   const [isEditing, setIsEditing] = useState(false);
   const [value, setValue] = useState<string | null>(textValue);
 
@@ -20,7 +22,7 @@ const useEditField = (
   const onHandleEdit = () => setIsEditing(true);
 
   const onHandleSave = async () => {
-    const profile = new ProfileUpdateApi();
+    const profile = new ProfileUpdateApi(undefined, setError);
     if (value !== textValue) {
       if (userStatus && value)
         profile.userSave({

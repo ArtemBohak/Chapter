@@ -7,6 +7,7 @@ import {
   ButtonVariantType,
   ButtonSizeType,
 } from "../Buttons/UIbutton/UIbutton.type";
+import { SetErrorType } from "@/src/types";
 
 export enum OAuthApiEndPoints {
   GOOGLE_TOKEN = "/token",
@@ -38,6 +39,7 @@ export type SetIsLoadingType = Dispatch<SetStateAction<boolean>>;
 export type OAuthApiArgs = {
   navigate: NavigateFunction;
   setIsLoading: SetIsLoadingType;
+  setError: SetErrorType;
   redirectUri?: string;
   token?: string;
 };

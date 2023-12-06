@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Formik, Form, FormikHelpers } from "formik";
 
 import { apiUiMessage, apiErrorStatus, links, keysValue } from "@/src/types";
-
+import { useErrorBoundary } from "@/src/hooks";
 import RegisterFormApi from "./RegisterFormApi";
 import { getCookies, setCookies } from "@/src/utils";
 import {
@@ -25,6 +25,7 @@ const initialValues: RegisterAccountValues = {
 };
 
 const RegisterForm: FC = () => {
+  const setError = useErrorBoundary();
   const [step, setStep] = useState(Steps.FIRST);
   const [emailValue, setEmailValue] = useState("");
   const nodeRef = useRef(null);
@@ -44,9 +45,12 @@ const RegisterForm: FC = () => {
   ) => {
     try {
       if (step === Steps.SECOND) {
-        const { status, id, email } = await RegisterFormApi.fetchUserRegData({
-          hash,
-        });
+        const { status, id, email } = await RegisterFormApi.fetchUserRegData(
+          {
+            hash,
+          },
+          setError
+        );
 
         if (status === apiErrorStatus.NOTFOUND)
           return setFieldError(
@@ -61,9 +65,12 @@ const RegisterForm: FC = () => {
       setEmailValue(email);
 
       const { error, statusCode, message, status } =
-        await RegisterFormApi.fetchUserRegData({
-          email,
-        });
+        await RegisterFormApi.fetchUserRegData(
+          {
+            email,
+          },
+          setError
+        );
 
       if (statusCode === apiErrorStatus.BAD_REQUEST)
         return setFieldError(RegisterAccountKey.EMAIL, message);

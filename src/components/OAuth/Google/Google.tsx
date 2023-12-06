@@ -4,6 +4,7 @@ import { useGoogleLogin } from "@react-oauth/google";
 
 import GoogleApi from "./GoogleApi";
 import { useGetUrlParams } from "../hooks";
+import { useErrorBoundary } from "@/src/hooks";
 import { SocialsProps, OAuthVariant } from "../OAuth.type";
 import styles from "../OAuth.module.scss";
 
@@ -25,6 +26,7 @@ const Google: FC<SocialsProps> = ({
   dataAutomation = "oAuthButton",
   className,
 }) => {
+  const setError = useErrorBoundary(400);
   const { state, code, currentLocation, setSearchParams } = useGetUrlParams();
   const [googleAuthCode, setGoogleAuthCode] = useState(code);
   const [isLoading, setIsLoading] = useState(false);
@@ -42,6 +44,7 @@ const Google: FC<SocialsProps> = ({
         redirectUri: currentLocation,
         navigate,
         setIsLoading,
+        setError,
       });
 
       setGoogleAuthCode("");
@@ -65,6 +68,7 @@ const Google: FC<SocialsProps> = ({
           redirectUri: VITE_GOOGLE_REDIRECT_URI,
           navigate,
           setIsLoading,
+          setError,
         });
       }
     },

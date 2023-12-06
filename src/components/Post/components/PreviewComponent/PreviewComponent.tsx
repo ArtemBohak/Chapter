@@ -8,6 +8,7 @@ import {
   PostText,
   PostTitle,
 } from "../components";
+import { useErrorBoundary } from "@/src/hooks";
 import { useAppSelector } from "@/src/redux";
 import { UIbutton } from "@/src/components";
 import styles from "./PreviewComponent.module.scss";
@@ -22,6 +23,7 @@ const PreviewComponent: FC<PreviewComponentProps> = ({
   file,
   ...props
 }) => {
+  const setErrors = useErrorBoundary();
   const { firstName, lastName, id } = useAppSelector(
     (state) => state.userSlice.user
   );
@@ -49,7 +51,9 @@ const PreviewComponent: FC<PreviewComponentProps> = ({
         const res = await new FilesService(id, file).upload({
           overwrite: false,
         });
-        if (res.code) return setError(apiUiMessage.ERROR_MESSAGE);
+        if (res.code) {
+          return setErrors(apiUiMessage.ERROR_MESSAGE);
+        }
         body.imageUrl = res.secure_url;
       }
       console.log(

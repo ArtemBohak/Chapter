@@ -4,6 +4,7 @@ import { Form, Formik } from "formik";
 import { IForgotPassword } from "./ForgotPassword.types";
 import { ForgotPasswordProps } from "../ForgotPasswordProps.types";
 import ForgotPasswordApi from "./ForgotPasswordApi";
+import { useErrorBoundary } from "@/src/hooks";
 import validationSchema from "./validationSchema";
 
 import { TextField, UIbutton } from "@/src/components";
@@ -11,12 +12,13 @@ import { TextField, UIbutton } from "@/src/components";
 const initialValues: IForgotPassword = { email: "" };
 
 const ForgotPasswordForm: FC<ForgotPasswordProps> = ({ setSubmitted }) => {
+  const setError = useErrorBoundary();
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={(values) => {
-        ForgotPasswordApi(values);
+        ForgotPasswordApi(values, setError);
         setSubmitted(true);
       }}
     >
