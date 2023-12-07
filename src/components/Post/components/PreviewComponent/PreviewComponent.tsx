@@ -26,7 +26,7 @@ const PreviewComponent: FC<PreviewComponentProps> = ({
   file,
   ...props
 }) => {
-  const setImageError = useErrorBoundary({ statusValue: 400 });
+  const setImageBoundaryError = useErrorBoundary();
 
   const { firstName, lastName, id } = useAppSelector(
     (state) => state.userSlice.user
@@ -56,7 +56,7 @@ const PreviewComponent: FC<PreviewComponentProps> = ({
           overwrite: false,
         });
         if (res.code) {
-          setImageError(res);
+          setImageBoundaryError(res);
           return setError(apiUiMessage.ERROR_MESSAGE);
         }
 
