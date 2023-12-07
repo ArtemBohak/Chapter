@@ -1,16 +1,12 @@
 .error {
-  @apply h-screen  bg-[#FFC78A] text-[#F9F9F9] relative overflow-y-auto;
+  @apply h-screen  bg-[#FFC78A] text-[#F9F9F9] overflow-y-auto relative;
 
   &__wrapper {
-    @apply w-full text-center px-2-md md:px-3-md absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
+    @apply w-full text-center pb-2-xs px-2-md md:px-3-md bg-[url('@/src/assets/WEBP/page-error.webp')] bg-no-repeat bg-[length:327px_100%] bg-center md:bg-[length:700px_100%] laptop:bg-[length:966px_100%] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
   }
 
   &__title {
-    @apply mb-1-sm md:mb-3-md;
-  }
-
-  &__image {
-    @apply w-full h-auto mx-auto bg-[url('@/src/assets/WEBP/page-error.webp')] bg-no-repeat bg-cover bg-center min-h-[148px] max-w-[328px] mb-3-md md:mb-5-xs md:max-w-[700px] md:min-h-[324px] laptop:max-w-[966px] laptop:min-h-[356px];
+    @apply mb-[192px] md:mb-[408px] laptop:mb-[440px];
   }
 
   &__button {

@@ -21,7 +21,6 @@ const ErrorBoundary: FC = () => {
             <h2 className={`${styles["error__title"]} ${styles["title"]}`}>
               Oh no! Something went wrong!
             </h2>
-            <div className={styles["error__image"]}></div>
             <div className={styles["error__button"]}>
               <UIbutton
                 dataAutomation="clickButton"
