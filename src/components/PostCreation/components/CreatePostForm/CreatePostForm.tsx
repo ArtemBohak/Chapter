@@ -86,7 +86,9 @@ const CreatePostForm: FC<CreatePostFormProps> = ({
               <UIbutton
                 type="submit"
                 dataAutomation="submitButton"
-                disabled={!isValid}
+                disabled={
+                  (!imageUrl && !values.caption && !values.title) || !isValid
+                }
                 fullWidth
               >
                 Confirm

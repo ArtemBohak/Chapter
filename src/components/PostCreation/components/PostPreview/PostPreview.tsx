@@ -41,25 +41,30 @@ const PostPreview: FC<PostPreviewProps> = ({
       setError(null);
       setIsLoading(true);
       const body: BodyProps = {
-        title: props.title,
-        caption: props.caption,
         date,
       };
+
+      if (props.title) body.title = props.title;
 
       if (file) {
         const res = await new FilesService(id, file).upload({
           overwrite: false,
         });
-        if (res.code) return setError(apiUiMessage.ERROR_MESSAGE);
+        if (res.code) {
+          return setError(apiUiMessage.ERROR_MESSAGE);
+        }
         body.imageUrl = res.secure_url;
       }
+
+      if (props.caption) body.caption = props.caption;
 
       await api.post(EndpointsEnum.CREATE_POST, body);
 
       setIsOpen(false);
     } catch (error) {
-      console.log(error);
-      if (error instanceof AxiosError) setError(apiUiMessage.ERROR_MESSAGE);
+      if (error instanceof AxiosError) {
+        setError(apiUiMessage.ERROR_MESSAGE);
+      }
     } finally {
       setIsLoading(false);
     }

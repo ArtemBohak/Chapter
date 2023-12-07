@@ -22,5 +22,5 @@ export enum EndpointsEnum {
   UPDATE_PASSWORD = "users/update-password",
   UPLOAD_FILES = "files/upload",
   FILES = "files/",
-  CREATE_POST = "create",
+  CREATE_POST = "posts/create",
 }
