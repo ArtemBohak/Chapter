@@ -1,6 +1,16 @@
 import { FC, useState } from "react";
+import { AxiosError } from "axios";
 
 import { BodyProps, PreviewComponentProps } from "./PreviewComponent.type";
+
+import { useErrorBoundary } from "@/src/hooks";
+import { useAppSelector } from "@/src/redux";
+
+import { FilesService } from "@/src/services";
+import { apiUiMessage } from "@/src/types";
+import styles from "./PreviewComponent.module.scss";
+
+import { UIbutton } from "@/src/components";
 import {
   PostDate,
   PostFullName,
@@ -8,13 +18,6 @@ import {
   PostText,
   PostTitle,
 } from "../components";
-import { useErrorBoundary } from "@/src/hooks";
-import { useAppSelector } from "@/src/redux";
-import { UIbutton } from "@/src/components";
-import styles from "./PreviewComponent.module.scss";
-import { FilesService } from "@/src/services";
-import { apiUiMessage } from "@/src/types";
-import { AxiosError } from "axios";
 
 const PreviewComponent: FC<PreviewComponentProps> = ({
   setFormIsOpen,
@@ -23,7 +26,8 @@ const PreviewComponent: FC<PreviewComponentProps> = ({
   file,
   ...props
 }) => {
-  const setErrors = useErrorBoundary();
+  const setImageError = useErrorBoundary({ statusValue: 400 });
+
   const { firstName, lastName, id } = useAppSelector(
     (state) => state.userSlice.user
   );
@@ -52,8 +56,10 @@ const PreviewComponent: FC<PreviewComponentProps> = ({
           overwrite: false,
         });
         if (res.code) {
-          return setErrors(apiUiMessage.ERROR_MESSAGE);
+          setImageError(res);
+          return setError(apiUiMessage.ERROR_MESSAGE);
         }
+
         body.imageUrl = res.secure_url;
       }
       console.log(
