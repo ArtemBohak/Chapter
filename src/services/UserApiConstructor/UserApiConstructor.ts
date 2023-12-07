@@ -89,9 +89,8 @@ export default abstract class UserApiConstructor {
 
   protected tryCatchWrapper(cb: cbFunc) {
     return async (payload?: cbArgs) => {
-      this.handleRequest();
-
       try {
+        this.handleRequest();
         await cb(payload);
       } catch (error) {
         if (error instanceof AxiosError) {
