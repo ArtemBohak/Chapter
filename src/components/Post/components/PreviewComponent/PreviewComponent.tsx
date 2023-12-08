@@ -52,7 +52,12 @@ const PreviewComponent: FC<PreviewComponentProps> = ({
       };
 
       if (file) {
-        const res = await new FilesService(id, setBoundaryError, file).upload({
+        const res = await new FilesService(
+          id,
+          file,
+          undefined,
+          setBoundaryError
+        ).upload({
           overwrite: false,
         });
         if (res.code) {

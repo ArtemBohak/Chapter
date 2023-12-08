@@ -17,14 +17,13 @@ class FilesService {
   private cloudName = VITE_CLOUDINARY_CLOUD_NAME;
   private apiKey = VITE_CLOUDINARY_API_KEY;
   private apiSecret = VITE_CLOUDINARY_API_SECRET;
-
   private formats = ["webp"];
 
   constructor(
     private id: string | number,
-    private setError?: SetErrorType,
     private file?: File | string,
-    private avatar?: boolean
+    private avatar?: boolean,
+    private setError?: SetErrorType
   ) {}
 
   private createSignature(params: Params) {
