@@ -36,7 +36,7 @@ const SettingsPage: FC = () => {
       new ProfileUpdateApi(setIsLoading, setBoundaryError)
         .imageSave(user.id, file)
         .then((res) => {
-          if (res.code) setError(apiUiMessage.ERROR_MESSAGE);
+          if (res?.code) setError(apiUiMessage.ERROR_MESSAGE);
         });
     }
 
