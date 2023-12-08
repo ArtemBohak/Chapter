@@ -3,7 +3,7 @@ import { AxiosError } from "axios";
 
 import { uploadFilesApi } from "@/src/axios";
 import { hashingString } from "@/src/utils";
-import { FileArgs } from "@/src/types";
+import { FileArgs, SetErrorType } from "@/src/types";
 
 import { Params, Path } from "./Files.type";
 
@@ -22,6 +22,7 @@ class FilesService {
 
   constructor(
     private id: string | number,
+    private setError?: SetErrorType,
     private file?: File | string,
     private avatar?: boolean
   ) {}
@@ -84,7 +85,10 @@ class FilesService {
 
       return res.data;
     } catch (error) {
-      if (error instanceof AxiosError) return error;
+      if (error instanceof AxiosError) {
+        this.setError && this.setError(error);
+        return error;
+      }
     }
   }
 
@@ -104,7 +108,10 @@ class FilesService {
       });
       return res.data;
     } catch (error) {
-      if (error instanceof AxiosError) return error;
+      if (error instanceof AxiosError) {
+        this.setError && this.setError(error);
+        return error;
+      }
     }
   }
 }

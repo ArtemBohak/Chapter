@@ -24,12 +24,11 @@ export class ProfileUpdateApi extends UserApiConstructor {
     try {
       this.setIsLoading && this.setIsLoading(true);
 
-      const res = await new FilesService(id, file, true).upload(
+      const res = await new FilesService(id, this.setError, file, true).upload(
         this.userAvatarParams
       );
 
       if (res.code) {
-        this.setError && this.setError(res);
         return res;
       }
 

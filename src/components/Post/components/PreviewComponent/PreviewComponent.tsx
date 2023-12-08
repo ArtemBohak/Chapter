@@ -26,7 +26,7 @@ const PreviewComponent: FC<PreviewComponentProps> = ({
   file,
   ...props
 }) => {
-  const setImageBoundaryError = useErrorBoundary();
+  const setBoundaryError = useErrorBoundary();
 
   const { firstName, lastName, id } = useAppSelector(
     (state) => state.userSlice.user
@@ -52,11 +52,10 @@ const PreviewComponent: FC<PreviewComponentProps> = ({
       };
 
       if (file) {
-        const res = await new FilesService(id, file).upload({
+        const res = await new FilesService(id, setBoundaryError, file).upload({
           overwrite: false,
         });
         if (res.code) {
-          setImageBoundaryError(res);
           return setError(apiUiMessage.ERROR_MESSAGE);
         }
 
@@ -69,7 +68,10 @@ const PreviewComponent: FC<PreviewComponentProps> = ({
       setIsOpen(false);
       clearData && clearData();
     } catch (error) {
-      if (error instanceof AxiosError) setError(error.message);
+      if (error instanceof AxiosError) {
+        setBoundaryError(error);
+        setError(error.message);
+      }
     } finally {
       setIsLoading(false);
     }
