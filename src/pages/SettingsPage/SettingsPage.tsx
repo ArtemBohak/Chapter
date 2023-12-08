@@ -31,12 +31,14 @@ const SettingsPage: FC = () => {
   }, [user.avatarUrl]);
 
   useEffect(() => {
-    if (file)
+    if (file) {
+      setError("");
       new ProfileUpdateApi(setIsLoading, setBoundaryError)
         .imageSave(user.id, file)
         .then((res) => {
           if (res.code) setError(apiUiMessage.ERROR_MESSAGE);
         });
+    }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [file, user.id]);
