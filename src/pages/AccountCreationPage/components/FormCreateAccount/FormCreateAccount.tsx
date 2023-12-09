@@ -170,7 +170,7 @@ const FormCreateAccount: FC = () => {
               type="submit"
               fullWidth
               dataAutomation="submitButton"
-              className="p-[12px] text-sm"
+              className={styles["button"]}
               disabled={!isValid || !dirty || !!nkErrorMessage || nkIsLoading}
               isLoading={isSubmitting}
             >

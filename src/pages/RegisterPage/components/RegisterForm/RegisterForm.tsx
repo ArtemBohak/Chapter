@@ -119,8 +119,8 @@ const RegisterForm: FC = () => {
       nodeRef={nodeRef}
       timeout={300}
       classNames={{
-        enter: styles["register-form__hash-input--enter"],
-        enterActive: styles["register-form__hash-input--enter-active"],
+        enter: styles["input--enter"],
+        enterActive: styles["input--enter-active"],
       }}
       unmountOnExit
     >
@@ -138,26 +138,26 @@ const RegisterForm: FC = () => {
   );
 
   return (
-    <div className={styles["register"]}>
+    <div className={styles["form"]}>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema(isNextStep)}
         onSubmit={onHandleSubmit}
       >
         {({ isSubmitting, dirty, isValid, values }) => (
-          <Form className={styles["register-form"]}>
+          <Form>
             <TextField
               id={RegisterAccountKey.EMAIL}
               name={RegisterAccountKey.EMAIL}
               value={values.email}
               dataAutomation={`${RegisterAccountKey.EMAIL}Input`}
               label="Your email"
-              className={isNextStep ? "mb-0" : ""}
+              className={isNextStep ? styles["input"] : ""}
               disabled={isNextStep}
             />
             {renderNextStep(values.hash)}
             <UIbutton
-              className={styles["register-form__button"]}
+              className={styles["button"]}
               dataAutomation="submitButton"
               type="submit"
               fullWidth
