@@ -7,7 +7,7 @@ import { CookiesToaster } from "@/src/components/CookiesToaster";
 
 const PublicLayout: FC = () => {
   const { pathname } = useLocation();
-  console.log(location);
+
   return (
     <>
       <PublicHeader />

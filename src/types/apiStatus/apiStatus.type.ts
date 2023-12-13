@@ -7,6 +7,9 @@ export enum apiUiMessage {
   ERROR_MESSAGE = "Something wrong! Reload or try again later.",
   INSPIRED_HASH = "Sign up code is expired",
   NICKNAME_IN_USE = "Username is taken.",
+  NOT_REGISTERED = "This user is not registered",
+  REGISTRATION_UNCOMPLETED = "This user has not completed the registration",
+  EMAIL_UNCONFIRMED = "This user has not confirmed his email",
 }
 
 export enum apiErrorMessage {
@@ -15,6 +18,8 @@ export enum apiErrorMessage {
   UPDATE_PASSWORD = "Incorrect old password!",
   NICKNAME_IN_USE = "User with this nickname already exists.",
   CANCELED = "ERR_CANCELED",
+  REGISTRATION_UNCOMPLETED = "You have not completed the registration",
+  EMAIL_UNCONFIRMED = "Email status is Inactive",
 }
 
 export enum apiErrorStatus {

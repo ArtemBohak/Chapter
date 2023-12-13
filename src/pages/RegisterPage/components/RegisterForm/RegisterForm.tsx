@@ -1,5 +1,5 @@
-import { FC, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { FC, useEffect, useRef, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Formik, Form, FormikHelpers } from "formik";
 
 import { apiUiMessage, apiErrorStatus, links, keysValue } from "@/src/types";
@@ -31,8 +31,21 @@ const RegisterForm: FC = () => {
   const [cUId, cEmail] = getCookies(keysValue.USER_ID, keysValue.EMAIL);
 
   const navigate = useNavigate();
+  const { state } = useLocation();
 
   const isNextStep = step > Steps.FIRST;
+
+  useEffect(() => {
+    if (state) {
+      setStep(Steps.SECOND);
+      setEmailValue(state);
+    }
+  }, [state]);
+
+  useEffect(() => {
+    navigate(location.pathname, {});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const onHandleSubmit = async (
     { email, hash }: RegisterAccountValues,
@@ -140,7 +153,7 @@ const RegisterForm: FC = () => {
   return (
     <div className={styles["form"]}>
       <Formik
-        initialValues={initialValues}
+        initialValues={{ ...initialValues, ...(state ? { email: state } : {}) }}
         validationSchema={validationSchema(isNextStep)}
         onSubmit={onHandleSubmit}
       >
