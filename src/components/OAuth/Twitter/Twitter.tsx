@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useLayoutEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import TwitterApi from "./TwitterApi";
@@ -33,7 +33,7 @@ const Twitter: FC<SocialsProps> = ({
     stateId
   );
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (
       oAuthVariant === OAuthVariant.TWITTER &&
       twitterAuthCode &&

@@ -7,6 +7,7 @@ export type TextFieldProps = {
   name: string;
   showSuccessIcon?: boolean;
   dataAutomation: string;
+  additionalLabel?: string;
   helperLink?: {
     text: string;
     href: string;

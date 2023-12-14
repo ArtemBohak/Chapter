@@ -10,7 +10,7 @@ const RegisterPage: FC = () => (
   <BlockAuth
     heading="Sign up"
     showBottomText={true}
-    typePageText="Create account"
+    typePageText="Create new account"
   >
     <div className={styles["register-page"]}>
       <RegisterForm />

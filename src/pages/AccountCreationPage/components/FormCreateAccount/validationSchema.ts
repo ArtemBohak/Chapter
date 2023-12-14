@@ -17,7 +17,8 @@ export default Yup.object({
   nickName: Yup.string()
     .matches(nickNameCharsRegex, "Please enter a valid Nickname")
     .required("Please enter a valid Nickname")
-    .min(4, "Please enter a valid Nickname")
+    .min(8, "Please enter a valid Nickname")
+    .max(30, "Please enter a valid Nickname")
     .trim(),
 
   password: Yup.string()

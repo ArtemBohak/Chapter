@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useLayoutEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGoogleLogin } from "@react-oauth/google";
 
@@ -28,9 +28,10 @@ const Google: FC<SocialsProps> = ({
   const { state, code, currentLocation, setSearchParams } = useGetUrlParams();
   const [googleAuthCode, setGoogleAuthCode] = useState(code);
   const [isLoading, setIsLoading] = useState(false);
+
   const navigate = useNavigate();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (
       oAuthVariant === OAuthVariant.GOOGLE &&
       googleAuthCode &&
