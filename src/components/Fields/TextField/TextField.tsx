@@ -20,6 +20,7 @@ const TextField: FC<TextFieldProps> = ({
   dataAutomation,
   helperLink,
   customErrorMessage,
+  additionalLabel,
   onChange,
   ...props
 }) => {
@@ -76,6 +77,9 @@ const TextField: FC<TextFieldProps> = ({
           <p className="text-field__custom-error-message">
             {customErrorMessage}
           </p>
+        ) : null}
+        {additionalLabel && !(value as string).length ? (
+          <p className="text-field__additional-label">{additionalLabel}</p>
         ) : null}
       </div>
     </div>

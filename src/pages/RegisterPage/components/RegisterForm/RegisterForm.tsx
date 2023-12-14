@@ -144,6 +144,7 @@ const RegisterForm: FC = () => {
           name={RegisterAccountKey.HASH}
           dataAutomation={`${RegisterAccountKey.HASH}Input`}
           label="Sign up code"
+          additionalLabel="It may take up to 2 minutes for the code to be sent."
           value={value}
         />
       </div>

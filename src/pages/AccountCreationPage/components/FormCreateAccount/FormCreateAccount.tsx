@@ -45,8 +45,8 @@ const FormCreateAccount: FC = () => {
 
   async function handleNicknameChange(nickname: string) {
     try {
-      if (nickname.trim().length >= 4) {
-        setNkErrorMessage(null);
+      setNkErrorMessage(null);
+      if (nickname.trim().length >= 8) {
         setNkIsLoading(true);
         await api.post(
           `${EndpointsEnum.NICKNAME_VALIDATION}/${nickname}`,
@@ -72,7 +72,7 @@ const FormCreateAccount: FC = () => {
       setErrorMessageForm(null);
       setSubmitting(true);
 
-      const [firstName, lastName] = values.fullname.split(" ");
+      const [firstName, lastName] = values.fullname.trim().split(" ");
       const { nickName, confirm_password, password } = values;
 
       await api.patch(`${EndpointsEnum.REGISTRATION_FINALLY}/${userId}`, {
@@ -115,6 +115,8 @@ const FormCreateAccount: FC = () => {
     if (debouncedNickname !== "") {
       handleNicknameChange(debouncedNickname);
     }
+
+    if (debouncedNickname.length < 8) setNkErrorMessage(null);
   }, [debouncedNickname]);
 
   return (
@@ -136,7 +138,7 @@ const FormCreateAccount: FC = () => {
               name="fullname"
               label="Full Name"
               value={values.fullname}
-              placeholder="Full Name"
+              placeholder="ex. John Brick, Dina O’neal, Jonathan... "
               dataAutomation="fullname"
               showSuccessIcon={true}
             />
@@ -145,7 +147,7 @@ const FormCreateAccount: FC = () => {
               name="nickName"
               label="Nickname"
               value={nickname}
-              placeholder="nickname"
+              placeholder="@JaneSMTH"
               dataAutomation="nickname"
               showSuccessIcon={true}
               onChange={onHandleChange}
@@ -174,7 +176,7 @@ const FormCreateAccount: FC = () => {
               disabled={!isValid || !dirty || !!nkErrorMessage || nkIsLoading}
               isLoading={isSubmitting}
             >
-              Submit
+              Save changes
             </UIbutton>
             {errorMessageForm ? (
               <p className="text-red text-s text-center mt-1 mr-2">
