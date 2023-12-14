@@ -3,9 +3,9 @@ import { AxiosError } from "axios";
 
 import { uploadFilesApi } from "@/src/axios";
 import { hashingString } from "@/src/utils";
-import { FileArgs, SetErrorType } from "@/src/types";
+import { FileArgs, SetErrorType, Path } from "@/src/types";
 
-import { Params, Path } from "./Files.type";
+import { Params } from "./Files.type";
 
 const {
   VITE_CLOUDINARY_CLOUD_NAME,
