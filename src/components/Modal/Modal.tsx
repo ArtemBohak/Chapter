@@ -10,7 +10,6 @@ import { Animation } from "@/src/components";
 
 const Modal: FC<ModalProps> = ({
   setIsOpen,
-  clearData,
   isOpen,
   children,
   transitionClassName,
@@ -22,13 +21,12 @@ const Modal: FC<ModalProps> = ({
   ...props
 }) => {
   const nodeRef = useRef(null);
-  useSwipe({ setIsOpen, clearData, ...props });
+  useSwipe({ setIsOpen, ...props });
 
   useEffect(() => {
     const handlePressESC = (e: { code: string }) => {
       if (e.code === "Escape") {
         setIsOpen(false);
-        clearData && clearData();
       }
     };
     window.addEventListener("keydown", handlePressESC);
@@ -50,7 +48,6 @@ const Modal: FC<ModalProps> = ({
     e.stopPropagation();
     if (e.target === e.currentTarget) {
       setIsOpen(false);
-      clearData && clearData();
     }
   };
 

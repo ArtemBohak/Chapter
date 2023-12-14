@@ -5,7 +5,6 @@ import { useGetScreenSize } from "@/src/hooks";
 
 const useSwipe = ({
   setIsOpen,
-  clearData,
   enableSwipe = false,
   axis = "clientX",
   touchDistinction = 200,
@@ -23,7 +22,6 @@ const useSwipe = ({
       const touchEnd = e.changedTouches[0][axis];
       if (touchStart - touchEnd > touchDistinction) {
         setIsOpen(false);
-        clearData && clearData();
       }
     };
 

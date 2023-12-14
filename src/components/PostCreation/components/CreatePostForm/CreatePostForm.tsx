@@ -17,16 +17,16 @@ const CreatePostForm: FC<CreatePostFormProps> = ({
   setFormIsOpen,
   setImage,
   setTitle,
-  setText,
+  setCaption,
   setFile,
   title,
-  text,
+  caption,
   imageUrl,
 }) => {
-  const initialValues = { title, text };
+  const initialValues = { title, caption };
   const onSubmit = (values: PostValues) => {
     setTitle(values.title);
-    setText(values.text);
+    setCaption(values.caption);
 
     setFormIsOpen(false);
   };
@@ -74,11 +74,11 @@ const CreatePostForm: FC<CreatePostFormProps> = ({
               </div>
             ) : null}
             <TextAreaField
-              id="text"
+              id="caption"
               dataAutomation="commentInput"
-              name="text"
+              name="caption"
               placeholder="Add a text"
-              value={values.text}
+              value={values.caption}
               onHandleIconClick={onHandleIconClick}
               classNames={styles["form__comment"]}
             />
@@ -86,7 +86,9 @@ const CreatePostForm: FC<CreatePostFormProps> = ({
               <UIbutton
                 type="submit"
                 dataAutomation="submitButton"
-                disabled={!isValid}
+                disabled={
+                  (!imageUrl && !values.caption && !values.title) || !isValid
+                }
                 fullWidth
               >
                 Confirm

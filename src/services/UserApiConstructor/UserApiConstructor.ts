@@ -43,6 +43,7 @@ export default abstract class UserApiConstructor {
 
   private handleRequest() {
     this.setIsLoading && this.setIsLoading(true);
+
     this.dispatch(userLoading());
   }
 

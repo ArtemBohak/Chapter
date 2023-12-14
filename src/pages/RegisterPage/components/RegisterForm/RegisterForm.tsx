@@ -1,5 +1,5 @@
-import { FC, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { FC, useEffect, useRef, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Formik, Form, FormikHelpers } from "formik";
 
 import { apiUiMessage, apiErrorStatus, links, keysValue } from "@/src/types";
@@ -32,8 +32,21 @@ const RegisterForm: FC = () => {
   const [cUId, cEmail] = getCookies(keysValue.USER_ID, keysValue.EMAIL);
 
   const navigate = useNavigate();
+  const { state } = useLocation();
 
   const isNextStep = step > Steps.FIRST;
+
+  useEffect(() => {
+    if (state) {
+      setStep(Steps.SECOND);
+      setEmailValue(state);
+    }
+  }, [state]);
+
+  useEffect(() => {
+    navigate(location.pathname, {});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const onHandleSubmit = async (
     { email, hash }: RegisterAccountValues,
@@ -45,21 +58,32 @@ const RegisterForm: FC = () => {
   ) => {
     try {
       if (step === Steps.SECOND) {
-        const { status, id, email } = await RegisterFormApi.fetchUserRegData(
-          {
-            hash,
-          },
-          setError
-        );
+        const { status, id, email, error } =
+          await RegisterFormApi.fetchUserRegData(
+            {
+              hash,
+            },
+            setError
+          );
+
+        if (
+          status === apiErrorStatus.BAD_REQUEST &&
+          error === EmailStatus.INVALID_HASH
+        )
+          return setFieldError(
+            RegisterAccountKey.HASH,
+            apiUiMessage.INSPIRED_HASH
+          );
 
         if (status === apiErrorStatus.NOTFOUND)
           return setFieldError(
             RegisterAccountKey.HASH,
             apiUiMessage.INVALID_HASH
           );
-        if (id && email) {
+
+        if (id && email)
           setCookies({ email, userId: String(id) }, 604800, undefined, true);
-        }
+
         return navigate(`${links.ACCOUNT_CREATION}/${id}`);
       }
       setEmailValue(email);
@@ -77,6 +101,7 @@ const RegisterForm: FC = () => {
 
       if (
         status === apiErrorStatus.UNPROCESSABLE_ENTITY &&
+        error === EmailStatus.REGISTRATION_UNCOMPLETED &&
         cUId &&
         cEmail === email
       )
@@ -84,13 +109,16 @@ const RegisterForm: FC = () => {
 
       if (
         status === apiErrorStatus.UNPROCESSABLE_ENTITY &&
-        RegisterFormApi.formatErrorResponse(error) === EmailStatus.UNCONFIRMED
+        error === EmailStatus.UNCONFIRMED
       ) {
         resetForm({ values: { email, hash } });
         return setStep(step + 1);
       }
 
-      if (status === apiErrorStatus.UNPROCESSABLE_ENTITY)
+      if (
+        status === apiErrorStatus.UNPROCESSABLE_ENTITY &&
+        error === EmailStatus.CONFIRMED
+      )
         return setFieldError(
           RegisterAccountKey.EMAIL,
           apiUiMessage.EMAIL_IN_USE
@@ -111,8 +139,8 @@ const RegisterForm: FC = () => {
       nodeRef={nodeRef}
       timeout={300}
       classNames={{
-        enter: styles["register-form__hash-input--enter"],
-        enterActive: styles["register-form__hash-input--enter-active"],
+        enter: styles["input--enter"],
+        enterActive: styles["input--enter-active"],
       }}
       unmountOnExit
     >
@@ -123,6 +151,7 @@ const RegisterForm: FC = () => {
           name={RegisterAccountKey.HASH}
           dataAutomation={`${RegisterAccountKey.HASH}Input`}
           label="Sign up code"
+          additionalLabel="It may take up to 2 minutes for the code to be sent."
           value={value}
         />
       </div>
@@ -130,26 +159,26 @@ const RegisterForm: FC = () => {
   );
 
   return (
-    <div className={styles["register"]}>
+    <div className={styles["form"]}>
       <Formik
-        initialValues={initialValues}
+        initialValues={{ ...initialValues, ...(state ? { email: state } : {}) }}
         validationSchema={validationSchema(isNextStep)}
         onSubmit={onHandleSubmit}
       >
         {({ isSubmitting, dirty, isValid, values }) => (
-          <Form className={styles["register-form"]}>
+          <Form>
             <TextField
               id={RegisterAccountKey.EMAIL}
               name={RegisterAccountKey.EMAIL}
               value={values.email}
               dataAutomation={`${RegisterAccountKey.EMAIL}Input`}
               label="Your email"
-              className={isNextStep ? "mb-0" : ""}
+              className={isNextStep ? styles["input"] : ""}
               disabled={isNextStep}
             />
             {renderNextStep(values.hash)}
             <UIbutton
-              className={styles["register-form__button"]}
+              className={styles["button"]}
               dataAutomation="submitButton"
               type="submit"
               fullWidth
