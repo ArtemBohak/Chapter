@@ -48,7 +48,12 @@ const PostPreview: FC<PostPreviewProps> = ({
       if (props.title) body.title = props.title;
 
       if (file) {
-        const res = await new FilesService(id, file).upload({
+        const res = await new FilesService(
+          id,
+          file,
+          undefined,
+          setErrorBoundary
+        ).upload({
           overwrite: false,
         });
         if (res.code) {
