@@ -10,3 +10,9 @@ export type FileArgs = {
   formats?: string[] | [];
   alt?: string;
 };
+
+export enum Path {
+  AVATAR = "chapter/avatars",
+  POSTS = "chapter/posts",
+  BOOKS = "chapters/books",
+}

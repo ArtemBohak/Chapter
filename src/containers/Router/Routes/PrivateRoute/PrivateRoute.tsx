@@ -3,7 +3,6 @@ import { Navigate, useLocation } from "react-router-dom";
 
 import { useAppSelector } from "@/src/redux";
 import { links } from "@/src/types";
-
 import { IRoutesProps } from "../types/Routes.type";
 
 const PrivateRoute: FC<IRoutesProps> = ({

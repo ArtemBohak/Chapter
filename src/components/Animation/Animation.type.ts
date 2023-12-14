@@ -14,7 +14,7 @@ export interface ITransitionArgs {
 
 export interface IAnimationProps {
   children: ReactNode;
-  isMount?: boolean;
+  in?: boolean;
   nodeRef: MutableRefObject<null> | RefObject<HTMLElement>;
   timeout?: number;
   classNames?: ITransitionArgs;

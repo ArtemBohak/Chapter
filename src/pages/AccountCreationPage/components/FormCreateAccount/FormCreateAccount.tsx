@@ -5,8 +5,8 @@ import { Formik, Form, FormikProps, FormikHelpers } from "formik";
 import cn from "classnames";
 
 import { EndpointsEnum, api } from "@/src/axios";
-import { links, keysValue, apiErrorMessage } from "@/src/types";
-import { useDebounce } from "@/src/hooks";
+import { links, keysValue, apiErrorMessage, apiUiMessage } from "@/src/types";
+import { useDebounce, useErrorBoundary } from "@/src/hooks";
 import {
   deleteCookie,
   getCookies,
@@ -29,6 +29,7 @@ const initialValues: IAccountCreate = {
 };
 
 const FormCreateAccount: FC = () => {
+  const setError = useErrorBoundary();
   const LSFullName = localStorage.getItem("fullName");
   const fullname = LSFullName ? LSFullName : "";
 
@@ -45,8 +46,8 @@ const FormCreateAccount: FC = () => {
 
   async function handleNicknameChange(nickname: string) {
     try {
-      if (nickname.trim().length >= 4) {
-        setNkErrorMessage(null);
+      setNkErrorMessage(null);
+      if (nickname.trim().length >= 8) {
         setNkIsLoading(true);
         await api.post(
           `${EndpointsEnum.NICKNAME_VALIDATION}/${nickname}`,
@@ -55,10 +56,8 @@ const FormCreateAccount: FC = () => {
       }
     } catch (e) {
       if (e instanceof AxiosError) {
-        if (e.response?.data.message !== apiErrorMessage.NICKNAME_IN_USE) {
-          return setNkErrorMessage(
-            e.response?.data.error || "Nickname already exist"
-          );
+        if (e.response?.data.error === apiErrorMessage.NICKNAME_IN_USE) {
+          return setNkErrorMessage(apiUiMessage.NICKNAME_IN_USE);
         }
       }
     } finally {
@@ -74,7 +73,7 @@ const FormCreateAccount: FC = () => {
       setErrorMessageForm(null);
       setSubmitting(true);
 
-      const [firstName, lastName] = values.fullname.split(" ");
+      const [firstName, lastName] = values.fullname.trim().split(" ");
       const { nickName, confirm_password, password } = values;
 
       await api.patch(`${EndpointsEnum.REGISTRATION_FINALLY}/${userId}`, {
@@ -97,6 +96,7 @@ const FormCreateAccount: FC = () => {
       navigate(links.LOG_IN);
     } catch (e) {
       if (e instanceof AxiosError) {
+        setError(e);
         setErrorMessageForm(e.response?.data.message || e.response?.data.error);
       }
       setSubmitting(false);
@@ -117,6 +117,8 @@ const FormCreateAccount: FC = () => {
     if (debouncedNickname !== "") {
       handleNicknameChange(debouncedNickname);
     }
+
+    if (debouncedNickname.length < 8) setNkErrorMessage(null);
   }, [debouncedNickname]);
 
   return (
@@ -138,7 +140,7 @@ const FormCreateAccount: FC = () => {
               name="fullname"
               label="Full Name"
               value={values.fullname}
-              placeholder="Full Name"
+              placeholder="ex. John Brick, Dina O’neal, Jonathan... "
               dataAutomation="fullname"
               showSuccessIcon={true}
             />
@@ -147,7 +149,7 @@ const FormCreateAccount: FC = () => {
               name="nickName"
               label="Nickname"
               value={nickname}
-              placeholder="nickname"
+              placeholder="@JaneSMTH"
               dataAutomation="nickname"
               showSuccessIcon={true}
               onChange={onHandleChange}
@@ -172,11 +174,11 @@ const FormCreateAccount: FC = () => {
               type="submit"
               fullWidth
               dataAutomation="submitButton"
-              className="p-[12px] text-sm"
+              className={styles["button"]}
               disabled={!isValid || !dirty || !!nkErrorMessage || nkIsLoading}
               isLoading={isSubmitting}
             >
-              Submit
+              Save changes
             </UIbutton>
             {errorMessageForm ? (
               <p className="text-red text-s text-center mt-1 mr-2">

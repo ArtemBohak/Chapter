@@ -1,9 +1,9 @@
 import { ITransitionArgs } from "../Animation/Animation.type";
 
 export type ModalProps = {
+  setIsOpen: (isOpen: boolean) => void;
   children: React.ReactNode;
   isOpen: boolean;
-  setIsOpen: (isOpen: boolean) => void;
   transitionClassName?: ITransitionArgs;
   disableScroll?: boolean;
   transitionTimeOut?: number;

@@ -1,1 +1,1 @@
-export { default as FeedComponent } from "./FeedComponent/FeedComponent";
+export { default as PostButton } from "./PostButton/PostButton";

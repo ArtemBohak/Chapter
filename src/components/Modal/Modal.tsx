@@ -25,7 +25,9 @@ const Modal: FC<ModalProps> = ({
 
   useEffect(() => {
     const handlePressESC = (e: { code: string }) => {
-      if (e.code === "Escape") setIsOpen(false);
+      if (e.code === "Escape") {
+        setIsOpen(false);
+      }
     };
     window.addEventListener("keydown", handlePressESC);
 
@@ -44,7 +46,9 @@ const Modal: FC<ModalProps> = ({
 
   const onHandleClick = (e: MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
-    if (e.target === e.currentTarget) setIsOpen(false);
+    if (e.target === e.currentTarget) {
+      setIsOpen(false);
+    }
   };
 
   const backDropClassNames = cn(styles["backdrop"], backdropClassName);
@@ -53,7 +57,7 @@ const Modal: FC<ModalProps> = ({
   if (portal)
     return createPortal(
       <Animation
-        isMount={isOpen}
+        in={isOpen}
         nodeRef={nodeRef}
         timeout={transitionTimeOut}
         classNames={transitionClassName}
@@ -61,12 +65,13 @@ const Modal: FC<ModalProps> = ({
         unmountOnExit
       >
         <div
-          ref={nodeRef}
           className={backDropClassNames}
           onClick={onHandleClick}
           data-automation="backDropClick"
         >
-          <div className={bodyClassNames}>{children}</div>
+          <div className={bodyClassNames} ref={nodeRef}>
+            {children}
+          </div>
         </div>
       </Animation>,
       document.getElementById("modal-root")!
@@ -75,19 +80,20 @@ const Modal: FC<ModalProps> = ({
   return (
     <Animation
       nodeRef={nodeRef}
-      isMount={isOpen}
+      in={isOpen}
       timeout={transitionTimeOut}
       classNames={transitionClassName}
       mountOnEnter
       unmountOnExit
     >
       <div
-        ref={nodeRef}
         className={backDropClassNames}
         onClick={onHandleClick}
         data-automation="backDropClick"
       >
-        <div className={bodyClassNames}>{children}</div>
+        <div className={bodyClassNames} ref={nodeRef}>
+          {children}
+        </div>
       </div>
     </Animation>
   );

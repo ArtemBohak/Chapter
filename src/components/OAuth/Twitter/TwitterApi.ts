@@ -22,8 +22,8 @@ class TwitterApi extends UserApiConstructor {
     const qs = new URLSearchParams(options).toString();
     return `${rootUrl}?${qs}`;
   }
-  constructor({ token, navigate, setIsLoading }: OAuthApiArgs) {
-    super(token, setIsLoading, navigate);
+  constructor({ token, navigate, setIsLoading, setError }: OAuthApiArgs) {
+    super(token, setIsLoading, navigate, setError);
 
     this.login();
   }

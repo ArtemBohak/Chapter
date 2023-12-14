@@ -15,16 +15,18 @@ import {
 import validationSchema from "./validationSchema";
 import LoginApi from "./LoginApi";
 import { ILoginPage, setErrors } from "./LoginForm.type";
+import { useErrorBoundary } from "@/src/hooks";
 import styles from "./LoginForm.module.scss";
 
 import { PasswordField, TextField, UIbutton } from "@/src/components";
 
 const LoginPageForm: FC = () => {
+  const setError = useErrorBoundary();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const onHandleSubmit = async (values: ILoginPage, setErrors: setErrors) => {
-    const response = await LoginApi(values);
+    const response = await LoginApi(values, setError);
     const { status, data } = response;
 
     if (
@@ -59,7 +61,7 @@ const LoginPageForm: FC = () => {
     }
   };
   return (
-    <div className={styles["login-form"]}>
+    <div>
       <Formik
         initialValues={{
           email: "",
@@ -93,7 +95,7 @@ const LoginPageForm: FC = () => {
               type="submit"
               fullWidth
               dataAutomation="submitButton"
-              className={styles["login-form__button"]}
+              className={styles["button"]}
               disabled={!isValid || !dirty}
               isLoading={isSubmitting}
             >

@@ -1,9 +1,10 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useLayoutEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGoogleLogin } from "@react-oauth/google";
 
 import GoogleApi from "./GoogleApi";
 import { useGetUrlParams } from "../hooks";
+import { useErrorBoundary } from "@/src/hooks";
 import { SocialsProps, OAuthVariant } from "../OAuth.type";
 import styles from "../OAuth.module.scss";
 
@@ -25,12 +26,14 @@ const Google: FC<SocialsProps> = ({
   dataAutomation = "oAuthButton",
   className,
 }) => {
+  const setError = useErrorBoundary();
   const { state, code, currentLocation, setSearchParams } = useGetUrlParams();
   const [googleAuthCode, setGoogleAuthCode] = useState(code);
   const [isLoading, setIsLoading] = useState(false);
+
   const navigate = useNavigate();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (
       oAuthVariant === OAuthVariant.GOOGLE &&
       googleAuthCode &&
@@ -42,6 +45,7 @@ const Google: FC<SocialsProps> = ({
         redirectUri: currentLocation,
         navigate,
         setIsLoading,
+        setError,
       });
 
       setGoogleAuthCode("");
@@ -65,6 +69,7 @@ const Google: FC<SocialsProps> = ({
           redirectUri: VITE_GOOGLE_REDIRECT_URI,
           navigate,
           setIsLoading,
+          setError,
         });
       }
     },

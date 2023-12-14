@@ -1,6 +1,7 @@
 import { FC, useState, FormEvent, useEffect, useRef } from "react";
 import { GetCountries } from "react-country-state-city";
 
+import { useErrorBoundary } from "@/src/hooks";
 import { CityType, CountriesType, StateType } from "./UserLocation.type";
 import { ProfileUpdateApi } from "../../utils/ProfileUpdateApi";
 import styles from "./UserLocation.module.scss";
@@ -9,11 +10,9 @@ import { UIbutton } from "@/src/components";
 import CountrySelect from "./components/CountrySelect/CountrySelect";
 import RegionSelect from "./components/RegionSelect/RegionSelect";
 import CitySelect from "./components/CitySelect/CitySelect";
-import { useAppSelector } from "@/src/redux";
 
 const UserLocation: FC = () => {
-  const { location } = useAppSelector((state) => state.userSlice.user);
-
+  const setError = useErrorBoundary();
   const [isLoading, setIsLoading] = useState(false);
 
   const [countryId, setCountryId] = useState(0);
@@ -32,10 +31,6 @@ const UserLocation: FC = () => {
   const nodeRef = useRef(null);
 
   useEffect(() => {
-    location && setSelectedCountry(location);
-  }, [location]);
-
-  useEffect(() => {
     (async () => {
       try {
         const countries = await GetCountries();
@@ -48,7 +43,7 @@ const UserLocation: FC = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const profile = new ProfileUpdateApi(setIsLoading);
+    const profile = new ProfileUpdateApi(setIsLoading, setError);
 
     const location = selectedCity
       ? selectedCity.concat(", ", selectedCountry)

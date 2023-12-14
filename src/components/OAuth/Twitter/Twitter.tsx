@@ -1,7 +1,8 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useLayoutEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import TwitterApi from "./TwitterApi";
+import { useErrorBoundary } from "@/src/hooks";
 import { useGetUrlParams } from "../hooks";
 import { SocialsProps, OAuthVariant } from "../OAuth.type";
 import styles from "../OAuth.module.scss";
@@ -22,6 +23,7 @@ const Twitter: FC<SocialsProps> = ({
   dataAutomation = "oAuthButton",
   className,
 }) => {
+  const setError = useErrorBoundary();
   const { state, code, currentLocation, setSearchParams } = useGetUrlParams();
   const [twitterAuthCode, setTwitterAuthCode] = useState(code);
   const [isLoading, setIsLoading] = useState(false);
@@ -33,7 +35,7 @@ const Twitter: FC<SocialsProps> = ({
     stateId
   );
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (
       oAuthVariant === OAuthVariant.TWITTER &&
       twitterAuthCode &&
@@ -44,6 +46,7 @@ const Twitter: FC<SocialsProps> = ({
         token: twitterAuthCode,
         navigate,
         setIsLoading,
+        setError,
       });
 
       setSearchParams("");

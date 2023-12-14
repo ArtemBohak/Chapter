@@ -1,6 +1,8 @@
 import { FC, useEffect, useState } from "react";
 
+import { ProfileUpdateApi } from "./utils/ProfileUpdateApi";
 import { useAppSelector } from "@/src/redux";
+import { useErrorBoundary } from "@/src/hooks";
 import styles from "./SettingsPage.module.scss";
 
 import {
@@ -12,16 +14,34 @@ import {
   UserPassword,
   UserAccountDeletion,
 } from "./components";
-import { ImageInput } from "@/src/components";
-import { ProfileUpdateApi } from "./utils/ProfileUpdateApi";
+import { ImageField } from "@/src/components";
+import { apiUiMessage } from "@/src/types";
 
 const SettingsPage: FC = () => {
   const { user } = useAppSelector((state) => state.userSlice);
-  const [avatarUrl, setAvatarUrl] = useState(user.avatarUrl);
+  const [avatarUrl, setAvatarUrl] = useState("");
+  const [file, setFile] = useState<File | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const setBoundaryError = useErrorBoundary();
 
   useEffect(() => {
     setAvatarUrl(user.avatarUrl);
   }, [user.avatarUrl]);
+
+  useEffect(() => {
+    if (file) {
+      setError("");
+      new ProfileUpdateApi(setIsLoading, setBoundaryError)
+        .imageSave(user.id, file)
+        .then((res) => {
+          if (res?.code) setError(apiUiMessage.ERROR_MESSAGE);
+        });
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [file, user.id]);
 
   return (
     <section className={styles["settings"]}>
@@ -30,11 +50,11 @@ const SettingsPage: FC = () => {
       >
         <User avatarUrl={avatarUrl} email={user.email} />
         <div className={styles["settings__input-wrapper"]}>
-          <ImageInput
-            id={user.id}
-            profileUpdateApi={ProfileUpdateApi}
+          <ImageField
             btnVariant="button"
-            imageType="avatar"
+            setFile={setFile}
+            isLoading={isLoading}
+            error={error}
           />
           <Layout className={styles["form-wrapper__top-spacing"]} customSpacing>
             <UserStatus userStatus={user.userStatus} />

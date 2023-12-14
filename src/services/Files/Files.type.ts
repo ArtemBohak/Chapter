@@ -9,8 +9,3 @@ export type Params = {
   overwrite?: boolean;
   allowed_formats?: string[];
 } & Partial<FileArgs>;
-
-export enum Path {
-  AVATAR = "chapter/avatars",
-  POSTS = "chapter/posts",
-}

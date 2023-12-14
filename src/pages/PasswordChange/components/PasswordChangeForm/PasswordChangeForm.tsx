@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { ChangePasswordValues, IPasswordChange } from "./PasswordChange.type";
 import { Form, Formik, FormikHelpers, FormikProps } from "formik";
+import { useErrorBoundary } from "@/src/hooks";
 import validationSchema from "./validationSchema";
 import { PasswordField, UIbutton } from "@/src/components";
 import PasswordChangeApi from "./PasswordChangeApi";
@@ -9,6 +10,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { links, apiErrorStatus } from "@/src/types";
 
 const PasswordChangeForm: FC = () => {
+  const setError = useErrorBoundary();
   const { userId } = useParams();
   const navigate = useNavigate();
 
@@ -21,7 +23,10 @@ const PasswordChangeForm: FC = () => {
     { password }: ChangePasswordValues,
     { setFieldError }: FormikHelpers<ChangePasswordValues>
   ) => {
-    const { status } = await PasswordChangeApi({ password, hash: userId });
+    const { status } = await PasswordChangeApi(
+      { password, hash: userId },
+      setError
+    );
 
     if (
       status === apiErrorStatus.UNPROCESSABLE_ENTITY ||
