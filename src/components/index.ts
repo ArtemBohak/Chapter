@@ -14,6 +14,18 @@ export { Modal } from "./Modal";
 export { Loader } from "./Loader";
 export { Animation } from "./Animation";
 export { TextTagging } from "./TextTagging";
-export { FeedComponent, PreviewComponent } from "./Post";
+export {
+  PostComments,
+  PostImage,
+  PostText,
+  FollowButton,
+  CommentsButton,
+  LikesButton,
+  Avatar,
+  PostDate,
+  PostTitle,
+  PostFullName,
+  UserNickName,
+} from "./Post";
 export { ModalWindow } from "./ModalWindow";
 export { PostCreation } from "./PostCreation";

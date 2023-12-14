@@ -1,13 +1,13 @@
 .create-post {
   &__backdrop {
-    @apply top-0 left-0 overflow-x-hidden overflow-hidden overflow-y-auto;
+    @apply top-0 left-0  overflow-x-hidden overflow-hidden overflow-y-auto;
 
     &--profile {
-      @apply w-full h-full top-[44px] md:top-[51px] py-[34px] md:py-2-xs laptop:py-3-xs px-[24px] bg-[#1c1c1c99];
+      @apply w-full h-full bg-[#1c1c1c99] top-[44px] md:top-[51px] px-2-md py-[34px] md:py-2-xs laptop:py-3-xs;
     }
 
     &--page {
-      @apply fixed bg-white md:bg-[#1c1c1c99] md:top-[88px] base:left-[258px] laptop:top-[132px] laptop_md:left-[310px] w-[100vw] h-[100vh] pt-[68px] pb-[90px];
+      @apply w-[100vw] h-[100%] fixed bg-white md:bg-[#1c1c1c99] md:top-[88px] base:left-[258px] laptop:top-[88px] laptop_md:top-[132px] laptop_md:left-[310px]  pt-[68px] md:pb-[168px] md:pt-[128px];
     }
   }
   &__body {
