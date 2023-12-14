@@ -1,13 +1,15 @@
 import { FC, useState } from "react";
 
 import { ProfileUpdateApi } from "../../utils/ProfileUpdateApi";
+import { useErrorBoundary } from "@/src/hooks";
 import styles from "./UserAccountDeletion.module.scss";
 
 const UserAccountDeletion: FC = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const setError = useErrorBoundary();
 
   const onHandleClick = async () => {
-    const user = new ProfileUpdateApi(setIsLoading);
+    const user = new ProfileUpdateApi(setIsLoading, setError);
     await user.deleteAccount();
   };
   return (

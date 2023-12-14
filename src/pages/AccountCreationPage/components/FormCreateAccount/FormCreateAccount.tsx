@@ -6,7 +6,7 @@ import cn from "classnames";
 
 import { EndpointsEnum, api } from "@/src/axios";
 import { links, keysValue, apiErrorMessage, apiUiMessage } from "@/src/types";
-import { useDebounce } from "@/src/hooks";
+import { useDebounce, useErrorBoundary } from "@/src/hooks";
 import {
   deleteCookie,
   getCookies,
@@ -29,6 +29,7 @@ const initialValues: IAccountCreate = {
 };
 
 const FormCreateAccount: FC = () => {
+  const setError = useErrorBoundary();
   const LSFullName = localStorage.getItem("fullName");
   const fullname = LSFullName ? LSFullName : "";
 
@@ -95,6 +96,7 @@ const FormCreateAccount: FC = () => {
       navigate(links.LOG_IN);
     } catch (e) {
       if (e instanceof AxiosError) {
+        setError(e);
         setErrorMessageForm(e.response?.data.message || e.response?.data.error);
       }
       setSubmitting(false);

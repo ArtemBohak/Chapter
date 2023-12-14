@@ -10,6 +10,7 @@ import FacebookApi from "./FacebookApi";
 import { useGetUrlParams } from "../hooks";
 import { getUrlParams } from "../helpers";
 import { SocialsProps, OAuthVariant } from "../OAuth.type";
+import { useErrorBoundary } from "@/src/hooks";
 import styles from "../OAuth.module.scss";
 
 import { Icon, IconEnum } from "../../Icon";
@@ -30,6 +31,7 @@ const Facebook: FC<SocialsProps> = ({
   dataAutomation = "oAuthButton",
   className,
 }) => {
+  const setError = useErrorBoundary();
   const { currentLocation, setSearchParams, error_message } = useGetUrlParams();
   const [facebookErrorMessage, setFacebookErrorMessage] = useState<
     string | null
@@ -66,6 +68,7 @@ const Facebook: FC<SocialsProps> = ({
         token: facebookAuthCode,
         navigate,
         setIsLoading,
+        setError,
       });
       setSearchParams("");
       setFacebookAuthCode("");
@@ -78,6 +81,7 @@ const Facebook: FC<SocialsProps> = ({
       token: codeResponse.accessToken,
       navigate,
       setIsLoading,
+      setError,
     });
   };
 

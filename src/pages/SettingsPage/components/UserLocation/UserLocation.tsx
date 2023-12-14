@@ -1,6 +1,7 @@
 import { FC, useState, FormEvent, useEffect, useRef } from "react";
 import { GetCountries } from "react-country-state-city";
 
+import { useErrorBoundary } from "@/src/hooks";
 import { CityType, CountriesType, StateType } from "./UserLocation.type";
 import { ProfileUpdateApi } from "../../utils/ProfileUpdateApi";
 import styles from "./UserLocation.module.scss";
@@ -11,6 +12,7 @@ import RegionSelect from "./components/RegionSelect/RegionSelect";
 import CitySelect from "./components/CitySelect/CitySelect";
 
 const UserLocation: FC = () => {
+  const setError = useErrorBoundary();
   const [isLoading, setIsLoading] = useState(false);
 
   const [countryId, setCountryId] = useState(0);
@@ -41,7 +43,7 @@ const UserLocation: FC = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const profile = new ProfileUpdateApi(setIsLoading);
+    const profile = new ProfileUpdateApi(setIsLoading, setError);
 
     const location = selectedCity
       ? selectedCity.concat(", ", selectedCountry)

@@ -7,6 +7,7 @@ import { apiErrorStatus, keysValue, links } from "@/src/types";
 import { deleteCookie } from "@/src/utils";
 
 import { RestoreButtonProps } from "./RestoreButton.type";
+import { useErrorBoundary } from "@/src/hooks";
 import styles from "./RestoreButton.module.scss";
 
 import { UIbutton } from "@/src/components";
@@ -18,6 +19,7 @@ const RestoreButton: FC<RestoreButtonProps> = ({
 }) => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const setError = useErrorBoundary();
 
   const onHandleClick = async () => {
     if (!email && !token) return navigate(links.LOG_IN);
@@ -40,6 +42,7 @@ const RestoreButton: FC<RestoreButtonProps> = ({
       setRestoringFormIsOpen(true);
     } catch (error) {
       if (error instanceof AxiosError) {
+        setError(error);
         if (error.response?.data.status === apiErrorStatus.FORBIDDEN) {
           deleteCookie(
             keysValue.DELETED_ACCOUNT_TIME_STAMP,

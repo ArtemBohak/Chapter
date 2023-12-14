@@ -4,6 +4,7 @@ import { AxiosError } from "axios";
 import { useAppSelector } from "@/src/redux";
 import { FilesService } from "@/src/services";
 import { apiUiMessage } from "@/src/types";
+import { useErrorBoundary } from "@/src/hooks";
 import { EndpointsEnum, api } from "@/src/axios";
 import { PostPreviewProps, BodyProps } from "./PostPreview.type";
 import styles from "./PostPreview.module.scss";
@@ -26,7 +27,7 @@ const PostPreview: FC<PostPreviewProps> = ({
   const { firstName, lastName, id } = useAppSelector(
     (state) => state.userSlice.user
   );
-
+  const setErrorBoundary = useErrorBoundary();
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -47,7 +48,12 @@ const PostPreview: FC<PostPreviewProps> = ({
       if (props.title) body.title = props.title;
 
       if (file) {
-        const res = await new FilesService(id, file).upload({
+        const res = await new FilesService(
+          id,
+          file,
+          undefined,
+          setErrorBoundary
+        ).upload({
           overwrite: false,
         });
         if (res.code) {
@@ -63,6 +69,7 @@ const PostPreview: FC<PostPreviewProps> = ({
       setIsOpen(false);
     } catch (error) {
       if (error instanceof AxiosError) {
+        setErrorBoundary(error);
         setError(apiUiMessage.ERROR_MESSAGE);
       }
     } finally {

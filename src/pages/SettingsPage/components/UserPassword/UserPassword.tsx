@@ -6,6 +6,7 @@ import { apiErrorMessage, apiErrorStatus, apiUiMessage } from "@/src/types";
 import validationSchema from "./validationSchema";
 import { InitialValues, ErrorMessages } from "./UserPassword.type";
 import { ProfileUpdateApi } from "../../utils/ProfileUpdateApi";
+import { useErrorBoundary } from "@/src/hooks";
 import styles from "./UserPassword.module.scss";
 
 import { PasswordField, UIbutton } from "@/src/components";
@@ -17,11 +18,12 @@ const initialValues: InitialValues = {
 };
 
 const UserPassword: FC = () => {
+  const setError = useErrorBoundary();
   const onHandleSubmit = async (
     values: InitialValues,
     { setSubmitting, resetForm, setFieldError }: FormikHelpers<InitialValues>
   ) => {
-    const profile = new ProfileUpdateApi();
+    const profile = new ProfileUpdateApi(undefined, setError);
     const res = await profile.updatePassword(values);
 
     setSubmitting(false);

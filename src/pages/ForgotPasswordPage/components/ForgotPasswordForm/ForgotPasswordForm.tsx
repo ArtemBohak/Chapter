@@ -3,9 +3,10 @@ import { Form, Formik } from "formik";
 
 import { IForgotPassword } from "./ForgotPassword.types";
 import { getCookies } from "@/src/utils";
-import { useDebouncedNav } from "@/src/hooks";
+import { useDebouncedNav, useErrorBoundary } from "@/src/hooks";
 import { ForgotPasswordProps } from "../ForgotPasswordProps.types";
 import ForgotPasswordApi from "./ForgotPasswordApi";
+
 import {
   apiErrorMessage,
   apiErrorStatus,
@@ -20,12 +21,13 @@ import { TextField, UIbutton } from "@/src/components";
 const initialValues: IForgotPassword = { email: "" };
 
 const ForgotPasswordForm: FC<ForgotPasswordProps> = ({ setSubmitted }) => {
+  const setError = useErrorBoundary();
   const navigate = useDebouncedNav(1000 * 2);
   const [authError, setAuthError] = useState<string | null>(null);
 
   const onHandleSubmit = async (values: IForgotPassword) => {
     const [id, email] = getCookies(keysValue.USER_ID, keysValue.EMAIL);
-    const res = await ForgotPasswordApi(values);
+    const res = await ForgotPasswordApi(values, setError);
 
     if (
       res.status === apiErrorStatus.UNPROCESSABLE_ENTITY &&
