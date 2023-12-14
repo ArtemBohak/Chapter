@@ -43,9 +43,8 @@ class GoogleApi extends UserApiConstructor {
 
     const { token, user } = res.data;
 
-    user.nickName && this.handleUserData(user, { token });
-
     !user.nickName && this.redirect(user);
+    user.nickName && this.handleUserData(user, { token });
 
     return res;
   });

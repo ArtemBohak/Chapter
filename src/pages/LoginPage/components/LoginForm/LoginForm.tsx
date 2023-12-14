@@ -59,7 +59,7 @@ const LoginPageForm: FC = () => {
     }
   };
   return (
-    <div className={styles["login-form"]}>
+    <div>
       <Formik
         initialValues={{
           email: "",
@@ -93,7 +93,7 @@ const LoginPageForm: FC = () => {
               type="submit"
               fullWidth
               dataAutomation="submitButton"
-              className={styles["login-form__button"]}
+              className={styles["button"]}
               disabled={!isValid || !dirty}
               isLoading={isSubmitting}
             >
