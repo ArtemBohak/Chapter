@@ -17,6 +17,7 @@ import {
   PasswordChange,
   BooksPage,
   GuestProfilePage,
+  ErrorBoundary,
 } from "@/src/pages";
 import { PublicLayout, ProfileLayout } from "@/src/layouts";
 
@@ -28,6 +29,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <PublicRoute component={<PublicLayout />} />,
+    errorElement: <ErrorBoundary />,
     children: [
       {
         index: true,
@@ -79,6 +81,7 @@ const router = createBrowserRouter([
   },
   {
     element: <PrivateRoute component={<ProfileLayout />} />,
+    errorElement: <ErrorBoundary />,
     children: [
       {
         index: true,

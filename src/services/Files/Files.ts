@@ -3,9 +3,9 @@ import { AxiosError } from "axios";
 
 import { uploadFilesApi } from "@/src/axios";
 import { hashingString } from "@/src/utils";
-import { FileArgs } from "@/src/types";
+import { FileArgs, SetErrorType, Path } from "@/src/types";
 
-import { Params, Path } from "./Files.type";
+import { Params } from "./Files.type";
 
 const {
   VITE_CLOUDINARY_CLOUD_NAME,
@@ -17,13 +17,13 @@ class FilesService {
   private cloudName = VITE_CLOUDINARY_CLOUD_NAME;
   private apiKey = VITE_CLOUDINARY_API_KEY;
   private apiSecret = VITE_CLOUDINARY_API_SECRET;
-
   private formats = ["webp"];
 
   constructor(
     private id: string | number,
     private file?: File | string,
-    private avatar?: boolean
+    private avatar?: boolean,
+    private setError?: SetErrorType
   ) {}
 
   private createSignature(params: Params) {
@@ -84,7 +84,10 @@ class FilesService {
 
       return res.data;
     } catch (error) {
-      if (error instanceof AxiosError) return error;
+      if (error instanceof AxiosError) {
+        this.setError && this.setError(error);
+        return error;
+      }
     }
   }
 
@@ -104,7 +107,10 @@ class FilesService {
       });
       return res.data;
     } catch (error) {
-      if (error instanceof AxiosError) return error;
+      if (error instanceof AxiosError) {
+        this.setError && this.setError(error);
+        return error;
+      }
     }
   }
 }

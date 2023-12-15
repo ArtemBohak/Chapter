@@ -3,8 +3,8 @@ import axios, { AxiosResponse } from "axios";
 import { logoutUser, store } from "@/src/redux";
 import { getTokenFromLC, removeDataFromLS, setDataToLS } from "@/src/utils";
 import { keysValue } from "@/src/types";
-import { EndpointsEnum } from ".";
 import { RefreshTokenType } from "./axios.type";
+import { EndpointsEnum } from ".";
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,

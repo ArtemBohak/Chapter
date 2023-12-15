@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useLayoutEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FacebookLogin, {
   SuccessResponse,
@@ -10,6 +10,7 @@ import FacebookApi from "./FacebookApi";
 import { useGetUrlParams } from "../hooks";
 import { getUrlParams } from "../helpers";
 import { SocialsProps, OAuthVariant } from "../OAuth.type";
+import { useErrorBoundary } from "@/src/hooks";
 import styles from "../OAuth.module.scss";
 
 import { Icon, IconEnum } from "../../Icon";
@@ -30,6 +31,7 @@ const Facebook: FC<SocialsProps> = ({
   dataAutomation = "oAuthButton",
   className,
 }) => {
+  const setError = useErrorBoundary();
   const { currentLocation, setSearchParams, error_message } = useGetUrlParams();
   const [facebookErrorMessage, setFacebookErrorMessage] = useState<
     string | null
@@ -55,7 +57,7 @@ const Facebook: FC<SocialsProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [error_message]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (
       oAuthVariant === OAuthVariant.FACEBOOK &&
       facebookAuthCode &&
@@ -66,6 +68,7 @@ const Facebook: FC<SocialsProps> = ({
         token: facebookAuthCode,
         navigate,
         setIsLoading,
+        setError,
       });
       setSearchParams("");
       setFacebookAuthCode("");
@@ -78,6 +81,7 @@ const Facebook: FC<SocialsProps> = ({
       token: codeResponse.accessToken,
       navigate,
       setIsLoading,
+      setError,
     });
   };
 

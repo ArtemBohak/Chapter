@@ -1,12 +1,12 @@
 .cookie-toaster__wrapper {
-  @apply fixed z-50 bottom-0 
-  laptop_md:bottom-7 laptop_md:right-20 
-  flex items-center justify-between 
-  max-w-[560px] md:h-[214px] 
+  @apply fixed z-50 bottom-[30px]
+  laptop:right-20
+  flex items-center justify-between max-w-[327px]
+  md:max-w-[560px] md:h-[214px]
   border border-primary rounded-2xl bg-[#fdfdf7];
   @media (max-width: 1530px) {
-  @apply left-0 right-0 mx-auto;
-}
+    @apply left-0 right-0 mx-auto;
+  }
 }
 
 .info-block {

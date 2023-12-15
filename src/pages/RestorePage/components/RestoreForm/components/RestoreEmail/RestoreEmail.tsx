@@ -15,6 +15,7 @@ import { EndpointsEnum, api } from "@/src/axios";
 
 import { FormValues, RestoreEmailProps } from "./RestoreEmail.type";
 import { validationSchema } from "./validationSchema";
+import { useErrorBoundary } from "@/src/hooks";
 import styles from "./RestoreEmail.module.scss";
 
 import { TextField, UIbutton } from "@/src/components";
@@ -25,6 +26,7 @@ const initialValues: FormValues = {
 
 const RestoreEmail: FC<RestoreEmailProps> = ({ email }) => {
   const navigate = useNavigate();
+  const setError = useErrorBoundary();
 
   const onHandleSubmit = async (
     { hash }: FormValues,
@@ -48,6 +50,7 @@ const RestoreEmail: FC<RestoreEmailProps> = ({ email }) => {
           error.response?.status === apiErrorStatus.FORBIDDEN &&
           error.response?.data.error === apiErrorMessage.WRONG_HASH
         ) {
+          setError(error);
           setFieldError("hash", apiUiMessage.INVALID_RECOVERY_CODE);
         }
       }

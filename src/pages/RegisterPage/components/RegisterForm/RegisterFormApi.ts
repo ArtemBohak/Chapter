@@ -2,11 +2,15 @@ import { AxiosError } from "axios";
 
 import { store, userError } from "@/src/redux";
 import { api, EndpointsEnum } from "@/src/axios";
+import { SetErrorType } from "@/src/types";
 
 import { type ApiArgs } from "./RegisterForm.type";
 
 class RegisterFormApi {
-  static async fetchUserRegData({ email, hash }: ApiArgs) {
+  static async fetchUserRegData(
+    { email, hash }: ApiArgs,
+    setError: SetErrorType
+  ) {
     try {
       if (email) {
         return await api.post(EndpointsEnum.REGISTRATION, {
@@ -20,6 +24,7 @@ class RegisterFormApi {
       return response.data;
     } catch (error) {
       if (error instanceof AxiosError) {
+        setError(error);
         store.dispatch(
           userError(
             error.response?.data.error ||

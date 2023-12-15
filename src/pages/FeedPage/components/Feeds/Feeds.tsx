@@ -4,7 +4,8 @@ import { TransitionGroup } from "react-transition-group";
 import { useFeedContext } from "../../context";
 import styles from "./Feeds.module.scss";
 
-import { Animation, FeedComponent } from "@/src/components";
+import { Animation } from "@/src/components";
+import Feed from "../Feed/Feed";
 
 const Feeds: FC = () => {
   const { feeds, fetchData } = useFeedContext();
@@ -33,7 +34,7 @@ const Feeds: FC = () => {
           timeout={300}
         >
           <li>
-            <FeedComponent fetchData={fetchData} {...i} />
+            <Feed fetchData={fetchData} {...i} />
           </li>
         </Animation>
       ))}

@@ -1,6 +1,8 @@
 import { FC, useEffect, useState } from "react";
 
+import { ProfileUpdateApi } from "./utils/ProfileUpdateApi";
 import { useAppSelector } from "@/src/redux";
+import { useErrorBoundary } from "@/src/hooks";
 import styles from "./SettingsPage.module.scss";
 
 import {
@@ -13,22 +15,32 @@ import {
   UserAccountDeletion,
 } from "./components";
 import { ImageField } from "@/src/components";
-import { ProfileUpdateApi } from "./utils/ProfileUpdateApi";
+import { apiUiMessage } from "@/src/types";
 
 const SettingsPage: FC = () => {
   const { user } = useAppSelector((state) => state.userSlice);
   const [avatarUrl, setAvatarUrl] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState("");
+
+  const setBoundaryError = useErrorBoundary();
 
   useEffect(() => {
     setAvatarUrl(user.avatarUrl);
   }, [user.avatarUrl]);
 
   useEffect(() => {
-    file &&
-      new ProfileUpdateApi(setIsLoading, setError).imageSave(user.id, file);
+    if (file) {
+      setError("");
+      new ProfileUpdateApi(setIsLoading, setBoundaryError)
+        .imageSave(user.id, file)
+        .then((res) => {
+          if (res?.code) setError(apiUiMessage.ERROR_MESSAGE);
+        });
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [file, user.id]);
 
   return (

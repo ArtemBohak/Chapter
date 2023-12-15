@@ -12,8 +12,14 @@ class GoogleApi extends UserApiConstructor {
   private googleClientId = VITE_GOOGLE_CLIENT_ID;
   private googleClientSecret = VITE_GOOGLE_CLIENT_SECRET;
 
-  constructor({ token, redirectUri, navigate, setIsLoading }: OAuthApiArgs) {
-    super(token, setIsLoading, navigate);
+  constructor({
+    token,
+    redirectUri,
+    navigate,
+    setIsLoading,
+    setError,
+  }: OAuthApiArgs) {
+    super(token, setIsLoading, navigate, setError);
     this.redirectUri = redirectUri;
 
     this.login();
@@ -43,9 +49,8 @@ class GoogleApi extends UserApiConstructor {
 
     const { token, user } = res.data;
 
-    user.nickName && this.handleUserData(user, { token });
-
     !user.nickName && this.redirect(user);
+    user.nickName && this.handleUserData(user, { token });
 
     return res;
   });

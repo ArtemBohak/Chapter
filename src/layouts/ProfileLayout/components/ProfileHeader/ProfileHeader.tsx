@@ -3,9 +3,8 @@ import { NavLink } from "react-router-dom";
 import cn from "classnames";
 
 import { links } from "@/src/types";
-import { useNavigationToggler } from "@/src/context";
+import { useNavigationToggler, useModalsContext } from "@/src/context";
 import { useAppSelector } from "@/src/redux";
-
 import { ProfileHeaderProps } from "./ProfileHeader.type";
 import styles from "./ProfileHeader.module.scss";
 
@@ -19,6 +18,7 @@ import {
 } from "@/src/components";
 
 const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
+  const { headerAddPostBtnIsDisabled } = useModalsContext();
   const { isActiveMenu, setIsActiveMenu } = useNavigationToggler();
   const { user } = useAppSelector((store) => store.userSlice);
   const { firstName, lastName, avatarUrl } = user;
@@ -53,6 +53,7 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
             isCustomIcon
             dataAutomation="addPostButton"
             className={styles["add-post-button"]}
+            disabled={headerAddPostBtnIsDisabled}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

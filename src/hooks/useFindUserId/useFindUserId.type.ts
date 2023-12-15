@@ -1,3 +1,3 @@
-import { idList } from "@/src/types";
+import { IdList } from "@/src/types";
 
-export type dataList = idList;
+export type dataList = IdList;
