@@ -33,10 +33,6 @@ const CommentsForm: FC<CommentsFormProps> = ({
     resetForm();
   };
 
-  const onHandleIconClick = () => {
-    console.log("smile click");
-  };
-
   const iconSize = screenSize < 769 ? 20 : 24;
   return (
     <div className={styles["form__content-wrapper"]}>
@@ -59,7 +55,6 @@ const CommentsForm: FC<CommentsFormProps> = ({
                   dataAutomation="commentsInput"
                   value={values.comments}
                   iconSize={iconSize}
-                  onHandleIconClick={onHandleIconClick}
                   classNames={styles["form__field"]}
                 />
                 <PostButton

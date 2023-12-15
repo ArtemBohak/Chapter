@@ -30,9 +30,6 @@ const CreatePostForm: FC<CreatePostFormProps> = ({
 
     setFormIsOpen(false);
   };
-  const onHandleIconClick = () => {
-    console.log("icon");
-  };
 
   const onHandleRemoveClick = () => {
     setImage("");
@@ -79,7 +76,6 @@ const CreatePostForm: FC<CreatePostFormProps> = ({
               name="caption"
               placeholder="Add a text"
               value={values.caption}
-              onHandleIconClick={onHandleIconClick}
               classNames={styles["form__comment"]}
             />
             <div className={styles["form__button-wrapper"]}>

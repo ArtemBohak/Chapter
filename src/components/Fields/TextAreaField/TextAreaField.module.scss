@@ -18,6 +18,10 @@
     }
   }
 
+  &__emoji {
+    @apply absolute right-0 -top-[300%]  z-50;
+  }
+
   &-error-message {
     @apply text-red text-xxs mt-1 mr-2;
   }
