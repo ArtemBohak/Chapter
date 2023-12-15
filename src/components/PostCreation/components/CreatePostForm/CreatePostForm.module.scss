@@ -18,3 +18,7 @@
     @apply w-full md:max-w-[316px] mx-auto;
   }
 }
+
+.image-label {
+  @apply text-xxs text-grey-1000;
+}

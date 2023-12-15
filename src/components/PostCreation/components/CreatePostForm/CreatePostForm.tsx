@@ -59,6 +59,7 @@ const CreatePostForm: FC<CreatePostFormProps> = ({
               setImage={setImage}
               setFile={setFile}
             />
+            <p className={styles["image-label"]}>.png, .jpg, .gif</p>
             {imageUrl ? (
               <div className={styles["form__image-wrapper"]}>
                 <button

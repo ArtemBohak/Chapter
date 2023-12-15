@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useEffect, useRef, useState } from "react";
+import { ChangeEvent, FC, useEffect, useState } from "react";
 import { ErrorMessage, Field, useField, useFormikContext } from "formik";
 import EmojiPicker, { EmojiClickData } from "emoji-picker-react";
 import cn from "classnames";
@@ -12,30 +12,18 @@ const TextAreaField: FC<TextAreaFieldProps> = ({
   iconSize = 24,
   classNames,
   name,
+  value,
   ...props
 }) => {
   const { setFieldValue } = useFormikContext();
   const [field, meta] = useField(name);
-  const [tValue, setTValue] = useState("");
+  const [tValue, setTValue] = useState(value);
   const [showPicker, setShowPicker] = useState(false);
-  const ref = useRef(null);
 
   useEffect(() => {
     setFieldValue(field.name, tValue);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [field.name, tValue]);
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (ref.current && !ref.current.contains(event.target)) {
-        setShowPicker(false);
-      }
-    };
-
-    window.addEventListener("click", handleClickOutside);
-
-    return window.removeEventListener("click", handleClickOutside);
-  }, []);
 
   const onHandleChange = (e: ChangeEvent<HTMLTextAreaElement>) =>
     setTValue(e.target.value);
@@ -59,10 +47,12 @@ const TextAreaField: FC<TextAreaFieldProps> = ({
       <Field
         {...props}
         name={name}
+        value={value}
         component="textarea"
         data-automation={dataAutomation}
         className={validationClassname}
         onChange={onHandleChange}
+        onClick={() => setShowPicker(false)}
       />
       {isErrorValidation ? (
         <ErrorMessage
@@ -79,7 +69,7 @@ const TextAreaField: FC<TextAreaFieldProps> = ({
         <Icon icon={IconEnum.Smile} size={iconSize} removeInlineStyle />
       </button>
       {showPicker ? (
-        <div className={styles["text-area__emoji"]} ref={ref}>
+        <div className={styles["text-area__emoji"]}>
           <EmojiPicker
             height={400}
             onEmojiClick={onHandleEmojiClick}
