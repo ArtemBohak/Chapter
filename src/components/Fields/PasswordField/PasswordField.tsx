@@ -25,6 +25,7 @@ const PasswordField: FC<PasswordFieldProps> = ({
   helperLink,
   additionalLabel,
   customErrorMessage,
+  onChange,
   ...props
 }) => {
   const [field, meta] = useField(name);
@@ -47,8 +48,9 @@ const PasswordField: FC<PasswordFieldProps> = ({
   });
 
   const onHandleChangeField = (event: ChangeEvent<HTMLInputElement>) => {
-    onHandleChange(event.target.value);
     setFieldValue(field.name, event.target.value);
+    onHandleChange(event.target.value);
+    onChange && onChange(event)
   };
 
   return (

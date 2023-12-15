@@ -103,15 +103,24 @@ const FormCreateAccount: FC = () => {
     }
   }
 
-  const onHandleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const onHandleChangeNickname = (e: ChangeEvent<HTMLInputElement>) => {
     if (
       !e.currentTarget.value.startsWith("@") &&
       e.currentTarget.value.length
     ) {
-      return setNickname("@" + e.currentTarget.value);
+      return setNickname("@" + e.currentTarget.value.replace(' ', ''));
     }
-    setNickname(e.currentTarget.value);
+    setNickname(e.currentTarget.value.replace(' ', ''));
   };
+
+  const onHandleChange = (
+    e: ChangeEvent<HTMLInputElement>, 
+    handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  ) => {
+    console.log(e.target.value)
+    e.target.value = e.target.value.replace(' ', '')
+    handleChange(e)
+  }
 
   useEffect(() => {
     if (debouncedNickname !== "") {
@@ -126,13 +135,14 @@ const FormCreateAccount: FC = () => {
       <Formik
         initialValues={{ ...initialValues, fullname }}
         validationSchema={validationSchema}
-        onSubmit={handleCreateAccount}
+        onSubmit={handleCreateAccount}       
       >
         {({
           isSubmitting,
           isValid,
           dirty,
           values,
+          handleChange
         }: FormikProps<IAccountCreate>) => (
           <Form>
             <TextField
@@ -143,6 +153,10 @@ const FormCreateAccount: FC = () => {
               placeholder="ex. John Brick, Dina O’neal, Jonathan... "
               dataAutomation="fullname"
               showSuccessIcon={true}
+              onChange={(e) => {
+                e.target.value = e.target.value.trim()
+                handleChange(e)
+              }}
             />
             <TextField
               id="nickName"
@@ -152,7 +166,7 @@ const FormCreateAccount: FC = () => {
               placeholder="@JaneSMTH"
               dataAutomation="nickname"
               showSuccessIcon={true}
-              onChange={onHandleChange}
+              onChange={onHandleChangeNickname}
               customErrorMessage={nkErrorMessage}
             />
             <PasswordField
@@ -162,6 +176,7 @@ const FormCreateAccount: FC = () => {
               placeholder="Enter your password"
               strength
               dataAutomation="password"
+              onChange={(e) => onHandleChange(e, handleChange)}
             />
             <PasswordField
               id="confirm_password"
@@ -169,6 +184,7 @@ const FormCreateAccount: FC = () => {
               label="Confirm password"
               placeholder="Re-enter your password"
               dataAutomation="confirm_password"
+              onChange={(e) => onHandleChange(e, handleChange)}
             />
             <UIbutton
               type="submit"
