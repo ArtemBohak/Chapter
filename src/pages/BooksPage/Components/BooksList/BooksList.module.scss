@@ -1,14 +1,14 @@
 .books-list__wrapper {
-    @apply flex flex-1 flex-wrap gap-[20px] pt-2;
+    @apply flex flex-1 flex-wrap gap-[20px] pt-2 justify-center md:justify-start;
 }
 
 .book__wrapper {
-    @apply laptop_md:max-w-[225px] laptop_md:max-h-[362px] relative mb-2;
+    @apply max-w-[156px] md:max-w-[200px] laptop_md:max-w-[225px] laptop_md:max-h-[362px] relative mb-4;
 
-    & img {
-        @apply mb-[8px] rounded-xl h-[88%] w-full;
+    & .book-cover {
+        @apply mb-[8px] rounded-xl h-[88%] w-full cursor-pointer;
     }
-    & p {
+    & .book-title {
         @apply h-[12%] font-semibold;
     }
 }

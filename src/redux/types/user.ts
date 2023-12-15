@@ -22,6 +22,18 @@ export interface IUserStore {
   userBooks: Array<IBook> | []
 }
 
+export type UserBooks = {
+  userBooks: Array<IBook> | []
+}
+export type BookId = {
+  
+}
+export type UserBookFavoriteStatus = {
+  id: number;
+  userBooks: Array<IBook> | [];
+  UserBookFavoriteStatus: boolean;
+}
+
 export interface IUserRole {
   id: number;
   name: string;

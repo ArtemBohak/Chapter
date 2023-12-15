@@ -14,8 +14,7 @@ const BooksPageProvider: FC<BooksPageProviderProps> = ({ children }) => {
   const [isDeleteBookModalOpen, setIsDeleteBookModalOpen] =
     useState<boolean>(false);
   const [isAddBookModalOpen, setIsAddBookModalOpen] = useState<boolean>(false);
-  const [isBookInfoModalOpen, setIsBookInfoModalOpen] = useState<boolean>(false);
-
+  const deleteIdList: number[] = [];
   useEffect(() => {
     return setBooks(userBooks);
   }, []);
@@ -35,10 +34,9 @@ const BooksPageProvider: FC<BooksPageProviderProps> = ({ children }) => {
         setIsDeleteBookModalOpen,
         isAddBookModalOpen,
         setIsAddBookModalOpen,
-        isBookInfoModalOpen,
-        setIsBookInfoModalOpen,
         books,
         fetchData,
+        deleteIdList,
       }}
     >
       {children}

@@ -1,13 +1,12 @@
 import { FC } from "react";
-import styles from "./BooksPageHeader.module.scss";
+import { useBooksPageContext } from "../../context";
+import styles from "./MobileButtons.module.scss";
 import { IconEnum, UIbutton } from "@/src/components";
 import { links } from "@/src/types";
-import { useBooksPageContext } from "../../context/hooks/useBooksPageContext";
 import CancelModal from "../CancelModal/CancelModal";
-import { deleteMultipleBooksApi } from "@/src/components/BookShelf/DeleteBookModal/DeleteBookApi";
 import AddBookModal from "@/src/components/BookShelf/AddBookModal/AddBookModal";
 
-const BooksPageHeader: FC = () => {
+const MobileButtons: FC = () => {
   const {
     edit,
     setEdit,
@@ -15,14 +14,12 @@ const BooksPageHeader: FC = () => {
     setIsCancelModalOpen,
     isAddBookModalOpen,
     setIsAddBookModalOpen,
-    deleteIdList,
   } = useBooksPageContext();
 
   const handleCancel = () => {
     setIsCancelModalOpen(true);
   };
-  const handleConfirm = async () => {
-    deleteMultipleBooksApi(deleteIdList);
+  const handleConfirm = () => {
     setEdit(!edit);
   };
   const handleAddBook = () => {
@@ -30,24 +27,14 @@ const BooksPageHeader: FC = () => {
   };
 
   return (
-    <div className={styles["books-page-header__wrapper"]}>
-      <UIbutton
-        className={styles["back-to-profile"]}
-        icon={IconEnum.ArrowLeft}
-        color="secondary"
-        dataAutomation="Back-to-profile"
-        href={links.PROFILE}
-      >
-        <p className={styles["back-to-profile__text"]}>Back to profile</p>
-      </UIbutton>
-      <h2 className={styles["books-page-header__title"]}>Library</h2>
+    <div className={styles["mobile-buttons__wrapper"]}>
       {edit ? (
-        <div className="flex gap-5">
+        <div className={styles["mobile-buttons__buttons-place"]}>
           <UIbutton
             onClick={handleCancel}
             className={styles["button-cancel"]}
             color="secondary"
-            dataAutomation="Edit-book"
+            dataAutomation="button-cancel"
           >
             Cancel
           </UIbutton>
@@ -55,19 +42,19 @@ const BooksPageHeader: FC = () => {
             onClick={handleConfirm}
             className={styles["button-confirm"]}
             size="small"
-            dataAutomation="Add-book"
+            dataAutomation="button-confirm"
           >
             Confirm
           </UIbutton>
         </div>
       ) : (
-        <div className="flex gap-5">
+        <div className={styles["mobile-buttons__buttons-place"]}>
           <UIbutton
             onClick={() => setEdit(!edit)}
             className={styles["button-edit"]}
             icon={IconEnum.EditBook}
             color="secondary"
-            dataAutomation="Edit-book"
+            dataAutomation="button-Edit-book"
           >
             Edit
           </UIbutton>
@@ -76,7 +63,7 @@ const BooksPageHeader: FC = () => {
             className={styles["button-add"]}
             icon={IconEnum.Book}
             size="small"
-            dataAutomation="Add-book"
+            dataAutomation="button-Add-book"
           >
             Add new book
           </UIbutton>
@@ -95,4 +82,4 @@ const BooksPageHeader: FC = () => {
   );
 };
 
-export default BooksPageHeader;
+export default MobileButtons;

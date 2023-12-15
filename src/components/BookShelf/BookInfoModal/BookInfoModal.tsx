@@ -1,9 +1,22 @@
-import { FC } from "react";
+import { FC, useMemo } from "react";
 import { IconEnum, Modal, UIbutton } from "@/src/components";
 import styles from "./BookInfoModal.module.scss";
 import { BookInfoModalProps } from "./BookInfoModal.type";
+import CloseButton from "../Book/IconButtons/CloseButton/CloseButton";
+import FavoriteBookButton from "../Book/IconButtons/FavoriteBookButton/FavoriteBookButton";
 
-const BookInfoModal: FC<BookInfoModalProps> = ({ isOpen, setIsOpen, id }) => {
+const BookInfoModal: FC<BookInfoModalProps> = ({
+  isOpen,
+  setIsOpen,
+  id,
+  nameOfBook,
+  author,
+  annotation,
+  isFavorite,
+  bookStatus,
+}) => {
+  const nameLength = useMemo(() => nameOfBook?.length ?? 0, [nameOfBook]);
+
   return (
     <Modal
       bodyClassName={styles["book-info__body"]}
@@ -11,6 +24,8 @@ const BookInfoModal: FC<BookInfoModalProps> = ({ isOpen, setIsOpen, id }) => {
       isOpen={isOpen}
       setIsOpen={setIsOpen}
       transitionTimeOut={200}
+      portal={true}
+      disableScroll={true}
     >
       <div className={styles["book-info__wrapper"]}>
         <div className={styles["book-info__image"]}>
@@ -18,29 +33,39 @@ const BookInfoModal: FC<BookInfoModalProps> = ({ isOpen, setIsOpen, id }) => {
             src="https://i.ibb.co/hMwh97C/Harry-Potter-Book-Cover.png"
             alt=""
           />
+          <FavoriteBookButton
+            className={styles["book-info__favorite-button"]}
+            isFavorite={isFavorite}
+            id={id}
+          />
         </div>
         <div className={styles["book-info__text"]}>
-          <p>book status</p>
-          <h1>Harry Potter</h1>
-          <h4>Author</h4>
-          <p>
-            At the centre of this novel is the passionate love between Catherine
-            Earnshaw and Heathcliff - recounted with such emotional intensity
-            that a plain tale of the Yorkshire moors acquires the depth and
-            simplicity of ancient tragedy. For the Fourth Edition, the editor
-            has collated the 1847 text with several modern editions and has
-            corrected a number of variants, including accidentals. The text is
-            accompanied by entirely new explanatory annotations.
-          </p>
+          <div>
+            <p className={styles[`book-info__status-${bookStatus}`]}>
+              {(bookStatus === 1 && `Goin to read 📚`) ||
+                (bookStatus === 2 && `Reading 📖`) ||
+                (bookStatus === 3 && `Finished book ✅`)}
+            </p>
+            <h1
+              className={
+                nameLength > 20 ? styles["title__long"] : styles["title__short"]
+              }
+            >
+              {nameOfBook}
+            </h1>
+            <h4>by {author}</h4>
+            <p className={styles["book-info__annotation"]}>{annotation}</p>
+          </div>
           <UIbutton
             className={styles["book-info__button"]}
             fullWidth={false}
             icon={IconEnum.EditBook}
-            dataAutomation={""}
+            dataAutomation={"editBookButton"}
           >
             Edit book info
           </UIbutton>
         </div>
+        <CloseButton setIsOpen={setIsOpen} />
       </div>
     </Modal>
   );

@@ -10,10 +10,9 @@ export type BooksPageContextType = {
   setIsDeleteBookModalOpen: Dispatch<React.SetStateAction<boolean>>;
   isAddBookModalOpen: boolean;
   setIsAddBookModalOpen: Dispatch<React.SetStateAction<boolean>>;
-  isBookInfoModalOpen: boolean;
-  setIsBookInfoModalOpen: Dispatch<React.SetStateAction<boolean>>;
   books: Array<IBook> | [];
   fetchData: (id: string | number) => void;
+  deleteIdList: number[];
     
 };
 

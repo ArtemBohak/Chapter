@@ -2,7 +2,6 @@ import { Icon, IconEnum } from "@/src/components/Icon";
 
 export const SampleNextArrow = ({ ...props }) => {
   const { className, style, onClick } = props;
-
   return (
     <div
       className={className}
@@ -33,11 +32,11 @@ export const settings = {
   dots: false,
   infinite: true,
   speed: 500,
-  slidesToShow: 3,
-  slidesToScroll: 3,
   swipeToSlide: false,
   nextArrow: <SampleNextArrow />,
   prevArrow: <SamplePrevArrow />,
+  slidesToShow: 3,
+  slidesToScroll: 3,
   responsive: [
     {
       breakpoint: 1680,

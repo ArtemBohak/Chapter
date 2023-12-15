@@ -1,12 +1,11 @@
 import { Icon, IconEnum } from "@/src/components";
-import { FC } from "react";
-import styles from "../IconsButtons.module.scss";
-import { useBooksPageContext } from "@/src/pages/BooksPage/context/hooks/useBooksPageContext";
+import { FC, useState } from "react";
+import styles from "../IconButtons.module.scss";
 import { DeleteBookModal } from "../../../DeleteBookModal";
+import { DeleteBookButtonProps } from "../IconButtons.type";
 
-const DeleteBookButton: FC = () => {
-  const { isDeleteBookModalOpen, setIsDeleteBookModalOpen } =
-    useBooksPageContext();
+const DeleteBookButton: FC<DeleteBookButtonProps> = ({ id }) => {
+  const [isDeleteBookModalOpen, setIsDeleteBookModalOpen] = useState(false);
   const onHandleClick = () => {
     setIsDeleteBookModalOpen(true);
   };
@@ -16,6 +15,7 @@ const DeleteBookButton: FC = () => {
         {<Icon icon={IconEnum.Close} />}
       </button>
       <DeleteBookModal
+        id={id}
         isOpen={isDeleteBookModalOpen}
         setIsOpen={setIsDeleteBookModalOpen}
       />

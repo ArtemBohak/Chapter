@@ -73,7 +73,7 @@
     outline: none;
     margin: 0 1px;
     & div {
-    @apply max-w-[60px] laptop_md:max-w-[123px];
+    @apply max-w-[60px] laptop_md:max-w-[123px] w-full;
     outline: none;    
     }
     [dir="rtl"] & {

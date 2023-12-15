@@ -9,3 +9,7 @@
 .favorite-button {
     @apply bg-inherit top-2 left-2 absolute z-30 w-[32px] h-[32px];
 }
+
+.close-button {
+    @apply bg-inherit top-2 right-2 md:top-[24px] md:right-[24px] absolute z-50 w-[32px] h-[32px];
+}

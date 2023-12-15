@@ -15,6 +15,7 @@ const ProfileInfo: FC = () => {
     myFollowersCount,
     myFollowingCount,
     userStatus,
+    location,
   } = user;
 
   console.log(user);
@@ -34,14 +35,14 @@ const ProfileInfo: FC = () => {
           <p className={styles["profile-info__nickname"]}>{nickName}</p>
           <p className={styles["profile-info__address"]}>
             <Icon width={20} icon={IconEnum.Location} />
-            Southern Air Temple
+            {location}
           </p>
           <div className={styles["profile-info__social-counters"]}>
             <p>
-              <span>{myFollowersCount}</span> followers
+              <span>{myFollowersCount || 0}</span> followers
             </p>
             <p>
-              <span>{myFollowingCount}</span> follow
+              <span>{myFollowingCount || 0}</span> follow
             </p>
           </div>
         </div>

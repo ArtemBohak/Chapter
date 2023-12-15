@@ -1,9 +1,11 @@
 .cancel-modal {
     &__body {
-        @apply flex max-w-[440px] absolute top-[40%] left-[40%] bg-[#FDFDFD] p-8 rounded-2xl z-50;
+        @apply flex absolute justify-center bg-[#FDFDFD] p-8 rounded-2xl z-50
+        max-w-xs base:max-w-[440px] 
+        top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-[40%]
     }
     &__backdrop {
-        @apply fixed top-0 left-0 w-full h-full bg-white  md:backdrop-blur-sm md:bg-[#1c1c1c33];
+        @apply fixed top-0 left-0 w-full h-full backdrop-blur-sm bg-[#1c1c1c33];
     }
     &__wrapper {
         @apply flex flex-col justify-center items-center text-center gap-4;

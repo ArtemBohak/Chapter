@@ -2,12 +2,12 @@
     @apply h-[110px] max-w-[65px] relative
     laptop_md:max-w-[123px] laptop_md:h-[235px] mt-2 font-semibold cursor-pointer;
     
-    & img {
-        @apply h-[80%] w-full object-cover mb-[7px] rounded-lg;
+    & .book-cover {
+        @apply h-[80%] w-full object-cover mb-[7px] rounded-lg ;
         box-shadow: 7px 7px 7px rgb(102, 102, 102);
         outline: none !important;
     }
-    & p {
+    & .book-name {
         @apply h-[20%] text-xs text-center;
         outline: none !important;
     }

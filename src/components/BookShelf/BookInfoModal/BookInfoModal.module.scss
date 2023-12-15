@@ -1,29 +1,61 @@
 .book-info {
     &__body {
-        @apply max-w-[1000px] w-full fixed top-[20%] left-[30%] bg-[#FDFDFD] px-8 py-10 rounded-2xl z-50;
+        @apply w-full fixed bg-[#FDFDFD] rounded-2xl z-50 overflow-x-hidden overflow-y-auto
+        max-w-[320px] px-[20px] py-[24px] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-[40%]
+        md:max-w-[670px] 
+        laptop:max-w-[1060px] laptop:max-h-[660px] laptop:px-[60px] laptop:py-[50px];
     }
     &__backdrop {
-        @apply fixed top-0 left-0 w-full h-full bg-white md:backdrop-blur-sm md:bg-[#1c1c1c33];
+        @apply fixed flex justify-center top-0 left-0 w-full h-full backdrop-blur-sm bg-[#1c1c1c33] max-h-[100vh] overflow-y-auto;
         position: fixed !important;
     }
     &__wrapper {
-        @apply flex justify-center h-full w-full gap-4;
+        @apply flex flex-col text-center laptop:text-left items-center laptop:items-stretch laptop:flex-row h-full w-full gap-4 pt-10 laptop:pt-0;
     }
     &__buttons {
         @apply font-bold block;
     }
     &__image {
-        @apply w-2/6;
-        object-fit: cover;
+        @apply laptop:w-2/6 flex-grow relative md:max-w-[210px] laptop:max-w-full laptop:max-h-[500px];
+        
         & img {
+            @apply w-full h-full object-cover rounded-md;
             
         }
     }
     &__text {
-        @apply w-4/6 h-full flex flex-col;
+        @apply laptop:w-4/6 flex-grow flex flex-col items-center laptop:items-start justify-between hyphens-auto;
     }
     &__button {
-        @apply max-w-[220px] justify-self-end;
+        @apply max-w-[220px] justify-self-end mt-2;
     }
+    &__favorite-button {
+        @apply bg-inherit top-2 left-2 absolute z-30 w-[32px] h-[32px];
+    }
+    &__annotation {
+        @apply max-h-[230px] overflow-y-auto mb-4;
+    }
+    &__status {
+        &-1 {
+            @apply absolute top-2 left-2 laptop:relative laptop:top-0 laptop:left-0 block max-w-max rounded-md py-[7px] px-[14px] bg-[#CCF3FF];
+        }
+        &-2 {
+            @apply absolute top-2 left-2 laptop:relative laptop:top-0 laptop:left-0 block max-w-max rounded-md py-[7px] px-[14px] bg-[#fffabb];
+        }
+        &-3 {
+            @apply absolute top-2 left-2 laptop:relative laptop:top-0 laptop:left-0 block max-w-max rounded-md py-[7px] px-[14px] bg-[#BBFFC2];
+        }
+    }
+
     
 }
+
+.title {
+    &__short {
+        @apply text-lg md:text-h1_lg font-bold;
+    }
+    &__long {
+        @apply text-base md:text-h3_lg font-bold;
+    }
+}
+

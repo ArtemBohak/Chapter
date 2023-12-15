@@ -9,7 +9,7 @@ import { EndpointsEnum, api } from "@/src/axios";
 import { keysValue } from "@/src/types";
 import { removeDataFromLS } from "@/src/utils";
 
-import { IUserStore } from "../types/user";
+import {  IUserStore, UserBooks } from "../types/user";
 import { defaultUserState } from "../default-state/user";
 
 import defaultAvatar from "@/src/assets/SVG/default-user-avatar.svg";
@@ -63,6 +63,15 @@ export const userSlice = createSlice({
       state.isAuth = true;
       state.error = null;
     },
+    updateUserFavoritBooks: (state, action: PayloadAction<UserBooks>) => {
+     
+      state.user.userBooks = {
+        ...action.payload.userBooks,
+    
+      };
+      state.isAuth = true;
+      state.error = null;
+    },
     logoutUser: (state) => {
       state.user = initialState.user;
       state.error = initialState.error;
@@ -110,6 +119,6 @@ export const userSlice = createSlice({
   },
 });
 
-export const { userLoading, updateUser, logoutUser, userError } =
+export const { userLoading, updateUser, logoutUser, userError, updateUserFavoritBooks } =
   userSlice.actions;
 export default userSlice.reducer;

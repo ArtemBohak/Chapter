@@ -33,4 +33,6 @@ export enum IconEnum {
   Location = "location-icon",
   UserAdd = "User-add",
   Image = "image",
+  PlusOrange = "plus-orange",
+  PlusInCircle = 'plus-in-circle'
 }

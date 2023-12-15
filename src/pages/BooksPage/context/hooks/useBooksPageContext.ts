@@ -9,7 +9,10 @@ export const defaultValues: BooksPageContextType = {
   isDeleteBookModalOpen: false,
   setIsDeleteBookModalOpen: () => {},
   books: [],
-  fetchData: () => {}
+  fetchData: () => {},
+  isAddBookModalOpen: false,
+  setIsAddBookModalOpen: () => {},
+  deleteIdList: []
 };
 
 export const BooksPageContext = createContext<BooksPageContextType>(defaultValues);

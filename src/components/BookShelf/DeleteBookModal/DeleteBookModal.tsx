@@ -2,13 +2,17 @@ import { Modal, UIbutton } from "@/src/components";
 import { FC } from "react";
 import styles from "./DeleteBookModal.module.scss";
 import { DeleteModalProps } from "./DeleteBookModal.type";
+import { useBooksPageContext } from "@/src/pages/BooksPage/context";
 
-const DeleteBookModal: FC<DeleteModalProps> = ({ isOpen, setIsOpen }) => {
+const DeleteBookModal: FC<DeleteModalProps> = ({ isOpen, setIsOpen, id }) => {
+  const { deleteIdList } = useBooksPageContext();
   const onHandleClickCancel = () => {
     setIsOpen(false);
   };
   const onHandleClickConfirm = () => {
+    deleteIdList.push(id);
     setIsOpen(false);
+    console.log(deleteIdList);
   };
 
   return (
@@ -18,6 +22,7 @@ const DeleteBookModal: FC<DeleteModalProps> = ({ isOpen, setIsOpen }) => {
       isOpen={isOpen}
       setIsOpen={setIsOpen}
       transitionTimeOut={200}
+      disableScroll
     >
       <div className={styles["delete-modal__wrapper"]}>
         <h4>Are you sure you want to delete this book?</h4>

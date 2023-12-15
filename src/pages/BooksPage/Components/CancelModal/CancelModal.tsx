@@ -2,12 +2,15 @@ import { Modal, UIbutton } from "@/src/components";
 import { FC } from "react";
 import styles from "./CancelModal.module.scss";
 import { CancelModalProps } from "./CancelModal.type";
+import { useBooksPageContext } from "../../context";
 
 const CancelModal: FC<CancelModalProps> = ({ isOpen, setIsOpen, setEdit }) => {
+  const { deleteIdList } = useBooksPageContext();
   const onHandleClickCancel = () => {
     setIsOpen(false);
   };
   const onHandleClickConfirm = () => {
+    deleteIdList.length = 0;
     setIsOpen(false);
     setEdit(false);
   };
