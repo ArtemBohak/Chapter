@@ -69,7 +69,7 @@ class FilesService {
         folder: path || defaultPath,
         format,
         overwrite,
-        public_id: this.avatar ? `${this.id}` : this.id + "_" + nanoid(),
+        public_id: this.avatar ? `${this.id}` : this.id + "/" + nanoid(),
         tags: imageTags,
         timestamp: Math.floor(Date.now() / 1000),
       };
