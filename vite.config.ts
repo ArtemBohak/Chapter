@@ -7,7 +7,6 @@ export default defineConfig({
   server: {
     https: true,
   },
-  base: "Chapter",
   plugins: [react(), mkcert()],
   resolve: {
     alias: [
