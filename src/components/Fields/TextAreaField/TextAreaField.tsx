@@ -54,7 +54,6 @@ const TextAreaField: FC<TextAreaFieldProps> = ({
         data-automation={dataAutomation}
         className={validationClassname}
         onChange={onHandleChange}
-        onBlur={() => setShowPicker(false)}
         onClick={() => setShowPicker(false)}
       />
       {isErrorValidation ? (
