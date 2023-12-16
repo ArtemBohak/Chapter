@@ -1,9 +1,10 @@
 import { ChangeEvent, FC, useEffect, useState } from "react";
 import { ErrorMessage, Field, useField, useFormikContext } from "formik";
-import EmojiPicker, { EmojiClickData } from "emoji-picker-react";
+import data from "@emoji-mart/data";
+import Picker from "@emoji-mart/react";
 import cn from "classnames";
 
-import { TextAreaFieldProps } from "./TextAreaField.type";
+import { IEmoji, TextAreaFieldProps } from "./TextAreaField.type";
 import styles from "./TextAreaField.module.scss";
 import { Icon, IconEnum } from "../..";
 
@@ -13,6 +14,7 @@ const TextAreaField: FC<TextAreaFieldProps> = ({
   classNames,
   name,
   value,
+  emojiClassNames,
   ...props
 }) => {
   const { setFieldValue } = useFormikContext();
@@ -32,8 +34,8 @@ const TextAreaField: FC<TextAreaFieldProps> = ({
     setShowPicker(!showPicker);
   };
 
-  const onHandleEmojiClick = (emojiObject: EmojiClickData) => {
-    setTValue((prevInput) => prevInput + emojiObject.emoji);
+  const onHandleEmojiClick = (emoji: IEmoji) => {
+    setTValue((prevInput) => prevInput + emoji.native);
     setShowPicker(false);
   };
 
@@ -52,6 +54,7 @@ const TextAreaField: FC<TextAreaFieldProps> = ({
         data-automation={dataAutomation}
         className={validationClassname}
         onChange={onHandleChange}
+        onBlur={() => setShowPicker(false)}
         onClick={() => setShowPicker(false)}
       />
       {isErrorValidation ? (
@@ -69,11 +72,14 @@ const TextAreaField: FC<TextAreaFieldProps> = ({
         <Icon icon={IconEnum.Smile} size={iconSize} removeInlineStyle />
       </button>
       {showPicker ? (
-        <div className={styles["text-area__emoji"]}>
-          <EmojiPicker
-            height={400}
-            onEmojiClick={onHandleEmojiClick}
-            skinTonesDisabled
+        <div className={`${styles["text-area__emoji"]} ${emojiClassNames}`}>
+          <Picker
+            data={data}
+            onEmojiSelect={onHandleEmojiClick}
+            previewPosition="none"
+            theme="light"
+            maxFrequentRows={1}
+            perLine={6}
           />
         </div>
       ) : null}

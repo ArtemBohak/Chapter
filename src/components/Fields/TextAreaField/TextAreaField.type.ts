@@ -8,4 +8,14 @@ export type TextAreaFieldProps = {
   dataAutomation: string;
   iconSize?: number;
   classNames?: string;
+  emojiClassNames?: string;
 } & Partial<TextareaHTMLAttributes<HTMLTextAreaElement>>;
+
+export interface IEmoji {
+  id: string;
+  keywords: string[];
+  name: string;
+  native: string;
+  shortcodes: string;
+  unified: string;
+}

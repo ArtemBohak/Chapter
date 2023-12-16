@@ -12,6 +12,10 @@
 
   &__comment {
     @apply my-2-xs;
+
+    & > textarea {
+      @apply h-[132px] base:h-[128px];
+    }
   }
 
   &__button-wrapper {
