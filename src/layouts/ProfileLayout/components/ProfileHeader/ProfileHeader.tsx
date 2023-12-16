@@ -13,8 +13,6 @@ import {
   UIbutton,
   MenuToggler,
   SearchField,
-  Icon,
-  IconEnum,
 } from "@/src/components";
 
 const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
@@ -82,13 +80,33 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
             className={cn(styles["profile-header__user-avatar"])}
           />
           <UIbutton
-            href="/"
+            onClick={onHandleClick}
+            size="small"
             variant="text"
-            alignIcon="right"
-            dataAutomation="notification"
+            isCustomIcon
+            dataAutomation="addPostButton"
             className="md:hidden"
+            disabled={headerAddPostBtnIsDisabled}
           >
-            <Icon icon={IconEnum.Notification} color="#000000" />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+              fill="none"
+            >
+              <path
+                d="M2.66602 15.9993C2.66602 9.71396 2.66602 6.57126 4.61864 4.61864C6.57126 2.66602 9.71396 2.66602 15.9993 2.66602C22.2847 2.66602 25.4274 2.66602 27.3801 4.61864C29.3327 6.57126 29.3327 9.71396 29.3327 15.9993C29.3327 22.2847 29.3327 25.4274 27.3801 27.3801C25.4274 29.3327 22.2847 29.3327 15.9993 29.3327C9.71396 29.3327 6.57126 29.3327 4.61864 27.3801C2.66602 25.4274 2.66602 22.2847 2.66602 15.9993Z"
+                stroke="#FFBD5A"
+                strokeWidth="2"
+              />
+              <path
+                d="M20 16L16 16M16 16L12 16M16 16L16 12M16 16L16 20"
+                stroke="#FFBD5A"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+            </svg>
           </UIbutton>
         </div>
       </div>
