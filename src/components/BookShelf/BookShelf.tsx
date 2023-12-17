@@ -26,7 +26,6 @@ const BookShelf: FC = () => {
     });
     setFavoriteBooksList(bookslist);
     addBookArray.length = 3 - favoriteBooksList.length;
-    console.log("length", addBookArray.length);
   }, [userBooks]);
 
   return (

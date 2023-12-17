@@ -99,7 +99,6 @@ const AddBookForm: FC = () => {
           imagePath: bookImage,
         }}
         onSubmit={async (values) => {
-          console.log(values);
           await onHandleSubmit(values);
         }}
         validationSchema={validationSchema}
