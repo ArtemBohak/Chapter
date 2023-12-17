@@ -14,14 +14,15 @@ const BooksPageProvider: FC<BooksPageProviderProps> = ({ children }) => {
   const [isDeleteBookModalOpen, setIsDeleteBookModalOpen] =
     useState<boolean>(false);
   const [isAddBookModalOpen, setIsAddBookModalOpen] = useState<boolean>(false);
-  const deleteIdList: number[] = [];
-  useEffect(() => {
-    return setBooks(userBooks);
-  }, []);
+  const [deleteIdList, setDeleteIdList] = useState<number[]>([]);
+  const [favoriteCount, setFavoriteCount] = useState<[] | IBook[]>([]);
 
-  const fetchData = (id: string | number) => {
-    console.log(id);
-  };
+  useEffect(() => {
+    setBooks(userBooks);
+    setFavoriteCount(
+      userBooks.filter((item) => item.favorite_book_status === true)
+    );
+  }, [userBooks]);
 
   return (
     <BooksPageContext.Provider
@@ -35,8 +36,10 @@ const BooksPageProvider: FC<BooksPageProviderProps> = ({ children }) => {
         isAddBookModalOpen,
         setIsAddBookModalOpen,
         books,
-        fetchData,
         deleteIdList,
+        setDeleteIdList,
+        favoriteCount,
+        setFavoriteCount,
       }}
     >
       {children}

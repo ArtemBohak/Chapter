@@ -18,8 +18,6 @@ const ProfileInfo: FC = () => {
     location,
   } = user;
 
-  console.log(user);
-
   return (
     <>
       <div className={styles["profile-info"]}>

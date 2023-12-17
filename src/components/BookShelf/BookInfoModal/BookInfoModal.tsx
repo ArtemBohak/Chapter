@@ -14,6 +14,7 @@ const BookInfoModal: FC<BookInfoModalProps> = ({
   annotation,
   isFavorite,
   bookStatus,
+  imagePath,
 }) => {
   const nameLength = useMemo(() => nameOfBook?.length ?? 0, [nameOfBook]);
 
@@ -29,10 +30,7 @@ const BookInfoModal: FC<BookInfoModalProps> = ({
     >
       <div className={styles["book-info__wrapper"]}>
         <div className={styles["book-info__image"]}>
-          <img
-            src="https://i.ibb.co/hMwh97C/Harry-Potter-Book-Cover.png"
-            alt=""
-          />
+          <img src={imagePath} alt="" />
           <FavoriteBookButton
             className={styles["book-info__favorite-button"]}
             isFavorite={isFavorite}

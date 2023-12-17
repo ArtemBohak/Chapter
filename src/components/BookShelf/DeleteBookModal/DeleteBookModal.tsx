@@ -3,16 +3,19 @@ import { FC } from "react";
 import styles from "./DeleteBookModal.module.scss";
 import { DeleteModalProps } from "./DeleteBookModal.type";
 import { useBooksPageContext } from "@/src/pages/BooksPage/context";
+import { deleteUserBook, useAppDispatch } from "@/src/redux";
 
 const DeleteBookModal: FC<DeleteModalProps> = ({ isOpen, setIsOpen, id }) => {
-  const { deleteIdList } = useBooksPageContext();
+  const dispatch = useAppDispatch();
+  const { setDeleteIdList } = useBooksPageContext();
+
   const onHandleClickCancel = () => {
     setIsOpen(false);
   };
   const onHandleClickConfirm = () => {
-    deleteIdList.push(id);
+    setDeleteIdList((PrevIds) => [...PrevIds, id]);
+    dispatch(deleteUserBook(id));
     setIsOpen(false);
-    console.log(deleteIdList);
   };
 
   return (

@@ -2,7 +2,6 @@ import { FC } from "react";
 import { useBooksPageContext } from "../../context";
 import styles from "./MobileButtons.module.scss";
 import { IconEnum, UIbutton } from "@/src/components";
-import { links } from "@/src/types";
 import CancelModal from "../CancelModal/CancelModal";
 import AddBookModal from "@/src/components/BookShelf/AddBookModal/AddBookModal";
 

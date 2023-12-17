@@ -23,12 +23,21 @@
         @apply flex mb-[40px] justify-between;
     }
     &__add-book-image {
-        @apply flex w-5/12 border-grey-1000 border-[1px] rounded-[5px] justify-center items-center;
+        @apply flex w-5/12 border-grey-1000 border-[1px] rounded-[6px] justify-center items-center;
     }
     &__book-text {
         @apply flex flex-col w-7/12 h-full justify-center pl-5;
     }
     &__buttons {
         @apply flex justify-center gap-10;
+    }
+    &__image-preview {
+        @apply flex w-5/12 rounded-[6px] object-cover relative;
+        & img {
+            @apply rounded-[6px] w-full h-full;
+        }
+    }
+    &__image-preview-remove-button {
+        @apply absolute bg-transparent top-0 right-0;
     }
 }

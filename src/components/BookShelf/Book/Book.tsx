@@ -18,6 +18,7 @@ const Book: FC<BooksProps> = ({
   author,
   bookNameLength,
   bookStatus,
+  bookImageUrl,
 }) => {
   const [isBookInfoModalOpen, setIsBookInfoModalOpen] = useState(false);
 
@@ -36,7 +37,7 @@ const Book: FC<BooksProps> = ({
       <img
         className={imageClassName || styles["book-cover"]}
         onClick={onHandleClick}
-        src="https://i.ibb.co/hMwh97C/Harry-Potter-Book-Cover.png"
+        src={bookImageUrl}
         alt="BookImage"
       />
       <h5 className={titleClassName || styles["book-name"]} title={nameOfBook}>
@@ -52,6 +53,7 @@ const Book: FC<BooksProps> = ({
         author={author}
         annotation={annotation}
         isFavorite={isFavorite}
+        imagePath={bookImageUrl}
         id={id}
         isOpen={isBookInfoModalOpen}
         setIsOpen={setIsBookInfoModalOpen}

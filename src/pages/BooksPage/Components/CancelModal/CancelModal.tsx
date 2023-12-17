@@ -3,9 +3,11 @@ import { FC } from "react";
 import styles from "./CancelModal.module.scss";
 import { CancelModalProps } from "./CancelModal.type";
 import { useBooksPageContext } from "../../context";
+import { fetchIsAuthUser, useAppDispatch } from "@/src/redux";
 
 const CancelModal: FC<CancelModalProps> = ({ isOpen, setIsOpen, setEdit }) => {
   const { deleteIdList } = useBooksPageContext();
+  const dispatch = useAppDispatch();
   const onHandleClickCancel = () => {
     setIsOpen(false);
   };
@@ -13,6 +15,7 @@ const CancelModal: FC<CancelModalProps> = ({ isOpen, setIsOpen, setEdit }) => {
     deleteIdList.length = 0;
     setIsOpen(false);
     setEdit(false);
+    dispatch(fetchIsAuthUser());
   };
 
   return (

@@ -16,7 +16,7 @@
         @apply font-bold block;
     }
     &__image {
-        @apply laptop:w-2/6 flex-grow relative md:max-w-[210px] laptop:max-w-full laptop:max-h-[500px];
+        @apply laptop:w-2/6 flex-grow relative md:max-w-[210px] laptop:max-w-full laptop:max-h-[500px] laptop:min-h-[500px];
         
         & img {
             @apply w-full h-full object-cover rounded-md;
@@ -33,7 +33,7 @@
         @apply bg-inherit top-2 left-2 absolute z-30 w-[32px] h-[32px];
     }
     &__annotation {
-        @apply max-h-[230px] overflow-y-auto mb-4;
+        @apply max-h-[200px] overflow-y-auto mb-4;
     }
     &__status {
         &-1 {

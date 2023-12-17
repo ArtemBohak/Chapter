@@ -11,8 +11,10 @@ export type BooksPageContextType = {
   isAddBookModalOpen: boolean;
   setIsAddBookModalOpen: Dispatch<React.SetStateAction<boolean>>;
   books: Array<IBook> | [];
-  fetchData: (id: string | number) => void;
   deleteIdList: number[];
+  setDeleteIdList: Dispatch<React.SetStateAction<number[]>>;
+  favoriteCount: Array<IBook> | [];
+  setFavoriteCount: Dispatch<React.SetStateAction<IBook[]>>
     
 };
 

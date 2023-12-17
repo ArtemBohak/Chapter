@@ -3,10 +3,10 @@
 }
 
 .book__wrapper {
-    @apply max-w-[156px] md:max-w-[200px] laptop_md:max-w-[225px] laptop_md:max-h-[362px] relative mb-4;
+    @apply max-w-[156px] md:max-w-[200px] laptop_md:max-w-[225px] laptop_md:max-h-[362px] laptop_md:min-h-[362px] relative mb-4;
 
     & .book-cover {
-        @apply mb-[8px] rounded-xl h-[88%] w-full cursor-pointer;
+        @apply mb-[8px] rounded-xl h-[88%] w-full cursor-pointer object-cover;
     }
     & .book-title {
         @apply h-[12%] font-semibold;

@@ -41,6 +41,7 @@ const BookShelf: FC = () => {
         <Slider {...settings}>
           {favoriteBooksList.map((book, i) => (
             <Book
+              bookImageUrl={book.imagePath}
               bookStatus={book.book_statusId}
               key={i}
               id={book.id}

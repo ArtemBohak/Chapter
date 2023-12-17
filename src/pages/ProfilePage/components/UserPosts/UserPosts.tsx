@@ -1,6 +1,5 @@
 import { FC } from "react";
 import styles from "./Posts.module.scss";
-import { Post } from "@/src/components";
 
 const UserPosts: FC = () => {
   return (

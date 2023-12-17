@@ -9,4 +9,5 @@ export type BookInfoModalProps = {
     setIsOpen: Dispatch<React.SetStateAction<boolean>>;
     isFavorite: boolean;
     bookStatus?: number;
+    imagePath: string;
 }

@@ -9,10 +9,12 @@ import { EndpointsEnum, api } from "@/src/axios";
 import { keysValue } from "@/src/types";
 import { removeDataFromLS } from "@/src/utils";
 
-import {  IUserStore, UserBooks } from "../types/user";
+import {  IUserStore } from "../types/user";
 import { defaultUserState } from "../default-state/user";
 
 import defaultAvatar from "@/src/assets/SVG/default-user-avatar.svg";
+import { bookProps } from "@/src/components/BookShelf/AddBookModal/AddBookForm/AddBookForm.type";
+import { isAxiosError } from "axios";
 
 export interface IUserState {
   user: IUserStore;
@@ -36,6 +38,35 @@ export const fetchIsLogoutUser = createAsyncThunk(
     const response = await api.post(EndpointsEnum.LOGOUT, {});
     removeDataFromLS(keysValue.ACCESS_TOKEN);
     return await response.data;
+  }
+);
+
+export const deleteUserBook = createAsyncThunk(
+  "user/fetchDeleteUserBook",
+ async ( bookId: number) => {
+    const response = bookId;
+    return response;
+  }
+) 
+export const fetchFavoriteBookStatus = createAsyncThunk(
+  "user/fetchFavoriteBookStatus",
+  async (bookId: number) => {
+    const {data} = await api.patch(`/users/toggle-favorite-status/${bookId}`);
+    return { bookId, data };
+  }
+);
+export const addNewBook = createAsyncThunk(
+  "user/addNewBook",
+  async (values: bookProps) => {
+    try {
+      const {data} = await api.post(EndpointsEnum.USERS_BOOKS, values);
+  
+      return {data};
+    } catch (error) {
+      if (isAxiosError(error)) {
+        return error.response?.data;
+      }
+    }
   }
 );
 
@@ -63,15 +94,7 @@ export const userSlice = createSlice({
       state.isAuth = true;
       state.error = null;
     },
-    updateUserFavoritBooks: (state, action: PayloadAction<UserBooks>) => {
-     
-      state.user.userBooks = {
-        ...action.payload.userBooks,
-    
-      };
-      state.isAuth = true;
-      state.error = null;
-    },
+ 
     logoutUser: (state) => {
       state.user = initialState.user;
       state.error = initialState.error;
@@ -101,9 +124,26 @@ export const userSlice = createSlice({
         state.isAuth = initialState.isAuth;
         state.loading = initialState.loading;
       })
-
+      
+      .addCase(deleteUserBook.fulfilled, (state, action) => {
+        const bookIdToDelete = action.meta.arg
+        state.user.userBooks = state.user.userBooks.filter(book => book.id !== bookIdToDelete);
+      })
+      .addCase(fetchFavoriteBookStatus.fulfilled, (state, action) => {
+        const { bookId, data } = action.payload;
+        state.user.userBooks = state.user.userBooks.map(book => {
+          if (book.id === bookId) {
+            book.favorite_book_status = data.favorite_book_status;
+          }
+          return book;
+        });
+      })
+      .addCase(addNewBook.fulfilled, (state, action) => {
+        const { data } = action.payload;
+        state.user.userBooks = [...state.user.userBooks, data]
+      })
       .addMatcher(
-        isAnyOf(fetchIsAuthUser.pending, fetchIsLogoutUser.pending),
+        isAnyOf(fetchIsAuthUser.pending, fetchIsLogoutUser.pending, addNewBook.pending),
         (state) => {
           state.loading = true;
           state.error = null;
@@ -119,6 +159,6 @@ export const userSlice = createSlice({
   },
 });
 
-export const { userLoading, updateUser, logoutUser, userError, updateUserFavoritBooks } =
+export const { userLoading, updateUser, logoutUser, userError } =
   userSlice.actions;
 export default userSlice.reducer;

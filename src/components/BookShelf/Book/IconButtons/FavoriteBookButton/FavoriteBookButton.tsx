@@ -1,60 +1,44 @@
 import { Icon, IconEnum } from "@/src/components";
 import { FC, useState } from "react";
 import styles from "../IconButtons.module.scss";
-import {
-  updateUser,
-  updateUserFavoritBooks,
-  useAppDispatch,
-  useAppSelector,
-} from "@/src/redux";
-import { favoriteBooksApi } from "./FavoriteBooksApi";
+import { fetchFavoriteBookStatus, useAppDispatch } from "@/src/redux";
 import { FavoriteBookButtonProps } from "../IconButtons.type";
+import { useBooksPageContext } from "@/src/pages/BooksPage/context";
 
 const FavoriteBookButton: FC<FavoriteBookButtonProps> = ({
   isFavorite,
   id,
   className,
 }) => {
-  const { user } = useAppSelector((state) => state.userSlice);
-  const { userBooks } = user;
   const [favorite, setFavorite] = useState(isFavorite);
   const dispatch = useAppDispatch();
+  const { favoriteCount } = useBooksPageContext();
 
   const handleClickFavorite = async () => {
     setFavorite(!favorite);
-    const { data } = await favoriteBooksApi(id);
-    console.log(data.favorite_book_status);
-    const bookIndex = userBooks.findIndex((item) => item.id === data.id);
-    if (bookIndex !== -1) {
-      const updatedBook = {
-        ...userBooks[bookIndex],
-
-        favorite_book_status: favorite,
-      };
-
-      const updatedUserBooks = [
-        ...userBooks.slice(0, bookIndex),
-        updatedBook,
-        ...userBooks.slice(bookIndex + 1),
-      ];
-
-      // dispatch(updateUserFavoritBooks(updatedUserBooks));
-    } else {
-      console.log("Book with ID", data.id, "not found in userBooks array.");
-    }
+    dispatch(fetchFavoriteBookStatus(id));
   };
 
   return (
-    <button
-      onClick={handleClickFavorite}
-      className={className || styles["favorite-button"]}
-    >
+    <>
       {favorite ? (
-        <Icon icon={IconEnum.FavoriteBook} />
+        <button
+          onClick={handleClickFavorite}
+          className={className || styles["favorite-button"]}
+        >
+          <Icon icon={IconEnum.FavoriteBook} />
+        </button>
       ) : (
-        <Icon icon={IconEnum.FavoriteBookActive} />
+        favoriteCount.length < 7 && (
+          <button
+            onClick={handleClickFavorite}
+            className={className || styles["favorite-button"]}
+          >
+            <Icon icon={IconEnum.FavoriteBookActive} />
+          </button>
+        )
       )}
-    </button>
+    </>
   );
 };
 

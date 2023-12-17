@@ -3,16 +3,18 @@ import { BooksPageContextType } from "../BooksPageProvider.type";
 
 export const defaultValues: BooksPageContextType = {
   isCancelModalOpen: false,
-  setIsCancelModalOpen: () => {},
+  setIsCancelModalOpen: () => { },
   edit: false,
-  setEdit: () => {},
+  setEdit: () => { },
   isDeleteBookModalOpen: false,
-  setIsDeleteBookModalOpen: () => {},
+  setIsDeleteBookModalOpen: () => { },
   books: [],
-  fetchData: () => {},
   isAddBookModalOpen: false,
-  setIsAddBookModalOpen: () => {},
-  deleteIdList: []
+  setIsAddBookModalOpen: () => { },
+  deleteIdList: [],
+  setDeleteIdList: () => { },
+  setFavoriteCount: () => { },
+  favoriteCount: []
 };
 
 export const BooksPageContext = createContext<BooksPageContextType>(defaultValues);

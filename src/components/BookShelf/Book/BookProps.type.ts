@@ -10,11 +10,11 @@ export type BooksProps = {
     annotation: string,
     author: string,
     bookNameLength: number,
-    bookStatus: number
+    bookStatus: number,
+    bookImageUrl: string,
 }
 
 export interface IBook {
-    // map(arg0: (book: any, i: any) => import("react/jsx-runtime").JSX.Element): import("react").ReactNode;
     id: number;
     nameOfBook: string;
     author: string;
