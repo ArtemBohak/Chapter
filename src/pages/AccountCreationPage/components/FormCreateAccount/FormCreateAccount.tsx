@@ -73,7 +73,11 @@ const FormCreateAccount: FC = () => {
       setErrorMessageForm(null);
       setSubmitting(true);
 
-      const [firstName, lastName] = values.fullname.trim().split(" ");
+      const [firstName, lastName = ""] = values.fullname
+        .trim()
+        .split(" ")
+        .filter((el) => el);
+
       const { nickName, confirm_password, password } = values;
 
       await api.patch(`${EndpointsEnum.REGISTRATION_FINALLY}/${userId}`, {
@@ -85,6 +89,7 @@ const FormCreateAccount: FC = () => {
         IsAccessCookie: getDataFromLS("cookieAccept") || false,
         email,
       });
+
       removeDataFromLS(keysValue.FULL_NAME);
       deleteCookie(
         keysValue.EMAIL,
@@ -108,19 +113,18 @@ const FormCreateAccount: FC = () => {
       !e.currentTarget.value.startsWith("@") &&
       e.currentTarget.value.length
     ) {
-      return setNickname("@" + e.currentTarget.value.replace(' ', ''));
+      return setNickname("@" + e.currentTarget.value.replace(" ", ""));
     }
-    setNickname(e.currentTarget.value.replace(' ', ''));
+    setNickname(e.currentTarget.value.replace(" ", ""));
   };
 
   const onHandleChange = (
-    e: ChangeEvent<HTMLInputElement>, 
+    e: ChangeEvent<HTMLInputElement>,
     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   ) => {
-    console.log(e.target.value)
-    e.target.value = e.target.value.replace(' ', '')
-    handleChange(e)
-  }
+    e.target.value = e.target.value.replace(" ", "");
+    handleChange(e);
+  };
 
   useEffect(() => {
     if (debouncedNickname !== "") {
@@ -135,14 +139,14 @@ const FormCreateAccount: FC = () => {
       <Formik
         initialValues={{ ...initialValues, fullname }}
         validationSchema={validationSchema}
-        onSubmit={handleCreateAccount}       
+        onSubmit={handleCreateAccount}
       >
         {({
           isSubmitting,
           isValid,
           dirty,
           values,
-          handleChange
+          handleChange,
         }: FormikProps<IAccountCreate>) => (
           <Form>
             <TextField
@@ -153,10 +157,6 @@ const FormCreateAccount: FC = () => {
               placeholder="ex. John Brick, Dina O’neal, Jonathan... "
               dataAutomation="fullname"
               showSuccessIcon={true}
-              onChange={(e) => {
-                e.target.value = e.target.value.trim()
-                handleChange(e)
-              }}
             />
             <TextField
               id="nickName"
