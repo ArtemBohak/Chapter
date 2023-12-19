@@ -9,6 +9,7 @@ import { links, keysValue, apiErrorMessage, apiUiMessage } from "@/src/types";
 import { useDebounce, useErrorBoundary } from "@/src/hooks";
 import {
   deleteCookie,
+  emojiRegex,
   getCookies,
   getDataFromLS,
   removeDataFromLS,
@@ -113,16 +114,18 @@ const FormCreateAccount: FC = () => {
       !e.currentTarget.value.startsWith("@") &&
       e.currentTarget.value.length
     ) {
-      return setNickname("@" + e.currentTarget.value.replace(" ", ""));
+      return setNickname(
+        "@" + e.currentTarget.value.replace(" ", "").replace(emojiRegex, "")
+      );
     }
-    setNickname(e.currentTarget.value.replace(" ", ""));
+    setNickname(e.currentTarget.value.replace(" ", "").replace(emojiRegex, ""));
   };
 
   const onHandleChange = (
     e: ChangeEvent<HTMLInputElement>,
     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   ) => {
-    e.target.value = e.target.value.replace(" ", "");
+    e.target.value = e.target.value.replace(" ", "").replace(emojiRegex, "");
     handleChange(e);
   };
 
@@ -157,6 +160,10 @@ const FormCreateAccount: FC = () => {
               placeholder="ex. John Brick, Dina O’neal, Jonathan... "
               dataAutomation="fullname"
               showSuccessIcon={true}
+              onChange={(e) => {
+                e.target.value = e.target.value.replace(emojiRegex, "");
+                handleChange(e);
+              }}
             />
             <TextField
               id="nickName"
