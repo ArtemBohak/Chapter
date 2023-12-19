@@ -12,9 +12,17 @@
 
   &__comment {
     @apply my-2-xs;
+
+    & > textarea {
+      @apply text-sm border-grey-1000;
+    }
   }
 
   &__button-wrapper {
     @apply w-full md:max-w-[316px] mx-auto;
   }
+}
+
+.image-label {
+  @apply text-xs text-grey-1000;
 }
