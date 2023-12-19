@@ -14,7 +14,7 @@
     @apply my-2-xs;
 
     & > textarea {
-      @apply text-sm border-grey-1000;
+      @apply text-[18px] border-grey-1000 h-[132px];
     }
   }
 
