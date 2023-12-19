@@ -1,4 +1,5 @@
 import { FC, useEffect, useState } from "react";
+import { io } from "socket.io-client";
 
 import { FeedContext } from "./hooks/useFeedContext";
 import { Feeds, IFeedProviderProps } from "./FeedProvider.type";
@@ -58,6 +59,11 @@ const feedsList = [
 
 const FeedProvider: FC<IFeedProviderProps> = ({ children }) => {
   const [feeds, setFeeds] = useState<Feeds>([]);
+
+  useEffect(() => {
+    const socket = io();
+    console.log(socket);
+  }, []);
 
   useEffect(() => {
     setFeeds(feedsList);
