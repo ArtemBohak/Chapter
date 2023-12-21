@@ -58,11 +58,12 @@ const PasswordChangeForm: FC = () => {
               <PasswordField
                 id="password"
                 name="password"
-                label="Change password"
+                label="Create password"
                 placeholder="Enter your password"
                 value={values.password}
                 strength
                 dataAutomation="password-change"
+                strengthMessage="New password must be at least 8 characters, including uppercase letters and special characters and be different from the previous one."
               />
               <PasswordField
                 id="confirm_password"
@@ -70,6 +71,7 @@ const PasswordChangeForm: FC = () => {
                 label="Confirm password"
                 placeholder="Re-enter your password"
                 dataAutomation="confirm_password"
+                additionalLabel="Both passwords must match"
               />
               <UIbutton
                 type="submit"

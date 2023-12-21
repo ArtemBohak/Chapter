@@ -10,13 +10,13 @@
 }
 
 .info-block {
-  @apply flex flex-col min-w-[61.6%] pb-2 pl-3 pt-3 pr-2 md:pl-[30px] md:pt-[30px];
+  @apply flex flex-col items-center min-w-[61.6%] pb-2 pl-3 pt-3 pr-2 md:pl-[30px] md:pt-[30px] md:items-start;
 
   &__title {
     @apply font-medium tracking-[0.36px] text-lg;
   }
   &__text {
-    @apply font-medium text-xs leading-normal;
+    @apply font-medium text-xs leading-normal text-center md:text-start;
   }
   &__accept {
     @apply bg-[#fdfdf7] text-[#64C0FF] tracking-[0.176px] leading-normal my-4 inline-flex gap-1 items-center cursor-pointer w-fit;
