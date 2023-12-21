@@ -1,7 +1,8 @@
-import { FC, useRef } from "react";
+import { ChangeEvent, FC, useRef } from "react";
 
 import { useEditField } from "../../hooks";
 import { UserNameProps } from "./UserName.type";
+import { emojiRegex } from "@/src/utils";
 import styles from "./UserName.module.scss";
 
 import IconButton from "../IconButton/IconButton";
@@ -17,7 +18,10 @@ const UserName: FC<UserNameProps> = ({ firstName, lastName }) => {
     onHandleFocus,
   } = useEditField(firstName + " " + lastName, inputRef, false);
   const inputValue = value ? value : "";
-
+  const onChange = (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+    e.currentTarget.value = e.currentTarget.value.replace(emojiRegex, "");
+    onHandleChange(e);
+  };
   return (
     <>
       <IconButton
@@ -30,7 +34,7 @@ const UserName: FC<UserNameProps> = ({ firstName, lastName }) => {
         <input
           ref={inputRef}
           value={inputValue}
-          onChange={onHandleChange}
+          onChange={onChange}
           className={styles["info-label__input"]}
           disabled={!isEditing}
           onFocus={onHandleFocus}
