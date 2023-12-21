@@ -3,6 +3,7 @@ import { Formik, Form, FormikHelpers } from "formik";
 
 import { apiErrorMessage, apiErrorStatus, apiUiMessage } from "@/src/types";
 
+import { emojiRegex } from "@/src/utils";
 import validationSchema from "./validationSchema";
 import { InitialValues, ErrorMessages } from "./UserPassword.type";
 import { ProfileUpdateApi } from "../../utils/ProfileUpdateApi";
@@ -41,7 +42,7 @@ const UserPassword: FC = () => {
       onSubmit={onHandleSubmit}
       validationSchema={validationSchema}
     >
-      {({ isSubmitting, dirty, isValid, values }) => {
+      {({ isSubmitting, dirty, isValid, values, handleChange }) => {
         return (
           <Form className={styles["password"]}>
             <PasswordField
@@ -53,6 +54,10 @@ const UserPassword: FC = () => {
               label="Old password"
               value={values.oldPassword}
               className={`${styles["password__input"]} ${styles["input"]}`}
+              onChange={(e) => {
+                e.target.value = e.target.value.replace(emojiRegex, "");
+                handleChange(e);
+              }}
             />
             <PasswordField
               dataAutomation="newPasswordInput"
@@ -65,6 +70,10 @@ const UserPassword: FC = () => {
               value={values.newPassword}
               className={`${styles["password__input"]} ${styles["input"]}`}
               strength
+              onChange={(e) => {
+                e.target.value = e.target.value.replace(emojiRegex, "");
+                handleChange(e);
+              }}
             />
             <PasswordField
               dataAutomation="repeatNewPasswordInput"
@@ -75,6 +84,10 @@ const UserPassword: FC = () => {
               value={values.repeatNewPassword}
               additionalLabel={ErrorMessages.CONFIRM_NEW_PASSWORD}
               className={`${styles["password__input"]} ${styles["input"]}`}
+              onChange={(e) => {
+                e.target.value = e.target.value.replace(emojiRegex, "");
+                handleChange(e);
+              }}
             />
             <UIbutton
               type="submit"
