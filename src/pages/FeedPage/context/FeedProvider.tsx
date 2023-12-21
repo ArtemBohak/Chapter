@@ -63,10 +63,12 @@ const FeedProvider: FC<IFeedProviderProps> = ({ children }) => {
   useEffect(() => {
     const socket = io();
     console.log(socket);
-  }, []);
 
-  useEffect(() => {
     setFeeds(feedsList);
+
+    return () => {
+      socket.disconnect();
+    };
   }, []);
 
   const fetchData = (id: string | number) => {
