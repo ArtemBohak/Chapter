@@ -10,5 +10,6 @@ export { default as ProfilePage } from "./ProfilePage/ProfilePage";
 export { default as SettingsPage } from "./SettingsPage/SettingsPage";
 export { default as RestorePage } from "./RestorePage/RestorePage";
 export { default as PasswordChange } from "./PasswordChange/PasswordChange";
+export { default as BooksPage } from "./BooksPage/BooksPage";
 export { default as GuestProfilePage } from "./GuestProfilePage/GuestProfilePage";
 export { default as ErrorBoundary } from "./ErrorBoundary/ErrorBoundary";

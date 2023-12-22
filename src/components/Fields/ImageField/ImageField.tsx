@@ -56,6 +56,9 @@ const ImageField: FC<ImageFieldProps> = ({
         {btnVariant === "icon" ? (
           <Icon icon={IconEnum.Image} size={iconSize} />
         ) : null}
+        {btnVariant === "book" ? (
+          <Icon icon={IconEnum.PlusInCircle} size={34} />
+        ) : null}
       </span>
       {error ? <span className={styles["error"]}>{error}</span> : null}
     </label>

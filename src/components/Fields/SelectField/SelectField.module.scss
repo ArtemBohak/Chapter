@@ -1,0 +1,14 @@
+.select-field {
+    &__option {
+        @apply rounded-sm;
+        &-1 {
+            @apply bg-[#CCF3FF];
+        }
+        &-2 {
+            @apply bg-[#fffabb];
+        }
+        &-3 {
+            @apply bg-[#BBFFC2];  
+        }
+    }
+}

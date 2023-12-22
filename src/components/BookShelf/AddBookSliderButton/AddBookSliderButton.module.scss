@@ -1,0 +1,11 @@
+.add-book-slider-button {
+    @apply h-[110px] max-w-[65px]
+    laptop_md:max-w-[123px] laptop_md:h-[188px] mt-2 font-semibold cursor-pointer border  justify-center items-center rounded-sm;
+    & svg {
+        @apply w-[24px] h-[24px] laptop:w-[32px] laptop:h-[32px];
+    }
+    &__icon {
+        @apply w-full h-full flex justify-center items-center;
+    }
+}
+

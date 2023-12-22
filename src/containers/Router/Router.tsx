@@ -15,6 +15,7 @@ import {
   ProfilePage,
   RestorePage,
   PasswordChange,
+  BooksPage,
   GuestProfilePage,
   ErrorBoundary,
 } from "@/src/pages";
@@ -75,7 +76,7 @@ const router = createBrowserRouter([
           },
         ],
       },
-      { path: "/ui-page", element: <UIPage /> },
+      // { path: "/ui-page", element: <UIPage /> },
     ],
   },
   {
@@ -91,11 +92,16 @@ const router = createBrowserRouter([
         path: links.SETTINGS,
         element: <SettingsPage />,
       },
+      {
+        path: "/books",
+        element: <BooksPage />,
+      },
       { path: links.PROFILE, element: <ProfilePage /> },
       { path: links.GUEST_PROFILE, element: <GuestProfilePage /> },
       { path: "/ui-page", element: <UIPage /> },
     ],
   },
+  { path: "/ui-page", element: <UIPage /> },
   { path: "*", element: <ErrorPage /> },
   // { path: "/profile", element: <ProfilePage /> },
 ]);
