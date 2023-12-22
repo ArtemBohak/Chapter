@@ -1,8 +1,9 @@
 import { FC } from "react";
 
-import { useGetScreenSize } from "@/src/hooks";
+import { useGetScreenSize, useHideElement } from "@/src/hooks";
 import { LikesModalProps } from "./LikesModal.type";
 import { tabScreen } from "@/src/utils";
+import { ElementsId } from "@/src/types";
 import styles from "./LikesModal.module.scss";
 
 import { Modal, Icon, IconEnum } from "@/src/components";
@@ -16,6 +17,8 @@ const LikesModal: FC<LikesModalProps> = ({
   ...props
 }) => {
   const [screenSize] = useGetScreenSize();
+
+  useHideElement(ElementsId.ADD_POST_BTN, isOpen);
 
   const isMobScreen = screenSize < tabScreen;
 
