@@ -22,7 +22,7 @@
   }
 
   &__menu-toggler {
-    @apply -ml-1 mr-1-xs w-[40px] h-[40px] md:-ml-2 md:w-[52px] md:h-[52px] md:hidden;
+    @apply -ml-1 mr-1-xs w-[40px] h-[40px] md:-ml-2 md:w-[52px] md:h-[52px] base:hidden;
   }
 
   &__search-field {
