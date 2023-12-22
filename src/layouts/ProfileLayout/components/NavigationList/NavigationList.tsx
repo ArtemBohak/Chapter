@@ -61,7 +61,7 @@ const NavigationList: FC<NavigationListProps> = ({
               icon={IconEnum.SignOut}
               className="navigation-list__link-icon"
             />
-            Logout
+            Log out
           </button>
         </li>
       )}
