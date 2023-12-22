@@ -18,15 +18,63 @@ const BookShelf: FC = () => {
   const [favoriteBooksList, setFavoriteBooksList] = useState<Array<IBook> | []>(
     []
   );
-  const addBookArray: any[] = [1, 2, 3];
+  const [addBookArray, setAddBookArray] = useState<number[]>([]);
+  const responsive = [
+    {
+      breakpoint: 1680,
+      settings: {
+        slidesToShow: favoriteBooksList.length,
+        slidesToScroll: favoriteBooksList.length,
+        initialSlide: 0,
+        swipe: favoriteBooksList.length < 3 && false,
+      },
+    },
+    {
+      breakpoint: 768,
+      settings: {
+        slidesToShow:
+          favoriteBooksList.length < 3 ? favoriteBooksList.length : 5,
+        slidesToScroll: favoriteBooksList.length < 3 ? 0 : 5,
+        initialSlide: 0,
+        swipe: favoriteBooksList.length < 3 && false,
+      },
+    },
+    {
+      breakpoint: 374,
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 3,
+        initialSlide: 0,
+        swipe: favoriteBooksList.length < 3 && false,
+      },
+    },
+  ];
+
+  const setAddBook = () => {
+    const bookslist = userBooks.filter((item) => {
+      return item.favorite_book_status === true;
+    });
+    const ListLength = bookslist.length;
+    if (ListLength === 0) {
+      setAddBookArray([1, 2, 3]);
+    } else if (ListLength === 1) {
+      setAddBookArray([1, 2]);
+    }
+    if (ListLength > 1) {
+      setAddBookArray([1]);
+    }
+  };
 
   useEffect(() => {
     const bookslist = userBooks.filter((item) => {
       return item.favorite_book_status === true;
     });
     setFavoriteBooksList(bookslist);
-    addBookArray.length = 3 - favoriteBooksList.length;
   }, [userBooks]);
+
+  useEffect(() => {
+    setAddBook();
+  }, []);
 
   return (
     <BooksPageProvider>
@@ -37,7 +85,7 @@ const BookShelf: FC = () => {
             see all
           </Link>
         </div>
-        <Slider {...settings}>
+        <Slider responsive={responsive} {...settings}>
           {favoriteBooksList.map((book, i) => (
             <Book
               bookImageUrl={book.imagePath}

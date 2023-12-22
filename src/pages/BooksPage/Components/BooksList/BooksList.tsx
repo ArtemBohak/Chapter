@@ -9,8 +9,8 @@ const BooksList: FC = () => {
   const [deleteButtonState, setdeleteButtonState] = useState(false);
   const { edit } = useBooksPageContext();
   const { user } = useAppSelector((state) => state.userSlice);
-  const [BooksList, setBooksList] = useState<[] | IBook[]>([]);
   const { userBooks } = user;
+  const [BooksList, setBooksList] = useState<[] | IBook[]>([]);
 
   useEffect(() => {
     if (edit === true) {

@@ -35,6 +35,7 @@ const Book: FC<BooksProps> = ({
     <div className={className || styles["book"]}>
       <img
         className={imageClassName || styles["book-cover"]}
+        loading="lazy"
         onClick={onHandleClick}
         src={bookImageUrl}
         alt="BookImage"

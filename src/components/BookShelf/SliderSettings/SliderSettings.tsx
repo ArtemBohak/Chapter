@@ -37,27 +37,5 @@ export const settings = {
   prevArrow: <SamplePrevArrow />,
   slidesToShow: 3,
   slidesToScroll: 3,
-  responsive: [
-    {
-      breakpoint: 1680,
-      settings: {
-        slidesToShow: 7,
-        slidesToScroll: 7,
-      },
-    },
-    {
-      breakpoint: 768,
-      settings: {
-        slidesToShow: 5,
-        slidesToScroll: 5,
-      },
-    },
-    {
-      breakpoint: 374,
-      settings: {
-        slidesToShow: 3,
-        slidesToScroll: 3,
-      },
-    },
-  ],
+  initialSlide: 0,
 };

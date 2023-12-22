@@ -150,7 +150,7 @@ export const userSlice = createSlice({
         }
       )
       .addMatcher(
-        isAnyOf(fetchIsAuthUser.rejected, fetchIsLogoutUser.rejected),
+        isAnyOf(fetchIsAuthUser.rejected, fetchIsLogoutUser.rejected, addNewBook.rejected),
         (state, action) => {
           state.loading = false;
           state.error = action.error.message;

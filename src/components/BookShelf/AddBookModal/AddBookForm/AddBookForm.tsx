@@ -15,7 +15,7 @@ import { bookProps } from "./AddBookForm.type";
 import { SelectField } from "@/src/components/Fields/SelectField";
 import { useBooksPageContext } from "@/src/pages/BooksPage/context";
 import { FilesService } from "@/src/services";
-import { apiUiMessage } from "@/src/types";
+import { Path, apiUiMessage } from "@/src/types";
 import { AxiosError } from "axios";
 import { useErrorBoundary } from "@/src/hooks";
 
@@ -70,6 +70,7 @@ const AddBookForm: FC = () => {
             setErrorBoundary
           ).upload({
             overwrite: false,
+            path: Path.BOOKS,
           });
           if (res.code) {
             return setError(apiUiMessage.ERROR_MESSAGE);

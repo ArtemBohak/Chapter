@@ -30,7 +30,7 @@ const BookInfoModal: FC<BookInfoModalProps> = ({
     >
       <div className={styles["book-info__wrapper"]}>
         <div className={styles["book-info__image"]}>
-          <img src={imagePath} alt="" />
+          <img src={imagePath} alt="Book Image" />
           <FavoriteBookButton
             className={styles["book-info__favorite-button"]}
             isFavorite={isFavorite}
