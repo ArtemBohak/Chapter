@@ -44,6 +44,7 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
             name={"search-field"}
             dataAutomation={"search-field"}
             className={styles["profile-header__search-field"]}
+            placeholder="Find your friends here"
           />
           <UIbutton
             onClick={onHandleClick}
