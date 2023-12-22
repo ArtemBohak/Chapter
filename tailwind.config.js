@@ -65,7 +65,7 @@ export default {
           1040: "##FDFDFD",
         },
         green: "#2BBF06",
-        red: "#D0140A",
+        red: "#D22219",
         blue: "#0000EB",
       },
       fontSize: {
@@ -88,7 +88,7 @@ export default {
         h5_lg: "20px",
       },
       fontFamily: {
-        raleway: ['Raleway'],
+        raleway: ["Raleway"],
       },
     },
   },
