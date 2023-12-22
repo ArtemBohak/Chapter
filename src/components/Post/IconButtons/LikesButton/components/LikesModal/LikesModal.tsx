@@ -2,6 +2,7 @@ import { FC } from "react";
 
 import { useGetScreenSize } from "@/src/hooks";
 import { LikesModalProps } from "./LikesModal.type";
+import { tabScreen } from "@/src/utils";
 import styles from "./LikesModal.module.scss";
 
 import { Modal, Icon, IconEnum } from "@/src/components";
@@ -16,7 +17,7 @@ const LikesModal: FC<LikesModalProps> = ({
 }) => {
   const [screenSize] = useGetScreenSize();
 
-  const isMobScreen = screenSize < 769;
+  const isMobScreen = screenSize < tabScreen;
 
   const icon = isMobScreen ? IconEnum.Back : IconEnum.Cross;
   const transition = {
