@@ -14,7 +14,7 @@ const LoginPage: FC = () => {
         <Delimiter />
         <AuthBy />
         <AuthLink
-          textMsg="You don`t have an account ?"
+          textMsg="Don`t have an account ?"
           linkMsg="Sign up"
           link={links.SIGN_UP}
         />

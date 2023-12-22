@@ -24,7 +24,7 @@ const BlockAuth: FC<BlockAuthProps> = ({
           <div className={styles["block-auth__bottom-text"]}>
             <p>
               By clicking {typePageText ? `"${typePageText}"` : null} above, you
-              acknowledge that you have read and understood, and agree to
+              acknowledged that you have read and understood, and agree to
               Chapter's {""}
               <a href="/">Terms & Conditions and Privacy Policy.</a>
             </p>

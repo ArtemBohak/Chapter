@@ -9,6 +9,7 @@ import { links, keysValue, apiErrorMessage, apiUiMessage } from "@/src/types";
 import { useDebounce, useErrorBoundary } from "@/src/hooks";
 import {
   deleteCookie,
+  emojiRegex,
   getCookies,
   getDataFromLS,
   removeDataFromLS,
@@ -73,7 +74,11 @@ const FormCreateAccount: FC = () => {
       setErrorMessageForm(null);
       setSubmitting(true);
 
-      const [firstName, lastName] = values.fullname.trim().split(" ");
+      const [firstName, lastName = ""] = values.fullname
+        .trim()
+        .split(" ")
+        .filter((el) => el);
+
       const { nickName, confirm_password, password } = values;
 
       await api.patch(`${EndpointsEnum.REGISTRATION_FINALLY}/${userId}`, {
@@ -85,6 +90,7 @@ const FormCreateAccount: FC = () => {
         IsAccessCookie: getDataFromLS("cookieAccept") || false,
         email,
       });
+
       removeDataFromLS(keysValue.FULL_NAME);
       deleteCookie(
         keysValue.EMAIL,
@@ -103,14 +109,24 @@ const FormCreateAccount: FC = () => {
     }
   }
 
-  const onHandleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const onHandleChangeNickname = (e: ChangeEvent<HTMLInputElement>) => {
     if (
       !e.currentTarget.value.startsWith("@") &&
       e.currentTarget.value.length
     ) {
-      return setNickname("@" + e.currentTarget.value);
+      return setNickname(
+        "@" + e.currentTarget.value.replace(" ", "").replace(emojiRegex, "")
+      );
     }
-    setNickname(e.currentTarget.value);
+    setNickname(e.currentTarget.value.replace(" ", "").replace(emojiRegex, ""));
+  };
+
+  const onHandleChange = (
+    e: ChangeEvent<HTMLInputElement>,
+    handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  ) => {
+    e.target.value = e.target.value.replace(" ", "").replace(emojiRegex, "");
+    handleChange(e);
   };
 
   useEffect(() => {
@@ -133,6 +149,7 @@ const FormCreateAccount: FC = () => {
           isValid,
           dirty,
           values,
+          handleChange,
         }: FormikProps<IAccountCreate>) => (
           <Form>
             <TextField
@@ -143,6 +160,10 @@ const FormCreateAccount: FC = () => {
               placeholder="ex. John Brick, Dina O’neal, Jonathan... "
               dataAutomation="fullname"
               showSuccessIcon={true}
+              onChange={(e) => {
+                e.target.value = e.target.value.replace(emojiRegex, "");
+                handleChange(e);
+              }}
             />
             <TextField
               id="nickName"
@@ -152,7 +173,7 @@ const FormCreateAccount: FC = () => {
               placeholder="@JaneSMTH"
               dataAutomation="nickname"
               showSuccessIcon={true}
-              onChange={onHandleChange}
+              onChange={onHandleChangeNickname}
               customErrorMessage={nkErrorMessage}
             />
             <PasswordField
@@ -162,6 +183,7 @@ const FormCreateAccount: FC = () => {
               placeholder="Enter your password"
               strength
               dataAutomation="password"
+              onChange={(e) => onHandleChange(e, handleChange)}
             />
             <PasswordField
               id="confirm_password"
@@ -169,6 +191,7 @@ const FormCreateAccount: FC = () => {
               label="Confirm password"
               placeholder="Re-enter your password"
               dataAutomation="confirm_password"
+              onChange={(e) => onHandleChange(e, handleChange)}
             />
             <UIbutton
               type="submit"

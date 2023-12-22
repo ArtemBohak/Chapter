@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import cn from "classnames";
 
@@ -19,13 +19,19 @@ const NavigationList: FC<NavigationListProps> = ({
   const dispatch = useAppDispatch();
   const location = useLocation();
   const { setIsActiveMenu } = useNavigationToggler();
+  const [isLoading, setIsLoading] = useState(false);
 
   function handleClickNavLink() {
     setIsActiveMenu && setIsActiveMenu(false);
     setModalIsOpen(false);
   }
   const handleBtnClick = async () => {
-    dispatch(fetchIsLogoutUser());
+    try {
+      setIsLoading(true);
+      await dispatch(fetchIsLogoutUser());
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -49,6 +55,7 @@ const NavigationList: FC<NavigationListProps> = ({
           <button
             onClick={handleBtnClick}
             className="navigation-list__link navigation-list__button"
+            disabled={isLoading}
           >
             <Icon
               icon={IconEnum.SignOut}

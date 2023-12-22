@@ -1,24 +1,3 @@
 .likes-button {
   @apply flex gap-[5px];
 }
-
-.modal {
-  @apply fixed top-0 left-0 w-full h-full bg-white md:backdrop-blur-sm md:bg-[#1c1c1c33];
-
-  &__body {
-    @apply w-full top-[100px];
-  }
-
-  &-enter {
-    @apply translate-x-[-100%] md:translate-x-0 md:scale-0;
-  }
-  &-enter-active {
-    @apply translate-x-0 md:scale-100 transition duration-200;
-  }
-  &-exit {
-    @apply translate-x-0  md:scale-100;
-  }
-  &-exit-active {
-    @apply translate-x-[-100%] md:translate-x-0  md:scale-0 transition duration-200;
-  }
-}
