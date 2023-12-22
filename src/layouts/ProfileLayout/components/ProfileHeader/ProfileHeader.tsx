@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { NavLink } from "react-router-dom";
 import cn from "classnames";
 
@@ -21,6 +21,9 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
   const { isActiveMenu, setIsActiveMenu } = useNavigationToggler();
   const { user } = useAppSelector((store) => store.userSlice);
   const { firstName, lastName, avatarUrl } = user;
+  const [error, setError] = useState(false);
+
+  if (error) throw new Error("");
 
   useHideElement(ElementsId.ADD_POST_BTN, isActiveMenu);
 
@@ -114,6 +117,14 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
               />
             </svg>
           </UIbutton>
+          <button
+            className="bg-red text-white"
+            onClick={() => {
+              setError(true);
+            }}
+          >
+            ERROR
+          </button>
         </div>
       </div>
     </header>
