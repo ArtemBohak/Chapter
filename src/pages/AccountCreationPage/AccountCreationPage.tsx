@@ -5,9 +5,11 @@ import FormCreateAccount from "./components/FormCreateAccount/FormCreateAccount"
 
 const AccountCreationPage: FC = () => {
   return (
-    <BlockAuth heading="Create account">
-      <FormCreateAccount />
-    </BlockAuth>
+    <>
+      <BlockAuth heading="Create account">
+        <FormCreateAccount />
+      </BlockAuth>
+    </>
   );
 };
 
