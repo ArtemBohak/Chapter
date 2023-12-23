@@ -29,3 +29,4 @@ export {
 } from "./Post";
 export { ModalWindow } from "./ModalWindow";
 export { PostCreation } from "./PostCreation";
+export { ConfirmationWindow } from "./ConfirmationWindow";

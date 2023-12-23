@@ -8,6 +8,7 @@ import { useAppDispatch, fetchIsLogoutUser } from "@/src/redux";
 import { NavigationListProps } from "./NavigationList.type";
 import "./NavigationList.scss";
 
+import { ConfirmationWindow } from "@/src/components";
 import { Icon, IconEnum } from "../../../../components/Icon";
 
 const NavigationList: FC<NavigationListProps> = ({
@@ -20,12 +21,13 @@ const NavigationList: FC<NavigationListProps> = ({
   const location = useLocation();
   const { setIsActiveMenu } = useNavigationToggler();
   const [isLoading, setIsLoading] = useState(false);
+  const [confirmModalIsShown, setConfirmModalIsShown] = useState(false);
 
   function handleClickNavLink() {
     setIsActiveMenu && setIsActiveMenu(false);
     setModalIsOpen(false);
   }
-  const handleBtnClick = async () => {
+  const logOut = async () => {
     try {
       setIsLoading(true);
       await dispatch(fetchIsLogoutUser());
@@ -35,37 +37,50 @@ const NavigationList: FC<NavigationListProps> = ({
   };
 
   return (
-    <ul className={cn("navigation-list", className)}>
-      {items.map((navItem) => (
-        <li key={navItem.id} className="navigation-list__item">
-          <NavLink
-            to={navItem.path}
-            className={cn("navigation-list__link", {
-              "current-page": navItem.path === location.pathname,
-            })}
-            onClick={handleClickNavLink}
-          >
-            <Icon icon={navItem.icon} className="navigation-list__link-icon" />
-            {navItem.name}
-          </NavLink>
-        </li>
-      ))}
-      {isBottom && (
-        <li className="navigation-list__item">
-          <button
-            onClick={handleBtnClick}
-            className="navigation-list__link navigation-list__button"
-            disabled={isLoading}
-          >
-            <Icon
-              icon={IconEnum.SignOut}
-              className="navigation-list__link-icon"
-            />
-            Log out
-          </button>
-        </li>
-      )}
-    </ul>
+    <>
+      <ul className={cn("navigation-list", className)}>
+        {items.map((navItem) => (
+          <li key={navItem.id} className="navigation-list__item">
+            <NavLink
+              to={navItem.path}
+              className={cn("navigation-list__link", {
+                "current-page": navItem.path === location.pathname,
+              })}
+              onClick={handleClickNavLink}
+            >
+              <Icon
+                icon={navItem.icon}
+                className="navigation-list__link-icon"
+              />
+              {navItem.name}
+            </NavLink>
+          </li>
+        ))}
+        {isBottom && (
+          <li className="navigation-list__item">
+            <button
+              onClick={() => {
+                setConfirmModalIsShown(true);
+              }}
+              className="navigation-list__link navigation-list__button"
+            >
+              <Icon
+                icon={IconEnum.SignOut}
+                className="navigation-list__link-icon"
+              />
+              Log out
+            </button>
+          </li>
+        )}
+      </ul>
+      <ConfirmationWindow
+        isOpen={confirmModalIsShown}
+        setIsOpen={setConfirmModalIsShown}
+        text="Are you sure you want to log out?"
+        isLoading={isLoading}
+        fetch={logOut}
+      />
+    </>
   );
 };
 
