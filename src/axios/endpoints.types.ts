@@ -23,4 +23,6 @@ export enum EndpointsEnum {
   UPLOAD_FILES = "files/upload",
   FILES = "files/",
   CREATE_POST = "posts/create",
+  USERS_BOOKS = "users/books",
+  BOOK_FAVORITE_STATUS = "users/toggle-favorite-status"
 }

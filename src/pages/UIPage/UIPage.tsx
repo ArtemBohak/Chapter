@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import { links } from "@/src/types";
 
-import { UIbutton } from "@/src/components";
+import { BookShelf, UIbutton } from "@/src/components";
 import { IconEnum } from "@/src/components/Icon";
 import CookiesToaster from "@/src/components/CookiesToaster/CookiesToaster";
 
@@ -38,6 +38,10 @@ const UIPage: FC = () => {
       </ul>
       <div className="max-w-[1200px] w-full mx-auto px-2-md">
         <div className="mb-4">
+          <div className=" max-w-xl mx-auto flex justify-center">
+            {" "}
+            <BookShelf />
+          </div>
           <div>
             <h1>Typography h1</h1>
             <h2>Typography h2</h2>

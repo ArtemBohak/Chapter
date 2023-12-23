@@ -11,5 +11,6 @@ export enum links {
   NOT_FOUND = "/404",
   PASSWORD_CHANGE = "/auth/password-change",
   PROFILE = "/profile",
-  GUEST_PROFILE = '/:Id'
+  GUEST_PROFILE = "/:Id",
+  USER_BOOKS = "/books",
 }

@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 
 export type ImageFieldProps = {
-  btnVariant: "button" | "icon";
+  btnVariant: "button" | "icon" | "book";
   setFile: Dispatch<SetStateAction<File | null>>;
   setImage?: Dispatch<SetStateAction<string>>;
   iconSize?: number;
