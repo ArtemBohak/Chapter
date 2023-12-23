@@ -87,7 +87,7 @@ const FormCreateAccount: FC = () => {
         confirmPassword: confirm_password,
         firstName,
         lastName,
-        IsAccessCookie: getDataFromLS("cookieAccept") || false,
+        IsAccessCookie: !!getDataFromLS("cookieAccept") || false,
         email,
       });
 
