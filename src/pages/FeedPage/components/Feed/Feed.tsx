@@ -34,9 +34,10 @@ const Feed: FC<FeedProps> = ({ nodeRef, ...props }) => (
       </div>
       <div className={styles["item-feed__activity"]}>
         <div className={styles["item-feed__activity-icons"]}>
-          <LikesButton {...props} hiddenText />
+          <LikesButton {...props} id={props.postId} hiddenText />
           <CommentsButton
             {...props}
+            id={props.postId}
             hiddenText
             textValue={props.commentsCount > 1 ? "comments" : "comment"}
           />
