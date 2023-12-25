@@ -54,6 +54,7 @@ const StateSelect: FC<StateSelectProps> = ({
           setSelectedValue={setSelectedRegion}
           setSelectMenuIsOpen={setSelectMenuIsOpen}
           setId={setRegionId}
+          label="Region"
           {...props}
         />
         <SelectMenu

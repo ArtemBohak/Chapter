@@ -1,7 +1,7 @@
 import { NavigationLinkProps } from "./ProfileNavigation.type";
 import { IconEnum } from "../../../../components/Icon";
 
-export const topNavigation: NavigationLinkProps[] = [
+export const mobNavigation: NavigationLinkProps[] = [
   {
     id: "1",
     path: "/feed",
@@ -22,6 +22,27 @@ export const topNavigation: NavigationLinkProps[] = [
   },
   {
     id: "4",
+    path: "/profile",
+    icon: IconEnum.User,
+    name: "Profile",
+  },
+];
+
+export const tabletNavigation: NavigationLinkProps[] = [
+  {
+    id: "1",
+    path: "/feed",
+    icon: IconEnum.Home,
+    name: "Feed",
+  },
+  {
+    id: "2",
+    path: "/",
+    icon: IconEnum.Notification,
+    name: "Notification",
+  },
+  {
+    id: "3",
     path: "/profile",
     icon: IconEnum.User,
     name: "Profile",

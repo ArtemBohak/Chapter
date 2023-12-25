@@ -5,7 +5,7 @@
   }
 
   &__button {
-    @apply w-full md:max-w-[128px]  min-h-[38px] bg-[#FFF1F0] text-sm md:text-base outline-none rounded-sm border border-[#D22219] transition-all duration-150;
+    @apply w-full md:max-w-[128px]  min-h-[38px] bg-[#FFF1F0] text-sm md:text-base outline-none rounded-sm border border-red text-red transition-all duration-150;
 
     &:hover {
       @apply drop-shadow-[0_4px_15px_rgba(255,63,53,0.30)];

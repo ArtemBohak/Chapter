@@ -12,6 +12,10 @@
   }
 }
 
+.label {
+  @apply text-xs text-grey-1000 mb-1;
+}
+
 .arrow-btn {
   @apply absolute block top-[50%] translate-y-[-50%] right-[18px] bg-transparent p-1 outline-none;
 

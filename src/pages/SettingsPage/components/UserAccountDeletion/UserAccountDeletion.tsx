@@ -3,12 +3,14 @@ import { FC, useState } from "react";
 import { ProfileUpdateApi } from "../../utils/ProfileUpdateApi";
 import { useErrorBoundary } from "@/src/hooks";
 import styles from "./UserAccountDeletion.module.scss";
+import { ConfirmationWindow } from "@/src/components";
 
 const UserAccountDeletion: FC = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [confirmModalIsShown, setConfirmModalIsShown] = useState(false);
   const setError = useErrorBoundary();
 
-  const onHandleClick = async () => {
+  const onDeleteAcc = async () => {
     const user = new ProfileUpdateApi(setIsLoading, setError);
     await user.deleteAccount();
   };
@@ -18,13 +20,20 @@ const UserAccountDeletion: FC = () => {
         Do you want to delete your account?
       </h3>
       <button
-        onClick={onHandleClick}
+        onClick={() => setConfirmModalIsShown(true)}
         disabled={isLoading}
         className={styles["account-delete__button"]}
         data-automation="clickButton"
       >
         Delete
       </button>
+      <ConfirmationWindow
+        isOpen={confirmModalIsShown}
+        setIsOpen={setConfirmModalIsShown}
+        text="Are you sure you want to delete your account?"
+        isLoading={isLoading}
+        fetch={onDeleteAcc}
+      />
     </div>
   );
 };

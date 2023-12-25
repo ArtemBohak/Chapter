@@ -18,6 +18,7 @@ const UserStatus: FC<UserStatusProps> = ({ userStatus }) => {
     onHandleFocus,
   } = useEditField(userStatus, textareaRef, true);
   const inputValue = value ? value : "";
+
   return (
     <>
       <IconButton

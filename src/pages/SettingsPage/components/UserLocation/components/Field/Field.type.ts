@@ -4,6 +4,7 @@ import { CityType, StateType } from "../../UserLocation.type";
 export type FieldProps = {
   selectMenuIsOpen: boolean;
   selectedValue: string;
+  label?: string;
   icon?: string;
   setSelectMenuIsOpen: Dispatch<SetStateAction<boolean>>;
   setSelectedValue: Dispatch<SetStateAction<string>>;

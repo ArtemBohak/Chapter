@@ -1,0 +1,11 @@
+.backdrop {
+  @apply w-screen h-full fixed top-0 left-0 bg-white md:bg-[#1c1c1c99];
+}
+
+.body {
+  @apply flex flex-col items-center justify-center gap-1-xs rounded-[16px] w-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white md:max-w-[440px] md:p-4-xs;
+}
+
+.buttons {
+  @apply flex gap-1-xs;
+}

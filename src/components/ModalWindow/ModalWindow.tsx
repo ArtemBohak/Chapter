@@ -1,6 +1,7 @@
 import { FC } from "react";
 
 import { ModalWindowProps } from "./ModalWindow.type";
+import { tabScreen } from "@/src/utils";
 import { useGetScreenSize } from "@/src/hooks";
 import styles from "./ModalWindow.module.scss";
 import { Icon, IconEnum, Modal } from "..";
@@ -12,7 +13,7 @@ const ModalWindow: FC<ModalWindowProps> = ({
 }) => {
   const [screenSize] = useGetScreenSize();
 
-  const isMobScreen = screenSize < 769;
+  const isMobScreen = screenSize < tabScreen;
 
   const onClick = () => setIsOpen(false);
 

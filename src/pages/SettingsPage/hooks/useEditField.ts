@@ -31,7 +31,11 @@ const useEditField = (
 
       if (!userStatus && value) {
         if (!simpleStringRegex.test(value)) return;
-        const [firstName, lastName] = value.trim().split(" ");
+        const [firstName, lastName] = value
+          .trim()
+          .split(" ")
+          .filter((el) => el);
+
         if (firstName && lastName) profile.userSave({ firstName, lastName });
       }
     }
