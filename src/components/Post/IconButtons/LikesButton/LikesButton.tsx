@@ -28,7 +28,7 @@ const dataLikes: Array<Like> = [
 const LikesButton: FC<LikesButtonProps> = ({
   usersId,
   likeCount,
-  postId,
+  id,
   hiddenText = false,
   fetchData,
 }) => {
@@ -51,7 +51,7 @@ const LikesButton: FC<LikesButtonProps> = ({
 
   const onHandleLikesClick = () => {
     setIsLiked(!isLiked);
-    fetchData && fetchData(postId);
+    fetchData && fetchData(id);
 
     isLiked && setLikedValue(likedValue - 1);
     !isLiked && setLikedValue(likedValue + 1);
@@ -60,7 +60,7 @@ const LikesButton: FC<LikesButtonProps> = ({
   const onHandleModalOpenClick = () => {
     setHeaderAddPostBtnIsDisabled(true);
     setLikes(dataLikes);
-    fetchData && fetchData(postId);
+    fetchData && fetchData(id);
     setModalIsOpen(true);
   };
 

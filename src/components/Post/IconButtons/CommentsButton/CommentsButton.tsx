@@ -9,12 +9,12 @@ import { Icon, IconEnum } from "@/src/components";
 const CommentsButton: FC<CommentsButtonProps> = ({
   commentsCount,
   textValue,
-  postId,
+  id,
   hiddenText = false,
   fetchData,
 }) => {
   const onHandleClick = () => {
-    fetchData && fetchData(postId);
+    fetchData && fetchData(id);
   };
 
   const btnTextStyle = cn(styles["icon-button__text"], {

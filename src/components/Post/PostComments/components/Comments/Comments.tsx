@@ -27,7 +27,7 @@ const Comments: FC<CommentsProps> = ({ comments }) => {
     return (
       <ul className={styles["feed__list"]}>
         {comments.map((i) => (
-          <li key={i.postId} className={classNames}>
+          <li key={i.id} className={classNames}>
             <Comment {...i} />
             {i.comments ? renderComments(i.comments) : null}
           </li>

@@ -32,10 +32,13 @@ export type IdList =
 export type CommentsData = Required<
   Pick<
     IPostValues,
-    "postId" | "author" | "likeCount" | "commentsCount" | "caption"
+    "postId" | "author" | "likeCount" | "commentsCount" | "createAt"
   >
 > & {
   usersId: IdList;
+  id: string | number;
+  userId: string | number;
+  text: string;
 };
 
 export type CommentValues = CommentsData & { comments?: CommentsData[] };

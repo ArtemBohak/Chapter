@@ -10,12 +10,13 @@ import { LikesButton, CommentsButton } from "../../../../..";
 import defaultAvatar from "@/src/assets/SVG/default-user-avatar.svg";
 
 const Comment: FC<CommentProps> = ({
-  author: { avatar, firstName, lastName, relativeDate, nickName },
+  author: { avatar, firstName, lastName, nickName },
   commentsCount,
   likeCount,
   usersId,
-  postId,
-  caption,
+  id,
+  text,
+  createAt,
   hideCommentBtn = false,
 }) => {
   const avatarUrl = avatar ? avatar : defaultAvatar;
@@ -37,12 +38,12 @@ const Comment: FC<CommentProps> = ({
             </h5>
             <p>{nickName}</p>
           </div>
-          <p>{getDate(relativeDate)}</p>
+          <p>{getDate(createAt)}</p>
         </div>
         <div className={styles["comment__text"]}>
           {
             <TextTagging
-              text={caption || ""}
+              text={text || ""}
               onClick={onHandleTagClick}
               className={styles["comment__text-button"]}
             />
@@ -50,15 +51,11 @@ const Comment: FC<CommentProps> = ({
         </div>
 
         <div className={styles["comment__buttons"]}>
-          <LikesButton
-            usersId={usersId}
-            likeCount={likeCount}
-            postId={postId}
-          />
+          <LikesButton usersId={usersId} likeCount={likeCount} id={id} />
           {!hideCommentBtn ? (
             <CommentsButton
               textValue={commentsCount > 1 ? "replies" : "reply"}
-              postId={postId}
+              id={id}
               commentsCount={commentsCount}
             />
           ) : null}

@@ -11,6 +11,8 @@ import temp from "../assets/feed-image.png";
 const comments = [
   {
     postId: 1,
+    id: 0,
+    userId: 0,
     author: {
       id: 0,
       avatar: null,
@@ -20,13 +22,15 @@ const comments = [
       nickName: "@maryreeves",
     },
     likeCount: 10,
+    createAt: Date.now() - 2102,
     commentsCount: 10,
-    caption:
-      "Thank you for sharing your impressions of the book, I agree with @Vilkkyyyy, it was just a great post! Full of magic and enchantment. I read it with pleasure and look forward to the new one!",
+    text: "Thank you for sharing your impressions of the book, I agree with @Vilkkyyyy, it was just a great post! Full of magic and enchantment. I read it with pleasure and look forward to the new one!",
     usersId: [1, 2, 318],
   },
   {
     postId: 2,
+    id: 1,
+    userId: 1,
     author: {
       id: 0,
       avatar: null,
@@ -35,10 +39,10 @@ const comments = [
       relativeDate: Date.now() - 10002102111,
       nickName: "@maryreeves",
     },
+    createAt: Date.now() - 10002102111,
     likeCount: 10,
     commentsCount: 10,
-    caption:
-      "Thank you for sharing your impressions of the book, I agree with @Vilkkyyyy, it was just a great post! Full of magic and enchantment. I read it with pleasure and look forward to the new one!",
+    text: "Thank you for sharing your impressions of the book, I agree with @Vilkkyyyy, it was just a great post! Full of magic and enchantment. I read it with pleasure and look forward to the new one!",
     usersId: [1, 2, 318],
   },
 ];

@@ -1,6 +1,8 @@
 import { PostProps } from "../../Post.type";
 
 export type LikesButtonProps = { hiddenText?: boolean } & Required<
-  Pick<PostProps, "usersId" | "postId" | "likeCount">
+  Pick<PostProps, "usersId" | "likeCount">
 > &
-  Pick<PostProps, "fetchData">;
+  Pick<PostProps, "fetchData"> & {
+    id: string | number;
+  };
