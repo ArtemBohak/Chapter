@@ -4,11 +4,11 @@ import { TransitionGroup } from "react-transition-group";
 import { useFeedContext } from "../../context";
 import styles from "./Feeds.module.scss";
 
-import { Animation } from "@/src/components";
+import { Animation, Loader } from "@/src/components";
 import Feed from "../Feed/Feed";
 
 const Feeds: FC = () => {
-  const { feeds, fetchData } = useFeedContext();
+  const { feeds, fetchData, isLoad } = useFeedContext();
 
   const feedsList = useMemo(
     () =>
@@ -25,20 +25,23 @@ const Feeds: FC = () => {
     exitActive: styles["feeds-list-exit-active"],
   };
   return (
-    <TransitionGroup component={"ul"} className={styles["feeds-list"]}>
-      {feedsList.map((i) => (
-        <Animation
-          key={i.id}
-          nodeRef={i.nodeRef}
-          classNames={transitionClassNames}
-          timeout={300}
-        >
-          <li>
-            <Feed fetchData={fetchData} {...i} />
-          </li>
-        </Animation>
-      ))}
-    </TransitionGroup>
+    <>
+      <TransitionGroup component={"ul"} className={styles["feeds-list"]}>
+        {feedsList.map((i) => (
+          <Animation
+            key={i.id}
+            nodeRef={i.nodeRef}
+            classNames={transitionClassNames}
+            timeout={300}
+          >
+            <li>
+              <Feed fetchData={fetchData} {...i} />
+            </li>
+          </Animation>
+        ))}
+      </TransitionGroup>
+      <Loader isShown={isLoad} />
+    </>
   );
 };
 

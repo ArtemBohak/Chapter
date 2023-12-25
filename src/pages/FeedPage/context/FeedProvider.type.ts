@@ -8,6 +8,7 @@ export interface IFeedProviderProps {
 export type FeedContextType = {
   fetchData: (id: string | number) => void;
   feeds: Array<IPost> | [];
+  isLoad: boolean;
 };
 
 export type Feeds = Array<IPost> | [];
