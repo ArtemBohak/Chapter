@@ -42,6 +42,10 @@ const Modal: FC<ModalProps> = ({
       isOpen && document.body.classList.add(styles["no-scroll"]);
       !isOpen && document.body.classList.remove(styles["no-scroll"]);
     }
+
+    return () => {
+      document.body.classList.remove(styles["no-scroll"]);
+    };
   }, [isOpen, disableScroll]);
 
   const onHandleClick = (e: MouseEvent<HTMLDivElement>) => {

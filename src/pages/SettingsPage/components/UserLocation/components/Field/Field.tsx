@@ -8,6 +8,7 @@ const Field: FC<FieldProps> = ({
   selectMenuIsOpen,
   icon,
   selectedValue,
+  label,
   setIcon,
   setSelectMenuIsOpen,
   setSelectedValue,
@@ -45,25 +46,28 @@ const Field: FC<FieldProps> = ({
   const iconClassName = cn({ [styles["flag"]]: icon });
 
   return (
-    <span className={styles["strop-down-container"]}>
-      {icon ? <span className={styles["icon"]}>{icon}</span> : null}
-      <input
-        className={iconClassName}
-        type="text"
-        name="country"
-        value={selectedValue}
-        onChange={handleChangeValue}
-        data-automation="locationInput"
-      />
-      <button
-        className={styles["arrow-btn"]}
-        type="button"
-        data-automation="clickButton"
-        onClick={toggleMenu}
-      >
-        <span className={arrowClassNames}></span>
-      </button>
-    </span>
+    <>
+      {label ? <span className={styles["label"]}>{label}</span> : null}
+      <span className={styles["strop-down-container"]}>
+        {icon ? <span className={styles["icon"]}>{icon}</span> : null}
+        <input
+          className={iconClassName}
+          type="text"
+          name="country"
+          value={selectedValue}
+          onChange={handleChangeValue}
+          data-automation="locationInput"
+        />
+        <button
+          className={styles["arrow-btn"]}
+          type="button"
+          data-automation="clickButton"
+          onClick={toggleMenu}
+        >
+          <span className={arrowClassNames}></span>
+        </button>
+      </span>
+    </>
   );
 };
 

@@ -2,7 +2,7 @@ import { FC, useRef, useState } from "react";
 import cn from "classnames";
 
 import { PostCommentsProps } from "./PostComments.type";
-
+import { tabScreen } from "@/src/utils";
 import { useGetScreenSize } from "@/src/hooks";
 import styles from "./PostComments.module.scss";
 
@@ -20,7 +20,7 @@ const PostComments: FC<PostCommentsProps> = ({
   const commentsRef = useRef(null);
   const [screenSize] = useGetScreenSize();
 
-  const isMobScreen = screenSize < 769 ? 16 : 26;
+  const isMobScreen = screenSize < tabScreen ? 16 : 26;
 
   const onHandleCommentsToggle = async () => {
     if (commentsIsHide) {

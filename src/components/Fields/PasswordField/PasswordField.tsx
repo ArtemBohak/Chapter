@@ -4,6 +4,7 @@ import { Field, ErrorMessage, useField, useFormikContext } from "formik";
 import cn from "classnames";
 
 import { PasswordFieldProps } from "./PasswordField.type";
+import { emojiRegex } from "@/src/utils";
 import {
   usePasswordStrength,
   TypePasswordStrength,
@@ -48,9 +49,12 @@ const PasswordField: FC<PasswordFieldProps> = ({
   });
 
   const onHandleChangeField = (event: ChangeEvent<HTMLInputElement>) => {
+    event.target.value = event.target.value
+      .replace(" ", "")
+      .replace(emojiRegex, "");
     setFieldValue(field.name, event.target.value);
     onHandleChange(event.target.value);
-    onChange && onChange(event)
+    onChange && onChange(event);
   };
 
   return (

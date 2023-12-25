@@ -8,6 +8,7 @@ import { links } from "@/src/types";
 
 const PublicHeader: FC = () => {
   const { pathname } = useLocation();
+
   return (
     <header className={styles["header"]}>
       <div className={styles["header__container"]}>

@@ -56,6 +56,7 @@ const CitySelect: FC<CitySelectProps> = ({
           setSelectMenuIsOpen={setSelectMenuIsOpen}
           setSelectedValue={setSelectedCity}
           setId={setCityId}
+          label="City"
           {...props}
         />
         <SelectMenu

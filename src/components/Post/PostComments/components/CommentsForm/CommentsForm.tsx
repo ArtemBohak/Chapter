@@ -3,6 +3,7 @@ import { Formik, Form, FormikHelpers } from "formik";
 
 import { useAppSelector } from "@/src/redux";
 import { useGetScreenSize } from "@/src/hooks";
+import { tabScreen } from "@/src/utils";
 import { FormValues, CommentsFormProps } from "./CommentsForm.type";
 import { validationSchema } from "./validationSchema";
 import styles from "./CommentsForm.module.scss";
@@ -33,7 +34,7 @@ const CommentsForm: FC<CommentsFormProps> = ({
     resetForm();
   };
 
-  const iconSize = screenSize < 769 ? 20 : 24;
+  const iconSize = screenSize < tabScreen ? 20 : 24;
   return (
     <div className={styles["form__content-wrapper"]}>
       <div className={styles["form__image"]}>

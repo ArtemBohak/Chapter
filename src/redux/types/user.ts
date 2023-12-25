@@ -1,3 +1,5 @@
+import { IBook } from "@/src/components/BookShelf/Book/BookProps.type";
+
 export interface IUserStore {
   id: number;
   email: string;
@@ -17,6 +19,19 @@ export interface IUserStore {
   location: string | null;
   myFollowersCount: number | null;
   myFollowingCount: number | null;
+  userBooks: Array<IBook> | []
+}
+
+export type UserBooks = {
+  userBooks: Array<IBook> | []
+}
+export type BookId = {
+  
+}
+export type UserBookFavoriteStatus = {
+  id: number;
+  userBooks: Array<IBook> | [];
+  UserBookFavoriteStatus: boolean;
 }
 
 export interface IUserRole {

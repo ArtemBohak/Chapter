@@ -25,4 +25,5 @@ export const defaultUserState: IUserStore = {
     id: 0,
     name: "",
   },
+  userBooks: [],
 };

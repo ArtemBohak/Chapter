@@ -41,7 +41,7 @@ const CountrySelect: FC<CountrySelectProps> = ({
   }, [location, selectMenuIsOpen, selectedCountry]);
 
   return (
-    <label className={styles["location-form__label"]} ref={countryRef}>
+    <span className={styles["location-form__label"]} ref={countryRef}>
       <Field
         selectMenuIsOpen={selectMenuIsOpen}
         selectedValue={selectedCountry}
@@ -49,6 +49,7 @@ const CountrySelect: FC<CountrySelectProps> = ({
         setIcon={setIcon}
         setSelectedValue={setSelectedCountry}
         setId={setCountryId}
+        label={selectMenuIsOpen || props.icon ? "Country" : undefined}
         {...props}
       />
       <SelectMenu
@@ -62,7 +63,7 @@ const CountrySelect: FC<CountrySelectProps> = ({
         setIcon={setIcon}
         {...props}
       />
-    </label>
+    </span>
   );
 };
 
