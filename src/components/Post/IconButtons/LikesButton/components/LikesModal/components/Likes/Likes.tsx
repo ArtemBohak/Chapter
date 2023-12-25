@@ -12,13 +12,13 @@ const Likes: FC<LikesProps> = (props) => {
   } = useAppSelector((state) => state.userSlice);
 
   const likes = useMemo(
-    () => props.likesData.filter((i) => i.id !== id),
+    () => props.likesData.filter((i) => i.author.id !== id),
     [id, props.likesData]
   );
   return (
     <ul className={styles["likes-list"]}>
       {likes.map((i) => (
-        <li key={i.id}>
+        <li key={i.author.id}>
           <Like {...i} {...props} />
         </li>
       ))}

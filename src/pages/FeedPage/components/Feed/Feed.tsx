@@ -38,11 +38,14 @@ const Feed: FC<FeedProps> = ({ nodeRef, ...props }) => (
           <CommentsButton
             {...props}
             hiddenText
-            textValue={props.totalComments > 1 ? "comments" : "comment"}
+            textValue={props.commentsCount > 1 ? "comments" : "comment"}
           />
         </div>
         <div className={styles["item-feed__activity-text"]}>
-          <PostFullName {...props} />
+          <PostFullName
+            firstName={props.author.firstName}
+            lastName={props.author.lastName}
+          />
           <PostDate {...props} />
         </div>
       </div>

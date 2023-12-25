@@ -158,7 +158,6 @@ const AddBookForm: FC = () => {
                     value={values.annotation}
                     dataAutomation={"bookAnnotation-field"}
                     iconSize={0}
-                    onHandleIconClick={() => {}}
                   />
                 </div>
               </div>

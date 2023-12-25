@@ -29,7 +29,7 @@ const Feeds: FC = () => {
       <TransitionGroup component={"ul"} className={styles["feeds-list"]}>
         {feedsList.map((i) => (
           <Animation
-            key={i.id}
+            key={i.postId}
             nodeRef={i.nodeRef}
             classNames={transitionClassNames}
             timeout={300}

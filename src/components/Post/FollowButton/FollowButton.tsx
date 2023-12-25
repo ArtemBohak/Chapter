@@ -1,22 +1,20 @@
 import { FC, useState } from "react";
 
-import { useFindUserId } from "@/src/hooks";
 import { FollowButtonProps } from "./FollowButton.type";
 
 import { PostButton } from "../components";
 
 const FollowButton: FC<FollowButtonProps> = ({
-  followList,
-  id,
+  isSubscribeToAuthor,
+  postId,
   fetchData,
   classNames,
 }) => {
-  const [isFollowing] = useFindUserId(followList);
-  const [isFollow, setIsFollow] = useState(isFollowing);
+  const [isFollow, setIsFollow] = useState(isSubscribeToAuthor);
 
   const onHandleClick = () => {
     setIsFollow(!isFollow);
-    fetchData && fetchData(id);
+    fetchData && fetchData(postId);
   };
   const btnVariant = isFollow ? "outlined" : "contained";
   return (

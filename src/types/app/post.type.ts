@@ -1,56 +1,46 @@
 import { Dispatch, SetStateAction } from "react";
 
-export type IdList = Array<
-  string | number | { [key: string]: [string | number] }
->;
-
-interface IPostValues {
-  author: {
-    id: string | number;
-    avatar: string | null;
-    firstName: string;
-    lastName: string;
-    relativeDate: string;
-    nickName: string;
-  };
-  title: string;
-  caption: string;
-  commentsCount: number;
-  likeCount: number;
-  imgUrl: string | null;
-  postId: string | number;
-  isSubscribeToAuthor: boolean;
+export interface Author {
+  id: string | number;
   avatar: string | null;
-  followList: IdList;
-  likesList: IdList;
-  totalLikes: number;
-  totalComments: number;
-  date: string | number | Date;
   firstName: string;
   lastName: string;
+  relativeDate: string | Date | number;
+  nickName: string;
 }
-export type CommentsData = Required<
-  Pick<
-    IPostValues,
-    | "totalComments"
-    | "totalLikes"
-    | "avatar"
-    | "firstName"
-    | "lastName"
-    | "date"
-    | "nickName"
-    | "id"
-    | "caption"
-    | "likesList"
-  >
->;
 
-export type CommentValues = { comments?: CommentsData[] } & CommentsData;
-
-export interface IPost extends IPostValues {
-  comments: Array<CommentValues> | [];
+interface IPostValues {
+  postId: string | number;
+  author: Author;
+  title: string | null;
+  caption: string | null;
+  imgUrl: string | null;
+  isSubscribeToAuthor: boolean;
+  commentsCount: number;
+  likeCount: number;
+  createAt: string | Date | number;
 }
 
 export type SetIsOpenType = {
   setFormIsOpen: Dispatch<SetStateAction<boolean>>;
 };
+
+export type IdList =
+  | Array<string | number | { [key: string]: [string | number] }>
+  | [];
+
+export type CommentsData = Required<
+  Pick<
+    IPostValues,
+    "postId" | "author" | "likeCount" | "commentsCount" | "caption"
+  >
+> & {
+  usersId: IdList;
+};
+
+export type CommentValues = CommentsData & { comments?: CommentsData[] };
+
+export interface IPost extends IPostValues {
+  usersId: IdList;
+  comments: Array<CommentValues> | [];
+}

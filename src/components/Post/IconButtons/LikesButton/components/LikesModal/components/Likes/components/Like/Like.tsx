@@ -7,14 +7,11 @@ import { PostButton } from "@/src/components/Post/components";
 import defaultAvatar from "@/src/assets/SVG/default-user-avatar.svg";
 
 const Like: FC<LikeProps> = ({
-  avatar,
-  firstName,
-  lastName,
-  id,
-  likesList,
+  author: { avatar, firstName, lastName, id },
+  usersId,
   fetchData,
 }) => {
-  const [isFollow] = useFindUserId(likesList);
+  const [isFollow] = useFindUserId(usersId);
   const [following, setFollowing] = useState(isFollow);
 
   const onHandleClick = () => {

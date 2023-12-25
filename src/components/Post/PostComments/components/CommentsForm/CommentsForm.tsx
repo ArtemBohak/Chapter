@@ -14,7 +14,7 @@ import { PostButton } from "@/src/components/Post/components";
 const initialValues = { comments: "" };
 
 const CommentsForm: FC<CommentsFormProps> = ({
-  id,
+  postId,
   fetchData,
   setCommentsIsHide,
 }) => {
@@ -27,7 +27,7 @@ const CommentsForm: FC<CommentsFormProps> = ({
     values: FormValues,
     { setSubmitting, resetForm }: FormikHelpers<FormValues>
   ) => {
-    fetchData && fetchData(id);
+    fetchData && fetchData(postId);
     console.log(values);
     setCommentsIsHide(false);
     setSubmitting(false);

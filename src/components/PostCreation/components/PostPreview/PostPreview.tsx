@@ -31,7 +31,7 @@ const PostPreview: FC<PostPreviewProps> = ({
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const date = Date.now();
+  const createAt = Date.now();
 
   const onHandleBackClick = () => {
     setFormIsOpen(true);
@@ -42,7 +42,7 @@ const PostPreview: FC<PostPreviewProps> = ({
       setError(null);
       setIsLoading(true);
       const body: BodyProps = {
-        date,
+        createAt,
       };
 
       if (props.title) body.title = props.title;
@@ -59,7 +59,7 @@ const PostPreview: FC<PostPreviewProps> = ({
         if (res.code) {
           return setError(apiUiMessage.ERROR_MESSAGE);
         }
-        body.imageUrl = res.secure_url;
+        body.imgUrl = res.secure_url;
       }
 
       if (props.caption) body.caption = props.caption;
@@ -83,7 +83,7 @@ const PostPreview: FC<PostPreviewProps> = ({
       </div>
       <div className={styles["preview__meta-wrapper"]}>
         <PostFullName firstName={firstName} lastName={lastName} />
-        <PostDate date={date} />
+        <PostDate createAt={createAt} />
       </div>
       <div className={styles["preview__title-wrapper"]}>
         <PostTitle {...props} />

@@ -7,14 +7,14 @@ import styles from "../IconButtons.module.scss";
 import { Icon, IconEnum } from "@/src/components";
 
 const CommentsButton: FC<CommentsButtonProps> = ({
-  totalComments,
+  commentsCount,
   textValue,
-  id,
+  postId,
   hiddenText = false,
   fetchData,
 }) => {
   const onHandleClick = () => {
-    fetchData && fetchData(id);
+    fetchData && fetchData(postId);
   };
 
   const btnTextStyle = cn(styles["icon-button__text"], {
@@ -33,7 +33,7 @@ const CommentsButton: FC<CommentsButtonProps> = ({
         className={styles["icon-button__icon"]}
       />
       <span>
-        {totalComments ? totalComments : ""}{" "}
+        {commentsCount ? commentsCount : ""}{" "}
         <span className={btnTextStyle}>{textValue}</span>
       </span>
     </button>

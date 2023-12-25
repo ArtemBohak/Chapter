@@ -10,8 +10,8 @@ import { Animation, Icon, IconEnum } from "@/src/components";
 import { Comments, CommentsForm } from "./components";
 
 const PostComments: FC<PostCommentsProps> = ({
-  totalComments,
-  id,
+  commentsCount,
+  postId,
   comments,
   fetchData,
 }) => {
@@ -24,7 +24,7 @@ const PostComments: FC<PostCommentsProps> = ({
 
   const onHandleCommentsToggle = async () => {
     if (commentsIsHide) {
-      fetchData && fetchData(id);
+      fetchData && fetchData(postId);
     }
     setCommentsIsHide(!commentsIsHide);
   };
@@ -50,7 +50,7 @@ const PostComments: FC<PostCommentsProps> = ({
       className={togglerBtnClassNames}
     >{`${
       commentsIsHide ? "Show all comments" : "Hide Comments"
-    } (${totalComments})`}</button>
+    } (${commentsCount})`}</button>
   ) : null;
 
   const renderFilterBtn = (
@@ -102,7 +102,7 @@ const PostComments: FC<PostCommentsProps> = ({
       </div>
       <div className={styles["feed-comments__form-wrapper"]}>
         <CommentsForm
-          id={id}
+          postId={postId}
           fetchData={fetchData}
           setCommentsIsHide={setCommentsIsHide}
         />

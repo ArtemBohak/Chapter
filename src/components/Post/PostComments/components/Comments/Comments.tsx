@@ -1,7 +1,8 @@
 import { FC } from "react";
 import cn from "classnames";
 
-import { CommentsProps, CommentValues } from "./Comments.type";
+import { CommentsProps } from "./Comments.type";
+import { CommentValues } from "@/src/types";
 import styles from "./Comments.module.scss";
 
 import { Comment } from "./components";
@@ -26,7 +27,7 @@ const Comments: FC<CommentsProps> = ({ comments }) => {
     return (
       <ul className={styles["feed__list"]}>
         {comments.map((i) => (
-          <li key={i.id} className={classNames}>
+          <li key={i.postId} className={classNames}>
             <Comment {...i} />
             {i.comments ? renderComments(i.comments) : null}
           </li>

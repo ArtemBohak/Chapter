@@ -11,98 +11,33 @@ import likesButtonStyles from "./LikesButton.module.scss";
 import { Icon, IconEnum } from "@/src/components";
 import { LikesModal } from "./components";
 
-const dataLikes = [
+const dataLikes: Array<Like> = [
   {
-    avatar: null,
-    firstName: "Kristin",
-    lastName: "Wood",
-    likesList: [1, 12, 168],
-    id: 0,
-  },
-  {
-    avatar: null,
-    firstName: "Kristin",
-    lastName: "Wood",
-    likesList: [1, 12, 168],
-    id: 1,
-  },
-  {
-    avatar: null,
-    firstName: "Kristin",
-    lastName: "Wood",
-    likesList: [],
-    id: 2,
-  },
-  {
-    avatar: null,
-    firstName: "Kristin",
-    lastName: "Wood",
-    likesList: [1, 12],
-    id: 3,
-  },
-  {
-    avatar: null,
-    firstName: "Kristin",
-    lastName: "Wood",
-    likesList: [1, 12, 168],
-    id: 4,
-  },
-  {
-    avatar: null,
-    firstName: "Kristin",
-    lastName: "Wood",
-    likesList: [1, 12, 168],
-    id: 5,
-  },
-  {
-    avatar: null,
-    firstName: "Kristin",
-    lastName: "Wood",
-    likesList: [1, 12],
-    id: 6,
-  },
-  {
-    avatar: null,
-    firstName: "Kristin",
-    lastName: "Wood",
-    likesList: [1, 12],
-    id: 7,
-  },
-  {
-    avatar: null,
-    firstName: "Kristin",
-    lastName: "Wood",
-    likesList: [1, 12],
-    id: 8,
-  },
-  {
-    avatar: null,
-    firstName: "Kristin",
-    lastName: "Wood",
-    likesList: [1, 12, 168],
-    id: 9,
-  },
-  {
-    avatar: null,
-    firstName: "Kristin",
-    lastName: "Wood",
-    likesList: [1, 12],
-    id: 10,
+    author: {
+      nickName: "DD",
+      avatar: null,
+      firstName: "Kristin",
+      lastName: "Wood",
+      id: 0,
+      relativeDate: Date.now(),
+    },
+    usersId: [1, 12, 318],
   },
 ];
 
 const LikesButton: FC<LikesButtonProps> = ({
-  likesList,
-  totalLikes,
-  id,
+  usersId,
+  likeCount,
+  postId,
   hiddenText = false,
   fetchData,
 }) => {
   const { setHeaderAddPostBtnIsDisabled } = useModalsContext();
-  const [liked] = useFindUserId(likesList);
+
+  const [liked] = useFindUserId(usersId);
 
   const [isLiked, setIsLiked] = useState(liked);
-  const [likedValue, setLikedValue] = useState(totalLikes);
+  const [likedValue, setLikedValue] = useState(likeCount);
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
@@ -116,7 +51,7 @@ const LikesButton: FC<LikesButtonProps> = ({
 
   const onHandleLikesClick = () => {
     setIsLiked(!isLiked);
-    fetchData && fetchData(id);
+    fetchData && fetchData(postId);
 
     isLiked && setLikedValue(likedValue - 1);
     !isLiked && setLikedValue(likedValue + 1);
@@ -125,7 +60,7 @@ const LikesButton: FC<LikesButtonProps> = ({
   const onHandleModalOpenClick = () => {
     setHeaderAddPostBtnIsDisabled(true);
     setLikes(dataLikes);
-    fetchData && fetchData(id);
+    fetchData && fetchData(postId);
     setModalIsOpen(true);
   };
 
@@ -158,12 +93,12 @@ const LikesButton: FC<LikesButtonProps> = ({
         className={styles["icon-button"]}
       >
         {likedValue ? likedValue : ""}{" "}
-        <span className={btnTextStyle}>like{totalLikes > 1 ? "s" : ""}</span>
+        <span className={btnTextStyle}>like{likeCount > 1 ? "s" : ""}</span>
       </button>
       <LikesModal
         isOpen={modalIsOpen}
         setIsOpen={setModalIsOpen}
-        totalLikes={likedValue}
+        likeCount={likedValue}
         likesData={likes}
         fetchData={fetchData}
       />

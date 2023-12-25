@@ -5,7 +5,7 @@ import styles from "./Avatar.module.scss";
 
 import default_avatar from "@/src/assets/SVG/default-user-avatar.svg";
 
-const Avatar: FC<AvatarProps> = ({ avatar }) => {
+const Avatar: FC<AvatarProps> = ({ author: { avatar } }) => {
   const avatarUrl = avatar ? avatar : default_avatar;
   return (
     <div className={styles["avatar"]}>
