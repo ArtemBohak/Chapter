@@ -12,7 +12,7 @@ const RestoreMessage: FC = () => {
 
   useEffect(() => {
     const t = setTimeout(() => {
-      // navigate(links.LOG_IN);
+      navigate(links.LOG_IN);
     }, redirectTimeoutValue);
 
     return () => {

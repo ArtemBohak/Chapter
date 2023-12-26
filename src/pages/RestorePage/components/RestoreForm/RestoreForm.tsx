@@ -41,7 +41,6 @@ const RestoreForm: FC<RestoringFormProps> = ({
       ) : (
         <RestoreMessage />
       )}
-      {restoringProvider === keysValue.GOOGLE && <RestoreMessage />}
     </div>
   );
 };
