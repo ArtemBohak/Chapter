@@ -102,8 +102,13 @@ const FormCreateAccount: FC = () => {
       navigate(links.LOG_IN);
     } catch (e) {
       if (e instanceof AxiosError) {
+        console.log(e);
         setError(e);
-        setErrorMessageForm(e.response?.data.message || e.response?.data.error);
+        setErrorMessageForm(
+          e.response?.data.message ||
+            e.response?.data.error ||
+            e.response?.data.errors.password
+        );
       }
       setSubmitting(false);
     }
@@ -152,6 +157,14 @@ const FormCreateAccount: FC = () => {
           handleChange,
         }: FormikProps<IAccountCreate>) => (
           <Form>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              value={email}
+              className="invisible"
+              aria-label="email"
+            />
             <TextField
               id="fullname"
               name="fullname"
