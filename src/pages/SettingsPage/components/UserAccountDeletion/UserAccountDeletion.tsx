@@ -1,6 +1,7 @@
 import { FC, useState } from "react";
 
 import { ProfileUpdateApi } from "../../utils/ProfileUpdateApi";
+import { UiMessage } from "@/src/types";
 import { useErrorBoundary } from "@/src/hooks";
 import styles from "./UserAccountDeletion.module.scss";
 import { ConfirmationWindow } from "@/src/components";
@@ -30,7 +31,7 @@ const UserAccountDeletion: FC = () => {
       <ConfirmationWindow
         isOpen={confirmModalIsShown}
         setIsOpen={setConfirmModalIsShown}
-        text="Are you sure you want to delete your account?"
+        text={UiMessage.DELETE}
         isLoading={isLoading}
         fetch={onDeleteAcc}
       />
