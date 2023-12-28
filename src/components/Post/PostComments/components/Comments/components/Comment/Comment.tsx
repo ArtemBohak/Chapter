@@ -12,11 +12,10 @@ import defaultAvatar from "@/src/assets/SVG/default-user-avatar.svg";
 const Comment: FC<CommentProps> = ({
   author: { avatar, firstName, lastName, nickName },
   commentsCount,
-  likeCount,
-  usersId,
+  userIds,
   id,
   text,
-  createAt,
+  createdAt,
   hideCommentBtn = false,
 }) => {
   const avatarUrl = avatar ? avatar : defaultAvatar;
@@ -38,7 +37,7 @@ const Comment: FC<CommentProps> = ({
             </h5>
             <p>{nickName}</p>
           </div>
-          <p>{getDate(createAt)}</p>
+          <p>{getDate(createdAt)}</p>
         </div>
         <div className={styles["comment__text"]}>
           {
@@ -51,7 +50,7 @@ const Comment: FC<CommentProps> = ({
         </div>
 
         <div className={styles["comment__buttons"]}>
-          <LikesButton usersId={usersId} likeCount={likeCount} id={id} />
+          <LikesButton userIds={userIds} id={id} />
           {!hideCommentBtn ? (
             <CommentsButton
               textValue={commentsCount > 1 ? "replies" : "reply"}

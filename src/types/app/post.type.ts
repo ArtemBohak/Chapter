@@ -5,7 +5,7 @@ export interface Author {
   avatar: string | null;
   firstName: string;
   lastName: string;
-  relativeDate: string | Date | number;
+  relativeDate?: string | Date | number;
   nickName: string;
 }
 
@@ -17,7 +17,6 @@ interface IPostValues {
   imgUrl: string | null;
   isSubscribeToAuthor: boolean;
   commentsCount: number;
-  likeCount: number;
   createAt: string | Date | number;
 }
 
@@ -30,20 +29,17 @@ export type IdList =
   | [];
 
 export type CommentsData = Required<
-  Pick<
-    IPostValues,
-    "postId" | "author" | "likeCount" | "commentsCount" | "createAt"
-  >
+  Pick<IPostValues, "postId" | "author" | "commentsCount">
 > & {
-  usersId: IdList;
+  userIds: IdList;
   id: string | number;
-  userId: string | number;
   text: string;
+  createdAt: string | Date | number;
 };
 
 export type CommentValues = CommentsData & { comments?: CommentsData[] };
 
 export interface IPost extends IPostValues {
-  usersId: IdList;
+  userIds: IdList;
   comments: Array<CommentValues> | [];
 }

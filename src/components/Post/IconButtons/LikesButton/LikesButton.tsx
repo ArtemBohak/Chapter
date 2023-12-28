@@ -21,20 +21,20 @@ const dataLikes: Array<Like> = [
       id: 0,
       relativeDate: Date.now(),
     },
-    usersId: [1, 12, 318],
+    userIds: [1, 12, 318],
   },
 ];
 
 const LikesButton: FC<LikesButtonProps> = ({
-  usersId,
-  likeCount,
+  userIds,
   id,
   hiddenText = false,
   fetchData,
 }) => {
   const { setHeaderAddPostBtnIsDisabled } = useModalsContext();
 
-  const [liked] = useFindUserId(usersId);
+  const likeCount = userIds?.length;
+  const [liked] = useFindUserId(userIds);
 
   const [isLiked, setIsLiked] = useState(liked);
   const [likedValue, setLikedValue] = useState(likeCount);
