@@ -161,7 +161,7 @@ const FormCreateAccount: FC = () => {
               id="email"
               name="email"
               type="email"
-              value={email}
+              defaultValue={email}
               className="invisible"
               aria-label="email"
             />

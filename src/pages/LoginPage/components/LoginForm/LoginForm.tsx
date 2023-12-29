@@ -2,7 +2,13 @@ import { FC } from "react";
 import { Form, Formik, FormikProps } from "formik";
 import { useNavigate } from "react-router-dom";
 
-import { apiErrorMessage, apiErrorStatus, links, keysValue } from "@/src/types";
+import {
+  apiErrorMessage,
+  apiErrorStatus,
+  links,
+  keysValue,
+  apiUiMessage,
+} from "@/src/types";
 import { useAppDispatch, updateUser } from "@/src/redux";
 import {
   setCookies,
@@ -10,12 +16,13 @@ import {
   accountDeletionTerm,
   setDataToLS,
   deleteCookie,
+  getCookies,
 } from "@/src/utils";
 
 import validationSchema from "./validationSchema";
 import LoginApi from "./LoginApi";
 import { ILoginPage, setErrors } from "./LoginForm.type";
-import { useErrorBoundary } from "@/src/hooks";
+import { useDebouncedNav, useErrorBoundary } from "@/src/hooks";
 import styles from "./LoginForm.module.scss";
 
 import { PasswordField, TextField, UIbutton } from "@/src/components";
@@ -24,11 +31,46 @@ const LoginPageForm: FC = () => {
   const setError = useErrorBoundary();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const debouncedNav = useDebouncedNav(1000 * 2);
 
   const onHandleSubmit = async (values: ILoginPage, setErrors: setErrors) => {
+    const [id, email] = getCookies(keysValue.USER_ID, keysValue.EMAIL);
     const response = await LoginApi(values, setError);
     const { status, data } = response;
 
+    if (
+      response.status === apiErrorStatus.UNPROCESSABLE_ENTITY &&
+      response.errors.email === apiErrorMessage.EMAIL_NOT_EXISTS
+    ) {
+      debouncedNav(links.SIGN_UP);
+      return setErrors({
+        ["email"]: " ",
+        ["password"]: apiUiMessage.NOT_REGISTERED,
+      });
+    }
+
+    if (
+      response.statusCode === apiErrorStatus.UNPROCESSABLE_ENTITY &&
+      response.message === apiErrorMessage.UNCONFIRMED_EMAIL
+    ) {
+      debouncedNav(links.SIGN_UP, values.email);
+      return setErrors({
+        ["email"]: " ",
+        ["password"]: apiUiMessage.EMAIL_UNCONFIRMED,
+      });
+    }
+
+    if (
+      response.statusCode === apiErrorStatus.UNPROCESSABLE_ENTITY &&
+      response.message === apiErrorMessage.UNCOMPLETED_REGISTRATION
+    ) {
+      if (id && email) debouncedNav(links.ACCOUNT_CREATION + "/" + id);
+      else debouncedNav(links.SIGN_UP);
+      return setErrors({
+        ["email"]: " ",
+        ["password"]: apiUiMessage.REGISTRATION_UNCOMPLETED,
+      });
+    }
     if (
       response.status === apiErrorStatus.FORBIDDEN &&
       response.message === apiErrorMessage.ACCOUNT_DELETED
@@ -47,18 +89,20 @@ const LoginPageForm: FC = () => {
       return navigate(links.RESTORE);
     }
     if (status === apiErrorStatus.UNPROCESSABLE_ENTITY) {
-      setErrors({ ["email"]: " ", ["password"]: "wrong email or password" });
-    } else {
-      deleteCookie(
-        keysValue.DELETED_ACCOUNT_TIME_STAMP,
-        keysValue.RESTORE_EMAIL,
-        keysValue.RESTORE_TOKEN,
-        keysValue.EMAIL,
-        keysValue.USER_ID
-      );
-      setDataToLS({ token: data.token });
-      dispatch(updateUser(data.user));
+      return setErrors({
+        ["email"]: " ",
+        ["password"]: "Wrong email or password",
+      });
     }
+    deleteCookie(
+      keysValue.DELETED_ACCOUNT_TIME_STAMP,
+      keysValue.RESTORE_EMAIL,
+      keysValue.RESTORE_TOKEN,
+      keysValue.EMAIL,
+      keysValue.USER_ID
+    );
+    setDataToLS({ token: data.token });
+    dispatch(updateUser(data.user));
   };
   return (
     <div>

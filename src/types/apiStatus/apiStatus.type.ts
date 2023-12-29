@@ -20,6 +20,9 @@ export enum apiErrorMessage {
   CANCELED = "ERR_CANCELED",
   REGISTRATION_UNCOMPLETED = "You have not completed the registration",
   EMAIL_UNCONFIRMED = "Email status is Inactive",
+  UNCONFIRMED_EMAIL = "Email not confirmed",
+  UNCOMPLETED_REGISTRATION = "User registrtion is not completed",
+  EMAIL_NOT_EXISTS = "emailNotExists",
 }
 
 export enum apiErrorStatus {
