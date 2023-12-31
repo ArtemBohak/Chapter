@@ -26,4 +26,6 @@ export enum EndpointsEnum {
   USERS_BOOKS = "users/books",
   BOOK_FAVORITE_STATUS = "users/toggle-favorite-status",
   FEEDS = "feed",
+  POST_LIKE = "likes/like-unlike-post/",
+  COMMENT_LIKE = "likes/like-unlike-comment/",
 }
