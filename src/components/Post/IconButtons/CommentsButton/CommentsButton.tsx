@@ -11,10 +11,11 @@ const CommentsButton: FC<CommentsButtonProps> = ({
   textValue,
   id,
   hiddenText = false,
-  fetchData,
+  setCommentsIsHide,
 }) => {
   const onHandleClick = () => {
-    fetchData && fetchData(id);
+    setCommentsIsHide && setCommentsIsHide(false);
+    console.log(id);
   };
 
   const btnTextStyle = cn(styles["icon-button__text"], {

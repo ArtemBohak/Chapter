@@ -8,25 +8,22 @@ import { Feeds, IFeedProviderProps } from "./FeedProvider.type";
 
 const FeedProvider: FC<IFeedProviderProps> = ({ children }) => {
   const [feeds, setFeeds] = useState<Feeds>([]);
+  const [page, setPage] = useState(1);
   const [isLoad, setIsLoad] = useState(false);
   const setErrorBoundary = useErrorBoundary();
 
   useEffect(() => {
-    new FeedApi(setFeeds, setIsLoad, setErrorBoundary).getFeeds();
+    new FeedApi(setFeeds, setIsLoad, setErrorBoundary).getFeeds(page);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const fetchData = (id: string | number) => {
-    console.log(id);
-  };
+  }, [page]);
 
   return (
     <FeedContext.Provider
       value={{
         feeds,
-        fetchData,
         isLoad,
+        setPage,
       }}
     >
       {children}

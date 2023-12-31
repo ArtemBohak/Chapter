@@ -31,7 +31,7 @@ export type IdList =
 export type CommentsData = Required<
   Pick<IPostValues, "postId" | "author" | "commentsCount">
 > & {
-  userIds: IdList;
+  usersId: IdList;
   id: string | number;
   text: string;
   createdAt: string | Date | number;

@@ -6,15 +6,13 @@ import { Dispatch, SetStateAction } from "react";
 import { Feeds } from "../context/FeedProvider.type";
 
 export class FeedApi {
-  private page: number = 1;
-  private limit: number = 10;
   constructor(
     private setFeeds?: Dispatch<SetStateAction<Feeds>>,
     private setIsLoading?: SetIsLoadingType,
-    private setErrorBoundary?: SetErrorType
+    private setErrorBoundary?: SetErrorType // private setPage?: Dispatch<SetStateAction<number>>
   ) {}
 
-  async getFeeds(page = this.page, limit = this.limit) {
+  async getFeeds(page = 1, limit = 5) {
     try {
       this.setIsLoading && this.setIsLoading(true);
       const {
@@ -23,7 +21,9 @@ export class FeedApi {
         params: { page, limit },
       });
 
-      this.setFeeds && this.setFeeds(paginatedFeedItems);
+      this.setFeeds &&
+        this.setFeeds((feeds) => [...feeds, ...paginatedFeedItems]);
+      // this.setPage && this.setPage((page) => page + 1);
     } catch (e) {
       if (e instanceof AxiosError) {
         this.setErrorBoundary && this.setErrorBoundary(e);

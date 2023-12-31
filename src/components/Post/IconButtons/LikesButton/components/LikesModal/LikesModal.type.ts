@@ -1,8 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 import { PostProps } from "@/src/components/Post/Post.type";
 
-export type Like = Required<Pick<PostProps, "author" | "userIds">> &
-  Pick<PostProps, "fetchData">;
+export type Like = Required<Pick<PostProps, "author" | "userIds">>;
 
 export type LikesModalProps = {
   isOpen: boolean;
@@ -10,4 +9,4 @@ export type LikesModalProps = {
   likesData: Array<Like>;
   likeCount: number;
   title?: string;
-} & Pick<PostProps, "fetchData">;
+};

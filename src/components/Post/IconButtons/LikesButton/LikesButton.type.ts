@@ -1,8 +1,14 @@
+import { Dispatch, SetStateAction } from "react";
 import { PostProps } from "../../Post.type";
+import { IdList, SetErrorType } from "@/src/types";
 
 export type LikesButtonProps = { hiddenText?: boolean } & Required<
   Pick<PostProps, "userIds">
-> &
-  Pick<PostProps, "fetchData"> & {
+> & {
     id: string | number;
+    likeApi: (
+      id: string | number,
+      setUsers: Dispatch<SetStateAction<IdList>>,
+      setErrorBoundary?: SetErrorType
+    ) => void;
   };

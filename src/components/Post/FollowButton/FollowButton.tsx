@@ -7,14 +7,13 @@ import { PostButton } from "../components";
 const FollowButton: FC<FollowButtonProps> = ({
   isSubscribeToAuthor,
   postId,
-  fetchData,
   classNames,
 }) => {
   const [isFollow, setIsFollow] = useState(isSubscribeToAuthor);
 
   const onHandleClick = () => {
     setIsFollow(!isFollow);
-    fetchData && fetchData(postId);
+    console.log(postId);
   };
   const btnVariant = isFollow ? "outlined" : "contained";
   return (

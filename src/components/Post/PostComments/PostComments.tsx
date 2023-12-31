@@ -1,4 +1,4 @@
-import { FC, useRef, useState } from "react";
+import { FC, useRef } from "react";
 import cn from "classnames";
 
 import { PostCommentsProps } from "./PostComments.type";
@@ -13,9 +13,9 @@ const PostComments: FC<PostCommentsProps> = ({
   commentsCount,
   postId,
   comments,
-  fetchData,
+  commentsIsHide,
+  setCommentsIsHide,
 }) => {
-  const [commentsIsHide, setCommentsIsHide] = useState(true);
   const btnRef = useRef(null);
   const commentsRef = useRef(null);
   const [screenSize] = useGetScreenSize();
@@ -23,10 +23,7 @@ const PostComments: FC<PostCommentsProps> = ({
   const isMobScreen = screenSize < tabScreen ? 16 : 26;
 
   const onHandleCommentsToggle = async () => {
-    if (commentsIsHide) {
-      fetchData && fetchData(postId);
-    }
-    setCommentsIsHide(!commentsIsHide);
+    setCommentsIsHide && setCommentsIsHide(!commentsIsHide);
   };
 
   const togglerBtnClassNames = cn(
@@ -101,11 +98,7 @@ const PostComments: FC<PostCommentsProps> = ({
         {renderComments}
       </div>
       <div className={styles["feed-comments__form-wrapper"]}>
-        <CommentsForm
-          postId={postId}
-          fetchData={fetchData}
-          setCommentsIsHide={setCommentsIsHide}
-        />
+        <CommentsForm postId={postId} setCommentsIsHide={setCommentsIsHide} />
       </div>
     </div>
   );

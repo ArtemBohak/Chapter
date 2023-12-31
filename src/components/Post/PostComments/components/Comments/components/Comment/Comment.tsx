@@ -1,18 +1,20 @@
 import { FC, MouseEvent } from "react";
 
 import { CommentProps } from "./Comment.type";
-import { getDate } from "@/src/utils";
+
+import { getDate, likeApi } from "@/src/utils";
 import styles from "./Comment.module.scss";
 
 import { TextTagging } from "@/src/components";
 import { LikesButton, CommentsButton } from "../../../../..";
 
 import defaultAvatar from "@/src/assets/SVG/default-user-avatar.svg";
+import { EndpointsEnum } from "@/src/axios";
 
 const Comment: FC<CommentProps> = ({
   author: { avatar, firstName, lastName, nickName },
   commentsCount,
-  userIds,
+  usersId,
   id,
   text,
   createdAt,
@@ -50,7 +52,11 @@ const Comment: FC<CommentProps> = ({
         </div>
 
         <div className={styles["comment__buttons"]}>
-          <LikesButton userIds={userIds} id={id} />
+          <LikesButton
+            userIds={usersId}
+            id={id}
+            likeApi={likeApi(EndpointsEnum.COMMENT_LIKE)}
+          />
           {!hideCommentBtn ? (
             <CommentsButton
               textValue={commentsCount > 1 ? "replies" : "reply"}

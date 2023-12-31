@@ -9,14 +9,13 @@ import defaultAvatar from "@/src/assets/SVG/default-user-avatar.svg";
 const Like: FC<LikeProps> = ({
   author: { avatar, firstName, lastName, id },
   userIds,
-  fetchData,
 }) => {
   const [isFollow] = useFindUserId(userIds);
   const [following, setFollowing] = useState(isFollow);
 
   const onHandleClick = () => {
     setFollowing(!following);
-    fetchData && fetchData(id);
+    console.log(id);
   };
 
   const avatarUrl = avatar ? avatar : defaultAvatar;

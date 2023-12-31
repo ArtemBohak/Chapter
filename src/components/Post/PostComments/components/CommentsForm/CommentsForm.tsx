@@ -13,11 +13,7 @@ import { PostButton } from "@/src/components/Post/components";
 
 const initialValues = { comments: "" };
 
-const CommentsForm: FC<CommentsFormProps> = ({
-  postId,
-  fetchData,
-  setCommentsIsHide,
-}) => {
+const CommentsForm: FC<CommentsFormProps> = ({ postId, setCommentsIsHide }) => {
   const {
     user: { avatarUrl },
   } = useAppSelector((state) => state.userSlice);
@@ -27,9 +23,9 @@ const CommentsForm: FC<CommentsFormProps> = ({
     values: FormValues,
     { setSubmitting, resetForm }: FormikHelpers<FormValues>
   ) => {
-    fetchData && fetchData(postId);
     console.log(values);
-    setCommentsIsHide(false);
+    console.log(postId);
+    setCommentsIsHide && setCommentsIsHide(false);
     setSubmitting(false);
     resetForm();
   };

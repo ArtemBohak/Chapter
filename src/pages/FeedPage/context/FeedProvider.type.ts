@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { Dispatch, ReactNode, SetStateAction } from "react";
 import { IPost } from "@/src/types";
 
 export interface IFeedProviderProps {
@@ -6,7 +6,7 @@ export interface IFeedProviderProps {
 }
 
 export type FeedContextType = {
-  fetchData: (id: string | number) => void;
+  setPage: Dispatch<SetStateAction<number>>;
   feeds: Array<IPost> | [];
   isLoad: boolean;
 };
