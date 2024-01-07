@@ -9,7 +9,7 @@ const BooksPage: FC = () => {
   return (
     <BooksPageProvider>
       <div className={styles["book-page__wrapper"]}>
-        <BooksPageHeader />
+        <BooksPageHeader user="me" />
         <BooksList />
         <MobileButtons />
       </div>

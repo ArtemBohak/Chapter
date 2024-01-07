@@ -1,30 +1,42 @@
 import { FC } from "react";
 import styles from "./GuestProfileInfo.module.scss";
-import { Icon, IconEnum, UIbutton, UserAvatar } from "@/src/components";
+import {
+  FollowButton,
+  Icon,
+  IconEnum,
+  UIbutton,
+  UserAvatar,
+} from "@/src/components";
+import { guestProfileProps } from "./GuestProfile.type";
+import defaultUserAvatar from "@/src/assets/SVG/default-user-avatar.svg";
 
-const GuestProfileInfo: FC = () => {
+const GuestProfileInfo: FC<guestProfileProps> = ({ ...props }) => {
+  const { data } = props;
+  console.log(data);
   return (
     <>
       <div className={styles["profile-info"]}>
         <div className="flex w-full gap-5 md:items-center md:w-4/6 laptop_md:w-full">
           <UserAvatar
             className={styles["profile-info__avatar"]}
-            src={"https://i.ibb.co/2ZXKGCR/istockphoto-146962195-612x612.jpg"}
+            src={data?.avatarUrl || defaultUserAvatar}
             alt={"avatar"}
           />
           <div className={styles["profile-info__wrapper"]}>
-            <h4 className={styles["profile-info__fulname"]}>Joan Rodrigo</h4>
-            <p className={styles["profile-info__nickname"]}>@sweetcat556</p>
+            <h4 className={styles["profile-info__fulname"]}>
+              {data?.firstName} {data?.lastName}
+            </h4>
+            <p className={styles["profile-info__nickname"]}>{data?.nickName}</p>
             <p className={styles["profile-info__address"]}>
               <Icon width={20} icon={IconEnum.Location} />
-              Southern Air Temple
+              {data?.location}
             </p>
             <div className={styles["profile-info__social-counters"]}>
               <p>
-                <span>3230</span> followers
+                <span>{data?.myFollowersCount}</span> followers
               </p>
               <p>
-                <span>123</span> follow
+                <span>{data?.myFollowingCount}</span> follow
               </p>
             </div>
           </div>
@@ -42,12 +54,7 @@ const GuestProfileInfo: FC = () => {
         </UIbutton>
       </div>
 
-      <p className={styles["profile-info__status"]}>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusantium
-        itaque libero nihil eveniet? Impedit, aliquam modi in tempora soluta id
-        voluptas quis facilis nobis unde exercitationem vitae magni sapiente
-        quos!
-      </p>
+      <p className={styles["profile-info__status"]}>{data?.userStatus}</p>
     </>
   );
 };

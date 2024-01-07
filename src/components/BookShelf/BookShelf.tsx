@@ -36,7 +36,7 @@ const BookShelf: FC = () => {
           favoriteBooksList.length < 3 ? favoriteBooksList.length : 5,
         slidesToScroll: favoriteBooksList.length < 3 ? 0 : 5,
         initialSlide: 0,
-        swipe: favoriteBooksList.length < 3 && false,
+        swipe: favoriteBooksList.length < 3 ? false : true,
       },
     },
     {
@@ -45,7 +45,7 @@ const BookShelf: FC = () => {
         slidesToShow: 3,
         slidesToScroll: 3,
         initialSlide: 0,
-        swipe: favoriteBooksList.length < 3 && false,
+        swipe: favoriteBooksList.length < 3 ? false : true,
       },
     },
   ];
