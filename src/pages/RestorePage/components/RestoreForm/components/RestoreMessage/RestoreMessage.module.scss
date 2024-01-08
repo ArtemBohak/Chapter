@@ -1,8 +1,8 @@
-.google-wrapper {
+.wrapper {
   @apply py-[148px] md:py-[160px] laptop:py-[120px];
 
   & > h3 {
-    @apply text-[28px] md:text-[38px] laptop:text-[50px] laptop:max-w-[860px] mx-auto mb-4-xs md:mb-3-xs;
+    @apply text-[28px] md:text-[38px] base:text-[50px] base:max-w-[800px] mx-auto mb-4-xs md:mb-3-xs;
   }
 
   &__button.btn {

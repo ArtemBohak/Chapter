@@ -58,24 +58,24 @@ const RegisterForm: FC = () => {
   ) => {
     try {
       if (step === Steps.SECOND) {
-        const { status, id, email, error } =
-          await RegisterFormApi.fetchUserRegData(
-            {
-              hash,
-            },
-            setError
-          );
+        const res = await RegisterFormApi.fetchUserRegData(
+          {
+            hash: hash.trim(),
+          },
+          setError
+        );
+        const { id, email } = res;
 
         if (
-          status === apiErrorStatus.BAD_REQUEST &&
-          error === EmailStatus.INVALID_HASH
+          res.status === apiErrorStatus.BAD_REQUEST &&
+          res.error === EmailStatus.INVALID_HASH
         )
           return setFieldError(
             RegisterAccountKey.HASH,
             apiUiMessage.INSPIRED_HASH
           );
 
-        if (status === apiErrorStatus.NOTFOUND)
+        if (res.status === apiErrorStatus.NOTFOUND)
           return setFieldError(
             RegisterAccountKey.HASH,
             apiUiMessage.INVALID_HASH
@@ -91,7 +91,7 @@ const RegisterForm: FC = () => {
       const { error, statusCode, message, status } =
         await RegisterFormApi.fetchUserRegData(
           {
-            email,
+            email: email.trim(),
           },
           setError
         );

@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { keysValue } from "@/src/types";
@@ -8,14 +8,14 @@ import styles from "./RestoreForm.module.scss";
 
 import { Icon, IconEnum } from "@/src/components";
 import RestoreEmail from "./components/RestoreEmail/RestoreEmail";
-import RestoreGoogle from "./components/RestoreGoogle/RestoreGoogle";
+import RestoreMessage from "./components/RestoreMessage/RestoreMessage";
 
 const RestoreForm: FC<RestoringFormProps> = ({
   restoringProvider,
   ...props
 }) => {
   const navigate = useNavigate();
-
+  const [restoreMsgIsShown, setRestoreMsgIsShown] = useState(false);
   const [cRestoreToken] = getCookies(keysValue.RESTORE_TOKEN);
 
   const onHandleClick = () => {
@@ -36,8 +36,11 @@ const RestoreForm: FC<RestoringFormProps> = ({
       >
         <Icon icon={IconEnum.Cross} size={32} />
       </button>
-      {restoringProvider === keysValue.EMAIL && <RestoreEmail {...props} />}
-      {restoringProvider === keysValue.GOOGLE && <RestoreGoogle />}
+      {restoringProvider === keysValue.EMAIL && !restoreMsgIsShown ? (
+        <RestoreEmail {...props} setRestoreMsgIsShown={setRestoreMsgIsShown} />
+      ) : (
+        <RestoreMessage />
+      )}
     </div>
   );
 };

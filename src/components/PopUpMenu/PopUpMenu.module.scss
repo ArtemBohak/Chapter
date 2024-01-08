@@ -1,0 +1,14 @@
+.popup {
+  &-window {
+    @apply hidden md:block right-2-xs laptop_md:right-[60px] md:-bottom-[98px] bg-transparent w-[282px] h-[108px];
+  }
+
+  &-body {
+    @apply w-full h-full bg-[#FAFAFA] rounded-lg  border-grey-1010 overflow-hidden;
+    box-shadow: 0px 4px 20px 0px rgba(124, 124, 124, 0.52);
+  }
+
+  &-wrapper {
+    @apply w-full h-full;
+  }
+}

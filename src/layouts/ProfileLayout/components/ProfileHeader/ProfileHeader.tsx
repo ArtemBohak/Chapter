@@ -1,11 +1,12 @@
-import { FC } from "react";
+import { FC, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 import cn from "classnames";
 
-import { ElementsId, links } from "@/src/types";
+import { ElementsId, UiMessage, links } from "@/src/types";
+import { ProfileUpdateApi } from "@/src/pages/SettingsPage/utils/ProfileUpdateApi";
 import { useNavigationToggler, useModalsContext } from "@/src/context";
-import { useHideElement } from "@/src/hooks";
-import { useAppSelector } from "@/src/redux";
+import { useErrorBoundary, useHideElement, useOutsideClick } from "@/src/hooks";
+import { fetchIsLogoutUser, useAppDispatch, useAppSelector } from "@/src/redux";
 import { ProfileHeaderProps } from "./ProfileHeader.type";
 import styles from "./ProfileHeader.module.scss";
 
@@ -14,6 +15,8 @@ import {
   UIbutton,
   MenuToggler,
   SearchField,
+  PopUpMenu,
+  ConfirmationWindow,
 } from "@/src/components";
 
 const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
@@ -21,8 +24,30 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
   const { isActiveMenu, setIsActiveMenu } = useNavigationToggler();
   const { user } = useAppSelector((store) => store.userSlice);
   const { firstName, lastName, avatarUrl } = user;
+  const [showPopUp, setShowPopUp] = useState(false);
+  const [showLogOutMsg, setShowLogOutMsg] = useState(false);
+  const [showDeleteAccMsg, setShowDeleteAccMsg] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const setError = useErrorBoundary();
+  const dispatch = useAppDispatch();
 
+  const ref = useRef(null);
   useHideElement(ElementsId.ADD_POST_BTN, isActiveMenu);
+  useOutsideClick(ref, setShowPopUp, ElementsId.AVATAR);
+
+  const logOut = async () => {
+    try {
+      setIsLoading(true);
+      await dispatch(fetchIsLogoutUser());
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const onDeleteAcc = async () => {
+    const user = new ProfileUpdateApi(setIsLoading, setError);
+    await user.deleteAccount();
+  };
 
   const onHandleClick = () => {
     setModalIsOpen(true);
@@ -83,6 +108,7 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
             src={avatarUrl}
             alt={`${firstName} ${lastName}`}
             className={cn(styles["profile-header__user-avatar"])}
+            onClick={() => setShowPopUp(!showPopUp)}
           />
           <UIbutton
             onClick={onHandleClick}
@@ -116,6 +142,36 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
           </UIbutton>
         </div>
       </div>
+      <PopUpMenu isOpen={showPopUp} setIsOpen={setShowPopUp} nodeRef={ref}>
+        <div className={styles["menu"]}>
+          <button
+            data-automation="clickButton"
+            onClick={() => setShowLogOutMsg(true)}
+          >
+            Log out of profile
+          </button>
+          <button
+            data-automation="clickButton"
+            onClick={() => setShowDeleteAccMsg(true)}
+          >
+            Delete user account
+          </button>
+        </div>
+      </PopUpMenu>
+      <ConfirmationWindow
+        text={UiMessage.LOG_OUT}
+        isLoading={isLoading}
+        isOpen={showLogOutMsg}
+        setIsOpen={setShowLogOutMsg}
+        fetch={logOut}
+      />
+      <ConfirmationWindow
+        text={UiMessage.DELETE}
+        isLoading={isLoading}
+        isOpen={showDeleteAccMsg}
+        setIsOpen={setShowDeleteAccMsg}
+        fetch={onDeleteAcc}
+      />
     </header>
   );
 };

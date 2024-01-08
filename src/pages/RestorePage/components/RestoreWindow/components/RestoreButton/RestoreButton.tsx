@@ -14,12 +14,14 @@ import { UIbutton } from "@/src/components";
 
 const RestoreButton: FC<RestoreButtonProps> = ({
   setRestoringFormIsOpen,
+  setShowError,
   email,
   token,
 }) => {
   const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
-  const setError = useErrorBoundary();
+  const setErrorBoundary = useErrorBoundary();
 
   const onHandleClick = async () => {
     if (!email && !token) return navigate(links.LOG_IN);
@@ -42,7 +44,12 @@ const RestoreButton: FC<RestoreButtonProps> = ({
       setRestoringFormIsOpen(true);
     } catch (error) {
       if (error instanceof AxiosError) {
-        setError(error);
+        setErrorBoundary(error);
+
+        if (error.response?.data.status === apiErrorStatus.TOO_MANY_REQUEST) {
+          return setShowError(true);
+        }
+
         if (error.response?.data.status === apiErrorStatus.FORBIDDEN) {
           deleteCookie(
             keysValue.DELETED_ACCOUNT_TIME_STAMP,
@@ -57,16 +64,18 @@ const RestoreButton: FC<RestoreButtonProps> = ({
     }
   };
   return (
-    <UIbutton
-      isLoading={loading}
-      disabled={loading}
-      dataAutomation="clickButton"
-      onClick={onHandleClick}
-      fullWidth
-      className={`${styles["restore-btn"]} ${styles["button"]}`}
-    >
-      Recover account
-    </UIbutton>
+    <>
+      <UIbutton
+        isLoading={loading}
+        disabled={loading}
+        dataAutomation="clickButton"
+        onClick={onHandleClick}
+        fullWidth
+        className={`${styles["restore-btn"]} ${styles["button"]}`}
+      >
+        Recover account
+      </UIbutton>
+    </>
   );
 };
 

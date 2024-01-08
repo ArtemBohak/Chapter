@@ -3,4 +3,5 @@ export type UserAvatarProps = {
   alt: string;
   size?: "small" | "large";
   className?: string;
+  onClick?: () => void;
 };
