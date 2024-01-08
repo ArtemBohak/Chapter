@@ -2,7 +2,7 @@ import { FC } from "react";
 import { Formik, Form, FormikHelpers } from "formik";
 
 import { useAppSelector } from "@/src/redux";
-import { useGetScreenSize } from "@/src/hooks";
+import { useErrorBoundary, useGetScreenSize } from "@/src/hooks";
 import { tabScreen } from "@/src/utils";
 import { FormValues, CommentsFormProps } from "./CommentsForm.type";
 import { validationSchema } from "./validationSchema";
@@ -10,24 +10,45 @@ import styles from "./CommentsForm.module.scss";
 
 import { TextAreaField } from "@/src/components";
 import { PostButton } from "@/src/components/Post/components";
+import { AxiosError } from "axios";
+import { EndpointsEnum, api } from "@/src/axios";
 
-const initialValues = { comments: "" };
+const initialValues = { text: "" };
 
-const CommentsForm: FC<CommentsFormProps> = ({ postId, setCommentsIsHide }) => {
+const CommentsForm: FC<CommentsFormProps> = ({
+  postId,
+  commentId,
+  setCommentsIsHide,
+}) => {
+  const setErrorBoundary = useErrorBoundary();
   const {
     user: { avatarUrl },
   } = useAppSelector((state) => state.userSlice);
   const [screenSize] = useGetScreenSize();
 
-  const onHandleSubmit = (
+  const onHandleSubmit = async (
     values: FormValues,
     { setSubmitting, resetForm }: FormikHelpers<FormValues>
   ) => {
-    console.log(values);
-    console.log(postId);
-    setCommentsIsHide && setCommentsIsHide(false);
-    setSubmitting(false);
-    resetForm();
+    try {
+      if (commentId) {
+        await api.post(
+          EndpointsEnum.COMMENTS + commentId + "/to-comment",
+          values
+        );
+        setSubmitting(false);
+        return resetForm();
+      }
+      await api.post(EndpointsEnum.COMMENTS + postId, values);
+
+      setCommentsIsHide && setCommentsIsHide(false);
+      setSubmitting(false);
+      resetForm();
+    } catch (e) {
+      if (e instanceof AxiosError) {
+        setErrorBoundary(e);
+      }
+    }
   };
 
   const iconSize = screenSize < tabScreen ? 20 : 24;
@@ -46,11 +67,11 @@ const CommentsForm: FC<CommentsFormProps> = ({ postId, setCommentsIsHide }) => {
             return (
               <Form>
                 <TextAreaField
-                  id="comments"
+                  id="text"
                   placeholder="Add a comment ..."
-                  name="comments"
-                  dataAutomation="commentsInput"
-                  value={values.comments}
+                  name="text"
+                  dataAutomation="textInput"
+                  value={values.text}
                   iconSize={iconSize}
                   classNames={styles["form__field"]}
                 />

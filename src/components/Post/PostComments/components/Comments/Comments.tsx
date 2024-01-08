@@ -14,7 +14,7 @@ const itemClassNames = (value: number) => {
   });
 };
 
-const Comments: FC<CommentsProps> = ({ comments }) => {
+const Comments: FC<CommentsProps> = ({ comments, setId }) => {
   let counter: number = 0;
 
   const renderComments = (comments: Array<CommentValues>, step = 1) => {
@@ -29,7 +29,7 @@ const Comments: FC<CommentsProps> = ({ comments }) => {
         {comments.map((i) => {
           return (
             <li key={i.id} className={classNames}>
-              <Comment {...i} />
+              <Comment {...i} setId={setId} />
               {i.comments ? renderComments(i.comments) : null}
             </li>
           );

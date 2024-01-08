@@ -20,7 +20,6 @@ export class FeedApi {
         params: { page, limit },
       });
 
-      console.log(res);
       const {
         data: { paginatedFeedItems },
       } = res;

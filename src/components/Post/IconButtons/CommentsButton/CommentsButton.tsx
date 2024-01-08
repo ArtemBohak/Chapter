@@ -12,9 +12,11 @@ const CommentsButton: FC<CommentsButtonProps> = ({
   id,
   hiddenText = false,
   setCommentsIsHide,
+  setId,
 }) => {
   const onHandleClick = () => {
     setCommentsIsHide && setCommentsIsHide(false);
+    setId && setId(id);
     console.log(id);
   };
 

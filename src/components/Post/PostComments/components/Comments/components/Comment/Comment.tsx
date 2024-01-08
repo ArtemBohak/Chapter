@@ -19,6 +19,7 @@ const Comment: FC<CommentProps> = ({
   text,
   createdAt,
   hideCommentBtn = false,
+  setId,
 }) => {
   const avatarUrl = avatar ? avatar : defaultAvatar;
 
@@ -62,6 +63,7 @@ const Comment: FC<CommentProps> = ({
               textValue={commentsCount > 1 ? "replies" : "reply"}
               id={id}
               commentsCount={commentsCount}
+              setId={setId}
             />
           ) : null}
         </div>

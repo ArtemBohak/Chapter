@@ -29,4 +29,5 @@ export enum EndpointsEnum {
   POST_LIKE = "likes/like-unlike-post/",
   COMMENT_LIKE = "likes/like-unlike-comment/",
   LIKED_USER_LIST = "posts/users-who-liked-post/",
+  COMMENTS = "comments/",
 }

@@ -1,4 +1,4 @@
-import { FC, useRef } from "react";
+import { FC, useRef, useState } from "react";
 import cn from "classnames";
 
 import { PostCommentsProps } from "./PostComments.type";
@@ -16,6 +16,7 @@ const PostComments: FC<PostCommentsProps> = ({
   commentsIsHide,
   setCommentsIsHide,
 }) => {
+  const [commentId, setCommentId] = useState<string | number | null>(null);
   const btnRef = useRef(null);
   const commentsRef = useRef(null);
   const [screenSize] = useGetScreenSize();
@@ -83,7 +84,7 @@ const PostComments: FC<PostCommentsProps> = ({
       unmountOnExit
     >
       <div ref={commentsRef}>
-        <Comments comments={comments} />
+        <Comments comments={comments} setId={setCommentId} />
       </div>
     </Animation>
   );
@@ -98,7 +99,11 @@ const PostComments: FC<PostCommentsProps> = ({
         {renderComments}
       </div>
       <div className={styles["feed-comments__form-wrapper"]}>
-        <CommentsForm postId={postId} setCommentsIsHide={setCommentsIsHide} />
+        <CommentsForm
+          postId={postId}
+          commentId={commentId}
+          setCommentsIsHide={setCommentsIsHide}
+        />
       </div>
     </div>
   );
