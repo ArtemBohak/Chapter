@@ -22,8 +22,8 @@ const ProfileLayout: FC = () => {
           <PostCreation
             isOpen={modalIsOpen}
             setIsOpen={setModalIsOpen}
-            isScreenSize
             disableScroll
+            isScreenSize
           />
         </main>
       </div>

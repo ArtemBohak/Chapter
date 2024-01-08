@@ -1,5 +1,5 @@
 .user-avatar {
-  @apply rounded-[8px] overflow-hidden w-full;
+  @apply rounded-[8px] overflow-hidden w-full cursor-pointer;
 
   &--small {
     @apply max-w-[52px];
