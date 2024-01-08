@@ -81,7 +81,7 @@ const PasswordChangeForm: FC = () => {
                 disabled={!isValid || !dirty}
                 isLoading={isSubmitting}
               >
-                Restore password
+                Restore my password
               </UIbutton>
             </Form>
           );

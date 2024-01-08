@@ -6,10 +6,10 @@
   }
 
   &__input {
-    @apply outline-none w-full max-w-[120px] md:max-w-[214px] bg-inherit border-b border-b-[#FFD18C] transition-all duration-100 text-xs md:text-base;
+    @apply outline-none w-full max-w-[120px] md:max-w-[214px] bg-transparent rounded-none border-b border-b-[#FFD18C] transition-all duration-100 text-xs md:text-base;
 
     &:disabled {
-      @apply border-transparent;
+      @apply border-transparent bg-transparent text-black;
     }
   }
 }

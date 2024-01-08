@@ -1,13 +1,11 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { Formik, FormikHelpers, Form } from "formik";
 import { AxiosError } from "axios";
-import { useNavigate } from "react-router-dom";
 
 import {
   apiErrorMessage,
   apiErrorStatus,
   apiUiMessage,
-  links,
   keysValue,
 } from "@/src/types";
 import { deleteCookie } from "@/src/utils";
@@ -18,15 +16,19 @@ import { validationSchema } from "./validationSchema";
 import { useErrorBoundary } from "@/src/hooks";
 import styles from "./RestoreEmail.module.scss";
 
-import { TextField, UIbutton } from "@/src/components";
+import { Loader, TextField, UIbutton } from "@/src/components";
 
 const initialValues: FormValues = {
   hash: "",
 };
 
-const RestoreEmail: FC<RestoreEmailProps> = ({ email }) => {
-  const navigate = useNavigate();
+const RestoreEmail: FC<RestoreEmailProps> = ({
+  email,
+  setRestoreMsgIsShown,
+  setShowError,
+}) => {
   const setError = useErrorBoundary();
+  const [isLoading, setIsLoading] = useState(false);
 
   const onHandleSubmit = async (
     { hash }: FormValues,
@@ -43,7 +45,7 @@ const RestoreEmail: FC<RestoreEmailProps> = ({ email }) => {
         keysValue.RESTORE_TOKEN
       );
 
-      return navigate(links.LOG_IN);
+      return setRestoreMsgIsShown(true);
     } catch (error) {
       if (error instanceof AxiosError) {
         if (
@@ -61,11 +63,16 @@ const RestoreEmail: FC<RestoreEmailProps> = ({ email }) => {
 
   const onHandleCLick = async () => {
     try {
+      setIsLoading(true);
       email && (await api.post(EndpointsEnum.EMAIL_RESTORE, { email }));
     } catch (error) {
       if (error instanceof AxiosError) {
-        console.log(error);
+        if (error.response?.data.status === apiErrorStatus.TOO_MANY_REQUEST) {
+          return setShowError(true);
+        }
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -96,6 +103,9 @@ const RestoreEmail: FC<RestoreEmailProps> = ({ email }) => {
             >
               Confirm
             </UIbutton>
+            <p className={styles["info-message"]}>
+              3 attempts per day are provided.
+            </p>
           </Form>
         )}
       </Formik>
@@ -105,6 +115,7 @@ const RestoreEmail: FC<RestoreEmailProps> = ({ email }) => {
       >
         Send the <span>code</span> again?
       </button>
+      <Loader isShown={isLoading} />
     </div>
   );
 };

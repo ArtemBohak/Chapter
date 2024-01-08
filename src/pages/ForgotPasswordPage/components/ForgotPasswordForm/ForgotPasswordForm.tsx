@@ -20,7 +20,10 @@ import { TextField, UIbutton } from "@/src/components";
 
 const initialValues: IForgotPassword = { email: "" };
 
-const ForgotPasswordForm: FC<ForgotPasswordProps> = ({ setSubmitted }) => {
+const ForgotPasswordForm: FC<ForgotPasswordProps> = ({
+  setSubmitted,
+  setPopUpIsShowed,
+}) => {
   const setError = useErrorBoundary();
   const navigate = useDebouncedNav(1000 * 2);
   const [authError, setAuthError] = useState<string | null>(null);
@@ -28,7 +31,13 @@ const ForgotPasswordForm: FC<ForgotPasswordProps> = ({ setSubmitted }) => {
   const onHandleSubmit = async (values: IForgotPassword) => {
     const [id, email] = getCookies(keysValue.USER_ID, keysValue.EMAIL);
     const res = await ForgotPasswordApi(values, setError);
-
+    console.log(res);
+    if (
+      res.statusCode === apiErrorStatus.BAD_REQUEST &&
+      res.message === apiErrorMessage.REQUESTS_IS_EXPIRED
+    ) {
+      return setPopUpIsShowed && setPopUpIsShowed(true);
+    }
     if (
       res.status === apiErrorStatus.UNPROCESSABLE_ENTITY &&
       res.error === apiErrorMessage.EMAIL_UNCONFIRMED
