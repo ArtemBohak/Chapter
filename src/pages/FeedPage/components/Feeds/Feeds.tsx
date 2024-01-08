@@ -8,7 +8,7 @@ import { Animation, Loader } from "@/src/components";
 import Feed from "../Feed/Feed";
 
 const Feeds: FC = () => {
-  const { feeds, isLoad, setPage } = useFeedContext();
+  const { feeds, isLoad, page, feedApi } = useFeedContext();
   const loaderRef = useRef(null);
 
   const feedsList = useMemo(
@@ -22,16 +22,17 @@ const Feeds: FC = () => {
 
   useEffect(() => {
     const loader = loaderRef.current;
-    const observer = new IntersectionObserver((entries) => {
-      const target = entries[0];
-      console.log(target);
-      if (target.isIntersecting) {
-        // setPage((page) => page + 1);
-      }
-    });
+    const observer = new IntersectionObserver(
+      ([entries]) => {
+        if (entries.isIntersecting && !isLoad) {
+          feedApi();
+        }
+      },
+      { threshold: 1 }
+    );
 
-    if (loaderRef.current) {
-      observer.observe(loaderRef.current);
+    if (loader) {
+      observer.observe(loader);
     }
 
     return () => {
@@ -40,7 +41,7 @@ const Feeds: FC = () => {
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [loaderRef.current, isLoad]);
 
   const transitionClassNames = {
     enter: styles["feeds-list-enter"],
@@ -65,8 +66,13 @@ const Feeds: FC = () => {
         ))}
       </TransitionGroup>
       <div ref={loaderRef}>
-        <Loader isShown={isLoad} />
+        <Loader
+          isShown={isLoad && page !== 1}
+          wrapperClassNames={styles["loader"]}
+          height={100}
+        />
       </div>
+      <Loader isShown={isLoad && page === 1} />
     </>
   );
 };

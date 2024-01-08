@@ -9,21 +9,28 @@ export class FeedApi {
   constructor(
     private setFeeds?: Dispatch<SetStateAction<Feeds>>,
     private setIsLoading?: SetIsLoadingType,
-    private setErrorBoundary?: SetErrorType // private setPage?: Dispatch<SetStateAction<number>>
+    private setErrorBoundary?: SetErrorType,
+    private setPage?: Dispatch<SetStateAction<number>>
   ) {}
 
   async getFeeds(page = 1, limit = 5) {
     try {
       this.setIsLoading && this.setIsLoading(true);
-      const {
-        data: { paginatedFeedItems },
-      } = await api.get(EndpointsEnum.FEEDS, {
+      const res = await api.get(EndpointsEnum.FEEDS, {
         params: { page, limit },
       });
 
+      console.log(res);
+      const {
+        data: { paginatedFeedItems },
+      } = res;
+
       this.setFeeds &&
         this.setFeeds((feeds) => [...feeds, ...paginatedFeedItems]);
-      // this.setPage && this.setPage((page) => page + 1);
+
+      if (this.setPage && paginatedFeedItems.length) {
+        this.setPage((page) => page + 1);
+      }
     } catch (e) {
       if (e instanceof AxiosError) {
         this.setErrorBoundary && this.setErrorBoundary(e);
