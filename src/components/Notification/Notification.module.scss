@@ -1,0 +1,9 @@
+.modal {
+  &-text {
+    @apply text-[20px] md:text-[30px] laptop:text-[50px] font-semibold mb-3-xs;
+  }
+
+  &-btn {
+    @apply max-w-[316px] mx-auto;
+  }
+}

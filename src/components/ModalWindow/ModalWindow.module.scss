@@ -12,18 +12,18 @@
   }
 
   &-enter {
-    @apply translate-x-[-100%] md:translate-x-0 md:opacity-0 md:scale-0;
+    @apply opacity-0 scale-0;
 
     &-active {
-      @apply translate-x-0 md:opacity-100 md:scale-100 transition duration-200;
+      @apply opacity-100 scale-100 transition duration-200;
     }
   }
 
   &-exit {
-    @apply translate-x-0  md:scale-100;
+    @apply scale-100 opacity-100;
 
     &-active {
-      @apply translate-x-[-100%] md:translate-x-0  md:scale-0 transition duration-200;
+      @apply scale-0 opacity-0 transition duration-200;
     }
   }
 }

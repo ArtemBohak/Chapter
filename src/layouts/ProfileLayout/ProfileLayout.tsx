@@ -5,7 +5,6 @@ import styles from "./ProfileLayout.module.scss";
 
 import { ProfileHeader, SidebarNavigation } from "./components";
 import { NavigationTogglerProvider, ModalsProvider } from "@/src/context";
-import { CookiesToaster } from "@/src/components/CookiesToaster";
 import { PostCreation } from "@/src/components";
 
 const ProfileLayout: FC = () => {
@@ -20,12 +19,11 @@ const ProfileLayout: FC = () => {
         </NavigationTogglerProvider>
         <main>
           <Outlet />
-          <CookiesToaster />
           <PostCreation
             isOpen={modalIsOpen}
             setIsOpen={setModalIsOpen}
-            isScreenSize
             disableScroll
+            isScreenSize
           />
         </main>
       </div>

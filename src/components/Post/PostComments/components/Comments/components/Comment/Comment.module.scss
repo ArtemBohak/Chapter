@@ -15,7 +15,7 @@
   &__data {
     @apply flex justify-between mb-0-sm md:mb-1-xs;
     & > p {
-      @apply text-xxs font-normal md:text-sm;
+      @apply text-grey-1000 text-xxs font-normal md:text-sm;
     }
   }
 
@@ -26,7 +26,7 @@
       @apply mb-0 font-medium text-xxs md:text-lg;
     }
     & > p {
-      @apply font-normal text-xxs md:text-sm;
+      @apply text-grey-1000 font-normal text-xxs md:text-sm;
     }
   }
 

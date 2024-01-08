@@ -3,6 +3,7 @@ import { NavLink, useLocation } from "react-router-dom";
 import cn from "classnames";
 
 import { useNavigationToggler } from "@/src/context";
+import { UiMessage } from "@/src/types";
 import { useAppDispatch, fetchIsLogoutUser } from "@/src/redux";
 
 import { NavigationListProps } from "./NavigationList.type";
@@ -76,7 +77,7 @@ const NavigationList: FC<NavigationListProps> = ({
       <ConfirmationWindow
         isOpen={confirmModalIsShown}
         setIsOpen={setConfirmModalIsShown}
-        text="Are you sure you want to log out?"
+        text={UiMessage.LOG_OUT}
         isLoading={isLoading}
         fetch={logOut}
       />

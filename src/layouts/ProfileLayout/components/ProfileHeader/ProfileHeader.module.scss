@@ -37,3 +37,11 @@
     @apply hidden md:inline-flex md:ml-4;
   }
 }
+
+.menu {
+  @apply flex flex-col items-start gap-2-md p-2-xs;
+
+  & > button {
+    @apply bg-transparent outline-none;
+  }
+}

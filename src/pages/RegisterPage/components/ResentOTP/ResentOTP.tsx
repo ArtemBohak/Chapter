@@ -6,7 +6,7 @@ import { EndpointsEnum, api } from "@/src/axios";
 import { apiErrorStatus } from "@/src/types";
 import { useAppDispatch, userError } from "@/src/redux";
 import styles from "./ResentOTP.module.scss";
-import { Loader, ModalWindow, UIbutton } from "@/src/components";
+import { Loader, Notification } from "@/src/components";
 
 const ResentOTP: FC<ResentOTPProps> = ({ email }) => {
   const dispatch = useAppDispatch();
@@ -36,8 +36,6 @@ const ResentOTP: FC<ResentOTPProps> = ({ email }) => {
     }
   };
 
-  const onClick = () => setIsOpen(false);
-
   return (
     <div className={styles["resent-wrapper"]}>
       <p className={styles["resent-wrapper__message"]}>
@@ -53,17 +51,13 @@ const ResentOTP: FC<ResentOTPProps> = ({ email }) => {
           Click here.
         </button>
       </p>
-      <ModalWindow isOpen={isOpen} setIsOpen={setIsOpen}>
-        <p className={styles["modal-text"]}>
+      <Notification isOpen={isOpen} setIsOpen={setIsOpen} btnText="Confirm">
+        <>
           You have exhausted all attempts. <br />
           Try again tomorrow.
-        </p>
-        <div className={styles["modal-btn"]}>
-          <UIbutton dataAutomation="clickButton" onClick={onClick} fullWidth>
-            Confirm
-          </UIbutton>
-        </div>
-      </ModalWindow>
+        </>
+      </Notification>
+
       <Loader isShown={isLoading} />
     </div>
   );
