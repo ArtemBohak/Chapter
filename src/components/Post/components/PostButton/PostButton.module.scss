@@ -2,7 +2,7 @@
   @apply text-xs font-medium w-full max-w-[100px] h-[32px] md:max-w-[182px]  md:h-[54px] md:text-base rounded-lg transition-colors duration-100 items-center;
 
   &.outlined {
-    @apply bg-transparent border border-[#F69400];
+    @apply bg-transparent border border-[#F69400] text-[#F69400];
     &:hover {
       @apply bg-gray-50;
     }

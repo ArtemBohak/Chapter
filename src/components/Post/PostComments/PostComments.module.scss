@@ -22,7 +22,7 @@
       @apply text-[#6C6C6C];
     }
     &-filter {
-      @apply font-semibold text-[#F69400] flex items-center gap-0-sm;
+      @apply font-semibold text-[#F69400] flex items-center gap-0-sm md:text-lg;
 
       &-icon {
         @apply -rotate-90;

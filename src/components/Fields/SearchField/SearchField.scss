@@ -15,7 +15,7 @@
     }
 
     .text-field__input {
-      @apply bg-[#E2E2E2] h-[52px] pl-[54px] border-0 font-medium text-base font-raleway;
+      @apply bg-grey-1030 h-[52px] pl-[54px] border-0 font-medium text-base font-raleway;
 
       &::placeholder {
         @apply text-[#B4B4B4];

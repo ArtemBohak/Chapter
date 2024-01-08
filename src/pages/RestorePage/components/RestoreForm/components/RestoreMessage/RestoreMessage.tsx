@@ -3,11 +3,11 @@ import { useNavigate } from "react-router-dom";
 
 import { links, keysValue } from "@/src/types";
 import { deleteCookie, redirectTimeoutValue } from "@/src/utils";
-import styles from "./RestoreGoogle.module.scss";
+import styles from "./RestoreMessage.module.scss";
 
 import { UIbutton } from "@/src/components";
 
-const RestoreGoogle: FC = () => {
+const RestoreMessage: FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,13 +29,13 @@ const RestoreGoogle: FC = () => {
   const onHandleClick = () => navigate(links.LOG_IN);
 
   return (
-    <div className={styles["google-wrapper"]}>
+    <div className={styles["wrapper"]}>
       <h3>Your profile has been successfully restored!</h3>
       <UIbutton
         onClick={onHandleClick}
         dataAutomation="clickButton"
         fullWidth
-        className={`${styles["google-wrapper__button"]} ${styles["btn"]}`}
+        className={`${styles["wrapper__button"]} ${styles["btn"]}`}
       >
         Proceed to log in
       </UIbutton>
@@ -43,4 +43,4 @@ const RestoreGoogle: FC = () => {
   );
 };
 
-export default RestoreGoogle;
+export default RestoreMessage;
