@@ -51,7 +51,7 @@ const PostComments: FC<PostCommentsProps> = ({
     } (${commentsCount})`}</button>
   ) : null;
 
-  const renderFilterBtn = (
+  const renderFilterBtn = comments.length ? (
     <Animation
       in={!commentsIsHide}
       nodeRef={btnRef}
@@ -72,7 +72,7 @@ const PostComments: FC<PostCommentsProps> = ({
         />
       </button>
     </Animation>
-  );
+  ) : null;
 
   const renderComments = (
     <Animation
