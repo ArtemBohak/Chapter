@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 
 import { FeedApi } from "../utils/FeedApi";
 
@@ -12,19 +12,13 @@ const FeedProvider: FC<IFeedProviderProps> = ({ children }) => {
   const [isLoad, setIsLoad] = useState(false);
   const setErrorBoundary = useErrorBoundary();
 
-  const feedApi = useCallback(
-    () =>
-      new FeedApi(setFeeds, setIsLoad, setErrorBoundary, setPage).getFeeds(
-        page
-      ),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [page]
-  );
-
   useEffect(() => {
-    feedApi();
+    new FeedApi(setFeeds, setIsLoad, setErrorBoundary).getFeeds(page);
+    // const t = setInterval(() => {}, 2000);
+
+    // return () => clearInterval(t);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [page]);
 
   return (
     <FeedContext.Provider
@@ -32,7 +26,7 @@ const FeedProvider: FC<IFeedProviderProps> = ({ children }) => {
         feeds,
         isLoad,
         page,
-        feedApi,
+        setPage,
       }}
     >
       {children}

@@ -19,7 +19,7 @@ import {
 import { likeApi } from "@/src/utils";
 import { EndpointsEnum } from "@/src/axios";
 
-const Feed: FC<FeedProps> = ({ nodeRef, ...props }) => {
+const Feed: FC<FeedProps> = ({ nodeRef, loaderRef, pageValue, ...props }) => {
   const [commentsIsHide, setCommentsIsHide] = useState(true);
 
   return (
@@ -73,6 +73,7 @@ const Feed: FC<FeedProps> = ({ nodeRef, ...props }) => {
           setCommentsIsHide={setCommentsIsHide}
         />
       </div>
+      {loaderRef?.current ? <input ref={loaderRef} value={pageValue} /> : null}
     </div>
   );
 };

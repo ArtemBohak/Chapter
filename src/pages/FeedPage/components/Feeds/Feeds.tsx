@@ -6,25 +6,36 @@ import styles from "./Feeds.module.scss";
 
 import { Animation, Loader } from "@/src/components";
 import Feed from "../Feed/Feed";
+import { pageLimit } from "@/src/utils";
 
 const Feeds: FC = () => {
-  const { feeds, isLoad, page, feedApi } = useFeedContext();
-  const loaderRef = useRef(null);
+  const { feeds, isLoad, page, setPage } = useFeedContext();
+  const endLoaderRef = useRef(null);
 
   const feedsList = useMemo(
     () =>
-      feeds.map((i) => ({
-        ...i,
-        nodeRef: createRef<HTMLDivElement>(),
-      })),
+      feeds.map((el, i) => {
+        if (i % pageLimit === 0)
+          return {
+            ...el,
+            nodeRef: createRef<HTMLDivElement>(),
+            loaderRef: createRef<HTMLInputElement>(),
+            pageValue: Math.ceil(feeds.length / pageLimit),
+          };
+
+        return {
+          ...el,
+          nodeRef: createRef<HTMLDivElement>(),
+        };
+      }),
     [feeds]
   );
 
   useEffect(() => {
-    const loader = loaderRef.current;
+    const loader = endLoaderRef.current;
     const observer = new IntersectionObserver(([entries]) => {
       if (entries.isIntersecting && !isLoad) {
-        feedApi();
+        setPage((page) => (page += 1));
       }
     });
 
@@ -38,7 +49,15 @@ const Feeds: FC = () => {
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loaderRef.current, isLoad]);
+  }, [endLoaderRef.current, isLoad]);
+
+  useEffect(() => {
+    const feedsLoader = feedsList.forEach((el) => {
+      console.log(el?.loaderRef?.current);
+      if (el && el.loaderRef && el.loaderRef.current) {
+      }
+    });
+  }, [feedsList]);
 
   const transitionClassNames = {
     enter: styles["feeds-list-enter"],
@@ -62,7 +81,7 @@ const Feeds: FC = () => {
           </Animation>
         ))}
       </TransitionGroup>
-      <div ref={loaderRef} className="invisible">
+      <div ref={endLoaderRef} className="invisible">
         ...
       </div>
       <Loader
