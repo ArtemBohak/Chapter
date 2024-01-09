@@ -22,14 +22,11 @@ const Feeds: FC = () => {
 
   useEffect(() => {
     const loader = loaderRef.current;
-    const observer = new IntersectionObserver(
-      ([entries]) => {
-        if (entries.isIntersecting && !isLoad) {
-          feedApi();
-        }
-      },
-      { threshold: 1 }
-    );
+    const observer = new IntersectionObserver(([entries]) => {
+      if (entries.isIntersecting && !isLoad) {
+        feedApi();
+      }
+    });
 
     if (loader) {
       observer.observe(loader);
@@ -65,13 +62,14 @@ const Feeds: FC = () => {
           </Animation>
         ))}
       </TransitionGroup>
-      <div ref={loaderRef}>
-        <Loader
-          isShown={isLoad && page !== 1}
-          wrapperClassNames={styles["loader"]}
-          height={100}
-        />
+      <div ref={loaderRef} className="invisible">
+        ...
       </div>
+      <Loader
+        isShown={isLoad && page !== 1}
+        wrapperClassNames={styles["loader"]}
+        height={100}
+      />
       <Loader isShown={isLoad && page === 1} />
     </>
   );
