@@ -11,11 +11,11 @@ import { pageLimit } from "@/src/utils";
 const Feeds: FC = () => {
   const { feeds, isLoad, page, setPage } = useFeedContext();
   const endLoaderRef = useRef(null);
-
+  console.log(page);
   const feedsList = useMemo(
     () =>
       feeds.map((el, i) => {
-        if (i % pageLimit === 0)
+        if ((i + 1) % pageLimit === 0)
           return {
             ...el,
             nodeRef: createRef<HTMLDivElement>(),
@@ -52,9 +52,20 @@ const Feeds: FC = () => {
   }, [endLoaderRef.current, isLoad]);
 
   useEffect(() => {
-    const feedsLoader = feedsList.forEach((el) => {
-      console.log(el?.loaderRef?.current);
-      if (el && el.loaderRef && el.loaderRef.current) {
+    feedsList.forEach((el) => {
+      if (
+        el &&
+        el.loaderRef &&
+        el.loaderRef.current &&
+        el.loaderRef.current.value
+      ) {
+        const observer = new IntersectionObserver(([entries]) => {
+          if (entries.isIntersecting) {
+            setPage(+el.loaderRef.current.value);
+          }
+        });
+
+        observer.observe(el.loaderRef.current);
       }
     });
   }, [feedsList]);
@@ -89,7 +100,6 @@ const Feeds: FC = () => {
         wrapperClassNames={styles["loader"]}
         height={100}
       />
-      <Loader isShown={isLoad && page === 1} />
     </>
   );
 };

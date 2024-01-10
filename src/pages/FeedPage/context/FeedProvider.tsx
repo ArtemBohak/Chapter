@@ -17,8 +17,7 @@ const FeedProvider: FC<IFeedProviderProps> = ({ children }) => {
     // const t = setInterval(() => {}, 2000);
 
     // return () => clearInterval(t);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page]);
+  }, [page, setErrorBoundary]);
 
   return (
     <FeedContext.Provider

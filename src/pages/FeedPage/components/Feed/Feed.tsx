@@ -73,7 +73,7 @@ const Feed: FC<FeedProps> = ({ nodeRef, loaderRef, pageValue, ...props }) => {
           setCommentsIsHide={setCommentsIsHide}
         />
       </div>
-      {loaderRef?.current ? <input ref={loaderRef} value={pageValue} /> : null}
+      {loaderRef ? <input ref={loaderRef} defaultValue={pageValue} /> : null}
     </div>
   );
 };
