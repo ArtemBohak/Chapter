@@ -1,11 +1,16 @@
-import { FC, useRef, useState } from "react";
+import { ChangeEvent, FC, useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 import cn from "classnames";
 
 import { ElementsId, UiMessage, links } from "@/src/types";
 import { ProfileUpdateApi } from "@/src/pages/SettingsPage/utils/ProfileUpdateApi";
 import { useNavigationToggler, useModalsContext } from "@/src/context";
-import { useErrorBoundary, useHideElement, useOutsideClick } from "@/src/hooks";
+import {
+  useDebounce,
+  useErrorBoundary,
+  useHideElement,
+  useOutsideClick,
+} from "@/src/hooks";
 import { fetchIsLogoutUser, useAppDispatch, useAppSelector } from "@/src/redux";
 import { ProfileHeaderProps } from "./ProfileHeader.type";
 import styles from "./ProfileHeader.module.scss";
@@ -18,6 +23,7 @@ import {
   PopUpMenu,
   ConfirmationWindow,
 } from "@/src/components";
+import { setDataToLS } from "@/src/utils";
 
 const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
   const { headerAddPostBtnIsDisabled } = useModalsContext();
@@ -28,6 +34,8 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
   const [showLogOutMsg, setShowLogOutMsg] = useState(false);
   const [showDeleteAccMsg, setShowDeleteAccMsg] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
+  const debouncedSearchValue = useDebounce(searchValue, 500);
   const setError = useErrorBoundary();
   const dispatch = useAppDispatch();
 
@@ -52,6 +60,21 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
   const onHandleClick = () => {
     setModalIsOpen(true);
   };
+
+  const onHandleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(e.target.value);
+  };
+
+  const handleSearch = async (searchValue: string) => {
+    console.log(searchValue);
+  };
+
+  useEffect(() => {
+    if (debouncedSearchValue !== "") {
+      handleSearch(debouncedSearchValue);
+    }
+  }, [debouncedSearchValue]);
+
   return (
     <header className={styles["profile-header"]}>
       <div className={styles["profile-header__container"]}>
@@ -73,6 +96,7 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
             dataAutomation={"search-field"}
             className={styles["profile-header__search-field"]}
             placeholder="Find your friends here"
+            onChange={onHandleChange}
           />
           <UIbutton
             onClick={onHandleClick}
