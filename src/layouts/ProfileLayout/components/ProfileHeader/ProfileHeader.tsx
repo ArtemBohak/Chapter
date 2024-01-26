@@ -23,7 +23,7 @@ import {
   PopUpMenu,
   ConfirmationWindow,
 } from "@/src/components";
-import { getDataFromLS, setDataToLS, setRecentSearch } from "@/src/utils";
+import { getDataFromLS, setRecentSearchToLS } from "@/src/utils";
 
 const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
   const { headerAddPostBtnIsDisabled } = useModalsContext();
@@ -66,9 +66,11 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
   };
 
   const handleSearch = async (searchValue: string) => {
-    const recentSearchArr = getDataFromLS("recentSearch") || [];
+    const recentSearchArr = JSON.parse(getDataFromLS("recentSearch") || "[]");
+    recentSearchArr.push(searchValue);
+    const uniqueArr: string[] = Array.from(new Set(recentSearchArr));
 
-    setRecentSearch("recentSearch", recentSearchArr.push(searchValue));
+    setRecentSearchToLS("recentSearch", uniqueArr);
   };
 
   useEffect(() => {

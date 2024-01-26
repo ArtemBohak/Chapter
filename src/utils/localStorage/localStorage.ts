@@ -17,6 +17,6 @@ export const getDataFromLS = (key: string): string | null =>
 export const removeDataFromLS = (...args: string[]) =>
   args.forEach((i) => localStorage.removeItem(i));
 
-export const setRecentSearch = (key: string, value: Array<string>) => {
+export const setRecentSearchToLS = (key: string, value: Array<string>) => {
   localStorage.setItem(key, JSON.stringify(value));
 };
