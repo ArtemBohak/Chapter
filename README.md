@@ -1,7 +1,7 @@
 # Chapter
 
 Chapter is a web application that allows users to create, manage, and organize their favorite books by categorizing them into different chapters. It provides a simple and intuitive interface for book enthusiasts to keep track of their reading progress.
-
+Technical stack: React.js and its helping libraries, Tailwind, SCSS
 ## Features
 
 - **User-Friendly Interface:** Easily add, edit, and remove books within specific chapters.
@@ -25,6 +25,8 @@ Chapter is a web application that allows users to create, manage, and organize t
 2. Navigate to the repository:
    ```bash
    cd Chapter
+   git checkout dev
+   
 
 3. Install dependencies:
    ```bash
