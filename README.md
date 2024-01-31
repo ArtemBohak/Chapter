@@ -32,19 +32,35 @@ Chapter is a web application that allows users to create, manage, and organize t
 
 4. Make sure you have the needed envs:
    VITE_GOOGLE_BASE_URL=https://www.googleapis.com/oauth2/v4
+
    VITE_GOOGLE_CLIENT_ID=[your google client id]
+
    VITE_GOOGLE_CLIENT_SECRET=[your google client secret]
+
    VITE_GOOGLE_CLIENT_STATE=[your google client state]
+
    VITE_GOOGLE_REDIRECT_URI=https://localhost:5173
+
    VITE_FACEBOOK_APP_ID=[your google facebook app id]
+
    VITE_FACEBOOK_STATE=[your facebook state]
+
    VITE_FACEBOOK_REDIRECT_URI=https://localhost:5173
+
    VITE_API_BASE_URL=https://obscure-island-84086-0710166a71eb.herokuapp.com/api/v1/
+
    VITE_BASE_OAUTH_STATE = 9lu8d7a9
+
    VITE_STATE_ID_COOKIE_LIFETIME=86400
+
    VITE_GOOGLE_BASE_URL=https://www.googleapis.com/oauth2/v4
+
    VITE_GOOGLE_STATE=googleChapter
+
    VITE_CLOUDINARY_API_BASE_URL=[your cloudinary api base url]
+
    VITE_CLOUDINARY_CLOUD_NAME=[your cloudinary cloud name]
+
    VITE_CLOUDINARY_API_KEY=[your cloudinary api key]
+
    VITE_CLOUDINARY_API_SECRET=[your cloudinary api secret]
