@@ -30,7 +30,7 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
   const { isActiveMenu, setIsActiveMenu } = useNavigationToggler();
   const { user } = useAppSelector((store) => store.userSlice);
   const { firstName, lastName, avatarUrl } = user;
-  const [showPopUp, setShowPopUp] = useState(false);
+
   const [showLogOutMsg, setShowLogOutMsg] = useState(false);
   const [showDeleteAccMsg, setShowDeleteAccMsg] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -41,8 +41,13 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
   const dispatch = useAppDispatch();
 
   const avatarRef = useRef(null);
+  const [showPopUp, setShowPopUp] = useState(false);
   useHideElement(ElementsId.ADD_POST_BTN, isActiveMenu);
   useOutsideClick(avatarRef, setShowPopUp, ElementsId.AVATAR);
+
+  const searchRef = useRef(null);
+  const [showSearchPopup, setShowSearchPopup] = useState(false);
+  useOutsideClick(searchRef, setShowSearchPopup, "search-field");
 
   useEffect(() => {
     if (debouncedSearchValue !== "") {
@@ -100,14 +105,25 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
           Chapter
         </NavLink>
         <div className={styles["profile-header__auth-side"]}>
-          <SearchField
-            id={"search-field"}
-            name={"search-field"}
-            dataAutomation={"search-field"}
-            className={styles["profile-header__search-field"]}
-            placeholder="Find your friends here"
-            onChange={onHandleChange}
-          />
+          <div className="relative">
+            <SearchField
+              id={"search-field"}
+              name={"search-field"}
+              dataAutomation={"search-field"}
+              className={styles["profile-header__search-field"]}
+              placeholder="Find your friends here"
+              onChange={onHandleChange}
+              onFocus={() => setShowSearchPopup(true)}
+            />
+            <PopUpMenu
+              isOpen={showSearchPopup}
+              setIsOpen={setShowSearchPopup}
+              nodeRef={searchRef}
+              classNames={styles["search-popup"]}
+            >
+              <div>HELLO</div>
+            </PopUpMenu>
+          </div>
           <UIbutton
             onClick={onHandleClick}
             size="small"
@@ -176,6 +192,7 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
           </UIbutton>
         </div>
       </div>
+
       <PopUpMenu
         isOpen={showPopUp}
         setIsOpen={setShowPopUp}

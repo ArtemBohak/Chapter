@@ -45,3 +45,7 @@
     @apply bg-transparent outline-none;
   }
 }
+
+.search-popup {
+  @apply hidden md:block md:w-full left-0 md:-bottom-[110px];
+}
