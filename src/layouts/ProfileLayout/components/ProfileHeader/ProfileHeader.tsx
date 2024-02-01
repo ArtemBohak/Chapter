@@ -87,7 +87,9 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
 
     recentSearchArray.push(searchValue);
 
-    setDataToLS({ recentSearch: Array.from(new Set(recentSearchArr)) });
+    setDataToLS({
+      recentSearch: Array.from(new Set(recentSearchArray.slice(-5))),
+    });
   };
 
   return (

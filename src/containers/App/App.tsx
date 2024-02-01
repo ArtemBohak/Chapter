@@ -7,6 +7,7 @@ import { Router } from "..";
 
 const App = () => {
   const dispatch = useAppDispatch();
+
   useEffect(() => {
     if (getTokenFromLC()) {
       dispatch(fetchIsAuthUser());
