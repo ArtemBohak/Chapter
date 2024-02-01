@@ -35,16 +35,25 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
   const [showDeleteAccMsg, setShowDeleteAccMsg] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [searchValue, setSearchValue] = useState("");
+  const [recentSearchArr, setRecentSearchArr] = useState<Array<string>>([]);
   const debouncedSearchValue = useDebounce(searchValue, 500);
   const setError = useErrorBoundary();
   const dispatch = useAppDispatch();
 
-  const ref = useRef(null);
+  const avatarRef = useRef(null);
   useHideElement(ElementsId.ADD_POST_BTN, isActiveMenu);
-  useOutsideClick(ref, setShowPopUp, ElementsId.AVATAR);
+  useOutsideClick(avatarRef, setShowPopUp, ElementsId.AVATAR);
 
-  const [recentSearchArr, setRecentSearchArr] = useState<Array<string>>([]);
-  console.log(recentSearchArr);
+  useEffect(() => {
+    if (debouncedSearchValue !== "") {
+      handleSearch(debouncedSearchValue);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debouncedSearchValue]);
+
+  useEffect(() => {
+    setRecentSearchArr(getDataFromLS("recentSearch") || []);
+  }, [searchValue]);
 
   const logOut = async () => {
     try {
@@ -75,17 +84,6 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
 
     setDataToLS({ recentSearch: Array.from(new Set(recentSearchArr)) });
   };
-
-  useEffect(() => {
-    if (debouncedSearchValue !== "") {
-      handleSearch(debouncedSearchValue);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debouncedSearchValue]);
-
-  useEffect(() => {
-    setRecentSearchArr(getDataFromLS("recentSearch") || []);
-  }, [searchValue]);
 
   return (
     <header className={styles["profile-header"]}>
@@ -178,7 +176,11 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
           </UIbutton>
         </div>
       </div>
-      <PopUpMenu isOpen={showPopUp} setIsOpen={setShowPopUp} nodeRef={ref}>
+      <PopUpMenu
+        isOpen={showPopUp}
+        setIsOpen={setShowPopUp}
+        nodeRef={avatarRef}
+      >
         <div className={styles["menu"]}>
           <button
             data-automation="clickButton"
