@@ -114,6 +114,7 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
               placeholder="Find your friends here"
               onChange={onHandleChange}
               onFocus={() => setShowSearchPopup(true)}
+              autoComplete="off"
             />
             <PopUpMenu
               isOpen={showSearchPopup}
