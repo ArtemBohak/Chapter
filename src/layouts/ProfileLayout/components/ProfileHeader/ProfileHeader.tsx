@@ -43,6 +43,9 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
   useHideElement(ElementsId.ADD_POST_BTN, isActiveMenu);
   useOutsideClick(ref, setShowPopUp, ElementsId.AVATAR);
 
+  const [recentSearchArr, setRecentSearchArr] = useState<Array<string>>([]);
+  console.log(recentSearchArr);
+
   const logOut = async () => {
     try {
       setIsLoading(true);
@@ -66,9 +69,9 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
   };
 
   const handleSearch = async (searchValue: string) => {
-    const recentSearchArr = getDataFromLS<Array<string>>("recentSearch") || [];
+    const recentSearchArray = recentSearchArr;
 
-    recentSearchArr.push(searchValue);
+    recentSearchArray.push(searchValue);
 
     setDataToLS({ recentSearch: Array.from(new Set(recentSearchArr)) });
   };
@@ -77,7 +80,12 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
     if (debouncedSearchValue !== "") {
       handleSearch(debouncedSearchValue);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedSearchValue]);
+
+  useEffect(() => {
+    setRecentSearchArr(getDataFromLS("recentSearch") || []);
+  }, [searchValue]);
 
   return (
     <header className={styles["profile-header"]}>
