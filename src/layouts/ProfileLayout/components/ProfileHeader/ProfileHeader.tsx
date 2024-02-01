@@ -66,7 +66,8 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
   };
 
   const handleSearch = async (searchValue: string) => {
-    const recentSearchArr = JSON.parse(getDataFromLS("recentSearch") || "[]");
+    const recentSearchArr = getDataFromLS<Array<string>>("recentSearch") || [];
+
     recentSearchArr.push(searchValue);
 
     setDataToLS({ recentSearch: Array.from(new Set(recentSearchArr)) });

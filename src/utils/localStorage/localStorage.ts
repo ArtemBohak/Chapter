@@ -11,8 +11,12 @@ export const setDataToLS = (data: LocaleStorageArgs) =>
     localStorage.setItem(i, JSON.stringify(data[i as keyof LocaleStorageArgs]));
   });
 
-export const getDataFromLS = (key: string): string =>
-  JSON.parse(localStorage.getItem(key) || "");
+export const getDataFromLS = <T>(key: string): T | null => {
+  const k = localStorage.getItem(key);
+  if (k) return JSON.parse(k);
+
+  return null;
+};
 
 export const removeDataFromLS = (...args: string[]) =>
   args.forEach((i) => localStorage.removeItem(i));
