@@ -114,17 +114,37 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
               dataAutomation={"search-field"}
               className={styles["profile-header__search-field"]}
               placeholder="Find your friends here"
+              value={searchValue}
               onChange={onHandleChange}
               onFocus={() => setShowSearchPopup(true)}
               autoComplete="off"
             />
             <PopUpMenu
-              isOpen={showSearchPopup}
+              isOpen={!!recentSearchArr.length && showSearchPopup}
               setIsOpen={setShowSearchPopup}
               nodeRef={searchRef}
               classNames={styles["search-popup"]}
             >
-              <div>HELLO</div>
+              <div>
+                <p>Recent</p>
+                <ul>
+                  {recentSearchArr.map((el, i) => {
+                    return (
+                      <li key={i}>
+                        <button
+                          onClick={(e) => {
+                            setSearchValue(e.currentTarget.value);
+                            setShowSearchPopup(false);
+                          }}
+                          value={el}
+                        >
+                          {el}
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
             </PopUpMenu>
           </div>
           <UIbutton
