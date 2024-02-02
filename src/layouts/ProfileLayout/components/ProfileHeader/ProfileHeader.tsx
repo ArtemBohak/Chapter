@@ -24,6 +24,7 @@ import {
   ConfirmationWindow,
 } from "@/src/components";
 import { getDataFromLS, setDataToLS } from "@/src/utils";
+import { EndpointsEnum, api } from "@/src/axios";
 
 const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
   const { headerAddPostBtnIsDisabled } = useModalsContext();
@@ -84,7 +85,10 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
 
   const handleSearch = async (searchValue: string) => {
     const recentSearchArray = recentSearchArr;
-
+    const res = await api.get(EndpointsEnum.USERS_SEARCH, {
+      params: { query: searchValue },
+    });
+    console.log(res.data);
     recentSearchArray.push(searchValue);
 
     setDataToLS({

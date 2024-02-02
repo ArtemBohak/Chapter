@@ -18,11 +18,12 @@ export enum EndpointsEnum {
   RESENT_OTP = "auth/refresh-unique-token",
   USERS = "users",
   USERS_PROFILE = "users/profile/",
+  USERS_SEARCH = "users/search",
   PROFILE = "users/me",
   UPDATE_PASSWORD = "users/update-password",
   UPLOAD_FILES = "files/upload",
   FILES = "files/",
   CREATE_POST = "posts/create",
   USERS_BOOKS = "users/books",
-  BOOK_FAVORITE_STATUS = "users/toggle-favorite-status"
+  BOOK_FAVORITE_STATUS = "users/toggle-favorite-status",
 }
