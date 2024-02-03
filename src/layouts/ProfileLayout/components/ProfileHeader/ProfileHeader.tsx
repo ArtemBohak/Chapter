@@ -1,16 +1,11 @@
-import { ChangeEvent, FC, useEffect, useRef, useState } from "react";
+import { FC, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 import cn from "classnames";
 
 import { ElementsId, UiMessage, links } from "@/src/types";
 import { ProfileUpdateApi } from "@/src/pages/SettingsPage/utils/ProfileUpdateApi";
 import { useNavigationToggler, useModalsContext } from "@/src/context";
-import {
-  useDebounce,
-  useErrorBoundary,
-  useHideElement,
-  useOutsideClick,
-} from "@/src/hooks";
+import { useErrorBoundary, useHideElement, useOutsideClick } from "@/src/hooks";
 import { fetchIsLogoutUser, useAppDispatch, useAppSelector } from "@/src/redux";
 import { ProfileHeaderProps } from "./ProfileHeader.type";
 import styles from "./ProfileHeader.module.scss";
@@ -19,25 +14,23 @@ import {
   UserAvatar,
   UIbutton,
   MenuToggler,
-  SearchField,
   PopUpMenu,
   ConfirmationWindow,
 } from "@/src/components";
-import { getDataFromLS, setDataToLS } from "@/src/utils";
-import { EndpointsEnum, api } from "@/src/axios";
+
+import { SearchBar } from "../SearchBar";
 
 const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
   const { headerAddPostBtnIsDisabled } = useModalsContext();
   const { isActiveMenu, setIsActiveMenu } = useNavigationToggler();
-  const { user } = useAppSelector((store) => store.userSlice);
-  const { firstName, lastName, avatarUrl } = user;
+  const {
+    user: { firstName, lastName, avatarUrl },
+  } = useAppSelector((store) => store.userSlice);
 
   const [showLogOutMsg, setShowLogOutMsg] = useState(false);
   const [showDeleteAccMsg, setShowDeleteAccMsg] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [searchValue, setSearchValue] = useState("");
-  const [recentSearchArr, setRecentSearchArr] = useState<Array<string>>([]);
-  const debouncedSearchValue = useDebounce(searchValue, 500);
+
   const setError = useErrorBoundary();
   const dispatch = useAppDispatch();
 
@@ -45,21 +38,6 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
   const [showPopUp, setShowPopUp] = useState(false);
   useHideElement(ElementsId.ADD_POST_BTN, isActiveMenu);
   useOutsideClick(avatarRef, setShowPopUp, ElementsId.AVATAR);
-
-  const searchRef = useRef(null);
-  const [showSearchPopup, setShowSearchPopup] = useState(false);
-  useOutsideClick(searchRef, setShowSearchPopup, "search-field");
-
-  useEffect(() => {
-    if (debouncedSearchValue !== "") {
-      handleSearch(debouncedSearchValue);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debouncedSearchValue]);
-
-  useEffect(() => {
-    setRecentSearchArr(getDataFromLS("recentSearch") || []);
-  }, [searchValue]);
 
   const logOut = async () => {
     try {
@@ -79,23 +57,6 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
     setModalIsOpen(true);
   };
 
-  const onHandleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(e.target.value);
-  };
-
-  const handleSearch = async (searchValue: string) => {
-    const recentSearchArray = recentSearchArr;
-    const res = await api.get(EndpointsEnum.USERS_SEARCH, {
-      params: { query: searchValue },
-    });
-    console.log(res.data);
-    recentSearchArray.push(searchValue);
-
-    setDataToLS({
-      recentSearch: Array.from(new Set(recentSearchArray.slice(-5))),
-    });
-  };
-
   return (
     <header className={styles["profile-header"]}>
       <div className={styles["profile-header__container"]}>
@@ -111,46 +72,7 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
           Chapter
         </NavLink>
         <div className={styles["profile-header__auth-side"]}>
-          <div className="relative">
-            <SearchField
-              id={"search-field"}
-              name={"search-field"}
-              dataAutomation={"search-field"}
-              className={styles["profile-header__search-field"]}
-              placeholder="Find your friends here"
-              value={searchValue}
-              onChange={onHandleChange}
-              onFocus={() => setShowSearchPopup(true)}
-              autoComplete="off"
-            />
-            <PopUpMenu
-              isOpen={!!recentSearchArr.length && showSearchPopup}
-              setIsOpen={setShowSearchPopup}
-              nodeRef={searchRef}
-              classNames={styles["search-popup"]}
-            >
-              <div>
-                <p>Recent</p>
-                <ul>
-                  {recentSearchArr.map((el, i) => {
-                    return (
-                      <li key={i}>
-                        <button
-                          onClick={(e) => {
-                            setSearchValue(e.currentTarget.value);
-                            setShowSearchPopup(false);
-                          }}
-                          value={el}
-                        >
-                          {el}
-                        </button>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-            </PopUpMenu>
-          </div>
+          <SearchBar inputClassName={styles["profile-header__search-field"]} />
           <UIbutton
             onClick={onHandleClick}
             size="small"
@@ -219,7 +141,6 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
           </UIbutton>
         </div>
       </div>
-
       <PopUpMenu
         isOpen={showPopUp}
         setIsOpen={setShowPopUp}
