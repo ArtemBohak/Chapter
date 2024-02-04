@@ -21,22 +21,28 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
   const [searchValue, setSearchValue] = useState("");
   const [recentSearchArr, setRecentSearchArr] = useState<Array<string>>([]);
   const [showRecentSearchPopup, setShowRecentSearchPopup] = useState(false);
+  const [showNotFoundPopup, setShowNotFoundPopup] = useState(false);
+  const [resultArr, setResultArr] = useState(null);
 
   const searchRef = useRef(null);
+  const notFoundRef = useRef(null);
 
   const debouncedSearchValue = useDebounce(searchValue, 500);
 
   const setError = useErrorBoundary();
 
   useOutsideClick(searchRef, setShowRecentSearchPopup, "search-field");
+  useOutsideClick(notFoundRef, setShowNotFoundPopup, "search-field");
 
   const handleSearch = async (searchValue: string) => {
     try {
+      setShowNotFoundPopup(false);
       const recentSearchArray = recentSearchArr;
       const res = await api.get(EndpointsEnum.USERS_SEARCH, {
         params: { query: searchValue },
       });
-      console.log(res.data);
+
+      setResultArr(res.data);
       recentSearchArray.push(searchValue);
 
       setDataToLS({
@@ -45,6 +51,11 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
     } catch (e) {
       if (e instanceof AxiosError) {
         setError(e);
+
+        if (e.response?.status === 404) {
+          setShowRecentSearchPopup(false);
+          setShowNotFoundPopup(true);
+        }
       }
     }
   };
@@ -89,24 +100,52 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
         autoComplete="off"
       />
       <PopUpMenu
-        isOpen={!!recentSearchArr.length && showRecentSearchPopup}
+        isOpen={
+          (!!recentSearchArr.length && showRecentSearchPopup) ||
+          resultArr.length
+        }
         setIsOpen={setShowRecentSearchPopup}
         nodeRef={searchRef}
         classNames={styles["search__popup"]}
       >
+        {resultArr && resultArr.length ? (
+          <div>
+            <p>Result</p>
+            <ul>
+              {resultArr.map((el) => {
+                return (
+                  <li key={el.id}>
+                    <img src={el.avatarUrl} width={40} height={40} />
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        ) : (
+          <div>
+            <p>Recent</p>
+            <ul>
+              {recentSearchArr.map((el, i) => {
+                return (
+                  <li key={i}>
+                    <button onClick={onHandleRecentSearchValueClick} value={el}>
+                      {el}
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        )}
+      </PopUpMenu>
+      <PopUpMenu
+        isOpen={showNotFoundPopup}
+        setIsOpen={setShowNotFoundPopup}
+        nodeRef={notFoundRef}
+        classNames={styles["search__popup"]}
+      >
         <div>
-          <p>Recent</p>
-          <ul>
-            {recentSearchArr.map((el, i) => {
-              return (
-                <li key={i}>
-                  <button onClick={onHandleRecentSearchValueClick} value={el}>
-                    {el}
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
+          <p>Nothing found.</p>
         </div>
       </PopUpMenu>
     </div>
