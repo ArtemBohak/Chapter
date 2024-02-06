@@ -78,6 +78,7 @@ const FormCreateAccount: FC = () => {
         .trim()
         .split(" ")
         .filter((el) => el);
+      console.log(firstName, lastName, firstName.length, lastName.length)
 
       const { nickName, confirm_password, password } = values;
 
@@ -168,7 +169,7 @@ const FormCreateAccount: FC = () => {
             <TextField
               id="fullname"
               name="fullname"
-              label="Full Name"
+              label="Full name"
               value={values.fullname}
               placeholder="ex. John Brick, Dina O’neal, Jonathan... "
               dataAutomation="fullname"
