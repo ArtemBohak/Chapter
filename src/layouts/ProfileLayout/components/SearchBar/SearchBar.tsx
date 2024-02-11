@@ -7,23 +7,29 @@ import {
   useRef,
   useState,
 } from "react";
+import { AxiosError } from "axios";
 
 import { EndpointsEnum, api } from "@/src/axios";
 import { useDebounce, useErrorBoundary, useOutsideClick } from "@/src/hooks";
 import { getDataFromLS, setDataToLS } from "@/src/utils";
 import { ISearchBar } from "./SearchBar.type";
+import { IUser } from "@/src/types";
 import styles from "./SearchBar.module.scss";
 
 import { PopUpMenu, SearchField } from "@/src/components";
-import { AxiosError } from "axios";
+
+import defaultAvatar from "@/src/assets/SVG/default-user-avatar.svg";
 
 const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
   const [searchValue, setSearchValue] = useState("");
+  const debouncedSearchValue = useDebounce(searchValue, 500);
 
-  const [recentSearchArr, setRecentSearchArr] = useState<Array<string>>([]);
+  const [recentSearchArr] = useState<Array<string>>(
+    getDataFromLS("recentSearch") || []
+  );
   const [showRecentSearchPopup, setShowRecentSearchPopup] = useState(false);
 
-  const [resultArr, setResultArr] = useState(null);
+  const [resultArr, setResultArr] = useState<Array<IUser>>([]);
   const [showResultPopup, setShowResultPopup] = useState(false);
 
   const [showNotFoundPopup, setShowNotFoundPopup] = useState(false);
@@ -32,13 +38,11 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
   const notFoundRef = useRef(null);
   const resultRef = useRef(null);
 
-  const debouncedSearchValue = useDebounce(searchValue, 500);
-
-  const setError = useErrorBoundary();
-
   useOutsideClick(searchRef, setShowRecentSearchPopup, "search-field");
   useOutsideClick(resultRef, setShowResultPopup, "search-field");
   useOutsideClick(notFoundRef, setShowNotFoundPopup, "search-field");
+
+  const setError = useErrorBoundary();
 
   const handleSearch = async (searchValue: string) => {
     try {
@@ -51,8 +55,8 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
         setResultArr(res.data);
         setShowRecentSearchPopup(false);
         setShowResultPopup(true);
-
-        recentSearchArray.push(searchValue);
+        if (!recentSearchArr.includes(searchValue))
+          recentSearchArray.push(searchValue);
 
         setDataToLS({
           recentSearch: Array.from(new Set(recentSearchArray.slice(-5))),
@@ -92,9 +96,9 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedSearchValue]);
 
-  useEffect(() => {
-    setRecentSearchArr(getDataFromLS("recentSearch") || []);
-  }, [searchValue]);
+  // useEffect(() => {
+  //   setRecentSearchArr(getDataFromLS("recentSearch") || []);
+  // }, [searchValue]);
 
   return (
     <div className={styles["search__wrapper"]}>
@@ -131,22 +135,25 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
         </div>
       </PopUpMenu>
       <PopUpMenu
-        isOpen={showResultPopup && !!resultArr && !!resultArr.length}
+        isOpen={showResultPopup}
         setIsOpen={setShowResultPopup}
-        nodeRef={searchRef}
+        nodeRef={resultRef}
         classNames={styles["popup"]}
       >
         <div>
           <p>Result</p>
           <ul>
-            {resultArr &&
-              resultArr.map((el) => {
-                return (
-                  <li key={el.id}>
-                    <img src={el.avatarUrl} width={40} height={40} />
-                  </li>
-                );
-              })}
+            {resultArr.map((el) => {
+              return (
+                <li key={el.id}>
+                  <img
+                    src={el.avatarUrl || defaultAvatar}
+                    width={40}
+                    height={40}
+                  />
+                </li>
+              );
+            })}
           </ul>
         </div>
       </PopUpMenu>

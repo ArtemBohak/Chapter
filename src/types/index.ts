@@ -5,5 +5,6 @@ export * from "./keysValue/keysValue";
 export * from "./files/files.type";
 export * from "./app/post.type";
 export * from "./app/class.type";
+export * from "./app/user.type";
 export * from "./elementsId/elementsId.type";
 export * from "./uiMessage/uiMessage.type";
