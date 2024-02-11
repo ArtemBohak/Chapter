@@ -19,19 +19,25 @@ import { AxiosError } from "axios";
 
 const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
   const [searchValue, setSearchValue] = useState("");
+
   const [recentSearchArr, setRecentSearchArr] = useState<Array<string>>([]);
   const [showRecentSearchPopup, setShowRecentSearchPopup] = useState(false);
-  const [showNotFoundPopup, setShowNotFoundPopup] = useState(false);
+
   const [resultArr, setResultArr] = useState(null);
+  const [showResultPopup, setShowResultPopup] = useState(false);
+
+  const [showNotFoundPopup, setShowNotFoundPopup] = useState(false);
 
   const searchRef = useRef(null);
   const notFoundRef = useRef(null);
+  const resultRef = useRef(null);
 
   const debouncedSearchValue = useDebounce(searchValue, 500);
 
   const setError = useErrorBoundary();
 
   useOutsideClick(searchRef, setShowRecentSearchPopup, "search-field");
+  useOutsideClick(resultRef, setShowResultPopup, "search-field");
   useOutsideClick(notFoundRef, setShowNotFoundPopup, "search-field");
 
   const handleSearch = async (searchValue: string) => {
@@ -41,13 +47,17 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
       const res = await api.get(EndpointsEnum.USERS_SEARCH, {
         params: { query: searchValue },
       });
+      if (res.data.length) {
+        setResultArr(res.data);
+        setShowRecentSearchPopup(false);
+        setShowResultPopup(true);
 
-      setResultArr(res.data);
-      recentSearchArray.push(searchValue);
+        recentSearchArray.push(searchValue);
 
-      setDataToLS({
-        recentSearch: Array.from(new Set(recentSearchArray.slice(-5))),
-      });
+        setDataToLS({
+          recentSearch: Array.from(new Set(recentSearchArray.slice(-5))),
+        });
+      }
     } catch (e) {
       if (e instanceof AxiosError) {
         setError(e);
@@ -100,43 +110,45 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
         autoComplete="off"
       />
       <PopUpMenu
-        isOpen={
-          (!!recentSearchArr.length && showRecentSearchPopup) ||
-          resultArr.length
-        }
+        isOpen={showRecentSearchPopup}
         setIsOpen={setShowRecentSearchPopup}
         nodeRef={searchRef}
-        classNames={styles["search__popup"]}
+        classNames={styles["popup"]}
       >
-        {resultArr && resultArr.length ? (
-          <div>
-            <p>Result</p>
-            <ul>
-              {resultArr.map((el) => {
+        <div>
+          <p>Recent</p>
+          <ul>
+            {recentSearchArr.map((el, i) => {
+              return (
+                <li key={i}>
+                  <button onClick={onHandleRecentSearchValueClick} value={el}>
+                    {el}
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </PopUpMenu>
+      <PopUpMenu
+        isOpen={showResultPopup && !!resultArr && !!resultArr.length}
+        setIsOpen={setShowResultPopup}
+        nodeRef={searchRef}
+        classNames={styles["popup"]}
+      >
+        <div>
+          <p>Result</p>
+          <ul>
+            {resultArr &&
+              resultArr.map((el) => {
                 return (
                   <li key={el.id}>
                     <img src={el.avatarUrl} width={40} height={40} />
                   </li>
                 );
               })}
-            </ul>
-          </div>
-        ) : (
-          <div>
-            <p>Recent</p>
-            <ul>
-              {recentSearchArr.map((el, i) => {
-                return (
-                  <li key={i}>
-                    <button onClick={onHandleRecentSearchValueClick} value={el}>
-                      {el}
-                    </button>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-        )}
+          </ul>
+        </div>
       </PopUpMenu>
       <PopUpMenu
         isOpen={showNotFoundPopup}
@@ -153,3 +165,19 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
 };
 
 export default SearchBar;
+//  {resultArr && resultArr.length ? (
+//           <div>
+//             <p>Result</p>
+//             <ul>
+//               {resultArr.map((el) => {
+//                 return (
+//                   <li key={el.id}>
+//                     <img src={el.avatarUrl} width={40} height={40} />
+//                   </li>
+//                 );
+//               })}
+//             </ul>
+//           </div>
+//         ) : (
+
+//         )}

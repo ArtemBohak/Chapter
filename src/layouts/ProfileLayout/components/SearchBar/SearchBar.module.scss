@@ -2,8 +2,8 @@
   &__wrapper {
     @apply relative;
   }
+}
 
-  &__popup {
-    @apply hidden  md:block  md:w-full left-0 md:-bottom-[110px];
-  }
+.popup {
+  @apply hidden  md:block  md:w-full left-0 md:-bottom-[110px];
 }
