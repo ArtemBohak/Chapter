@@ -18,6 +18,7 @@ import {
   BooksPage,
   GuestProfilePage,
   ErrorBoundary,
+  SearchPage,
 } from "@/src/pages";
 import { PublicLayout, ProfileLayout } from "@/src/layouts";
 
@@ -92,6 +93,7 @@ const router = createBrowserRouter([
         path: links.SETTINGS,
         element: <SettingsPage />,
       },
+      { path: links.SEARCH, element: <SearchPage /> },
       {
         path: "/books",
         element: <BooksPage />,

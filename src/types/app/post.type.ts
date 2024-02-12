@@ -8,7 +8,7 @@ export interface IPost {
   id: string | number;
   avatar: string | null;
   nickName: string;
-  imageUrl: string;
+  imgUrl: string;
   followList: IdList;
   likesList: IdList;
   totalLikes: number;

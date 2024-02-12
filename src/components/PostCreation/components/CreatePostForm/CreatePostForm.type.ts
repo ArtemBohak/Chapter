@@ -8,5 +8,5 @@ export type CreatePostFormProps = {
   setTitle: Dispatch<SetStateAction<string>>;
   setCaption: Dispatch<SetStateAction<string>>;
   setFile: Dispatch<SetStateAction<File | null>>;
-} & Pick<IPost, "imageUrl" | "title" | "caption"> &
+} & Pick<IPost, "imgUrl" | "title" | "caption"> &
   SetIsOpenType;

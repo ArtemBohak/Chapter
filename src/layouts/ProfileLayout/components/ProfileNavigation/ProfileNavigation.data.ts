@@ -1,10 +1,11 @@
 import { NavigationLinkProps } from "./ProfileNavigation.type";
 import { IconEnum } from "../../../../components/Icon";
+import { links } from "@/src/types";
 
 export const navigation: NavigationLinkProps[] = [
   {
     id: "1",
-    path: "/feed",
+    path: links.FEED,
     icon: IconEnum.Home,
     name: "Feed",
   },
@@ -17,13 +18,13 @@ export const navigation: NavigationLinkProps[] = [
   {
     id: "3",
 
-    path: "/",
+    path: links.SEARCH,
     icon: IconEnum.Search,
     name: "Search",
   },
   {
     id: "4",
-    path: "/profile",
+    path: links.PROFILE,
     icon: IconEnum.User,
     name: "Profile",
   },
@@ -32,7 +33,7 @@ export const navigation: NavigationLinkProps[] = [
 export const bottomNavigation: NavigationLinkProps[] = [
   {
     id: "5",
-    path: "/settings",
+    path: links.SETTINGS,
     icon: IconEnum.Settings,
     name: "Settings",
   },

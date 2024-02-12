@@ -13,7 +13,7 @@ import { EndpointsEnum, api } from "@/src/axios";
 import { useDebounce, useErrorBoundary, useOutsideClick } from "@/src/hooks";
 import { getDataFromLS, setDataToLS } from "@/src/utils";
 import { ISearchBar } from "./SearchBar.type";
-import { IUser } from "@/src/types";
+import { IUser, links } from "@/src/types";
 import styles from "./SearchBar.module.scss";
 
 import { PopUpMenu, SearchField } from "@/src/components";
@@ -25,10 +25,10 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
   const [searchValue, setSearchValue] = useState("");
   const debouncedSearchValue = useDebounce(searchValue, 500);
 
-  const [recentSearchArr] = useState<Array<string>>(
+  const [recentSearchArr, setRecentSearchArr] = useState<Array<string>>(
     getDataFromLS("recentSearch") || []
   );
-  const [showRecentSearchPopup, setShowRecentSearchPopup] = useState(true);
+  const [showRecentSearchPopup, setShowRecentSearchPopup] = useState(false);
 
   const [resultArr, setResultArr] = useState<Array<IUser>>([]);
   const [showResultPopup, setShowResultPopup] = useState(false);
@@ -63,6 +63,7 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
         setDataToLS({
           recentSearch: Array.from(new Set(recentSearchArray.slice(-5))),
         });
+        setSearchValue("");
       }
     } catch (e) {
       if (e instanceof AxiosError) {
@@ -74,8 +75,6 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
           setShowNotFoundPopup(true);
         }
       }
-    } finally {
-      setSearchValue("");
     }
   };
 
@@ -87,7 +86,7 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
     setShowRecentSearchPopup(true);
   };
 
-  const onHandleRecentSearchValueClick = (
+  const onHandleRecentSearchClick = (
     e: MouseEvent<HTMLButtonElement> | TouchEvent<HTMLButtonElement>
   ) => {
     setSearchValue(e.currentTarget.value);
@@ -99,6 +98,10 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
       handleSearch(debouncedSearchValue);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debouncedSearchValue]);
+
+  useEffect(() => {
+    setRecentSearchArr(getDataFromLS("recentSearch") || []);
   }, [debouncedSearchValue]);
 
   return (
@@ -118,7 +121,7 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
         isOpen={showRecentSearchPopup && !!recentSearchArr.length}
         setIsOpen={setShowRecentSearchPopup}
         nodeRef={searchRef}
-        backdropClassName={`${styles["popup"]} ${styles["popup-recent"]}`}
+        backdropClassName={`${styles["popup"]} ${styles["recent"]}`}
         bodyClassName={styles["popup__body"]}
         contentWrapperClassNames={`${styles["popup__content-wrapper"]} ${styles["recent"]}`}
       >
@@ -128,7 +131,7 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
             {recentSearchArr.map((el, i) => {
               return (
                 <li key={i}>
-                  <button onClick={onHandleRecentSearchValueClick} value={el}>
+                  <button onClick={onHandleRecentSearchClick} value={el}>
                     {el}
                   </button>
                 </li>
@@ -141,31 +144,44 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
         isOpen={showResultPopup}
         setIsOpen={setShowResultPopup}
         nodeRef={resultRef}
-        backdropClassName={styles["popup"]}
+        backdropClassName={`${styles["popup"]} ${styles["search"]}`}
         bodyClassName={styles["popup__body"]}
-        contentWrapperClassNames={styles["popup__content-wrapper"]}
+        contentWrapperClassNames={`${styles["popup__content-wrapper"]} ${styles["search"]}`}
       >
         <>
-          <p>Result</p>
-          <ul>
-            {resultArr.map((el) => {
-              return (
-                <li key={el.id}>
-                  <Link
-                    to={`${el.id}`}
-                    onClick={() => setShowResultPopup(false)}
-                  >
-                    <img
-                      src={el.avatarUrl || defaultAvatar}
-                      width={40}
-                      height={40}
-                    />
-                    <p>{el.nickName}</p>
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
+          <div>
+            <p>Result</p>
+            <ul>
+              {resultArr.slice(0, 5).map((el) => {
+                return (
+                  <li key={el.id}>
+                    <Link
+                      to={`${el.id}`}
+                      onClick={() => setShowResultPopup(false)}
+                      className={styles["nickname"]}
+                    >
+                      <img
+                        src={el.avatarUrl || defaultAvatar}
+                        width={40}
+                        height={40}
+                      />
+                      <span>{el.nickName}</span>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+          {resultArr.length > 1 ? (
+            <Link
+              to={links.SEARCH}
+              state={resultArr}
+              className={styles["link"]}
+              onClick={() => setShowResultPopup(false)}
+            >
+              See more
+            </Link>
+          ) : null}
         </>
       </PopUpMenu>
       <PopUpMenu

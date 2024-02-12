@@ -59,7 +59,7 @@ const PostPreview: FC<PostPreviewProps> = ({
         if (res.code) {
           return setError(apiUiMessage.ERROR_MESSAGE);
         }
-        body.imageUrl = res.secure_url;
+        body.imgUrl = res.secure_url;
       }
 
       if (props.caption) body.caption = props.caption;
