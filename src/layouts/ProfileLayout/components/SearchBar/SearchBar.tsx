@@ -19,6 +19,7 @@ import styles from "./SearchBar.module.scss";
 import { PopUpMenu, SearchField } from "@/src/components";
 
 import defaultAvatar from "@/src/assets/SVG/default-user-avatar.svg";
+import { Link } from "react-router-dom";
 
 const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
   const [searchValue, setSearchValue] = useState("");
@@ -61,6 +62,7 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
         setDataToLS({
           recentSearch: Array.from(new Set(recentSearchArray.slice(-5))),
         });
+        setSearchValue("");
       }
     } catch (e) {
       if (e instanceof AxiosError) {
@@ -68,6 +70,7 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
 
         if (e.response?.status === 404) {
           setShowRecentSearchPopup(false);
+          setShowResultPopup(false);
           setShowNotFoundPopup(true);
         }
       }
@@ -114,7 +117,7 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
         autoComplete="off"
       />
       <PopUpMenu
-        isOpen={showRecentSearchPopup}
+        isOpen={showRecentSearchPopup && !!recentSearchArr.length}
         setIsOpen={setShowRecentSearchPopup}
         nodeRef={searchRef}
         classNames={styles["popup"]}
@@ -146,11 +149,17 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
             {resultArr.map((el) => {
               return (
                 <li key={el.id}>
-                  <img
-                    src={el.avatarUrl || defaultAvatar}
-                    width={40}
-                    height={40}
-                  />
+                  <Link
+                    to={`${el.id}`}
+                    onClick={() => setShowResultPopup(false)}
+                  >
+                    <img
+                      src={el.avatarUrl || defaultAvatar}
+                      width={40}
+                      height={40}
+                    />
+                    <p>{el.nickName}</p>
+                  </Link>
                 </li>
               );
             })}
