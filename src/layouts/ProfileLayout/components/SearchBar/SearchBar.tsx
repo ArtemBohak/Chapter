@@ -62,7 +62,6 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
         setDataToLS({
           recentSearch: Array.from(new Set(recentSearchArray.slice(-5))),
         });
-        setSearchValue("");
       }
     } catch (e) {
       if (e instanceof AxiosError) {
@@ -74,6 +73,8 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
           setShowNotFoundPopup(true);
         }
       }
+    } finally {
+      setSearchValue("");
     }
   };
 
@@ -99,10 +100,6 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedSearchValue]);
 
-  // useEffect(() => {
-  //   setRecentSearchArr(getDataFromLS("recentSearch") || []);
-  // }, [searchValue]);
-
   return (
     <div className={styles["search__wrapper"]}>
       <SearchField
@@ -120,7 +117,7 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
         isOpen={showRecentSearchPopup && !!recentSearchArr.length}
         setIsOpen={setShowRecentSearchPopup}
         nodeRef={searchRef}
-        classNames={styles["popup"]}
+        backdropClassName={styles["popup"]}
       >
         <div>
           <p>Recent</p>
@@ -141,7 +138,7 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
         isOpen={showResultPopup}
         setIsOpen={setShowResultPopup}
         nodeRef={resultRef}
-        classNames={styles["popup"]}
+        backdropClassName={styles["popup"]}
       >
         <div>
           <p>Result</p>
@@ -170,7 +167,7 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
         isOpen={showNotFoundPopup}
         setIsOpen={setShowNotFoundPopup}
         nodeRef={notFoundRef}
-        classNames={styles["search__popup"]}
+        backdropClassName={styles["search__popup"]}
       >
         <div>
           <p>Nothing found.</p>
@@ -181,19 +178,3 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
 };
 
 export default SearchBar;
-//  {resultArr && resultArr.length ? (
-//           <div>
-//             <p>Result</p>
-//             <ul>
-//               {resultArr.map((el) => {
-//                 return (
-//                   <li key={el.id}>
-//                     <img src={el.avatarUrl} width={40} height={40} />
-//                   </li>
-//                 );
-//               })}
-//             </ul>
-//           </div>
-//         ) : (
-
-//         )}

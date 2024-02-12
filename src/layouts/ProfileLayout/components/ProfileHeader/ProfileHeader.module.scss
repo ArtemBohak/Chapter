@@ -38,10 +38,19 @@
   }
 }
 
-.menu {
-  @apply flex flex-col items-start gap-2-md p-2-xs;
+.popup {
+  @apply hidden md:block right-2-xs laptop_md:right-[60px] md:-bottom-[70px] bg-transparent w-[282px] h-[108px];
 
-  & > button {
-    @apply bg-transparent outline-none;
+  &__body {
+    @apply w-full h-full bg-[#FAFAFA] rounded-lg  border-grey-1010 overflow-hidden;
+    box-shadow: 0px 4px 20px 0px rgba(124, 124, 124, 0.52);
+  }
+
+  &__content-wrapper {
+    @apply w-full h-full flex flex-col items-start gap-2-md p-2-xs;
+
+    & > button {
+      @apply bg-transparent outline-none;
+    }
   }
 }

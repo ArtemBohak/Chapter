@@ -145,8 +145,11 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
         isOpen={showPopUp}
         setIsOpen={setShowPopUp}
         nodeRef={avatarRef}
+        backdropClassName={styles["popup"]}
+        bodyClassName={styles["popup__body"]}
+        contentWrapperClassNames={styles["popup__content-wrapper"]}
       >
-        <div className={styles["menu"]}>
+        <>
           <button
             data-automation="clickButton"
             onClick={() => setShowLogOutMsg(true)}
@@ -159,7 +162,7 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
           >
             Delete user account
           </button>
-        </div>
+        </>
       </PopUpMenu>
       <ConfirmationWindow
         text={UiMessage.LOG_OUT}
