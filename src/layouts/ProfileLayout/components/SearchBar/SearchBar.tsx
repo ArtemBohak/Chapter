@@ -28,7 +28,7 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
   const [recentSearchArr] = useState<Array<string>>(
     getDataFromLS("recentSearch") || []
   );
-  const [showRecentSearchPopup, setShowRecentSearchPopup] = useState(false);
+  const [showRecentSearchPopup, setShowRecentSearchPopup] = useState(true);
 
   const [resultArr, setResultArr] = useState<Array<IUser>>([]);
   const [showResultPopup, setShowResultPopup] = useState(false);
@@ -48,6 +48,7 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
   const handleSearch = async (searchValue: string) => {
     try {
       setShowNotFoundPopup(false);
+
       const recentSearchArray = recentSearchArr;
       const res = await api.get(EndpointsEnum.USERS_SEARCH, {
         params: { query: searchValue },
@@ -117,9 +118,11 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
         isOpen={showRecentSearchPopup && !!recentSearchArr.length}
         setIsOpen={setShowRecentSearchPopup}
         nodeRef={searchRef}
-        backdropClassName={styles["popup"]}
+        backdropClassName={`${styles["popup"]} ${styles["popup-recent"]}`}
+        bodyClassName={styles["popup__body"]}
+        contentWrapperClassNames={`${styles["popup__content-wrapper"]} ${styles["recent"]}`}
       >
-        <div>
+        <>
           <p>Recent</p>
           <ul>
             {recentSearchArr.map((el, i) => {
@@ -132,15 +135,17 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
               );
             })}
           </ul>
-        </div>
+        </>
       </PopUpMenu>
       <PopUpMenu
         isOpen={showResultPopup}
         setIsOpen={setShowResultPopup}
         nodeRef={resultRef}
         backdropClassName={styles["popup"]}
+        bodyClassName={styles["popup__body"]}
+        contentWrapperClassNames={styles["popup__content-wrapper"]}
       >
-        <div>
+        <>
           <p>Result</p>
           <ul>
             {resultArr.map((el) => {
@@ -161,17 +166,19 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
               );
             })}
           </ul>
-        </div>
+        </>
       </PopUpMenu>
       <PopUpMenu
         isOpen={showNotFoundPopup}
         setIsOpen={setShowNotFoundPopup}
         nodeRef={notFoundRef}
-        backdropClassName={styles["search__popup"]}
+        backdropClassName={`${styles["popup"]} ${styles["not-found"]}`}
+        bodyClassName={styles["popup__body"]}
+        contentWrapperClassNames={`${styles["popup__content-wrapper"]} ${styles["not-found"]}`}
       >
-        <div>
+        <>
           <p>Nothing found.</p>
-        </div>
+        </>
       </PopUpMenu>
     </div>
   );
