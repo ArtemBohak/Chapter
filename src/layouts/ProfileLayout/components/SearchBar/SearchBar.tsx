@@ -93,6 +93,12 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
     setShowRecentSearchPopup(false);
   };
 
+  const onHandleLinkClick = () => {
+    setShowResultPopup(false);
+    setShowNotFoundPopup(false);
+    setShowRecentSearchPopup(false);
+  };
+
   useEffect(() => {
     if (debouncedSearchValue !== "") {
       handleSearch(debouncedSearchValue);
@@ -157,7 +163,7 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
                   <li key={el.id}>
                     <Link
                       to={`${el.id}`}
-                      onClick={() => setShowResultPopup(false)}
+                      onClick={onHandleLinkClick}
                       className={styles["nickname"]}
                     >
                       <img
@@ -177,7 +183,7 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
               to={links.SEARCH}
               state={resultArr}
               className={styles["link"]}
-              onClick={() => setShowResultPopup(false)}
+              onClick={onHandleLinkClick}
             >
               See more
             </Link>
