@@ -29,19 +29,39 @@
 .title {
   @apply text-base font-medium text-grey-1000;
 
-  &.recent {
+  &.recent-title {
     @apply mb-1-xs;
+  }
+
+  &.search-title {
+    @apply mb-2-md;
   }
 }
 
 .list {
   @apply flex flex-col;
 
-  &.recent {
+  &.recent-list {
     @apply gap-0-md;
 
     & button {
       @apply bg-transparent flex items-center gap-0-md text-base text-grey-1000;
+    }
+  }
+
+  &.search-list {
+    @apply gap-1-sm;
+
+    & li {
+      @apply flex items-center justify-between;
+    }
+
+    & a {
+      @apply flex items-center gap-1-xs text-base text-black no-underline max-w-[120px];
+    }
+
+    & img {
+      @apply rounded-[50%];
     }
   }
 }
@@ -49,11 +69,15 @@
 .text {
   @apply text-base font-medium text-black;
 
-  &.recent {
+  &.recent-text {
     @apply text-grey-1000;
   }
 
-  &.not-found {
+  &.not-found-text {
     @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
   }
+}
+
+.follow-btn {
+  @apply w-[120px] h-[44px];
 }

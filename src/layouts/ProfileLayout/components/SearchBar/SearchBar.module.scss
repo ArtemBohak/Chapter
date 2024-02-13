@@ -55,7 +55,7 @@
       }
 
       & img {
-        @apply rounded-[50px];
+        @apply rounded-[50%];
       }
     }
 
@@ -74,5 +74,5 @@
 }
 
 .nickname {
-  @apply text-base text-black no-underline flex items-center gap-1-sm;
+  @apply text-lg text-black no-underline flex items-center gap-1-sm;
 }

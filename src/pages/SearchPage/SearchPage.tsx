@@ -14,10 +14,13 @@ import { getDataFromLS, setDataToLS } from "@/src/utils";
 import { useDebounce, useErrorBoundary } from "@/src/hooks";
 import { IUser } from "@/src/types";
 import styles from "./SearchPage.module.scss";
-import { Icon, IconEnum, SearchField } from "@/src/components";
+import { FollowButton, Icon, IconEnum, SearchField } from "@/src/components";
 import defaultAvatar from "@/src/assets/SVG/default-user-avatar.svg";
+import { useAppSelector } from "@/src/redux";
 
 const SearchPage: FC = () => {
+  const id = useAppSelector((state) => state.userSlice.user.id);
+
   const [searchValue, setSearchValue] = useState("");
   const debouncedSearchValue = useDebounce(searchValue, 500);
 
@@ -30,11 +33,10 @@ const SearchPage: FC = () => {
   const [showNotFoundMsg, setShowNotFoundMsg] = useState(false);
 
   const { state } = useLocation();
+  const users: Array<IUser> | null = state;
+
   const navigate = useNavigate();
-
   const setError = useErrorBoundary();
-
-  console.log(state);
 
   const onHandleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setShowNotFoundMsg(false);
@@ -92,10 +94,14 @@ const SearchPage: FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedSearchValue]);
 
+  useEffect(() => {
+    if (users) setResultArr(users);
+  }, [users]);
+
   const renderRecentValue = (
     <>
-      <p className={`${styles["title"]} ${styles["recent"]}`}>Recent</p>
-      <ul className={`${styles["list"]} ${styles["recent"]}`}>
+      <p className={`${styles["title"]} ${styles["recent-title"]}`}>Recent</p>
+      <ul className={`${styles["list"]} ${styles["recent-list"]}`}>
         {recentSearchArr.map((el, i) => {
           return (
             <li key={i}>
@@ -112,19 +118,24 @@ const SearchPage: FC = () => {
 
   const renderResult = (
     <>
-      <p>Result</p>
-      <ul>
+      <p className={`${styles["title"]} ${styles["search-title"]}`}>Result</p>
+      <ul className={`${styles["list"]} ${styles["search-list"]}`}>
         {resultArr.slice(0, 5).map((el) => {
           return (
             <li key={el.id}>
               <Link to={`/${el.id}`}>
                 <img
                   src={el.avatarUrl || defaultAvatar}
-                  width={40}
-                  height={40}
+                  width={52}
+                  height={52}
                 />
                 <span>{el.nickName}</span>
               </Link>
+              <FollowButton
+                id={id}
+                followList={[1, 2, 3]}
+                classNames={styles["follow-btn"]}
+              />
             </li>
           );
         })}
@@ -134,7 +145,7 @@ const SearchPage: FC = () => {
   const renderNotFound = (
     <>
       <p className={styles["title"]}>Result</p>
-      <p className={`${styles["text"]} ${styles["not-found"]}`}>
+      <p className={`${styles["text"]} ${styles["not-found-text"]}`}>
         Nothing found.
       </p>
     </>
