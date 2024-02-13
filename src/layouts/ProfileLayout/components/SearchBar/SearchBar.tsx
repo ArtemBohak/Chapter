@@ -7,6 +7,7 @@ import {
   useRef,
   useState,
 } from "react";
+import { Link } from "react-router-dom";
 import { AxiosError } from "axios";
 
 import { EndpointsEnum, api } from "@/src/axios";
@@ -19,7 +20,6 @@ import styles from "./SearchBar.module.scss";
 import { PopUpMenu, SearchField } from "@/src/components";
 
 import defaultAvatar from "@/src/assets/SVG/default-user-avatar.svg";
-import { Link } from "react-router-dom";
 
 const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
   const [searchValue, setSearchValue] = useState("");
@@ -47,8 +47,6 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
 
   const handleSearch = async (searchValue: string) => {
     try {
-      setShowNotFoundPopup(false);
-
       const recentSearchArray = recentSearchArr;
       const res = await api.get(EndpointsEnum.USERS_SEARCH, {
         params: { query: searchValue },
@@ -73,12 +71,14 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
           setShowRecentSearchPopup(false);
           setShowResultPopup(false);
           setShowNotFoundPopup(true);
+          setSearchValue("");
         }
       }
     }
   };
 
   const onHandleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setShowNotFoundPopup(false);
     setSearchValue(e.target.value);
   };
 
@@ -162,7 +162,7 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
                 return (
                   <li key={el.id}>
                     <Link
-                      to={`${el.id}`}
+                      to={`/${el.id}`}
                       onClick={onHandleLinkClick}
                       className={styles["nickname"]}
                     >
