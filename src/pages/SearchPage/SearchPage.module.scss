@@ -1,8 +1,8 @@
 .search {
-  @apply absolute w-full  bg-white z-50 md:h-screen md:z-0 md:static px-2-md py-0-md md:pt-[108px] md:px-4-xl md:pb-4-md;
+  @apply absolute w-full  bg-white z-50 md:h-screen md:z-0 md:static px-2-md py-0-md md:pt-[108px] md:px-4-xl md:pb-4-md base:pt-[168px] base:pb-4-xs base:bg-grey-1030;
 
   &__wrapper {
-    @apply md:rounded-md md:border md:border-grey-1010 md:h-full md:py-3-sm md:px-[60px] md:overflow-hidden md:overflow-y-auto;
+    @apply bg-white md:rounded-md md:border md:border-grey-1010 md:h-full md:py-3-sm md:px-[60px] md:overflow-hidden md:overflow-y-auto base:max-w-[962px] base:mx-auto base:border-0 base:px-[122px] base:py-[64px];
   }
 }
 
@@ -28,6 +28,16 @@
 
 .input-container {
   @apply relative w-3/4 md:w-full;
+}
+
+.input-field {
+  & input {
+    @apply transition-all duration-150;
+
+    &:disabled {
+      @apply animate-pulse;
+    }
+  }
 }
 
 .cross-btn {
@@ -65,11 +75,11 @@
     }
 
     & a {
-      @apply flex items-center gap-1-xs text-base text-black no-underline max-w-[120px] md:text-lg md:font-semibold;
+      @apply flex items-center gap-1-xs text-base text-black no-underline max-w-[120px] md:text-lg md:font-semibold hover:no-underline;
     }
 
     & img {
-      @apply rounded-[50%];
+      @apply w-[44px] h-[44px] md:w-[52px] md:h-[52px] rounded-[16px];
     }
   }
 }
@@ -79,5 +89,17 @@
 }
 
 .follow-btn {
-  @apply w-[120px] h-[44px] md:w-[228px];
+  @apply w-full max-w-[120px] h-[44px] md:max-w-[228px] base:max-w-[140px] laptop:max-w-[228px];
+}
+
+.nickname {
+  @apply relative;
+}
+
+.full-nickname {
+  @apply hidden absolute -top-2 left-[62px];
+
+  &.is-shown {
+    @apply block;
+  }
 }

@@ -35,6 +35,8 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
 
   const [showNotFoundPopup, setShowNotFoundPopup] = useState(false);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const searchRef = useRef(null);
   const notFoundRef = useRef(null);
   const resultRef = useRef(null);
@@ -47,12 +49,15 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
 
   const handleSearch = async (searchValue: string) => {
     try {
+      setIsLoading(true);
       const recentSearchArray = recentSearchArr;
       const res = await api.get(EndpointsEnum.USERS_SEARCH, {
         params: { query: searchValue },
       });
 
       if (res.data.message === apiErrorMessage.USERS_NOT_FOUND) {
+        setShowRecentSearchPopup(false);
+        setShowResultPopup(false);
         return setShowNotFoundPopup(true);
       }
       if (res.data.length) {
@@ -78,6 +83,8 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
           setSearchValue("");
         }
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -88,6 +95,7 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
 
   const onHandleFocus = () => {
     setShowRecentSearchPopup(true);
+    setShowNotFoundPopup(false);
   };
 
   const onHandleRecentSearchClick = (
@@ -126,6 +134,7 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
         onChange={onHandleChange}
         onFocus={onHandleFocus}
         autoComplete="off"
+        disabled={isLoading}
       />
       <PopUpMenu
         isOpen={showRecentSearchPopup && !!recentSearchArr.length}
@@ -175,14 +184,18 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
                         width={40}
                         height={40}
                       />
-                      <span>{el.nickName}</span>
+                      <span>
+                        {el.nickName.length > 15
+                          ? el.nickName.slice(0, 15) + "..."
+                          : el.nickName}
+                      </span>
                     </Link>
                   </li>
                 );
               })}
             </ul>
           </div>
-          {resultArr.length > 1 ? (
+          {resultArr.length > 5 ? (
             <Link
               to={links.SEARCH}
               state={resultArr}

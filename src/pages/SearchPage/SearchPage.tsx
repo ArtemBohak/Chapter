@@ -33,6 +33,8 @@ const SearchPage: FC = () => {
 
   const [showNotFoundMsg, setShowNotFoundMsg] = useState(false);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const { state } = useLocation();
   const users: Array<IUser> | null = state;
 
@@ -40,7 +42,7 @@ const SearchPage: FC = () => {
   const setError = useErrorBoundary();
 
   const [screenSize] = useGetScreenSize();
-  const isMobScreen = screenSize <= 465;
+
   const isTabScreen = screenSize >= 768;
 
   const onHandleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -51,6 +53,7 @@ const SearchPage: FC = () => {
 
   const handleSearch = async (searchValue: string) => {
     try {
+      setIsLoading(true);
       const recentSearchArray = recentSearchArr;
       const res = await api.get(EndpointsEnum.USERS_SEARCH, {
         params: { query: searchValue },
@@ -78,6 +81,8 @@ const SearchPage: FC = () => {
           setShowNotFoundMsg(true);
         }
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -126,6 +131,11 @@ const SearchPage: FC = () => {
     </>
   );
 
+  const onHandleHoverElement = (id: number | string, length: number) => () => {
+    const elem = document.getElementById(`${id}`);
+    if (length > 15) elem?.classList.toggle(styles["is-shown"]);
+  };
+
   const renderResult = (
     <>
       <p className={`${styles["title"]} ${styles["search-title"]}`}>Result</p>
@@ -133,16 +143,24 @@ const SearchPage: FC = () => {
         {resultArr.map((el) => {
           return (
             <li key={el.id}>
-              <Link to={`/${el.id}`}>
+              <Link
+                to={`/${el.id}`}
+                className={styles["nickname"]}
+                onMouseOver={onHandleHoverElement(el.id, el.nickName.length)}
+                onMouseOut={onHandleHoverElement(el.id, el.nickName.length)}
+              >
                 <img
                   src={el.avatarUrl || defaultAvatar}
                   width={52}
                   height={52}
                 />
                 <span>
-                  {isMobScreen && el.nickName.length > 15
+                  {el.nickName.length > 15
                     ? el.nickName.slice(0, 15) + "..."
                     : el.nickName}
+                </span>
+                <span id={`${el.id}`} className={styles["full-nickname"]}>
+                  {el.nickName}
                 </span>
               </Link>
               <FollowButton
@@ -179,6 +197,8 @@ const SearchPage: FC = () => {
               placeholder="Find your friends here"
               onChange={onHandleChange}
               value={searchValue}
+              disabled={isLoading}
+              className={styles["input-field"]}
             />
             {searchValue.length ? (
               <button
@@ -201,6 +221,8 @@ const SearchPage: FC = () => {
               placeholder="Find your friends here"
               onChange={onHandleChange}
               value={searchValue}
+              disabled={isLoading}
+              className={styles["input-field"]}
             />
             {searchValue.length ? (
               <button
