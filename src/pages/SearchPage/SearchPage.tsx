@@ -10,13 +10,13 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AxiosError } from "axios";
 
 import { EndpointsEnum, api } from "@/src/axios";
+import { useAppSelector } from "@/src/redux";
 import { getDataFromLS, setDataToLS } from "@/src/utils";
-import { useDebounce, useErrorBoundary } from "@/src/hooks";
+import { useDebounce, useErrorBoundary, useGetScreenSize } from "@/src/hooks";
 import { IUser } from "@/src/types";
 import styles from "./SearchPage.module.scss";
 import { FollowButton, Icon, IconEnum, SearchField } from "@/src/components";
 import defaultAvatar from "@/src/assets/SVG/default-user-avatar.svg";
-import { useAppSelector } from "@/src/redux";
 
 const SearchPage: FC = () => {
   const id = useAppSelector((state) => state.userSlice.user.id);
@@ -37,6 +37,9 @@ const SearchPage: FC = () => {
 
   const navigate = useNavigate();
   const setError = useErrorBoundary();
+
+  const [screenSize] = useGetScreenSize();
+  const isMobScreen = screenSize <= 465;
 
   const onHandleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setShowNotFoundMsg(false);
@@ -120,7 +123,7 @@ const SearchPage: FC = () => {
     <>
       <p className={`${styles["title"]} ${styles["search-title"]}`}>Result</p>
       <ul className={`${styles["list"]} ${styles["search-list"]}`}>
-        {resultArr.slice(0, 5).map((el) => {
+        {resultArr.map((el) => {
           return (
             <li key={el.id}>
               <Link to={`/${el.id}`}>
@@ -129,7 +132,11 @@ const SearchPage: FC = () => {
                   width={52}
                   height={52}
                 />
-                <span>{el.nickName}</span>
+                <span className={styles["nickname"]}>
+                  {isMobScreen && el.nickName.length > 15
+                    ? el.nickName.slice(0, 15) + "..."
+                    : el.nickName}
+                </span>
               </Link>
               <FollowButton
                 id={id}
