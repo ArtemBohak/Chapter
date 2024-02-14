@@ -159,36 +159,59 @@ const SearchPage: FC = () => {
   );
 
   return (
-    <div className={styles["search"]}>
-      <div className={`${styles["field-wrapper"]} ${styles["mob"]}`}>
-        <button onClick={() => navigate(-1)}>
-          <Icon icon={IconEnum.Back} size={32} />
-        </button>
-        <div className={styles["input-container"]}>
-          <SearchField
-            id={"search-field"}
-            name={"search-field"}
-            dataAutomation={"search-field"}
-            autoComplete="off"
-            placeholder="Find your friends here"
-            onChange={onHandleChange}
-            value={searchValue}
-          />
-          {searchValue.length ? (
-            <button
-              className={styles["cross-btn"]}
-              onClick={onHandleCrossIconClick}
-            >
-              <Icon icon={IconEnum.Cross} size={16} />
-            </button>
-          ) : null}
+    <section className={styles["search"]}>
+      <div className={styles["search__wrapper"]}>
+        <div className={`${styles["field-wrapper"]} ${styles["mob"]}`}>
+          <button onClick={() => navigate(-1)}>
+            <Icon icon={IconEnum.Back} size={32} />
+          </button>
+          <div className={styles["input-container"]}>
+            <SearchField
+              id={"search-field"}
+              name={"search-field"}
+              dataAutomation={"search-field"}
+              autoComplete="off"
+              placeholder="Find your friends here"
+              onChange={onHandleChange}
+              value={searchValue}
+            />
+            {searchValue.length ? (
+              <button
+                className={styles["cross-btn"]}
+                onClick={onHandleCrossIconClick}
+              >
+                <Icon icon={IconEnum.Cross} size={16} />
+              </button>
+            ) : null}
+          </div>
         </div>
+        <div className={`${styles["field-wrapper"]} ${styles["tab"]}`}>
+          <h3>Search</h3>
+          <div className={styles["input-container"]}>
+            <SearchField
+              id={"search-field"}
+              name={"search-field"}
+              dataAutomation={"search-field"}
+              autoComplete="off"
+              placeholder="Find your friends here"
+              onChange={onHandleChange}
+              value={searchValue}
+            />
+            {searchValue.length ? (
+              <button
+                className={styles["cross-btn"]}
+                onClick={onHandleCrossIconClick}
+              >
+                <Icon icon={IconEnum.Cross} size={16} />
+              </button>
+            ) : null}
+          </div>
+        </div>
+        {!resultArr.length && !showNotFoundMsg ? renderRecentValue : null}
+        {resultArr.length && !showNotFoundMsg ? renderResult : null}
+        {!resultArr.length && showNotFoundMsg ? renderNotFound : null}
       </div>
-      <div className={`${styles["field-wrapper"]} ${styles["tab"]}`}>TAB</div>
-      {!resultArr.length && !showNotFoundMsg ? renderRecentValue : null}
-      {resultArr.length && !showNotFoundMsg ? renderResult : null}
-      {!resultArr.length && showNotFoundMsg ? renderNotFound : null}
-    </div>
+    </section>
   );
 };
 

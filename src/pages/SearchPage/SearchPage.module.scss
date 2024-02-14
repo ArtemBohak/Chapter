@@ -1,5 +1,9 @@
 .search {
-  @apply absolute w-full h-screen bg-white z-50 px-2-md pt-0-md;
+  @apply absolute w-full h-screen bg-white z-50 md:z-0 md:static px-2-md py-0-md md:pt-[108px] md:px-4-xl md:pb-4-md;
+
+  &__wrapper {
+    @apply md:rounded-md md:border md:border-grey-1010 md:h-full md:py-3-sm md:px-[60px];
+  }
 }
 
 .field-wrapper {
