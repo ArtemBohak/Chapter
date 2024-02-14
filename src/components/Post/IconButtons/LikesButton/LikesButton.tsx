@@ -16,15 +16,13 @@ import { EndpointsEnum, api } from "@/src/axios";
 
 const dataLikes: Array<Like> = [
   {
-    author: {
-      nickName: "DD",
-      avatar: null,
-      firstName: "Kristin",
-      lastName: "Wood",
-      id: 0,
-      relativeDate: Date.now(),
-    },
-    userIds: [1, 12, 318],
+    nickName: "DD",
+    avatar: null,
+    firstName: "Kristin",
+    lastName: "Wood",
+    id: 0,
+    relativeDate: Date.now(),
+    isSubscribeToAuthor: false,
   },
 ];
 

@@ -19,7 +19,13 @@ import {
 import { likeApi } from "@/src/utils";
 import { EndpointsEnum } from "@/src/axios";
 
-const Feed: FC<FeedProps> = ({ nodeRef, loaderRef, pageValue, ...props }) => {
+const Feed: FC<FeedProps> = ({
+  nodeRef,
+  loaderRef,
+  pageValue,
+
+  ...props
+}) => {
   const [commentsIsHide, setCommentsIsHide] = useState(true);
 
   return (
@@ -32,7 +38,7 @@ const Feed: FC<FeedProps> = ({ nodeRef, loaderRef, pageValue, ...props }) => {
             <Avatar {...props} />
             <UserNickName {...props} />
           </div>
-          <FollowButton {...props} />
+          <FollowButton {...props} id={props.author.id} />
         </div>
         <div className={styles["item-feed__image"]}>
           <PostImage {...props} />

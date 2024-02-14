@@ -1,25 +1,20 @@
-import { FC, useState } from "react";
-import { LikeProps } from "./Like.type";
+import { FC } from "react";
 
-import { useFindUserId } from "@/src/hooks";
+import { LikeProps } from "./Like.type";
 import styles from "./Like.module.scss";
-import { PostButton } from "@/src/components/Post/components";
+
+import { FollowButton } from "@/src/components";
 import defaultAvatar from "@/src/assets/SVG/default-user-avatar.svg";
 
 const Like: FC<LikeProps> = ({
-  author: { avatar, firstName, lastName, id },
-  userIds,
+  lastName,
+  avatar,
+  firstName,
+  id,
+  isSubscribeToAuthor,
 }) => {
-  const [isFollow] = useFindUserId(userIds);
-  const [following, setFollowing] = useState(isFollow);
-
-  const onHandleClick = () => {
-    setFollowing(!following);
-    console.log(id);
-  };
-
   const avatarUrl = avatar ? avatar : defaultAvatar;
-  const btnVariant = following ? "outlined" : "contained";
+
   return (
     <div className={styles["like-item"]}>
       <div className={styles["like-item__text-content"]}>
@@ -28,13 +23,11 @@ const Like: FC<LikeProps> = ({
           <span>{firstName}</span> <span>{lastName}</span>
         </p>
       </div>
-      <PostButton
-        onHandleClick={onHandleClick}
-        variant={btnVariant}
-        className={styles["like-item__button"]}
-      >
-        {following ? "Unfollow" : "Follow"}
-      </PostButton>
+      <FollowButton
+        classNames={styles["like-item__button"]}
+        id={id}
+        isSubscribeToAuthor={isSubscribeToAuthor}
+      />
     </div>
   );
 };
