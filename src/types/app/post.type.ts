@@ -10,6 +10,7 @@ export interface IPost {
   nickName: string;
   imgUrl: string;
   followList: IdList;
+  isSubscribed: boolean;
   likesList: IdList;
   totalLikes: number;
   totalComments: number;

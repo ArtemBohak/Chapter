@@ -10,7 +10,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AxiosError } from "axios";
 
 import { EndpointsEnum, api } from "@/src/axios";
-import { useAppSelector } from "@/src/redux";
+
 import { getDataFromLS, setDataToLS } from "@/src/utils";
 import { useDebounce, useErrorBoundary, useGetScreenSize } from "@/src/hooks";
 import { IUser, apiErrorMessage } from "@/src/types";
@@ -20,8 +20,6 @@ import { FollowButton, Icon, IconEnum, SearchField } from "@/src/components";
 import defaultAvatar from "@/src/assets/SVG/default-user-avatar.svg";
 
 const SearchPage: FC = () => {
-  const id = useAppSelector((state) => state.userSlice.user.id);
-
   const [searchValue, setSearchValue] = useState("");
   const debouncedSearchValue = useDebounce(searchValue, 500);
 
@@ -98,6 +96,11 @@ const SearchPage: FC = () => {
     setSearchValue("");
   };
 
+  const onHandleHoverElement = (id: number | string, length: number) => () => {
+    const elem = document.getElementById(`${id}`);
+    if (length > 15) elem?.classList.toggle(styles["is-shown"]);
+  };
+
   useEffect(() => {
     setRecentSearchArr(getDataFromLS("recentSearch") || []);
   }, [debouncedSearchValue]);
@@ -131,11 +134,6 @@ const SearchPage: FC = () => {
     </>
   );
 
-  const onHandleHoverElement = (id: number | string, length: number) => () => {
-    const elem = document.getElementById(`${id}`);
-    if (length > 15) elem?.classList.toggle(styles["is-shown"]);
-  };
-
   const renderResult = (
     <>
       <p className={`${styles["title"]} ${styles["search-title"]}`}>Result</p>
@@ -164,9 +162,9 @@ const SearchPage: FC = () => {
                 </span>
               </Link>
               <FollowButton
-                id={id}
-                followList={[1, 2, 3]}
+                id={el.id}
                 classNames={styles["follow-btn"]}
+                isSubscribed={false}
               />
             </li>
           );

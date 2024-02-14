@@ -26,4 +26,5 @@ export enum EndpointsEnum {
   CREATE_POST = "posts/create",
   USERS_BOOKS = "users/books",
   BOOK_FAVORITE_STATUS = "users/toggle-favorite-status",
+  SUBSCRIBE_USER = 'users/subscribe-unsubscribe'
 }
