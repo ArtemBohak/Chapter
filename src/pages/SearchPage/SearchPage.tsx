@@ -13,8 +13,9 @@ import { EndpointsEnum, api } from "@/src/axios";
 import { useAppSelector } from "@/src/redux";
 import { getDataFromLS, setDataToLS } from "@/src/utils";
 import { useDebounce, useErrorBoundary, useGetScreenSize } from "@/src/hooks";
-import { IUser } from "@/src/types";
+import { IUser, apiErrorMessage } from "@/src/types";
 import styles from "./SearchPage.module.scss";
+
 import { FollowButton, Icon, IconEnum, SearchField } from "@/src/components";
 import defaultAvatar from "@/src/assets/SVG/default-user-avatar.svg";
 
@@ -40,6 +41,7 @@ const SearchPage: FC = () => {
 
   const [screenSize] = useGetScreenSize();
   const isMobScreen = screenSize <= 465;
+  const isTabScreen = screenSize >= 768;
 
   const onHandleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setShowNotFoundMsg(false);
@@ -53,6 +55,11 @@ const SearchPage: FC = () => {
       const res = await api.get(EndpointsEnum.USERS_SEARCH, {
         params: { query: searchValue },
       });
+
+      if (res.data.message === apiErrorMessage.USERS_NOT_FOUND) {
+        return setShowNotFoundMsg(true);
+      }
+
       if (res.data.length) {
         setResultArr(res.data);
 
@@ -109,7 +116,7 @@ const SearchPage: FC = () => {
           return (
             <li key={i}>
               <button onClick={onHandleRecentSearchClick} value={el}>
-                <Icon icon={IconEnum.Search} size={16} />
+                <Icon icon={IconEnum.Search} size={isTabScreen ? 24 : 16} />
                 <span>{el}</span>
               </button>
             </li>
@@ -132,7 +139,7 @@ const SearchPage: FC = () => {
                   width={52}
                   height={52}
                 />
-                <span className={styles["nickname"]}>
+                <span>
                   {isMobScreen && el.nickName.length > 15
                     ? el.nickName.slice(0, 15) + "..."
                     : el.nickName}
@@ -152,9 +159,7 @@ const SearchPage: FC = () => {
   const renderNotFound = (
     <>
       <p className={styles["title"]}>Result</p>
-      <p className={`${styles["text"]} ${styles["not-found-text"]}`}>
-        Nothing found.
-      </p>
+      <p className={styles["text"]}>Nothing found.</p>
     </>
   );
 
@@ -202,7 +207,7 @@ const SearchPage: FC = () => {
                 className={styles["cross-btn"]}
                 onClick={onHandleCrossIconClick}
               >
-                <Icon icon={IconEnum.Cross} size={16} />
+                <Icon icon={IconEnum.Cross} size={24} />
               </button>
             ) : null}
           </div>

@@ -14,7 +14,7 @@ import { EndpointsEnum, api } from "@/src/axios";
 import { useDebounce, useErrorBoundary, useOutsideClick } from "@/src/hooks";
 import { getDataFromLS, setDataToLS } from "@/src/utils";
 import { ISearchBar } from "./SearchBar.type";
-import { IUser, links } from "@/src/types";
+import { IUser, apiErrorMessage, links } from "@/src/types";
 import styles from "./SearchBar.module.scss";
 
 import { PopUpMenu, SearchField } from "@/src/components";
@@ -51,6 +51,10 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
       const res = await api.get(EndpointsEnum.USERS_SEARCH, {
         params: { query: searchValue },
       });
+
+      if (res.data.message === apiErrorMessage.USERS_NOT_FOUND) {
+        return setShowNotFoundPopup(true);
+      }
       if (res.data.length) {
         setResultArr(res.data);
         setShowRecentSearchPopup(false);

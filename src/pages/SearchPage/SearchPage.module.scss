@@ -1,13 +1,13 @@
 .search {
-  @apply absolute w-full h-screen bg-white z-50 md:z-0 md:static px-2-md py-0-md md:pt-[108px] md:px-4-xl md:pb-4-md;
+  @apply absolute w-full  bg-white z-50 md:h-screen md:z-0 md:static px-2-md py-0-md md:pt-[108px] md:px-4-xl md:pb-4-md;
 
   &__wrapper {
-    @apply md:rounded-md md:border md:border-grey-1010 md:h-full md:py-3-sm md:px-[60px];
+    @apply md:rounded-md md:border md:border-grey-1010 md:h-full md:py-3-sm md:px-[60px] md:overflow-hidden md:overflow-y-auto;
   }
 }
 
 .field-wrapper {
-  @apply flex justify-between mb-1-xl;
+  @apply flex justify-between mb-1-xl md:mb-2-md;
 
   &.mob {
     @apply md:hidden;
@@ -19,11 +19,15 @@
 
   &.tab {
     @apply hidden md:block;
+
+    & h3 {
+      @apply md:text-[42px] md:mb-2-md;
+    }
   }
 }
 
 .input-container {
-  @apply w-3/4 relative;
+  @apply relative w-3/4 md:w-full;
 }
 
 .cross-btn {
@@ -49,7 +53,7 @@
     @apply gap-0-md;
 
     & button {
-      @apply bg-transparent flex items-center gap-0-md text-base text-grey-1000;
+      @apply bg-transparent flex items-center gap-0-md text-base text-grey-1000 md:text-lg md:font-semibold;
     }
   }
 
@@ -61,7 +65,7 @@
     }
 
     & a {
-      @apply flex items-center gap-1-xs text-base text-black no-underline max-w-[120px];
+      @apply flex items-center gap-1-xs text-base text-black no-underline max-w-[120px] md:text-lg md:font-semibold;
     }
 
     & img {
@@ -71,17 +75,9 @@
 }
 
 .text {
-  @apply text-base font-medium text-black;
-
-  &.recent-text {
-    @apply text-grey-1000;
-  }
-
-  &.not-found-text {
-    @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
-  }
+  @apply text-base font-medium text-black md:text-lg md:font-semibold absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 md:static md:mt-2-md md:-translate-x-0 md:-translate-y-0;
 }
 
 .follow-btn {
-  @apply w-[120px] h-[44px];
+  @apply w-[120px] h-[44px] md:w-[228px];
 }
