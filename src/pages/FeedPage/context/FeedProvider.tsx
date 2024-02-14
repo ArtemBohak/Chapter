@@ -14,9 +14,6 @@ const FeedProvider: FC<IFeedProviderProps> = ({ children }) => {
 
   useEffect(() => {
     new FeedApi(setFeeds, setIsLoad, setErrorBoundary).getFeeds(page);
-    // const t = setInterval(() => {}, 2000);
-
-    // return () => clearInterval(t);
   }, [page, setErrorBoundary]);
 
   return (

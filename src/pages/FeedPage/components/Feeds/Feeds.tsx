@@ -1,18 +1,20 @@
 import { FC, createRef, useEffect, useMemo, useRef } from "react";
 import { TransitionGroup } from "react-transition-group";
 
+import { FeedProps } from "../Feed/Feed.type";
 import { useFeedContext } from "../../context";
+import { pageLimit } from "@/src/utils";
 import styles from "./Feeds.module.scss";
 
 import { Animation, Loader } from "@/src/components";
+
 import Feed from "../Feed/Feed";
-import { pageLimit } from "@/src/utils";
 
 const Feeds: FC = () => {
-  const { feeds, isLoad, page, setPage } = useFeedContext();
+  const { feeds, isLoad, setPage } = useFeedContext();
   const endLoaderRef = useRef(null);
-  console.log(page);
-  const feedsList = useMemo(
+
+  const feedsList: FeedProps[] = useMemo(
     () =>
       feeds.map((el, i) => {
         if ((i + 1) % pageLimit === 0)
@@ -53,22 +55,20 @@ const Feeds: FC = () => {
 
   useEffect(() => {
     feedsList.forEach((el) => {
-      if (
-        el &&
-        el.loaderRef &&
-        el.loaderRef.current &&
-        el.loaderRef.current.value
-      ) {
-        const observer = new IntersectionObserver(([entries]) => {
-          if (entries.isIntersecting) {
-            setPage(+el.loaderRef.current.value);
-          }
-        });
-
+      const observer = new IntersectionObserver(([entries]) => {
+        if (
+          entries.isIntersecting &&
+          el &&
+          el.loaderRef &&
+          el.loaderRef.current
+        ) {
+          setPage(+el.loaderRef.current.value);
+        }
+      });
+      if (el && el.loaderRef && el.loaderRef.current)
         observer.observe(el.loaderRef.current);
-      }
     });
-  }, [feedsList]);
+  }, [feedsList, setPage]);
 
   const transitionClassNames = {
     enter: styles["feeds-list-enter"],
@@ -87,7 +87,7 @@ const Feeds: FC = () => {
             timeout={300}
           >
             <li>
-              <Feed {...i} />
+              <Feed {...i} nodeRef={i.nodeRef} />
             </li>
           </Animation>
         ))}
@@ -96,7 +96,7 @@ const Feeds: FC = () => {
         ...
       </div>
       <Loader
-        isShown={isLoad && page !== 1}
+        isShown={isLoad}
         wrapperClassNames={styles["loader"]}
         height={100}
       />

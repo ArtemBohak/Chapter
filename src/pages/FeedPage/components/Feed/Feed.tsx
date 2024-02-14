@@ -73,7 +73,9 @@ const Feed: FC<FeedProps> = ({ nodeRef, loaderRef, pageValue, ...props }) => {
           setCommentsIsHide={setCommentsIsHide}
         />
       </div>
-      {loaderRef ? <input ref={loaderRef} defaultValue={pageValue} /> : null}
+      {loaderRef ? (
+        <input className="hidden" ref={loaderRef} defaultValue={pageValue} />
+      ) : null}
     </div>
   );
 };

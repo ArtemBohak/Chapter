@@ -1,19 +1,31 @@
 import { FC, useState } from "react";
+import { AxiosError } from "axios";
 
 import { FollowButtonProps } from "./FollowButton.type";
+import { useErrorBoundary } from "@/src/hooks";
+import { EndpointsEnum, api } from "@/src/axios";
 
 import { PostButton } from "../components";
 
 const FollowButton: FC<FollowButtonProps> = ({
   isSubscribeToAuthor,
-  postId,
+  author,
   classNames,
+  fetchData,
 }) => {
   const [isFollow, setIsFollow] = useState(isSubscribeToAuthor);
+  const setErrorBoundary = useErrorBoundary();
 
-  const onHandleClick = () => {
-    setIsFollow(!isFollow);
-    console.log(postId);
+  const onHandleClick = async () => {
+    try {
+      setIsFollow(!isFollow);
+      await api.post(EndpointsEnum.SUBSCRIBE_USER + `/${author.id}`);
+      fetchData && fetchData(author.id);
+    } catch (e) {
+      if (e instanceof AxiosError) {
+        setErrorBoundary(e);
+      }
+    }
   };
   const btnVariant = isFollow ? "outlined" : "contained";
   return (
