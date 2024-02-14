@@ -33,6 +33,7 @@ export type CommentsData = Required<
 > & {
   usersId: IdList;
   id: string | number;
+  parrentId?: string | number;
   text: string;
   createdAt: string | Date | number;
 };

@@ -16,8 +16,7 @@ const itemClassNames = (value: number) => {
 
 const Comments: FC<CommentsProps> = ({ comments, setId }) => {
   let counter: number = 0;
-
-  const renderComments = (comments: Array<CommentValues>, step = 1) => {
+  const renderComments = (comments: Array<CommentValues>, step: number) => {
     counter += step;
 
     if (counter > 1) return;
@@ -30,7 +29,7 @@ const Comments: FC<CommentsProps> = ({ comments, setId }) => {
           return (
             <li key={i.id} className={classNames}>
               <Comment {...i} setId={setId} />
-              {i.comments ? renderComments(i.comments) : null}
+              {i.comments?.length ? renderComments(i.comments, 1) : null}
             </li>
           );
         })}

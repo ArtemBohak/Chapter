@@ -17,7 +17,6 @@ const CommentsButton: FC<CommentsButtonProps> = ({
   const onHandleClick = () => {
     setCommentsIsHide && setCommentsIsHide(false);
     setId && setId(id);
-    console.log(id);
   };
 
   const btnTextStyle = cn(styles["icon-button__text"], {
