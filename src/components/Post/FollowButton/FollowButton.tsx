@@ -9,7 +9,7 @@ import { PostButton } from "../components";
 
 const FollowButton: FC<FollowButtonProps> = ({
   isSubscribeToAuthor,
-  author,
+  id,
   classNames,
   fetchData,
 }) => {
@@ -19,8 +19,8 @@ const FollowButton: FC<FollowButtonProps> = ({
   const onHandleClick = async () => {
     try {
       setIsFollow(!isFollow);
-      await api.post(EndpointsEnum.SUBSCRIBE_USER + `/${author.id}`);
-      fetchData && fetchData(author.id);
+      await api.post(EndpointsEnum.SUBSCRIBE_USER + `/${id}`);
+      fetchData && fetchData(id);
     } catch (e) {
       if (e instanceof AxiosError) {
         setErrorBoundary(e);
