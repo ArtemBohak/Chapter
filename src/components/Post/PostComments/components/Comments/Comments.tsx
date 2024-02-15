@@ -15,9 +15,8 @@ const itemClassNames = (value: number) => {
 };
 
 const Comments: FC<CommentsProps> = ({ comments, setId, setNickName }) => {
-  let counter: number = 0;
-
   const renderComments = (comments: Array<CommentValues>, step: number) => {
+    let counter: number = 0;
     const sortedComments = comments.sort((a, b) => {
       const firstEl = new Date(a.createdAt).getTime();
       const secondEl = new Date(b.createdAt).getTime();
