@@ -11,6 +11,7 @@ export type FeedContextType = {
   page: number;
   // feedApi: () => void;
   setPage: Dispatch<SetStateAction<number>>;
+  setFeeds: Dispatch<SetStateAction<Array<IPost>>>;
 };
 
 export type Feeds = Array<IPost> | [];

@@ -17,6 +17,7 @@ const PostComments: FC<PostCommentsProps> = ({
   setCommentsIsHide,
 }) => {
   const [commentId, setCommentId] = useState<string | number | null>(null);
+  const [nickName, setNickName] = useState("");
   const btnRef = useRef(null);
   const commentsRef = useRef(null);
   const [screenSize] = useGetScreenSize();
@@ -84,7 +85,11 @@ const PostComments: FC<PostCommentsProps> = ({
       unmountOnExit
     >
       <div ref={commentsRef}>
-        <Comments comments={comments} setId={setCommentId} />
+        <Comments
+          comments={comments}
+          setId={setCommentId}
+          setNickName={setNickName}
+        />
       </div>
     </Animation>
   );
@@ -103,6 +108,8 @@ const PostComments: FC<PostCommentsProps> = ({
           postId={postId}
           commentId={commentId}
           setCommentsIsHide={setCommentsIsHide}
+          nickName={nickName}
+          setNickName={setNickName}
         />
       </div>
     </div>

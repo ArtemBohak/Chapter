@@ -14,9 +14,17 @@ const itemClassNames = (value: number) => {
   });
 };
 
-const Comments: FC<CommentsProps> = ({ comments, setId }) => {
+const Comments: FC<CommentsProps> = ({ comments, setId, setNickName }) => {
   let counter: number = 0;
+
   const renderComments = (comments: Array<CommentValues>, step: number) => {
+    const sortedComments = comments.sort((a, b) => {
+      const firstEl = new Date(a.createdAt).getTime();
+      const secondEl = new Date(b.createdAt).getTime();
+
+      return firstEl - secondEl;
+    });
+
     counter += step;
 
     if (counter > 1) return;
@@ -25,10 +33,10 @@ const Comments: FC<CommentsProps> = ({ comments, setId }) => {
 
     return (
       <ul className={styles["feed__list"]}>
-        {comments.map((i) => {
+        {sortedComments.map((i) => {
           return (
             <li key={i.id} className={classNames}>
-              <Comment {...i} setId={setId} />
+              <Comment {...i} setId={setId} setNickName={setNickName} />
               {i.comments?.length ? renderComments(i.comments, 1) : null}
             </li>
           );

@@ -15,6 +15,7 @@ const TextAreaField: FC<TextAreaFieldProps> = ({
   name,
   value,
   emojiClassNames,
+  labelValue,
   ...props
 }) => {
   const { setFieldValue } = useFormikContext();
@@ -46,6 +47,7 @@ const TextAreaField: FC<TextAreaFieldProps> = ({
   });
   return (
     <div className={`${styles["text-area__wrapper"]} ${classNames}`}>
+      {labelValue ? <span>{labelValue}</span> : null}
       <Field
         {...props}
         name={name}

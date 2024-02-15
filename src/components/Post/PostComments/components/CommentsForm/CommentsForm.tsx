@@ -18,7 +18,9 @@ const initialValues = { text: "" };
 const CommentsForm: FC<CommentsFormProps> = ({
   postId,
   commentId,
+
   setCommentsIsHide,
+  setNickName,
 }) => {
   const setErrorBoundary = useErrorBoundary();
   const {
@@ -43,6 +45,7 @@ const CommentsForm: FC<CommentsFormProps> = ({
 
       setCommentsIsHide && setCommentsIsHide(false);
       setSubmitting(false);
+      setNickName("");
       resetForm();
     } catch (e) {
       if (e instanceof AxiosError) {

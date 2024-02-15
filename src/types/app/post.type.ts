@@ -17,6 +17,7 @@ interface IPostValues {
   imgUrl: string | null;
   isSubscribeToAuthor: boolean;
   commentsCount: number;
+  commentCount?: number;
   createAt: string | Date | number;
 }
 
@@ -30,13 +31,14 @@ export type IdList =
 
 export type CommentsData = Required<
   Pick<IPostValues, "postId" | "author" | "commentsCount">
-> & {
-  usersId: IdList;
-  id: string | number;
-  parrentId?: string | number;
-  text: string;
-  createdAt: string | Date | number;
-};
+> &
+  Pick<IPostValues, "commentCount"> & {
+    usersId: IdList;
+    id: string | number;
+    parrentId?: string | number;
+    text: string;
+    createdAt: string | Date | number;
+  };
 
 export type CommentValues = CommentsData & { comments?: CommentsData[] };
 

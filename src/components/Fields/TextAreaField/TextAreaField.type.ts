@@ -9,6 +9,7 @@ export type TextAreaFieldProps = {
   iconSize?: number;
   classNames?: string;
   emojiClassNames?: string;
+  labelValue?: string;
 } & Partial<TextareaHTMLAttributes<HTMLTextAreaElement>>;
 
 export interface IEmoji {

@@ -80,7 +80,7 @@ const Feed: FC<FeedProps> = ({
         />
       </div>
       {loaderRef ? (
-        <input className="hidden" ref={loaderRef} defaultValue={pageValue} />
+        <input className="invisible" ref={loaderRef} defaultValue={pageValue} />
       ) : null}
     </div>
   );

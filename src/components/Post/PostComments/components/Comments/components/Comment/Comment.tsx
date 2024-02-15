@@ -1,4 +1,4 @@
-import { FC, MouseEvent } from "react";
+import { FC } from "react";
 
 import { CommentProps } from "./Comment.type";
 
@@ -14,18 +14,20 @@ import { EndpointsEnum } from "@/src/axios";
 const Comment: FC<CommentProps> = ({
   author: { avatar, firstName, lastName, nickName },
   commentsCount,
+  commentCount,
   usersId,
   id,
   text,
   createdAt,
   hideCommentBtn = false,
+  setNickName,
   setId,
 }) => {
   const avatarUrl = avatar ? avatar : defaultAvatar;
 
-  const onHandleTagClick = (e: MouseEvent<HTMLButtonElement>) => {
-    console.log(e.currentTarget.value);
-  };
+  // const onHandleTagClick = (e: MouseEvent<HTMLButtonElement>) => {
+  //   console.log(e.currentTarget.value);
+  // };
 
   return (
     <div className={styles["comment"]}>
@@ -46,7 +48,7 @@ const Comment: FC<CommentProps> = ({
           {
             <TextTagging
               text={text || ""}
-              onClick={onHandleTagClick}
+              onClick={() => {}}
               className={styles["comment__text-button"]}
             />
           }
@@ -60,10 +62,16 @@ const Comment: FC<CommentProps> = ({
           />
           {!hideCommentBtn ? (
             <CommentsButton
-              textValue={commentsCount > 1 ? "replies" : "reply"}
+              textValue={
+                commentsCount > 1 || (commentCount && commentCount > 1)
+                  ? "replies"
+                  : "reply"
+              }
               id={id}
-              commentsCount={commentsCount}
+              commentsCount={commentCount || commentsCount}
               setId={setId}
+              nickName={nickName}
+              setNickName={setNickName}
             />
           ) : null}
         </div>

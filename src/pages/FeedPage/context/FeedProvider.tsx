@@ -23,6 +23,7 @@ const FeedProvider: FC<IFeedProviderProps> = ({ children }) => {
         isLoad,
         page,
         setPage,
+        setFeeds,
       }}
     >
       {children}
