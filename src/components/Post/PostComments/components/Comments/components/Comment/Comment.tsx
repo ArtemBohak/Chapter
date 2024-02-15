@@ -59,6 +59,7 @@ const Comment: FC<CommentProps> = ({
             userIds={usersId}
             id={id}
             likeApi={likeApi(EndpointsEnum.COMMENT_LIKE)}
+            withoutModal
           />
           {!hideCommentBtn ? (
             <CommentsButton

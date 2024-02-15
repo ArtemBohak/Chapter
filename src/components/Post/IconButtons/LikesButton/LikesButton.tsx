@@ -30,6 +30,7 @@ const LikesButton: FC<LikesButtonProps> = ({
   userIds,
   id,
   hiddenText = false,
+  withoutModal = false,
   likeApi,
 }) => {
   const setErrorBoundary = useErrorBoundary();
@@ -100,7 +101,7 @@ const LikesButton: FC<LikesButtonProps> = ({
         />
       </button>
       <button
-        onClick={onHandleModalOpenClick}
+        onClick={withoutModal ? onHandleLikesClick : onHandleModalOpenClick}
         data-automation="clickButton"
         className={styles["icon-button"]}
       >

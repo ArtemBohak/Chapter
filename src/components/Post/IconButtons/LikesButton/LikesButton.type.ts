@@ -6,6 +6,7 @@ export type LikesButtonProps = { hiddenText?: boolean } & Required<
   Pick<PostProps, "userIds">
 > & {
     id: string | number;
+    withoutModal?: boolean;
     likeApi: (
       id: string | number,
       setUsers: Dispatch<SetStateAction<IdList>>,
