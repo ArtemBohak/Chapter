@@ -1,5 +1,5 @@
 .user-post {
-  @apply flex flex-col max-w-[90%] min-w-[90%] m-auto my-4 p-5 bg-[#FCFCFC] rounded-lg border border-[#C4C4C4]  py-2-xs md:py-4 laptop:py-4 gap-4;
+  @apply flex flex-col max-w-[90%] min-w-[320px] md:min-w-[700px] base:min-w-[776px] m-auto my-4 p-5 bg-[#FCFCFC] rounded-lg border border-[#C4C4C4] py-2-xs md:py-4 laptop:py-4 gap-4;
   &__activity-icons {
     @apply flex gap-5;
   }
