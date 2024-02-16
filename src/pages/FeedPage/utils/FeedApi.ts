@@ -24,7 +24,7 @@ export class FeedApi {
   constructor(
     private setFeeds: Dispatch<SetStateAction<Feeds>>,
     private setIsLoading: SetIsLoadingType,
-    private setErrorBoundary: SetErrorType // private setPage: Dispatch<SetStateAction<number>>
+    private setErrorBoundary: SetErrorType
   ) {}
 
   async getFeeds(page = 1, limit = pageLimit) {

@@ -9,7 +9,6 @@ export type FeedContextType = {
   feeds: Array<IPost> | [];
   isLoad: boolean;
   page: number;
-  // feedApi: () => void;
   setPage: Dispatch<SetStateAction<number>>;
   setFeeds: Dispatch<SetStateAction<Array<IPost>>>;
 };
