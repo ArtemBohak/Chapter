@@ -6,9 +6,9 @@ const PostSkeleton = (props: JSX.IntrinsicAttributes & IContentLoaderProps) => (
   <ContentLoader
     className={styles['post-skeleton__wrapper']}
     speed={4}
-    width={850}
+    width={776}
     height={800}
-    viewBox="0 0 850 800"
+    viewBox="0 0 776 800"
     backgroundColor="#f3f3f3"
     foregroundColor="#FFC368"
     {...props}

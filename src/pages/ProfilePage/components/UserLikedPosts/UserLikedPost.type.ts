@@ -2,15 +2,19 @@
 
 export type LikedPostData = {
     postId: number;
-    postimage: string;
+    imgUrl: string;
     title: string;
     caption: string;
-    createdDate: string;
+    createAt: string;
+    updatedAt: string;
     likesCount: number;
-    commentCount: number;
+    commentsCount: number;
     author: {
-        authorId: number;
-        authorNickName: string;
-        authorAvatar: string;
+        id: number;
+        nickName: string;
+        avatar: string;
+        firstName: string;
+        lastName: string;
     }
+    isSubscribeToAuthor: boolean;
 }
