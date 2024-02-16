@@ -122,6 +122,71 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
     setRecentSearchArr(getDataFromLS("recentSearch") || []);
   }, [debouncedSearchValue]);
 
+  const renderRecent = (
+    <>
+      <p>Recent</p>
+      <ul>
+        {recentSearchArr.map((el, i) => {
+          return (
+            <li key={i}>
+              <button onClick={onHandleRecentSearchClick} value={el}>
+                {el}
+              </button>
+            </li>
+          );
+        })}
+      </ul>
+    </>
+  );
+
+  const renderResult = (
+    <>
+      <div>
+        <p>Result</p>
+        <ul>
+          {resultArr.slice(0, 5).map((el) => {
+            return (
+              <li key={el.userId}>
+                <Link
+                  to={`/${el.userId}`}
+                  onClick={onHandleLinkClick}
+                  className={styles["nickname"]}
+                >
+                  <img
+                    src={el.avatarUrl || defaultAvatar}
+                    width={40}
+                    height={40}
+                  />
+                  <span>
+                    {el.nickName.length > 15
+                      ? el.nickName.slice(0, 15) + "..."
+                      : el.nickName}
+                  </span>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+      {resultArr.length > 5 ? (
+        <Link
+          to={links.SEARCH}
+          state={resultArr}
+          className={styles["link"]}
+          onClick={onHandleLinkClick}
+        >
+          See more
+        </Link>
+      ) : null}
+    </>
+  );
+
+  const renderNotFound = (
+    <>
+      <p>Nothing found.</p>
+    </>
+  );
+
   return (
     <div className={styles["search__wrapper"]}>
       <SearchField
@@ -143,20 +208,7 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
         bodyClassName={styles["popup__body"]}
         contentWrapperClassNames={`${styles["popup__content-wrapper"]} ${styles["recent"]}`}
       >
-        <>
-          <p>Recent</p>
-          <ul>
-            {recentSearchArr.map((el, i) => {
-              return (
-                <li key={i}>
-                  <button onClick={onHandleRecentSearchClick} value={el}>
-                    {el}
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
-        </>
+        {renderRecent}
       </PopUpMenu>
       <PopUpMenu
         isOpen={showResultPopup}
@@ -166,45 +218,7 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
         bodyClassName={styles["popup__body"]}
         contentWrapperClassNames={`${styles["popup__content-wrapper"]} ${styles["search"]}`}
       >
-        <>
-          <div>
-            <p>Result</p>
-            <ul>
-              {resultArr.slice(0, 5).map((el) => {
-                return (
-                  <li key={el.userId}>
-                    <Link
-                      to={`/${el.userId}`}
-                      onClick={onHandleLinkClick}
-                      className={styles["nickname"]}
-                    >
-                      <img
-                        src={el.avatarUrl || defaultAvatar}
-                        width={40}
-                        height={40}
-                      />
-                      <span>
-                        {el.nickName.length > 15
-                          ? el.nickName.slice(0, 15) + "..."
-                          : el.nickName}
-                      </span>
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-          {resultArr.length > 5 ? (
-            <Link
-              to={links.SEARCH}
-              state={resultArr}
-              className={styles["link"]}
-              onClick={onHandleLinkClick}
-            >
-              See more
-            </Link>
-          ) : null}
-        </>
+        {renderResult}
       </PopUpMenu>
       <PopUpMenu
         isOpen={showNotFoundPopup}
@@ -214,9 +228,7 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
         bodyClassName={styles["popup__body"]}
         contentWrapperClassNames={`${styles["popup__content-wrapper"]} ${styles["not-found"]}`}
       >
-        <>
-          <p>Nothing found.</p>
-        </>
+        {renderNotFound}
       </PopUpMenu>
     </div>
   );
