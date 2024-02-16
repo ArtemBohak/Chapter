@@ -64,7 +64,7 @@ const LikesButton: FC<LikesButtonProps> = ({
 
   const onHandleModalOpenClick = async () => {
     try {
-      const res = await api.post(EndpointsEnum.LIKED_USER_LIST + id);
+      const res = await api.get(EndpointsEnum.LIKED_USER_LIST + id);
       console.log(res.data);
       setHeaderAddPostBtnIsDisabled(true);
       setLikes(dataLikes);
