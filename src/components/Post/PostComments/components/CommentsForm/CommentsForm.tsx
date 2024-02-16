@@ -18,7 +18,7 @@ const initialValues = { text: "" };
 const CommentsForm: FC<CommentsFormProps> = ({
   postId,
   commentId,
-
+  setCommentId,
   setCommentsIsHide,
   setNickName,
 }) => {
@@ -39,6 +39,7 @@ const CommentsForm: FC<CommentsFormProps> = ({
           values
         );
         setSubmitting(false);
+        setCommentId(null);
         return resetForm();
       }
       await api.post(EndpointsEnum.COMMENTS + postId, values);
