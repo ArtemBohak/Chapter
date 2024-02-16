@@ -17,9 +17,13 @@ import { PostButton } from "@/src/components/Post/components";
 const initialValues = { text: "" };
 
 const feedsCb = (feed: IPost) => (feeds: Array<IPost>) => {
-  console.log(feed, feeds);
+  const feedsC = [...feeds];
+  const existingObj = feedsC.findIndex((el) => el.postId === feed.postId);
+  if (existingObj !== -1) {
+    feedsC[existingObj] = { ...feedsC[existingObj], ...feed };
+  }
 
-  return feeds;
+  return feedsC;
 };
 
 const CommentsForm: FC<CommentsFormProps> = ({
