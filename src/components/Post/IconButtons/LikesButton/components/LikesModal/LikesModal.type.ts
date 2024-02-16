@@ -1,19 +1,23 @@
 import { Dispatch, SetStateAction } from "react";
-import { PostProps } from "@/src/components/Post/Post.type";
-import { Author } from "@/src/types";
 
-export type Like = Required<Pick<PostProps, "isSubscribeToAuthor">> &
-  Required<
-    Pick<
-      Author,
-      "avatar" | "id" | "firstName" | "lastName" | "nickName" | "relativeDate"
-    >
-  >;
+import { IUser } from "@/src/types";
+
+export type User = Required<
+  Pick<
+    IUser,
+    | "avatarUrl"
+    | "firstName"
+    | "isSubscribed"
+    | "lastName"
+    | "nickName"
+    | "userId"
+  >
+>;
 
 export type LikesModalProps = {
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
-  likesData: Array<Like>;
+  likesData: Array<User>;
   likeCount: number;
   title?: string;
 };

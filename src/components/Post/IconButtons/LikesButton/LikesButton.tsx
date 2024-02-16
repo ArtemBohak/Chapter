@@ -4,27 +4,15 @@ import cn from "classnames";
 import { useModalsContext } from "@/src/context";
 import { useErrorBoundary, useFindUserId } from "@/src/hooks";
 import { LikesButtonProps } from "./LikesButton.type";
-import { Like } from "./components/LikesModal/LikesModal.type";
+import { User } from "./components/LikesModal/LikesModal.type";
 import styles from "../IconButtons.module.scss";
 import likesButtonStyles from "./LikesButton.module.scss";
 
 import { Icon, IconEnum } from "@/src/components";
 import { LikesModal } from "./components";
 import { IdList } from "@/src/types";
-import { AxiosError } from "axios";
+import { AxiosError, AxiosResponse } from "axios";
 import { EndpointsEnum, api } from "@/src/axios";
-
-const dataLikes: Array<Like> = [
-  {
-    nickName: "DD",
-    avatar: null,
-    firstName: "Kristin",
-    lastName: "Wood",
-    id: 0,
-    relativeDate: Date.now(),
-    isSubscribeToAuthor: false,
-  },
-];
 
 const LikesButton: FC<LikesButtonProps> = ({
   userIds,
@@ -46,7 +34,7 @@ const LikesButton: FC<LikesButtonProps> = ({
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  const [likes, setLikes] = useState<Array<Like>>([]);
+  const [likes, setLikes] = useState<Array<User>>([]);
 
   useEffect(() => {
     if (modalIsOpen) return setHeaderAddPostBtnIsDisabled(true);
@@ -64,10 +52,13 @@ const LikesButton: FC<LikesButtonProps> = ({
 
   const onHandleModalOpenClick = async () => {
     try {
-      const res = await api.get(EndpointsEnum.LIKED_USER_LIST + id);
-      console.log(res.data);
+      const { data }: AxiosResponse<Array<User>> = await api.get(
+        EndpointsEnum.LIKED_USER_LIST + id
+      );
+
+      if (!data.length) return;
       setHeaderAddPostBtnIsDisabled(true);
-      setLikes(dataLikes);
+      setLikes(data);
 
       setModalIsOpen(true);
     } catch (e) {

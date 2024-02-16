@@ -8,25 +8,25 @@ import defaultAvatar from "@/src/assets/SVG/default-user-avatar.svg";
 
 const Like: FC<LikeProps> = ({
   lastName,
-  avatar,
+  avatarUrl,
   firstName,
-  id,
-  isSubscribeToAuthor,
+  userId,
+  isSubscribed,
 }) => {
-  const avatarUrl = avatar ? avatar : defaultAvatar;
+  const avatar = avatarUrl ? avatarUrl : defaultAvatar;
 
   return (
     <div className={styles["like-item"]}>
       <div className={styles["like-item__text-content"]}>
-        <img src={avatarUrl} alt="user avatar" width={32} height={32} />
+        <img src={avatar} alt="user avatar" width={32} height={32} />
         <p>
           <span>{firstName}</span> <span>{lastName}</span>
         </p>
       </div>
       <FollowButton
         classNames={styles["like-item__button"]}
-        id={id}
-        isSubscribeToAuthor={isSubscribeToAuthor}
+        id={userId}
+        isSubscribeToAuthor={isSubscribed}
       />
     </div>
   );
