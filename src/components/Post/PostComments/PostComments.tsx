@@ -15,6 +15,7 @@ const PostComments: FC<PostCommentsProps> = ({
   comments,
   commentsIsHide,
   setCommentsIsHide,
+  setFeeds,
 }) => {
   const [commentId, setCommentId] = useState<string | number | null>(null);
   const [nickName, setNickName] = useState("");
@@ -111,6 +112,7 @@ const PostComments: FC<PostCommentsProps> = ({
           nickName={nickName}
           setNickName={setNickName}
           setCommentId={setCommentId}
+          setFeeds={setFeeds}
         />
       </div>
     </div>

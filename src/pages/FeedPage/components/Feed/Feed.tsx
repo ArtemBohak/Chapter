@@ -1,6 +1,9 @@
 import { FC, useState } from "react";
 
 import { FeedProps } from "./Feed.type";
+import { likeApi } from "@/src/utils";
+import { EndpointsEnum } from "@/src/axios";
+import { useFeedContext } from "../../context";
 import styles from "./Feed.module.scss";
 
 import {
@@ -16,17 +19,10 @@ import {
   PostFullName,
   PostDate,
 } from "@/src/components";
-import { likeApi } from "@/src/utils";
-import { EndpointsEnum } from "@/src/axios";
 
-const Feed: FC<FeedProps> = ({
-  nodeRef,
-  loaderRef,
-  pageValue,
-
-  ...props
-}) => {
+const Feed: FC<FeedProps> = ({ nodeRef, loaderRef, pageValue, ...props }) => {
   const [commentsIsHide, setCommentsIsHide] = useState(true);
+  const { setFeeds } = useFeedContext();
 
   return (
     <div className={styles["item-feed"]} ref={nodeRef}>
@@ -77,6 +73,7 @@ const Feed: FC<FeedProps> = ({
           {...props}
           commentsIsHide={commentsIsHide}
           setCommentsIsHide={setCommentsIsHide}
+          setFeeds={setFeeds}
         />
       </div>
       {loaderRef ? (

@@ -1,8 +1,11 @@
 import { FC } from "react";
 import { Formik, Form, FormikHelpers } from "formik";
+import { AxiosError } from "axios";
 
 import { useAppSelector } from "@/src/redux";
+import { EndpointsEnum, api } from "@/src/axios";
 import { useErrorBoundary, useGetScreenSize } from "@/src/hooks";
+import { IPost } from "@/src/types";
 import { tabScreen } from "@/src/utils";
 import { FormValues, CommentsFormProps } from "./CommentsForm.type";
 import { validationSchema } from "./validationSchema";
@@ -10,10 +13,12 @@ import styles from "./CommentsForm.module.scss";
 
 import { TextAreaField } from "@/src/components";
 import { PostButton } from "@/src/components/Post/components";
-import { AxiosError } from "axios";
-import { EndpointsEnum, api } from "@/src/axios";
 
 const initialValues = { text: "" };
+
+const feedsCb = (feed: IPost) => (feeds: Array<IPost>) => {
+  console.log(feed, feeds);
+};
 
 const CommentsForm: FC<CommentsFormProps> = ({
   postId,
@@ -21,6 +26,7 @@ const CommentsForm: FC<CommentsFormProps> = ({
   setCommentId,
   setCommentsIsHide,
   setNickName,
+  setFeeds,
 }) => {
   const setErrorBoundary = useErrorBoundary();
   const {
@@ -38,12 +44,17 @@ const CommentsForm: FC<CommentsFormProps> = ({
           EndpointsEnum.COMMENTS + commentId + "/to-comment",
           values
         );
+        setFeeds && setFeeds([]);
         setSubmitting(false);
         setCommentId(null);
+        setNickName("");
         return resetForm();
       }
-      await api.post(EndpointsEnum.COMMENTS + postId, values);
-
+      const { data }: AxiosResponse = await api.post(
+        EndpointsEnum.COMMENTS + postId,
+        values
+      );
+      setFeeds && setFeeds([]);
       setCommentsIsHide && setCommentsIsHide(false);
       setSubmitting(false);
       setNickName("");

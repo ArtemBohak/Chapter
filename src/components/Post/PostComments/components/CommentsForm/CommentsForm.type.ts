@@ -7,6 +7,7 @@ export type CommentsFormProps = {
   nickName: string;
   setNickName: Dispatch<SetStateAction<string>>;
   setCommentId: Dispatch<SetStateAction<string | number | null>>;
-} & Required<Pick<PostCommentsProps, "postId">>;
+} & Required<Pick<PostCommentsProps, "postId">> &
+  Pick<PostCommentsProps, "setFeeds">;
 
 export type FormValues = { text: string };
