@@ -30,13 +30,9 @@
   @apply relative w-3/4 md:w-full;
 }
 
-.input-field {
+.input-load {
   & input {
-    @apply transition-all duration-150;
-
-    &:disabled {
-      @apply animate-pulse;
-    }
+    @apply transition-all duration-150 animate-pulse;
   }
 }
 

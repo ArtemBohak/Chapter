@@ -76,3 +76,9 @@
 .nickname {
   @apply text-lg text-black no-underline flex items-center gap-1-sm;
 }
+
+.input-load {
+  & input {
+    @apply transition-all duration-150 animate-pulse;
+  }
+}

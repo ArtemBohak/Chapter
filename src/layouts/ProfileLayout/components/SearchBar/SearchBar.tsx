@@ -128,13 +128,12 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
         id={"search-field"}
         name={"search-field"}
         dataAutomation={"search-field"}
-        className={inputClassName}
+        className={`${inputClassName} ${isLoading ? styles["input-load"] : ""}`}
         placeholder="Find your friends here"
         value={searchValue}
         onChange={onHandleChange}
         onFocus={onHandleFocus}
         autoComplete="off"
-        disabled={isLoading}
       />
       <PopUpMenu
         isOpen={showRecentSearchPopup && !!recentSearchArr.length}

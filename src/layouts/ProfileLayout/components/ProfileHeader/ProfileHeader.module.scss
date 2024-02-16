@@ -27,14 +27,6 @@
 
   &__search-field {
     @apply hidden w-[200px] md:block md:w-[300px] laptop_md:w-[400px];
-
-    & input {
-      @apply transition-all duration-150;
-
-      &:disabled {
-        @apply animate-pulse;
-      }
-    }
   }
 
   &__user-avatar {

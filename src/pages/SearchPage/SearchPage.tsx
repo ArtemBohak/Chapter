@@ -198,8 +198,7 @@ const SearchPage: FC = () => {
               placeholder="Find your friends here"
               onChange={onHandleChange}
               value={searchValue}
-              disabled={isLoading}
-              className={styles["input-field"]}
+              className={isLoading ? styles["input-load"] : ""}
             />
             {searchValue.length ? (
               <button
@@ -222,8 +221,7 @@ const SearchPage: FC = () => {
               placeholder="Find your friends here"
               onChange={onHandleChange}
               value={searchValue}
-              disabled={isLoading}
-              className={styles["input-field"]}
+              className={isLoading ? styles["input-load"] : ""}
             />
             {searchValue.length ? (
               <button
