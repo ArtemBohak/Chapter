@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { Formik, Form, FormikHelpers } from "formik";
-import { AxiosError } from "axios";
+import { AxiosError, AxiosResponse } from "axios";
 
 import { useAppSelector } from "@/src/redux";
 import { EndpointsEnum, api } from "@/src/axios";
@@ -18,6 +18,8 @@ const initialValues = { text: "" };
 
 const feedsCb = (feed: IPost) => (feeds: Array<IPost>) => {
   console.log(feed, feeds);
+
+  return feeds;
 };
 
 const CommentsForm: FC<CommentsFormProps> = ({
@@ -40,21 +42,22 @@ const CommentsForm: FC<CommentsFormProps> = ({
   ) => {
     try {
       if (commentId) {
-        await api.post(
+        const { data }: AxiosResponse<IPost> = await api.post(
           EndpointsEnum.COMMENTS + commentId + "/to-comment",
           values
         );
-        setFeeds && setFeeds([]);
+        setFeeds && setFeeds(feedsCb(data));
         setSubmitting(false);
         setCommentId(null);
         setNickName("");
         return resetForm();
       }
-      const { data }: AxiosResponse = await api.post(
+      const { data }: AxiosResponse<IPost> = await api.post(
         EndpointsEnum.COMMENTS + postId,
         values
       );
-      setFeeds && setFeeds([]);
+
+      setFeeds && setFeeds(feedsCb(data));
       setCommentsIsHide && setCommentsIsHide(false);
       setSubmitting(false);
       setNickName("");
