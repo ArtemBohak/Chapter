@@ -1,18 +1,20 @@
 import { FC } from "react";
 
+import { Link } from "react-router-dom";
 import { CommentProps } from "./Comment.type";
+import { EndpointsEnum } from "@/src/axios";
 
 import { getDate, likeApi } from "@/src/utils";
+import { useAppSelector } from "@/src/redux";
 import styles from "./Comment.module.scss";
 
 import { TextTagging } from "@/src/components";
 import { LikesButton, CommentsButton } from "../../../../..";
 
 import defaultAvatar from "@/src/assets/SVG/default-user-avatar.svg";
-import { EndpointsEnum } from "@/src/axios";
 
 const Comment: FC<CommentProps> = ({
-  author: { avatar, firstName, lastName, nickName },
+  author: { avatar, firstName, lastName, nickName, id: authorId },
   commentsCount,
   commentCount,
   usersId,
@@ -23,6 +25,10 @@ const Comment: FC<CommentProps> = ({
   setNickName,
   setId,
 }) => {
+  const userId = useAppSelector((state) => state.userSlice.user.id);
+
+  const navId = authorId !== userId ? `/${authorId}` : "#";
+
   const avatarUrl = avatar ? avatar : defaultAvatar;
 
   // const onHandleTagClick = (e: MouseEvent<HTMLButtonElement>) => {
@@ -31,17 +37,17 @@ const Comment: FC<CommentProps> = ({
 
   return (
     <div className={styles["comment"]}>
-      <div className={styles["comment__image"]}>
+      <Link to={navId} className={styles["comment__image"]}>
         <img src={avatarUrl} alt="user avatar" width={44} height={44} />
-      </div>
+      </Link>
       <div className={styles["comment__content"]}>
         <div className={styles["comment__data"]}>
-          <div className={styles["comment__user"]}>
+          <Link to={navId} className={styles["comment__user"]}>
             <h5>
               {firstName} {lastName}
             </h5>
             <p>{nickName}</p>
-          </div>
+          </Link>
           <p>{getDate(createdAt)}</p>
         </div>
         <div className={styles["comment__text"]}>

@@ -1,5 +1,7 @@
 import { FC, useState } from "react";
+import { Link } from "react-router-dom";
 
+import { useAppSelector } from "@/src/redux";
 import { FeedProps } from "./Feed.type";
 import { likeApi } from "@/src/utils";
 import { EndpointsEnum } from "@/src/axios";
@@ -23,17 +25,20 @@ import {
 const Feed: FC<FeedProps> = ({ nodeRef, loaderRef, pageValue, ...props }) => {
   const [commentsIsHide, setCommentsIsHide] = useState(true);
   const { setFeeds } = useFeedContext();
+  const userId = useAppSelector((state) => state.userSlice.user.id);
 
+  const navId = props.author.id !== userId ? `/${props.author.id}` : "#";
   return (
     <div className={styles["item-feed"]} ref={nodeRef}>
       <div
         className={`${styles["item-feed__wrapper"]} ${styles["item-feed__wrapper--top"]}`}
       >
         <div className={styles["item-feed__user"]}>
-          <div className={styles["item-feed__user-content"]}>
+          <Link className={styles["item-feed__user-content"]} to={navId}>
             <Avatar {...props} />
             <UserNickName {...props} />
-          </div>
+          </Link>
+
           <FollowButton {...props} id={props.author.id} />
         </div>
         <div className={styles["item-feed__image"]}>
