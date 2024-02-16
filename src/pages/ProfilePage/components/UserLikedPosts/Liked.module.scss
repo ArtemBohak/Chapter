@@ -1,4 +1,23 @@
 .liked-wrapper {
-    min-height: 100vh;
-    height: 100%;
+  min-height: 100vh;
+  height: 100%;
+}
+
+.user-post {
+  @apply flex flex-col max-w-[80%] min-w-[80%] m-auto my-4 p-5 bg-[#FCFCFC] rounded-lg border border-[#C4C4C4]  py-2-xs md:py-4 laptop:py-4 gap-4;
+  &__activity-icons {
+    @apply flex gap-5;
+  }
+  &__link {
+    @apply no-underline w-max;
+  }
+  &__skeleton {
+    @apply flex flex-col w-[100%] min-w-[700px] m-auto my-4 bg-[#FCFCFC] rounded-lg border border-[#C4C4C4] h-full;
+  }
+  &__image {
+    @apply max-w-full;
+    & img {
+      @apply min-w-full;
+    }
+  }
 }

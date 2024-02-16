@@ -5,44 +5,47 @@ import { BookShelf, IconEnum, UIbutton } from "@/src/components";
 import { useParams } from "react-router";
 import guestProfileApi from "../GuestProfileApi/guestProfileApi";
 import { followApi } from "@/src/axios";
-import subscribersApi from "../GuestProfileApi/subscribersApi";
+import { enemyData } from "./GuestProfile.type";
 
 const GuestProfile: FC = () => {
   const { Id } = useParams();
-  const [enemyData, setEnemyData] = useState();
-  const [enemyDatafollowersIncludeId, setEnemyDatafollowersIncludeId] =
-    useState(false);
+  const [enemyData, setEnemyData] = useState<enemyData>();
+  const [BooksCheker, setbooksCheker] = useState(false)
+  const [subscribeIsLoading, setSubscribeIsLoading] = useState(false)
+
 
   const fetchEnemyUserData = async (Id: string | number | undefined) => {
     const response = await guestProfileApi(Id);
     setEnemyData(response.data);
+    console.log(enemyData)
+    if (response.data.userBooks.length > 0) {
+      setbooksCheker(true)
+    }
   };
 
-  const followingList = async () => {
-    const { data } = await subscribersApi();
-
-    setEnemyDatafollowersIncludeId(
-      data.myFollow.some((item: any) => item.id.toString() === Id)
-    );
-  };
 
   const subscribe = async () => {
-    const response = await followApi(Id);
-
-    fetchEnemyUserData(Id);
+    setSubscribeIsLoading(true)
+    try {
+      await followApi(Id);
+      fetchEnemyUserData(Id);
+    } catch (error) {
+      console.log(error)
+    }
+    finally {
+      setSubscribeIsLoading(false)
+    }
   };
 
   useEffect(() => {
     fetchEnemyUserData(Id);
-    followingList();
-    console.log(enemyData);
   }, []);
   return (
     <div className={styles["profile-conteiner"]}>
-      <GuestProfileInfo data={enemyData} />
+      <GuestProfileInfo data={enemyData} subscribe={subscribe} subscribeIsLoading={subscribeIsLoading} />
       {
         <UIbutton
-          icon={IconEnum.UserAdd}
+          icon={enemyData?.isSubscribed ? IconEnum.WhiteOk : IconEnum.UserAdd}
           onClick={subscribe}
           id="follow"
           className={styles["button-follow"]}
@@ -50,11 +53,12 @@ const GuestProfile: FC = () => {
           size="medium"
           color="primary"
           dataAutomation="FollowButton"
+          isLoading={subscribeIsLoading}
         >
-          {enemyDatafollowersIncludeId === true ? "unfollow" : "follow"}
+          {enemyData?.isSubscribed ? "Unfollow" : "Follow"}
         </UIbutton>
       }
-      <BookShelf />
+      {BooksCheker && <BookShelf enemyData={enemyData} Id={Id} />}
     </div>
   );
 };

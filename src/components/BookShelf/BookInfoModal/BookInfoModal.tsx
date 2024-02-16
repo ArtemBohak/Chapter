@@ -15,6 +15,7 @@ const BookInfoModal: FC<BookInfoModalProps> = ({
   isFavorite,
   bookStatus,
   imagePath,
+  favoriteButtons,
 }) => {
   const nameLength = useMemo(() => nameOfBook?.length ?? 0, [nameOfBook]);
 
@@ -31,11 +32,11 @@ const BookInfoModal: FC<BookInfoModalProps> = ({
       <div className={styles["book-info__wrapper"]}>
         <div className={styles["book-info__image"]}>
           <img src={imagePath} alt="Book Image" />
-          <FavoriteBookButton
+          {favoriteButtons && <FavoriteBookButton
             className={styles["book-info__favorite-button"]}
             isFavorite={isFavorite}
             id={id}
-          />
+          />}
         </div>
         <div className={styles["book-info__text"]}>
           <div>
@@ -54,14 +55,14 @@ const BookInfoModal: FC<BookInfoModalProps> = ({
             <h4>by {author}</h4>
             <p className={styles["book-info__annotation"]}>{annotation}</p>
           </div>
-          <UIbutton
+          {favoriteButtons && <UIbutton
             className={styles["book-info__button"]}
             fullWidth={false}
             icon={IconEnum.EditBook}
             dataAutomation={"editBookButton"}
           >
             Edit book info
-          </UIbutton>
+          </UIbutton>}
         </div>
         <CloseButton setIsOpen={setIsOpen} />
       </div>

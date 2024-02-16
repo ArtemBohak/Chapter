@@ -1,10 +1,12 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import styles from "./AddBookSliderButton.module.scss";
 import { Icon, IconEnum } from "../..";
 import AddBookModal from "../AddBookModal/AddBookModal";
+import { useBooksPageContext } from "@/src/pages/BooksPage/context";
 
 const AddBookSliderButton: FC = () => {
-  const [isAddBookModalOpen, setIsAddBookModalOpen] = useState(false);
+  // const [isAddBookModalOpen, setIsAddBookModalOpen] = useState(false);
+  const { isAddBookModalOpen, setIsAddBookModalOpen } = useBooksPageContext();
   const handleOpenModal = () => {
     setIsAddBookModalOpen(true);
   };

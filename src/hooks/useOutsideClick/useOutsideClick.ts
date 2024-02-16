@@ -8,8 +8,10 @@ export const useOutsideClick = (
   useEffect(() => {
     function onHandleOutsideClick(this: HTMLElement, event: Event) {
       const target = event.target as HTMLElement;
+      const isClickInsideSVG = target.closest("svg") !== null;
 
-      if (ref.current && !ref.current.contains(target) && target.id !== id) {
+      if (ref.current && !ref.current.contains(target) && target.id !== id &&
+        !isClickInsideSVG) {
         setState(false);
       }
     }

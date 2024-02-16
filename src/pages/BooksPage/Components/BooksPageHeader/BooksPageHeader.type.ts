@@ -1,3 +1,4 @@
 export type booksPageHeaderProps = {
-    user: 'me' | 'guest';
+    userType: 'me' | 'guest';
+    id?: string | undefined;
 }

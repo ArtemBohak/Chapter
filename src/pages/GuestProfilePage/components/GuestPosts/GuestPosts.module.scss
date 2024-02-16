@@ -1,0 +1,15 @@
+.user-post {
+ @apply flex flex-col max-w-[90%] min-w-[90%] m-auto my-4 p-5 bg-[#FCFCFC] rounded-lg border border-[#C4C4C4] py-2-xs md:py-3-lg laptop:py-3-lg gap-4;
+ &__activity-icons {
+  @apply flex gap-5;
+ }
+ &__skeleton {
+  @apply flex flex-col w-[100%] min-w-[700px] m-auto my-4 bg-[#FCFCFC] rounded-lg border border-[#C4C4C4] h-full;
+ }
+ &__image {
+  @apply max-w-full;
+  & img {
+      @apply min-w-full;
+  }
+ }
+}

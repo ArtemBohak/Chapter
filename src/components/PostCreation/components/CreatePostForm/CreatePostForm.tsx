@@ -21,7 +21,7 @@ const CreatePostForm: FC<CreatePostFormProps> = ({
   setFile,
   title,
   caption,
-  imageUrl,
+  imgUrl,
 }) => {
   const initialValues = { title, caption };
   const onSubmit = (values: PostValues) => {
@@ -63,7 +63,7 @@ const CreatePostForm: FC<CreatePostFormProps> = ({
               setFile={setFile}
             />
             <p className={styles["image-label"]}>.png, .jpg, .gif</p>
-            {imageUrl ? (
+            {imgUrl ? (
               <div className={styles["form__image-wrapper"]}>
                 <button
                   onClick={onHandleRemoveClick}
@@ -71,7 +71,7 @@ const CreatePostForm: FC<CreatePostFormProps> = ({
                 >
                   <Icon icon={IconEnum.Cross} size={20} />
                 </button>
-                <img src={imageUrl} alt="post image" />
+                <img src={imgUrl} alt="post image" />
               </div>
             ) : null}
             <TextAreaField
@@ -88,7 +88,7 @@ const CreatePostForm: FC<CreatePostFormProps> = ({
                 type="submit"
                 dataAutomation="submitButton"
                 disabled={
-                  (!imageUrl && !values.caption && !values.title) || !isValid
+                  (!imgUrl && !values.caption && !values.title) || !isValid
                 }
                 fullWidth
               >

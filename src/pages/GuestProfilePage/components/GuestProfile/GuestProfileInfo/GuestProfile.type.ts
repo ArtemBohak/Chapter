@@ -12,5 +12,8 @@ export type guestProfileProps = {
         myFollowersCount: number | null;
         myFollowingCount: number | null;
         userBooks: Array<IBook> | [];
+        isSubscribed: boolean;
     }
+    subscribe: () => {};
+    subscribeIsLoading: boolean;
 }

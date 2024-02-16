@@ -11,7 +11,7 @@
         }
     }
     &__fulname {
-        @apply break-words mb-0 font-semibold text-base laptop:text-h4_lg;
+        @apply break-words mb-0 font-semibold text-base laptop:text-h4_lg hyphens-auto;
     }
     &__nickname {
         @apply text-xs md:text-base text-grey-1000 mb-[8px] tracking-[0.176px];
@@ -35,5 +35,5 @@
 }
 
 .button-follow {
-    @apply hidden md:block laptop_md:hidden justify-self-end md:w-2/6 max-w-[160px];
+    @apply hidden md:block laptop_md:hidden justify-self-end md:w-2/6 max-w-[160px] laptop:max-w-[180px];
 }

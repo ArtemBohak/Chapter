@@ -7,8 +7,9 @@ import CancelModal from "../CancelModal/CancelModal";
 import { deleteMultipleBooksApi } from "@/src/components/BookShelf/DeleteBookModal/DeleteBookApi";
 import AddBookModal from "@/src/components/BookShelf/AddBookModal/AddBookModal";
 import { booksPageHeaderProps } from "./BooksPageHeader.type";
+import { useAppSelector } from "@/src/redux";
 
-const BooksPageHeader: FC<booksPageHeaderProps> = ({ user }) => {
+const BooksPageHeader: FC<booksPageHeaderProps> = ({ userType, id }) => {
   const {
     edit,
     setEdit,
@@ -18,6 +19,8 @@ const BooksPageHeader: FC<booksPageHeaderProps> = ({ user }) => {
     setIsAddBookModalOpen,
     deleteIdList,
   } = useBooksPageContext();
+
+  const { user } = useAppSelector((state) => state.userSlice);
 
   const handleCancel = () => {
     setIsCancelModalOpen(true);
@@ -37,12 +40,12 @@ const BooksPageHeader: FC<booksPageHeaderProps> = ({ user }) => {
         icon={IconEnum.ArrowLeft}
         color="secondary"
         dataAutomation="Back-to-profile"
-        href={user === "me" ? links.PROFILE : "/49"}
+        href={userType === "me" || id === user.id.toString() ? links.PROFILE : `/${id}`}
       >
         <p className={styles["back-to-profile__text"]}>Back to profile</p>
       </UIbutton>
       <h2 className={styles["books-page-header__title"]}>Library</h2>
-      {user === "me" && (
+      {userType === "me" && (
         <>
           {edit ? (
             <div className="flex gap-5">

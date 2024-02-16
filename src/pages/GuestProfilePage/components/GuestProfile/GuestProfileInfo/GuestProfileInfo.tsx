@@ -1,7 +1,6 @@
 import { FC } from "react";
 import styles from "./GuestProfileInfo.module.scss";
 import {
-  FollowButton,
   Icon,
   IconEnum,
   UIbutton,
@@ -9,52 +8,54 @@ import {
 } from "@/src/components";
 import { guestProfileProps } from "./GuestProfile.type";
 import defaultUserAvatar from "@/src/assets/SVG/default-user-avatar.svg";
+import { useGuestContext } from "../../../context";
 
-const GuestProfileInfo: FC<guestProfileProps> = ({ ...props }) => {
-  const { data } = props;
-  console.log(data);
+const GuestProfileInfo: FC<guestProfileProps> = ({ subscribe, subscribeIsLoading }) => {
+  const { enemyData } = useGuestContext()
   return (
     <>
       <div className={styles["profile-info"]}>
         <div className="flex w-full gap-5 md:items-center md:w-4/6 laptop_md:w-full">
           <UserAvatar
             className={styles["profile-info__avatar"]}
-            src={data?.avatarUrl || defaultUserAvatar}
+            src={enemyData?.avatarUrl || defaultUserAvatar}
             alt={"avatar"}
           />
           <div className={styles["profile-info__wrapper"]}>
             <h4 className={styles["profile-info__fulname"]}>
-              {data?.firstName} {data?.lastName}
+              {enemyData?.firstName} {enemyData?.lastName}
             </h4>
-            <p className={styles["profile-info__nickname"]}>{data?.nickName}</p>
+            <p className={styles["profile-info__nickname"]}>{enemyData?.nickName}</p>
             <p className={styles["profile-info__address"]}>
               <Icon width={20} icon={IconEnum.Location} />
-              {data?.location}
+              {enemyData?.location}
             </p>
             <div className={styles["profile-info__social-counters"]}>
               <p>
-                <span>{data?.myFollowersCount}</span> followers
+                <span>{enemyData?.myFollowersCount}</span> followers
               </p>
               <p>
-                <span>{data?.myFollowingCount}</span> follow
+                <span>{enemyData?.myFollowingCount}</span> follow
               </p>
             </div>
           </div>
         </div>
         <UIbutton
-          icon={IconEnum.UserAdd}
+          icon={enemyData?.isSubscribed ? IconEnum.WhiteOk : IconEnum.UserAdd}
+          onClick={subscribe}
           id="follow"
           className={styles["button-follow"]}
           fullWidth={false}
           size="medium"
           color="primary"
           dataAutomation="FollowButton"
+          isLoading={subscribeIsLoading}
         >
-          Follow
+          {enemyData?.isSubscribed ? "Unfollow" : "Follow"}
         </UIbutton>
       </div>
 
-      <p className={styles["profile-info__status"]}>{data?.userStatus}</p>
+      <p className={styles["profile-info__status"]}>{enemyData?.userStatus}</p>
     </>
   );
 };

@@ -1,11 +1,24 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import styles from "./ProfileInfo.module.scss";
 import { Icon, IconEnum, UserAvatar } from "@/src/components";
 import defaultUserAvatar from "@/src/assets/SVG/default-user-avatar.svg";
 import { useAppSelector } from "@/src/redux";
+import FollowModal from "../FollowModal/FollowModal";
+import FollowersModal from "../FollowersModal/FollowersModal";
+
+
 
 const ProfileInfo: FC = () => {
   const { user } = useAppSelector((state) => state.userSlice);
+  const [isFollowModalOpen, setIsFollowModalOpen] = useState(false)
+  const [isFollowersModalOpen, setIsFollowersModalOpen] = useState(false)
+
+  const getFollowList = async () => {
+    setIsFollowModalOpen(!isFollowModalOpen)
+  }
+  const getFollowersList = async () => {
+    setIsFollowersModalOpen(!isFollowModalOpen)
+  }
 
   const {
     firstName,
@@ -36,16 +49,18 @@ const ProfileInfo: FC = () => {
             {location}
           </p>
           <div className={styles["profile-info__social-counters"]}>
-            <p>
+            <button className={styles["default-button"]} onClick={getFollowersList}>
               <span>{myFollowersCount || 0}</span> followers
-            </p>
-            <p>
-              <span>{myFollowingCount || 0}</span> follow
-            </p>
+            </button>
+            <button className={styles["default-button"]} onClick={getFollowList}>
+              <span>{myFollowingCount || 0}</span> following
+            </button>
           </div>
         </div>
       </div>
       <p className={styles["profile-info__status"]}>{userStatus}</p>
+      <FollowersModal isFollowersModalOpen={isFollowersModalOpen} setIsFollowersModalOpen={setIsFollowersModalOpen}/>
+      <FollowModal isFollowModalOpen={isFollowModalOpen} setIsFollowModalOpen={setIsFollowModalOpen}/>
     </>
   );
 };

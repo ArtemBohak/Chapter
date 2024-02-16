@@ -9,6 +9,7 @@ import styles from "./SidebarNavigation.module.scss";
 
 import { ProfileNavigation } from "../ProfileNavigation";
 import { SidebarNavigationProps } from "./SidebarNavigation.type";
+import { Logo } from "@/src/components";
 
 const SidebarNavigation: FC<SidebarNavigationProps> = (props) => {
   const { isActiveMenu } = useNavigationToggler();
@@ -19,7 +20,7 @@ const SidebarNavigation: FC<SidebarNavigationProps> = (props) => {
       })}
     >
       <NavLink to={links.FEED} className={styles["sidebar-navigation__logo"]}>
-        <img src="https://i.postimg.cc/0jD0P9kw/Chapter.webp" alt="Chapter" />
+       <Logo className="max-w-[280px]"/>
       </NavLink>
       <ProfileNavigation {...props} />
     </div>
