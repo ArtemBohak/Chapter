@@ -140,12 +140,15 @@ const SearchPage: FC = () => {
       <ul className={`${styles["list"]} ${styles["search-list"]}`}>
         {resultArr.map((el) => {
           return (
-            <li key={el.id}>
+            <li key={el.userId}>
               <Link
-                to={`/${el.id}`}
+                to={`/${el.userId}`}
                 className={styles["nickname"]}
-                onMouseOver={onHandleHoverElement(el.id, el.nickName.length)}
-                onMouseOut={onHandleHoverElement(el.id, el.nickName.length)}
+                onMouseOver={onHandleHoverElement(
+                  el.userId,
+                  el.nickName.length
+                )}
+                onMouseOut={onHandleHoverElement(el.userId, el.nickName.length)}
               >
                 <img
                   src={el.avatarUrl || defaultAvatar}
@@ -157,14 +160,14 @@ const SearchPage: FC = () => {
                     ? el.nickName.slice(0, 15) + "..."
                     : el.nickName}
                 </span>
-                <span id={`${el.id}`} className={styles["full-nickname"]}>
+                <span id={`${el.userId}`} className={styles["full-nickname"]}>
                   {el.nickName}
                 </span>
               </Link>
               <FollowButton
-                id={el.id}
+                id={el.userId}
                 classNames={styles["follow-btn"]}
-                isSubscribed={false}
+                isSubscribed={el.isSubscribed}
               />
             </li>
           );
