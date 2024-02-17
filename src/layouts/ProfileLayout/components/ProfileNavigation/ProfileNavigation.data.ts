@@ -26,6 +26,12 @@ export const mobNavigation: NavigationLinkProps[] = [
     icon: IconEnum.User,
     name: "Profile",
   },
+  {
+    id: "5",
+    path: "/books",
+    icon: IconEnum.BlackBook,
+    name: "My library",
+  },
 ];
 
 export const tabletNavigation: NavigationLinkProps[] = [
@@ -46,6 +52,12 @@ export const tabletNavigation: NavigationLinkProps[] = [
     path: "/profile",
     icon: IconEnum.User,
     name: "Profile",
+  },
+  {
+    id: "5",
+    path: "/books",
+    icon: IconEnum.BlackBook,
+    name: "My library",
   },
 ];
 

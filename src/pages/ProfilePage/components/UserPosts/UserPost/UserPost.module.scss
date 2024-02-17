@@ -1,0 +1,31 @@
+.user-post {
+  @apply flex flex-col max-w-[90%] min-w-[320px] md:min-w-[700px] base:min-w-[776px] m-auto my-4 p-5 bg-[#FCFCFC] rounded-lg border border-[#C4C4C4] py-2-xs md:py-4 laptop:py-4 gap-4;
+  &__activity-icons {
+    @apply flex gap-5;
+  }
+  &__skeleton {
+    @apply flex flex-col w-[100%] min-w-[700px] m-auto my-4 bg-[#FCFCFC] rounded-lg border border-[#C4C4C4] h-full;
+  }
+  &__image {
+    @apply max-w-full;
+    & img {
+      @apply min-w-full;
+    }
+  }
+}
+
+.menu {
+  @apply flex flex-col items-start gap-2-md p-2-xs z-50 right-0;
+
+  & > button {
+    @apply bg-inherit outline-none;
+  }
+}
+
+.button-more {
+  @apply bg-inherit outline-none;
+}
+
+.popup-body {
+  @apply absolute right-0 top-7 base:top-9 block laptop_md:right-0 md:-bottom-[98px] bg-transparent w-[220px] h-[108px];
+}

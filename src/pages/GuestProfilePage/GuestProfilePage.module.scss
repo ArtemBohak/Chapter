@@ -20,7 +20,7 @@ h-[100vh] relative overflow-y-auto overflow-hidden;
 }
 
 .buttons-block {
-    @apply flex bg-white sticky top-[-12px] md:top-[8px] laptop:top-0 w-full;
+    @apply flex bg-white sticky top-[-12px] md:top-[8px] laptop:top-0 w-full z-50;
     
     @media (min-width: 1681px) {
         &::before {
@@ -48,6 +48,6 @@ h-[100vh] relative overflow-y-auto overflow-hidden;
     }
     
     .button-posts {
-        @apply bg-[#FFC368] text-white rounded-none rounded-t-sm;
+        @apply bg-[#FFC368] text-white rounded-none rounded-t-sm z-50;
     }
     

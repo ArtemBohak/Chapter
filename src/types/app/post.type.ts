@@ -5,10 +5,11 @@ export type IdList = Array<
 >;
 
 export interface IPost {
+  updatedAt: string | number | Date;
   id: string | number;
   avatar: string | null;
   nickName: string;
-  imageUrl: string;
+  imgUrl: string;
   followList: IdList;
   likesList: IdList;
   totalLikes: number;

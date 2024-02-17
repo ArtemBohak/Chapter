@@ -21,6 +21,7 @@ export enum IconEnum {
   NextSlide = "next-slide",
   EditBook = "edit-book",
   Book = "book",
+  BlackBook = "book-black",
   FavoriteBook = "favorite-book",
   FavoriteBookActive = "favorite-book-active",
   Close = "close",
@@ -34,5 +35,7 @@ export enum IconEnum {
   UserAdd = "User-add",
   Image = "image",
   PlusOrange = "plus-orange",
-  PlusInCircle = 'plus-in-circle'
+  PlusInCircle = "plus-in-circle",
+  MoreHorizontal = "more-horizontal",
+  WhiteOk = "whiteOk",
 }

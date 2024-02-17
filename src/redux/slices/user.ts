@@ -51,7 +51,7 @@ export const deleteUserBook = createAsyncThunk(
 export const fetchFavoriteBookStatus = createAsyncThunk(
   "user/fetchFavoriteBookStatus",
   async (bookId: number) => {
-    const {data} = await api.patch(`/users/toggle-favorite-status/${bookId}`);
+    const {data} = await api.patch(`${EndpointsEnum.TOOGLE_FAVORITE_BOOKS}${bookId}`);
     return { bookId, data };
   }
 );
