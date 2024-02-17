@@ -12,6 +12,7 @@ const feedsList = [
     nickName: "@Jgreen",
     followList: list,
     imgUrl: temp,
+    isSubscribed: false,
     likesList: list,
     totalLikes: 101,
     totalComments: 101,
@@ -25,6 +26,7 @@ const feedsList = [
   {
     id: 2,
     avatar: null,
+    isSubscribed: false,
     nickName: "@Jgreen",
     followList: list,
     imgUrl: temp,
@@ -42,6 +44,7 @@ const feedsList = [
     id: 3,
     avatar: null,
     nickName: "@Jgreen",
+    isSubscribed: false,
     followList: list,
     imgUrl: temp,
     likesList: list,
