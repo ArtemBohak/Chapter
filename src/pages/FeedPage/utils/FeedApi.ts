@@ -31,6 +31,7 @@ export class FeedApi {
       }
     } finally {
       this.setIsLoading(false);
+      // this.setPostsIsLoaded(false);
     }
   }
 }

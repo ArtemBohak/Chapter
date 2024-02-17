@@ -6,7 +6,7 @@ import { useFeedContext } from "../../context";
 import { pageLimit } from "@/src/utils";
 import styles from "./Feeds.module.scss";
 
-import { Animation, Loader } from "@/src/components";
+import { Animation, Loader, PostSkeleton } from "@/src/components";
 
 import Feed from "../Feed/Feed";
 
@@ -76,6 +76,9 @@ const Feeds: FC = () => {
     exit: styles["feeds-list-exit"],
     exitActive: styles["feeds-list-exit-active"],
   };
+
+  if (!feeds.length) return <PostSkeleton />;
+
   return (
     <>
       <TransitionGroup component={"ul"} className={styles["feeds-list"]}>

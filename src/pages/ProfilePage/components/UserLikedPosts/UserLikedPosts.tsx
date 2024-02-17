@@ -16,7 +16,7 @@ import {
 import { LikedPostData } from "./UserLikedPost.type";
 import { Link } from "react-router-dom";
 // import { Like } from "@/src/components/Post/IconButtons/LikesButton/components/LikesModal/LikesModal.type";
-import PostSkeleton from "../Profile/components/PostSkeleton/PostSkeleton";
+import { PostSkeleton } from "@/src/components";
 
 const UserLikedPosts: FC = () => {
   const [userLikedPostsList, setUserLikedPostsList] = useState<LikedPostData[]>(

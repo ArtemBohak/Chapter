@@ -10,12 +10,13 @@ const FeedProvider: FC<IFeedProviderProps> = ({ children }) => {
   const [feeds, setFeeds] = useState<Feeds>([]);
   const [page, setPage] = useState(1);
   const [isLoad, setIsLoad] = useState(false);
+
   const setErrorBoundary = useErrorBoundary();
 
   useEffect(() => {
     new FeedApi(setFeeds, setIsLoad, setErrorBoundary).getFeeds(page);
   }, [page, setErrorBoundary]);
-  console.log();
+
   return (
     <FeedContext.Provider
       value={{
