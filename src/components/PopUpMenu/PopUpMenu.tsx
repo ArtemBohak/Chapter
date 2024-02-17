@@ -1,21 +1,17 @@
 import { FC } from "react";
 import { IPopUpMenuProps } from "./PopUpMenu.type";
-import styles from "./PopUpMenu.module.scss";
+
 import { Modal } from "..";
 
 const PopUpMenu: FC<IPopUpMenuProps> = ({
   children,
   nodeRef,
-  classNames,
+  contentWrapperClassNames,
   ...props
 }) => {
   return (
-    <Modal
-      {...props}
-      backdropClassName={`${styles["popup-window"]} ${classNames}`}
-      bodyClassName={styles["popup-body"]}
-    >
-      <div className={styles["popup-wrapper"]} ref={nodeRef}>
+    <Modal {...props}>
+      <div className={contentWrapperClassNames} ref={nodeRef}>
         {children}
       </div>
     </Modal>

@@ -1,8 +1,6 @@
 import { FC } from "react";
-import { NavLink } from "react-router-dom";
 import cn from "classnames";
 
-import { links } from "@/src/types";
 import { useNavigationToggler } from "@/src/context";
 
 import styles from "./SidebarNavigation.module.scss";
@@ -19,9 +17,9 @@ const SidebarNavigation: FC<SidebarNavigationProps> = (props) => {
         [styles["active"]]: isActiveMenu,
       })}
     >
-      <NavLink to={links.FEED} className={styles["sidebar-navigation__logo"]}>
-       <Logo className="max-w-[280px]"/>
-      </NavLink>
+      <div className={styles["sidebar-navigation__logo"]}>
+        <Logo className="max-w-[280px]" />
+      </div>
       <ProfileNavigation {...props} />
     </div>
   );

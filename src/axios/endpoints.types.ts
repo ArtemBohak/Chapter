@@ -21,6 +21,7 @@ export enum EndpointsEnum {
   // USERS
   USERS = "users",
   USERS_PROFILE = "users/profile/",
+  USERS_SEARCH = "users/search",
   PROFILE = "users/me",
   UPDATE_PASSWORD = "users/update-password",
   FOLLOW_UNFOLLOW = "users/subscribe-unsubscribe/",

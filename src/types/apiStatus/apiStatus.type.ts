@@ -24,6 +24,7 @@ export enum apiErrorMessage {
   UNCOMPLETED_REGISTRATION = "User registrtion is not completed",
   EMAIL_NOT_EXISTS = "emailNotExists",
   REQUESTS_IS_EXPIRED = "You can request a password reset maximum 3 times per day.",
+  USERS_NOT_FOUND = "Users not found",
 }
 
 export enum apiErrorStatus {

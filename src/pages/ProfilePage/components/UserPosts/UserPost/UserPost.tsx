@@ -1,40 +1,49 @@
-import { Avatar, CommentsButton, ConfirmationWindow, Icon, IconEnum, LikesButton, PopUpMenu, PostComments, PostDate, PostImage, PostText, PostTitle, UserNickName } from '@/src/components'
-import { FC, useRef, useState } from 'react'
-import styles from './UserPost.module.scss'
-import { UserPostProps } from '../UserPost.type'
-import { useAppSelector } from '@/src/redux'
-import { EndpointsEnum, api } from '@/src/axios'
-import { useOutsideClick } from '@/src/hooks'
-import { ElementsId } from '@/src/types'
-
+import {
+  Avatar,
+  CommentsButton,
+  ConfirmationWindow,
+  Icon,
+  IconEnum,
+  LikesButton,
+  PopUpMenu,
+  PostComments,
+  PostDate,
+  PostImage,
+  PostText,
+  PostTitle,
+  UserNickName,
+} from "@/src/components";
+import { FC, useRef, useState } from "react";
+import styles from "./UserPost.module.scss";
+import { UserPostProps } from "../UserPost.type";
+import { useAppSelector } from "@/src/redux";
+import { EndpointsEnum, api } from "@/src/axios";
+import { useOutsideClick } from "@/src/hooks";
+import { ElementsId } from "@/src/types";
 
 const UserPost: FC<UserPostProps> = ({ post, fetchUserPosts }) => {
   const { user } = useAppSelector((state) => state.userSlice);
   const [showPopUp, setShowPopUp] = useState(false);
-  const [showConfirmationWindow, setShowConfirmationWindow] = useState(false)
-  const [isDeletingLoading, setIsDeletingLoading] = useState(false)
+  const [showConfirmationWindow, setShowConfirmationWindow] = useState(false);
+  const [isDeletingLoading, setIsDeletingLoading] = useState(false);
 
   const ref = useRef(null);
   useOutsideClick(ref, setShowPopUp, ElementsId.POST_MORE_ICON);
 
   const deletePost = async (Id: number) => {
-    setIsDeletingLoading(true)
+    setIsDeletingLoading(true);
     try {
-      const response = await api.delete(`${EndpointsEnum.DELETE_POST}/${Id}`)
-      console.log(response)
-
+      const response = await api.delete(`${EndpointsEnum.DELETE_POST}/${Id}`);
+      console.log(response);
     } catch (error) {
-      console.log(error)
+      console.log(error);
+    } finally {
+      setShowPopUp(false);
+      setIsDeletingLoading(false);
+      setShowConfirmationWindow(false);
+      fetchUserPosts();
     }
-    finally {
-      setShowPopUp(false)
-      setIsDeletingLoading(false)
-      setShowConfirmationWindow(false)
-      fetchUserPosts()
-    }
-
-  }
-
+  };
 
   return (
     <div className={styles["user-post"]}>
@@ -43,15 +52,25 @@ const UserPost: FC<UserPostProps> = ({ post, fetchUserPosts }) => {
           <Avatar avatar={user.avatarUrl} />
           <UserNickName nickName={user.nickName} />
         </div>
-        <button className={styles["button-more"]} onClick={() => setShowPopUp(!showPopUp)}>
-          <Icon id="more-icon" width={24} hanging={24} icon={IconEnum.MoreHorizontal} />
+        <button
+          className={styles["button-more"]}
+          onClick={() => setShowPopUp(!showPopUp)}
+        >
+          <Icon
+            id="more-icon"
+            width={24}
+            hanging={24}
+            icon={IconEnum.MoreHorizontal}
+          />
         </button>
-        <PopUpMenu classNames={styles["popup-body"]} isOpen={showPopUp} setIsOpen={setShowPopUp} nodeRef={ref}>
+        <PopUpMenu
+          bodyClassName={styles["popup-body"]}
+          isOpen={showPopUp}
+          setIsOpen={setShowPopUp}
+          nodeRef={ref}
+        >
           <div className={styles["menu"]}>
-            <button
-              data-automation="clickButton"
-              onClick={() => { }}
-            >
+            <button data-automation="clickButton" onClick={() => {}}>
               Edit post
             </button>
             <button
@@ -63,13 +82,16 @@ const UserPost: FC<UserPostProps> = ({ post, fetchUserPosts }) => {
           </div>
         </PopUpMenu>
       </div>
-      <ConfirmationWindow text={'Do you want to delete this post?'}
+      <ConfirmationWindow
+        text={"Do you want to delete this post?"}
         fetch={() => deletePost(post.id)}
         isOpen={showConfirmationWindow}
         setIsOpen={setShowConfirmationWindow}
         isLoading={isDeletingLoading}
       />
-      <div className={styles["user-post__image"]}><PostImage imgUrl={post.imgUrl} /></div>
+      <div className={styles["user-post__image"]}>
+        <PostImage imgUrl={post.imgUrl} />
+      </div>
       <div className="flex justify-between">
         <div className={styles["user-post__activity-icons"]}>
           <LikesButton id={post.id} likesList={[]} totalLikes={0} />
@@ -82,8 +104,7 @@ const UserPost: FC<UserPostProps> = ({ post, fetchUserPosts }) => {
       <PostComments id={post.id} totalComments={0} />
       {/* <PostDate date={post.createdAt}/> */}
     </div>
-  )
-}
+  );
+};
 
-export default UserPost
-
+export default UserPost;

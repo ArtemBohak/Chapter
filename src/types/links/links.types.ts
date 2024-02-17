@@ -13,5 +13,6 @@ export enum links {
   PROFILE = "/profile",
   GUEST_PROFILE = "/:Id",
   USER_BOOKS = "/books",
-  GUEST_BOOKS = "/:id/books"
+  SEARCH = "/search",
+  GUEST_BOOKS = "/:id/books",
 }

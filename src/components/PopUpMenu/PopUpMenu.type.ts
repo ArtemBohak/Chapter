@@ -10,5 +10,7 @@ export interface IPopUpMenuProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
   nodeRef: MutableRefObject<null>;
   children: ReactElement;
-  classNames?: string;
+  backdropClassName?: string;
+  bodyClassName?: string;
+  contentWrapperClassNames?: string;
 }

@@ -31,7 +31,7 @@ const initialValues: IAccountCreate = {
 
 const FormCreateAccount: FC = () => {
   const setError = useErrorBoundary();
-  const LSFullName = localStorage.getItem("fullName");
+  const LSFullName = getDataFromLS<string>("fullName");
   const fullname = LSFullName ? LSFullName : "";
 
   const [nkIsLoading, setNkIsLoading] = useState(false);
