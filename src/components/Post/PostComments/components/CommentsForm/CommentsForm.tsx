@@ -6,7 +6,7 @@ import { useAppSelector } from "@/src/redux";
 import { EndpointsEnum, api } from "@/src/axios";
 import { useErrorBoundary, useGetScreenSize } from "@/src/hooks";
 import { IPost } from "@/src/types";
-import { tabScreen } from "@/src/utils";
+import { feedsCB, tabScreen } from "@/src/utils";
 import { FormValues, CommentsFormProps } from "./CommentsForm.type";
 import { validationSchema } from "./validationSchema";
 import styles from "./CommentsForm.module.scss";
@@ -15,15 +15,6 @@ import { TextAreaField } from "@/src/components";
 import { PostButton } from "@/src/components/Post/components";
 
 const initialValues = { text: "" };
-
-const feedsCb = (feed: IPost) => (feeds: Array<IPost>) => {
-  const existingObj = feeds.findIndex((el) => el.postId === feed.postId);
-  if (existingObj !== -1) {
-    feeds[existingObj] = { ...feeds[existingObj], ...feed };
-  }
-
-  return feeds;
-};
 
 const CommentsForm: FC<CommentsFormProps> = ({
   postId,
@@ -49,7 +40,7 @@ const CommentsForm: FC<CommentsFormProps> = ({
           EndpointsEnum.COMMENTS + commentId + "/to-comment",
           values
         );
-        setFeeds && setFeeds(feedsCb(data));
+        setFeeds && setFeeds(feedsCB(data));
         setSubmitting(false);
         setCommentId(null);
         setNickName("");
@@ -60,7 +51,7 @@ const CommentsForm: FC<CommentsFormProps> = ({
         values
       );
 
-      setFeeds && setFeeds(feedsCb(data));
+      setFeeds && setFeeds(feedsCB(data));
       setCommentsIsHide && setCommentsIsHide(false);
       setSubmitting(false);
       setNickName("");

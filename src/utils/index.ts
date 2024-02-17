@@ -7,3 +7,4 @@ export * from "./date/date";
 export * from "./constants/constants";
 export * from "./axiosUploadChecker/axiosUploadChecker";
 export * from "./likeApi/likeApi";
+export * from "./feedsCB/feedsCB";

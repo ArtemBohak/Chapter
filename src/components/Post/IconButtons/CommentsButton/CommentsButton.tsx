@@ -19,7 +19,7 @@ const CommentsButton: FC<CommentsButtonProps> = ({
   const onHandleClick = () => {
     setCommentsIsHide && setCommentsIsHide(false);
     setId && setId(id);
-    setNickName && setNickName(nickName);
+    setNickName && setNickName(nickName || "");
   };
   const btnTextStyle = cn(styles["icon-button__text"], {
     [styles["icon-button__text-hidden"]]: hiddenText,

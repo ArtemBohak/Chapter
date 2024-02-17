@@ -15,7 +15,7 @@ const FeedProvider: FC<IFeedProviderProps> = ({ children }) => {
   useEffect(() => {
     new FeedApi(setFeeds, setIsLoad, setErrorBoundary).getFeeds(page);
   }, [page, setErrorBoundary]);
-
+  console.log();
   return (
     <FeedContext.Provider
       value={{
