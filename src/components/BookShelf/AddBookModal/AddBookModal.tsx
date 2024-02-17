@@ -6,6 +6,7 @@ import AddBookForm from "./AddBookForm/AddBookForm";
 import { CloseButton } from "../Book/IconButtons";
 
 const AddBookModal: FC<AddBookModalProps> = ({ isOpen, setIsOpen }) => {
+
   return (
     <Modal
       bodyClassName={styles["add-book-modal__body"]}

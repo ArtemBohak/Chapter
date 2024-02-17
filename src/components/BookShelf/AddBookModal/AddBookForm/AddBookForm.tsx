@@ -50,7 +50,6 @@ const AddBookForm: FC = () => {
   };
 
   const onHandleSubmit = async (values: bookProps) => {
-    setIsAddBookModalOpen(false);
     if (file) {
       try {
         setError(null);
@@ -85,6 +84,7 @@ const AddBookForm: FC = () => {
         }
       } finally {
         setIsLoading(false);
+        setIsAddBookModalOpen(false);
       }
     }
   };
@@ -158,6 +158,7 @@ const AddBookForm: FC = () => {
                     value={values.annotation}
                     dataAutomation={"bookAnnotation-field"}
                     iconSize={0}
+                    // onHandleIconClick={() => { }}
                   />
                 </div>
               </div>

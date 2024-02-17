@@ -14,26 +14,30 @@ import {
   UserAvatar,
   UIbutton,
   MenuToggler,
-  SearchField,
   PopUpMenu,
   ConfirmationWindow,
 } from "@/src/components";
 
+import { SearchBar } from "../SearchBar";
+
 const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
   const { headerAddPostBtnIsDisabled } = useModalsContext();
   const { isActiveMenu, setIsActiveMenu } = useNavigationToggler();
-  const { user } = useAppSelector((store) => store.userSlice);
-  const { firstName, lastName, avatarUrl } = user;
-  const [showPopUp, setShowPopUp] = useState(false);
+  const {
+    user: { firstName, lastName, avatarUrl },
+  } = useAppSelector((store) => store.userSlice);
+
   const [showLogOutMsg, setShowLogOutMsg] = useState(false);
   const [showDeleteAccMsg, setShowDeleteAccMsg] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
   const setError = useErrorBoundary();
   const dispatch = useAppDispatch();
 
-  const ref = useRef(null);
+  const avatarRef = useRef(null);
+  const [showPopUp, setShowPopUp] = useState(false);
   useHideElement(ElementsId.ADD_POST_BTN, isActiveMenu);
-  useOutsideClick(ref, setShowPopUp, ElementsId.AVATAR);
+  useOutsideClick(avatarRef, setShowPopUp, ElementsId.AVATAR);
 
   const logOut = async () => {
     try {
@@ -52,6 +56,7 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
   const onHandleClick = () => {
     setModalIsOpen(true);
   };
+
   return (
     <header className={styles["profile-header"]}>
       <div className={styles["profile-header__container"]}>
@@ -67,13 +72,7 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
           Chapter
         </NavLink>
         <div className={styles["profile-header__auth-side"]}>
-          <SearchField
-            id={"search-field"}
-            name={"search-field"}
-            dataAutomation={"search-field"}
-            className={styles["profile-header__search-field"]}
-            placeholder="Find your friends here"
-          />
+          <SearchBar inputClassName={styles["profile-header__search-field"]} />
           <UIbutton
             onClick={onHandleClick}
             size="small"
@@ -142,8 +141,15 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
           </UIbutton>
         </div>
       </div>
-      <PopUpMenu isOpen={showPopUp} setIsOpen={setShowPopUp} nodeRef={ref}>
-        <div className={styles["menu"]}>
+      <PopUpMenu
+        isOpen={showPopUp}
+        setIsOpen={setShowPopUp}
+        nodeRef={avatarRef}
+        backdropClassName={styles["popup"]}
+        bodyClassName={styles["popup__body"]}
+        contentWrapperClassNames={styles["popup__content-wrapper"]}
+      >
+        <>
           <button
             data-automation="clickButton"
             onClick={() => setShowLogOutMsg(true)}
@@ -156,7 +162,7 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
           >
             Delete user account
           </button>
-        </div>
+        </>
       </PopUpMenu>
       <ConfirmationWindow
         text={UiMessage.LOG_OUT}

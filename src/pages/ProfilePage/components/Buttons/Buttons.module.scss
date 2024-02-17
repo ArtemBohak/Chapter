@@ -1,6 +1,6 @@
 
 .buttons-block {
-@apply flex bg-white sticky top-[-12px] md:top-[8px] laptop:top-0 w-full;
+@apply flex bg-white sticky top-[-12px] md:top-[8px] laptop:top-0 w-full z-50;
 
 @media (min-width: 1681px) {
     &::before {

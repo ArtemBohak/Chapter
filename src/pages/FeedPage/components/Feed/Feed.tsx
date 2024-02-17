@@ -35,8 +35,8 @@ const Feed: FC<FeedProps> = ({ nodeRef, loaderRef, pageValue, ...props }) => {
       >
         <div className={styles["item-feed__user"]}>
           <Link className={styles["item-feed__user-content"]} to={navId}>
-            <Avatar {...props} />
-            <UserNickName {...props} />
+            <Avatar avatarUrl={props.author.avatar} />
+            <UserNickName nickName={props.author.nickName} />
           </Link>
 
           <FollowButton {...props} id={props.author.id} />

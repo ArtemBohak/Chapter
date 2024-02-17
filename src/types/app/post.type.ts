@@ -19,6 +19,7 @@ interface IPostValues {
   commentsCount: number;
   commentCount?: number;
   createAt: string | Date | number;
+  updatedAt: string | Date | number;
 }
 
 export type SetIsOpenType = {

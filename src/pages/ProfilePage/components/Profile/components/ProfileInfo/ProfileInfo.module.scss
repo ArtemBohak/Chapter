@@ -11,7 +11,7 @@
         }
     }
     &__fulname {
-        @apply break-words mb-0 font-semibold text-base laptop:text-h4_lg;
+        @apply break-words mb-0 font-semibold text-base laptop:text-h4_lg hyphens-auto;
     }
     &__nickname {
         @apply text-xs md:text-base text-grey-1000 mb-[8px] tracking-[0.176px];
@@ -33,3 +33,9 @@
     }
   
 }
+
+.default-button {
+    @apply bg-inherit items-center;
+
+}
+

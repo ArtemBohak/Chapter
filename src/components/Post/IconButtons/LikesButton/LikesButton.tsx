@@ -19,6 +19,7 @@ const LikesButton: FC<LikesButtonProps> = ({
   id,
   hiddenText = false,
   withoutModal = false,
+  totalLikes,
   likeApi,
 }) => {
   const setErrorBoundary = useErrorBoundary();
@@ -28,7 +29,7 @@ const LikesButton: FC<LikesButtonProps> = ({
   const uniqueUsersId = useMemo(() => [...new Set(userIds)], [userIds]);
   const [users, setUsers] = useState<IdList>(uniqueUsersId);
   const [liked] = useFindUserId(users);
-  const likeCount = users?.length;
+  const likeCount = totalLikes || users?.length;
 
   const [isLiked, setIsLiked] = useState(liked);
 
@@ -47,7 +48,7 @@ const LikesButton: FC<LikesButtonProps> = ({
   }, [liked]);
 
   const onHandleLikesClick = () => {
-    likeApi(id, setUsers, setErrorBoundary);
+    likeApi && likeApi(id, setUsers, setErrorBoundary);
   };
 
   const onHandleModalOpenClick = async () => {

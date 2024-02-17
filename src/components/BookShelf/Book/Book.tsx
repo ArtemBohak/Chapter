@@ -54,6 +54,7 @@ const Book: FC<BooksProps> = ({
         annotation={annotation}
         isFavorite={isFavorite}
         imagePath={bookImageUrl}
+        favoriteButtons={favoriteButton}
         id={id}
         isOpen={isBookInfoModalOpen}
         setIsOpen={setIsBookInfoModalOpen}

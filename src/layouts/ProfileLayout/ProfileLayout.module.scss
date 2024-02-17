@@ -6,6 +6,6 @@
   }
 
   > main {
-    @apply relative flex-1 z-[1] base:pl-[260px] laptop_md:pl-[310px];
+    @apply relative flex-1 base:pl-[260px] laptop_md:pl-[310px];
   }
 }

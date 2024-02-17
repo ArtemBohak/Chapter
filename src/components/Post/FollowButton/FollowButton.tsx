@@ -19,7 +19,7 @@ const FollowButton: FC<FollowButtonProps> = ({
   const onHandleClick = async () => {
     try {
       setIsFollow(!isFollow);
-      await api.post(EndpointsEnum.SUBSCRIBE_USER + `/${id}`);
+      await api.post(EndpointsEnum.FOLLOW_UNFOLLOW + `${id}`);
       fetchData && fetchData(id);
     } catch (e) {
       if (e instanceof AxiosError) {

@@ -1,3 +1,3 @@
-import { PostProps } from "../Post.type";
+import { IUser } from "@/src/types";
 
-export type AvatarProps = Required<Pick<PostProps, "author">>;
+export type AvatarProps = Required<Pick<IUser, "avatarUrl">>;
