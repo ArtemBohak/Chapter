@@ -6,5 +6,5 @@
 .welcome-page-container {
   @apply flex 
   flex-col items-center md:flex-row-reverse md:justify-between 
-  md:h-[100vh] md:w-[100vw] h-[100vh] max-w-[1920px]
+  md:h-[100vh] md:w-[100vw] h-[100dvh] max-w-[1920px]
 }

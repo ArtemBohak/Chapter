@@ -1,5 +1,15 @@
-
 .posts-wrapper {
-  min-height: 100vh;
-  height: 100%;
+  @apply h-full min-h-screen laptop:px-8;
+}
+
+.user-post {
+  &__skeleton {
+    @apply flex flex-col w-[100%] min-w-[700px] m-auto my-4 bg-[#FCFCFC] rounded-lg border border-[#C4C4C4] h-full;
+  }
+  &__image {
+    @apply max-w-full;
+    & img {
+      @apply min-w-full;
+    }
+  }
 }

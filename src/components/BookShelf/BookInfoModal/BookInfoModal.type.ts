@@ -10,4 +10,5 @@ export type BookInfoModalProps = {
     isFavorite: boolean;
     bookStatus?: number;
     imagePath: string;
+    favoriteButtons?: boolean;
 }

@@ -23,7 +23,7 @@ const FollowButton: FC<FollowButtonProps> = ({
     try {
       setIsFollow(!isFollow);
       fetchData && fetchData(id);
-      await api.post(EndpointsEnum.SUBSCRIBE_USER + `/${id}`);
+      await api.post(EndpointsEnum.FOLLOW_UNFOLLOW + `${id}`);
     } catch (e) {
       if (e instanceof AxiosError) {
         setError(e);

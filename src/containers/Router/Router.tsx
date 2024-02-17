@@ -25,6 +25,7 @@ import { PublicLayout, ProfileLayout } from "@/src/layouts";
 import PublicRoute from "./Routes/PublicRoute/PublicRoute";
 import PrivateRoute from "./Routes/PrivateRoute/PrivateRoute";
 import RestrictedRoute from "./Routes/RestrictedRoute/RestrictedRoute";
+import GuestBooksPage from "@/src/pages/BooksPage/GuestBooksPage/GuestBooksPage";
 
 const router = createBrowserRouter([
   {
@@ -100,6 +101,7 @@ const router = createBrowserRouter([
       },
       { path: links.PROFILE, element: <ProfilePage /> },
       { path: links.GUEST_PROFILE, element: <GuestProfilePage /> },
+      { path: links.GUEST_BOOKS, element: <GuestBooksPage /> },
       { path: "/ui-page", element: <UIPage /> },
     ],
   },
