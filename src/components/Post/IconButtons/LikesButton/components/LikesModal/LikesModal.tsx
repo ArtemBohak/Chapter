@@ -13,7 +13,7 @@ const LikesModal: FC<LikesModalProps> = ({
   isOpen,
   setIsOpen,
   title = "Likes",
-  totalLikes,
+  likeCount,
   ...props
 }) => {
   const [screenSize] = useGetScreenSize();
@@ -54,7 +54,7 @@ const LikesModal: FC<LikesModalProps> = ({
           <Icon icon={icon} size={isMobScreen ? 26 : 32} />
         </button>
         <h4>
-          {title} {`(${totalLikes})`}
+          {title} {`(${likeCount})`}
         </h4>
       </div>
       <div className={styles["modal__body-content"]}>

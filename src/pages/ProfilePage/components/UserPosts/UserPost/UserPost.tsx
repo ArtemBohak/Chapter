@@ -49,7 +49,7 @@ const UserPost: FC<UserPostProps> = ({ post, fetchUserPosts }) => {
     <div className={styles["user-post"]}>
       <div className="flex items-center justify-between w-full relative">
         <div className="flex gap-3 items-center">
-          <Avatar avatar={user.avatarUrl} />
+          <Avatar avatarUrl={user.avatarUrl} />
           <UserNickName nickName={user.nickName} />
         </div>
         <button
@@ -94,14 +94,14 @@ const UserPost: FC<UserPostProps> = ({ post, fetchUserPosts }) => {
       </div>
       <div className="flex justify-between">
         <div className={styles["user-post__activity-icons"]}>
-          <LikesButton id={post.id} likesList={[]} totalLikes={0} />
-          <CommentsButton textValue={""} id={""} totalComments={0} />
+          <LikesButton id={post.id} userIds={[]} totalLikes={0} />
+          <CommentsButton textValue={""} id={""} commentsCount={0} />
         </div>
-        <PostDate date={post.updatedAt} />
+        <PostDate createAt={post.updatedAt} />
       </div>
       <PostTitle title={post.title} />
       <PostText caption={post.caption} />
-      <PostComments id={post.id} totalComments={0} />
+      <PostComments postId={post.id} commentsCount={0} comments={[]} />
       {/* <PostDate date={post.createdAt}/> */}
     </div>
   );

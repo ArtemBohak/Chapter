@@ -1,21 +1,8 @@
-import { PostProps } from "../../../Post.type";
+import { CommentValues } from "@/src/types";
+import { Dispatch, SetStateAction } from "react";
 
-export type CommentsData = Required<
-  Pick<
-    PostProps,
-    | "totalComments"
-    | "totalLikes"
-    | "avatar"
-    | "firstName"
-    | "lastName"
-    | "date"
-    | "nickName"
-    | "id"
-    | "caption"
-    | "likesList"
-  >
->;
-
-export type CommentValues = { comments?: CommentsData[] } & CommentsData;
-
-export type CommentsProps = { comments: Array<CommentValues> };
+export type CommentsProps = {
+  comments: Array<CommentValues> | [];
+  setId: Dispatch<SetStateAction<number | string | null>>;
+  setNickName: Dispatch<SetStateAction<string>>;
+};

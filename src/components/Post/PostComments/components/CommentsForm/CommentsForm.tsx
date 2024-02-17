@@ -1,9 +1,12 @@
 import { FC } from "react";
 import { Formik, Form, FormikHelpers } from "formik";
+import { AxiosError, AxiosResponse } from "axios";
 
 import { useAppSelector } from "@/src/redux";
-import { useGetScreenSize } from "@/src/hooks";
-import { tabScreen } from "@/src/utils";
+import { EndpointsEnum, api } from "@/src/axios";
+import { useErrorBoundary, useGetScreenSize } from "@/src/hooks";
+import { IPost } from "@/src/types";
+import { feedsCB, tabScreen } from "@/src/utils";
 import { FormValues, CommentsFormProps } from "./CommentsForm.type";
 import { validationSchema } from "./validationSchema";
 import styles from "./CommentsForm.module.scss";
@@ -11,31 +14,53 @@ import styles from "./CommentsForm.module.scss";
 import { TextAreaField } from "@/src/components";
 import { PostButton } from "@/src/components/Post/components";
 
-const initialValues = { comments: "" };
+const initialValues = { text: "" };
 
 const CommentsForm: FC<CommentsFormProps> = ({
-  id,
-  fetchData,
+  postId,
+  commentId,
+  setCommentId,
   setCommentsIsHide,
+  setNickName,
+  setFeeds,
 }) => {
+  const setErrorBoundary = useErrorBoundary();
   const {
     user: { avatarUrl },
   } = useAppSelector((state) => state.userSlice);
   const [screenSize] = useGetScreenSize();
 
-  const onHandleSubmit = (
+  const onHandleSubmit = async (
     values: FormValues,
     { setSubmitting, resetForm }: FormikHelpers<FormValues>
   ) => {
-    fetchData && fetchData(id);
-    console.log(values);
-    setCommentsIsHide(false);
-    setSubmitting(false);
-    resetForm();
-  };
+    try {
+      if (commentId) {
+        const { data }: AxiosResponse<IPost> = await api.post(
+          EndpointsEnum.COMMENTS + commentId + "/to-comment",
+          values
+        );
+        setFeeds && setFeeds(feedsCB(data));
+        setSubmitting(false);
+        setCommentId(null);
+        setNickName("");
+        return resetForm();
+      }
+      const { data }: AxiosResponse<IPost> = await api.post(
+        EndpointsEnum.COMMENTS + postId,
+        values
+      );
 
-  const onHandleIconClick = () => {
-    console.log("smile click");
+      setFeeds && setFeeds(feedsCB(data));
+      setCommentsIsHide && setCommentsIsHide(false);
+      setSubmitting(false);
+      setNickName("");
+      resetForm();
+    } catch (e) {
+      if (e instanceof AxiosError) {
+        setErrorBoundary(e);
+      }
+    }
   };
 
   const iconSize = screenSize < tabScreen ? 20 : 24;
@@ -54,13 +79,12 @@ const CommentsForm: FC<CommentsFormProps> = ({
             return (
               <Form>
                 <TextAreaField
-                  id="comments"
+                  id="text"
                   placeholder="Add a comment ..."
-                  name="comments"
-                  dataAutomation="commentsInput"
-                  value={values.comments}
+                  name="text"
+                  dataAutomation="textInput"
+                  value={values.text}
                   iconSize={iconSize}
-                  onHandleIconClick={onHandleIconClick}
                   classNames={styles["form__field"]}
                 />
                 <PostButton

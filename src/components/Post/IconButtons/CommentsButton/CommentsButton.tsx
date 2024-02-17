@@ -7,16 +7,20 @@ import styles from "../IconButtons.module.scss";
 import { Icon, IconEnum } from "@/src/components";
 
 const CommentsButton: FC<CommentsButtonProps> = ({
-  totalComments,
+  commentsCount,
   textValue,
   id,
   hiddenText = false,
-  fetchData,
+  nickName,
+  setCommentsIsHide,
+  setNickName,
+  setId,
 }) => {
   const onHandleClick = () => {
-    fetchData && fetchData(id);
+    setCommentsIsHide && setCommentsIsHide(false);
+    setId && setId(id);
+    setNickName && setNickName(nickName || "");
   };
-
   const btnTextStyle = cn(styles["icon-button__text"], {
     [styles["icon-button__text-hidden"]]: hiddenText,
   });
@@ -33,7 +37,7 @@ const CommentsButton: FC<CommentsButtonProps> = ({
         className={styles["icon-button__icon"]}
       />
       <span>
-        {totalComments ? totalComments : ""}{" "}
+        {commentsCount ? commentsCount : ""}{" "}
         <span className={btnTextStyle}>{textValue}</span>
       </span>
     </button>

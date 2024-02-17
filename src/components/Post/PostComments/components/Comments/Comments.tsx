@@ -1,7 +1,8 @@
 import { FC } from "react";
 import cn from "classnames";
 
-import { CommentsProps, CommentValues } from "./Comments.type";
+import { CommentsProps } from "./Comments.type";
+import { CommentValues } from "@/src/types";
 import styles from "./Comments.module.scss";
 
 import { Comment } from "./components";
@@ -13,10 +14,16 @@ const itemClassNames = (value: number) => {
   });
 };
 
-const Comments: FC<CommentsProps> = ({ comments }) => {
-  let counter: number = 0;
+const Comments: FC<CommentsProps> = ({ comments, setId, setNickName }) => {
+  const renderComments = (comments: Array<CommentValues>, step: number) => {
+    let counter: number = 0;
+    const sortedComments = comments.sort((a, b) => {
+      const firstEl = new Date(a.createdAt).getTime();
+      const secondEl = new Date(b.createdAt).getTime();
 
-  const renderComments = (comments: Array<CommentValues>, step = 1) => {
+      return firstEl - secondEl;
+    });
+
     counter += step;
 
     if (counter > 1) return;
@@ -25,12 +32,14 @@ const Comments: FC<CommentsProps> = ({ comments }) => {
 
     return (
       <ul className={styles["feed__list"]}>
-        {comments.map((i) => (
-          <li key={i.id} className={classNames}>
-            <Comment {...i} />
-            {i.comments ? renderComments(i.comments) : null}
-          </li>
-        ))}
+        {sortedComments.map((i) => {
+          return (
+            <li key={i.id} className={classNames}>
+              <Comment {...i} setId={setId} setNickName={setNickName} />
+              {i.comments?.length ? renderComments(i.comments, 1) : null}
+            </li>
+          );
+        })}
       </ul>
     );
   };

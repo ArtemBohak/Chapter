@@ -1,7 +1,11 @@
-import { FC, MouseEvent } from "react";
+import { FC } from "react";
 
+import { Link } from "react-router-dom";
 import { CommentProps } from "./Comment.type";
-import { getDate } from "@/src/utils";
+import { EndpointsEnum } from "@/src/axios";
+
+import { getDate, likeApi } from "@/src/utils";
+import { useAppSelector } from "@/src/redux";
 import styles from "./Comment.module.scss";
 
 import { TextTagging } from "@/src/components";
@@ -10,56 +14,71 @@ import { LikesButton, CommentsButton } from "../../../../..";
 import defaultAvatar from "@/src/assets/SVG/default-user-avatar.svg";
 
 const Comment: FC<CommentProps> = ({
-  avatar,
-  totalComments,
-  totalLikes,
-  firstName,
-  lastName,
-  date,
-  nickName,
-  likesList,
+  author: { avatar, firstName, lastName, nickName, id: authorId },
+  commentsCount,
+  commentCount,
+  usersId,
   id,
-  caption,
+  text,
+  createdAt,
   hideCommentBtn = false,
+  setNickName,
+  setId,
 }) => {
+  const userId = useAppSelector((state) => state.userSlice.user.id);
+
+  const navId = authorId !== userId ? `/${authorId}` : "#";
+
   const avatarUrl = avatar ? avatar : defaultAvatar;
 
-  const onHandleTagClick = (e: MouseEvent<HTMLButtonElement>) => {
-    console.log(e.currentTarget.value);
-  };
+  // const onHandleTagClick = (e: MouseEvent<HTMLButtonElement>) => {
+  //   console.log(e.currentTarget.value);
+  // };
 
   return (
     <div className={styles["comment"]}>
-      <div className={styles["comment__image"]}>
+      <Link to={navId} className={styles["comment__image"]}>
         <img src={avatarUrl} alt="user avatar" width={44} height={44} />
-      </div>
+      </Link>
       <div className={styles["comment__content"]}>
         <div className={styles["comment__data"]}>
-          <div className={styles["comment__user"]}>
+          <Link to={navId} className={styles["comment__user"]}>
             <h5>
               {firstName} {lastName}
             </h5>
             <p>{nickName}</p>
-          </div>
-          <p>{getDate(date)}</p>
+          </Link>
+          <p>{getDate(createdAt)}</p>
         </div>
         <div className={styles["comment__text"]}>
           {
             <TextTagging
-              text={caption}
-              onClick={onHandleTagClick}
+              text={text || ""}
+              onClick={() => {}}
               className={styles["comment__text-button"]}
             />
           }
         </div>
 
         <div className={styles["comment__buttons"]}>
-          <LikesButton likesList={likesList} totalLikes={totalLikes} id={id} />
+          <LikesButton
+            userIds={usersId}
+            id={id}
+            likeApi={likeApi(EndpointsEnum.COMMENT_LIKE)}
+            withoutModal
+          />
           {!hideCommentBtn ? (
             <CommentsButton
-              textValue={totalComments > 1 ? "replies" : "reply"}
+              textValue={
+                commentsCount > 1 || (commentCount && commentCount > 1)
+                  ? "replies"
+                  : "reply"
+              }
               id={id}
-              totalComments={totalComments}
+              commentsCount={commentCount || commentsCount}
+              setId={setId}
+              nickName={nickName}
+              setNickName={setNickName}
             />
           ) : null}
         </div>

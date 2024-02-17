@@ -15,6 +15,10 @@
 
   &__field {
     @apply mb-0-md md:mb-1-md;
+
+    & > textarea {
+      @apply h-[50px] md:h-[132px];
+    }
   }
 
   &__button {

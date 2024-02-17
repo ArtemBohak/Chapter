@@ -9,130 +9,16 @@ import styles from "./PostComments.module.scss";
 import { Animation, Icon, IconEnum } from "@/src/components";
 import { Comments, CommentsForm } from "./components";
 
-const comments = [
-  {
-    id: 0,
-    totalComments: 10,
-    totalLikes: 10,
-    avatar: null,
-    firstName: "Mary",
-    lastName: "Reeves",
-    nickName: "@maryreeves",
-    date: Date.now() - 10002102111,
-    caption:
-      "Thank you for sharing your impressions of the book, I agree with @Vilkkyyyy, it was just a great post! Full of magic and enchantment. I read it with pleasure and look forward to the new one!",
-    likesList: [1, 2, 168],
-    comments: [
-      {
-        id: 0,
-        totalComments: 10,
-        totalLikes: 10,
-        avatar: null,
-        firstName: "Alex",
-        lastName: "Reeves",
-        nickName: "@maryreeves",
-        date: Date.now() - 10002102,
-        caption: "It's a shame that the Harry Potter books are over 😭",
-        likesList: [1, 2, 168],
-      },
-      {
-        id: 1,
-        totalComments: 10,
-        totalLikes: 10,
-        avatar: null,
-        firstName: "Marta",
-        lastName: "Reeves",
-        nickName: "@maryreeves",
-        date: Date.now() - 10002102,
-        caption: "It's a shame that the Harry Potter books are over 😭",
-        likesList: [1, 2, 168],
-        comments: [
-          {
-            id: 0,
-            totalComments: 10,
-            totalLikes: 10,
-            avatar: null,
-            firstName: "Alex",
-            lastName: "Reeves",
-            nickName: "@maryreeves",
-            date: Date.now() - 10002102,
-            caption: "It's a shame that the Harry Potter books are over 😭",
-            likesList: [1, 2, 168],
-          },
-          {
-            id: 1,
-            totalComments: 10,
-            totalLikes: 10,
-            avatar: null,
-            firstName: "Marta",
-            lastName: "Reeves",
-            nickName: "@maryreeves",
-            date: Date.now() - 10002102,
-            caption: "It's a shame that the Harry Potter books are over 😭",
-            likesList: [1, 2, 168],
-            comments: [
-              {
-                id: 0,
-                totalComments: 10,
-                totalLikes: 10,
-                avatar: null,
-                firstName: "Alex",
-                lastName: "Reeves",
-                nickName: "@maryreeves",
-                date: Date.now() - 10002102,
-                caption: "It's a shame that the Harry Potter books are over 😭",
-                likesList: [1, 2, 168],
-              },
-              {
-                id: 1,
-                totalComments: 10,
-                totalLikes: 10,
-                avatar: null,
-                firstName: "Marta",
-                lastName: "Reeves",
-                nickName: "@maryreeves",
-                date: Date.now() - 10002102,
-                caption: "It's a shame that the Harry Potter books are over 😭",
-                likesList: [1, 2, 168],
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-  {
-    id: 1,
-    totalComments: 10,
-    totalLikes: 10,
-    avatar: null,
-    firstName: "Mary",
-    lastName: "Reeves",
-    nickName: "@maryreeves",
-    date: Date.now() - 10002102111,
-    caption: "It's a shame that the Harry Potter books are over 😭",
-    likesList: [1, 2, 168],
-  },
-  {
-    id: 2,
-    totalComments: 110,
-    totalLikes: 120,
-    avatar: null,
-    firstName: "Mary",
-    lastName: "Reeves",
-    nickName: "@maryreeves",
-    date: Date.now() - 1002111,
-    caption: "It's a shame that the Harry Potter books are over 😭",
-    likesList: [1, 2, 168],
-  },
-];
-
 const PostComments: FC<PostCommentsProps> = ({
-  totalComments,
-  id,
-  fetchData,
+  commentsCount,
+  postId,
+  comments,
+  commentsIsHide,
+  setCommentsIsHide,
+  // setFeeds,
 }) => {
-  const [commentsIsHide, setCommentsIsHide] = useState(true);
+  const [commentId, setCommentId] = useState<string | number | null>(null);
+  const [nickName, setNickName] = useState("");
   const btnRef = useRef(null);
   const commentsRef = useRef(null);
   const [screenSize] = useGetScreenSize();
@@ -140,10 +26,7 @@ const PostComments: FC<PostCommentsProps> = ({
   const isMobScreen = screenSize < tabScreen ? 16 : 26;
 
   const onHandleCommentsToggle = async () => {
-    if (commentsIsHide) {
-      fetchData && fetchData(id);
-    }
-    setCommentsIsHide(!commentsIsHide);
+    setCommentsIsHide && setCommentsIsHide(!commentsIsHide);
   };
 
   const togglerBtnClassNames = cn(
@@ -160,17 +43,17 @@ const PostComments: FC<PostCommentsProps> = ({
     exitActive: styles["feed-comments-exit-active"],
   };
 
-  const renderTogglerBtn = (
+  const renderTogglerBtn = comments.length ? (
     <button
       onClick={onHandleCommentsToggle}
       data-automation="clickButton"
       className={togglerBtnClassNames}
     >{`${
       commentsIsHide ? "Show all comments" : "Hide Comments"
-    } (${totalComments})`}</button>
-  );
+    } (${commentsCount})`}</button>
+  ) : null;
 
-  const renderFilterBtn = (
+  const renderFilterBtn = comments.length ? (
     <Animation
       in={!commentsIsHide}
       nodeRef={btnRef}
@@ -191,7 +74,7 @@ const PostComments: FC<PostCommentsProps> = ({
         />
       </button>
     </Animation>
-  );
+  ) : null;
 
   const renderComments = (
     <Animation
@@ -203,7 +86,11 @@ const PostComments: FC<PostCommentsProps> = ({
       unmountOnExit
     >
       <div ref={commentsRef}>
-        <Comments comments={comments} />
+        <Comments
+          comments={comments}
+          setId={setCommentId}
+          setNickName={setNickName}
+        />
       </div>
     </Animation>
   );
@@ -219,9 +106,13 @@ const PostComments: FC<PostCommentsProps> = ({
       </div>
       <div className={styles["feed-comments__form-wrapper"]}>
         <CommentsForm
-          id={id}
-          fetchData={fetchData}
+          postId={postId}
+          commentId={commentId}
           setCommentsIsHide={setCommentsIsHide}
+          nickName={nickName}
+          setNickName={setNickName}
+          setCommentId={setCommentId}
+          // setFeeds={setFeeds}
         />
       </div>
     </div>

@@ -1,3 +1,3 @@
-import { Like } from "../../../../LikesModal.type";
+import { User } from "../../../../LikesModal.type";
 
-export type LikeProps = Like;
+export type LikeProps = User;

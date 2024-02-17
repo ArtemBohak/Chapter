@@ -1,112 +1,41 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useMemo, useState } from "react";
 import cn from "classnames";
 
 import { useModalsContext } from "@/src/context";
-import { useFindUserId } from "@/src/hooks";
+import { useErrorBoundary, useFindUserId } from "@/src/hooks";
 import { LikesButtonProps } from "./LikesButton.type";
-import { Like } from "./components/LikesModal/LikesModal.type";
+import { User } from "./components/LikesModal/LikesModal.type";
 import styles from "../IconButtons.module.scss";
 import likesButtonStyles from "./LikesButton.module.scss";
 
 import { Icon, IconEnum } from "@/src/components";
 import { LikesModal } from "./components";
-
-const dataLikes = [
-  {
-    avatar: null,
-    firstName: "Kristin",
-    lastName: "Wood",
-    likesList: [1, 12, 168],
-    id: 0,
-  },
-  {
-    avatar: null,
-    firstName: "Kristin",
-    lastName: "Wood",
-    likesList: [1, 12, 168],
-    id: 1,
-  },
-  {
-    avatar: null,
-    firstName: "Kristin",
-    lastName: "Wood",
-    likesList: [],
-    id: 2,
-  },
-  {
-    avatar: null,
-    firstName: "Kristin",
-    lastName: "Wood",
-    likesList: [1, 12],
-    id: 3,
-  },
-  {
-    avatar: null,
-    firstName: "Kristin",
-    lastName: "Wood",
-    likesList: [1, 12, 168],
-    id: 4,
-  },
-  {
-    avatar: null,
-    firstName: "Kristin",
-    lastName: "Wood",
-    likesList: [1, 12, 168],
-    id: 5,
-  },
-  {
-    avatar: null,
-    firstName: "Kristin",
-    lastName: "Wood",
-    likesList: [1, 12],
-    id: 6,
-  },
-  {
-    avatar: null,
-    firstName: "Kristin",
-    lastName: "Wood",
-    likesList: [1, 12],
-    id: 7,
-  },
-  {
-    avatar: null,
-    firstName: "Kristin",
-    lastName: "Wood",
-    likesList: [1, 12],
-    id: 8,
-  },
-  {
-    avatar: null,
-    firstName: "Kristin",
-    lastName: "Wood",
-    likesList: [1, 12, 168],
-    id: 9,
-  },
-  {
-    avatar: null,
-    firstName: "Kristin",
-    lastName: "Wood",
-    likesList: [1, 12],
-    id: 10,
-  },
-];
+import { IdList } from "@/src/types";
+import { AxiosError, AxiosResponse } from "axios";
+import { EndpointsEnum, api } from "@/src/axios";
 
 const LikesButton: FC<LikesButtonProps> = ({
-  likesList,
-  totalLikes,
+  userIds,
   id,
   hiddenText = false,
-  fetchData,
+  withoutModal = false,
+  totalLikes,
+  likeApi,
 }) => {
+  const setErrorBoundary = useErrorBoundary();
+
   const { setHeaderAddPostBtnIsDisabled } = useModalsContext();
-  const [liked] = useFindUserId(likesList);
+
+  const uniqueUsersId = useMemo(() => [...new Set(userIds)], [userIds]);
+  const [users, setUsers] = useState<IdList>(uniqueUsersId);
+  const [liked] = useFindUserId(users);
+  const likeCount = totalLikes || users?.length;
 
   const [isLiked, setIsLiked] = useState(liked);
-  const [likedValue, setLikedValue] = useState(totalLikes);
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  const [likes, setLikes] = useState<Array<Like>>([]);
+  const [likes, setLikes] = useState<Array<User>>([]);
 
   useEffect(() => {
     if (modalIsOpen) return setHeaderAddPostBtnIsDisabled(true);
@@ -114,19 +43,30 @@ const LikesButton: FC<LikesButtonProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [modalIsOpen]);
 
-  const onHandleLikesClick = () => {
-    setIsLiked(!isLiked);
-    fetchData && fetchData(id);
+  useEffect(() => {
+    setIsLiked(liked);
+  }, [liked]);
 
-    isLiked && setLikedValue(likedValue - 1);
-    !isLiked && setLikedValue(likedValue + 1);
+  const onHandleLikesClick = () => {
+    likeApi && likeApi(id, setUsers, setErrorBoundary);
   };
 
-  const onHandleModalOpenClick = () => {
-    setHeaderAddPostBtnIsDisabled(true);
-    setLikes(dataLikes);
-    fetchData && fetchData(id);
-    setModalIsOpen(true);
+  const onHandleModalOpenClick = async () => {
+    try {
+      const { data }: AxiosResponse<Array<User>> = await api.get(
+        EndpointsEnum.LIKED_USER_LIST + id
+      );
+
+      if (!data.length) return;
+      setHeaderAddPostBtnIsDisabled(true);
+      setLikes(data);
+
+      setModalIsOpen(true);
+    } catch (e) {
+      if (e instanceof AxiosError) {
+        setErrorBoundary(e);
+      }
+    }
   };
 
   const iconStyles = cn(
@@ -153,19 +93,18 @@ const LikesButton: FC<LikesButtonProps> = ({
         />
       </button>
       <button
-        onClick={onHandleModalOpenClick}
+        onClick={withoutModal ? onHandleLikesClick : onHandleModalOpenClick}
         data-automation="clickButton"
         className={styles["icon-button"]}
       >
-        {likedValue ? likedValue : ""}{" "}
-        <span className={btnTextStyle}>like{totalLikes > 1 ? "s" : ""}</span>
+        {likeCount ? likeCount : ""}{" "}
+        <span className={btnTextStyle}>like{likeCount > 1 ? "s" : ""}</span>
       </button>
       <LikesModal
         isOpen={modalIsOpen}
         setIsOpen={setModalIsOpen}
-        totalLikes={likedValue}
+        likeCount={likeCount}
         likesData={likes}
-        fetchData={fetchData}
       />
     </div>
   );

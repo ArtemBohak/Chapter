@@ -25,13 +25,10 @@ const CreatePostForm: FC<CreatePostFormProps> = ({
 }) => {
   const initialValues = { title, caption };
   const onSubmit = (values: PostValues) => {
-    setTitle(values.title);
-    setCaption(values.caption);
+    setTitle(values.title || "");
+    setCaption(values.caption || "");
 
     setFormIsOpen(false);
-  };
-  const onHandleIconClick = () => {
-    console.log("icon");
   };
 
   const onHandleRemoveClick = () => {
@@ -53,7 +50,7 @@ const CreatePostForm: FC<CreatePostFormProps> = ({
               name="title"
               dataAutomation="titleInput"
               label="Add a title"
-              value={values.title}
+              value={values.title || ""}
               className={styles["form__title"]}
             />
             <ImageField
@@ -79,8 +76,7 @@ const CreatePostForm: FC<CreatePostFormProps> = ({
               dataAutomation="commentInput"
               name="caption"
               placeholder="Add a text"
-              value={values.caption}
-              onHandleIconClick={onHandleIconClick}
+              value={values.caption || ""}
               classNames={styles["form__comment"]}
             />
             <div className={styles["form__button-wrapper"]}>

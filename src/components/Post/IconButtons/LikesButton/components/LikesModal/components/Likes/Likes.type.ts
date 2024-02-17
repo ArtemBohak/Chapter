@@ -1,3 +1,3 @@
 import { LikesModalProps } from "../../LikesModal.type";
 
-export type LikesProps = Pick<LikesModalProps, "likesData" | "fetchData">;
+export type LikesProps = Pick<LikesModalProps, "likesData">;

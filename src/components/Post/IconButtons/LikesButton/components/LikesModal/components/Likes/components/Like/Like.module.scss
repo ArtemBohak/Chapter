@@ -14,6 +14,6 @@
   }
 
   &__button {
-    @apply md:max-h-[32px] md:max-w-[100px] md:text-xs;
+    @apply md:max-h-[32px] md:max-w-[100px] md:text-xs flex items-center justify-center;
   }
 }

@@ -167,7 +167,7 @@ const SearchPage: FC = () => {
               <FollowButton
                 id={el.userId}
                 classNames={styles["follow-btn"]}
-                isSubscribed={el.isSubscribed}
+                isSubscribeToAuthor={el.isSubscribed}
               />
             </li>
           );

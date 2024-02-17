@@ -5,4 +5,6 @@ export interface IUser {
   lastName: string;
   nickName: string;
   isSubscribed: boolean;
+  userStatus: string;
+  location: string;
 }
