@@ -38,7 +38,6 @@ const Feed: FC<FeedProps> = ({ nodeRef, loaderRef, pageValue, ...props }) => {
             <Avatar avatarUrl={props.author.avatar} />
             <UserNickName nickName={props.author.nickName} />
           </Link>
-
           <FollowButton {...props} id={props.author.id} />
         </div>
         <div className={styles["item-feed__image"]}>
@@ -61,10 +60,12 @@ const Feed: FC<FeedProps> = ({ nodeRef, loaderRef, pageValue, ...props }) => {
             />
           </div>
           <div className={styles["item-feed__activity-text"]}>
-            <PostFullName
-              firstName={props.author.firstName}
-              lastName={props.author.lastName}
-            />
+            <Link to={navId}>
+              <PostFullName
+                firstName={props.author.firstName}
+                lastName={props.author.lastName}
+              />
+            </Link>
             <PostDate {...props} />
           </div>
         </div>
