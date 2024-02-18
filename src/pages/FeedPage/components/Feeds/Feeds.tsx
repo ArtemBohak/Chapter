@@ -99,7 +99,7 @@ const Feeds: FC = () => {
         ...
       </div>
       <Loader
-        isShown={isLoad}
+        isShown={!!feeds.length && isLoad}
         wrapperClassNames={styles["loader"]}
         height={100}
       />
