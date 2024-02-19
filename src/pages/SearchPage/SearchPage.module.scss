@@ -67,11 +67,11 @@
     @apply gap-1-sm;
 
     & li {
-      @apply flex flex-wrap items-center justify-between;
+      @apply flex items-center justify-between;
     }
 
     & a {
-      @apply flex flex-wrap items-center gap-1-xs text-base text-black no-underline  md:text-lg md:font-semibold hover:no-underline;
+      @apply flex  items-center gap-1-xs text-base text-black no-underline  md:text-lg md:font-semibold hover:no-underline;
     }
 
     & img {

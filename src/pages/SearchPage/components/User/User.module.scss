@@ -1,8 +1,7 @@
 .nickname {
-  @apply w-[138px] md:w-[231px] laptop:w-[200px];
-  white-space: pre-line;
+  @apply hyphens-auto w-[138px] md:w-[231px] base:w-[300px] laptop:w-[386px];
 }
 
 .follow-btn {
-  @apply w-full max-w-[120px] h-[44px] md:max-w-[228px] base:max-w-[140px] laptop:max-w-[228px];
+  @apply w-full max-w-[120px] h-[44px] md:max-w-[228px] base:max-w-[200px] laptop:max-w-[228px];
 }

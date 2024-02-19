@@ -135,7 +135,7 @@ const SearchPage: FC = () => {
       <ul className={`${styles["list"]} ${styles["search-list"]}`}>
         {resultArr.map((el) => {
           return (
-            <li key={el.id} className="w-full">
+            <li key={el.id}>
               <User {...el} />
             </li>
           );
