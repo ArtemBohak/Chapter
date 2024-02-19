@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useEffect, useState } from "react";
+import { ChangeEvent, FC, useState } from "react";
 import { ErrorMessage, Field, useField, useFormikContext } from "formik";
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
@@ -20,23 +20,19 @@ const TextAreaField: FC<TextAreaFieldProps> = ({
 }) => {
   const { setFieldValue } = useFormikContext();
   const [field, meta] = useField(name);
-  const [tValue, setTValue] = useState(value);
+
   const [showPicker, setShowPicker] = useState(false);
 
-  useEffect(() => {
-    setFieldValue(field.name, tValue);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [field.name, tValue]);
-
-  const onHandleChange = (e: ChangeEvent<HTMLTextAreaElement>) =>
-    setTValue(e.target.value);
+  const onHandleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setFieldValue(field.name, e.target.value);
+  };
 
   const onHandleIconClick = () => {
     setShowPicker(!showPicker);
   };
 
   const onHandleEmojiClick = (emoji: IEmoji) => {
-    setTValue((prevInput) => prevInput + emoji.native);
+    setFieldValue(field.name, field.value + emoji.native);
     setShowPicker(false);
   };
 

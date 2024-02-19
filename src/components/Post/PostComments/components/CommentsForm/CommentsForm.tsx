@@ -43,8 +43,7 @@ const CommentsForm: FC<CommentsFormProps> = ({
         setFeeds && setFeeds(feedsCB(data));
         setSubmitting(false);
         setCommentId(null);
-        setNickName("");
-        return resetForm();
+        return setNickName("");
       }
       const { data }: AxiosResponse<IPost> = await api.post(
         EndpointsEnum.COMMENTS + postId,
@@ -55,11 +54,12 @@ const CommentsForm: FC<CommentsFormProps> = ({
       setCommentsIsHide && setCommentsIsHide(false);
       setSubmitting(false);
       setNickName("");
-      resetForm();
     } catch (e) {
       if (e instanceof AxiosError) {
         setErrorBoundary(e);
       }
+    } finally {
+      resetForm();
     }
   };
 
