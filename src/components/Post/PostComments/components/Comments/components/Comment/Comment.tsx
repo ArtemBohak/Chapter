@@ -24,6 +24,7 @@ const Comment: FC<CommentProps> = ({
   hideCommentBtn = false,
   replyTo,
   setNickName,
+  setReplyToUserId,
   setId,
 }) => {
   const userId = useAppSelector((state) => state.userSlice.user.id);
@@ -77,9 +78,11 @@ const Comment: FC<CommentProps> = ({
               }
               id={id}
               commentsCount={commentCount || commentsCount}
-              setId={setId}
               nickName={nickName}
+              authorId={authorId}
+              setId={setId}
               setNickName={setNickName}
+              setReplyToUserId={setReplyToUserId}
             />
           ) : null}
         </div>

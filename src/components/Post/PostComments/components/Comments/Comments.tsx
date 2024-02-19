@@ -14,7 +14,12 @@ const itemClassNames = (value: number) => {
   });
 };
 
-const Comments: FC<CommentsProps> = ({ comments, setId, setNickName }) => {
+const Comments: FC<CommentsProps> = ({
+  comments,
+  setId,
+  setNickName,
+  setReplyToUserId,
+}) => {
   const renderComments = (comments: Array<CommentValues>, step: number) => {
     let counter: number = 0;
     const sortedComments = comments.sort((a, b) => {
@@ -35,7 +40,12 @@ const Comments: FC<CommentsProps> = ({ comments, setId, setNickName }) => {
         {sortedComments.map((i) => {
           return (
             <li key={i.id} className={classNames}>
-              <Comment {...i} setId={setId} setNickName={setNickName} />
+              <Comment
+                {...i}
+                setId={setId}
+                setNickName={setNickName}
+                setReplyToUserId={setReplyToUserId}
+              />
               {i.comments?.length ? renderComments(i.comments, 1) : null}
             </li>
           );

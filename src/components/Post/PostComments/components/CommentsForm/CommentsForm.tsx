@@ -20,10 +20,9 @@ const CommentsForm: FC<CommentsFormProps> = ({
   postId,
   commentId,
   nickName,
-  userId,
+  replyToUserId,
   setCommentId,
   setCommentsIsHide,
-  setNickName,
   setFeeds,
 }) => {
   const setErrorBoundary = useErrorBoundary();
@@ -39,8 +38,8 @@ const CommentsForm: FC<CommentsFormProps> = ({
     try {
       if (commentId) {
         let body: BodyValues = { ...values };
-        if (nickName && userId) {
-          body = { ...body, nickName, id: userId };
+        if (nickName && replyToUserId) {
+          body = { ...body, nickName, id: replyToUserId };
         }
         const { data }: AxiosResponse<IPost> = await api.post(
           EndpointsEnum.COMMENTS + commentId + "/to-comment",
@@ -48,8 +47,8 @@ const CommentsForm: FC<CommentsFormProps> = ({
         );
         setFeeds && setFeeds(feedsCB(data));
         setSubmitting(false);
-        setCommentId(null);
-        return setNickName("");
+
+        return setCommentId(null);
       }
       const { data }: AxiosResponse<IPost> = await api.post(
         EndpointsEnum.COMMENTS + postId,
@@ -59,7 +58,6 @@ const CommentsForm: FC<CommentsFormProps> = ({
       setFeeds && setFeeds(feedsCB(data));
       setCommentsIsHide && setCommentsIsHide(false);
       setSubmitting(false);
-      setNickName("");
     } catch (e) {
       if (e instanceof AxiosError) {
         setErrorBoundary(e);
