@@ -6,12 +6,14 @@ import {
   replaceSymbolsPattern,
 } from "@/src/utils";
 import { TextTaggingProps } from "./TextTagging.type";
+import { Link } from "react-router-dom";
 
 const TextTagging: FC<TextTaggingProps> = ({
   text,
   className,
   onClick,
   textClassName = "",
+  replyTo,
 }) => {
   const textArray = text.split(" ");
 
@@ -35,6 +37,13 @@ const TextTagging: FC<TextTaggingProps> = ({
     }
     return ` ${value} `;
   };
+
+  if (replyTo)
+    return (
+      <p className={textClassName}>
+        <Link to={`${replyTo.id}`}>{replyTo.nickName}</Link> {text}
+      </p>
+    );
 
   return (
     <p className={textClassName}>

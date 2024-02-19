@@ -36,9 +36,10 @@ export type CommentsData = Required<
   Pick<IPostValues, "commentCount"> & {
     usersId: IdList;
     id: string | number;
-    parrentId?: string | number;
+    parentId?: string | number;
     text: string;
     createdAt: string | Date | number;
+    replyTo?: Pick<Author, "id" | "nickName">;
   };
 
 export type CommentValues = CommentsData & { comments?: CommentsData[] };

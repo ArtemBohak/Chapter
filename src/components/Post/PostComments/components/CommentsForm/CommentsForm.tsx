@@ -7,7 +7,7 @@ import { EndpointsEnum, api } from "@/src/axios";
 import { useErrorBoundary, useGetScreenSize } from "@/src/hooks";
 import { IPost } from "@/src/types";
 import { feedsCB, tabScreen } from "@/src/utils";
-import { FormValues, CommentsFormProps } from "./CommentsForm.type";
+import { FormValues, CommentsFormProps, BodyValues } from "./CommentsForm.type";
 import { validationSchema } from "./validationSchema";
 import styles from "./CommentsForm.module.scss";
 
@@ -19,6 +19,8 @@ const initialValues = { text: "" };
 const CommentsForm: FC<CommentsFormProps> = ({
   postId,
   commentId,
+  nickName,
+  userId,
   setCommentId,
   setCommentsIsHide,
   setNickName,
@@ -36,9 +38,13 @@ const CommentsForm: FC<CommentsFormProps> = ({
   ) => {
     try {
       if (commentId) {
+        let body: BodyValues = { ...values };
+        if (nickName && userId) {
+          body = { ...body, nickName, id: userId };
+        }
         const { data }: AxiosResponse<IPost> = await api.post(
           EndpointsEnum.COMMENTS + commentId + "/to-comment",
-          values
+          body
         );
         setFeeds && setFeeds(feedsCB(data));
         setSubmitting(false);

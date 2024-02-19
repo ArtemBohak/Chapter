@@ -22,6 +22,7 @@ const Comment: FC<CommentProps> = ({
   text,
   createdAt,
   hideCommentBtn = false,
+  replyTo,
   setNickName,
   setId,
 }) => {
@@ -53,8 +54,8 @@ const Comment: FC<CommentProps> = ({
         <div className={styles["comment__text"]}>
           {
             <TextTagging
+              replyTo={replyTo}
               text={text || ""}
-              onClick={() => {}}
               className={styles["comment__text-button"]}
             />
           }
