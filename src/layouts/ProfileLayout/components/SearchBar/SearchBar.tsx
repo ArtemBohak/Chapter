@@ -146,9 +146,9 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
         <ul>
           {resultArr.slice(0, 5).map((el) => {
             return (
-              <li key={el.userId}>
+              <li key={el.id}>
                 <Link
-                  to={`/${el.userId}`}
+                  to={`/${el.id}`}
                   onClick={onHandleLinkClick}
                   className={styles["nickname"]}
                 >
