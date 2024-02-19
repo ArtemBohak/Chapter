@@ -1,5 +1,13 @@
 import { Dispatch, SetStateAction } from "react";
 
+export type IdList =
+  | Array<string | number | { [key: string]: [string | number] }>
+  | [];
+
+export type SetIsOpenType = {
+  setFormIsOpen: Dispatch<SetStateAction<boolean>>;
+};
+
 export interface Author {
   id: string | number;
   avatar: string | null;
@@ -22,15 +30,7 @@ interface IPostValues {
   updatedAt: string | Date | number;
 }
 
-export type SetIsOpenType = {
-  setFormIsOpen: Dispatch<SetStateAction<boolean>>;
-};
-
-export type IdList =
-  | Array<string | number | { [key: string]: [string | number] }>
-  | [];
-
-export type CommentsData = Required<
+type CommentsData = Required<
   Pick<IPostValues, "postId" | "author" | "commentsCount">
 > &
   Pick<IPostValues, "commentCount"> & {

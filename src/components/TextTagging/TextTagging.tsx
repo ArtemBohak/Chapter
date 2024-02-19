@@ -11,9 +11,10 @@ import { Link } from "react-router-dom";
 const TextTagging: FC<TextTaggingProps> = ({
   text,
   className,
-  onClick,
   textClassName = "",
   replyTo,
+  withTag = false,
+  onClick,
 }) => {
   const textArray = text.split(" ");
 
@@ -41,17 +42,20 @@ const TextTagging: FC<TextTaggingProps> = ({
   if (replyTo)
     return (
       <p className={textClassName}>
-        <Link to={`${replyTo.id}`}>{replyTo.nickName}</Link> {text}
+        <Link to={`/${replyTo.id}`}>{replyTo.nickName}</Link> {text}
       </p>
     );
 
-  return (
-    <p className={textClassName}>
-      {textArray.map((item, index) => {
-        return <Fragment key={index}>{renderButton(item)}</Fragment>;
-      })}
-    </p>
-  );
+  if (withTag)
+    return (
+      <p className={textClassName}>
+        {textArray.map((item, index) => {
+          return <Fragment key={index}>{renderButton(item)}</Fragment>;
+        })}
+      </p>
+    );
+
+  return <p className={textClassName}>{text}</p>;
 };
 
 export default TextTagging;

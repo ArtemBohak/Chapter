@@ -5,6 +5,7 @@ export type TextTaggingProps = {
   text: string;
   className: string;
   textClassName?: string;
+  withTag?: boolean;
   replyTo?: Pick<Author, "id" | "nickName"> | null;
   onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
 };
