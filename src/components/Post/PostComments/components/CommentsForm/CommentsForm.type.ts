@@ -5,10 +5,10 @@ export type CommentsFormProps = {
   commentId: string | number | null;
   nickName?: string;
   replyToUserId?: string | number | null;
+  setCommentId: Dispatch<SetStateAction<string | number | null>>;
   setNickName?: Dispatch<SetStateAction<string>>;
   setReplyToUserId?: Dispatch<SetStateAction<string | null | number>>;
   setCommentsIsHide?: Dispatch<SetStateAction<boolean>>;
-  setCommentId: Dispatch<SetStateAction<string | number | null>>;
 } & Required<Pick<PostCommentsProps, "postId">> &
   Pick<PostCommentsProps, "setFeeds">;
 

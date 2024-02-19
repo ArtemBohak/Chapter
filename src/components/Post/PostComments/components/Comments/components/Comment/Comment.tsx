@@ -58,6 +58,7 @@ const Comment: FC<CommentProps> = ({
               replyTo={replyTo}
               text={text || ""}
               className={styles["comment__text-button"]}
+              linkClassName={styles["comment__text-link"]}
             />
           }
         </div>

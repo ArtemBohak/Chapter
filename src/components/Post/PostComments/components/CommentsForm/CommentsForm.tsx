@@ -91,6 +91,10 @@ const CommentsForm: FC<CommentsFormProps> = ({
                   value={values.text}
                   iconSize={iconSize}
                   classNames={styles["form__field"]}
+                  replyToUserId={replyToUserId}
+                  nickName={nickName}
+                  setNickName={setNickName}
+                  setReplyToUserId={setReplyToUserId}
                 />
                 <PostButton
                   type="submit"

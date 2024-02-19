@@ -12,6 +12,7 @@ const TextTagging: FC<TextTaggingProps> = ({
   text,
   className,
   textClassName = "",
+  linkClassName = "",
   replyTo,
   withTag = false,
   onClick,
@@ -42,7 +43,10 @@ const TextTagging: FC<TextTaggingProps> = ({
   if (replyTo)
     return (
       <p className={textClassName}>
-        <Link to={`/${replyTo.id}`}>{replyTo.nickName}</Link> {text}
+        <Link className={linkClassName} to={`/${replyTo.id}`}>
+          {replyTo.nickName}
+        </Link>{" "}
+        {text}
       </p>
     );
 
