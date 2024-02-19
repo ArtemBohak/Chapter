@@ -117,6 +117,8 @@ const PostComments: FC<PostCommentsProps> = ({
           setCommentsIsHide={setCommentsIsHide}
           setCommentId={setCommentId}
           setFeeds={setFeeds}
+          setReplyToUserId={setReplyToUserId}
+          setNickName={setNickName}
         />
       </div>
     </div>

@@ -24,6 +24,8 @@ const CommentsForm: FC<CommentsFormProps> = ({
   setCommentId,
   setCommentsIsHide,
   setFeeds,
+  setNickName,
+  setReplyToUserId,
 }) => {
   const setErrorBoundary = useErrorBoundary();
   const {
@@ -36,34 +38,33 @@ const CommentsForm: FC<CommentsFormProps> = ({
     { setSubmitting, resetForm }: FormikHelpers<FormValues>
   ) => {
     try {
-      if (commentId) {
-        let body: BodyValues = { ...values };
-        if (nickName && replyToUserId) {
-          body = { ...body, nickName, id: replyToUserId };
-        }
+      let body: BodyValues = { ...values };
+      if (nickName && replyToUserId) {
+        body = { ...body, replyTo: { nickName, id: replyToUserId } };
+      }
+      if (commentId !== null) {
         const { data }: AxiosResponse<IPost> = await api.post(
           EndpointsEnum.COMMENTS + commentId + "/to-comment",
           body
         );
         setFeeds && setFeeds(feedsCB(data));
-        setSubmitting(false);
-
         return setCommentId(null);
       }
       const { data }: AxiosResponse<IPost> = await api.post(
         EndpointsEnum.COMMENTS + postId,
         values
       );
-
       setFeeds && setFeeds(feedsCB(data));
       setCommentsIsHide && setCommentsIsHide(false);
-      setSubmitting(false);
     } catch (e) {
       if (e instanceof AxiosError) {
         setErrorBoundary(e);
       }
     } finally {
+      setSubmitting(false);
       resetForm();
+      setReplyToUserId && setReplyToUserId(null);
+      setNickName && setNickName("");
     }
   };
 
