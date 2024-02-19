@@ -1,0 +1,8 @@
+.nickname {
+  @apply w-[138px] md:w-[231px] laptop:w-[200px];
+  white-space: pre-line;
+}
+
+.follow-btn {
+  @apply w-full max-w-[120px] h-[44px] md:max-w-[228px] base:max-w-[140px] laptop:max-w-[228px];
+}

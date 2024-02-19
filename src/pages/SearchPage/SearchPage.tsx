@@ -6,7 +6,7 @@ import {
   useEffect,
   useState,
 } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { AxiosError } from "axios";
 
 import { EndpointsEnum, api } from "@/src/axios";
@@ -16,8 +16,8 @@ import { useDebounce, useErrorBoundary, useGetScreenSize } from "@/src/hooks";
 import { IUser, apiErrorMessage } from "@/src/types";
 import styles from "./SearchPage.module.scss";
 
-import { FollowButton, Icon, IconEnum, SearchField } from "@/src/components";
-import defaultAvatar from "@/src/assets/SVG/default-user-avatar.svg";
+import { Icon, IconEnum, SearchField } from "@/src/components";
+import { User } from "./components";
 
 const SearchPage: FC = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -96,11 +96,6 @@ const SearchPage: FC = () => {
     setSearchValue("");
   };
 
-  const onHandleHoverElement = (id: number | string, length: number) => () => {
-    const elem = document.getElementById(`${id}`);
-    if (length > 15) elem?.classList.toggle(styles["is-shown"]);
-  };
-
   useEffect(() => {
     setRecentSearchArr(getDataFromLS("recentSearch") || []);
   }, [debouncedSearchValue]);
@@ -140,32 +135,8 @@ const SearchPage: FC = () => {
       <ul className={`${styles["list"]} ${styles["search-list"]}`}>
         {resultArr.map((el) => {
           return (
-            <li key={el.id}>
-              <Link
-                to={`/${el.id}`}
-                className={styles["nickname"]}
-                onMouseOver={onHandleHoverElement(el.id, el.nickName.length)}
-                onMouseOut={onHandleHoverElement(el.id, el.nickName.length)}
-              >
-                <img
-                  src={el.avatarUrl || defaultAvatar}
-                  width={52}
-                  height={52}
-                />
-                <span>
-                  {el.nickName.length > 15
-                    ? el.nickName.slice(0, 15) + "..."
-                    : el.nickName}
-                </span>
-                <span id={`${el.id}`} className={styles["full-nickname"]}>
-                  {el.nickName}
-                </span>
-              </Link>
-              <FollowButton
-                id={el.id}
-                classNames={styles["follow-btn"]}
-                isSubscribeToAuthor={el.isSubscribed}
-              />
+            <li key={el.id} className="w-full">
+              <User {...el} />
             </li>
           );
         })}

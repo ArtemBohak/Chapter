@@ -67,11 +67,11 @@
     @apply gap-1-sm;
 
     & li {
-      @apply flex items-center justify-between;
+      @apply flex flex-wrap items-center justify-between;
     }
 
     & a {
-      @apply flex items-center gap-1-xs text-base text-black no-underline max-w-[120px] md:text-lg md:font-semibold hover:no-underline;
+      @apply flex flex-wrap items-center gap-1-xs text-base text-black no-underline  md:text-lg md:font-semibold hover:no-underline;
     }
 
     & img {
@@ -82,20 +82,4 @@
 
 .text {
   @apply text-base font-medium text-black md:text-lg md:font-semibold absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 md:static md:mt-2-md md:-translate-x-0 md:-translate-y-0;
-}
-
-.follow-btn {
-  @apply w-full max-w-[120px] h-[44px] md:max-w-[228px] base:max-w-[140px] laptop:max-w-[228px];
-}
-
-.nickname {
-  @apply relative;
-}
-
-.full-nickname {
-  @apply hidden absolute -top-2 left-[62px];
-
-  &.is-shown {
-    @apply block;
-  }
 }
