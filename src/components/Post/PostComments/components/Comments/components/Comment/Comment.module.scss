@@ -39,7 +39,7 @@
       @apply text-[#0000EB] bg-transparent;
     }
     &-link {
-      @apply no-underline hover:no-underline;
+      @apply no-underline hover:no-underline text-xxs font-normal md:text-[18px];
     }
   }
 

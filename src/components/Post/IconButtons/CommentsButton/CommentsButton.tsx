@@ -5,7 +5,6 @@ import { CommentsButtonProps } from "./CommentsButton.type";
 import styles from "../IconButtons.module.scss";
 
 import { Icon, IconEnum } from "@/src/components";
-import { useAppSelector } from "@/src/redux";
 
 const CommentsButton: FC<CommentsButtonProps> = ({
   commentsCount,
@@ -19,14 +18,11 @@ const CommentsButton: FC<CommentsButtonProps> = ({
   setReplyToUserId,
   setId,
 }) => {
-  const userId = useAppSelector((state) => state.userSlice.user.id);
   const onHandleClick = () => {
     setCommentsIsHide && setCommentsIsHide(false);
     setId && setId(id);
-    if (authorId !== userId) {
-      setNickName && setNickName(nickName || "");
-      setReplyToUserId && setReplyToUserId(authorId || "");
-    }
+    setNickName && setNickName(nickName || "");
+    setReplyToUserId && setReplyToUserId(authorId || "");
   };
   const btnTextStyle = cn(styles["icon-button__text"], {
     [styles["icon-button__text-hidden"]]: hiddenText,

@@ -5,6 +5,7 @@ import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
 import cn from "classnames";
 
+import { useAppSelector } from "@/src/redux";
 import { useGetScreenSize } from "@/src/hooks";
 import { IEmoji, TextAreaFieldProps } from "./TextAreaField.type";
 import styles from "./TextAreaField.module.scss";
@@ -27,6 +28,7 @@ const TextAreaField: FC<TextAreaFieldProps> = ({
 }) => {
   const { setFieldValue } = useFormikContext();
   const [field, meta] = useField(name);
+  const userId = useAppSelector((state) => state.userSlice.user.id);
 
   const [showPicker, setShowPicker] = useState(false);
   const [screenSize] = useGetScreenSize();
@@ -66,7 +68,7 @@ const TextAreaField: FC<TextAreaFieldProps> = ({
       [styles["nickname-long"]]: !!(
         nickName &&
         replyToUserId &&
-        nickName.length > 9
+        nickName.length >= 9
       ),
     }
   );
@@ -81,9 +83,12 @@ const TextAreaField: FC<TextAreaFieldProps> = ({
             data-automation="clickButton"
             onClick={onHandleCrossClick}
           >
-            <Icon icon={IconEnum.Cross} size={isMobScreen ? 11 : 16} />
+            <Icon icon={IconEnum.Cross} size={isMobScreen ? 11 : 17} />
           </button>
-          <Link className={styles["nickname__link"]} to={`/${replyToUserId}`}>
+          <Link
+            className={styles["nickname__link"]}
+            to={replyToUserId !== userId ? "/" + replyToUserId : "#"}
+          >
             {nickName.length > 9 ? nickName.slice(0, 9) + "..." : nickName}:
           </Link>
         </div>

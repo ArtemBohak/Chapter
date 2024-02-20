@@ -1,12 +1,13 @@
 import { FC, Fragment } from "react";
+import { Link } from "react-router-dom";
 
+import { useAppSelector } from "@/src/redux";
 import {
   isNickNameCheckingPattern,
   replaceLettersPattern,
   replaceSymbolsPattern,
 } from "@/src/utils";
 import { TextTaggingProps } from "./TextTagging.type";
-import { Link } from "react-router-dom";
 
 const TextTagging: FC<TextTaggingProps> = ({
   text,
@@ -18,7 +19,7 @@ const TextTagging: FC<TextTaggingProps> = ({
   onClick,
 }) => {
   const textArray = text.split(" ");
-
+  const userId = useAppSelector((state) => state.userSlice.user.id);
   const renderButton = (value: string) => {
     if (isNickNameCheckingPattern.test(value)) {
       const formattedValue = value.replace(replaceSymbolsPattern, "");
@@ -43,9 +44,12 @@ const TextTagging: FC<TextTaggingProps> = ({
   if (replyTo)
     return (
       <p className={textClassName}>
-        <Link className={linkClassName} to={`/${replyTo.id}`}>
+        <Link
+          className={linkClassName}
+          to={replyTo.id !== userId ? "/" + replyTo.id : "#"}
+        >
           {replyTo.nickName}
-        </Link>{" "}
+        </Link>
         {text}
       </p>
     );
