@@ -15,5 +15,6 @@ export type CommentsFormProps = {
 export type FormValues = { text: string };
 
 export type BodyValues = {
-  replyTo?: { id: string | number | null; nickName: string };
+  id?: string | number;
+  nickName?: string;
 } & FormValues;
