@@ -20,7 +20,7 @@ const LikesButton: FC<LikesButtonProps> = ({
   hiddenText = false,
   withoutModal = false,
   totalLikes,
-  likeApi,
+  url,
 }) => {
   const setErrorBoundary = useErrorBoundary();
 
@@ -31,7 +31,7 @@ const LikesButton: FC<LikesButtonProps> = ({
   const [liked] = useFindUserId(usersId);
   const likeCount = totalLikes || usersId?.length;
 
-  const [isLiked, setIsLiked] = useState(false);
+  const [isLiked, setIsLiked] = useState(liked);
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
@@ -47,8 +47,15 @@ const LikesButton: FC<LikesButtonProps> = ({
     setIsLiked(liked);
   }, [liked]);
 
-  const onHandleLikeClick = () => {
-    likeApi && likeApi(id, setUsersId, setErrorBoundary);
+  const onHandleLikeClick = async () => {
+    try {
+      const res = await api.post(url + id);
+      setUsersId(res.data);
+    } catch (e) {
+      if (e instanceof AxiosError) {
+        setErrorBoundary && setErrorBoundary(e);
+      }
+    }
   };
 
   const onHandleModalOpenClick = async () => {

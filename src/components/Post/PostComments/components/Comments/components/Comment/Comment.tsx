@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { CommentProps } from "./Comment.type";
 import { EndpointsEnum } from "@/src/axios";
 
-import { getDate, likeApi } from "@/src/utils";
+import { getDate } from "@/src/utils";
 import { useAppSelector } from "@/src/redux";
 import styles from "./Comment.module.scss";
 
@@ -67,7 +67,7 @@ const Comment: FC<CommentProps> = ({
           <LikesButton
             userIds={usersId}
             id={id}
-            likeApi={likeApi(EndpointsEnum.COMMENT_LIKE)}
+            url={EndpointsEnum.COMMENT_LIKE}
             withoutModal
           />
           {!hideCommentBtn ? (

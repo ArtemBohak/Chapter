@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 import { useAppSelector } from "@/src/redux";
 import { FeedProps } from "./Feed.type";
-import { likeApi } from "@/src/utils";
 import { EndpointsEnum } from "@/src/axios";
 import { useFeedContext } from "../../context";
 import styles from "./Feed.module.scss";
@@ -48,7 +47,7 @@ const Feed: FC<FeedProps> = ({ nodeRef, loaderRef, pageValue, ...props }) => {
             <LikesButton
               {...props}
               id={props.postId}
-              likeApi={likeApi(EndpointsEnum.POST_LIKE)}
+              url={EndpointsEnum.POST_LIKE}
               hiddenText
             />
             <CommentsButton
