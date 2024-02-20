@@ -49,6 +49,7 @@ const LikesButton: FC<LikesButtonProps> = ({
 
   const onHandleLikeClick = async () => {
     try {
+      setIsLiked(!isLiked);
       const res = await api.post(url + id);
       setUsersId(res.data);
     } catch (e) {
