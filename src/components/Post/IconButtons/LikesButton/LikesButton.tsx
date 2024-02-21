@@ -1,7 +1,7 @@
 import { FC, useEffect, useMemo, useState } from "react";
 import cn from "classnames";
 
-import { useModalsContext } from "@/src/context";
+import { useProfileContext } from "@/src/context";
 import { useErrorBoundary, useFindUserId } from "@/src/hooks";
 import { LikesButtonProps } from "./LikesButton.type";
 import { User } from "./components/LikesModal/LikesModal.type";
@@ -24,7 +24,7 @@ const LikesButton: FC<LikesButtonProps> = ({
 }) => {
   const setErrorBoundary = useErrorBoundary();
 
-  const { setHeaderAddPostBtnIsDisabled } = useModalsContext();
+  const { setHeaderAddPostBtnIsDisabled } = useProfileContext();
 
   const uniqueUsersId = useMemo(() => [...new Set(userIds)], [userIds]);
   const [users, setUsers] = useState<IdList>(uniqueUsersId);

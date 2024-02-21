@@ -4,7 +4,7 @@ import cn from "classnames";
 
 import { ElementsId, UiMessage, links } from "@/src/types";
 import { ProfileUpdateApi } from "@/src/pages/SettingsPage/utils/ProfileUpdateApi";
-import { useNavigationToggler, useModalsContext } from "@/src/context";
+import { useNavigationToggler, useProfileContext } from "@/src/context";
 import { useErrorBoundary, useHideElement, useOutsideClick } from "@/src/hooks";
 import { fetchIsLogoutUser, useAppDispatch, useAppSelector } from "@/src/redux";
 import { ProfileHeaderProps } from "./ProfileHeader.type";
@@ -21,7 +21,7 @@ import {
 import { SearchBar } from "../SearchBar";
 
 const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
-  const { headerAddPostBtnIsDisabled } = useModalsContext();
+  const { headerAddPostBtnIsDisabled } = useProfileContext();
   const { isActiveMenu, setIsActiveMenu } = useNavigationToggler();
   const {
     user: { firstName, lastName, avatarUrl },
