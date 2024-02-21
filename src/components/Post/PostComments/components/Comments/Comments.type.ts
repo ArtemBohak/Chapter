@@ -6,4 +6,5 @@ export type CommentsProps = {
   setId: Dispatch<SetStateAction<number | string | null>>;
   setNickName: Dispatch<SetStateAction<string>>;
   setReplyToUserId: Dispatch<SetStateAction<number | string | null>>;
+  showAllComments: boolean;
 };

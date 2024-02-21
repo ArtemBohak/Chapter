@@ -1,4 +1,4 @@
-import { FC, useRef, useState } from "react";
+import { FC, useMemo, useRef, useState } from "react";
 import cn from "classnames";
 
 import { PostCommentsProps } from "./PostComments.type";
@@ -25,7 +25,7 @@ const PostComments: FC<PostCommentsProps> = ({
     null
   );
 
-  const [showFilterPopup, setShowFilterPopup] = useState(true);
+  const [showFilterPopup, setShowFilterPopup] = useState(false);
   const [showAllComments, setShowAllComments] = useState(false);
 
   const btnRef = useRef(null);
@@ -36,6 +36,18 @@ const PostComments: FC<PostCommentsProps> = ({
   const isMobScreen = screenSize < tabScreen ? 16 : 26;
 
   useOutsideClick(popupRef, setShowFilterPopup, "filter-btn");
+
+  const sortedComments = useMemo(
+    () =>
+      comments.sort((a, b) => {
+        const firstEl = new Date(a.createdAt).getTime();
+        const secondEl = new Date(b.createdAt).getTime();
+        if (!showAllComments) return secondEl - firstEl;
+
+        return firstEl - secondEl;
+      }),
+    [comments, showAllComments]
+  );
 
   const onHandleCommentsToggle = async () => {
     setCommentsIsHide && setCommentsIsHide(!commentsIsHide);
@@ -123,10 +135,13 @@ const PostComments: FC<PostCommentsProps> = ({
     >
       <div ref={commentsRef}>
         <Comments
-          comments={comments}
+          comments={
+            showAllComments ? sortedComments : sortedComments.slice(0, 3)
+          }
           setId={setCommentId}
           setNickName={setNickName}
           setReplyToUserId={setReplyToUserId}
+          showAllComments={showAllComments}
         />
       </div>
     </Animation>

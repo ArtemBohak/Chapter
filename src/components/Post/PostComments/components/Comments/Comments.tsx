@@ -16,22 +16,27 @@ const itemClassNames = (value: number) => {
 
 const Comments: FC<CommentsProps> = ({
   comments,
+  showAllComments,
   setId,
   setNickName,
   setReplyToUserId,
 }) => {
   const renderComments = (comments: Array<CommentValues>, step: number) => {
     let counter: number = 0;
-    const sortedComments = comments.sort((a, b) => {
-      const firstEl = new Date(a.createdAt).getTime();
-      const secondEl = new Date(b.createdAt).getTime();
-
-      return firstEl - secondEl;
-    });
 
     counter += step;
 
     if (counter > 1) return;
+
+    const sortedComments = comments.sort((a, b) => {
+      const firstEl = new Date(a.createdAt).getTime();
+      const secondEl = new Date(b.createdAt).getTime();
+
+      if (!counter && !showAllComments) {
+        return secondEl - firstEl;
+      }
+      return firstEl - secondEl;
+    });
 
     const classNames = itemClassNames(counter);
 
