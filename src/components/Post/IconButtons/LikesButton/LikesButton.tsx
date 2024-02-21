@@ -31,7 +31,6 @@ const LikesButton: FC<LikesButtonProps> = ({
   const [liked] = useFindUserId(usersId);
 
   const [likeCount, setLikeCount] = useState(totalLikes || usersId?.length);
-  // let likeCount = totalLikes || usersId?.length;
 
   const [isLiked, setIsLiked] = useState(liked);
 
