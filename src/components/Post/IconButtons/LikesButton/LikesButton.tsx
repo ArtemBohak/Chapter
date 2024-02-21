@@ -29,7 +29,9 @@ const LikesButton: FC<LikesButtonProps> = ({
   const uniqueUsersId = useMemo(() => [...new Set(userIds)], [userIds]);
   const [usersId, setUsersId] = useState<IdList>(uniqueUsersId);
   const [liked] = useFindUserId(usersId);
-  const likeCount = totalLikes || usersId?.length;
+
+  const [likeCount, setLikeCount] = useState(totalLikes || usersId?.length);
+  // let likeCount = totalLikes || usersId?.length;
 
   const [isLiked, setIsLiked] = useState(liked);
 
@@ -50,6 +52,9 @@ const LikesButton: FC<LikesButtonProps> = ({
   const onHandleLikeClick = async () => {
     try {
       setIsLiked(!isLiked);
+      if (isLiked) setLikeCount((likeCount) => (likeCount -= 1));
+      else setLikeCount((likeCount) => (likeCount += 1));
+
       const res = await api.post(url + id);
       setUsersId(res.data);
     } catch (e) {
