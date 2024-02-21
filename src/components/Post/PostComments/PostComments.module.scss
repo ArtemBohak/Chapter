@@ -24,8 +24,32 @@
     &-filter {
       @apply font-semibold text-[#F69400] flex items-center gap-0-sm md:text-lg;
 
+      &-wrapper {
+        @apply relative;
+      }
+
       &-icon {
-        @apply -rotate-90;
+        @apply -rotate-90 transition-all duration-150;
+
+        &.icon {
+          @apply rotate-90;
+        }
+      }
+    }
+  }
+
+  .popup {
+    @apply -bottom-[40px] right-0 w-[162px] h-4-xs;
+
+    &__body {
+      @apply w-full h-full bg-[#fafafa] rounded-lg border border-grey-1010 shadow-[0_4px_10px_0_rgba(124,124,124,0.52)] overflow-hidden;
+    }
+
+    &__content {
+      @apply w-full h-full;
+
+      & > button {
+        @apply w-full h-full bg-transparent;
       }
     }
   }
