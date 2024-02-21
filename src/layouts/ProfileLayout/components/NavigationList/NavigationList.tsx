@@ -2,7 +2,7 @@ import { FC, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import cn from "classnames";
 
-import { useNavigationToggler } from "@/src/context";
+import { useNavigationToggler, useProfileContext } from "@/src/context";
 import { UiMessage } from "@/src/types";
 import { useAppDispatch, fetchIsLogoutUser } from "@/src/redux";
 
@@ -23,6 +23,8 @@ const NavigationList: FC<NavigationListProps> = ({
   const { setIsActiveMenu } = useNavigationToggler();
   const [isLoading, setIsLoading] = useState(false);
   const [confirmModalIsShown, setConfirmModalIsShown] = useState(false);
+
+  const { unreadMessage } = useProfileContext();
 
   function handleClickNavLink() {
     setIsActiveMenu && setIsActiveMenu(false);
@@ -46,6 +48,8 @@ const NavigationList: FC<NavigationListProps> = ({
               to={navItem.path}
               className={cn("navigation-list__link", {
                 "current-page": navItem.path === location.pathname,
+                "unread-message":
+                  navItem.name === "Notification" && unreadMessage,
               })}
               onClick={handleClickNavLink}
             >

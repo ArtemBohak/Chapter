@@ -11,13 +11,12 @@ export const navigation: NavigationLinkProps[] = [
   },
   {
     id: "2",
-    path: "/",
+    path: links.NOTIFICATION,
     icon: IconEnum.Notification,
     name: "Notification",
   },
   {
     id: "3",
-
     path: links.SEARCH,
     icon: IconEnum.Search,
     name: "Search",

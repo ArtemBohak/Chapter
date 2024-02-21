@@ -4,9 +4,11 @@ export interface IProfileProviderProps {
   children: ReactNode;
 }
 
-type SetModal = Dispatch<SetStateAction<boolean>>;
+type SetBoolean = Dispatch<SetStateAction<boolean>>;
 
 export type ProfileContextType = {
   headerAddPostBtnIsDisabled: boolean;
-  setHeaderAddPostBtnIsDisabled: SetModal;
+  setHeaderAddPostBtnIsDisabled: SetBoolean;
+  unreadMessage: boolean;
+  setUnreadMessage: SetBoolean;
 };
