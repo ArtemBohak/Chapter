@@ -1,4 +1,4 @@
-import { TextareaHTMLAttributes } from "react";
+import { Dispatch, SetStateAction, TextareaHTMLAttributes } from "react";
 
 export type TextAreaFieldProps = {
   id: string;
@@ -10,6 +10,10 @@ export type TextAreaFieldProps = {
   classNames?: string;
   emojiClassNames?: string;
   labelValue?: string;
+  replyToUserId?: string | number | null;
+  nickName?: string;
+  setNickName?: Dispatch<SetStateAction<string>>;
+  setReplyToUserId?: Dispatch<SetStateAction<string | null | number>>;
 } & Partial<TextareaHTMLAttributes<HTMLTextAreaElement>>;
 
 export interface IEmoji {

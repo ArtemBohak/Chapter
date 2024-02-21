@@ -94,7 +94,7 @@ const UserPost: FC<UserPostProps> = ({ post, fetchUserPosts }) => {
       </div>
       <div className="flex justify-between">
         <div className={styles["user-post__activity-icons"]}>
-          <LikesButton id={post.id} userIds={[]} totalLikes={0} />
+          <LikesButton id={post.id} userIds={[]} totalLikes={0} url="" />
           <CommentsButton textValue={""} id={""} commentsCount={0} />
         </div>
         <PostDate createAt={post.updatedAt} />

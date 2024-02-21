@@ -1,9 +1,12 @@
-import { ChangeEvent, FC, useEffect, useState } from "react";
+import { ChangeEvent, FC, useState } from "react";
 import { ErrorMessage, Field, useField, useFormikContext } from "formik";
+import { Link } from "react-router-dom";
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
 import cn from "classnames";
 
+import { useAppSelector } from "@/src/redux";
+import { useGetScreenSize } from "@/src/hooks";
 import { IEmoji, TextAreaFieldProps } from "./TextAreaField.type";
 import styles from "./TextAreaField.module.scss";
 import { Icon, IconEnum } from "../..";
@@ -16,38 +19,80 @@ const TextAreaField: FC<TextAreaFieldProps> = ({
   value,
   emojiClassNames,
   labelValue,
+  replyToUserId,
+  nickName,
+  placeholder,
+  setNickName,
+  setReplyToUserId,
   ...props
 }) => {
   const { setFieldValue } = useFormikContext();
   const [field, meta] = useField(name);
-  const [tValue, setTValue] = useState(value);
+  const userId = useAppSelector((state) => state.userSlice.user.id);
+
   const [showPicker, setShowPicker] = useState(false);
+  const [screenSize] = useGetScreenSize();
 
-  useEffect(() => {
-    setFieldValue(field.name, tValue);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [field.name, tValue]);
+  const isMobScreen = screenSize < 768;
 
-  const onHandleChange = (e: ChangeEvent<HTMLTextAreaElement>) =>
-    setTValue(e.target.value);
+  const onHandleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setFieldValue(field.name, e.target.value);
+  };
 
   const onHandleIconClick = () => {
     setShowPicker(!showPicker);
   };
 
   const onHandleEmojiClick = (emoji: IEmoji) => {
-    setTValue((prevInput) => prevInput + emoji.native);
+    setFieldValue(field.name, field.value + emoji.native);
     setShowPicker(false);
+  };
+
+  const onHandleCrossClick = () => {
+    setNickName && setNickName("");
+    setReplyToUserId && setReplyToUserId(null);
   };
 
   const isErrorValidation = meta.touched && meta.error;
 
-  const validationClassname = cn(styles["text-area__field"], {
-    [styles["error"]]: isErrorValidation,
-  });
+  const validationClassname = cn(
+    styles["text-area__field"],
+
+    {
+      [styles["error"]]: isErrorValidation,
+      [styles["nickname-short"]]: !!(
+        nickName &&
+        replyToUserId &&
+        nickName.length < 9
+      ),
+      [styles["nickname-long"]]: !!(
+        nickName &&
+        replyToUserId &&
+        nickName.length >= 9
+      ),
+    }
+  );
   return (
     <div className={`${styles["text-area__wrapper"]} ${classNames}`}>
       {labelValue ? <span>{labelValue}</span> : null}
+      {nickName && replyToUserId ? (
+        <div className={styles["nickname__wrapper"]}>
+          <button
+            className={styles["nickname__btn"]}
+            type="button"
+            data-automation="clickButton"
+            onClick={onHandleCrossClick}
+          >
+            <Icon icon={IconEnum.Cross} size={isMobScreen ? 11 : 17} />
+          </button>
+          <Link
+            className={styles["nickname__link"]}
+            to={replyToUserId !== userId ? "/" + replyToUserId : "#"}
+          >
+            {nickName.length > 9 ? nickName.slice(0, 9) + "..." : nickName}:
+          </Link>
+        </div>
+      ) : null}
       <Field
         {...props}
         name={name}
@@ -55,6 +100,7 @@ const TextAreaField: FC<TextAreaFieldProps> = ({
         component="textarea"
         data-automation={dataAutomation}
         className={validationClassname}
+        placeholder={nickName && replyToUserId ? "" : placeholder}
         onChange={onHandleChange}
         onClick={() => setShowPicker(false)}
       />

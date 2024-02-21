@@ -1,2 +1,2 @@
 export * from "./NavigationToggler/NavigationToggler";
-export * from "./Modals";
+export * from "./Profile";

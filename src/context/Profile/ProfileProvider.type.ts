@@ -1,12 +1,12 @@
 import { Dispatch, ReactNode, SetStateAction } from "react";
 
-export interface IModalsProviderProps {
+export interface IProfileProviderProps {
   children: ReactNode;
 }
 
 type SetModal = Dispatch<SetStateAction<boolean>>;
 
-export type ModalsContextType = {
+export type ProfileContextType = {
   headerAddPostBtnIsDisabled: boolean;
   setHeaderAddPostBtnIsDisabled: SetModal;
 };

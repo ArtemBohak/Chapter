@@ -12,14 +12,17 @@ const CommentsButton: FC<CommentsButtonProps> = ({
   id,
   hiddenText = false,
   nickName,
+  authorId,
   setCommentsIsHide,
   setNickName,
+  setReplyToUserId,
   setId,
 }) => {
   const onHandleClick = () => {
     setCommentsIsHide && setCommentsIsHide(false);
     setId && setId(id);
     setNickName && setNickName(nickName || "");
+    setReplyToUserId && setReplyToUserId(authorId || "");
   };
   const btnTextStyle = cn(styles["icon-button__text"], {
     [styles["icon-button__text-hidden"]]: hiddenText,

@@ -1,21 +1,21 @@
 import { FC, useState } from "react";
-import { ModalsContext } from "./hooks";
-import { IModalsProviderProps } from "./ModalsProvider.type";
+import { ProfileContext } from "./hooks";
+import { IProfileProviderProps } from "./ProfileProvider.type";
 
-const ModalsProvider: FC<IModalsProviderProps> = ({ children }) => {
+const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
   const [headerAddPostBtnIsDisabled, setHeaderAddPostBtnIsDisabled] =
     useState(false);
 
   return (
-    <ModalsContext.Provider
+    <ProfileContext.Provider
       value={{
         headerAddPostBtnIsDisabled,
         setHeaderAddPostBtnIsDisabled,
       }}
     >
       {children}
-    </ModalsContext.Provider>
+    </ProfileContext.Provider>
   );
 };
 
-export default ModalsProvider;
+export default ProfileProvider;
