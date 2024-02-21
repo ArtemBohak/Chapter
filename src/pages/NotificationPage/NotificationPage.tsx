@@ -2,6 +2,7 @@ import { useProfileContext } from "@/src/context";
 import { FC } from "react";
 
 import styles from "./NotificationPage.module.scss";
+import { Switch } from "./components";
 
 const NotificationPage: FC = () => {
   const { setUnreadMessage } = useProfileContext();
@@ -11,6 +12,7 @@ const NotificationPage: FC = () => {
     <section className={styles["notification"]}>
       <div className={styles["notification__wrapper"]}>
         <div>
+          <Switch />
           <p>NOTIFICATION</p>
         </div>
       </div>
