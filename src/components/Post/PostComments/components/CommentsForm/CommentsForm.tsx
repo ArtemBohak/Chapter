@@ -7,7 +7,7 @@ import { EndpointsEnum, api } from "@/src/axios";
 import { useErrorBoundary, useGetScreenSize } from "@/src/hooks";
 import { IPost } from "@/src/types";
 import { feedsCB, tabScreen } from "@/src/utils";
-import { FormValues, CommentsFormProps } from "./CommentsForm.type";
+import { FormValues, CommentsFormProps, BodyValues } from "./CommentsForm.type";
 import { validationSchema } from "./validationSchema";
 import styles from "./CommentsForm.module.scss";
 
@@ -19,10 +19,13 @@ const initialValues = { text: "" };
 const CommentsForm: FC<CommentsFormProps> = ({
   postId,
   commentId,
+  nickName,
+  replyToUserId,
   setCommentId,
   setCommentsIsHide,
-  setNickName,
   setFeeds,
+  setNickName,
+  setReplyToUserId,
 }) => {
   const setErrorBoundary = useErrorBoundary();
   const {
@@ -35,31 +38,33 @@ const CommentsForm: FC<CommentsFormProps> = ({
     { setSubmitting, resetForm }: FormikHelpers<FormValues>
   ) => {
     try {
-      if (commentId) {
+      let body: BodyValues = { ...values };
+      if (nickName && replyToUserId) {
+        body = { ...body, nickName, id: replyToUserId };
+      }
+      if (commentId !== null) {
         const { data }: AxiosResponse<IPost> = await api.post(
           EndpointsEnum.COMMENTS + commentId + "/to-comment",
-          values
+          body
         );
         setFeeds && setFeeds(feedsCB(data));
-        setSubmitting(false);
-        setCommentId(null);
-        setNickName("");
-        return resetForm();
+        return setCommentId(null);
       }
       const { data }: AxiosResponse<IPost> = await api.post(
         EndpointsEnum.COMMENTS + postId,
         values
       );
-
       setFeeds && setFeeds(feedsCB(data));
       setCommentsIsHide && setCommentsIsHide(false);
-      setSubmitting(false);
-      setNickName("");
-      resetForm();
     } catch (e) {
       if (e instanceof AxiosError) {
         setErrorBoundary(e);
       }
+    } finally {
+      setSubmitting(false);
+      resetForm();
+      setReplyToUserId && setReplyToUserId(null);
+      setNickName && setNickName("");
     }
   };
 
@@ -86,6 +91,10 @@ const CommentsForm: FC<CommentsFormProps> = ({
                   value={values.text}
                   iconSize={iconSize}
                   classNames={styles["form__field"]}
+                  replyToUserId={replyToUserId}
+                  nickName={nickName}
+                  setNickName={setNickName}
+                  setReplyToUserId={setReplyToUserId}
                 />
                 <PostButton
                   type="submit"

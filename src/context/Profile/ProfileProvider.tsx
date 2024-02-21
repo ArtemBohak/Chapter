@@ -14,6 +14,7 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
         unreadMessage,
         setHeaderAddPostBtnIsDisabled,
         setUnreadMessage,
+
       }}
     >
       {children}

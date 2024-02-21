@@ -20,16 +20,17 @@ const LikesButton: FC<LikesButtonProps> = ({
   hiddenText = false,
   withoutModal = false,
   totalLikes,
-  likeApi,
+  url,
 }) => {
   const setErrorBoundary = useErrorBoundary();
 
   const { setHeaderAddPostBtnIsDisabled } = useProfileContext();
 
   const uniqueUsersId = useMemo(() => [...new Set(userIds)], [userIds]);
-  const [users, setUsers] = useState<IdList>(uniqueUsersId);
-  const [liked] = useFindUserId(users);
-  const likeCount = totalLikes || users?.length;
+  const [usersId, setUsersId] = useState<IdList>(uniqueUsersId);
+  const [liked] = useFindUserId(usersId);
+
+  const [likeCount, setLikeCount] = useState(totalLikes || usersId?.length);
 
   const [isLiked, setIsLiked] = useState(liked);
 
@@ -47,8 +48,19 @@ const LikesButton: FC<LikesButtonProps> = ({
     setIsLiked(liked);
   }, [liked]);
 
-  const onHandleLikesClick = () => {
-    likeApi && likeApi(id, setUsers, setErrorBoundary);
+  const onHandleLikeClick = async () => {
+    try {
+      setIsLiked(!isLiked);
+      isLiked && setLikeCount((likeCount) => (likeCount -= 1));
+      !isLiked && setLikeCount((likeCount) => (likeCount += 1));
+
+      const res = await api.post(url + id);
+      setUsersId(res.data);
+    } catch (e) {
+      if (e instanceof AxiosError) {
+        setErrorBoundary && setErrorBoundary(e);
+      }
+    }
   };
 
   const onHandleModalOpenClick = async () => {
@@ -81,7 +93,7 @@ const LikesButton: FC<LikesButtonProps> = ({
   return (
     <div className={likesButtonStyles["likes-button"]}>
       <button
-        onClick={onHandleLikesClick}
+        onClick={onHandleLikeClick}
         data-automation="clickButton"
         className={styles["icon-button"]}
       >
@@ -93,7 +105,7 @@ const LikesButton: FC<LikesButtonProps> = ({
         />
       </button>
       <button
-        onClick={withoutModal ? onHandleLikesClick : onHandleModalOpenClick}
+        onClick={withoutModal ? onHandleLikeClick : onHandleModalOpenClick}
         data-automation="clickButton"
         className={styles["icon-button"]}
       >

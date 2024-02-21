@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { CommentProps } from "./Comment.type";
 import { EndpointsEnum } from "@/src/axios";
 
-import { getDate, likeApi } from "@/src/utils";
+import { getDate } from "@/src/utils";
 import { useAppSelector } from "@/src/redux";
 import styles from "./Comment.module.scss";
 
@@ -22,7 +22,9 @@ const Comment: FC<CommentProps> = ({
   text,
   createdAt,
   hideCommentBtn = false,
+  replyTo,
   setNickName,
+  setReplyToUserId,
   setId,
 }) => {
   const userId = useAppSelector((state) => state.userSlice.user.id);
@@ -53,9 +55,10 @@ const Comment: FC<CommentProps> = ({
         <div className={styles["comment__text"]}>
           {
             <TextTagging
+              replyTo={replyTo}
               text={text || ""}
-              onClick={() => {}}
               className={styles["comment__text-button"]}
+              linkClassName={styles["comment__text-link"]}
             />
           }
         </div>
@@ -64,7 +67,7 @@ const Comment: FC<CommentProps> = ({
           <LikesButton
             userIds={usersId}
             id={id}
-            likeApi={likeApi(EndpointsEnum.COMMENT_LIKE)}
+            url={EndpointsEnum.COMMENT_LIKE}
             withoutModal
           />
           {!hideCommentBtn ? (
@@ -76,9 +79,11 @@ const Comment: FC<CommentProps> = ({
               }
               id={id}
               commentsCount={commentCount || commentsCount}
-              setId={setId}
               nickName={nickName}
+              authorId={authorId}
+              setId={setId}
               setNickName={setNickName}
+              setReplyToUserId={setReplyToUserId}
             />
           ) : null}
         </div>

@@ -20,8 +20,7 @@
   }
 
   &__body {
-    @apply w-full h-full bg-[#FAFAFA] rounded-lg  border-grey-1010 overflow-hidden;
-    box-shadow: 0px 4px 20px 0px rgba(124, 124, 124, 0.52);
+    @apply w-full h-full bg-[#FAFAFA] rounded-lg  border-grey-1010 overflow-hidden shadow-[0_4px_20px_0_rgba(124,124,124,0.52)];
   }
 
   &__content-wrapper {
