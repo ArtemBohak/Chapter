@@ -5,3 +5,14 @@
     @apply px-2-md;
   }
 }
+
+.list {
+  @apply flex flex-col p-2-xs bg-[#fafafa];
+
+  &__sets {
+    @apply mb-2-md gap-4-xs;
+  }
+
+  // &__notice {
+  // }
+}

@@ -1,8 +1,11 @@
 .switch {
-  @apply inline-block cursor-pointer;
+  @apply inline-flex items-center gap-0-md cursor-pointer;
 
   & input {
     @apply hidden;
+  }
+
+  & span {
   }
 
   & i {
@@ -30,7 +33,7 @@
   }
 
   & input:checked + i {
-    @apply bg-[#5bda4e];
+    @apply bg-[#F79400];
 
     &::before {
       transform: translate3d(18px, 2px, 0) scale3d(0, 0, 0);

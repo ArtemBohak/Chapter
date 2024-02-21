@@ -26,4 +26,8 @@ export const defaultUserState: IUserStore = {
     name: "",
   },
   userBooks: [],
+  newPostNotification: true,
+  subscriptionNotification: true,
+  likesNotification: true,
+  commentsNotification: true,
 };
