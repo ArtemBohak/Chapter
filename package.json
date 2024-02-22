@@ -34,6 +34,7 @@
     "redux": "^4.2.1",
     "sass": "^1.64.2",
     "slick-carousel": "^1.8.1",
+    "socket.io-client": "^4.7.4",
     "yup": "^1.2.0"
   },
   "devDependencies": {

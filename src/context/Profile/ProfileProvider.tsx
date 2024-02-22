@@ -1,20 +1,21 @@
 import { FC, useEffect, useState } from "react";
-import toast from "react-hot-toast";
+import { io } from "socket.io-client";
+// import toast from "react-hot-toast";
 
 import { ProfileContext } from "./hooks";
 import { NotificationType } from "@/src/types/app/notifications.type";
 import { IProfileProviderProps } from "./ProfileProvider.type";
-import { Toast } from "@/src/components";
+// import { Toast } from "@/src/components";
 
-const tempData = [
-  {
-    id: 0,
-    avatarUrl: null,
-    firstName: "Mattew",
-    lastName: "Downroy",
-    messageValue: "New post",
-  },
-];
+// const tempData = [
+//   {
+//     id: 0,
+//     avatarUrl: null,
+//     firstName: "Mattew",
+//     lastName: "Downroy",
+//     messageValue: "New post",
+//   },
+// ];
 
 const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
   const [headerAddPostBtnIsDisabled, setHeaderAddPostBtnIsDisabled] =
@@ -27,14 +28,24 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
     !!notifications.length
   );
 
-  useEffect(() => {
-    notifications.map((el) =>
-      toast.custom((t) => <Toast {...el} toastId={t.id} />)
-    );
-  }, [notifications]);
+  // useEffect(() => {
+  //   setNotifications(tempData);
+
+  //   toast.custom((t) => (
+  //     <Toast
+  //       avatarUrl={tempData[0].avatarUrl}
+  //       id={tempData[0].id}
+  //       firstName={tempData[0].firstName}
+  //       lastName={tempData[0].lastName}
+  //       toastId={t.id}
+  //       messageValue={tempData[0].messageValue}
+  //     />
+  //   ));
+  // }, []);
 
   useEffect(() => {
-    setNotifications(tempData);
+    const socket = io(import.meta.env.VITE_API_BASE_URL);
+    console.log(socket);
   }, []);
 
   return (
