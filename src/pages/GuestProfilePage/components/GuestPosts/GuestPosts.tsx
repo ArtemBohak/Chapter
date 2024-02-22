@@ -48,7 +48,7 @@ const GuestPosts: FC = () => {
           </div>
         ))
       ) : (
-        <div className={styles["user-post__skeleton"]}>Loading</div>
+        <div className={styles["user-post__skeleton"]}>The user has not published any posts</div>
       )}
     </div>
   );

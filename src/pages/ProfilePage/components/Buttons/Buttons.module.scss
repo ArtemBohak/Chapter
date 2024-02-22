@@ -1,14 +1,14 @@
 
 .buttons-block {
-@apply flex bg-white sticky top-[-12px] md:top-[8px] laptop:top-0 w-full z-50;
+@apply flex bg-white sticky top-[-12px] md:top-[8px] laptop:top-[0px] w-full z-20;
 
 @media (min-width: 1681px) {
     &::before {
         content: '';
         position: fixed;
-        top: 0;
+        top: 120px;
         width: 50%;
-        height: 200px;
+        height: 50px;
         background-color: inherit;
     
     } 
@@ -17,9 +17,9 @@
     &::before {
         content: '';
         position: fixed;
-        top: 0;
-        width: 56%;
-        height: 200px;
+        top: 140px;
+        width: 100%;
+        height: 50px;
         background-color: inherit;
     
     } 
