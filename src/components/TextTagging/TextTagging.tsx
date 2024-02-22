@@ -1,5 +1,7 @@
 import { FC, Fragment } from "react";
+import { Link } from "react-router-dom";
 
+import { useAppSelector } from "@/src/redux";
 import {
   isNickNameCheckingPattern,
   replaceLettersPattern,
@@ -10,11 +12,14 @@ import { TextTaggingProps } from "./TextTagging.type";
 const TextTagging: FC<TextTaggingProps> = ({
   text,
   className,
-  onClick,
   textClassName = "",
+  linkClassName = "",
+  replyTo,
+  withTag = false,
+  onClick,
 }) => {
   const textArray = text.split(" ");
-
+  const userId = useAppSelector((state) => state.userSlice.user.id);
   const renderButton = (value: string) => {
     if (isNickNameCheckingPattern.test(value)) {
       const formattedValue = value.replace(replaceSymbolsPattern, "");
@@ -36,13 +41,29 @@ const TextTagging: FC<TextTaggingProps> = ({
     return ` ${value} `;
   };
 
-  return (
-    <p className={textClassName}>
-      {textArray.map((item, index) => {
-        return <Fragment key={index}>{renderButton(item)}</Fragment>;
-      })}
-    </p>
-  );
+  if (replyTo)
+    return (
+      <p className={textClassName}>
+        <Link
+          className={linkClassName}
+          to={replyTo.id !== userId ? "/" + replyTo.id : "#"}
+        >
+          {replyTo.nickName}
+        </Link>
+        {text}
+      </p>
+    );
+
+  if (withTag)
+    return (
+      <p className={textClassName}>
+        {textArray.map((item, index) => {
+          return <Fragment key={index}>{renderButton(item)}</Fragment>;
+        })}
+      </p>
+    );
+
+  return <p className={textClassName}>{text}</p>;
 };
 
 export default TextTagging;

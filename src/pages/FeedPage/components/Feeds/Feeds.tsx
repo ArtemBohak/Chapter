@@ -77,7 +77,7 @@ const Feeds: FC = () => {
     exitActive: styles["feeds-list-exit-active"],
   };
 
-  if (!feeds.length) return <PostSkeleton />;
+  if (!feeds.length && isLoad) return <PostSkeleton />;
 
   return (
     <>
@@ -99,7 +99,7 @@ const Feeds: FC = () => {
         ...
       </div>
       <Loader
-        isShown={isLoad}
+        isShown={!!feeds.length && isLoad}
         wrapperClassNames={styles["loader"]}
         height={100}
       />

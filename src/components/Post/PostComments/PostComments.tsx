@@ -1,13 +1,15 @@
-import { FC, useRef, useState } from "react";
+import { FC, useMemo, useRef, useState } from "react";
 import cn from "classnames";
 
 import { PostCommentsProps } from "./PostComments.type";
 import { tabScreen } from "@/src/utils";
-import { useGetScreenSize } from "@/src/hooks";
+import { useGetScreenSize, useOutsideClick } from "@/src/hooks";
 import styles from "./PostComments.module.scss";
 
-import { Animation, Icon, IconEnum } from "@/src/components";
+import { Animation, Icon, IconEnum, PopUpMenu } from "@/src/components";
 import { Comments, CommentsForm } from "./components";
+
+const filterValue = { latest: "Latest comments", all: "All comments" };
 
 const PostComments: FC<PostCommentsProps> = ({
   commentsCount,
@@ -15,15 +17,37 @@ const PostComments: FC<PostCommentsProps> = ({
   comments,
   commentsIsHide,
   setCommentsIsHide,
-  // setFeeds,
+  setFeeds,
 }) => {
   const [commentId, setCommentId] = useState<string | number | null>(null);
   const [nickName, setNickName] = useState("");
+  const [replyToUserId, setReplyToUserId] = useState<string | number | null>(
+    null
+  );
+
+  const [showFilterPopup, setShowFilterPopup] = useState(false);
+  const [showAllComments, setShowAllComments] = useState(false);
+
   const btnRef = useRef(null);
   const commentsRef = useRef(null);
-  const [screenSize] = useGetScreenSize();
+  const popupRef = useRef(null);
 
+  const [screenSize] = useGetScreenSize();
   const isMobScreen = screenSize < tabScreen ? 16 : 26;
+
+  useOutsideClick(popupRef, setShowFilterPopup, "filter-btn");
+
+  const sortedComments = useMemo(
+    () =>
+      comments.sort((a, b) => {
+        const firstEl = new Date(a.createdAt).getTime();
+        const secondEl = new Date(b.createdAt).getTime();
+        if (!showAllComments) return secondEl - firstEl;
+
+        return firstEl - secondEl;
+      }),
+    [comments, showAllComments]
+  );
 
   const onHandleCommentsToggle = async () => {
     setCommentsIsHide && setCommentsIsHide(!commentsIsHide);
@@ -61,18 +85,42 @@ const PostComments: FC<PostCommentsProps> = ({
       mountOnEnter
       unmountOnExit
     >
-      <button
-        data-automation="clickButton"
-        className={filterBtnClassNames}
-        ref={btnRef}
-      >
-        Latest comments
-        <Icon
-          className={styles["feed-comments__button-filter-icon"]}
-          icon={IconEnum.Back}
-          size={isMobScreen}
-        />
-      </button>
+      <div className={styles["feed-comments__button-filter-wrapper"]}>
+        <button
+          data-automation="clickButton"
+          className={`${filterBtnClassNames}`}
+          ref={btnRef}
+          id="filter-btn"
+          onClick={() => setShowFilterPopup(!showFilterPopup)}
+        >
+          {showAllComments ? filterValue.all : filterValue.latest}
+          <Icon
+            className={`${styles["feed-comments__button-filter-icon"]} ${
+              showFilterPopup ? styles["icon"] : ""
+            }`}
+            icon={IconEnum.Back}
+            size={isMobScreen}
+          />
+        </button>
+        <PopUpMenu
+          nodeRef={popupRef}
+          isOpen={showFilterPopup}
+          setIsOpen={setShowFilterPopup}
+          backdropClassName={styles["popup"]}
+          bodyClassName={styles["popup__body"]}
+          contentWrapperClassNames={styles["popup__content"]}
+        >
+          <button
+            data-automation="clickButton"
+            onClick={() => {
+              setShowFilterPopup(false);
+              setShowAllComments(!showAllComments);
+            }}
+          >
+            {showAllComments ? filterValue.latest : filterValue.all}
+          </button>
+        </PopUpMenu>
+      </div>
     </Animation>
   ) : null;
 
@@ -87,9 +135,13 @@ const PostComments: FC<PostCommentsProps> = ({
     >
       <div ref={commentsRef}>
         <Comments
-          comments={comments}
+          comments={
+            showAllComments ? sortedComments : sortedComments.slice(0, 3)
+          }
           setId={setCommentId}
           setNickName={setNickName}
+          setReplyToUserId={setReplyToUserId}
+          showAllComments={showAllComments}
         />
       </div>
     </Animation>
@@ -108,11 +160,13 @@ const PostComments: FC<PostCommentsProps> = ({
         <CommentsForm
           postId={postId}
           commentId={commentId}
-          setCommentsIsHide={setCommentsIsHide}
           nickName={nickName}
-          setNickName={setNickName}
+          replyToUserId={replyToUserId}
+          setCommentsIsHide={setCommentsIsHide}
           setCommentId={setCommentId}
-          // setFeeds={setFeeds}
+          setFeeds={setFeeds}
+          setReplyToUserId={setReplyToUserId}
+          setNickName={setNickName}
         />
       </div>
     </div>

@@ -120,6 +120,7 @@ const UserLikedPosts: FC = () => {
                   id={post.postId}
                   userIds={[]}
                   totalLikes={post.likesCount}
+                  url=""
                 />
                 <CommentsButton
                   textValue={""}

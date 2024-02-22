@@ -19,34 +19,32 @@ const GuestPosts: FC = () => {
   return (
     <div className={styles["posts-wrapper"]}>
       {guestPostsList.length > 0 ? (
-        guestPostsList.map((post) => (
-          <div className={styles["user-post"]} key={post.postId}>
-            <div className="flex items-center justify-between w-full relative">
-              <div className="flex gap-3 items-center">
-                <Avatar avatarUrl={enemyData?.avatarUrl || null} />
-                <UserNickName nickName={enemyData?.nickName || ""} />
+        guestPostsList.map((post) => {
+          return (
+            <div className={styles["user-post"]} key={post.id}>
+              <div className="flex items-center justify-between w-full relative">
+                <div className="flex gap-3 items-center">
+                  <Avatar avatarUrl={enemyData?.avatarUrl || null} />
+                  <UserNickName nickName={enemyData?.nickName || ""} />
+                </div>
               </div>
-            </div>
-            <div className={styles["user-post__image"]}>
-              <PostImage imgUrl={post.imgUrl} />
-            </div>
-            <div className="flex justify-between">
-              <div className={styles["user-post__activity-icons"]}>
-                <LikesButton id={post.postId} userIds={[]} />
-                <CommentsButton textValue={""} id={""} commentsCount={0} />
+              <div className={styles["user-post__image"]}>
+                <PostImage imgUrl={post.imgUrl} />
               </div>
-              <PostDate createAt={post.updatedAt} />
+              <div className="flex justify-between">
+                <div className={styles["user-post__activity-icons"]}>
+                  <LikesButton id={post.id} userIds={[]} url="" />
+                  <CommentsButton textValue={""} id={""} commentsCount={0} />
+                </div>
+                <PostDate createAt={post.updatedAt} />
+              </div>
+              <PostTitle title={post.title} />
+              <PostText caption={post.caption} />
+              <PostComments postId={post.id} commentsCount={0} comments={[]} />
+              {/* <PostDate date={post.createdAt}/> */}
             </div>
-            <PostTitle title={post.title} />
-            <PostText caption={post.caption} />
-            <PostComments
-              postId={post.postId}
-              commentsCount={0}
-              comments={[]}
-            />
-            {/* <PostDate date={post.createdAt}/> */}
-          </div>
-        ))
+          );
+        })
       ) : (
         <div className={styles["user-post__skeleton"]}>The user has not published any posts</div>
       )}

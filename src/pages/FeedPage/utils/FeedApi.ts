@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import { AxiosError } from "axios";
+import { AxiosError, AxiosResponse } from "axios";
 import { EndpointsEnum, api } from "@/src/axios";
 import { SetIsLoadingType } from "@/src/services";
 import { SetErrorType } from "@/src/types";
@@ -16,22 +16,20 @@ export class FeedApi {
   async getFeeds(page = 1, limit = pageLimit) {
     try {
       this.setIsLoading(true);
-      const res = await api.get(EndpointsEnum.FEEDS, {
-        params: { page, limit },
-      });
+      const { data }: AxiosResponse<Feeds> = await api.get(
+        EndpointsEnum.FEEDS,
+        {
+          params: { page, limit },
+        }
+      );
 
-      const {
-        data: { paginatedFeedItems },
-      } = res;
-
-      this.setFeeds(feedsCB(paginatedFeedItems));
+      this.setFeeds(feedsCB(data));
     } catch (e) {
       if (e instanceof AxiosError) {
         this.setErrorBoundary(e);
       }
     } finally {
       this.setIsLoading(false);
-      // this.setPostsIsLoaded(false);
     }
   }
 }
