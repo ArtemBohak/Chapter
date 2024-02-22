@@ -3,7 +3,24 @@ import { FC } from "react";
 import { useProfileContext } from "@/src/context";
 import { useAppSelector } from "@/src/redux";
 import styles from "./NotificationPage.module.scss";
-import { Switch } from "./components";
+import { Notification, Switch } from "./components";
+
+const tempData = [
+  {
+    id: 0,
+    avatarUrl: null,
+    firstName: "Mattew",
+    lastName: "Downroy",
+    messageValue: "New post",
+  },
+  {
+    id: 1,
+    avatarUrl: null,
+    firstName: "Mattew",
+    lastName: "Downroy",
+    messageValue: "Subscribed to you",
+  },
+];
 
 const NotificationPage: FC = () => {
   const { setUnreadMessage } = useProfileContext();
@@ -18,7 +35,7 @@ const NotificationPage: FC = () => {
   return (
     <section className={styles["notification"]}>
       <div className={styles["notification__wrapper"]}>
-        <div className={`${styles["list"]} ${styles["list__sets"]}`}>
+        <div className={styles["sets-list"]}>
           <Switch
             isChecked={newPostNotification}
             label="Notification of new posts"
@@ -40,6 +57,13 @@ const NotificationPage: FC = () => {
             name="commentsNotification"
           />
         </div>
+        <ul className={styles["notify-list"]}>
+          {tempData.map((el) => (
+            <li key={el.id}>
+              <Notification {...el} />
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );

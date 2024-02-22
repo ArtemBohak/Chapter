@@ -6,13 +6,10 @@
   }
 }
 
-.list {
-  @apply flex flex-col p-2-xs bg-[#fafafa];
+.sets-list {
+  @apply p-2-xs bg-[#fafafa] rounded-md flex flex-col mb-2-md gap-4-xs;
+}
 
-  &__sets {
-    @apply mb-2-md gap-4-xs;
-  }
-
-  // &__notice {
-  // }
+.notify-list {
+  @apply flex flex-col gap-1-sm;
 }

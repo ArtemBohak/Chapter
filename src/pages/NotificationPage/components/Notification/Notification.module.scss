@@ -1,0 +1,19 @@
+.notify {
+  @apply py-2-xs px-4-xs bg-[#fafafa] rounded-md;
+
+  &__user-data {
+    @apply flex items-center gap-1-sm mb-0-sm;
+
+    & > img {
+      @apply rounded-md;
+    }
+
+    & > p {
+      @apply text-sm font-semibold;
+    }
+  }
+
+  &__message {
+    @apply text-sm font-bold;
+  }
+}

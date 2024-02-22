@@ -1,8 +1,32 @@
 import { FC } from "react";
-import { INotification } from "./Notification.type";
+import { NotificationProps } from "./Notification.type";
+import styles from "./Notification.module.scss";
 
-const Notification: FC<INotification> = ({ classNames }) => {
-  return <div className={classNames}></div>;
+import defaultUserAvatar from "@/src/assets/SVG/default-user-avatar.svg";
+
+const Notification: FC<NotificationProps> = ({
+  //   id,
+  firstName,
+  lastName,
+  avatarUrl,
+  messageValue,
+  classNames,
+}) => {
+  return (
+    <div className={`${styles["notify"]} ${classNames}`}>
+      <div className={styles["notify__user-data"]}>
+        <img
+          src={avatarUrl ? avatarUrl : defaultUserAvatar}
+          width={40}
+          height={40}
+        />
+        <p>
+          {firstName} {lastName}
+        </p>
+      </div>
+      <p className={styles["notify__message"]}>{messageValue}</p>
+    </div>
+  );
 };
 
 export default Notification;
