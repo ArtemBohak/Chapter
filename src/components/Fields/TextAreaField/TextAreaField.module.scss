@@ -11,7 +11,7 @@
         @apply indent-[56px] md:indent-[90px] base:indent-[98px];
       }
       &-long {
-        @apply indent-[70px] md:indent-[110px] base:indent-[120px];
+        @apply indent-[76px] md:indent-[116px] base:indent-[128px];
       }
     }
 
@@ -38,7 +38,7 @@
 
 .nickname {
   &__wrapper {
-    @apply absolute top-[10px] md:top-[19px] left-[13px] md:left-[20px] flex items-center;
+    @apply absolute top-[11px] md:top-[19px] left-[13px] md:left-[20px] flex items-center;
   }
 
   &__link {

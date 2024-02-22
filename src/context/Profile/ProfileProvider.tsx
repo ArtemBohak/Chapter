@@ -1,5 +1,6 @@
 import { FC, useEffect, useState } from "react";
-import { io } from "socket.io-client";
+import { socket } from "@/src/socket";
+
 // import toast from "react-hot-toast";
 
 import { ProfileContext } from "./hooks";
@@ -18,6 +19,8 @@ import { IProfileProviderProps } from "./ProfileProvider.type";
 // ];
 
 const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
+  const [isConnected, setIsConnected] = useState(false);
+
   const [headerAddPostBtnIsDisabled, setHeaderAddPostBtnIsDisabled] =
     useState(false);
   const [notifications, setNotifications] = useState<Array<NotificationType>>(
@@ -44,9 +47,42 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
   // }, []);
 
   useEffect(() => {
-    const socket = io(import.meta.env.VITE_API_BASE_URL);
-    console.log(socket);
+    socket.connect();
+    const onConnect = () => {
+      console.log("connected", socket.connected);
+      setIsConnected(true);
+    };
+
+    const onDisconnect = () => {
+      console.log("disconnected", socket.disconnected);
+      setIsConnected(false);
+    };
+
+    socket.on("connect", onConnect);
+    socket.on("disconnect", onDisconnect);
+
+    return () => {
+      socket.off("connect", onConnect);
+      socket.off("disconnect", onDisconnect);
+
+      socket.disconnect();
+    };
   }, []);
+
+  useEffect(() => {
+    const onHandleSubscribe = (e) => {
+      console.log(e);
+    };
+
+    if (isConnected) {
+      console.log("con");
+      socket.on("subscribeNotification", onHandleSubscribe);
+    }
+
+    return () => {
+      socket.off("subscribeNotification", onHandleSubscribe);
+    };
+  }, [isConnected]);
 
   return (
     <ProfileContext.Provider
