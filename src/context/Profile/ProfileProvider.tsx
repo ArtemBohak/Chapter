@@ -72,12 +72,11 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    const onHandleSubscribe = (e) => {
+    const onHandleSubscribe = (e: string) => {
       console.log(e);
     };
 
     if (isConnected) {
-      console.log("con");
       socket.on("subscribeNotification", onHandleSubscribe);
     }
 

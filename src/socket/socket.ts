@@ -5,5 +5,5 @@ const URL = import.meta.env.VITE_SOCKET_BASE_URL;
 
 export const socket = io(URL, {
   autoConnect: false,
-  auth: { token: getTokenFromLC() },
+  extraHeaders: { Authorization: getTokenFromLC() || "" },
 });
