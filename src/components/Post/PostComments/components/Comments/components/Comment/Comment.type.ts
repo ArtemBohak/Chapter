@@ -4,4 +4,6 @@ import { CommentsProps } from "../../Comments.type";
 export type CommentProps = {
   hideCommentBtn?: boolean;
 } & CommentValues &
-  Required<Pick<CommentsProps, "setId" | "setNickName" | "setReplyToUserId">>;
+  Required<
+    Pick<CommentsProps, "setId" | "setNickName" | "setReplyToUserId" | "postId">
+  >;

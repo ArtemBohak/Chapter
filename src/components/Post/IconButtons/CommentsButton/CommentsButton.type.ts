@@ -4,6 +4,7 @@ import { PostProps } from "../../Post.type";
 export type CommentsButtonProps = {
   textValue: string;
   hiddenText?: boolean;
+  postId: string | number;
   setCommentsIsHide?: Dispatch<SetStateAction<boolean>>;
   setId?: Dispatch<SetStateAction<string | number | null>>;
   setNickName?: Dispatch<SetStateAction<string>>;

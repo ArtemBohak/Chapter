@@ -142,6 +142,7 @@ const PostComments: FC<PostCommentsProps> = ({
           setNickName={setNickName}
           setReplyToUserId={setReplyToUserId}
           showAllComments={showAllComments}
+          postId={postId}
         />
       </div>
     </Animation>
