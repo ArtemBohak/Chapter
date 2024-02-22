@@ -1,9 +1,15 @@
-import { FC, useMemo, useRef, useState } from "react";
+import { FC, useRef, useState } from "react";
+import { AxiosError } from "axios";
 import cn from "classnames";
 
+// import { EndpointsEnum, api } from "@/src/axios";
 import { PostCommentsProps } from "./PostComments.type";
 import { tabScreen } from "@/src/utils";
-import { useGetScreenSize, useOutsideClick } from "@/src/hooks";
+import {
+  useErrorBoundary,
+  useGetScreenSize,
+  useOutsideClick,
+} from "@/src/hooks";
 import styles from "./PostComments.module.scss";
 
 import { Animation, Icon, IconEnum, PopUpMenu } from "@/src/components";
@@ -25,6 +31,8 @@ const PostComments: FC<PostCommentsProps> = ({
     null
   );
 
+  // const [allComments, setAllComments] = useState<CommentsType>([]);
+
   const [showFilterPopup, setShowFilterPopup] = useState(false);
   const [showAllComments, setShowAllComments] = useState(false);
 
@@ -37,22 +45,34 @@ const PostComments: FC<PostCommentsProps> = ({
 
   useOutsideClick(popupRef, setShowFilterPopup, "filter-btn");
 
-  const sortedComments = useMemo(
-    () =>
-      comments.sort((a, b) => {
-        const firstEl = new Date(a.createdAt).getTime();
-        const secondEl = new Date(b.createdAt).getTime();
-        if (!showAllComments) return secondEl - firstEl;
-
-        return firstEl - secondEl;
-      }),
-    [comments, showAllComments]
-  );
+  const setErrorBoundary = useErrorBoundary();
 
   const onHandleCommentsToggle = async () => {
     setCommentsIsHide && setCommentsIsHide(!commentsIsHide);
   };
 
+  const onHandlePopupButtonClick = async () => {
+    try {
+      if (!showAllComments) {
+        // const res = await api.get(
+        //   EndpointsEnum.COMMENTS + "comments/" + postId
+        // );
+
+        // console.log(res);
+
+        setShowAllComments(true);
+      } else {
+        // setAllComments([]);
+        setShowAllComments(false);
+      }
+    } catch (e) {
+      if (e instanceof AxiosError) {
+        setErrorBoundary(e);
+      }
+    } finally {
+      setShowFilterPopup(false);
+    }
+  };
   const togglerBtnClassNames = cn(
     styles["feed-comments__button"],
     styles["feed-comments__button-toggler"],
@@ -112,10 +132,7 @@ const PostComments: FC<PostCommentsProps> = ({
         >
           <button
             data-automation="clickButton"
-            onClick={() => {
-              setShowFilterPopup(false);
-              setShowAllComments(!showAllComments);
-            }}
+            onClick={onHandlePopupButtonClick}
           >
             {showAllComments ? filterValue.latest : filterValue.all}
           </button>
@@ -135,9 +152,7 @@ const PostComments: FC<PostCommentsProps> = ({
     >
       <div ref={commentsRef}>
         <Comments
-          comments={
-            showAllComments ? sortedComments : sortedComments.slice(0, 3)
-          }
+          comments={showAllComments ? comments : comments.slice(0, 3)}
           setId={setCommentId}
           setNickName={setNickName}
           setReplyToUserId={setReplyToUserId}
