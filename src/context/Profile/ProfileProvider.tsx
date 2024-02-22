@@ -6,6 +6,7 @@ import { socket } from "@/src/socket";
 import { ProfileContext } from "./hooks";
 import { NotificationType } from "@/src/types/app/notifications.type";
 import { IProfileProviderProps } from "./ProfileProvider.type";
+import { getTokenFromLC } from "@/src/utils";
 // import { Toast } from "@/src/components";
 
 // const tempData = [
@@ -47,9 +48,10 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
   // }, []);
 
   useEffect(() => {
-    socket.connect();
+    if (getTokenFromLC()) socket.connect();
+
     const onConnect = () => {
-      console.log("connected", socket.connected);
+      console.log("connected", socket);
       setIsConnected(true);
     };
 
