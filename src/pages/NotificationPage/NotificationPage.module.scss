@@ -1,9 +1,13 @@
 .notification {
-  @apply pt-[88px] pb-[20px];
+  @apply pt-[88px] pb-[20px] md:pt-[108px] md:pb-[30px] base:pt-[168px] base:pb-4-xs base:bg-grey-1030;
 
   &__wrapper {
-    @apply px-2-md;
+    @apply px-2-md md:px-4-xl;
   }
+}
+
+.container {
+  @apply bg-white md:rounded-t-lg md:border md:border-grey-1010 md:px-[58px] md:py-3-xs base:max-w-[962px] base:mx-auto base:border-0 base:px-[120px] base:py-[60px];
 }
 
 .sets-list {

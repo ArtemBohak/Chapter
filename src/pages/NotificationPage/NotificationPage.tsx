@@ -20,6 +20,20 @@ const tempData = [
     lastName: "Downroy",
     messageValue: "Subscribed to you",
   },
+  {
+    id: 2,
+    avatarUrl: null,
+    firstName: "Mattew",
+    lastName: "Downroy",
+    messageValue: "Your post was liked",
+  },
+  {
+    id: 3,
+    avatarUrl: null,
+    firstName: "Mattew",
+    lastName: "Downroy",
+    messageValue: "There is a new comment on your post",
+  },
 ];
 
 const NotificationPage: FC = () => {
@@ -35,35 +49,37 @@ const NotificationPage: FC = () => {
   return (
     <section className={styles["notification"]}>
       <div className={styles["notification__wrapper"]}>
-        <div className={styles["sets-list"]}>
-          <Switch
-            isChecked={newPostNotification}
-            label="Notification of new posts"
-            name="newPostNotification"
-          />
-          <Switch
-            isChecked={subscriptionNotification}
-            label="Subscription Notice"
-            name="subscriptionNotification"
-          />
-          <Switch
-            isChecked={likesNotification}
-            label="Notification about likes"
-            name="likesNotification"
-          />
-          <Switch
-            isChecked={commentsNotification}
-            label="Comment notification"
-            name="commentsNotification"
-          />
+        <div className={styles["container"]}>
+          <div className={styles["sets-list"]}>
+            <Switch
+              isChecked={newPostNotification}
+              label="Notification of new posts"
+              name="newPostNotification"
+            />
+            <Switch
+              isChecked={subscriptionNotification}
+              label="Subscription Notice"
+              name="subscriptionNotification"
+            />
+            <Switch
+              isChecked={likesNotification}
+              label="Notification about likes"
+              name="likesNotification"
+            />
+            <Switch
+              isChecked={commentsNotification}
+              label="Comment notification"
+              name="commentsNotification"
+            />
+          </div>
+          <ul className={styles["notify-list"]}>
+            {tempData.map((el) => (
+              <li key={el.id}>
+                <Notification {...el} />
+              </li>
+            ))}
+          </ul>
         </div>
-        <ul className={styles["notify-list"]}>
-          {tempData.map((el) => (
-            <li key={el.id}>
-              <Notification {...el} />
-            </li>
-          ))}
-        </ul>
       </div>
     </section>
   );
