@@ -1,0 +1,20 @@
+.toast {
+  @apply rounded-md bg-[#fafafa]  w-full max-w-[220px] py-2-xs px-0-md flex flex-col justify-center items-center;
+  box-shadow: 0px 0px 10px 0px #f69400;
+
+  &__user-data {
+    @apply flex items-center gap-1-sm mb-0-sm;
+
+    & > img {
+      @apply rounded-md;
+    }
+
+    & > p {
+      @apply text-sm font-semibold md:text-base;
+    }
+  }
+
+  &__message {
+    @apply text-sm font-bold md:text-lg text-center;
+  }
+}

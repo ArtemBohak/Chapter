@@ -5,46 +5,14 @@ import { useAppSelector } from "@/src/redux";
 import styles from "./NotificationPage.module.scss";
 import { Notification, Switch } from "./components";
 
-const tempData = [
-  {
-    id: 0,
-    avatarUrl: null,
-    firstName: "Mattew",
-    lastName: "Downroy",
-    messageValue: "New post",
-  },
-  {
-    id: 1,
-    avatarUrl: null,
-    firstName: "Mattew",
-    lastName: "Downroy",
-    messageValue: "Subscribed to you",
-  },
-  {
-    id: 2,
-    avatarUrl: null,
-    firstName: "Mattew",
-    lastName: "Downroy",
-    messageValue: "Your post was liked",
-  },
-  {
-    id: 3,
-    avatarUrl: null,
-    firstName: "Mattew",
-    lastName: "Downroy",
-    messageValue: "There is a new comment on your post",
-  },
-];
-
 const NotificationPage: FC = () => {
-  const { setUnreadMessage } = useProfileContext();
+  const { notifications } = useProfileContext();
   const {
     newPostNotification,
     commentsNotification,
     likesNotification,
     subscriptionNotification,
   } = useAppSelector((state) => state.userSlice.user);
-  console.log(setUnreadMessage);
 
   return (
     <section className={styles["notification"]}>
@@ -73,7 +41,7 @@ const NotificationPage: FC = () => {
             />
           </div>
           <ul className={styles["notify-list"]}>
-            {tempData.map((el) => (
+            {notifications.map((el) => (
               <li key={el.id}>
                 <Notification {...el} />
               </li>
