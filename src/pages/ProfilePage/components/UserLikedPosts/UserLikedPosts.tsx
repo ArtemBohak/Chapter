@@ -126,6 +126,7 @@ const UserLikedPosts: FC = () => {
                   textValue={""}
                   id={""}
                   commentsCount={post.commentsCount}
+                  postId={""}
                 />
               </div>
               <PostDate createAt={post.createAt} />
