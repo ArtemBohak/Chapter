@@ -40,7 +40,11 @@ const CommentsForm: FC<CommentsFormProps> = ({
     try {
       let body: BodyValues = { ...values };
       if (nickName && replyToUserId) {
-        body = { ...body, nickName, id: replyToUserId };
+        body = {
+          ...body,
+          recipientNickName: nickName,
+          recipientId: replyToUserId,
+        };
       }
       if (commentId !== null) {
         const { data }: AxiosResponse<IPost> = await api.post(
