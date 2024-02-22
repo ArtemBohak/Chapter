@@ -19,9 +19,7 @@ const BooksPageProvider: FC<BooksPageProviderProps> = ({ children }) => {
 
   useEffect(() => {
     setBooks(userBooks);
-    setFavoriteCount(
-      userBooks.filter((item) => item.favorite_book_status === true)
-    );
+    setFavoriteCount(userBooks.filter((item) => item.favorite_book_status === true));
   }, [userBooks]);
 
   return (
