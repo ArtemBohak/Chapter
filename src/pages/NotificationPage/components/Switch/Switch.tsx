@@ -7,7 +7,7 @@ import styles from "./Switch.module.scss";
 import { EndpointsEnum, api } from "@/src/axios";
 import { updateUser, useAppDispatch } from "@/src/redux";
 
-const Switch: FC<ISwitch> = ({ label, isChecked = true, name }) => {
+const Switch: FC<ISwitch> = ({ label, isChecked = true, name, classNames }) => {
   const [checked, setChecked] = useState(isChecked);
 
   const dispatch = useAppDispatch();
@@ -30,7 +30,7 @@ const Switch: FC<ISwitch> = ({ label, isChecked = true, name }) => {
   };
 
   return (
-    <label className={styles["switch"]}>
+    <label className={`${styles["switch"]} ${classNames}`}>
       <input
         onChange={onHandleInputChange}
         type="checkbox"

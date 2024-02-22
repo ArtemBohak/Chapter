@@ -6,4 +6,5 @@ export interface ISwitch {
     | "subscriptionNotification"
     | "likesNotification"
     | "commentsNotification";
+  classNames?: string;
 }

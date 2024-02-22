@@ -40,9 +40,6 @@ const NotificationPage: FC = () => {
             name="commentsNotification"
           />
         </div>
-        <div className={`${styles["list"]} ${styles["list__notice"]}`}>
-          sada
-        </div>
       </div>
     </section>
   );

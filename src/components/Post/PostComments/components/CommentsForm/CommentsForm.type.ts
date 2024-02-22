@@ -15,6 +15,6 @@ export type CommentsFormProps = {
 export type FormValues = { text: string };
 
 export type BodyValues = {
-  id?: string | number;
-  nickName?: string;
+  recipientId?: string | number;
+  recipientNickName?: string;
 } & FormValues;
