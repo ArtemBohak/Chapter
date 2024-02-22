@@ -1,7 +1,6 @@
-import { IUser } from "@/src/types";
+import { NotificationType } from "@/src/types/app/notifications.type";
 
 export type ToastProps = {
   classNames?: string;
-  messageValue: string;
   toastId: string;
-} & Required<Pick<IUser, "avatarUrl" | "firstName" | "lastName" | "id">>;
+} & Required<NotificationType>;

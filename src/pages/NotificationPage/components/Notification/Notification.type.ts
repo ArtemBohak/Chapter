@@ -1,6 +1,8 @@
-import { IUser } from "@/src/types";
+import { NotificationType } from "@/src/types/app/notifications.type";
+import { Dispatch, SetStateAction } from "react";
 
 export type NotificationProps = {
   classNames?: string;
   messageValue: string;
-} & Required<Pick<IUser, "avatarUrl" | "firstName" | "id" | "lastName">>;
+  setNotifications: Dispatch<SetStateAction<Array<NotificationType>>>;
+} & Omit<NotificationType, "toastId">;

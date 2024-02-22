@@ -1,15 +1,11 @@
-import { IUser } from "@/src/types";
 import { Dispatch, ReactNode, SetStateAction } from "react";
+import { NotificationType } from "@/src/types/app/notifications.type";
 
 export interface IProfileProviderProps {
   children: ReactNode;
 }
 
 type SetBoolean = Dispatch<SetStateAction<boolean>>;
-
-export type NotificationType = { messageValue: string } & Required<
-  Pick<IUser, "avatarUrl" | "id" | "firstName" | "lastName">
->;
 
 export type ProfileContextType = {
   headerAddPostBtnIsDisabled: boolean;

@@ -5,15 +5,24 @@ import styles from "./Notification.module.scss";
 import defaultUserAvatar from "@/src/assets/SVG/default-user-avatar.svg";
 
 const Notification: FC<NotificationProps> = ({
-  //   id,
+  id,
   firstName,
   lastName,
   avatarUrl,
   messageValue,
   classNames,
+  setNotifications,
 }) => {
+  const onHandleClick = () => {
+    setNotifications((notifications) =>
+      notifications.filter((el) => el.id !== id)
+    );
+  };
   return (
-    <div className={`${styles["notify"]} ${classNames}`}>
+    <div
+      onClick={onHandleClick}
+      className={`${styles["notify"]} ${classNames}`}
+    >
       <div className={styles["notify__user-data"]}>
         <img
           src={avatarUrl ? avatarUrl : defaultUserAvatar}

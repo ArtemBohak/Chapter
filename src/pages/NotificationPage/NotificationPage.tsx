@@ -6,7 +6,7 @@ import styles from "./NotificationPage.module.scss";
 import { Notification, Switch } from "./components";
 
 const NotificationPage: FC = () => {
-  const { notifications } = useProfileContext();
+  const { notifications, setNotifications } = useProfileContext();
   const {
     newPostNotification,
     commentsNotification,
@@ -43,7 +43,7 @@ const NotificationPage: FC = () => {
           <ul className={styles["notify-list"]}>
             {notifications.map((el) => (
               <li key={el.id}>
-                <Notification {...el} />
+                <Notification {...el} setNotifications={setNotifications} />
               </li>
             ))}
           </ul>

@@ -5,6 +5,7 @@ import styles from "./Toast.module.scss";
 
 import defaultUserAvatar from "@/src/assets/SVG/default-user-avatar.svg";
 import toast from "react-hot-toast";
+import { useProfileContext } from "@/src/context";
 
 const Toast: FC<ToastProps> = ({
   id,
@@ -15,13 +16,17 @@ const Toast: FC<ToastProps> = ({
   classNames,
   toastId,
 }) => {
+  const { setNotifications } = useProfileContext();
+
+  const onHandleClick = () => {
+    toast.dismiss(toastId);
+    setNotifications((state) => state.filter((el) => el.id !== id));
+  };
   return (
     <div
       key={id}
       className={`${styles["toast"]} ${classNames}`}
-      onClick={() => {
-        toast.dismiss(toastId);
-      }}
+      onClick={onHandleClick}
     >
       <div className={styles["toast__user-data"]}>
         <img

@@ -2,10 +2,8 @@ import { FC, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 import { ProfileContext } from "./hooks";
-import {
-  IProfileProviderProps,
-  NotificationType,
-} from "./ProfileProvider.type";
+import { NotificationType } from "@/src/types/app/notifications.type";
+import { IProfileProviderProps } from "./ProfileProvider.type";
 import { Toast } from "@/src/components";
 
 const tempData = [
@@ -15,27 +13,6 @@ const tempData = [
     firstName: "Mattew",
     lastName: "Downroy",
     messageValue: "New post",
-  },
-  {
-    id: 1,
-    avatarUrl: null,
-    firstName: "Mattew",
-    lastName: "Downroy",
-    messageValue: "Subscribed to you",
-  },
-  {
-    id: 2,
-    avatarUrl: null,
-    firstName: "Mattew",
-    lastName: "Downroy",
-    messageValue: "Your post was liked",
-  },
-  {
-    id: 3,
-    avatarUrl: null,
-    firstName: "Mattew",
-    lastName: "Downroy",
-    messageValue: "There is a new comment on your post",
   },
 ];
 
@@ -52,9 +29,7 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
 
   useEffect(() => {
     notifications.map((el) =>
-      toast.custom((t) => <Toast {...el} toastId={t.id} />, {
-        duration: Infinity,
-      })
+      toast.custom((t) => <Toast {...el} toastId={t.id} />)
     );
   }, [notifications]);
 
