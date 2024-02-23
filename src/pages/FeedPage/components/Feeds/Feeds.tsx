@@ -75,13 +75,12 @@ const Feeds: FC = () => {
           </Animation>
         ))}
       </TransitionGroup>
-      <div ref={endLoaderRef} className="visually-hidden">
-        .
-      </div>
+      <div ref={endLoaderRef} className="visually-hidden"></div>
       <Loader
         isShown={!!feeds.length && isLoad}
         wrapperClassNames={styles["loader"]}
-        height={100}
+        height={80}
+        width={90}
       />
     </>
   );
