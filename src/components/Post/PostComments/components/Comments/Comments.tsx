@@ -17,6 +17,7 @@ const itemClassNames = (value: number) => {
 const Comments: FC<CommentsProps> = ({
   comments,
   showAllComments,
+  postId,
   setId,
   setNickName,
   setReplyToUserId,
@@ -50,6 +51,7 @@ const Comments: FC<CommentsProps> = ({
                 setId={setId}
                 setNickName={setNickName}
                 setReplyToUserId={setReplyToUserId}
+                postId={postId}
               />
               {i.comments?.length ? renderComments(i.comments, 1) : null}
             </li>
