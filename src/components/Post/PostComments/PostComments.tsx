@@ -9,7 +9,7 @@ import {
   useGetScreenSize,
   useOutsideClick,
 } from "@/src/hooks";
-import { CommentsTypes } from "@/src/services/PostApi/PostApi.type";
+import { CommentsType } from "@/src/services/PostApi/PostApi.type";
 import styles from "./PostComments.module.scss";
 
 import { Animation, Icon, IconEnum, PopUpMenu } from "@/src/components";
@@ -31,7 +31,7 @@ const PostComments: FC<PostCommentsProps> = ({
     null
   );
 
-  const [, setAllComments] = useState<CommentsTypes>([]);
+  const [, setAllComments] = useState<CommentsType>([]);
   const [page, setPage] = useState(0);
 
   const [showFilterPopup, setShowFilterPopup] = useState(false);
@@ -70,8 +70,8 @@ const PostComments: FC<PostCommentsProps> = ({
         await new PostApi(
           setErrorBoundary,
           undefined,
-          undefined,
           setAllComments,
+          undefined,
           postId
         );
       setShowAllComments(true);

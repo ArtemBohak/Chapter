@@ -1,6 +1,6 @@
 import { Dispatch, ReactNode, SetStateAction } from "react";
 import { IPost } from "@/src/types";
-import { FeedsTypes } from "@/src/services/PostApi/PostApi.type";
+import { FeedsType } from "@/src/services/PostApi/PostApi.type";
 
 export interface IFeedProviderProps {
   children: ReactNode;
@@ -9,9 +9,9 @@ export interface IFeedProviderProps {
 export type Feeds = Array<IPost> | [];
 
 export type FeedContextType = {
-  feeds: FeedsTypes;
+  feeds: FeedsType;
   isLoad: boolean;
   page: number;
   setPage: Dispatch<SetStateAction<number>>;
-  setFeeds: Dispatch<SetStateAction<FeedsTypes>>;
+  setFeeds: Dispatch<SetStateAction<FeedsType>>;
 };

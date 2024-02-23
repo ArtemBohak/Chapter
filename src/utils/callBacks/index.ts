@@ -1,2 +1,1 @@
-export * from "./feeds/feeds";
-export * from "./comments/comments";
+export * from "./post/post";
