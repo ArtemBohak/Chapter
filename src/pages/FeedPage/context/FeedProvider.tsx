@@ -1,7 +1,6 @@
 import { FC, useEffect, useState } from "react";
 
 import { FeedApi } from "../utils/FeedApi";
-
 import { useErrorBoundary } from "@/src/hooks";
 import { FeedContext } from "./hooks/useFeedContext";
 import { FeedsTypes, IFeedProviderProps } from "./FeedProvider.type";
@@ -15,7 +14,8 @@ const FeedProvider: FC<IFeedProviderProps> = ({ children }) => {
 
   useEffect(() => {
     new FeedApi(setFeeds, setIsLoad, setErrorBoundary).getFeeds(page);
-  }, [page, setErrorBoundary]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page]);
 
   return (
     <FeedContext.Provider
