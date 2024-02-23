@@ -81,7 +81,7 @@ const Feed: FC<FeedProps> = ({ nodeRef, loaderRef, pageValue, ...props }) => {
           setFeeds={setFeeds}
         />
       </div>
-      {loaderRef ? (
+      {loaderRef && pageValue ? (
         <input
           className="visually-hidden"
           ref={loaderRef}

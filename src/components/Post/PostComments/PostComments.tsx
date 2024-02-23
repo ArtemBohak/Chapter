@@ -1,8 +1,7 @@
 import { FC, useRef, useState } from "react";
-import { AxiosError } from "axios";
 import cn from "classnames";
 
-// import { EndpointsEnum, api } from "@/src/axios";
+import { PostApi } from "@/src/services";
 import { PostCommentsProps } from "./PostComments.type";
 import { tabScreen } from "@/src/utils";
 import {
@@ -10,6 +9,7 @@ import {
   useGetScreenSize,
   useOutsideClick,
 } from "@/src/hooks";
+import { CommentsTypes } from "@/src/services/PostApi/PostApi.type";
 import styles from "./PostComments.module.scss";
 
 import { Animation, Icon, IconEnum, PopUpMenu } from "@/src/components";
@@ -31,7 +31,8 @@ const PostComments: FC<PostCommentsProps> = ({
     null
   );
 
-  // const [allComments, setAllComments] = useState<CommentsType>([]);
+  const [, setAllComments] = useState<CommentsTypes>([]);
+  const [page, setPage] = useState(0);
 
   const [showFilterPopup, setShowFilterPopup] = useState(false);
   const [showAllComments, setShowAllComments] = useState(false);
@@ -52,27 +53,23 @@ const PostComments: FC<PostCommentsProps> = ({
   };
 
   const onHandlePopupButtonClick = async () => {
-    try {
-      if (!showAllComments) {
-        // const res = await api.get(
-        //   EndpointsEnum.COMMENTS + "comments/" + postId
-        // );
-
-        // console.log(res);
-
-        setShowAllComments(true);
-      } else {
-        // setAllComments([]);
-        setShowAllComments(false);
-      }
-    } catch (e) {
-      if (e instanceof AxiosError) {
-        setErrorBoundary(e);
-      }
-    } finally {
-      setShowFilterPopup(false);
+    if (!showAllComments) {
+      if (page)
+        await new PostApi(
+          setErrorBoundary,
+          undefined,
+          undefined,
+          setAllComments,
+          postId
+        );
+      setShowAllComments(true);
+    } else {
+      setAllComments([]);
+      setShowAllComments(false);
     }
+    setShowFilterPopup(false);
   };
+
   const togglerBtnClassNames = cn(
     styles["feed-comments__button"],
     styles["feed-comments__button-toggler"],
@@ -156,6 +153,7 @@ const PostComments: FC<PostCommentsProps> = ({
           setId={setCommentId}
           setNickName={setNickName}
           setReplyToUserId={setReplyToUserId}
+          setPage={setPage}
           showAllComments={showAllComments}
           postId={postId}
         />

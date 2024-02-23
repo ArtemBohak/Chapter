@@ -1,7 +1,7 @@
 import { IPost } from "@/src/types";
 import { createRef } from "react";
 import { pageLimit } from "@/src/utils";
-import { FeedsTypes } from "@/src/pages/FeedPage/context/FeedProvider.type";
+import { FeedsTypes } from "@/src/services/PostApi/PostApi.type";
 
 const feedsFindIndex = (feeds: FeedsTypes, feed: IPost) =>
   feeds.findIndex((el) => el.postId === feed.postId);

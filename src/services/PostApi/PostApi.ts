@@ -8,8 +8,8 @@ import { CommentsTypes, FeedsTypes } from "./PostApi.type";
 
 class PostApi {
   constructor(
-    private setIsLoading: SetIsLoadingType,
     private setErrorBoundary: SetErrorType,
+    private setIsLoading?: SetIsLoadingType,
     private setFeedsData?: Dispatch<SetStateAction<FeedsTypes>>,
     private setCommentsData?: Dispatch<SetStateAction<CommentsTypes>>,
     private postId?: string | number,
@@ -18,7 +18,7 @@ class PostApi {
 
   async get(page = 1) {
     try {
-      this.setIsLoading(true);
+      this.setIsLoading && this.setIsLoading(true);
 
       const { data }: AxiosResponse = await api.get(
         this.postId
@@ -36,7 +36,7 @@ class PostApi {
         this.setErrorBoundary(e);
       }
     } finally {
-      this.setIsLoading(false);
+      this.setIsLoading && this.setIsLoading(false);
     }
   }
 }

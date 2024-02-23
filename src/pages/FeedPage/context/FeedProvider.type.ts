@@ -1,25 +1,12 @@
-import {
-  Dispatch,
-  MutableRefObject,
-  ReactNode,
-  RefObject,
-  SetStateAction,
-} from "react";
+import { Dispatch, ReactNode, SetStateAction } from "react";
 import { IPost } from "@/src/types";
+import { FeedsTypes } from "@/src/services/PostApi/PostApi.type";
 
 export interface IFeedProviderProps {
   children: ReactNode;
 }
 
-export type RefsType = {
-  nodeRef?: MutableRefObject<null> | RefObject<HTMLDivElement>;
-  loaderRef?: MutableRefObject<null> | RefObject<HTMLInputElement>;
-  pageValue?: number;
-};
-
 export type Feeds = Array<IPost> | [];
-
-export type FeedsTypes = Array<IPost & RefsType> | [];
 
 export type FeedContextType = {
   feeds: FeedsTypes;
