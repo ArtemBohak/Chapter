@@ -83,7 +83,7 @@ const Feed: FC<FeedProps> = ({ nodeRef, loaderRef, pageValue, ...props }) => {
       </div>
       {loaderRef ? (
         <input
-          className="visually-hidde"
+          className="visually-hidden"
           ref={loaderRef}
           defaultValue={pageValue}
         />

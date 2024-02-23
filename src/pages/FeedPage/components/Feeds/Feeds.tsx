@@ -12,25 +12,6 @@ const Feeds: FC = () => {
   const { feeds, isLoad, setPage } = useFeedContext();
   const endLoaderRef = useRef(null);
 
-  // const feedsList: FeedProps[] = useMemo(
-  //   () =>
-  //     feeds.map((el, i) => {
-  //       if ((i + 1) % pageLimit === 0)
-  //         return {
-  //           ...el,
-  //           nodeRef: createRef<HTMLDivElement>(),
-  //           loaderRef: createRef<HTMLInputElement>(),
-  //           pageValue: Math.ceil(feeds.length / pageLimit),
-  //         };
-
-  //       return {
-  //         ...el,
-  //         nodeRef: createRef<HTMLDivElement>(),
-  //       };
-  //     }),
-  //   [feeds]
-  // );
-
   useEffect(() => {
     const loader = endLoaderRef.current;
     const observer = new IntersectionObserver(([entries]) => {
@@ -60,7 +41,6 @@ const Feeds: FC = () => {
           el.loaderRef &&
           el.loaderRef.current
         ) {
-          console.log(+el.loaderRef.current.value);
           setPage(+el.loaderRef.current.value);
         }
       });
