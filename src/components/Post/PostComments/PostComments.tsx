@@ -1,15 +1,9 @@
 import { FC, useRef, useState } from "react";
-import { AxiosError } from "axios";
 import cn from "classnames";
 
-// import { EndpointsEnum, api } from "@/src/axios";
 import { PostCommentsProps } from "./PostComments.type";
 import { tabScreen } from "@/src/utils";
-import {
-  useErrorBoundary,
-  useGetScreenSize,
-  useOutsideClick,
-} from "@/src/hooks";
+import { useGetScreenSize, useOutsideClick } from "@/src/hooks";
 import styles from "./PostComments.module.scss";
 
 import { Animation, Icon, IconEnum, PopUpMenu } from "@/src/components";
@@ -31,8 +25,6 @@ const PostComments: FC<PostCommentsProps> = ({
     null
   );
 
-  // const [allComments, setAllComments] = useState<CommentsType>([]);
-
   const [showFilterPopup, setShowFilterPopup] = useState(false);
   const [showAllComments, setShowAllComments] = useState(false);
 
@@ -45,33 +37,13 @@ const PostComments: FC<PostCommentsProps> = ({
 
   useOutsideClick(popupRef, setShowFilterPopup, "filter-btn");
 
-  const setErrorBoundary = useErrorBoundary();
-
-  const onHandleCommentsToggle = async () => {
+  const onHandleCommentsToggle = () => {
     setCommentsIsHide && setCommentsIsHide(!commentsIsHide);
   };
 
-  const onHandlePopupButtonClick = async () => {
-    try {
-      if (!showAllComments) {
-        // const res = await api.get(
-        //   EndpointsEnum.COMMENTS + "comments/" + postId
-        // );
-
-        // console.log(res);
-
-        setShowAllComments(true);
-      } else {
-        // setAllComments([]);
-        setShowAllComments(false);
-      }
-    } catch (e) {
-      if (e instanceof AxiosError) {
-        setErrorBoundary(e);
-      }
-    } finally {
-      setShowFilterPopup(false);
-    }
+  const onHandlePopupButtonClick = () => {
+    setShowAllComments(!showAllComments);
+    setShowFilterPopup(false);
   };
   const togglerBtnClassNames = cn(
     styles["feed-comments__button"],
