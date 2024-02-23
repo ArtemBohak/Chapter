@@ -47,7 +47,7 @@ const PostComments: FC<PostCommentsProps> = ({
 
   const setErrorBoundary = useErrorBoundary();
 
-  const onHandleCommentsToggle = async () => {
+  const onHandleCommentsToggle = () => {
     setCommentsIsHide && setCommentsIsHide(!commentsIsHide);
   };
 

@@ -63,12 +63,12 @@ const TextAreaField: FC<TextAreaFieldProps> = ({
       [styles["nickname-short"]]: !!(
         nickName &&
         replyToUserId &&
-        nickName.length < 9
+        nickName.length <= 9
       ),
       [styles["nickname-long"]]: !!(
         nickName &&
         replyToUserId &&
-        nickName.length >= 9
+        nickName.length > 9
       ),
     }
   );
