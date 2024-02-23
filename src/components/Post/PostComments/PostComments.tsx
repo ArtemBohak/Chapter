@@ -3,7 +3,7 @@ import { AxiosError } from "axios";
 import cn from "classnames";
 
 // import { EndpointsEnum, api } from "@/src/axios";
-import { CommentsType, PostCommentsProps } from "./PostComments.type";
+import { PostCommentsProps } from "./PostComments.type";
 import { tabScreen } from "@/src/utils";
 import {
   useErrorBoundary,
@@ -31,7 +31,7 @@ const PostComments: FC<PostCommentsProps> = ({
     null
   );
 
-  const [allComments, setAllComments] = useState<CommentsType>([]);
+  // const [allComments, setAllComments] = useState<CommentsType>([]);
 
   const [showFilterPopup, setShowFilterPopup] = useState(false);
   const [showAllComments, setShowAllComments] = useState(false);
