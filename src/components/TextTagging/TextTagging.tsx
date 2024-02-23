@@ -50,7 +50,7 @@ const TextTagging: FC<TextTaggingProps> = ({
         >
           {replyTo.nickName}
         </Link>
-        {text}
+        : {text}
       </p>
     );
 

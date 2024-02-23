@@ -23,6 +23,7 @@ const Comment: FC<CommentProps> = ({
   createdAt,
   hideCommentBtn = false,
   replyTo,
+  postId,
   setNickName,
   setReplyToUserId,
   setId,
@@ -32,10 +33,6 @@ const Comment: FC<CommentProps> = ({
   const navId = authorId !== userId ? `/${authorId}` : "#";
 
   const avatarUrl = avatar ? avatar : defaultAvatar;
-
-  // const onHandleTagClick = (e: MouseEvent<HTMLButtonElement>) => {
-  //   console.log(e.currentTarget.value);
-  // };
 
   return (
     <div className={styles["comment"]}>
@@ -72,6 +69,7 @@ const Comment: FC<CommentProps> = ({
           />
           {!hideCommentBtn ? (
             <CommentsButton
+              postId={postId}
               textValue={
                 commentsCount > 1 || (commentCount && commentCount > 1)
                   ? "replies"

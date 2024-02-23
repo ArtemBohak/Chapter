@@ -5,7 +5,7 @@ import { AxiosError, AxiosResponse } from "axios";
 import { useAppSelector } from "@/src/redux";
 import { EndpointsEnum, api } from "@/src/axios";
 import { useErrorBoundary, useGetScreenSize } from "@/src/hooks";
-import { IPost } from "@/src/types";
+import { ElementsId, IPost } from "@/src/types";
 import { feedsCB, tabScreen } from "@/src/utils";
 import { FormValues, CommentsFormProps, BodyValues } from "./CommentsForm.type";
 import { validationSchema } from "./validationSchema";
@@ -40,7 +40,11 @@ const CommentsForm: FC<CommentsFormProps> = ({
     try {
       let body: BodyValues = { ...values };
       if (nickName && replyToUserId) {
-        body = { ...body, nickName, id: replyToUserId };
+        body = {
+          ...body,
+          recipientNickName: nickName,
+          recipientId: replyToUserId,
+        };
       }
       if (commentId !== null) {
         const { data }: AxiosResponse<IPost> = await api.post(
@@ -70,7 +74,10 @@ const CommentsForm: FC<CommentsFormProps> = ({
 
   const iconSize = screenSize < tabScreen ? 20 : 24;
   return (
-    <div className={styles["form__content-wrapper"]}>
+    <div
+      id={`${ElementsId.POST_FORM}${postId}`}
+      className={styles["form__content-wrapper"]}
+    >
       <div className={styles["form__image"]}>
         <img src={avatarUrl} alt="user avatar" width={44} height={44} />
       </div>

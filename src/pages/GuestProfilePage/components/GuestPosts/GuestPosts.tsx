@@ -35,7 +35,12 @@ const GuestPosts: FC = () => {
               <div className="flex justify-between">
                 <div className={styles["user-post__activity-icons"]}>
                   <LikesButton id={post.id} userIds={[]} url="" />
-                  <CommentsButton textValue={""} id={""} commentsCount={0} />
+                  <CommentsButton
+                    textValue={""}
+                    id={""}
+                    commentsCount={0}
+                    postId={""}
+                  />
                 </div>
                 <PostDate createAt={post.updatedAt} />
               </div>
