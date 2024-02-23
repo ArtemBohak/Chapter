@@ -1,9 +1,7 @@
-import { FC, createRef, useEffect, useMemo, useRef } from "react";
+import { FC, useEffect, useRef } from "react";
 import { TransitionGroup } from "react-transition-group";
 
-import { FeedProps } from "../Feed/Feed.type";
 import { useFeedContext } from "../../context";
-import { pageLimit } from "@/src/utils";
 import styles from "./Feeds.module.scss";
 
 import { Animation, Loader, PostSkeleton } from "@/src/components";
@@ -14,24 +12,24 @@ const Feeds: FC = () => {
   const { feeds, isLoad, setPage } = useFeedContext();
   const endLoaderRef = useRef(null);
 
-  const feedsList: FeedProps[] = useMemo(
-    () =>
-      feeds.map((el, i) => {
-        if ((i + 1) % pageLimit === 0)
-          return {
-            ...el,
-            nodeRef: createRef<HTMLDivElement>(),
-            loaderRef: createRef<HTMLInputElement>(),
-            pageValue: Math.ceil(feeds.length / pageLimit),
-          };
+  // const feedsList: FeedProps[] = useMemo(
+  //   () =>
+  //     feeds.map((el, i) => {
+  //       if ((i + 1) % pageLimit === 0)
+  //         return {
+  //           ...el,
+  //           nodeRef: createRef<HTMLDivElement>(),
+  //           loaderRef: createRef<HTMLInputElement>(),
+  //           pageValue: Math.ceil(feeds.length / pageLimit),
+  //         };
 
-        return {
-          ...el,
-          nodeRef: createRef<HTMLDivElement>(),
-        };
-      }),
-    [feeds]
-  );
+  //       return {
+  //         ...el,
+  //         nodeRef: createRef<HTMLDivElement>(),
+  //       };
+  //     }),
+  //   [feeds]
+  // );
 
   useEffect(() => {
     const loader = endLoaderRef.current;
@@ -54,7 +52,7 @@ const Feeds: FC = () => {
   }, [endLoaderRef.current, isLoad]);
 
   useEffect(() => {
-    feedsList.forEach((el) => {
+    feeds.forEach((el) => {
       const observer = new IntersectionObserver(([entries]) => {
         if (
           entries.isIntersecting &&
@@ -62,13 +60,15 @@ const Feeds: FC = () => {
           el.loaderRef &&
           el.loaderRef.current
         ) {
+          console.log(+el.loaderRef.current.value);
           setPage(+el.loaderRef.current.value);
         }
       });
       if (el && el.loaderRef && el.loaderRef.current)
         observer.observe(el.loaderRef.current);
     });
-  }, [feedsList, setPage]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [feeds]);
 
   const transitionClassNames = {
     enter: styles["feeds-list-enter"],
@@ -82,7 +82,7 @@ const Feeds: FC = () => {
   return (
     <>
       <TransitionGroup component={"ul"} className={styles["feeds-list"]}>
-        {feedsList.map((i) => (
+        {feeds.map((i) => (
           <Animation
             key={i.postId}
             nodeRef={i.nodeRef}

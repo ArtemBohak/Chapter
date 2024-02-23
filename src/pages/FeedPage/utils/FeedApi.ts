@@ -4,11 +4,11 @@ import { EndpointsEnum, api } from "@/src/axios";
 import { SetIsLoadingType } from "@/src/services";
 import { SetErrorType } from "@/src/types";
 import { feedsCB, pageLimit } from "@/src/utils";
-import { Feeds } from "../context/FeedProvider.type";
+import { Feeds, FeedsTypes } from "../context/FeedProvider.type";
 
 export class FeedApi {
   constructor(
-    private setFeeds: Dispatch<SetStateAction<Feeds>>,
+    private setFeeds: Dispatch<SetStateAction<FeedsTypes>>,
     private setIsLoading: SetIsLoadingType,
     private setErrorBoundary: SetErrorType
   ) {}

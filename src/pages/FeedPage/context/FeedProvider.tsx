@@ -4,10 +4,10 @@ import { FeedApi } from "../utils/FeedApi";
 
 import { useErrorBoundary } from "@/src/hooks";
 import { FeedContext } from "./hooks/useFeedContext";
-import { Feeds, IFeedProviderProps } from "./FeedProvider.type";
+import { FeedsTypes, IFeedProviderProps } from "./FeedProvider.type";
 
 const FeedProvider: FC<IFeedProviderProps> = ({ children }) => {
-  const [feeds, setFeeds] = useState<Feeds>([]);
+  const [feeds, setFeeds] = useState<FeedsTypes>([]);
   const [page, setPage] = useState(1);
   const [isLoad, setIsLoad] = useState(false);
 
