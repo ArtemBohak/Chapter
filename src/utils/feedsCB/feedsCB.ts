@@ -8,12 +8,12 @@ const feedsFindIndex = (feeds: FeedsTypes, feed: IPost) =>
 
 const feedsEdit = (feeds: FeedsTypes) => {
   return feeds.map((el, i) => {
-    if (feeds.length - 1 === i) {
+    if (feeds.length - 3 === i) {
       return {
         ...el,
         nodeRef: createRef<HTMLDivElement>(),
         loaderRef: createRef<HTMLInputElement>(),
-        pageValue: Math.ceil(feeds.length / pageLimit),
+        pageValue: Math.ceil(feeds.length / pageLimit) + 1,
       };
     }
     return {

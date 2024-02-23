@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef } from "react";
+import { FC, useEffect } from "react";
 import { TransitionGroup } from "react-transition-group";
 
 import { useFeedContext } from "../../context";
@@ -10,27 +10,6 @@ import Feed from "../Feed/Feed";
 
 const Feeds: FC = () => {
   const { feeds, isLoad, setPage } = useFeedContext();
-  const endLoaderRef = useRef(null);
-
-  useEffect(() => {
-    const loader = endLoaderRef.current;
-    const observer = new IntersectionObserver(([entries]) => {
-      if (entries.isIntersecting && !isLoad) {
-        setPage((page) => (page += 1));
-      }
-    });
-
-    if (loader) {
-      observer.observe(loader);
-    }
-
-    return () => {
-      if (loader) {
-        observer.unobserve(loader);
-      }
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [endLoaderRef.current, isLoad]);
 
   useEffect(() => {
     feeds.forEach((el) => {
@@ -75,7 +54,6 @@ const Feeds: FC = () => {
           </Animation>
         ))}
       </TransitionGroup>
-      <div ref={endLoaderRef} className="visually-hidden"></div>
       <Loader
         isShown={!!feeds.length && isLoad}
         wrapperClassNames={styles["loader"]}
