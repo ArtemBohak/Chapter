@@ -75,8 +75,8 @@ const Feeds: FC = () => {
           </Animation>
         ))}
       </TransitionGroup>
-      <div ref={endLoaderRef} className="invisible">
-        ...
+      <div ref={endLoaderRef} className="visually-hidden">
+        .
       </div>
       <Loader
         isShown={!!feeds.length && isLoad}
