@@ -1,4 +1,4 @@
-import { FC, useMemo, useRef, useState } from "react";
+import { FC, useRef, useState } from "react";
 import cn from "classnames";
 
 import { PostCommentsProps } from "./PostComments.type";
@@ -37,22 +37,14 @@ const PostComments: FC<PostCommentsProps> = ({
 
   useOutsideClick(popupRef, setShowFilterPopup, "filter-btn");
 
-  const sortedComments = useMemo(
-    () =>
-      comments.sort((a, b) => {
-        const firstEl = new Date(a.createdAt).getTime();
-        const secondEl = new Date(b.createdAt).getTime();
-        if (!showAllComments) return secondEl - firstEl;
-
-        return firstEl - secondEl;
-      }),
-    [comments, showAllComments]
-  );
-
-  const onHandleCommentsToggle = async () => {
+  const onHandleCommentsToggle = () => {
     setCommentsIsHide && setCommentsIsHide(!commentsIsHide);
   };
 
+  const onHandlePopupButtonClick = () => {
+    setShowAllComments(!showAllComments);
+    setShowFilterPopup(false);
+  };
   const togglerBtnClassNames = cn(
     styles["feed-comments__button"],
     styles["feed-comments__button-toggler"],
@@ -112,10 +104,7 @@ const PostComments: FC<PostCommentsProps> = ({
         >
           <button
             data-automation="clickButton"
-            onClick={() => {
-              setShowFilterPopup(false);
-              setShowAllComments(!showAllComments);
-            }}
+            onClick={onHandlePopupButtonClick}
           >
             {showAllComments ? filterValue.latest : filterValue.all}
           </button>
@@ -135,13 +124,12 @@ const PostComments: FC<PostCommentsProps> = ({
     >
       <div ref={commentsRef}>
         <Comments
-          comments={
-            showAllComments ? sortedComments : sortedComments.slice(0, 3)
-          }
+          comments={showAllComments ? comments : comments.slice(0, 3)}
           setId={setCommentId}
           setNickName={setNickName}
           setReplyToUserId={setReplyToUserId}
           showAllComments={showAllComments}
+          postId={postId}
         />
       </div>
     </Animation>
