@@ -20,32 +20,49 @@ const BookShelf: FC<BookShelfProps> = ({ enemyData, Id }) => {
     []
   );
   const [addBookArray, setAddBookArray] = useState<number[]>([]);
+  // const [booksLength, setBooksLength] = useState(2)
+
+
+
 
   const responsive = [
     {
+      breakpoint: 1921,
+      settings: {
+        slidesToShow: favoriteBooksList.length < 3 ? !Id ? favoriteBooksList.length + 1 : favoriteBooksList.length : 3,
+        slidesToScroll: 3,
+        initialSlide: 2,
+        swipe: true,
+        Infinity,
+        mobileFirst: true,
+
+      },
+    },
+    {
       breakpoint: 1680,
       settings: {
-        slidesToShow: favoriteBooksList.length,
-        slidesToScroll: favoriteBooksList.length,
+        slidesToShow: favoriteBooksList.length < 5 ? (!Id ? favoriteBooksList.length + 1 : favoriteBooksList.length) : favoriteBooksList.length,
+        slidesToScroll: 5,
         initialSlide: 0,
-        swipe: favoriteBooksList.length < 3 && false,
+        swipe: true,
+        Infinity,
+        variableWidth: true
       },
     },
     {
       breakpoint: 768,
       settings: {
-        slidesToShow:
-          favoriteBooksList.length < 3 ? favoriteBooksList.length : 5,
-        slidesToScroll: favoriteBooksList.length < 3 ? 0 : 5,
+        slidesToShow: 2,
+        slidesToScroll: 2,
         initialSlide: 0,
-        swipe: favoriteBooksList.length < 3 ? false : true,
+
       },
     },
     {
       breakpoint: 374,
       settings: {
-        slidesToShow: favoriteBooksList.length,
-        slidesToScroll: favoriteBooksList.length,
+        slidesToShow: 3,
+        slidesToScroll: 3,
         initialSlide: 0,
         swipe: favoriteBooksList.length < 3 ? false : true,
       },
@@ -60,12 +77,12 @@ const BookShelf: FC<BookShelfProps> = ({ enemyData, Id }) => {
     if (ListLength === 0) {
       setAddBookArray([1, 2, 3]);
     } else if (ListLength === 1) {
-      setAddBookArray([1, 2]);
+      setAddBookArray([1]);
     }
     if (ListLength > 1) {
       setAddBookArray([1]);
     }
-    if (ListLength > 6) {
+    if (ListLength > 4) {
       setAddBookArray([]);
     }
   };
@@ -84,10 +101,13 @@ const BookShelf: FC<BookShelfProps> = ({ enemyData, Id }) => {
       setFavoriteBooksList(bookslist);
     }
 
-  }, [userBooks, enemyData]);
+  }, [userBooks]);
+
+
 
   useEffect(() => {
     setAddBook();
+
   }, [favoriteBooksList]);
 
   return (
@@ -114,7 +134,7 @@ const BookShelf: FC<BookShelfProps> = ({ enemyData, Id }) => {
             />
           ))}
           {!Id && addBookArray.map((_, i) => (
-            <AddBookSliderButton key={i} />
+            <Link to={'/books'}><AddBookSliderButton key={i} /></Link>
           ))}
         </Slider>
       </div>

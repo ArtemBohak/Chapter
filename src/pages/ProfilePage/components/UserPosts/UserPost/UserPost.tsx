@@ -50,12 +50,12 @@ const UserPost: FC<UserPostProps> = ({ post, fetchUserPosts }) => {
   const getComments = async (id: number) => {
     const response = await api.get(`/comments/comments/${id}`)
 
-    console.log(response.data.comments)
     setComentsList(response.data.comments)
   }
 
   useEffect(() => {
     getComments(post.id)
+    console.log(commentsList)
   }, [])
 
 

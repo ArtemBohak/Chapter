@@ -4,6 +4,7 @@ import {
   Avatar,
   CommentsButton,
   LikesButton,
+  Loader,
   PostComments,
   PostDate,
   PostImage,
@@ -46,7 +47,7 @@ const GuestPosts: FC = () => {
           );
         })
       ) : (
-        <div className={styles["user-post__skeleton"]}>The user has not published any posts</div>
+        <div className={styles["user-post__skeleton"]}><Loader /></div>
       )}
     </div>
   );

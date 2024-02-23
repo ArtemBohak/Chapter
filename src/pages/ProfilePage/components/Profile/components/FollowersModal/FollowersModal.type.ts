@@ -11,5 +11,5 @@ export type followersData = {
     avatarUrl: string;
     firstName: string;
     lastName: string;
-    subscribers: {}[];
+    isSubscribed: boolean;
 }
