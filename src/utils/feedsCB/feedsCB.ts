@@ -37,8 +37,6 @@ export const feedsCB =
       }
 
       return feedsEdit(feeds);
-
-      // object
     } else {
       index = feedsFindIndex(feeds, feedsApiData);
 
