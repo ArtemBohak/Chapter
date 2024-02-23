@@ -1,4 +1,4 @@
-import { FC, useRef, useState } from "react";
+import { FC, useMemo, useRef, useState } from "react";
 import cn from "classnames";
 
 import { PostApi } from "@/src/services";
@@ -47,6 +47,18 @@ const PostComments: FC<PostCommentsProps> = ({
   useOutsideClick(popupRef, setShowFilterPopup, "filter-btn");
 
   const setErrorBoundary = useErrorBoundary();
+
+  const sortedComments = useMemo(
+    () =>
+      comments.sort((a, b) => {
+        const firstEl = new Date(a.createdAt).getTime();
+        const secondEl = new Date(b.createdAt).getTime();
+        if (!showAllComments) return secondEl - firstEl;
+
+        return firstEl - secondEl;
+      }),
+    [comments, showAllComments]
+  );
 
   const onHandleCommentsToggle = () => {
     setCommentsIsHide && setCommentsIsHide(!commentsIsHide);
@@ -149,7 +161,9 @@ const PostComments: FC<PostCommentsProps> = ({
     >
       <div ref={commentsRef}>
         <Comments
-          comments={showAllComments ? comments : comments.slice(0, 3)}
+          comments={
+            showAllComments ? sortedComments : sortedComments.slice(0, 3)
+          }
           setId={setCommentId}
           setNickName={setNickName}
           setReplyToUserId={setReplyToUserId}
