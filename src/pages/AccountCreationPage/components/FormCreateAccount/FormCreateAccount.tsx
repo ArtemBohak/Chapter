@@ -102,7 +102,6 @@ const FormCreateAccount: FC = () => {
       navigate(links.LOG_IN);
     } catch (e) {
       if (e instanceof AxiosError) {
-        console.log(e);
         setError(e);
         setErrorMessageForm(
           e.response?.data.message ||

@@ -6,5 +6,5 @@ export * from "./cookies/cookies";
 export * from "./date/date";
 export * from "./constants/constants";
 export * from "./axiosUploadChecker/axiosUploadChecker";
-export * from "./feedsCB/feedsCB";
+export * from "./callBacks";
 export * from "./scrollTo/scrollTo";

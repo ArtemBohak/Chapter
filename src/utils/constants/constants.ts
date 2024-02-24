@@ -5,3 +5,5 @@ export const redirectTimeoutValue = 1000 * 60;
 export const tabScreen = 769;
 
 export const pageLimit = 5;
+
+export const commentsPageLimit = 10;
