@@ -19,11 +19,11 @@ class SocketApi {
     this.socket.disconnect();
   }
 
-  addListener<T, K>(event: string, cb: (e: T) => K) {
+  addListener<T>(event: string, cb: (e: T) => void) {
     this.socket.on(event, cb);
   }
 
-  removeListener<T, K>(event: string, cb: (e: T) => K) {
+  removeListener<T>(event: string, cb: (e: T) => void) {
     this.socket.off(event, cb);
   }
 }

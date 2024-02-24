@@ -76,17 +76,11 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
     };
 
     if (isConnected) {
-      socket.addListener<string, void>(
-        "subscribeNotification",
-        onHandleSubscribe
-      );
+      socket.addListener<string>("subscribeNotification", onHandleSubscribe);
     }
 
     return () => {
-      socket.removeListener<string, void>(
-        "subscribeNotification",
-        onHandleSubscribe
-      );
+      socket.removeListener<string>("subscribeNotification", onHandleSubscribe);
     };
   }, [isConnected]);
 
