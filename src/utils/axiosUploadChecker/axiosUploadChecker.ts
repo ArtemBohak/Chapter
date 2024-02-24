@@ -14,7 +14,6 @@ export const axiosUploadChecker =
         }
 
         clearTimeout(t);
-        return;
       }, timeout);
     }
   };
