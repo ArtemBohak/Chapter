@@ -59,6 +59,7 @@ const AddBookForm: FC = () => {
           nameOfBook: values.nameOfBook,
           author: values.author,
           annotation: values.annotation,
+          favorite_book_status: false,
           imagePath: "",
         };
         if (file) {
@@ -98,6 +99,7 @@ const AddBookForm: FC = () => {
           author: "",
           annotation: "",
           imagePath: bookImage,
+          favorite_book_status: false,
         }}
         onSubmit={async (values) => {
           await onHandleSubmit(values);

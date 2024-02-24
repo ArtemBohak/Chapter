@@ -9,12 +9,7 @@ import { TextField } from "../TextField";
 
 const SearchField: FC<SearchFieldProps> = ({ className, ...props }) => {
   return (
-    <Formik
-      initialValues={{}}
-      onSubmit={(values) => {
-        console.log(values);
-      }}
-    >
+    <Formik initialValues={{}} onSubmit={() => {}}>
       {() => (
         <Form>
           <TextField className={cn("search-field", className)} {...props} />

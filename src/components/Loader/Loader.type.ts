@@ -1,10 +1,10 @@
 export interface ILoaderProps {
   height?: number;
   width?: number;
-  speed?: number;
-  interval?: number;
+  radius?: number;
   isShown?: boolean;
   timeTransition?: number;
   wrapperClassNames?: string;
   loaderClassNames?: string;
+  color?: string;
 }

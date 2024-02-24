@@ -13,7 +13,7 @@ import {
   PostTitle,
   UserNickName,
 } from "@/src/components";
-import { FC, useRef, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import styles from "./UserPost.module.scss";
 import { UserPostProps } from "../UserPost.type";
 import { useAppSelector } from "@/src/redux";
@@ -21,11 +21,13 @@ import { EndpointsEnum, api } from "@/src/axios";
 import { useOutsideClick } from "@/src/hooks";
 import { ElementsId } from "@/src/types";
 
+
 const UserPost: FC<UserPostProps> = ({ post, fetchUserPosts }) => {
   const { user } = useAppSelector((state) => state.userSlice);
   const [showPopUp, setShowPopUp] = useState(false);
   const [showConfirmationWindow, setShowConfirmationWindow] = useState(false);
   const [isDeletingLoading, setIsDeletingLoading] = useState(false);
+  const [commentsList, setComentsList] = useState([])
 
   const ref = useRef(null);
   useOutsideClick(ref, setShowPopUp, ElementsId.POST_MORE_ICON);
@@ -45,6 +47,18 @@ const UserPost: FC<UserPostProps> = ({ post, fetchUserPosts }) => {
     }
   };
 
+  const getComments = async (id: number) => {
+    const response = await api.get(`/comments/comments/${id}`)
+
+    setComentsList(response.data.comments)
+  }
+
+  useEffect(() => {
+    getComments(post.id)
+    console.log(commentsList)
+  }, [])
+
+
   return (
     <div className={styles["user-post"]}>
       <div className="flex items-center justify-between w-full relative">
@@ -62,25 +76,27 @@ const UserPost: FC<UserPostProps> = ({ post, fetchUserPosts }) => {
             hanging={24}
             icon={IconEnum.MoreHorizontal}
           />
+          <PopUpMenu
+            backdropClassName={`${styles["popup"]}`}
+            bodyClassName={styles["popup__body"]}
+            isOpen={showPopUp}
+            setIsOpen={setShowPopUp}
+            nodeRef={ref}
+          >
+            <div className={styles["menu"]}>
+              <button data-automation="clickButton" onClick={() => { }}>
+                Edit post
+              </button>
+              <button
+                data-automation="clickButton"
+                onClick={() => setShowConfirmationWindow(true)}
+              >
+                Delete post
+              </button>
+            </div>
+          </PopUpMenu>
         </button>
-        <PopUpMenu
-          bodyClassName={styles["popup-body"]}
-          isOpen={showPopUp}
-          setIsOpen={setShowPopUp}
-          nodeRef={ref}
-        >
-          <div className={styles["menu"]}>
-            <button data-automation="clickButton" onClick={() => {}}>
-              Edit post
-            </button>
-            <button
-              data-automation="clickButton"
-              onClick={() => setShowConfirmationWindow(true)}
-            >
-              Delete post
-            </button>
-          </div>
-        </PopUpMenu>
+
       </div>
       <ConfirmationWindow
         text={"Do you want to delete this post?"}
@@ -95,13 +111,19 @@ const UserPost: FC<UserPostProps> = ({ post, fetchUserPosts }) => {
       <div className="flex justify-between">
         <div className={styles["user-post__activity-icons"]}>
           <LikesButton id={post.id} userIds={[]} totalLikes={0} url="" />
-          <CommentsButton textValue={""} id={""} commentsCount={0} />
+          <CommentsButton
+            textValue={""}
+            id={""}
+            commentsCount={0}
+            postId={""}
+          />
         </div>
         <PostDate createAt={post.updatedAt} />
       </div>
       <PostTitle title={post.title} />
       <PostText caption={post.caption} />
       <PostComments postId={post.id} commentsCount={0} comments={[]} />
+
       {/* <PostDate date={post.createdAt}/> */}
     </div>
   );

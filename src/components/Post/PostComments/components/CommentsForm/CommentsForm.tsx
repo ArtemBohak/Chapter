@@ -5,10 +5,11 @@ import { AxiosError, AxiosResponse } from "axios";
 import { useAppSelector } from "@/src/redux";
 import { EndpointsEnum, api } from "@/src/axios";
 import { useErrorBoundary, useGetScreenSize } from "@/src/hooks";
-import { IPost } from "@/src/types";
-import { feedsCB, tabScreen } from "@/src/utils";
-import { FormValues, CommentsFormProps, BodyValues } from "./CommentsForm.type";
+import { ElementsId, IPost } from "@/src/types";
+import { postsCB, tabScreen } from "@/src/utils";
 import { validationSchema } from "./validationSchema";
+import { FormValues, CommentsFormProps, BodyValues } from "./CommentsForm.type";
+import { FeedType } from "@/src/services/PostApi/PostApi.type";
 import styles from "./CommentsForm.module.scss";
 
 import { TextAreaField } from "@/src/components";
@@ -51,14 +52,14 @@ const CommentsForm: FC<CommentsFormProps> = ({
           EndpointsEnum.COMMENTS + commentId + "/to-comment",
           body
         );
-        setFeeds && setFeeds(feedsCB(data));
+        setFeeds && setFeeds(postsCB<FeedType>(data, "postId"));
         return setCommentId(null);
       }
       const { data }: AxiosResponse<IPost> = await api.post(
         EndpointsEnum.COMMENTS + postId,
         values
       );
-      setFeeds && setFeeds(feedsCB(data));
+      setFeeds && setFeeds(postsCB<FeedType>(data, "postId"));
       setCommentsIsHide && setCommentsIsHide(false);
     } catch (e) {
       if (e instanceof AxiosError) {
@@ -74,7 +75,10 @@ const CommentsForm: FC<CommentsFormProps> = ({
 
   const iconSize = screenSize < tabScreen ? 20 : 24;
   return (
-    <div className={styles["form__content-wrapper"]}>
+    <div
+      id={`${ElementsId.POST_FORM}${postId}`}
+      className={styles["form__content-wrapper"]}
+    >
       <div className={styles["form__image"]}>
         <img src={avatarUrl} alt="user avatar" width={44} height={44} />
       </div>

@@ -1,6 +1,8 @@
 import { FC } from "react";
 import cn from "classnames";
 
+import { scrollTo } from "@/src/utils";
+import { ElementsId } from "@/src/types";
 import { CommentsButtonProps } from "./CommentsButton.type";
 import styles from "../IconButtons.module.scss";
 
@@ -13,6 +15,7 @@ const CommentsButton: FC<CommentsButtonProps> = ({
   hiddenText = false,
   nickName,
   authorId,
+  postId,
   setCommentsIsHide,
   setNickName,
   setReplyToUserId,
@@ -23,6 +26,7 @@ const CommentsButton: FC<CommentsButtonProps> = ({
     setId && setId(id);
     setNickName && setNickName(nickName || "");
     setReplyToUserId && setReplyToUserId(authorId || "");
+    scrollTo(ElementsId.POST_FORM + postId);
   };
   const btnTextStyle = cn(styles["icon-button__text"], {
     [styles["icon-button__text-hidden"]]: hiddenText,

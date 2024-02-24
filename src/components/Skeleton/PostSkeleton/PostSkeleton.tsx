@@ -1,13 +1,12 @@
-import ContentLoader, { IContentLoaderProps } from "react-content-loader"
-import { JSX } from "react/jsx-runtime"
+import ContentLoader, { IContentLoaderProps } from "react-content-loader";
+import { JSX } from "react/jsx-runtime";
 import styles from "./PostSkeleton.module.scss";
 
 const PostSkeleton = (props: JSX.IntrinsicAttributes & IContentLoaderProps) => (
   <ContentLoader
-    className={styles['post-skeleton__wrapper']}
+    className={styles["post-skeleton__wrapper"]}
     speed={4}
     width={776}
-    height={800}
     viewBox="0 0 776 800"
     backgroundColor="#f3f3f3"
     foregroundColor="#FFC368"
@@ -21,8 +20,7 @@ const PostSkeleton = (props: JSX.IntrinsicAttributes & IContentLoaderProps) => (
     <rect x="80%" y="510" rx="5" ry="5" width="15%" height="20" />
     <rect x="5%" y="560" rx="5" ry="5" width="35%" height="36" />
     <rect x="5%" y="620" rx="5" ry="5" width="90%" height="160" />
-
   </ContentLoader>
-)
+);
 
 export default PostSkeleton;

@@ -4,4 +4,5 @@ export type bookProps = {
     author: string,
     annotation: string,
     imagePath: string,
+    favorite_book_status: boolean;
 }

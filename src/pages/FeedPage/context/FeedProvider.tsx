@@ -1,21 +1,24 @@
 import { FC, useEffect, useState } from "react";
 
-import { FeedApi } from "../utils/FeedApi";
-
 import { useErrorBoundary } from "@/src/hooks";
+import { PostApi } from "@/src/services";
 import { FeedContext } from "./hooks/useFeedContext";
-import { Feeds, IFeedProviderProps } from "./FeedProvider.type";
+import { IFeedProviderProps } from "./FeedProvider.type";
+import { FeedsType } from "@/src/services/PostApi/PostApi.type";
 
 const FeedProvider: FC<IFeedProviderProps> = ({ children }) => {
-  const [feeds, setFeeds] = useState<Feeds>([]);
-  const [page, setPage] = useState(1);
+  const [feeds, setFeeds] = useState<FeedsType>([]);
+  const [page, setPage] = useState(0);
   const [isLoad, setIsLoad] = useState(false);
 
   const setErrorBoundary = useErrorBoundary();
 
   useEffect(() => {
-    new FeedApi(setFeeds, setIsLoad, setErrorBoundary).getFeeds(page);
-  }, [page, setErrorBoundary]);
+    if (page)
+      new PostApi(setErrorBoundary, setFeeds, undefined, setIsLoad).get(page);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page]);
 
   return (
     <FeedContext.Provider

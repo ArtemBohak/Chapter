@@ -1,9 +1,15 @@
 import { FC, useMemo, useRef, useState } from "react";
 import cn from "classnames";
 
+import { PostApi } from "@/src/services";
 import { PostCommentsProps } from "./PostComments.type";
 import { tabScreen } from "@/src/utils";
-import { useGetScreenSize, useOutsideClick } from "@/src/hooks";
+import {
+  useErrorBoundary,
+  useGetScreenSize,
+  useOutsideClick,
+} from "@/src/hooks";
+import { CommentsType } from "@/src/services/PostApi/PostApi.type";
 import styles from "./PostComments.module.scss";
 
 import { Animation, Icon, IconEnum, PopUpMenu } from "@/src/components";
@@ -25,6 +31,9 @@ const PostComments: FC<PostCommentsProps> = ({
     null
   );
 
+  const [, setAllComments] = useState<CommentsType>([]);
+  const [page, setPage] = useState(0);
+
   const [showFilterPopup, setShowFilterPopup] = useState(false);
   const [showAllComments, setShowAllComments] = useState(false);
 
@@ -36,6 +45,8 @@ const PostComments: FC<PostCommentsProps> = ({
   const isMobScreen = screenSize < tabScreen ? 16 : 26;
 
   useOutsideClick(popupRef, setShowFilterPopup, "filter-btn");
+
+  const setErrorBoundary = useErrorBoundary();
 
   const sortedComments = useMemo(
     () =>
@@ -49,8 +60,26 @@ const PostComments: FC<PostCommentsProps> = ({
     [comments, showAllComments]
   );
 
-  const onHandleCommentsToggle = async () => {
+  const onHandleCommentsToggle = () => {
     setCommentsIsHide && setCommentsIsHide(!commentsIsHide);
+  };
+
+  const onHandlePopupButtonClick = async () => {
+    if (!showAllComments) {
+      if (page)
+        await new PostApi(
+          setErrorBoundary,
+          undefined,
+          setAllComments,
+          undefined,
+          postId
+        );
+      setShowAllComments(true);
+    } else {
+      setAllComments([]);
+      setShowAllComments(false);
+    }
+    setShowFilterPopup(false);
   };
 
   const togglerBtnClassNames = cn(
@@ -112,10 +141,7 @@ const PostComments: FC<PostCommentsProps> = ({
         >
           <button
             data-automation="clickButton"
-            onClick={() => {
-              setShowFilterPopup(false);
-              setShowAllComments(!showAllComments);
-            }}
+            onClick={onHandlePopupButtonClick}
           >
             {showAllComments ? filterValue.latest : filterValue.all}
           </button>
@@ -141,7 +167,9 @@ const PostComments: FC<PostCommentsProps> = ({
           setId={setCommentId}
           setNickName={setNickName}
           setReplyToUserId={setReplyToUserId}
+          setPage={setPage}
           showAllComments={showAllComments}
+          postId={postId}
         />
       </div>
     </Animation>

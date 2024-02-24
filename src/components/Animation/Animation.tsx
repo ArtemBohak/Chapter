@@ -8,7 +8,6 @@ const Animation: FC<IAnimationProps> = ({
   children,
   classNames,
   timeout = 200,
-
   ...props
 }) => {
   const defaultClassNames = {
