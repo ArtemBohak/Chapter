@@ -1,8 +1,8 @@
 .follow-modal {
   &__body {
-    @apply flex absolute justify-center bg-[#FDFDFD] p-8 rounded-2xl z-50
-        max-w-xs md:max-w-sm base:max-w-[700px] max-h-[600px] laptop:max-h-[800px]
-        top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-[50%];
+    @apply w-full h-full md:h-max flex md:absolute justify-center bg-[#FDFDFD] md:p-8 rounded-2xl z-50
+        md:max-w-sm base:max-w-[600px] md:max-h-[600px] laptop:max-h-[800px]
+        top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 py-5;
   }
   &__header {
     @apply flex justify-between items-center w-full;
@@ -11,7 +11,7 @@
     }
   }
   &__backdrop {
-    @apply fixed top-0 left-0 w-full h-full backdrop-blur-sm bg-[#1c1c1c33];
+    @apply fixed top-0 left-0 w-full h-full backdrop-blur-sm bg-white md:bg-[#1c1c1c33] z-50;
   }
   &__wrapper {
     @apply flex h-full max-w-full w-full overflow-y-auto flex-col justify-center items-center text-center gap-4;
@@ -22,12 +22,12 @@
 }
 
 .follow-list {
-  @apply flex flex-col  gap-1-md max-h-[400px] laptop:max-h-[700px] overflow-y-auto pr-4;
+  @apply flex flex-col gap-1-md md:max-h-[400px] laptop:max-h-[700px] md:max-w-[660px] max-w-full w-full overflow-y-auto px-2;
   &__person {
-    @apply flex max-w-full items-center gap-2 base:gap-10 justify-between;
+    @apply flex max-w-full w-full items-center gap-2 base:gap-10 justify-between;
   }
   &__info {
-    @apply flex gap-1 md:gap-2 items-center cursor-pointer;
+    @apply flex gap-1 md:gap-2 items-center cursor-pointer max-w-[240px] break-words hyphens-auto md:max-w-xs;
   }
   &__avatar {
     @apply max-w-[78px] max-h-[70px];

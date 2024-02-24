@@ -9,7 +9,7 @@ import { EndpointsEnum, api } from "@/src/axios";
 import { keysValue } from "@/src/types";
 import { removeDataFromLS } from "@/src/utils";
 
-import {  IUserStore } from "../types/user";
+import { IUserStore } from "../types/user";
 import { defaultUserState } from "../default-state/user";
 
 import defaultAvatar from "@/src/assets/SVG/default-user-avatar.svg";
@@ -43,15 +43,15 @@ export const fetchIsLogoutUser = createAsyncThunk(
 
 export const deleteUserBook = createAsyncThunk(
   "user/fetchDeleteUserBook",
- async ( bookId: number) => {
+  async (bookId: number) => {
     const response = bookId;
     return response;
   }
-) 
+)
 export const fetchFavoriteBookStatus = createAsyncThunk(
   "user/fetchFavoriteBookStatus",
   async (bookId: number) => {
-    const {data} = await api.patch(`${EndpointsEnum.TOOGLE_FAVORITE_BOOKS}${bookId}`);
+    const { data } = await api.patch(`${EndpointsEnum.TOOGLE_FAVORITE_BOOKS}${bookId}`);
     return { bookId, data };
   }
 );
@@ -59,9 +59,8 @@ export const addNewBook = createAsyncThunk(
   "user/addNewBook",
   async (values: bookProps) => {
     try {
-      const {data} = await api.post(EndpointsEnum.USERS_BOOKS, values);
-  
-      return {data};
+      const { data } = await api.post(EndpointsEnum.USERS_BOOKS, values);
+      return { data };
     } catch (error) {
       if (isAxiosError(error)) {
         return error.response?.data;
@@ -94,7 +93,7 @@ export const userSlice = createSlice({
       state.isAuth = true;
       state.error = null;
     },
- 
+
     logoutUser: (state) => {
       state.user = initialState.user;
       state.error = initialState.error;
@@ -124,7 +123,7 @@ export const userSlice = createSlice({
         state.isAuth = initialState.isAuth;
         state.loading = initialState.loading;
       })
-      
+
       .addCase(deleteUserBook.fulfilled, (state, action) => {
         const bookIdToDelete = action.meta.arg
         state.user.userBooks = state.user.userBooks.filter(book => book.id !== bookIdToDelete);

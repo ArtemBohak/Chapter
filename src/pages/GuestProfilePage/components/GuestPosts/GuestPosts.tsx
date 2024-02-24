@@ -4,6 +4,7 @@ import {
   Avatar,
   CommentsButton,
   LikesButton,
+  Loader,
   PostComments,
   PostDate,
   PostImage,
@@ -51,7 +52,7 @@ const GuestPosts: FC = () => {
           );
         })
       ) : (
-        <div className={styles["user-post__skeleton"]}>Loading</div>
+        <div className={styles["user-post__skeleton"]}><Loader /></div>
       )}
     </div>
   );
