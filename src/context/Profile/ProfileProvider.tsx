@@ -1,12 +1,12 @@
 import { FC, useEffect, useState } from "react";
-import { socket } from "@/src/socket";
-
 // import toast from "react-hot-toast";
 
-import { ProfileContext } from "./hooks";
-import { NotificationType } from "@/src/types/app/notifications.type";
-import { IProfileProviderProps } from "./ProfileProvider.type";
+import { SocketApi } from "@/src/services";
 import { getTokenFromLC } from "@/src/utils";
+import { NotificationType } from "@/src/types/app/notifications.type";
+import { ProfileContext } from "./hooks";
+import { IProfileProviderProps } from "./ProfileProvider.type";
+
 // import { Toast } from "@/src/components";
 
 // const tempData = [
@@ -18,6 +18,8 @@ import { getTokenFromLC } from "@/src/utils";
 //     messageValue: "New post",
 //   },
 // ];
+
+const socket = new SocketApi(getTokenFromLC() + "");
 
 const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
   const [isConnected, setIsConnected] = useState(false);
@@ -48,8 +50,6 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
   // }, []);
 
   useEffect(() => {
-    if (getTokenFromLC()) socket.connect();
-
     const onConnect = () => {
       setIsConnected(true);
     };
@@ -58,13 +58,14 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
       setIsConnected(false);
     };
 
-    socket.on("connect", onConnect);
-    socket.on("disconnect", onDisconnect);
+    if (getTokenFromLC()) socket.connect();
+
+    socket.addListener("connect", onConnect);
+    socket.addListener("disconnect", onDisconnect);
 
     return () => {
-      socket.off("connect", onConnect);
-      socket.off("disconnect", onDisconnect);
-
+      socket.removeListener("connect", onConnect);
+      socket.removeListener("disconnect", onDisconnect);
       socket.disconnect();
     };
   }, []);
@@ -75,11 +76,17 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
     };
 
     if (isConnected) {
-      socket.on("subscribeNotification", onHandleSubscribe);
+      socket.addListener<string, void>(
+        "subscribeNotification",
+        onHandleSubscribe
+      );
     }
 
     return () => {
-      socket.off("subscribeNotification", onHandleSubscribe);
+      socket.removeListener<string, void>(
+        "subscribeNotification",
+        onHandleSubscribe
+      );
     };
   }, [isConnected]);
 
