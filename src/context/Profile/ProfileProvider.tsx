@@ -51,12 +51,10 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
     if (getTokenFromLC()) socket.connect();
 
     const onConnect = () => {
-      console.log("connected", socket);
       setIsConnected(true);
     };
 
     const onDisconnect = () => {
-      console.log("disconnected", socket.disconnected);
       setIsConnected(false);
     };
 
