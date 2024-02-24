@@ -10,7 +10,7 @@ import { Form, Formik } from "formik";
 import { FC, useState } from "react";
 import styles from "../AddBookModal.module.scss";
 import { validationSchema } from "./validationSchema";
-import { addNewBook, fetchFavoriteBookStatus, useAppDispatch, useAppSelector } from "@/src/redux";
+import { addNewBook, useAppDispatch, useAppSelector } from "@/src/redux";
 import { bookProps } from "./AddBookForm.type";
 import { SelectField } from "@/src/components/Fields/SelectField";
 import { useBooksPageContext } from "@/src/pages/BooksPage/context";
