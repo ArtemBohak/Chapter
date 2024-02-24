@@ -1,9 +1,10 @@
 .liked-wrapper {
-    @apply min-h-screen h-full laptop:px-8;
+  @apply min-h-screen h-full laptop:px-8;
 }
 
 .user-post {
-  @apply flex flex-col max-w-[90%] min-w-[320px] md:min-w-[700px] base:min-w-[776px] m-auto my-4 p-5 bg-[#FCFCFC] rounded-lg border border-[#C4C4C4]  py-2-xs md:py-4 laptop:py-4 gap-4;
+  @apply flex flex-col min-w-[320px] max-w-[960px] md:min-w-[700px] base:min-w-[776px] m-auto my-4 p-5 bg-[#FCFCFC] rounded-lg border border-[#C4C4C4] 
+   py-2-xs md:py-2-lg laptop:py-2-lg gap-4 px-1-xs md:px-2-lg laptop:px-5-xl;
   &__activity-icons {
     @apply flex gap-5;
   }
@@ -11,7 +12,7 @@
     @apply no-underline w-max flex items-center justify-between gap-2;
   }
   &__skeleton {
-    @apply flex flex-col w-[100%] min-w-[700px] m-auto my-4 bg-[#FCFCFC] rounded-lg border border-[#C4C4C4] h-full;
+    @apply flex flex-col w-[100%] min-w-[700px]  m-auto my-4 bg-[#FCFCFC] rounded-lg border border-[#C4C4C4] h-full;
   }
   &__image {
     @apply max-w-full;

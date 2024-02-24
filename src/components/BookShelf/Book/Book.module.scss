@@ -8,7 +8,7 @@
         outline: none !important;
     }
     & .book-name {
-        @apply h-[20%] text-xs text-center;
+        @apply h-[20%] text-xs text-center hyphens-auto text-wrap;
         outline: none !important;
     }
 }

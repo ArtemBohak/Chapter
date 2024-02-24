@@ -5,8 +5,9 @@ export type FollowerProps = {
         avatarUrl: string;
         firstName: string;
         lastName: string;
-        
+        isSubscribed: boolean;
+
     }
     loadingStates: {}[] | [{}];
-   unsubscribe: (id: number) => Promise<void>;
+    unsubscribe: (id: number) => Promise<void>;
 }

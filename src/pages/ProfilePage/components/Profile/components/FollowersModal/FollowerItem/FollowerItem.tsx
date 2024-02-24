@@ -33,10 +33,11 @@ const FollowerItem: FC<FollowerProps> = ({ follower, loadingStates, unsubscribe 
       <UIbutton
         isLoading={loadingStates[follower.id] && true}
         onClick={() => unsubscribe(follower.id)}
+        variant={follower.isSubscribed ? "outlined" : "contained"}
         size='small'
         dataAutomation={'Unfollow-button'}
       >
-        {loadingStates[follower.id] ? 'Unfollowing...' : 'Unfollow'}
+        {loadingStates[follower.id] ? 'Unfollowing...' : follower.isSubscribed ? "Unfollow" : "Follow"}
       </UIbutton>
     </li>
   )
