@@ -4,15 +4,15 @@ class SocketApi {
   private readonly url = import.meta.env.VITE_SOCKET_BASE_URL;
   private socket: Socket;
 
-  constructor(private token: string) {
+  constructor(private token: string | null) {
     this.socket = io(this.url, {
       autoConnect: false,
-      extraHeaders: { Authorization: this.token },
+      extraHeaders: { Authorization: this.token + "" },
     });
   }
 
-  connect() {
-    this.socket.connect();
+  connect(isAuth: boolean) {
+    if (this.token && isAuth) this.socket.connect();
   }
 
   disconnect() {

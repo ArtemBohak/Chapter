@@ -6,6 +6,7 @@ import { getTokenFromLC } from "@/src/utils";
 import { NotificationType } from "@/src/types/app/notifications.type";
 import { ProfileContext } from "./hooks";
 import { IProfileProviderProps } from "./ProfileProvider.type";
+import { useAppSelector } from "@/src/redux";
 
 // import { Toast } from "@/src/components";
 
@@ -18,10 +19,10 @@ import { IProfileProviderProps } from "./ProfileProvider.type";
 //     messageValue: "New post",
 //   },
 // ];
-
-const socket = new SocketApi(getTokenFromLC() + "");
+const socket = new SocketApi(getTokenFromLC());
 
 const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
+  const isAuth = useAppSelector((state) => state.userSlice.isAuth);
   const [isConnected, setIsConnected] = useState(false);
 
   const [headerAddPostBtnIsDisabled, setHeaderAddPostBtnIsDisabled] =
@@ -58,7 +59,7 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
       setIsConnected(false);
     };
 
-    if (getTokenFromLC()) socket.connect();
+    socket.connect(isAuth);
 
     socket.addListener("connect", onConnect);
     socket.addListener("disconnect", onDisconnect);
@@ -68,7 +69,8 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
       socket.removeListener("disconnect", onDisconnect);
       socket.disconnect();
     };
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAuth]);
 
   useEffect(() => {
     const onHandleSubscribe = (e: string) => {
