@@ -1,5 +1,5 @@
 .notifications {
-  @apply pt-[88px] pb-[20px] md:pt-[108px] md:pb-[30px] base:pt-[168px] base:pb-4-xs base:bg-grey-1030;
+  @apply min-h-screen pt-[88px] pb-[20px] md:pt-[108px] md:pb-[30px] base:pt-[168px] base:pb-4-xs base:bg-grey-1030;
 
   &__wrapper {
     @apply px-2-md md:px-4-xl;
