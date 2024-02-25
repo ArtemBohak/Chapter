@@ -1,13 +1,22 @@
 import { io, Socket } from "socket.io-client";
 
 class SocketApi {
+  private static instance: SocketApi;
+  private socket: Socket | undefined = undefined;
   private readonly url = import.meta.env.VITE_SOCKET_BASE_URL;
-  private readonly socket: Socket;
 
-  constructor(private token: string | null) {
+  constructor() {
+    if (!SocketApi.instance) {
+      SocketApi.instance = this;
+    }
+
+    return SocketApi.instance;
+  }
+
+  init(token: string) {
     this.socket = io(this.url, {
       autoConnect: false,
-      extraHeaders: { Authorization: this.token + "" },
+      extraHeaders: { Authorization: token },
     });
   }
 
@@ -16,19 +25,19 @@ class SocketApi {
   }
 
   connect(isAuth: boolean) {
-    if (this.token && isAuth) this.socket.connect();
+    if (isAuth) this.socket?.connect();
   }
 
   disconnect() {
-    this.socket.disconnect();
+    this.socket?.disconnect();
   }
 
   addListener<T>(event: string, cb: (e: T) => void) {
-    this.socket.on(event, cb);
+    this.socket?.on(event, cb);
   }
 
   removeListener<T>(event: string, cb: (e: T) => void) {
-    this.socket.off(event, cb);
+    this.socket?.off(event, cb);
   }
 }
 

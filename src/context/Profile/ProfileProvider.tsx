@@ -19,7 +19,7 @@ const tempData = {
   lastName: "Downroy",
   messageValue: "New post",
 };
-const socket = new SocketApi(getTokenFromLC());
+const socket = new SocketApi();
 
 const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
   const isAuth = useAppSelector((state) => state.userSlice.isAuth);
@@ -43,7 +43,10 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
       setIsConnected(false);
     };
 
-    socket.connect(isAuth);
+    if (getTokenFromLC()) {
+      socket.init(getTokenFromLC() + "");
+      socket.connect(isAuth);
+    }
 
     socket.addListener("connect", onConnect);
     socket.addListener("disconnect", onDisconnect);
@@ -53,7 +56,6 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
       socket.removeListener("disconnect", onDisconnect);
       socket.disconnect();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuth]);
 
   useEffect(() => {
