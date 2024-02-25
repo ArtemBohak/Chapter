@@ -66,16 +66,6 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
         messageValue: e,
       };
       setNotifications((state) => [...state, obj]);
-
-      toast.custom((t) => (
-        <Toast
-          toastId={t.id}
-          setNotifications={setNotifications}
-          classNames={styles["toast"]}
-          messageClassNames={styles["toast__message"]}
-          {...obj}
-        />
-      ));
     };
 
     if (isConnected) {
@@ -90,6 +80,20 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
   useEffect(() => {
     setUnreadMessage(notifications.length);
   }, [notifications.length]);
+
+  useEffect(() => {
+    notifications.forEach((el) =>
+      toast.custom((t) => (
+        <Toast
+          toastId={t.id}
+          setNotifications={setNotifications}
+          classNames={styles["toast"]}
+          messageClassNames={styles["toast__message"]}
+          {...el}
+        />
+      ))
+    );
+  }, [notifications]);
 
   return (
     <ProfileContext.Provider
