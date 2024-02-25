@@ -9,9 +9,9 @@ type SetBoolean = Dispatch<SetStateAction<boolean>>;
 
 export type ProfileContextType = {
   headerAddPostBtnIsDisabled: boolean;
-  unreadMessage: boolean;
+  unreadMessage: number;
   notifications: Array<NotificationType>;
   setNotifications: Dispatch<SetStateAction<Array<NotificationType>>>;
   setHeaderAddPostBtnIsDisabled: SetBoolean;
-  setUnreadMessage: SetBoolean;
+  setUnreadMessage: Dispatch<SetStateAction<number>>;
 };

@@ -1,4 +1,4 @@
-.notification {
+.notifications {
   @apply pt-[88px] pb-[20px] md:pt-[108px] md:pb-[30px] base:pt-[168px] base:pb-4-xs base:bg-grey-1030;
 
   &__wrapper {
@@ -16,4 +16,8 @@
 
 .notify-list {
   @apply flex flex-col gap-1-sm;
+}
+
+.toast {
+  @apply py-2-xs px-4-xs md:flex md:justify-between md:items-center;
 }

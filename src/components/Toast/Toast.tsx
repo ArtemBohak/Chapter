@@ -5,41 +5,42 @@ import styles from "./Toast.module.scss";
 
 import defaultUserAvatar from "@/src/assets/SVG/default-user-avatar.svg";
 import toast from "react-hot-toast";
-import { useProfileContext } from "@/src/context";
 
 const Toast: FC<ToastProps> = ({
+  setNotifications,
   id,
   firstName,
   lastName,
   avatarUrl,
   messageValue,
   classNames,
+  messageClassNames,
   toastId,
 }) => {
-  const { setNotifications } = useProfileContext();
-
   const onHandleClick = () => {
-    toast.dismiss(toastId);
+    toastId && toast.dismiss(toastId);
     setNotifications((state) => state.filter((el) => el.id !== id));
   };
   return (
-    <div
+    <button
       key={id}
       className={`${styles["toast"]} ${classNames}`}
       onClick={onHandleClick}
     >
-      <div className={styles["toast__user-data"]}>
+      <span className={styles["toast__user-data"]}>
         <img
           src={avatarUrl ? avatarUrl : defaultUserAvatar}
           width={40}
           height={40}
         />
-        <p>
+        <span>
           {firstName} {lastName}
-        </p>
-      </div>
-      <p className={styles["toast__message"]}>{messageValue}</p>
-    </div>
+        </span>
+      </span>
+      <span className={`${styles["toast__message"]} ${messageClassNames}`}>
+        {messageValue}
+      </span>
+    </button>
   );
 };
 

@@ -1,6 +1,7 @@
-import { NotificationType } from "@/src/types/app/notifications.type";
+import { NotificationType } from "@/src/types";
+import { Dispatch, SetStateAction } from "react";
 
 export type ToastProps = {
-  classNames?: string;
-  toastId: string;
-} & Required<NotificationType>;
+  setNotifications: Dispatch<SetStateAction<Array<NotificationType>>>;
+  messageClassNames?: string;
+} & NotificationType;

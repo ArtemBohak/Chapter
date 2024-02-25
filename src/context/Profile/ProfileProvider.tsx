@@ -1,24 +1,24 @@
 import { FC, useEffect, useState } from "react";
-// import toast from "react-hot-toast";
+import toast from "react-hot-toast";
 
 import { SocketApi } from "@/src/services";
 import { getTokenFromLC } from "@/src/utils";
-import { NotificationType } from "@/src/types/app/notifications.type";
+import { useAppSelector } from "@/src/redux";
+import { NotificationType } from "@/src/types";
 import { ProfileContext } from "./hooks";
 import { IProfileProviderProps } from "./ProfileProvider.type";
-import { useAppSelector } from "@/src/redux";
 
-// import { Toast } from "@/src/components";
+import styles from "./ProfileProvider.module.scss";
 
-// const tempData = [
-//   {
-//     id: 0,
-//     avatarUrl: null,
-//     firstName: "Mattew",
-//     lastName: "Downroy",
-//     messageValue: "New post",
-//   },
-// ];
+import { Toast } from "@/src/components";
+
+const tempData = {
+  id: 0,
+  avatarUrl: null,
+  firstName: "Mattew",
+  lastName: "Downroy",
+  messageValue: "New post",
+};
 const socket = new SocketApi(getTokenFromLC());
 
 const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
@@ -27,28 +27,12 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
 
   const [headerAddPostBtnIsDisabled, setHeaderAddPostBtnIsDisabled] =
     useState(false);
-  const [notifications, setNotifications] = useState<Array<NotificationType>>(
-    []
-  );
 
-  const [unreadMessage, setUnreadMessage] = useState<boolean>(
-    !!notifications.length
-  );
+  const [notifications, setNotifications] = useState<Array<NotificationType>>([
+    tempData,
+  ]);
 
-  // useEffect(() => {
-  //   setNotifications(tempData);
-
-  //   toast.custom((t) => (
-  //     <Toast
-  //       avatarUrl={tempData[0].avatarUrl}
-  //       id={tempData[0].id}
-  //       firstName={tempData[0].firstName}
-  //       lastName={tempData[0].lastName}
-  //       toastId={t.id}
-  //       messageValue={tempData[0].messageValue}
-  //     />
-  //   ));
-  // }, []);
+  const [unreadMessage, setUnreadMessage] = useState(notifications.length);
 
   useEffect(() => {
     const onConnect = () => {
@@ -74,7 +58,24 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
 
   useEffect(() => {
     const onHandleSubscribe = (e: string) => {
-      console.log(e);
+      const obj: NotificationType = {
+        avatarUrl: tempData.avatarUrl,
+        id: tempData.id,
+        firstName: tempData.firstName,
+        lastName: tempData.lastName,
+        messageValue: e,
+      };
+      setNotifications((state) => [...state, obj]);
+
+      toast.custom((t) => (
+        <Toast
+          toastId={t.id}
+          setNotifications={setNotifications}
+          classNames={styles["toast"]}
+          messageClassNames={styles["toast__message"]}
+          {...obj}
+        />
+      ));
     };
 
     if (isConnected) {
@@ -85,6 +86,10 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
       socket.removeListener<string>("subscribeNotification", onHandleSubscribe);
     };
   }, [isConnected]);
+
+  useEffect(() => {
+    setUnreadMessage(notifications.length);
+  }, [notifications.length]);
 
   return (
     <ProfileContext.Provider

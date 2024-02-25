@@ -49,7 +49,7 @@ const NavigationList: FC<NavigationListProps> = ({
               className={cn("navigation-list__link", {
                 "current-page": navItem.path === location.pathname,
                 "unread-message":
-                  navItem.name === "Notification" && unreadMessage,
+                  navItem.name === "Notification" && unreadMessage > 0,
               })}
               onClick={handleClickNavLink}
             >

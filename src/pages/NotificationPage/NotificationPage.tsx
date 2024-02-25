@@ -3,7 +3,9 @@ import { FC } from "react";
 import { useProfileContext } from "@/src/context";
 import { useAppSelector } from "@/src/redux";
 import styles from "./NotificationPage.module.scss";
-import { Notification, Switch } from "./components";
+
+import { Toast } from "@/src/components";
+import { Switch } from "./components";
 
 const NotificationPage: FC = () => {
   const { notifications, setNotifications } = useProfileContext();
@@ -15,8 +17,8 @@ const NotificationPage: FC = () => {
   } = useAppSelector((state) => state.userSlice.user);
 
   return (
-    <section className={styles["notification"]}>
-      <div className={styles["notification__wrapper"]}>
+    <section className={styles["notifications"]}>
+      <div className={styles["notifications__wrapper"]}>
         <div className={styles["container"]}>
           <div className={styles["sets-list"]}>
             <Switch
@@ -43,7 +45,11 @@ const NotificationPage: FC = () => {
           <ul className={styles["notify-list"]}>
             {notifications.map((el) => (
               <li key={el.id}>
-                <Notification {...el} setNotifications={setNotifications} />
+                <Toast
+                  {...el}
+                  setNotifications={setNotifications}
+                  classNames={styles["toast"]}
+                />
               </li>
             ))}
           </ul>
