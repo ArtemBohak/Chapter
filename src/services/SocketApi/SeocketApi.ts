@@ -2,13 +2,17 @@ import { io, Socket } from "socket.io-client";
 
 class SocketApi {
   private readonly url = import.meta.env.VITE_SOCKET_BASE_URL;
-  readonly socket: Socket;
+  private readonly socket: Socket;
 
   constructor(private token: string | null) {
     this.socket = io(this.url, {
       autoConnect: false,
       extraHeaders: { Authorization: this.token + "" },
     });
+  }
+
+  get socketInstance() {
+    return this.socket;
   }
 
   connect(isAuth: boolean) {
