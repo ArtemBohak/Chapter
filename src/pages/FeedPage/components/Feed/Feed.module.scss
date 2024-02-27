@@ -1,6 +1,6 @@
 .item {
   &-feed {
-    @apply bg-[#FCFCFC] rounded-lg border border-[#C4C4C4]  py-1-lg md:py-3-lg laptop:py-3-lg;
+    @apply bg-[#FCFCFC] md:rounded-lg border border-[#C4C4C4] py-1-lg md:py-3-lg laptop:py-3-lg;
 
     &__wrapper {
       @apply px-1-lg md:px-2-lg laptop:px-5-xl;

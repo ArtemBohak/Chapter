@@ -1,10 +1,6 @@
 .feed-comments {
   &__text-wrapper {
     @apply flex justify-between mb-1-md md:mb-2-md;
-
-    &.is-shown {
-      @apply justify-center md:justify-between;
-    }
   }
 
   &__content-wrapper {

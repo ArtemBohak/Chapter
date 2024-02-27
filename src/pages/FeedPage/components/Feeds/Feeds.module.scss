@@ -1,5 +1,5 @@
 .feeds-list {
-  @apply flex flex-col gap-1-sm md:gap-2-xs laptop:gap-2-md;
+  @apply flex flex-col gap-0-sm md:gap-2-xs laptop:gap-2-md;
 
   &-enter {
     @apply scale-0 opacity-0;
