@@ -1,5 +1,4 @@
 import { FC, useEffect, useState } from "react";
-import toast from "react-hot-toast";
 
 import { SocketApi } from "@/src/services";
 import { getTokenFromLC } from "@/src/utils";
@@ -7,10 +6,6 @@ import { useAppSelector } from "@/src/redux";
 import { NotificationType } from "@/src/types";
 import { ProfileContext } from "./hooks";
 import { IProfileProviderProps } from "./ProfileProvider.type";
-
-import styles from "./ProfileProvider.module.scss";
-
-import { Toast } from "@/src/components";
 
 const tempData = {
   id: 0,
@@ -82,20 +77,6 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
   useEffect(() => {
     setUnreadMessage(notifications.length);
   }, [notifications.length]);
-
-  useEffect(() => {
-    notifications.forEach((el) =>
-      toast.custom((t) => (
-        <Toast
-          toastId={t.id}
-          setNotifications={setNotifications}
-          classNames={styles["toast"]}
-          messageClassNames={styles["toast__message"]}
-          {...el}
-        />
-      ))
-    );
-  }, [notifications]);
 
   return (
     <ProfileContext.Provider

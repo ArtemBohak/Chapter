@@ -4,7 +4,6 @@ import { ToastProps } from "./Toast.type";
 import styles from "./Toast.module.scss";
 
 import defaultUserAvatar from "@/src/assets/SVG/default-user-avatar.svg";
-import toast from "react-hot-toast";
 
 const Toast: FC<ToastProps> = ({
   setNotifications,
@@ -15,10 +14,8 @@ const Toast: FC<ToastProps> = ({
   messageValue,
   classNames,
   messageClassNames,
-  toastId,
 }) => {
   const onHandleClick = () => {
-    toastId && toast.dismiss(toastId);
     setNotifications((state) => state.filter((el) => el.id !== id));
   };
   return (

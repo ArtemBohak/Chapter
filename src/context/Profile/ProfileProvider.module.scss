@@ -1,8 +1,0 @@
-.toast {
-  @apply w-full max-w-[220px] py-2-xs px-0-md flex flex-col justify-center items-center;
-  box-shadow: 0px 0px 10px 0px #f69400;
-
-  &__message {
-    @apply text-center;
-  }
-}
