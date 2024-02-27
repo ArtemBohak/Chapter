@@ -1,6 +1,7 @@
-import { NotificationType, SocketEventsType } from "@/src/types";
 import { Dispatch, SetStateAction, createRef } from "react";
 import { io, Socket } from "socket.io-client";
+
+import { NotificationType, SocketEventsType } from "@/src/types";
 
 class SocketApi {
   private static instance: SocketApi;
