@@ -177,7 +177,11 @@ const PostComments: FC<PostCommentsProps> = ({
 
   return (
     <div className={styles["feed-comments"]}>
-      <div className={styles["feed-comments__text-wrapper"]}>
+      <div
+        className={`${styles["feed-comments__text-wrapper"]} ${
+          commentsIsHide ? styles["is-shown"] : ""
+        }`}
+      >
         {renderTogglerBtn}
         {renderFilterBtn}
       </div>

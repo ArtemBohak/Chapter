@@ -6,7 +6,7 @@
       @apply px-1-lg md:px-2-lg laptop:px-5-xl;
 
       &--top {
-        @apply md:border-b md:border-b-grey-1010 pb-1-sm md:pb-2-md;
+        @apply md:border-b md:border-b-grey-1010 md:pb-2-md;
 
         &::after {
           content: "";
