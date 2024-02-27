@@ -39,6 +39,7 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
 
     const onDisconnect = () => {
       setIsConnected(false);
+      socket.connect(isAuth);
     };
 
     if (getTokenFromLC()) {
@@ -57,19 +58,10 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
   }, [isAuth]);
 
   useEffect(() => {
-    const onHandleSubscribe = (e: string) => {
-      const newNotifyObj: NotificationType = {
-        avatarUrl: tempData.avatarUrl,
-        id: tempData.id,
-        firstName: tempData.firstName,
-        lastName: tempData.lastName,
-        messageValue: e,
-        eventType: SocketEvents.subscribe,
-        nodeRef: createRef(),
-        keyId: Date.now(),
-      };
-      setNotifications((state) => [newNotifyObj, ...state]);
-    };
+    const onHandleSubscribe = socket.handleEvent<string>(
+      SocketEvents.subscribe,
+      setNotifications
+    );
 
     if (isConnected) {
       socket.addListener<string>(SocketEvents.subscribe, onHandleSubscribe);

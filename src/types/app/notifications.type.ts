@@ -6,10 +6,12 @@ export enum SocketEvents {
   post = "postNotification",
 }
 
+export type SocketEventsType = SocketEvents.subscribe | SocketEvents.post;
+
 export type NotificationType = {
   classNames?: string;
   messageValue: string;
-  eventType: SocketEvents.subscribe | SocketEvents.post;
+  eventType: SocketEventsType;
   nodeRef: MutableRefObject<null> | RefObject<HTMLAnchorElement>;
   keyId: string | number;
 } & Required<Pick<IUser, "avatarUrl" | "firstName" | "id" | "lastName">>;
