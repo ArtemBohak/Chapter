@@ -12,6 +12,7 @@ import {
   emojiRegex,
   getCookies,
   getDataFromLS,
+  nickNameMinLength,
   removeDataFromLS,
 } from "@/src/utils";
 
@@ -46,15 +47,11 @@ const FormCreateAccount: FC = () => {
   const [email] = getCookies(keysValue.EMAIL);
 
   async function handleNicknameChange(nickname: string) {
+    if (nickname.trim().length < nickNameMinLength) return;
     try {
       setNkErrorMessage(null);
-      if (nickname.trim().length >= 8) {
-        setNkIsLoading(true);
-        await api.post(
-          `${EndpointsEnum.NICKNAME_VALIDATION}/${nickname}`,
-          null
-        );
-      }
+      setNkIsLoading(true);
+      await api.post(`${EndpointsEnum.NICKNAME_VALIDATION}/${nickname}`, null);
     } catch (e) {
       if (e instanceof AxiosError) {
         if (e.response?.data.error === apiErrorMessage.NICKNAME_IN_USE) {
