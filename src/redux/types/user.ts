@@ -20,10 +20,6 @@ export interface IUserStore {
   myFollowersCount: number | null;
   myFollowingCount: number | null;
   userBooks: Array<IBook> | [];
-  newPostNotification: boolean;
-  subscriptionNotification: boolean;
-  likesNotification: boolean;
-  commentsNotification: boolean;
 }
 
 export type UserBooks = {

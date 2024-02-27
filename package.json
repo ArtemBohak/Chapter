@@ -16,7 +16,7 @@
     "@greatsumini/react-facebook-login": "^3.3.3",
     "@react-oauth/google": "^0.11.1",
     "@reduxjs/toolkit": "^1.9.5",
-    "axios": "^1.4.0",
+    "axios": "^1.6.7",
     "classnames": "^2.3.2",
     "emoji-mart": "^5.5.2",
     "formik": "^2.4.2",
