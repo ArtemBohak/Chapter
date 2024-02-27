@@ -3,16 +3,17 @@ import { FC, useEffect, useState } from "react";
 import { SocketApi } from "@/src/services";
 import { getTokenFromLC } from "@/src/utils";
 import { useAppSelector } from "@/src/redux";
-import { NotificationType } from "@/src/types";
+import { NotificationType, SocketEvents } from "@/src/types";
 import { ProfileContext } from "./hooks";
 import { IProfileProviderProps } from "./ProfileProvider.type";
 
-const tempData = {
+const tempData: NotificationType = {
   id: 0,
   avatarUrl: null,
   firstName: "Mattew",
   lastName: "Downroy",
   messageValue: "New post",
+  eventType: SocketEvents.post,
 };
 const socket = new SocketApi();
 
@@ -61,16 +62,17 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
         firstName: tempData.firstName,
         lastName: tempData.lastName,
         messageValue: e,
+        eventType: SocketEvents.subscribe,
       };
       setNotifications((state) => [newNotify, ...state]);
     };
 
     if (isConnected) {
-      socket.addListener<string>("subscribeNotification", onHandleSubscribe);
+      socket.addListener<string>(SocketEvents.subscribe, onHandleSubscribe);
     }
 
     return () => {
-      socket.removeListener<string>("subscribeNotification", onHandleSubscribe);
+      socket.removeListener<string>(SocketEvents.subscribe, onHandleSubscribe);
     };
   }, [isConnected]);
 

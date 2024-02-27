@@ -1,6 +1,8 @@
 import { FC } from "react";
+import { Link } from "react-router-dom";
 
 import { ToastProps } from "./Toast.type";
+import { genLink } from "./utils";
 import styles from "./Toast.module.scss";
 
 import defaultUserAvatar from "@/src/assets/SVG/default-user-avatar.svg";
@@ -13,13 +15,15 @@ const Toast: FC<ToastProps> = ({
   avatarUrl,
   messageValue,
   classNames,
+  eventType,
   messageClassNames,
 }) => {
   const onHandleClick = () => {
     setNotifications((state) => state.filter((el) => el.id !== id));
   };
   return (
-    <button
+    <Link
+      to={genLink(eventType, id)}
       key={id}
       className={`${styles["toast"]} ${classNames}`}
       onClick={onHandleClick}
@@ -37,7 +41,7 @@ const Toast: FC<ToastProps> = ({
       <span className={`${styles["toast__message"]} ${messageClassNames}`}>
         {messageValue}
       </span>
-    </button>
+    </Link>
   );
 };
 
