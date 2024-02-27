@@ -55,14 +55,14 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
 
   useEffect(() => {
     const onHandleSubscribe = (e: string) => {
-      const obj: NotificationType = {
+      const newNotify: NotificationType = {
         avatarUrl: tempData.avatarUrl,
         id: tempData.id,
         firstName: tempData.firstName,
         lastName: tempData.lastName,
         messageValue: e,
       };
-      setNotifications((state) => [...state, obj]);
+      setNotifications((state) => [newNotify, ...state]);
     };
 
     if (isConnected) {

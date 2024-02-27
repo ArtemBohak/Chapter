@@ -12,19 +12,17 @@ const NotificationPage: FC = () => {
   return (
     <section className={styles["notifications"]}>
       <div className={styles["notifications__wrapper"]}>
-        <div className={styles["container"]}>
-          <ul className={styles["notify-list"]}>
-            {notifications.map((el) => (
-              <li key={el.id}>
-                <Toast
-                  {...el}
-                  setNotifications={setNotifications}
-                  classNames={styles["toast"]}
-                />
-              </li>
-            ))}
-          </ul>
-        </div>
+        <ul className={styles["notify-list"]}>
+          {notifications.map((el) => (
+            <li key={el.id}>
+              <Toast
+                {...el}
+                setNotifications={setNotifications}
+                classNames={styles["toast"]}
+              />
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );
