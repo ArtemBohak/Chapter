@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, createRef, useEffect, useState } from "react";
 
 import { SocketApi } from "@/src/services";
 import { getTokenFromLC } from "@/src/utils";
@@ -14,6 +14,8 @@ const tempData: NotificationType = {
   lastName: "Downroy",
   messageValue: "New post",
   eventType: SocketEvents.post,
+  nodeRef: createRef(),
+  keyId: Date.now(),
 };
 const socket = new SocketApi();
 
@@ -56,15 +58,17 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
 
   useEffect(() => {
     const onHandleSubscribe = (e: string) => {
-      const newNotify: NotificationType = {
+      const newNotifyObj: NotificationType = {
         avatarUrl: tempData.avatarUrl,
         id: tempData.id,
         firstName: tempData.firstName,
         lastName: tempData.lastName,
         messageValue: e,
         eventType: SocketEvents.subscribe,
+        nodeRef: createRef(),
+        keyId: Date.now(),
       };
-      setNotifications((state) => [newNotify, ...state]);
+      setNotifications((state) => [newNotifyObj, ...state]);
     };
 
     if (isConnected) {

@@ -1,3 +1,4 @@
+import { MutableRefObject, RefObject } from "react";
 import { IUser } from "..";
 
 export enum SocketEvents {
@@ -9,4 +10,6 @@ export type NotificationType = {
   classNames?: string;
   messageValue: string;
   eventType: SocketEvents.subscribe | SocketEvents.post;
-} & Required<Pick<IUser, "avatarUrl" | "id" | "firstName" | "lastName">>;
+  nodeRef: MutableRefObject<null> | RefObject<HTMLAnchorElement>;
+  keyId: string | number;
+} & Required<Pick<IUser, "avatarUrl" | "firstName" | "id" | "lastName">>;

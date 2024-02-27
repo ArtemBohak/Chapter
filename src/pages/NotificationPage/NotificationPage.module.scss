@@ -6,14 +6,26 @@
   }
 }
 
-.sets-list {
-  @apply p-2-xs bg-[#fafafa] rounded-md flex flex-col mb-2-md gap-4-xs;
-}
-
-.notify-list {
+.notifications__list {
   @apply flex flex-col gap-1-sm;
+
+  &-enter {
+    @apply scale-0 opacity-0;
+
+    &-active {
+      @apply opacity-100 scale-100 transition-all duration-300;
+    }
+  }
+
+  &-exit {
+    @apply scale-100 opacity-100;
+
+    &-active {
+      @apply scale-0 opacity-0 transition-all duration-300;
+    }
+  }
 }
 
-.toast {
+.notification {
   @apply py-2-xs px-4-xs md:flex md:justify-between md:items-center;
 }

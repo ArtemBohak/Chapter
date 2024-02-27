@@ -17,6 +17,7 @@ const Toast: FC<ToastProps> = ({
   classNames,
   eventType,
   messageClassNames,
+  nodeRef,
 }) => {
   const onHandleClick = () => {
     setNotifications((state) => state.filter((el) => el.id !== id));
@@ -24,9 +25,9 @@ const Toast: FC<ToastProps> = ({
   return (
     <Link
       to={genLink(eventType, id)}
-      key={id}
       className={`${styles["toast"]} ${classNames}`}
       onClick={onHandleClick}
+      ref={nodeRef}
     >
       <span className={styles["toast__user-data"]}>
         <img
