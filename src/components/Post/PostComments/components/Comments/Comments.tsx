@@ -85,7 +85,7 @@ const Comments: FC<CommentsProps> = ({
     return (
       <>
         {!counter ? (
-          <div ref={startLoaderRef} className="visually-hidden"></div>
+          <div ref={startLoaderRef} className="invisible"></div>
         ) : null}
         <ul className={styles["feed__list"]}>
           {sortedComments.map((i) => {

@@ -38,7 +38,6 @@ const Comment: FC<CommentProps> = ({
 
   return (
     <>
-      {" "}
       <div className={styles["comment"]}>
         <Link to={navId} className={styles["comment__image"]}>
           <img src={avatarUrl} alt="user avatar" width={44} height={44} />
@@ -92,11 +91,7 @@ const Comment: FC<CommentProps> = ({
         </div>
       </div>
       {loaderRef && pageValue ? (
-        <input
-          className="visually-hidden"
-          ref={loaderRef}
-          defaultValue={pageValue}
-        />
+        <input className="invisible" ref={loaderRef} defaultValue={pageValue} />
       ) : null}
     </>
   );

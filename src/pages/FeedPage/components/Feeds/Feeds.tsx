@@ -61,7 +61,7 @@ const Feeds: FC = () => {
 
   return (
     <>
-      <div ref={startLoaderRef} className="visually-hidden"></div>
+      <div ref={startLoaderRef} className="invisible"></div>
       <TransitionGroup component={"ul"} className={styles["feeds-list"]}>
         {feeds.map((i) => (
           <Animation
