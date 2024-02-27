@@ -1,10 +1,15 @@
+import { FC } from "react";
 import ContentLoader, { IContentLoaderProps } from "react-content-loader";
 import { JSX } from "react/jsx-runtime";
+
 import styles from "./PostSkeleton.module.scss";
 
-const PostSkeleton = (props: JSX.IntrinsicAttributes & IContentLoaderProps) => (
+const PostSkeleton: FC<JSX.IntrinsicAttributes & IContentLoaderProps> = ({
+  className,
+  ...props
+}) => (
   <ContentLoader
-    className={styles["post-skeleton__wrapper"]}
+    className={`${styles["post-skeleton__wrapper"]} ${className}`}
     speed={4}
     width={776}
     viewBox="0 0 776 800"

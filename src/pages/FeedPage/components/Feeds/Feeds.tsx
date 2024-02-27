@@ -57,7 +57,8 @@ const Feeds: FC = () => {
     exitActive: styles["feeds-list-exit-active"],
   };
 
-  if (!feeds.length && isLoad) return <PostSkeleton />;
+  if (!feeds.length && isLoad)
+    return <PostSkeleton className={styles["skeleton"]} />;
 
   return (
     <>
