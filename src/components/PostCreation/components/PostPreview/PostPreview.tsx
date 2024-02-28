@@ -51,7 +51,7 @@ const PostPreview: FC<PostPreviewProps> = ({
         const files = new FilesService(id, file, undefined, setErrorBoundary);
         const res = await files.upload({
           overwrite: true,
-          transform: "c_auto,g_auto",
+          transform: "c_auto,g_auto/d_chapter:placeholders:post.webp",
         });
 
         if (res.code) {
