@@ -1,10 +1,10 @@
 import { nanoid } from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
 
+import { store } from "@/src/redux";
 import { uploadFilesApi } from "@/src/axios";
 import { hashingString } from "@/src/utils";
 import { FileArgs, SetErrorType, Path } from "@/src/types";
-import { store } from "@/src/redux";
 
 import { Params } from "./Files.type";
 
