@@ -97,7 +97,7 @@ class FilesService {
     return url.split("/").slice(sliceValue).join("/").split(".")[0];
   }
 
-  async delete(url: string, sliceValue: number) {
+  async delete(url: string, sliceValue?: number) {
     try {
       const params = {
         public_id: this.getPublicIdFromUrl(url, sliceValue),
