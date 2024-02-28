@@ -1,9 +1,9 @@
-import { FC, useMemo, useRef, useState } from "react";
+import { FC, useEffect, useMemo, useRef, useState } from "react";
 import cn from "classnames";
 
 import { PostApi } from "@/src/services";
 import { PostCommentsProps } from "./PostComments.type";
-import { tabScreen } from "@/src/utils";
+import { commentsPageLimit, tabScreen } from "@/src/utils";
 import {
   useErrorBoundary,
   useGetScreenSize,
@@ -48,6 +48,20 @@ const PostComments: FC<PostCommentsProps> = ({
 
   const setErrorBoundary = useErrorBoundary();
 
+  const commentsApi = useMemo(
+    () =>
+      new PostApi(
+        setErrorBoundary,
+        undefined,
+        setAllComments,
+        undefined,
+        postId,
+        commentsPageLimit
+      ),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [postId]
+  );
+
   const sortedComments = useMemo(
     () =>
       comments.sort((a, b) => {
@@ -66,14 +80,7 @@ const PostComments: FC<PostCommentsProps> = ({
 
   const onHandlePopupButtonClick = async () => {
     if (!showAllComments) {
-      if (page)
-        await new PostApi(
-          setErrorBoundary,
-          undefined,
-          setAllComments,
-          undefined,
-          postId
-        );
+      // await commentsApi.get();
       setShowAllComments(true);
     } else {
       setAllComments([]);
@@ -81,6 +88,10 @@ const PostComments: FC<PostCommentsProps> = ({
     }
     setShowFilterPopup(false);
   };
+
+  useEffect(() => {
+    if (page) commentsApi.get(page);
+  }, [commentsApi, page]);
 
   const togglerBtnClassNames = cn(
     styles["feed-comments__button"],
