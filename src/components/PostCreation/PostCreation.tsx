@@ -86,6 +86,7 @@ const PostCreation: FC<PostCreationProps> = ({
             caption={caption}
             setFormIsOpen={setFormIsOpen}
             setIsOpen={setIsOpen}
+            {...props}
           />
         )}
       </div>

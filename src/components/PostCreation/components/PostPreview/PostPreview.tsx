@@ -48,7 +48,7 @@ const PostPreview: FC<PostPreviewProps> = ({
       if (props.title) body.title = props.title;
 
       if (file) {
-        const res = await new FilesService(
+        const files = await new FilesService(
           id,
           file,
           undefined,
@@ -57,10 +57,13 @@ const PostPreview: FC<PostPreviewProps> = ({
           overwrite: false,
           transform: "c_auto,g_auto",
         });
-        if (res.code) {
+        if (files.code) {
           return setError(apiUiMessage.ERROR_MESSAGE);
         }
-        body.imgUrl = res?.eager[0].secure_url;
+
+        body.imgUrl = files?.eager[0].secure_url;
+
+        props.prevImgUrl && files.delete(props.prevImgUrl);
       }
 
       if (props.caption) body.caption = props.caption;
