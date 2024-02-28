@@ -15,9 +15,10 @@ const Toast: FC<ToastProps> = ({
   nodeRef,
   classNames,
   messageClassNames,
+  keyId,
 }) => {
   const onHandleClick = () => {
-    setNotifications((state) => state.filter((el) => el.user.id !== id));
+    setNotifications((state) => state.filter((el) => el.keyId !== keyId));
   };
   return (
     <Link
