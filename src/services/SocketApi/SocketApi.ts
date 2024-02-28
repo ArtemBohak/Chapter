@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, createRef } from "react";
 import { io, Socket } from "socket.io-client";
 
-import { NotificationType, SocketEventsType } from "@/src/types";
+import { INotification, NotificationType, SocketEventsType } from "@/src/types";
 
 class SocketApi {
   private static instance: SocketApi;
@@ -27,32 +27,18 @@ class SocketApi {
     return this.socket;
   }
 
-  handleEvent<T extends NotificationType | string>(
+  handleEvent<T extends INotification>(
     eventType: SocketEventsType,
     setData: Dispatch<SetStateAction<Array<NotificationType>>>
   ) {
     return function (eventData: T) {
-      let notification: NotificationType;
+      const notification: NotificationType = {
+        ...eventData,
+        eventType,
+        nodeRef: createRef(),
+        keyId: Date.now(),
+      };
 
-      if (typeof eventData === "string")
-        notification = {
-          avatarUrl: null,
-          id: 0,
-          firstName: "Mattew",
-          lastName: "Downroy",
-          messageValue: eventData,
-          eventType,
-          nodeRef: createRef(),
-          keyId: Date.now(),
-        };
-
-      if (typeof eventData === "object")
-        notification = {
-          ...eventData,
-          eventType,
-          nodeRef: createRef(),
-          keyId: Date.now(),
-        };
       setData((state) => [notification, ...state]);
     };
   }

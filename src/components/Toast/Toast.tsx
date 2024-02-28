@@ -9,18 +9,15 @@ import defaultUserAvatar from "@/src/assets/SVG/default-user-avatar.svg";
 
 const Toast: FC<ToastProps> = ({
   setNotifications,
-  id,
-  firstName,
-  lastName,
-  avatarUrl,
-  messageValue,
-  classNames,
+  user: { id, firstName, lastName, avatarUrl },
+  message,
   eventType,
-  messageClassNames,
   nodeRef,
+  classNames,
+  messageClassNames,
 }) => {
   const onHandleClick = () => {
-    setNotifications((state) => state.filter((el) => el.id !== id));
+    setNotifications((state) => state.filter((el) => el.user.id !== id));
   };
   return (
     <Link
@@ -40,7 +37,7 @@ const Toast: FC<ToastProps> = ({
         </span>
       </span>
       <span className={`${styles["toast__message"]} ${messageClassNames}`}>
-        {messageValue}
+        {message}
       </span>
     </Link>
   );

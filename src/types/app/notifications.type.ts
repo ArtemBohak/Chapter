@@ -8,10 +8,15 @@ export enum SocketEvents {
 
 export type SocketEventsType = SocketEvents.subscribe | SocketEvents.post;
 
+export interface INotification {
+  message: string;
+  user: Required<
+    Pick<IUser, "avatarUrl" | "firstName" | "lastName" | "nickName" | "id">
+  >;
+}
+
 export type NotificationType = {
-  classNames?: string;
-  messageValue: string;
   eventType: SocketEventsType;
   nodeRef: MutableRefObject<null> | RefObject<HTMLAnchorElement>;
   keyId: string | number;
-} & Required<Pick<IUser, "avatarUrl" | "firstName" | "id" | "lastName">>;
+} & INotification;
