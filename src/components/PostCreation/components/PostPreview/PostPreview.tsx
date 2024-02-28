@@ -55,11 +55,12 @@ const PostPreview: FC<PostPreviewProps> = ({
           setErrorBoundary
         ).upload({
           overwrite: false,
+          transform: "c_auto,g_auto",
         });
         if (res.code) {
           return setError(apiUiMessage.ERROR_MESSAGE);
         }
-        body.imgUrl = res.secure_url;
+        body.imgUrl = res?.eager[0].secure_url;
       }
 
       if (props.caption) body.caption = props.caption;

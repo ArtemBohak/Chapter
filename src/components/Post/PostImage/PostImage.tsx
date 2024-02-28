@@ -7,7 +7,7 @@ const PostImage: FC<PostImageProps> = ({ imgUrl }) => {
   if (imgUrl)
     return (
       <div className={styles["image"]}>
-        <img src={imgUrl} alt="post image" />
+        <img src={imgUrl} alt="post image" loading="lazy" />
       </div>
     );
 
