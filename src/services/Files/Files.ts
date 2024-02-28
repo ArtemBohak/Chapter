@@ -93,7 +93,7 @@ class FilesService {
     }
   }
 
-  protected getPublicIdFromUrl(url: string, sliceValue: number = -4) {
+  private getPublicIdFromUrl(url: string, sliceValue: number = -4) {
     return url.split("/").slice(sliceValue).join("/").split(".")[0];
   }
 
