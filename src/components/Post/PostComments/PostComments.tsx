@@ -40,6 +40,7 @@ const PostComments: FC<PostCommentsProps> = ({
   const btnRef = useRef(null);
   const commentsRef = useRef(null);
   const popupRef = useRef(null);
+  const startLoaderRef = useRef(null);
 
   const [screenSize] = useGetScreenSize();
   const isMobScreen = screenSize < tabScreen ? 16 : 26;
@@ -90,8 +91,31 @@ const PostComments: FC<PostCommentsProps> = ({
   };
 
   useEffect(() => {
-    if (page) commentsApi.get(page);
+    if (page) {
+      console.log(page);
+      // commentsApi.get(page);
+    }
   }, [commentsApi, page]);
+
+  useEffect(() => {
+    const loader = startLoaderRef.current;
+    const observer = new IntersectionObserver(([entries]) => {
+      if (entries.isIntersecting) {
+        setPage(1);
+      }
+    });
+
+    if (loader) {
+      observer.observe(loader);
+    }
+
+    return () => {
+      if (loader) {
+        observer.unobserve(loader);
+      }
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [startLoaderRef.current]);
 
   const togglerBtnClassNames = cn(
     styles["feed-comments__button"],
@@ -171,6 +195,9 @@ const PostComments: FC<PostCommentsProps> = ({
       unmountOnExit
     >
       <div ref={commentsRef}>
+        {showAllComments ? (
+          <div ref={startLoaderRef} className="invisible"></div>
+        ) : null}
         <Comments
           comments={
             showAllComments ? sortedComments : sortedComments.slice(0, 3)
