@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, useRef } from "react";
 import cn from "classnames";
 
 import { CommentsProps } from "./Comments.type";
@@ -23,23 +23,38 @@ const Comments: FC<CommentsProps> = ({
   setNickName,
   setReplyToUserId,
 }) => {
+  const startLoaderRef = useRef(null);
+
+  useEffect(() => {
+    const loader = startLoaderRef.current;
+    const observer = new IntersectionObserver(([entries]) => {
+      if (entries.isIntersecting) setPage(1);
+    });
+
+    if (loader && showAllComments) observer.observe(loader);
+
+    return () => {
+      if (loader && !showAllComments) observer.unobserve(loader);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [showAllComments]);
+
   useEffect(() => {
     comments.forEach((el) => {
       const observer = new IntersectionObserver(([entries]) => {
         if (
-          entries.isIntersecting &&
           el &&
           el.loaderRef &&
-          el.loaderRef.current
-        ) {
+          el.loaderRef.current &&
+          entries.isIntersecting
+        )
           setPage(+el.loaderRef.current.value);
-        }
       });
-      if (el && el.loaderRef && el.loaderRef.current)
+      if (el && el.loaderRef && el.loaderRef.current && showAllComments)
         observer.observe(el.loaderRef.current);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [comments]);
+  }, [comments, showAllComments]);
 
   const renderComments = (comments: Array<CommentValues>, step: number) => {
     let counter: number = 0;
@@ -61,22 +76,27 @@ const Comments: FC<CommentsProps> = ({
     const classNames = itemClassNames(counter);
 
     return (
-      <ul className={styles["feed__list"]}>
-        {sortedComments.map((i) => {
-          return (
-            <li key={i.id} className={classNames}>
-              <Comment
-                {...i}
-                setId={setId}
-                setNickName={setNickName}
-                setReplyToUserId={setReplyToUserId}
-                postId={postId}
-              />
-              {i.comments?.length ? renderComments(i.comments, 1) : null}
-            </li>
-          );
-        })}
-      </ul>
+      <>
+        {showAllComments && !counter ? (
+          <div ref={startLoaderRef} className="invisible"></div>
+        ) : null}
+        <ul className={styles["feed__list"]}>
+          {sortedComments.map((i) => {
+            return (
+              <li key={i.id} className={classNames}>
+                <Comment
+                  {...i}
+                  setId={setId}
+                  setNickName={setNickName}
+                  setReplyToUserId={setReplyToUserId}
+                  postId={postId}
+                />
+                {i.comments?.length ? renderComments(i.comments, 1) : null}
+              </li>
+            );
+          })}
+        </ul>
+      </>
     );
   };
 

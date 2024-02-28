@@ -40,7 +40,6 @@ const PostComments: FC<PostCommentsProps> = ({
   const btnRef = useRef(null);
   const commentsRef = useRef(null);
   const popupRef = useRef(null);
-  const startLoaderRef = useRef(null);
 
   const [screenSize] = useGetScreenSize();
   const isMobScreen = screenSize < tabScreen ? 16 : 26;
@@ -48,20 +47,6 @@ const PostComments: FC<PostCommentsProps> = ({
   useOutsideClick(popupRef, setShowFilterPopup, "filter-btn");
 
   const setErrorBoundary = useErrorBoundary();
-
-  const commentsApi = useMemo(
-    () =>
-      new PostApi(
-        setErrorBoundary,
-        undefined,
-        setAllComments,
-        undefined,
-        postId,
-        commentsPageLimit
-      ),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [postId]
-  );
 
   const sortedComments = useMemo(
     () =>
@@ -77,45 +62,33 @@ const PostComments: FC<PostCommentsProps> = ({
 
   const onHandleCommentsToggle = () => {
     setCommentsIsHide && setCommentsIsHide(!commentsIsHide);
+    setPage(0);
   };
 
   const onHandlePopupButtonClick = async () => {
     if (!showAllComments) {
-      // await commentsApi.get();
       setShowAllComments(true);
     } else {
       setAllComments([]);
+      setPage(0);
       setShowAllComments(false);
     }
     setShowFilterPopup(false);
   };
 
   useEffect(() => {
-    if (page) {
-      console.log(page);
-      // commentsApi.get(page);
-    }
-  }, [commentsApi, page]);
+    const commentsApi = new PostApi(
+      setErrorBoundary,
+      undefined,
+      setAllComments,
+      undefined,
+      postId,
+      commentsPageLimit
+    );
+    if (showAllComments && !commentsIsHide && page) commentsApi;
 
-  useEffect(() => {
-    const loader = startLoaderRef.current;
-    const observer = new IntersectionObserver(([entries]) => {
-      if (entries.isIntersecting) {
-        setPage(1);
-      }
-    });
-
-    if (loader) {
-      observer.observe(loader);
-    }
-
-    return () => {
-      if (loader) {
-        observer.unobserve(loader);
-      }
-    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [startLoaderRef.current]);
+  }, [commentsIsHide, page, postId, showAllComments]);
 
   const togglerBtnClassNames = cn(
     styles["feed-comments__button"],
@@ -195,9 +168,6 @@ const PostComments: FC<PostCommentsProps> = ({
       unmountOnExit
     >
       <div ref={commentsRef}>
-        {showAllComments ? (
-          <div ref={startLoaderRef} className="invisible"></div>
-        ) : null}
         <Comments
           comments={
             showAllComments ? sortedComments : sortedComments.slice(0, 3)
