@@ -52,7 +52,11 @@ const Comments: FC<CommentsProps> = ({
     return (
       <>
         {showAllComments && !counter ? (
-          <input className="invisible" ref={startLoaderRef} defaultValue={1} />
+          <input
+            className="invisible absolute"
+            ref={startLoaderRef}
+            defaultValue={1}
+          />
         ) : null}
         <ul className={styles["feed__list"]}>
           {sortedComments.map((i) => {

@@ -95,7 +95,11 @@ const Comment: FC<CommentProps> = ({
         </div>
       </div>
       {loaderRef && pageValue ? (
-        <input className="invisible" ref={loaderRef} defaultValue={pageValue} />
+        <input
+          className="invisible absolute"
+          ref={loaderRef}
+          defaultValue={pageValue}
+        />
       ) : null}
     </>
   );
