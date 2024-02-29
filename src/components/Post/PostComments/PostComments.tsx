@@ -44,9 +44,8 @@ const PostComments: FC<PostCommentsProps> = ({
   const [screenSize] = useGetScreenSize();
   const isMobScreen = screenSize < tabScreen ? 16 : 26;
 
-  useOutsideClick(popupRef, setShowFilterPopup, "filter-btn");
-
   const setErrorBoundary = useErrorBoundary();
+  useOutsideClick(popupRef, setShowFilterPopup, "filter-btn");
 
   //! Comments pagination
   // const sortedAllComments = useMemo(
@@ -89,7 +88,7 @@ const PostComments: FC<PostCommentsProps> = ({
       setShowAllComments(true);
     } else {
       setAllComments([]);
-      //! setPage(0);
+      setPage(0);
       setShowAllComments(false);
     }
     setShowFilterPopup(false);

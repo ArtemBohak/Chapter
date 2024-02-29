@@ -1,65 +1,31 @@
 import { useEffect } from "react";
 
-import { FeedsType, CommentsType } from "@/src/services/PostApi/PostApi.type";
 import {
   IntersectionsOptionsType,
   RefType,
   SetNumberType,
 } from "./useIntersections.type";
 
-export const useRefsIntersection = (
-  data: FeedsType | CommentsType,
+export const useRefIntersection = (
   nodeRef: RefType,
   setPage: SetNumberType,
-  { isShow, isLoad }: IntersectionsOptionsType = {}
+  { postsIsLoad, commentsIsShow }: IntersectionsOptionsType = {}
 ) => {
   useEffect(() => {
-    const loader = nodeRef.current;
+    const loader = nodeRef?.current;
+
     const observer = new IntersectionObserver(([entries]) => {
-      if (entries.isIntersecting && !isLoad) {
-        setPage(1);
-      }
+      if (loader && entries.isIntersecting) setPage(+loader.value);
     });
 
-    if (typeof isShow === "undefined" && loader) observer.observe(loader);
-
-    if (typeof isShow !== "undefined" && loader && isShow)
+    if (loader) {
       observer.observe(loader);
+    }
 
     return () => {
-      if (loader) observer.unobserve(loader);
+      if (loader) {
+        observer.unobserve(loader);
+      }
     };
-  }, [isLoad, isShow, nodeRef, setPage]);
-
-  useEffect(() => {
-    data.forEach((el) => {
-      const observer = new IntersectionObserver(([entries]) => {
-        if (
-          el &&
-          el.loaderRef &&
-          el.loaderRef.current &&
-          entries.isIntersecting
-        ) {
-          setPage(+el.loaderRef.current.value);
-        }
-      });
-
-      if (
-        typeof isShow !== "undefined" &&
-        el &&
-        el.loaderRef &&
-        el.loaderRef.current &&
-        isShow
-      )
-        observer.observe(el.loaderRef.current);
-
-      if (
-        typeof isShow === "undefined" &&
-        el &&
-        el.loaderRef &&
-        el.loaderRef.current
-      )
-        observer.observe(el.loaderRef.current);
-    });
-  }, [data, isShow, setPage]);
+  }, [commentsIsShow, postsIsLoad, nodeRef, setPage]);
 };

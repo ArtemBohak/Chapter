@@ -2,7 +2,7 @@ import { FC, useRef } from "react";
 import { TransitionGroup } from "react-transition-group";
 
 import { useFeedContext } from "../../context";
-import { useRefsIntersection } from "@/src/hooks";
+import { useRefIntersection } from "@/src/hooks";
 import styles from "./Feeds.module.scss";
 
 import { Animation, Loader, PostSkeleton } from "@/src/components";
@@ -13,7 +13,7 @@ const Feeds: FC = () => {
   const { feeds, isLoad, setPage } = useFeedContext();
   const startLoaderRef = useRef(null);
 
-  useRefsIntersection(feeds, startLoaderRef, setPage, { isLoad });
+  useRefIntersection(startLoaderRef, setPage, { postsIsLoad: isLoad });
 
   const transitionClassNames = {
     enter: styles["feeds-list-enter"],
@@ -27,7 +27,7 @@ const Feeds: FC = () => {
 
   return (
     <>
-      <div ref={startLoaderRef} className="invisible"></div>
+      <input className="invisible" ref={startLoaderRef} defaultValue={1} />
       <TransitionGroup component={"ul"} className={styles["feeds-list"]}>
         {feeds.map((i) => (
           <Animation

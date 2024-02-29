@@ -12,6 +12,7 @@ import { TextTagging } from "@/src/components";
 import { LikesButton, CommentsButton } from "../../../../..";
 
 import defaultAvatar from "@/src/assets/SVG/default-user-avatar.svg";
+import { useRefIntersection } from "@/src/hooks";
 
 const Comment: FC<CommentProps> = ({
   author: { avatar, firstName, lastName, nickName, id: authorId },
@@ -29,12 +30,15 @@ const Comment: FC<CommentProps> = ({
   setNickName,
   setReplyToUserId,
   setId,
+  setPage,
 }) => {
   const userId = useAppSelector((state) => state.userSlice.user.id);
 
   const navId = authorId !== userId ? `/${authorId}` : "#";
 
   const avatarUrl = avatar ? avatar : defaultAvatar;
+
+  useRefIntersection(loaderRef, setPage);
 
   return (
     <>

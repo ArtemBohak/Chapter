@@ -3,7 +3,7 @@ import cn from "classnames";
 
 import { CommentsProps } from "./Comments.type";
 import { CommentValues } from "@/src/types";
-import { useRefsIntersection } from "@/src/hooks";
+import { useRefIntersection } from "@/src/hooks";
 import styles from "./Comments.module.scss";
 
 import { Comment } from "./components";
@@ -26,8 +26,8 @@ const Comments: FC<CommentsProps> = ({
 }) => {
   const startLoaderRef = useRef(null);
 
-  useRefsIntersection(comments, startLoaderRef, setPage, {
-    isShow: showAllComments,
+  useRefIntersection(startLoaderRef, setPage, {
+    commentsIsShow: showAllComments,
   });
 
   const renderComments = (comments: Array<CommentValues>, step: number) => {
@@ -52,7 +52,7 @@ const Comments: FC<CommentsProps> = ({
     return (
       <>
         {showAllComments && !counter ? (
-          <div ref={startLoaderRef} className="invisible"></div>
+          <input className="invisible" ref={startLoaderRef} defaultValue={1} />
         ) : null}
         <ul className={styles["feed__list"]}>
           {sortedComments.map((i) => {
@@ -63,6 +63,7 @@ const Comments: FC<CommentsProps> = ({
                   setId={setId}
                   setNickName={setNickName}
                   setReplyToUserId={setReplyToUserId}
+                  setPage={setPage}
                   postId={postId}
                 />
                 {i.comments?.length ? renderComments(i.comments, 1) : null}

@@ -5,4 +5,4 @@ export { useGetScreenSize } from "./useGetScreenSize/useGetScreenSize";
 export { useErrorBoundary } from "./useErrorBoundary/useErrorBoundary";
 export { useDebouncedNav } from "./useDebouncedNav/useDebouncedNav";
 export { useHideElement } from "./useHideElement/useHideElement";
-export { useRefsIntersection } from "./useIntersections/useIntersections";
+export { useRefIntersection } from "./useIntersections/useIntersections";

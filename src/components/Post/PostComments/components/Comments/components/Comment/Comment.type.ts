@@ -6,6 +6,9 @@ export type CommentProps = {
   hideCommentBtn?: boolean;
 } & CommentValues &
   Required<
-    Pick<CommentsProps, "setId" | "setNickName" | "setReplyToUserId" | "postId">
+    Pick<
+      CommentsProps,
+      "setId" | "setNickName" | "setReplyToUserId" | "postId" | "setPage"
+    >
   > &
   RefsType;
