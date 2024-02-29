@@ -1,0 +1,31 @@
+.notifications {
+  @apply md:h-screen pt-[88px] pb-[20px] md:pt-[108px] px-2-md md:px-4-xl md:pb-[30px] base:pt-[168px] base:pb-4-xs base:bg-grey-1030;
+
+  &__wrapper {
+    @apply h-full bg-white md:overflow-hidden md:overflow-y-auto md:rounded-t-lg md:border md:border-grey-1010 md:px-[58px] md:py-3-xs base:max-w-[962px] base:mx-auto base:border-0 base:px-[120px] base:py-[60px];
+  }
+}
+
+.notifications__list {
+  @apply flex flex-col gap-1-sm;
+
+  &-enter {
+    @apply scale-0 opacity-0;
+
+    &-active {
+      @apply opacity-100 scale-100 transition-all duration-300;
+    }
+  }
+
+  &-exit {
+    @apply scale-100 opacity-100;
+
+    &-active {
+      @apply scale-0 opacity-0 transition-all duration-300;
+    }
+  }
+}
+
+.notification {
+  @apply py-2-xs px-4-xs md:flex md:justify-between md:items-center;
+}

@@ -16,7 +16,7 @@
     "@greatsumini/react-facebook-login": "^3.3.3",
     "@react-oauth/google": "^0.11.1",
     "@reduxjs/toolkit": "^1.9.5",
-    "axios": "^1.4.0",
+    "axios": "^1.6.7",
     "classnames": "^2.3.2",
     "emoji-mart": "^5.5.2",
     "formik": "^2.4.2",
@@ -34,6 +34,7 @@
     "redux": "^4.2.1",
     "sass": "^1.64.2",
     "slick-carousel": "^1.8.1",
+    "socket.io-client": "^4.7.4",
     "yup": "^1.2.0"
   },
   "devDependencies": {

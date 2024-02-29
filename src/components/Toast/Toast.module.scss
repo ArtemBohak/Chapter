@@ -1,0 +1,19 @@
+.toast {
+  @apply w-full bg-[#fafafa] rounded-md;
+
+  &__user-data {
+    @apply flex items-center gap-1-sm mb-0-sm;
+
+    & > img {
+      @apply rounded-md;
+    }
+
+    & > p {
+      @apply text-sm font-semibold md:text-base;
+    }
+  }
+
+  &__message {
+    @apply text-sm font-bold md:text-lg;
+  }
+}
