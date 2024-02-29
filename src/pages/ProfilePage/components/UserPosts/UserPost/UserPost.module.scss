@@ -4,15 +4,6 @@
   &__activity-icons {
     @apply flex gap-5;
   }
-  &__skeleton {
-    @apply flex flex-col w-full md:min-w-[700px] m-auto my-4 bg-[#FCFCFC] rounded-lg border border-[#C4C4C4] h-full;
-  }
-  &__image {
-    @apply max-w-full;
-    & img {
-      @apply min-w-full;
-    }
-  }
 }
 
 .menu {

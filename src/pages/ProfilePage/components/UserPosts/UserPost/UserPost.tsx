@@ -40,7 +40,7 @@ const UserPost: FC<UserPostProps> = ({ post }) => {
   const deletePost = async (Id: number) => {
     setIsDeletingLoading(true);
     try {
-      const response = await api.delete(`${EndpointsEnum.DELETE_POST}/${Id}`);
+      const response = await api.delete(`${EndpointsEnum.DELETE_POST}${Id}`);
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -118,11 +118,11 @@ const UserPost: FC<UserPostProps> = ({ post }) => {
         <div className={styles["user-post__activity-icons"]}>
           <LikesButton id={post.id} userIds={[]} totalLikes={0} url="" />
           <CommentsButton
-            textValue={""}
-            id={""}
-            commentsCount={0}
-            postId={""}
-          />
+            id={post.id}
+            hiddenText
+            textValue={''}
+            postId={post.id}
+            commentsCount={0} />
         </div>
         <PostDate createAt={post.updatedAt} />
       </div>

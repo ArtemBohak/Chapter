@@ -1,3 +1,8 @@
+import { CommentValues } from "@/src/types";
+
+export type LikedPostProps = {
+    post: LikedPostData
+}
 
 
 export type LikedPostData = {
@@ -9,6 +14,7 @@ export type LikedPostData = {
     updatedAt: string;
     likesCount: number;
     commentsCount: number;
+    comments: Array<CommentValues> | [];
     author: {
         id: number;
         nickName: string;

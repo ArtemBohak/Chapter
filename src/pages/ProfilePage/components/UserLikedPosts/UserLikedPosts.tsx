@@ -1,28 +1,17 @@
 import { FC, useEffect, useRef, useState } from "react";
 import styles from "./Liked.module.scss";
-import { EndpointsEnum, api, followApi } from "@/src/axios";
-import {
-  Avatar,
-  CommentsButton,
-  LikesButton,
-  PostComments,
-  PostDate,
-  PostImage,
-  PostText,
-  PostTitle,
-  UIbutton,
-  UserNickName,
-} from "@/src/components";
+import { EndpointsEnum, api } from "@/src/axios";
 import { Link } from "react-router-dom";
 // import { Like } from "@/src/components/Post/IconButtons/LikesButton/components/LikesModal/LikesModal.type";
 import { PostSkeleton } from "@/src/components";
 import { usePostsContext } from "../UserPosts/context";
+import LikedPost from "./LikedPost/LikedPost";
 
 
 const UserLikedPosts: FC = () => {
   const { userLikedPostsList, setUserLikedPostsList } = usePostsContext()
   const [page, setPage] = useState(1);
-  // const [usersWhoLikedPost, setUsersWhoLikedPost] = useState<Array<Like>>([])
+
   const [isPostsLoaded, setIsPostsLoaded] = useState(false);
 
   const fetchUserLikedPosts = async (page: number) => {
@@ -63,16 +52,12 @@ const UserLikedPosts: FC = () => {
       }
     }
   };
-  // const fetchUsersWhoLikedPosts = async () => {
-  //   const response = await api.post(`/posts/users-who-liked-post/35`);
-  //   // setUsersWhoLikedPost(response.data)
-  //   console.log(response.data);
-  // };
+
 
   useEffect(() => {
 
     fetchUserLikedPosts(1);
-    // fetchUsersWhoLikedPosts();
+
 
   }, []);
   // const sortByCreatedDate = (a: LikedPostData, b: LikedPostData) => {
@@ -95,52 +80,7 @@ const UserLikedPosts: FC = () => {
     >
       {isPostsLoaded ? (
         userLikedPostsList.map((post) => (
-
-          <div key={post.postId} className={styles["user-post"]}>
-            <div className="flex items-center justify-between gap-2 w-full">
-              <Link
-                className={styles["user-post__link"]}
-                to={post.author.id != undefined ? `/${post.author.id}` : ""}
-              >
-                <Avatar avatarUrl={post.author.avatar} />
-                <UserNickName nickName={post.author.nickName} />
-              </Link>
-              <UIbutton
-                variant={post.isSubscribeToAuthor ? "outlined" : "contained"}
-                dataAutomation={"subscribe-button"}
-                onClick={() => followApi(post.author.id)}
-              >
-                {post.isSubscribeToAuthor ? "unfollow" : "follow"}
-              </UIbutton>
-            </div>
-            <div className={styles["user-post__image"]}>
-              <PostImage imgUrl={post.imgUrl} />
-            </div>
-            <div className="flex justify-between">
-              <div className={styles["user-post__activity-icons"]}>
-                <LikesButton
-                  id={post.postId}
-                  userIds={[]}
-                  totalLikes={post.likesCount}
-                  url={EndpointsEnum.POST_LIKE}
-                />
-                <CommentsButton
-                  textValue={""}
-                  id={""}
-                  commentsCount={post.commentsCount}
-                  postId={""}
-                />
-              </div>
-              <PostDate createAt={post.createAt} />
-            </div>
-            <PostTitle title={post.title} />
-            <PostText caption={post.caption} />
-            <PostComments
-              postId={post.postId}
-              commentsCount={post.commentsCount}
-              comments={[]}
-            />
-          </div>
+          <LikedPost key={post.postId} post={post} />
         ))
       ) : (
         <div className={styles["user-post__skeleton"]}>

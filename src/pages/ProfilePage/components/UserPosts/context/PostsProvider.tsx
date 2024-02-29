@@ -15,16 +15,11 @@ const PostsProvider: FC<PostProviderProps> = ({ children }) => {
             if (userLikedPostsList.length < 1) {
                 setUserPostsList(response.data);
             }
-
             return response.data
         } catch (error) {
             console.error('Error fetching user posts:', error);
         }
     };
-
-
-
-
 
     return (
         <PostsContext.Provider
