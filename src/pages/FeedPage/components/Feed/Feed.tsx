@@ -20,11 +20,14 @@ import {
   PostFullName,
   PostDate,
 } from "@/src/components";
+import { useRefIntersection } from "@/src/hooks";
 
 const Feed: FC<FeedProps> = ({ nodeRef, loaderRef, pageValue, ...props }) => {
   const [commentsIsHide, setCommentsIsHide] = useState(true);
-  const { setFeeds } = useFeedContext();
   const userId = useAppSelector((state) => state.userSlice.user.id);
+
+  const { setFeeds, setPage } = useFeedContext();
+  useRefIntersection(loaderRef, setPage);
 
   const navId = props.author.id !== userId ? `/${props.author.id}` : "#";
   return (
@@ -82,11 +85,7 @@ const Feed: FC<FeedProps> = ({ nodeRef, loaderRef, pageValue, ...props }) => {
         />
       </div>
       {loaderRef && pageValue ? (
-        <input
-          className="visually-hidden"
-          ref={loaderRef}
-          defaultValue={pageValue}
-        />
+        <input className="invisible" ref={loaderRef} defaultValue={pageValue} />
       ) : null}
     </div>
   );

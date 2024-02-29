@@ -12,6 +12,7 @@ import { TextTagging } from "@/src/components";
 import { LikesButton, CommentsButton } from "../../../../..";
 
 import defaultAvatar from "@/src/assets/SVG/default-user-avatar.svg";
+import { useRefIntersection } from "@/src/hooks";
 
 const Comment: FC<CommentProps> = ({
   author: { avatar, firstName, lastName, nickName, id: authorId },
@@ -29,6 +30,7 @@ const Comment: FC<CommentProps> = ({
   setNickName,
   setReplyToUserId,
   setId,
+  setPage,
 }) => {
   const userId = useAppSelector((state) => state.userSlice.user.id);
 
@@ -36,9 +38,10 @@ const Comment: FC<CommentProps> = ({
 
   const avatarUrl = avatar ? avatar : defaultAvatar;
 
+  useRefIntersection(loaderRef, setPage);
+
   return (
     <>
-      {" "}
       <div className={styles["comment"]}>
         <Link to={navId} className={styles["comment__image"]}>
           <img src={avatarUrl} alt="user avatar" width={44} height={44} />
@@ -92,11 +95,7 @@ const Comment: FC<CommentProps> = ({
         </div>
       </div>
       {loaderRef && pageValue ? (
-        <input
-          className="visually-hidden"
-          ref={loaderRef}
-          defaultValue={pageValue}
-        />
+        <input className="invisible" ref={loaderRef} defaultValue={pageValue} />
       ) : null}
     </>
   );

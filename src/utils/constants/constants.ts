@@ -7,3 +7,5 @@ export const tabScreen = 769;
 export const pageLimit = 5;
 
 export const commentsPageLimit = 10;
+
+export const nickNameMinLength = 3;
