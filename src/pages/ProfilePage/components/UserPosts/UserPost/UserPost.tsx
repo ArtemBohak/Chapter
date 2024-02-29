@@ -1,3 +1,14 @@
+import { FC, useEffect, useRef, useState } from "react";
+
+import { FilesService } from "@/src/services";
+
+import { UserPostProps } from "../UserPost.type";
+import { useAppSelector } from "@/src/redux";
+import { EndpointsEnum, api } from "@/src/axios";
+import { useErrorBoundary, useOutsideClick } from "@/src/hooks";
+import { ElementsId } from "@/src/types";
+import styles from "./UserPost.module.scss";
+
 import {
   Avatar,
   CommentsButton,
@@ -13,29 +24,28 @@ import {
   PostTitle,
   UserNickName,
 } from "@/src/components";
-import { FC, useEffect, useRef, useState } from "react";
-import styles from "./UserPost.module.scss";
-import { UserPostProps } from "../UserPost.type";
-import { useAppSelector } from "@/src/redux";
-import { EndpointsEnum, api } from "@/src/axios";
-import { useOutsideClick } from "@/src/hooks";
-import { ElementsId } from "@/src/types";
-
 
 const UserPost: FC<UserPostProps> = ({ post, fetchUserPosts }) => {
   const { user } = useAppSelector((state) => state.userSlice);
   const [showPopUp, setShowPopUp] = useState(false);
   const [showConfirmationWindow, setShowConfirmationWindow] = useState(false);
   const [isDeletingLoading, setIsDeletingLoading] = useState(false);
-  const [commentsList, setComentsList] = useState([])
+  const [commentsList, setComentsList] = useState([]);
 
   const ref = useRef(null);
+  const setErrorBoundary = useErrorBoundary();
   useOutsideClick(ref, setShowPopUp, ElementsId.POST_MORE_ICON);
 
   const deletePost = async (Id: number) => {
     setIsDeletingLoading(true);
     try {
       const response = await api.delete(`${EndpointsEnum.DELETE_POST}/${Id}`);
+      await new FilesService(
+        undefined,
+        undefined,
+        undefined,
+        setErrorBoundary
+      ).delete(post.imgUrl);
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -48,16 +58,15 @@ const UserPost: FC<UserPostProps> = ({ post, fetchUserPosts }) => {
   };
 
   const getComments = async (id: number) => {
-    const response = await api.get(`/comments/comments/${id}`)
+    const response = await api.get(`/comments/comments/${id}`);
 
-    setComentsList(response.data.comments)
-  }
+    setComentsList(response.data.comments);
+  };
 
   useEffect(() => {
-    getComments(post.id)
-    console.log(commentsList)
-  }, [])
-
+    getComments(post.id);
+    console.log(commentsList);
+  }, []);
 
   return (
     <div className={styles["user-post"]}>
@@ -84,7 +93,7 @@ const UserPost: FC<UserPostProps> = ({ post, fetchUserPosts }) => {
             nodeRef={ref}
           >
             <div className={styles["menu"]}>
-              <button data-automation="clickButton" onClick={() => { }}>
+              <button data-automation="clickButton" onClick={() => {}}>
                 Edit post
               </button>
               <button
@@ -96,7 +105,6 @@ const UserPost: FC<UserPostProps> = ({ post, fetchUserPosts }) => {
             </div>
           </PopUpMenu>
         </button>
-
       </div>
       <ConfirmationWindow
         text={"Do you want to delete this post?"}

@@ -1,9 +1,9 @@
-import { FC, useMemo, useRef, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import cn from "classnames";
 
 import { PostApi } from "@/src/services";
 import { PostCommentsProps } from "./PostComments.type";
-import { tabScreen } from "@/src/utils";
+import { commentsPageLimit, tabScreen } from "@/src/utils";
 import {
   useErrorBoundary,
   useGetScreenSize,
@@ -44,43 +44,78 @@ const PostComments: FC<PostCommentsProps> = ({
   const [screenSize] = useGetScreenSize();
   const isMobScreen = screenSize < tabScreen ? 16 : 26;
 
+  const setErrorBoundary = useErrorBoundary();
   useOutsideClick(popupRef, setShowFilterPopup, "filter-btn");
 
-  const setErrorBoundary = useErrorBoundary();
+  //! Comments pagination
+  // const sortedAllComments = useMemo(
+  //   () =>
+  //     allComments.sort((a, b) => {
+  //       const firstEl = new Date(a.createdAt).getTime();
+  //       const secondEl = new Date(b.createdAt).getTime();
+  //       return firstEl - secondEl;
+  //     }),
+  //   [allComments]
+  // );
 
-  const sortedComments = useMemo(
-    () =>
-      comments.sort((a, b) => {
-        const firstEl = new Date(a.createdAt).getTime();
-        const secondEl = new Date(b.createdAt).getTime();
-        if (!showAllComments) return secondEl - firstEl;
+  // const sortedNewComments = comments.sort((a, b) => {
+  //   const firstEl = new Date(a.createdAt).getTime();
+  //   const secondEl = new Date(b.createdAt).getTime();
+  //   return secondEl - firstEl;
+  // });
+  //! Comments pagination
 
-        return firstEl - secondEl;
-      }),
-    [comments, showAllComments]
-  );
+  //! TEMP CODE. Remove with comments pagination
+  const sortedComments = comments.sort((a, b) => {
+    const firstEl = new Date(a.createdAt).getTime();
+    const secondEl = new Date(b.createdAt).getTime();
+    if (!showAllComments) return secondEl - firstEl;
+
+    return firstEl - secondEl;
+  });
+  //! TEMP CODE
 
   const onHandleCommentsToggle = () => {
+    if (!commentsIsHide) {
+      setPage(0);
+      setAllComments([]);
+    }
     setCommentsIsHide && setCommentsIsHide(!commentsIsHide);
   };
 
   const onHandlePopupButtonClick = async () => {
     if (!showAllComments) {
-      if (page)
-        await new PostApi(
-          setErrorBoundary,
-          undefined,
-          setAllComments,
-          undefined,
-          postId
-        );
       setShowAllComments(true);
     } else {
       setAllComments([]);
+      setPage(0);
       setShowAllComments(false);
     }
     setShowFilterPopup(false);
   };
+
+  useEffect(() => {
+    const commentsApi = new PostApi(
+      setErrorBoundary,
+      undefined,
+      setAllComments,
+      undefined,
+      postId,
+      commentsPageLimit
+    );
+    commentsApi;
+
+    // if (
+    //   ((commentsIsHide && !showAllComments) ||
+    //     (commentsIsHide && showAllComments) ||
+    //     (!commentsIsHide && showAllComments) ||
+    //     (!commentsIsHide && !showAllComments)) &&
+    //   !page
+    // )
+    //   commentsApi.get();
+
+    // if (!commentsIsHide && showAllComments && page) commentsApi.get(page);
+  }, [commentsIsHide, page, postId, showAllComments, setErrorBoundary]);
 
   const togglerBtnClassNames = cn(
     styles["feed-comments__button"],
