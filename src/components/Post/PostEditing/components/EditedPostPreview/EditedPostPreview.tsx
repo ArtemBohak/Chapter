@@ -6,8 +6,8 @@ import { FilesService } from "@/src/services";
 import { apiUiMessage } from "@/src/types";
 import { useErrorBoundary } from "@/src/hooks";
 import { EndpointsEnum, api } from "@/src/axios";
-import { PostPreviewProps, BodyProps } from "./PostPreview.type";
-import styles from "./PostPreview.module.scss";
+import { PostPreviewProps, BodyProps } from "./EditedPostPreview.type";
+import styles from "./EditedPostPreview.module.scss";
 
 import {
   UIbutton,
@@ -19,10 +19,11 @@ import {
 } from "@/src/components";
 import { usePostsContext } from "@/src/pages/ProfilePage/components/UserPosts/context/hooks/usePostsContext";
 
-const PostPreview: FC<PostPreviewProps> = ({
+const EditedPostPreview: FC<PostPreviewProps> = ({
   setFormIsOpen,
   setIsOpen,
   file,
+  postId,
   ...props
 }) => {
   const { firstName, lastName, id } = useAppSelector(
@@ -32,7 +33,6 @@ const PostPreview: FC<PostPreviewProps> = ({
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const { fetchUserPosts } = usePostsContext()
-
   const createAt = Date.now();
 
   const onHandleBackClick = () => {
@@ -66,7 +66,7 @@ const PostPreview: FC<PostPreviewProps> = ({
 
       if (props.caption) body.caption = props.caption;
 
-      await api.post(EndpointsEnum.CREATE_POST, body);
+      await api.patch(`${EndpointsEnum.EDIT_POST}${postId}`, body);
 
       setIsOpen(false);
     } catch (error) {
@@ -75,8 +75,8 @@ const PostPreview: FC<PostPreviewProps> = ({
         setError(apiUiMessage.ERROR_MESSAGE);
       }
     } finally {
-      fetchUserPosts()
       setIsLoading(false);
+      fetchUserPosts()
     }
   };
   return (
@@ -115,4 +115,4 @@ const PostPreview: FC<PostPreviewProps> = ({
   );
 };
 
-export default PostPreview;
+export default EditedPostPreview;

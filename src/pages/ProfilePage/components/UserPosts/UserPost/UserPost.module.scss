@@ -16,7 +16,7 @@
 }
 
 .menu {
-  @apply flex flex-col items-start gap-2-md p-2-xs z-50 right-0;
+  @apply flex flex-col items-start gap-2-md p-2-xs z-10 right-0;
   & > button {
     @apply bg-inherit outline-none;
   }
@@ -27,7 +27,7 @@
 }
 
 .popup {
-  @apply absolute right-0 top-7 base:top-9 block laptop_md:right-0 md:-bottom-[98px] bg-none w-[220px] h-[108px];
+  @apply absolute right-0 top-7 base:top-9 block laptop_md:right-0 md:-bottom-[98px] bg-none w-[220px] h-[108px] z-10;
   &__body {
     @apply w-full h-full bg-[#FAFAFA] rounded-lg border-grey-1010 overflow-hidden;
     box-shadow: 0px 4px 20px 0px rgba(124, 124, 124, 0.52);

@@ -21,13 +21,18 @@ import { EndpointsEnum, api } from "@/src/axios";
 import { useOutsideClick } from "@/src/hooks";
 import { ElementsId } from "@/src/types";
 
+import { usePostsContext } from "../context";
+import { PostEditing } from "@/src/components/Post/PostEditing";
 
-const UserPost: FC<UserPostProps> = ({ post, fetchUserPosts }) => {
+
+const UserPost: FC<UserPostProps> = ({ post }) => {
   const { user } = useAppSelector((state) => state.userSlice);
   const [showPopUp, setShowPopUp] = useState(false);
   const [showConfirmationWindow, setShowConfirmationWindow] = useState(false);
+  const [showEditionWindow, setShowEditionWindow] = useState(false);
   const [isDeletingLoading, setIsDeletingLoading] = useState(false);
   const [commentsList, setComentsList] = useState([])
+  const { fetchUserPosts } = usePostsContext()
 
   const ref = useRef(null);
   useOutsideClick(ref, setShowPopUp, ElementsId.POST_MORE_ICON);
@@ -84,7 +89,7 @@ const UserPost: FC<UserPostProps> = ({ post, fetchUserPosts }) => {
             nodeRef={ref}
           >
             <div className={styles["menu"]}>
-              <button data-automation="clickButton" onClick={() => { }}>
+              <button data-automation="clickButton" onClick={() => setShowEditionWindow(true)}>
                 Edit post
               </button>
               <button
@@ -105,6 +110,7 @@ const UserPost: FC<UserPostProps> = ({ post, fetchUserPosts }) => {
         setIsOpen={setShowConfirmationWindow}
         isLoading={isDeletingLoading}
       />
+      <PostEditing isOpen={showEditionWindow} setIsOpen={setShowEditionWindow} post={post} />
       <div className={styles["user-post__image"]}>
         <PostImage imgUrl={post.imgUrl} />
       </div>

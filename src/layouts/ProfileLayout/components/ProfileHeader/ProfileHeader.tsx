@@ -16,6 +16,7 @@ import {
   MenuToggler,
   PopUpMenu,
   ConfirmationWindow,
+  Logo,
 } from "@/src/components";
 
 import { SearchBar } from "../SearchBar";
@@ -69,7 +70,7 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
           to={links.FEED}
           className={styles["profile-header__logo-name"]}
         >
-          Chapter
+          <Logo />
         </NavLink>
         <div className={styles["profile-header__auth-side"]}>
           <SearchBar inputClassName={styles["profile-header__search-field"]} />

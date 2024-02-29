@@ -13,15 +13,14 @@ import {
   UIbutton,
   UserNickName,
 } from "@/src/components";
-import { LikedPostData } from "./UserLikedPost.type";
 import { Link } from "react-router-dom";
 // import { Like } from "@/src/components/Post/IconButtons/LikesButton/components/LikesModal/LikesModal.type";
 import { PostSkeleton } from "@/src/components";
+import { usePostsContext } from "../UserPosts/context";
+
 
 const UserLikedPosts: FC = () => {
-  const [userLikedPostsList, setUserLikedPostsList] = useState<LikedPostData[]>(
-    []
-  );
+  const { userLikedPostsList, setUserLikedPostsList } = usePostsContext()
   const [page, setPage] = useState(1);
   // const [usersWhoLikedPost, setUsersWhoLikedPost] = useState<Array<Like>>([])
   const [isPostsLoaded, setIsPostsLoaded] = useState(false);
@@ -29,14 +28,14 @@ const UserLikedPosts: FC = () => {
   const fetchUserLikedPosts = async (page: number) => {
     try {
       const response = await api.get(
-        `${EndpointsEnum.LIKED_POSTS}?page=${page}&limit=20`
+        `${EndpointsEnum.LIKED_POSTS}?page=${page}&limit=10`
       );
       setUserLikedPostsList(response.data);
-      console.log(response.data);
       setIsPostsLoaded(true);
     } catch (error) {
       console.log(error);
     }
+
   };
 
   const PostsListViewport = useRef<HTMLDivElement | null>(null);
@@ -64,15 +63,17 @@ const UserLikedPosts: FC = () => {
       }
     }
   };
-  const fetchUsersWhoLikedPosts = async () => {
-    const response = await api.post(`/posts/users-who-liked-post/35`);
-    // setUsersWhoLikedPost(response.data)
-    console.log(response.data);
-  };
+  // const fetchUsersWhoLikedPosts = async () => {
+  //   const response = await api.post(`/posts/users-who-liked-post/35`);
+  //   // setUsersWhoLikedPost(response.data)
+  //   console.log(response.data);
+  // };
 
   useEffect(() => {
+
     fetchUserLikedPosts(1);
-    fetchUsersWhoLikedPosts();
+    // fetchUsersWhoLikedPosts();
+
   }, []);
   // const sortByCreatedDate = (a: LikedPostData, b: LikedPostData) => {
   //   new Date(b.createdDate).getTime() - new Date(a.createdDate).getTime();
@@ -94,6 +95,7 @@ const UserLikedPosts: FC = () => {
     >
       {isPostsLoaded ? (
         userLikedPostsList.map((post) => (
+
           <div key={post.postId} className={styles["user-post"]}>
             <div className="flex items-center justify-between gap-2 w-full">
               <Link

@@ -1,29 +1,27 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect } from "react";
 import styles from "./Posts.module.scss";
-import { EndpointsEnum, api } from "@/src/axios";
-import { PostData } from "./UserPost.type";
 import { PostSkeleton } from "@/src/components";
 import UserPost from "./UserPost/UserPost";
+import { usePostsContext } from "./context";
+
 
 const UserPosts: FC = () => {
-  const [userPostsList, setUserPostsList] = useState<PostData[]>([]);
+  const { userPostsList, fetchUserPosts } = usePostsContext()
 
-  const fetchUserPosts = async () => {
-    const response = await api.get(EndpointsEnum.POSTS_BY_AUTHOR);
-    setUserPostsList(response.data);
-  };
 
   useEffect(() => {
     if (userPostsList.length < 1) {
       fetchUserPosts();
     }
-  }, []);
+  }, [userPostsList]);
+
+
 
   return (
     <div className={styles["posts-wrapper"]}>
       {userPostsList.length > 0 ? (
         userPostsList.map((post) => (
-          <UserPost key={post.id} post={post} fetchUserPosts={fetchUserPosts} />
+          <UserPost key={post.id} post={post} />
         ))
       ) : (
         <div className={styles["user-post__skeleton"]}>

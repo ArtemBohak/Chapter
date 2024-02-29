@@ -32,6 +32,7 @@ export enum EndpointsEnum {
   USERS_BOOKS = "books/books",
   TOOGLE_FAVORITE_BOOKS = "/books/toggle-favorite-status/",
   DELETE_BOOK = "books/",
+  EDITE_BOOK = "books/",
 
   // FILES
   UPLOAD_FILES = "files/upload",
@@ -39,6 +40,7 @@ export enum EndpointsEnum {
 
   // POSTS
   CREATE_POST = "posts/create",
+  EDIT_POST = "posts/update/",
   DELETE_POST = "posts/delete",
   POSTS_BY_AUTHOR = "/posts/by-author",
   POSTS_BY_USER = "posts/by-user/",

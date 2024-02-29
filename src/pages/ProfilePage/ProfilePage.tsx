@@ -8,6 +8,7 @@ import { ButtonsEnum } from "./components/Buttons/Buttons.type";
 import UserPosts from "./components/UserPosts/UserPosts";
 import Liked from "./components/UserLikedPosts/UserLikedPosts";
 import { PostCreation } from "@/src/components";
+import PostsProvider from "./components/UserPosts/context/PostsProvider";
 
 const ProfilePage: FC = () => {
   const { setHeaderAddPostBtnIsDisabled } = useProfileContext();
@@ -38,13 +39,15 @@ const ProfilePage: FC = () => {
   return (
     <section className={styles["profile-wrapper"]}>
       <Profile setIsOpen={setModalIsOpen} />
-      <div className={styles["view-block-wrapper"]}>
-        <div className={styles["view-block-container"]}>
-          <Buttons changeView={changeView} currentView={currentView} />
-          {currentView === ButtonsEnum.posts ? <UserPosts /> : <Liked />}
+      <PostsProvider>
+        <div className={styles["view-block-wrapper"]}>
+          <div className={styles["view-block-container"]}>
+            <Buttons changeView={changeView} currentView={currentView} />
+            {currentView === ButtonsEnum.posts ? <UserPosts /> : <Liked />}
+          </div>
+          <PostCreation isOpen={modalIsOpen} setIsOpen={setModalIsOpen} />
         </div>
-        <PostCreation isOpen={modalIsOpen} setIsOpen={setModalIsOpen} />
-      </div>
+      </PostsProvider>
     </section>
   );
 };
