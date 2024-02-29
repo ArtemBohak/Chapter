@@ -72,6 +72,7 @@ const TextAreaField: FC<TextAreaFieldProps> = ({
       ),
     }
   );
+
   return (
     <div className={`${styles["text-area__wrapper"]} ${classNames}`}>
       {labelValue ? <span>{labelValue}</span> : null}

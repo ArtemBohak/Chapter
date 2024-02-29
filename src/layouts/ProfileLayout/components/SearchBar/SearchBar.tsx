@@ -12,7 +12,7 @@ import { AxiosError } from "axios";
 
 import { EndpointsEnum, api } from "@/src/axios";
 import { useDebounce, useErrorBoundary, useOutsideClick } from "@/src/hooks";
-import { getDataFromLS, setDataToLS } from "@/src/utils";
+import { getDataFromLS, nickNameMinLength, setDataToLS } from "@/src/utils";
 import { ISearchBar } from "./SearchBar.type";
 import { IUser, apiErrorMessage, links } from "@/src/types";
 import styles from "./SearchBar.module.scss";
@@ -49,6 +49,8 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
 
   const handleSearch = async (searchValue: string) => {
     try {
+      if (searchValue.length < nickNameMinLength) return;
+
       setIsLoading(true);
       const recentSearchArray = recentSearchArr;
       const res = await api.get(EndpointsEnum.USERS_SEARCH, {
@@ -58,6 +60,7 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
       if (res.data.message === apiErrorMessage.USERS_NOT_FOUND) {
         setShowRecentSearchPopup(false);
         setShowResultPopup(false);
+        setSearchValue("");
         return setShowNotFoundPopup(true);
       }
       if (res.data.length) {
@@ -70,7 +73,6 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
         setDataToLS({
           recentSearch: Array.from(new Set(recentSearchArray.slice(-5))),
         });
-        setSearchValue("");
       }
     } catch (e) {
       if (e instanceof AxiosError) {

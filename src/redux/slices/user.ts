@@ -49,11 +49,12 @@ export const deleteUserBook = createAsyncThunk(
     return response;
   }
 );
-
 export const fetchFavoriteBookStatus = createAsyncThunk(
   "user/fetchFavoriteBookStatus",
   async (bookId: number) => {
-    const { data } = await api.patch(`${EndpointsEnum.TOOGLE_FAVORITE_BOOKS}${bookId}`);
+    const { data } = await api.patch(
+      `${EndpointsEnum.TOOGLE_FAVORITE_BOOKS}${bookId}`
+    );
     return { bookId, data };
   }
 );
@@ -142,12 +143,14 @@ export const userSlice = createSlice({
       })
 
       .addCase(deleteUserBook.fulfilled, (state, action) => {
-        const bookIdToDelete = action.meta.arg
-        state.user.userBooks = state.user.userBooks.filter(book => book.id !== bookIdToDelete);
+        const bookIdToDelete = action.meta.arg;
+        state.user.userBooks = state.user.userBooks.filter(
+          (book) => book.id !== bookIdToDelete
+        );
       })
       .addCase(fetchFavoriteBookStatus.fulfilled, (state, action) => {
         const { bookId, data } = action.payload;
-        state.user.userBooks = state.user.userBooks.map(book => {
+        state.user.userBooks = state.user.userBooks.map((book) => {
           if (book.id === bookId) {
             book.favorite_book_status = data.favorite_book_status;
           }
@@ -163,17 +166,25 @@ export const userSlice = createSlice({
       })
       .addCase(addNewBook.fulfilled, (state, action) => {
         const { data } = action.payload;
-        state.user.userBooks = [...state.user.userBooks, data]
+        state.user.userBooks = [...state.user.userBooks, data];
       })
       .addMatcher(
-        isAnyOf(fetchIsAuthUser.pending, fetchIsLogoutUser.pending, addNewBook.pending),
+        isAnyOf(
+          fetchIsAuthUser.pending,
+          fetchIsLogoutUser.pending,
+          addNewBook.pending
+        ),
         (state) => {
           state.loading = true;
           state.error = null;
         }
       )
       .addMatcher(
-        isAnyOf(fetchIsAuthUser.rejected, fetchIsLogoutUser.rejected, addNewBook.rejected),
+        isAnyOf(
+          fetchIsAuthUser.rejected,
+          fetchIsLogoutUser.rejected,
+          addNewBook.rejected
+        ),
         (state, action) => {
           state.loading = false;
           state.error = action.error.message;

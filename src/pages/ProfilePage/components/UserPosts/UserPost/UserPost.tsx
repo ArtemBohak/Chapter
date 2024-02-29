@@ -1,3 +1,4 @@
+
 import {
   Avatar,
   CommentsButton,
@@ -18,7 +19,7 @@ import styles from "./UserPost.module.scss";
 import { UserPostProps } from "../UserPost.type";
 import { useAppSelector } from "@/src/redux";
 import { EndpointsEnum, api } from "@/src/axios";
-import { useOutsideClick } from "@/src/hooks";
+import { useErrorBoundary, useOutsideClick } from "@/src/hooks";
 import { ElementsId } from "@/src/types";
 
 import { usePostsContext } from "../context";
@@ -35,6 +36,7 @@ const UserPost: FC<UserPostProps> = ({ post }) => {
   const { fetchUserPosts } = usePostsContext()
 
   const ref = useRef(null);
+  const setErrorBoundary = useErrorBoundary();
   useOutsideClick(ref, setShowPopUp, ElementsId.POST_MORE_ICON);
 
   const deletePost = async (Id: number) => {
@@ -53,16 +55,15 @@ const UserPost: FC<UserPostProps> = ({ post }) => {
   };
 
   const getComments = async (id: number) => {
-    const response = await api.get(`/comments/comments/${id}`)
+    const response = await api.get(`/comments/comments/${id}`);
 
-    setComentsList(response.data.comments)
-  }
+    setComentsList(response.data.comments);
+  };
 
   useEffect(() => {
-    getComments(post.id)
-    console.log(commentsList)
-  }, [])
-
+    getComments(post.id);
+    console.log(commentsList);
+  }, []);
 
   return (
     <div className={styles["user-post"]}>
@@ -101,7 +102,6 @@ const UserPost: FC<UserPostProps> = ({ post }) => {
             </div>
           </PopUpMenu>
         </button>
-
       </div>
       <ConfirmationWindow
         text={"Do you want to delete this post?"}

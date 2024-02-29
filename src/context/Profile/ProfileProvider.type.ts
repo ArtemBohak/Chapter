@@ -1,12 +1,17 @@
 import { Dispatch, ReactNode, SetStateAction } from "react";
+import { NotificationType } from "@/src/types/app/notifications.type";
 
 export interface IProfileProviderProps {
   children: ReactNode;
 }
 
-type SetModal = Dispatch<SetStateAction<boolean>>;
+type SetBoolean = Dispatch<SetStateAction<boolean>>;
 
 export type ProfileContextType = {
   headerAddPostBtnIsDisabled: boolean;
-  setHeaderAddPostBtnIsDisabled: SetModal;
+  unreadMessage: number;
+  notifications: Array<NotificationType>;
+  setNotifications: Dispatch<SetStateAction<Array<NotificationType>>>;
+  setHeaderAddPostBtnIsDisabled: SetBoolean;
+  setUnreadMessage: Dispatch<SetStateAction<number>>;
 };

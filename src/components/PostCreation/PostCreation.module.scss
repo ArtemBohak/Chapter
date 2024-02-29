@@ -11,14 +11,14 @@
     }
   }
   &__body {
-    @apply relative bg-white rounded-md w-full px-2-md py-4-xs md:max-w-[674px];
+    @apply relative bg-white rounded-md w-full px-2-md md:py-4-xs md:max-w-[674px];
 
     &--page {
-      @apply translate-y-[10%] ml-auto mr-auto base:mr-[5%] laptop:mr-[20%];
+      @apply translate-y-[10%] ml-auto mr-auto base:mr-[5%] laptop:mr-[20%] pb-2-xs;
     }
 
     &--profile {
-      @apply mx-auto;
+      @apply mx-auto py-4-xs;
     }
   }
   &__header {

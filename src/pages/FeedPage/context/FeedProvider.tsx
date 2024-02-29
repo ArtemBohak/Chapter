@@ -14,8 +14,13 @@ const FeedProvider: FC<IFeedProviderProps> = ({ children }) => {
   const setErrorBoundary = useErrorBoundary();
 
   useEffect(() => {
-    if (page)
-      new PostApi(setErrorBoundary, setFeeds, undefined, setIsLoad).get(page);
+    const feedsApi = new PostApi(
+      setErrorBoundary,
+      setFeeds,
+      undefined,
+      setIsLoad
+    );
+    if (page) feedsApi.get(page);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);

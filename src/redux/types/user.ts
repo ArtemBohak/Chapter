@@ -19,20 +19,18 @@ export interface IUserStore {
   location: string | null;
   myFollowersCount: number | null;
   myFollowingCount: number | null;
-  userBooks: Array<IBook> | []
+  userBooks: Array<IBook> | [];
 }
 
 export type UserBooks = {
-  userBooks: Array<IBook> | []
-}
-export type BookId = {
-  
-}
+  userBooks: Array<IBook> | [];
+};
+// export type BookId = {};
 export type UserBookFavoriteStatus = {
   id: number;
   userBooks: Array<IBook> | [];
   UserBookFavoriteStatus: boolean;
-}
+};
 
 export interface IUserRole {
   id: number;

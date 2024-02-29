@@ -1,8 +1,9 @@
-import { FC, useEffect, useRef } from "react";
+import { FC, useRef } from "react";
 import cn from "classnames";
 
 import { CommentsProps } from "./Comments.type";
 import { CommentValues } from "@/src/types";
+import { useRefIntersection } from "@/src/hooks";
 import styles from "./Comments.module.scss";
 
 import { Comment } from "./components";
@@ -25,43 +26,9 @@ const Comments: FC<CommentsProps> = ({
 }) => {
   const startLoaderRef = useRef(null);
 
-  useEffect(() => {
-    const loader = startLoaderRef.current;
-    const observer = new IntersectionObserver(([entries]) => {
-      if (entries.isIntersecting) {
-        setPage(1);
-      }
-    });
-
-    if (loader) {
-      observer.observe(loader);
-    }
-
-    return () => {
-      if (loader) {
-        observer.unobserve(loader);
-      }
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [startLoaderRef.current]);
-
-  useEffect(() => {
-    comments.forEach((el) => {
-      const observer = new IntersectionObserver(([entries]) => {
-        if (
-          entries.isIntersecting &&
-          el &&
-          el.loaderRef &&
-          el.loaderRef.current
-        ) {
-          setPage(+el.loaderRef.current.value);
-        }
-      });
-      if (el && el.loaderRef && el.loaderRef.current)
-        observer.observe(el.loaderRef.current);
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [comments]);
+  useRefIntersection(startLoaderRef, setPage, {
+    commentsIsShow: showAllComments,
+  });
 
   const renderComments = (comments: Array<CommentValues>, step: number) => {
     let counter: number = 0;
@@ -84,8 +51,8 @@ const Comments: FC<CommentsProps> = ({
 
     return (
       <>
-        {!counter ? (
-          <div ref={startLoaderRef} className="visually-hidden"></div>
+        {showAllComments && !counter ? (
+          <input className="invisible" ref={startLoaderRef} defaultValue={1} />
         ) : null}
         <ul className={styles["feed__list"]}>
           {sortedComments.map((i) => {
@@ -96,6 +63,7 @@ const Comments: FC<CommentsProps> = ({
                   setId={setId}
                   setNickName={setNickName}
                   setReplyToUserId={setReplyToUserId}
+                  setPage={setPage}
                   postId={postId}
                 />
                 {i.comments?.length ? renderComments(i.comments, 1) : null}

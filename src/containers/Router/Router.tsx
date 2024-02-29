@@ -19,6 +19,7 @@ import {
   GuestProfilePage,
   ErrorBoundary,
   SearchPage,
+  NotificationPage,
 } from "@/src/pages";
 import { PublicLayout, ProfileLayout } from "@/src/layouts";
 
@@ -90,10 +91,12 @@ const router = createBrowserRouter([
         path: links.FEED,
         element: <FeedPage />,
       },
+
       {
         path: links.SETTINGS,
         element: <SettingsPage />,
       },
+      { path: links.NOTIFICATION, element: <NotificationPage /> },
       { path: links.SEARCH, element: <SearchPage /> },
       {
         path: "/books",

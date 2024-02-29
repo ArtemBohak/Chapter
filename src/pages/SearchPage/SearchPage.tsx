@@ -11,7 +11,7 @@ import { AxiosError } from "axios";
 
 import { EndpointsEnum, api } from "@/src/axios";
 
-import { getDataFromLS, setDataToLS } from "@/src/utils";
+import { getDataFromLS, nickNameMinLength, setDataToLS } from "@/src/utils";
 import { useDebounce, useErrorBoundary, useGetScreenSize } from "@/src/hooks";
 import { IUser, apiErrorMessage } from "@/src/types";
 import styles from "./SearchPage.module.scss";
@@ -50,6 +50,7 @@ const SearchPage: FC = () => {
   };
 
   const handleSearch = async (searchValue: string) => {
+    if (searchValue.length < nickNameMinLength) return;
     try {
       setIsLoading(true);
       const recentSearchArray = recentSearchArr;
