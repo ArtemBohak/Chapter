@@ -31,7 +31,7 @@ const PostComments: FC<PostCommentsProps> = ({
     null
   );
 
-  const [, setAllComments] = useState<CommentsType>([]);
+  const [allComments, setAllComments] = useState<CommentsType>([]);
   const [page, setPage] = useState(0);
 
   const [showFilterPopup, setShowFilterPopup] = useState(false);
@@ -48,28 +48,55 @@ const PostComments: FC<PostCommentsProps> = ({
 
   const setErrorBoundary = useErrorBoundary();
 
-  const sortedComments = useMemo(
+  const commentsApi = useMemo(
     () =>
-      comments.sort((a, b) => {
-        const firstEl = new Date(a.createdAt).getTime();
-        const secondEl = new Date(b.createdAt).getTime();
-        if (!showAllComments) return secondEl - firstEl;
-
-        return firstEl - secondEl;
-      }),
-    [comments, showAllComments]
+      new PostApi(
+        setErrorBoundary,
+        undefined,
+        setAllComments,
+        undefined,
+        postId,
+        commentsPageLimit
+      ),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [postId]
   );
+
+  // const sortedAllComments = useMemo(
+  //   () =>
+  //     allComments.sort((a, b) => {
+  //       const firstEl = new Date(a.createdAt).getTime();
+  //       const secondEl = new Date(b.createdAt).getTime();
+  //       return firstEl - secondEl;
+  //     }),
+  //   [allComments]
+  // );
+
+  // const sortedNewComments = comments.sort((a, b) => {
+  //   const firstEl = new Date(a.createdAt).getTime();
+  //   const secondEl = new Date(b.createdAt).getTime();
+  //   return secondEl - firstEl;
+  // });
+
+  const sortedComments = comments.sort((a, b) => {
+    const firstEl = new Date(a.createdAt).getTime();
+    const secondEl = new Date(b.createdAt).getTime();
+    if (!showAllComments) return secondEl - firstEl;
+
+    return firstEl - secondEl;
+  });
 
   const onHandleCommentsToggle = () => {
     setCommentsIsHide && setCommentsIsHide(!commentsIsHide);
     setPage(0);
+    setAllComments([...allComments.slice(0, commentsPageLimit)]);
   };
 
   const onHandlePopupButtonClick = async () => {
     if (!showAllComments) {
       setShowAllComments(true);
     } else {
-      setAllComments([]);
+      setAllComments([...allComments.slice(0, commentsPageLimit)]);
       setPage(0);
       setShowAllComments(false);
     }
@@ -77,18 +104,10 @@ const PostComments: FC<PostCommentsProps> = ({
   };
 
   useEffect(() => {
-    const commentsApi = new PostApi(
-      setErrorBoundary,
-      undefined,
-      setAllComments,
-      undefined,
-      postId,
-      commentsPageLimit
-    );
-    if (showAllComments && !commentsIsHide && page) commentsApi;
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [commentsIsHide, page, postId, showAllComments]);
+    console.log(page);
+    // if (commentsIsHide && !showAllComments && !page) commentsApi.get();
+    // if (!commentsIsHide && showAllComments && page) commentsApi.get(page);
+  }, [commentsApi, commentsIsHide, page, showAllComments]);
 
   const togglerBtnClassNames = cn(
     styles["feed-comments__button"],

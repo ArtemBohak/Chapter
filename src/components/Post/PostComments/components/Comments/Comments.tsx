@@ -53,6 +53,7 @@ const Comments: FC<CommentsProps> = ({
       if (el && el.loaderRef && el.loaderRef.current && showAllComments)
         observer.observe(el.loaderRef.current);
     });
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [comments, showAllComments]);
 
