@@ -1,4 +1,4 @@
-import { FC, useEffect, useMemo, useRef, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import cn from "classnames";
 
 import { PostApi } from "@/src/services";
@@ -31,7 +31,7 @@ const PostComments: FC<PostCommentsProps> = ({
     null
   );
 
-  const [allComments, setAllComments] = useState<CommentsType>([]);
+  const [, setAllComments] = useState<CommentsType>([]);
   const [page, setPage] = useState(0);
 
   const [showFilterPopup, setShowFilterPopup] = useState(false);
@@ -48,20 +48,7 @@ const PostComments: FC<PostCommentsProps> = ({
 
   const setErrorBoundary = useErrorBoundary();
 
-  const commentsApi = useMemo(
-    () =>
-      new PostApi(
-        setErrorBoundary,
-        undefined,
-        setAllComments,
-        undefined,
-        postId,
-        commentsPageLimit
-      ),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [postId]
-  );
-
+  //! Comments pagination
   // const sortedAllComments = useMemo(
   //   () =>
   //     allComments.sort((a, b) => {
@@ -77,7 +64,9 @@ const PostComments: FC<PostCommentsProps> = ({
   //   const secondEl = new Date(b.createdAt).getTime();
   //   return secondEl - firstEl;
   // });
+  //! Comments pagination
 
+  //! TEMP CODE. Remove with comments pagination
   const sortedComments = comments.sort((a, b) => {
     const firstEl = new Date(a.createdAt).getTime();
     const secondEl = new Date(b.createdAt).getTime();
@@ -85,29 +74,49 @@ const PostComments: FC<PostCommentsProps> = ({
 
     return firstEl - secondEl;
   });
+  //! TEMP CODE
 
   const onHandleCommentsToggle = () => {
+    if (!commentsIsHide) {
+      setPage(0);
+      setAllComments([]);
+    }
     setCommentsIsHide && setCommentsIsHide(!commentsIsHide);
-    setPage(0);
-    setAllComments([...allComments.slice(0, commentsPageLimit)]);
   };
 
   const onHandlePopupButtonClick = async () => {
     if (!showAllComments) {
       setShowAllComments(true);
     } else {
-      setAllComments([...allComments.slice(0, commentsPageLimit)]);
-      setPage(0);
+      setAllComments([]);
+      //! setPage(0);
       setShowAllComments(false);
     }
     setShowFilterPopup(false);
   };
 
   useEffect(() => {
-    console.log(page);
-    // if (commentsIsHide && !showAllComments && !page) commentsApi.get();
+    const commentsApi = new PostApi(
+      setErrorBoundary,
+      undefined,
+      setAllComments,
+      undefined,
+      postId,
+      commentsPageLimit
+    );
+    commentsApi;
+
+    // if (
+    //   ((commentsIsHide && !showAllComments) ||
+    //     (commentsIsHide && showAllComments) ||
+    //     (!commentsIsHide && showAllComments) ||
+    //     (!commentsIsHide && !showAllComments)) &&
+    //   !page
+    // )
+    //   commentsApi.get();
+
     // if (!commentsIsHide && showAllComments && page) commentsApi.get(page);
-  }, [commentsApi, commentsIsHide, page, showAllComments]);
+  }, [commentsIsHide, page, postId, showAllComments, setErrorBoundary]);
 
   const togglerBtnClassNames = cn(
     styles["feed-comments__button"],

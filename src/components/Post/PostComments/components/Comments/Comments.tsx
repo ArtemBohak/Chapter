@@ -1,8 +1,9 @@
-import { FC, useEffect, useRef } from "react";
+import { FC, useRef } from "react";
 import cn from "classnames";
 
 import { CommentsProps } from "./Comments.type";
 import { CommentValues } from "@/src/types";
+import { useRefsIntersection } from "@/src/hooks";
 import styles from "./Comments.module.scss";
 
 import { Comment } from "./components";
@@ -25,37 +26,9 @@ const Comments: FC<CommentsProps> = ({
 }) => {
   const startLoaderRef = useRef(null);
 
-  useEffect(() => {
-    const loader = startLoaderRef.current;
-    const observer = new IntersectionObserver(([entries]) => {
-      if (entries.isIntersecting) setPage(1);
-    });
-
-    if (loader && showAllComments) observer.observe(loader);
-
-    return () => {
-      if (loader && !showAllComments) observer.unobserve(loader);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [showAllComments]);
-
-  useEffect(() => {
-    comments.forEach((el) => {
-      const observer = new IntersectionObserver(([entries]) => {
-        if (
-          el &&
-          el.loaderRef &&
-          el.loaderRef.current &&
-          entries.isIntersecting
-        )
-          setPage(+el.loaderRef.current.value);
-      });
-      if (el && el.loaderRef && el.loaderRef.current && showAllComments)
-        observer.observe(el.loaderRef.current);
-    });
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [comments, showAllComments]);
+  useRefsIntersection(comments, startLoaderRef, setPage, {
+    isShow: showAllComments,
+  });
 
   const renderComments = (comments: Array<CommentValues>, step: number) => {
     let counter: number = 0;
