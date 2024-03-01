@@ -1,5 +1,9 @@
 import { Dispatch, SetStateAction } from "react";
 import { io, Socket } from "socket.io-client";
+import { AxiosError, AxiosResponse } from "axios";
+import { SetErrorType } from "@/src/types";
+import { api } from "@/src/axios";
+import { notificationsCB } from "@/src/utils";
 
 class SocketApi {
   private static instance: SocketApi;
@@ -25,13 +29,27 @@ class SocketApi {
     return this.socket;
   }
 
-  handleEvent<T>(setData: Dispatch<SetStateAction<Array<T>>>) {
-    return function (eventData: T) {
+  handleEvent<T, K>(
+    setData: Dispatch<SetStateAction<Array<K>>>,
+    setError?: SetErrorType
+  ) {
+    return async function (eventData: T) {
       if (typeof eventData === "object")
         return setData((state) => [
-          { ...eventData, keyId: Date.now() },
+          { ...(eventData as K), keyId: Date.now() },
           ...state,
         ]);
+      notificationsCB;
+      if (typeof eventData === "string") {
+        try {
+          const { data }: AxiosResponse<Array<K>> = await api.get("");
+          setData(notificationsCB<K>(data, "keyId"));
+        } catch (e) {
+          if (e instanceof AxiosError) {
+            setError && setError(e);
+          }
+        }
+      }
     };
   }
 

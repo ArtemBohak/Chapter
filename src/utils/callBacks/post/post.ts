@@ -1,5 +1,5 @@
 import { pageLimit } from "@/src/utils";
-import { postDataEdit, postDataFindIndex } from "../helpers";
+import { postDataEdit, dataFindIndex } from "../helpers";
 import { PostsRef } from "../callBacks.type";
 
 export const postsCB =
@@ -10,7 +10,7 @@ export const postsCB =
 
     if (Array.isArray(postsApiData)) {
       for (const postApiData of postsApiData) {
-        index = postDataFindIndex<T>(postsC, postApiData, key);
+        index = dataFindIndex<T>(postsC, postApiData, key);
 
         if (index !== -1) {
           postsC[index] = { ...postsC[index], ...postApiData };
@@ -19,7 +19,7 @@ export const postsCB =
 
       return postDataEdit<T>(postsC, pageLimit);
     } else {
-      index = postDataFindIndex<T>(postsC, postsApiData, key);
+      index = dataFindIndex<T>(postsC, postsApiData, key);
 
       if (index !== -1) {
         postsC[index] = { ...postsC[index], ...postsApiData };

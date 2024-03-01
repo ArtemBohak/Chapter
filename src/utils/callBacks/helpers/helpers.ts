@@ -1,15 +1,9 @@
 import { createRef } from "react";
 
-export const postDataFindIndex = <T extends object>(
-  feeds: Array<T>,
-  feed: T,
-  key: keyof T
-) => feeds.findIndex((el) => el[key] === feed[key]);
+export const dataFindIndex = <T>(array: Array<T>, obj: T, key: keyof T) =>
+  array.findIndex((el) => el[key] === obj[key]);
 
-export const postDataEdit = <T extends object>(
-  feeds: Array<T>,
-  pageLimit: number
-) => {
+export const postDataEdit = <T>(feeds: Array<T>, pageLimit: number) => {
   return feeds.map((el, i) => {
     if (feeds.length - 3 === i) {
       return {

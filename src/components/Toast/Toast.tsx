@@ -6,6 +6,10 @@ import { genLink } from "./utils";
 import styles from "./Toast.module.scss";
 
 import defaultUserAvatar from "@/src/assets/SVG/default-user-avatar.svg";
+import { useErrorBoundary } from "@/src/hooks";
+import { AxiosError, AxiosResponse } from "axios";
+import { INotification } from "@/src/types";
+import { api } from "@/src/axios";
 
 const Toast: FC<ToastProps> = ({
   setNotifications,
@@ -16,7 +20,19 @@ const Toast: FC<ToastProps> = ({
   messageClassNames,
   keyId,
 }) => {
-  const onHandleClick = () => {
+  const setErrorBoundary = useErrorBoundary();
+
+  const onHandleClick = async () => {
+    try {
+      const { data }: AxiosResponse<Array<INotification>> = await api.delete(
+        ""
+      );
+      setNotifications(data);
+    } catch (e) {
+      if (e instanceof AxiosError) {
+        setErrorBoundary(e);
+      }
+    }
     setNotifications((state) => state.filter((el) => el.keyId !== keyId));
   };
   return (
