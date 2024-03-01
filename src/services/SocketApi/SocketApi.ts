@@ -39,7 +39,7 @@ class SocketApi {
           { ...(eventData as T), keyId: Date.now() },
           ...state,
         ]);
-      notificationsCB;
+
       if (typeof eventData === "string") {
         try {
           const { data }: AxiosResponse<Array<T>> = await api.get("");
