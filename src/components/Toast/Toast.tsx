@@ -52,7 +52,7 @@ const Toast: FC<ToastProps> = ({
           <span>
             {firstName} {lastName}
           </span>
-          <span>{nickName}</span>
+          <span className={styles["user__nickname"]}>{nickName}</span>
         </span>
       </span>
       <span className={`${styles["toast__message"]} ${messageClassNames}`}>
