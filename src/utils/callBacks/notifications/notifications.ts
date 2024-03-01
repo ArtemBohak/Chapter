@@ -13,7 +13,8 @@ export const notificationsCB =
       );
 
       if (index !== -1) continue;
-      else notificationsC = [newNotification, ...notificationsC];
+
+      notificationsC = [newNotification, ...notificationsC];
     }
     return notificationsC;
   };
