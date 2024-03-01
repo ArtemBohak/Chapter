@@ -17,6 +17,9 @@ export interface INotification {
 
 export type NotificationType = {
   eventType: SocketEventsType;
-  nodeRef: MutableRefObject<null> | RefObject<HTMLAnchorElement>;
   keyId: string | number;
 } & INotification;
+
+export type NotificationsRefType =
+  | MutableRefObject<null>
+  | RefObject<HTMLAnchorElement>;

@@ -27,11 +27,7 @@ const Feeds: FC = () => {
 
   return (
     <>
-      <input
-        className="invisible absolute"
-        ref={startLoaderRef}
-        defaultValue={1}
-      />
+      <input className="hide-element" ref={startLoaderRef} defaultValue={1} />
       <TransitionGroup component={"ul"} className={styles["feeds-list"]}>
         {feeds.map((i) => (
           <Animation

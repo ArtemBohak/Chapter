@@ -53,7 +53,7 @@ const Comments: FC<CommentsProps> = ({
       <>
         {showAllComments && !counter ? (
           <input
-            className="invisible absolute"
+            className="hide-element"
             ref={startLoaderRef}
             defaultValue={1}
           />

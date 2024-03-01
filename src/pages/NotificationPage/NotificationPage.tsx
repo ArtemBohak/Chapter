@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, createRef } from "react";
 import { TransitionGroup } from "react-transition-group";
 
 import { useProfileContext } from "@/src/context";
@@ -6,9 +6,15 @@ import { useProfileContext } from "@/src/context";
 import styles from "./NotificationPage.module.scss";
 
 import { Animation, Toast } from "@/src/components";
+import { NotificationType, NotificationsRefType } from "@/src/types";
 
 const NotificationPage: FC = () => {
   const { notifications, setNotifications } = useProfileContext();
+
+  const editedNotifications = notifications.map((el) => ({
+    ...el,
+    nodeRef: createRef(),
+  }));
 
   const transitionClassNames = {
     enter: styles["notifications__list-enter"],
@@ -24,7 +30,7 @@ const NotificationPage: FC = () => {
           component={"ul"}
           className={styles["notifications__list"]}
         >
-          {notifications.map((el) => (
+          {editedNotifications.map((el) => (
             <Animation
               key={el.keyId}
               nodeRef={el.nodeRef}

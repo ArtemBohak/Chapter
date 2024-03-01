@@ -38,3 +38,7 @@
   clip: rect(0 0 0 0);
   clip-path: inset(50%);
 }
+
+.hide-element {
+  @apply invisible absolute;
+}
