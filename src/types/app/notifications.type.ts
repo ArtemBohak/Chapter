@@ -6,20 +6,24 @@ export enum SocketEvents {
   post = "postNotification",
 }
 
+export enum SocketMessage {
+  newPost = "New post",
+}
+
 export type SocketEventsType = SocketEvents.subscribe | SocketEvents.post;
 
 export interface INotification {
   message: string;
+  keyId: string | number;
   user: Required<
     Pick<IUser, "avatarUrl" | "firstName" | "lastName" | "nickName" | "id">
   >;
 }
 
-export type NotificationType = {
-  eventType: SocketEventsType;
-  keyId: string | number;
-} & INotification;
-
 export type NotificationsRefType =
   | MutableRefObject<null>
   | RefObject<HTMLAnchorElement>;
+
+export type NotificationType = {
+  nodeRef: NotificationsRefType;
+} & INotification;

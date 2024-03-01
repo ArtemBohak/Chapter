@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 import { io, Socket } from "socket.io-client";
 
-import { INotification, NotificationType, SocketEventsType } from "@/src/types";
+import { INotification } from "@/src/types";
 
 class SocketApi {
   private static instance: SocketApi;
@@ -28,18 +28,10 @@ class SocketApi {
   }
 
   handleEvent<T extends INotification>(
-    eventType: SocketEventsType,
-    setData: Dispatch<SetStateAction<Array<NotificationType>>>
+    setData: Dispatch<SetStateAction<Array<T>>>
   ) {
     return function (eventData: T) {
-      setData((state) => [
-        {
-          ...eventData,
-          eventType,
-          keyId: Date.now(),
-        },
-        ...state,
-      ]);
+      setData((state) => [{ ...eventData, keyId: Date.now() }, ...state]);
     };
   }
 

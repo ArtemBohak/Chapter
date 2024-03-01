@@ -6,15 +6,17 @@ import { useProfileContext } from "@/src/context";
 import styles from "./NotificationPage.module.scss";
 
 import { Animation, Toast } from "@/src/components";
-import { NotificationType, NotificationsRefType } from "@/src/types";
+import { NotificationType } from "@/src/types";
 
 const NotificationPage: FC = () => {
   const { notifications, setNotifications } = useProfileContext();
 
-  const editedNotifications = notifications.map((el) => ({
-    ...el,
-    nodeRef: createRef(),
-  }));
+  const editedNotifications: Array<NotificationType> = notifications.map(
+    (el) => ({
+      ...el,
+      nodeRef: createRef(),
+    })
+  );
 
   const transitionClassNames = {
     enter: styles["notifications__list-enter"],

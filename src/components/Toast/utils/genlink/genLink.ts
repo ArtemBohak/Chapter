@@ -1,14 +1,6 @@
-import { SocketEvents, links } from "@/src/types";
+import { SocketMessage, links } from "@/src/types";
 
-export const genLink = (eventType: string, id: number | string) => {
-  switch (eventType) {
-    case SocketEvents.subscribe:
-      return `/${id}`;
-
-    case SocketEvents.post:
-      return links.FEED;
-
-    default:
-      return "/";
-  }
+export const genLink = (message: string, id: number | string) => {
+  if (message === SocketMessage.newPost) return links.FEED;
+  return `/${id}`;
 };

@@ -11,7 +11,6 @@ const Toast: FC<ToastProps> = ({
   setNotifications,
   user: { id, firstName, lastName, avatarUrl },
   message,
-  eventType,
   nodeRef,
   classNames,
   messageClassNames,
@@ -22,7 +21,7 @@ const Toast: FC<ToastProps> = ({
   };
   return (
     <Link
-      to={genLink(eventType, id)}
+      to={genLink(message, id)}
       className={`${styles["toast"]} ${classNames}`}
       onClick={onHandleClick}
       ref={nodeRef}

@@ -3,7 +3,7 @@ import { FC, useEffect, useState } from "react";
 import { SocketApi } from "@/src/services";
 import { getTokenFromLC } from "@/src/utils";
 import { useAppSelector } from "@/src/redux";
-import { INotification, NotificationType, SocketEvents } from "@/src/types";
+import { INotification, SocketEvents } from "@/src/types";
 import { ProfileContext } from "./hooks";
 import { IProfileProviderProps } from "./ProfileProvider.type";
 
@@ -16,9 +16,7 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
   const [headerAddPostBtnIsDisabled, setHeaderAddPostBtnIsDisabled] =
     useState(false);
 
-  const [notifications, setNotifications] = useState<Array<NotificationType>>(
-    []
-  );
+  const [notifications, setNotifications] = useState<Array<INotification>>([]);
 
   const [unreadMessage, setUnreadMessage] = useState(notifications.length);
 
@@ -48,15 +46,10 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
   }, [isAuth]);
 
   useEffect(() => {
-    const onHandleSubscribe = socket.handleEvent<INotification>(
-      SocketEvents.subscribe,
-      setNotifications
-    );
+    const onHandleSubscribe =
+      socket.handleEvent<INotification>(setNotifications);
 
-    const onHandleNewPost = socket.handleEvent<INotification>(
-      SocketEvents.post,
-      setNotifications
-    );
+    const onHandleNewPost = socket.handleEvent<INotification>(setNotifications);
 
     if (isConnected) {
       socket.addListener<INotification>(
