@@ -12,18 +12,17 @@ export enum SocketMessage {
 
 export type SocketEventsType = SocketEvents.subscribe | SocketEvents.post;
 
+export type NotificationsRefType =
+  | MutableRefObject<null>
+  | RefObject<HTMLAnchorElement>;
+
 export interface INotification {
   message: string;
-  keyId: string | number;
+  keyId?: string | number;
+  nodeRef?: NotificationsRefType;
   user: Required<
     Pick<IUser, "avatarUrl" | "firstName" | "lastName" | "nickName" | "id">
   >;
 }
 
-export type NotificationsRefType =
-  | MutableRefObject<null>
-  | RefObject<HTMLAnchorElement>;
-
-export type NotificationType = {
-  nodeRef: NotificationsRefType;
-} & INotification;
+export type NotificationType = INotification;

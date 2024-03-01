@@ -2,21 +2,18 @@ import { FC, createRef } from "react";
 import { TransitionGroup } from "react-transition-group";
 
 import { useProfileContext } from "@/src/context";
-
+import { INotification } from "@/src/types";
 import styles from "./NotificationPage.module.scss";
 
 import { Animation, Toast } from "@/src/components";
-import { NotificationType } from "@/src/types";
 
 const NotificationPage: FC = () => {
   const { notifications, setNotifications } = useProfileContext();
 
-  const editedNotifications: Array<NotificationType> = notifications.map(
-    (el) => ({
-      ...el,
-      nodeRef: createRef(),
-    })
-  );
+  const editedNotifications: Array<INotification> = notifications.map((el) => ({
+    ...el,
+    nodeRef: createRef(),
+  }));
 
   const transitionClassNames = {
     enter: styles["notifications__list-enter"],
@@ -32,22 +29,24 @@ const NotificationPage: FC = () => {
           component={"ul"}
           className={styles["notifications__list"]}
         >
-          {editedNotifications.map((el) => (
-            <Animation
-              key={el.keyId}
-              nodeRef={el.nodeRef}
-              classNames={transitionClassNames}
-              timeout={300}
-            >
-              <li>
-                <Toast
-                  {...el}
-                  setNotifications={setNotifications}
-                  classNames={styles["notification"]}
-                />
-              </li>
-            </Animation>
-          ))}
+          {editedNotifications.map((el) => {
+            return (
+              <Animation
+                key={el.keyId}
+                nodeRef={el.nodeRef}
+                classNames={transitionClassNames}
+                timeout={300}
+              >
+                <li>
+                  <Toast
+                    {...el}
+                    setNotifications={setNotifications}
+                    classNames={styles["notification"]}
+                  />
+                </li>
+              </Animation>
+            );
+          })}
         </TransitionGroup>
       </div>
     </section>
