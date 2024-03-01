@@ -30,20 +30,20 @@ class SocketApi {
   }
 
   handleEvent<T, K>(
-    setData: Dispatch<SetStateAction<Array<K>>>,
+    setData: Dispatch<SetStateAction<Array<T>>>,
     setError?: SetErrorType
   ) {
-    return async function (eventData: T) {
+    return async function (eventData: K) {
       if (typeof eventData === "object")
         return setData((state) => [
-          { ...(eventData as K), keyId: Date.now() },
+          { ...(eventData as T), keyId: Date.now() },
           ...state,
         ]);
       notificationsCB;
       if (typeof eventData === "string") {
         try {
-          const { data }: AxiosResponse<Array<K>> = await api.get("");
-          setData(notificationsCB<K>(data, "keyId"));
+          const { data }: AxiosResponse<Array<T>> = await api.get("");
+          setData(notificationsCB<T>(data, "keyId"));
         } catch (e) {
           if (e instanceof AxiosError) {
             setError && setError(e);
