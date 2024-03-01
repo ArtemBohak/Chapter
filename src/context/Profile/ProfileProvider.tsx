@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from "react";
-import { AxiosError, AxiosResponse } from "axios";
+// import { AxiosError } from "axios";
 
-import { api } from "@/src/axios";
+// import { api } from "@/src/axios";
 import { SocketApi } from "@/src/services";
 import { getTokenFromLC } from "@/src/utils";
 import { useErrorBoundary } from "@/src/hooks";
@@ -24,19 +24,19 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
 
   const [unreadMessage, setUnreadMessage] = useState(notifications.length);
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const { data }: AxiosResponse<Array<INotification>> = await api.get("");
-        setNotifications(data);
-      } catch (e) {
-        if (e instanceof AxiosError) {
-          setErrorBoundary(e);
-        }
-      }
-    })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       // const { data }: AxiosResponse<Array<INotification>> = await api.get("");
+  //       // setNotifications(data);
+  //     } catch (e) {
+  //       if (e instanceof AxiosError) {
+  //         setErrorBoundary(e);
+  //       }
+  //     }
+  //   })();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   useEffect(() => {
     const onConnect = () => {

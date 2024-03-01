@@ -38,11 +38,7 @@ const NotificationPage: FC = () => {
                 timeout={300}
               >
                 <li>
-                  <Toast
-                    {...el}
-                    setNotifications={setNotifications}
-                    classNames={styles["notification"]}
-                  />
+                  <Toast {...el} setNotifications={setNotifications} />
                 </li>
               </Animation>
             );
