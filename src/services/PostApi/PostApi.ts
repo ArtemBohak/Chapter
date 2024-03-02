@@ -3,18 +3,18 @@ import { AxiosError, AxiosResponse } from "axios";
 import { EndpointsEnum, api } from "@/src/axios";
 import { SetIsLoadingType } from "@/src/services";
 import { SetErrorType } from "@/src/types";
-import { pageLimit, postsCB } from "@/src/utils";
-import { CommentType, CommentsType, FeedType, FeedsType } from "./PostApi.type";
+import { pageLimit, postsCB, commentsPageLimit } from "@/src/utils";
 
-class PostApi {
+class PostApi<T extends object> {
+  private limit: number;
   constructor(
+    private setData: Dispatch<SetStateAction<Array<T>>>,
     private setErrorBoundary: SetErrorType,
-    private setFeedsData?: Dispatch<SetStateAction<FeedsType>>,
-    private setCommentsData?: Dispatch<SetStateAction<CommentsType>>,
     private setIsLoading?: SetIsLoadingType,
-    private postId?: string | number,
-    private limit = pageLimit
-  ) {}
+    private postId?: string | number
+  ) {
+    this.limit = this.postId ? commentsPageLimit : pageLimit;
+  }
 
   async get(page = 1) {
     try {
@@ -28,10 +28,8 @@ class PostApi {
           params: { page, limit: this.limit },
         }
       );
-
-      this.setFeedsData && this.setFeedsData(postsCB<FeedType>(data, "postId"));
-      this.setCommentsData &&
-        this.setCommentsData(postsCB<CommentType>(data, "id"));
+      const key = this.postId ? "id" : "postId";
+      this.setData(postsCB<T>(data, key));
     } catch (e) {
       if (e instanceof AxiosError) {
         this.setErrorBoundary(e);
