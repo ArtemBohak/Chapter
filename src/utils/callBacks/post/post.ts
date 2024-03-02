@@ -1,6 +1,5 @@
 import { pageLimit } from "@/src/utils";
 import { postDataEdit, dataFindIndex } from "../helpers";
-// import { PostsRef } from "../callBacks.type";
 
 export const postsCB =
   <T>(postsApiData: Array<T> | T, key: string) =>
