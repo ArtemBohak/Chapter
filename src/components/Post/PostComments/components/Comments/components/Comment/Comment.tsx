@@ -38,7 +38,7 @@ const Comment: FC<CommentProps> = ({
 
   const avatarUrl = avatar ? avatar : defaultAvatar;
 
-  useRefIntersection(loaderRef, setPage);
+  useRefIntersection(loaderRef, setPage, { thresholds: [0.5] });
 
   return (
     <>

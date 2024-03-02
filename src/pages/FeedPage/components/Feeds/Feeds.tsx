@@ -13,7 +13,10 @@ const Feeds: FC = () => {
   const { feeds, isLoad, setPage } = useFeedContext();
   const startLoaderRef = useRef(null);
 
-  useRefIntersection(startLoaderRef, setPage, { postsIsLoad: isLoad });
+  useRefIntersection(startLoaderRef, setPage, {
+    postsIsLoad: isLoad,
+    thresholds: [1],
+  });
 
   const transitionClassNames = {
     enter: styles["feeds-list-enter"],
