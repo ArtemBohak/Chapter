@@ -7,8 +7,8 @@ import { notificationsCB } from "@/src/utils";
 
 class SocketApi {
   private static instance: SocketApi;
-  private socket: Socket | undefined = undefined;
   private readonly url = import.meta.env.VITE_SOCKET_BASE_URL;
+  private socket: Socket | undefined = undefined;
 
   constructor() {
     if (!SocketApi.instance) {
