@@ -5,11 +5,7 @@ import { OptionsType, RefType, SetNumberType } from "./useIntersections.type";
 export const useRefIntersection = (
   nodeRef: RefType,
   setPage: SetNumberType,
-  {
-    postsIsLoad,
-    commentsIsShow,
-    ...options
-  }: OptionsType & Partial<IntersectionObserver> = {}
+  { postsIsLoad, commentsIsShow, ...options }: OptionsType = {}
 ) => {
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {

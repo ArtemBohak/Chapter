@@ -9,4 +9,4 @@ export type RefType =
 export type OptionsType = {
   commentsIsShow?: boolean;
   postsIsLoad?: boolean;
-};
+} & Partial<IntersectionObserver>;
