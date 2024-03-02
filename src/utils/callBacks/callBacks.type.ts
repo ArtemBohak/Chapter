@@ -8,8 +8,6 @@ export type RefsType = {
   pageValue?: number;
 };
 
-export type PostsRef = RefsType;
-
 export type FeedType = IPost;
 export type FeedRefType = FeedType & RefsType;
 

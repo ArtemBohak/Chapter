@@ -1,9 +1,9 @@
-import { CommentsType } from "@/src/services/PostApi/PostApi.type";
+import { CommentRefType } from "@/src/services/PostApi/PostApi.type";
 
 import { Dispatch, SetStateAction } from "react";
 
 export type CommentsProps = {
-  comments: CommentsType;
+  comments: Array<CommentRefType>;
   setId: Dispatch<SetStateAction<number | string | null>>;
   setNickName: Dispatch<SetStateAction<string>>;
   setReplyToUserId: Dispatch<SetStateAction<number | string | null>>;

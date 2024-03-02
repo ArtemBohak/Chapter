@@ -27,7 +27,7 @@ const Feed: FC<FeedProps> = ({ nodeRef, loaderRef, pageValue, ...props }) => {
   const userId = useAppSelector((state) => state.userSlice.user.id);
 
   const { setFeeds, setPage } = useFeedContext();
-  useRefIntersection(loaderRef, setPage);
+  useRefIntersection(loaderRef, setPage, { thresholds: [1] });
 
   const navId = props.author.id !== userId ? `/${props.author.id}` : "#";
   return (
@@ -85,7 +85,11 @@ const Feed: FC<FeedProps> = ({ nodeRef, loaderRef, pageValue, ...props }) => {
         />
       </div>
       {loaderRef && pageValue ? (
-        <input className="invisible" ref={loaderRef} defaultValue={pageValue} />
+        <input
+          className="hide-element"
+          ref={loaderRef}
+          defaultValue={pageValue}
+        />
       ) : null}
     </div>
   );

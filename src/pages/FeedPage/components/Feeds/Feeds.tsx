@@ -13,7 +13,10 @@ const Feeds: FC = () => {
   const { feeds, isLoad, setPage } = useFeedContext();
   const startLoaderRef = useRef(null);
 
-  useRefIntersection(startLoaderRef, setPage, { postsIsLoad: isLoad });
+  useRefIntersection(startLoaderRef, setPage, {
+    postsIsLoad: isLoad,
+    thresholds: [1],
+  });
 
   const transitionClassNames = {
     enter: styles["feeds-list-enter"],
@@ -27,7 +30,7 @@ const Feeds: FC = () => {
 
   return (
     <>
-      <input className="invisible" ref={startLoaderRef} defaultValue={1} />
+      <input className="hide-element" ref={startLoaderRef} defaultValue={1} />
       <TransitionGroup component={"ul"} className={styles["feeds-list"]}>
         {feeds.map((i) => (
           <Animation

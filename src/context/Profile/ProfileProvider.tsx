@@ -1,26 +1,42 @@
 import { FC, useEffect, useState } from "react";
+// import { AxiosError } from "axios";
 
+// import { api } from "@/src/axios";
 import { SocketApi } from "@/src/services";
 import { getTokenFromLC } from "@/src/utils";
+import { useErrorBoundary } from "@/src/hooks";
 import { useAppSelector } from "@/src/redux";
-import { INotification, NotificationType, SocketEvents } from "@/src/types";
-import { ProfileContext } from "./hooks";
+import { INotification, SocketEvents } from "@/src/types";
 import { IProfileProviderProps } from "./ProfileProvider.type";
+import { ProfileContext } from "./hooks";
 
 const socket = new SocketApi();
 
 const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
+  const setErrorBoundary = useErrorBoundary();
   const isAuth = useAppSelector((state) => state.userSlice.isAuth);
   const [isConnected, setIsConnected] = useState(false);
 
   const [headerAddPostBtnIsDisabled, setHeaderAddPostBtnIsDisabled] =
     useState(false);
 
-  const [notifications, setNotifications] = useState<Array<NotificationType>>(
-    []
-  );
+  const [notifications, setNotifications] = useState<Array<INotification>>([]);
 
   const [unreadMessage, setUnreadMessage] = useState(notifications.length);
+
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       // const { data }: AxiosResponse<Array<INotification>> = await api.get("");
+  //       // setNotifications(data);
+  //     } catch (e) {
+  //       if (e instanceof AxiosError) {
+  //         setErrorBoundary(e);
+  //       }
+  //     }
+  //   })();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   useEffect(() => {
     const onConnect = () => {
@@ -48,14 +64,14 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
   }, [isAuth]);
 
   useEffect(() => {
-    const onHandleSubscribe = socket.handleEvent<INotification>(
-      SocketEvents.subscribe,
-      setNotifications
+    const onHandleSubscribe = socket.handleEvent<INotification, INotification>(
+      setNotifications,
+      setErrorBoundary
     );
 
-    const onHandleNewPost = socket.handleEvent<INotification>(
-      SocketEvents.post,
-      setNotifications
+    const onHandleNewPost = socket.handleEvent<INotification, INotification>(
+      setNotifications,
+      setErrorBoundary
     );
 
     if (isConnected) {
@@ -75,7 +91,7 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
 
       socket.removeListener<INotification>(SocketEvents.post, onHandleNewPost);
     };
-  }, [isConnected]);
+  }, [isConnected, setErrorBoundary]);
 
   useEffect(() => {
     setUnreadMessage(notifications.length);

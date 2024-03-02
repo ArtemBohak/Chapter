@@ -1,12 +1,14 @@
-import { Dispatch, SetStateAction, createRef } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { io, Socket } from "socket.io-client";
-
-import { INotification, NotificationType, SocketEventsType } from "@/src/types";
+import { AxiosError, AxiosResponse } from "axios";
+import { SetErrorType } from "@/src/types";
+import { api } from "@/src/axios";
+import { notificationsCB } from "@/src/utils";
 
 class SocketApi {
   private static instance: SocketApi;
-  private socket: Socket | undefined = undefined;
   private readonly url = import.meta.env.VITE_SOCKET_BASE_URL;
+  private socket: Socket | undefined = undefined;
 
   constructor() {
     if (!SocketApi.instance) {
@@ -27,19 +29,27 @@ class SocketApi {
     return this.socket;
   }
 
-  handleEvent<T extends INotification>(
-    eventType: SocketEventsType,
-    setData: Dispatch<SetStateAction<Array<NotificationType>>>
+  handleEvent<T, K>(
+    setData: Dispatch<SetStateAction<Array<T>>>,
+    setError?: SetErrorType
   ) {
-    return function (eventData: T) {
-      const notification: NotificationType = {
-        ...eventData,
-        eventType,
-        nodeRef: createRef(),
-        keyId: Date.now(),
-      };
+    return async function (eventData: K) {
+      if (typeof eventData === "object")
+        return setData((state) => [
+          { ...(eventData as T), keyId: Date.now() },
+          ...state,
+        ]);
 
-      setData((state) => [notification, ...state]);
+      if (typeof eventData === "string") {
+        try {
+          const { data }: AxiosResponse<Array<T>> = await api.get("");
+          setData(notificationsCB<T>(data, "keyId"));
+        } catch (e) {
+          if (e instanceof AxiosError) {
+            setError && setError(e);
+          }
+        }
+      }
     };
   }
 

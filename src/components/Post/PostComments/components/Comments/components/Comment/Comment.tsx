@@ -38,7 +38,7 @@ const Comment: FC<CommentProps> = ({
 
   const avatarUrl = avatar ? avatar : defaultAvatar;
 
-  useRefIntersection(loaderRef, setPage);
+  useRefIntersection(loaderRef, setPage, { thresholds: [0.5] });
 
   return (
     <>
@@ -95,7 +95,11 @@ const Comment: FC<CommentProps> = ({
         </div>
       </div>
       {loaderRef && pageValue ? (
-        <input className="invisible" ref={loaderRef} defaultValue={pageValue} />
+        <input
+          className="hide-element"
+          ref={loaderRef}
+          defaultValue={pageValue}
+        />
       ) : null}
     </>
   );

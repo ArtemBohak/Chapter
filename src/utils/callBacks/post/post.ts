@@ -1,16 +1,15 @@
 import { pageLimit } from "@/src/utils";
-import { postDataEdit, postDataFindIndex } from "../helpers";
-import { PostsRef } from "../callBacks.type";
+import { postDataEdit, dataFindIndex } from "../helpers";
 
 export const postsCB =
-  <T extends object>(postsApiData: Array<T> | T, key: keyof T) =>
-  (posts: Array<T & PostsRef>) => {
+  <T>(postsApiData: Array<T> | T, key: string) =>
+  (posts: Array<T>) => {
     let postsC = [...posts];
     let index: number;
 
     if (Array.isArray(postsApiData)) {
       for (const postApiData of postsApiData) {
-        index = postDataFindIndex<T>(postsC, postApiData, key);
+        index = dataFindIndex<T>(postsC, postApiData, key as keyof T);
 
         if (index !== -1) {
           postsC[index] = { ...postsC[index], ...postApiData };
@@ -19,7 +18,7 @@ export const postsCB =
 
       return postDataEdit<T>(postsC, pageLimit);
     } else {
-      index = postDataFindIndex<T>(postsC, postsApiData, key);
+      index = dataFindIndex<T>(postsC, postsApiData, key as keyof T);
 
       if (index !== -1) {
         postsC[index] = { ...postsC[index], ...postsApiData };

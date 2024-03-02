@@ -3,13 +3,13 @@ import cn from "classnames";
 
 import { PostApi } from "@/src/services";
 import { PostCommentsProps } from "./PostComments.type";
-import { commentsPageLimit, tabScreen } from "@/src/utils";
+import { tabScreen } from "@/src/utils";
 import {
   useErrorBoundary,
   useGetScreenSize,
   useOutsideClick,
 } from "@/src/hooks";
-import { CommentsType } from "@/src/services/PostApi/PostApi.type";
+import { CommentRefType } from "@/src/services/PostApi/PostApi.type";
 import styles from "./PostComments.module.scss";
 
 import { Animation, Icon, IconEnum, PopUpMenu } from "@/src/components";
@@ -31,7 +31,7 @@ const PostComments: FC<PostCommentsProps> = ({
     null
   );
 
-  const [, setAllComments] = useState<CommentsType>([]);
+  const [, setAllComments] = useState<Array<CommentRefType>>([]);
   const [page, setPage] = useState(0);
 
   const [showFilterPopup, setShowFilterPopup] = useState(false);
@@ -96,12 +96,10 @@ const PostComments: FC<PostCommentsProps> = ({
 
   useEffect(() => {
     const commentsApi = new PostApi(
+      setAllComments,
       setErrorBoundary,
       undefined,
-      setAllComments,
-      undefined,
-      postId,
-      commentsPageLimit
+      postId
     );
     commentsApi;
 

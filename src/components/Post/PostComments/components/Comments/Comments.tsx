@@ -28,6 +28,7 @@ const Comments: FC<CommentsProps> = ({
 
   useRefIntersection(startLoaderRef, setPage, {
     commentsIsShow: showAllComments,
+    thresholds: [1],
   });
 
   const renderComments = (comments: Array<CommentValues>, step: number) => {
@@ -52,7 +53,11 @@ const Comments: FC<CommentsProps> = ({
     return (
       <>
         {showAllComments && !counter ? (
-          <input className="invisible" ref={startLoaderRef} defaultValue={1} />
+          <input
+            className="hide-element"
+            ref={startLoaderRef}
+            defaultValue={1}
+          />
         ) : null}
         <ul className={styles["feed__list"]}>
           {sortedComments.map((i) => {
