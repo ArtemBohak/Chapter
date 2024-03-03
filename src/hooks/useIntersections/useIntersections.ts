@@ -22,5 +22,6 @@ export const useRefIntersection = (
     return () => {
       observer.disconnect();
     };
-  }, [commentsIsShow, postsIsLoad, nodeRef, options, handler]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [commentsIsShow, postsIsLoad, nodeRef, options]);
 };
