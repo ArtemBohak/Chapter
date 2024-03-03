@@ -1,4 +1,4 @@
-import { FC, useEffect, useMemo, useRef, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import cn from "classnames";
 
 import { PostApi } from "@/src/services";
@@ -48,18 +48,8 @@ const PostComments: FC<PostCommentsProps> = ({
   const [screenSize] = useGetScreenSize();
   const isMobScreen = screenSize < tabScreen ? 16 : 26;
 
-  const setErrorBoundary = useErrorBoundary();
   useOutsideClick(popupRef, setShowFilterPopup, "filter-btn");
-
-  const sortedAllComments = useMemo(
-    () =>
-      allComments.sort((a, b) => {
-        const firstEl = new Date(a.createdAt).getTime();
-        const secondEl = new Date(b.createdAt).getTime();
-        return firstEl - secondEl;
-      }),
-    [allComments]
-  );
+  const setErrorBoundary = useErrorBoundary();
 
   const sortedNewComments = comments.sort((a, b) => {
     const firstEl = new Date(a.createdAt).getTime();
@@ -68,19 +58,11 @@ const PostComments: FC<PostCommentsProps> = ({
   });
 
   const onHandleCommentsToggle = () => {
-    if (!commentsIsHide) {
-      setPage(0);
-    }
     setCommentsIsHide && setCommentsIsHide(!commentsIsHide);
   };
 
   const onHandlePopupButtonClick = async () => {
-    if (!showAllComments) {
-      setShowAllComments(true);
-    } else {
-      setPage(0);
-      setShowAllComments(false);
-    }
+    setShowAllComments(!showAllComments);
     setShowFilterPopup(false);
   };
 
@@ -88,12 +70,8 @@ const PostComments: FC<PostCommentsProps> = ({
     setIsObserving(isIntersecting);
 
   useRefIntersection(containerRef, handleIsObserving, {
-    thresholds: [0.1],
+    thresholds: [1],
   });
-
-  useEffect(() => {
-    if (!isObserving) setAllComments([]);
-  }, [isObserving]);
 
   useEffect(() => {
     const commentsApi = new PostApi(
@@ -102,13 +80,19 @@ const PostComments: FC<PostCommentsProps> = ({
       undefined,
       postId
     );
+    if (isObserving) {
+      commentsCount > 3 && !page && commentsApi.get();
+      page && commentsApi.get(page);
+    }
 
-    if (commentsCount > 3 && isObserving) commentsApi.get();
-
-    if (showAllComments && page) commentsApi.get(page);
-
+    if (!isObserving) {
+      setShowAllComments(false);
+      setCommentsIsHide && setCommentsIsHide(true);
+      setAllComments([]);
+      setPage(0);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isObserving, page, postId, showAllComments, commentsCount]);
+  }, [commentsCount, isObserving, page, postId]);
 
   const togglerBtnClassNames = cn(
     styles["feed-comments__button"],
@@ -190,7 +174,7 @@ const PostComments: FC<PostCommentsProps> = ({
       <div ref={commentsRef}>
         <Comments
           comments={
-            showAllComments ? sortedAllComments : sortedNewComments.slice(0, 3)
+            showAllComments ? allComments : sortedNewComments.slice(0, 3)
           }
           setId={setCommentId}
           setNickName={setNickName}

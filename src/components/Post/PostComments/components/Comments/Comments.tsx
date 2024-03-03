@@ -39,15 +39,14 @@ const Comments: FC<CommentsProps> = ({
 
     if (counter > 1) return;
 
-    const sortedComments = comments.sort((a, b) => {
-      const firstEl = new Date(a.createdAt).getTime();
-      const secondEl = new Date(b.createdAt).getTime();
+    const sortedComments = counter
+      ? comments.sort((a, b) => {
+          const firstEl = new Date(a.createdAt).getTime();
+          const secondEl = new Date(b.createdAt).getTime();
 
-      if (!counter && !showAllComments) {
-        return secondEl - firstEl;
-      }
-      return firstEl - secondEl;
-    });
+          return firstEl - secondEl;
+        })
+      : comments;
 
     const classNames = itemClassNames(counter);
 
