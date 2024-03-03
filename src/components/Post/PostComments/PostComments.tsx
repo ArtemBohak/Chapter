@@ -70,7 +70,7 @@ const PostComments: FC<PostCommentsProps> = ({
     setIsObserving(isIntersecting);
 
   useRefIntersection(containerRef, handleIsObserving, {
-    thresholds: [1],
+    thresholds: [0.5],
   });
 
   useEffect(() => {
