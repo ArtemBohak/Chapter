@@ -99,13 +99,6 @@ const Comment: FC<CommentProps> = ({
           </div>
         </div>
       </div>
-      {/* {loaderRef && pageValue ? (
-        <input
-          className="hide-elemen"
-          ref={loaderRef}
-          defaultValue={pageValue}
-        />
-      ) : null} */}
     </>
   );
 };
