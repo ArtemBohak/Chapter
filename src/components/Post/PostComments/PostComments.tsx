@@ -59,6 +59,11 @@ const PostComments: FC<PostCommentsProps> = ({
 
   const onHandleCommentsToggle = () => {
     setCommentsIsHide && setCommentsIsHide(!commentsIsHide);
+    if (!commentsIsHide) {
+      setShowAllComments(false);
+      setAllComments([]);
+      setPage(0);
+    }
   };
 
   const onHandlePopupButtonClick = async () => {
@@ -70,7 +75,7 @@ const PostComments: FC<PostCommentsProps> = ({
     setIsObserving(isIntersecting);
 
   useRefIntersection(containerRef, handleIsObserving, {
-    thresholds: [0.5],
+    thresholds: [1],
   });
 
   useEffect(() => {
@@ -85,12 +90,6 @@ const PostComments: FC<PostCommentsProps> = ({
       page && commentsApi.get(page);
     }
 
-    if (!isObserving) {
-      setShowAllComments(false);
-      setCommentsIsHide && setCommentsIsHide(true);
-      setAllComments([]);
-      setPage(0);
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [commentsCount, isObserving, page, postId]);
 
