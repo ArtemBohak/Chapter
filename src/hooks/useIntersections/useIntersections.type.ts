@@ -10,4 +10,7 @@ export type OptionsType = {
   postsIsLoad?: boolean;
 } & Partial<IntersectionObserver>;
 
-export type HandlerType = (value: HTMLDivElement) => void;
+export type HandlerType = (
+  entry: IntersectionObserverEntry,
+  element: HTMLElement
+) => void;

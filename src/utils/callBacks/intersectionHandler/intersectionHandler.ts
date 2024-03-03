@@ -1,8 +1,13 @@
 import { Dispatch, SetStateAction } from "react";
 
 export const intersectionHandlerCB =
-  (setPage: Dispatch<SetStateAction<number>>) => (element: HTMLDivElement) => {
-    const value = element.getAttribute("data-value");
+  (setPage: Dispatch<SetStateAction<number>>) =>
+  (
+    entry: IntersectionObserverEntry,
+    element: HTMLElement,
+    attributeName = "data-value"
+  ) => {
+    const value = element.getAttribute(attributeName);
 
-    if (value && !isNaN(+value)) setPage(+value);
+    if (value && !isNaN(+value) && entry.isIntersecting) setPage(+value);
   };

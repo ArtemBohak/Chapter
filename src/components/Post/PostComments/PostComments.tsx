@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, useEffect, useMemo, useRef, useState } from "react";
 import cn from "classnames";
 
 import { PostApi } from "@/src/services";
@@ -8,6 +8,7 @@ import {
   useErrorBoundary,
   useGetScreenSize,
   useOutsideClick,
+  useRefIntersection,
 } from "@/src/hooks";
 import { CommentRefType } from "@/src/services/PostApi/PostApi.type";
 import styles from "./PostComments.module.scss";
@@ -31,15 +32,18 @@ const PostComments: FC<PostCommentsProps> = ({
     null
   );
 
-  const [, setAllComments] = useState<Array<CommentRefType>>([]);
+  const [allComments, setAllComments] = useState<Array<CommentRefType>>([]);
   const [page, setPage] = useState(0);
 
   const [showFilterPopup, setShowFilterPopup] = useState(false);
   const [showAllComments, setShowAllComments] = useState(false);
 
+  const [isObserving, setIsObserving] = useState(false);
+
   const btnRef = useRef(null);
   const commentsRef = useRef(null);
   const popupRef = useRef(null);
+  const containerRef = useRef(null);
 
   const [screenSize] = useGetScreenSize();
   const isMobScreen = screenSize < tabScreen ? 16 : 26;
@@ -47,38 +51,25 @@ const PostComments: FC<PostCommentsProps> = ({
   const setErrorBoundary = useErrorBoundary();
   useOutsideClick(popupRef, setShowFilterPopup, "filter-btn");
 
-  //! Comments pagination
-  // const sortedAllComments = useMemo(
-  //   () =>
-  //     allComments.sort((a, b) => {
-  //       const firstEl = new Date(a.createdAt).getTime();
-  //       const secondEl = new Date(b.createdAt).getTime();
-  //       return firstEl - secondEl;
-  //     }),
-  //   [allComments]
-  // );
+  const sortedAllComments = useMemo(
+    () =>
+      allComments.sort((a, b) => {
+        const firstEl = new Date(a.createdAt).getTime();
+        const secondEl = new Date(b.createdAt).getTime();
+        return firstEl - secondEl;
+      }),
+    [allComments]
+  );
 
-  // const sortedNewComments = comments.sort((a, b) => {
-  //   const firstEl = new Date(a.createdAt).getTime();
-  //   const secondEl = new Date(b.createdAt).getTime();
-  //   return secondEl - firstEl;
-  // });
-  //! Comments pagination
-
-  //! TEMP CODE. Remove with comments pagination
-  const sortedComments = comments.sort((a, b) => {
+  const sortedNewComments = comments.sort((a, b) => {
     const firstEl = new Date(a.createdAt).getTime();
     const secondEl = new Date(b.createdAt).getTime();
-    if (!showAllComments) return secondEl - firstEl;
-
-    return firstEl - secondEl;
+    return secondEl - firstEl;
   });
-  //! TEMP CODE
 
   const onHandleCommentsToggle = () => {
     if (!commentsIsHide) {
       setPage(0);
-      setAllComments([]);
     }
     setCommentsIsHide && setCommentsIsHide(!commentsIsHide);
   };
@@ -87,12 +78,22 @@ const PostComments: FC<PostCommentsProps> = ({
     if (!showAllComments) {
       setShowAllComments(true);
     } else {
-      setAllComments([]);
       setPage(0);
       setShowAllComments(false);
     }
     setShowFilterPopup(false);
   };
+
+  const handleIsObserving = ({ isIntersecting }: IntersectionObserverEntry) =>
+    setIsObserving(isIntersecting);
+
+  useRefIntersection(containerRef, handleIsObserving, {
+    thresholds: [0.1],
+  });
+
+  useEffect(() => {
+    if (!isObserving) setAllComments([]);
+  }, [isObserving]);
 
   useEffect(() => {
     const commentsApi = new PostApi(
@@ -101,19 +102,13 @@ const PostComments: FC<PostCommentsProps> = ({
       undefined,
       postId
     );
-    commentsApi;
 
-    // if (
-    //   ((commentsIsHide && !showAllComments) ||
-    //     (commentsIsHide && showAllComments) ||
-    //     (!commentsIsHide && showAllComments) ||
-    //     (!commentsIsHide && !showAllComments)) &&
-    //   !page
-    // )
-    //   commentsApi.get();
+    if (commentsCount > 3 && isObserving) commentsApi.get();
 
-    // if (!commentsIsHide && showAllComments && page) commentsApi.get(page);
-  }, [commentsIsHide, page, postId, showAllComments, setErrorBoundary]);
+    if (showAllComments && page) commentsApi.get(page);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isObserving, page, postId, showAllComments, commentsCount]);
 
   const togglerBtnClassNames = cn(
     styles["feed-comments__button"],
@@ -195,7 +190,7 @@ const PostComments: FC<PostCommentsProps> = ({
       <div ref={commentsRef}>
         <Comments
           comments={
-            showAllComments ? sortedComments : sortedComments.slice(0, 3)
+            showAllComments ? sortedAllComments : sortedNewComments.slice(0, 3)
           }
           setId={setCommentId}
           setNickName={setNickName}
@@ -209,7 +204,7 @@ const PostComments: FC<PostCommentsProps> = ({
   );
 
   return (
-    <div className={styles["feed-comments"]}>
+    <div className={styles["feed-comments"]} ref={containerRef}>
       <div className={styles["feed-comments__text-wrapper"]}>
         {renderTogglerBtn}
         {renderFilterBtn}

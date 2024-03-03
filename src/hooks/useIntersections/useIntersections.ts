@@ -5,12 +5,19 @@ import { OptionsType, RefType, HandlerType } from "./useIntersections.type";
 export const useRefIntersection = (
   nodeRef: RefType,
   handler: HandlerType,
-  { postsIsLoad, commentsIsShow, ...options }: OptionsType = {}
+  {
+    postsIsLoad,
+    commentsIsShow,
+
+    ...options
+  }: OptionsType = {}
 ) => {
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (nodeRef?.current && entry.isIntersecting) handler(nodeRef?.current);
+        if (nodeRef?.current) {
+          handler(entry, nodeRef?.current);
+        }
       });
     }, options);
 
