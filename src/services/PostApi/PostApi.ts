@@ -28,7 +28,7 @@ class PostApi<T extends object> {
         params: { page, limit: this.limit },
       });
 
-      this.setData(postsCB<T>(data, key));
+      this.setData(postsCB<T>(data, key, this.limit));
     } catch (e) {
       if (e instanceof AxiosError) {
         this.setErrorBoundary(e);
