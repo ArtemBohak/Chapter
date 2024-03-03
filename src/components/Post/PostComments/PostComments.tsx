@@ -86,7 +86,7 @@ const PostComments: FC<PostCommentsProps> = ({
       postId
     );
     if (isObserving) {
-      commentsCount > 3 && !page && commentsApi.get();
+      commentsCount && !page && commentsApi.get();
       page && commentsApi.get(page);
     }
 
