@@ -26,7 +26,9 @@ const Comments: FC<CommentsProps> = ({
 }) => {
   const startLoaderRef = useRef(null);
 
-  useRefIntersection(startLoaderRef, setPage, {
+  const handler = (value: number) => setPage(value);
+
+  useRefIntersection(startLoaderRef, handler, {
     commentsIsShow: showAllComments,
     thresholds: [1],
   });

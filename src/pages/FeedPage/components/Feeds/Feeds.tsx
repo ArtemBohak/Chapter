@@ -13,7 +13,9 @@ const Feeds: FC = () => {
   const { feeds, isLoad, setPage } = useFeedContext();
   const startLoaderRef = useRef(null);
 
-  useRefIntersection(startLoaderRef, setPage, {
+  const handler = (value: number) => setPage(value);
+
+  useRefIntersection(startLoaderRef, handler, {
     postsIsLoad: isLoad,
     thresholds: [1],
   });

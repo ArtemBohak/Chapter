@@ -37,8 +37,9 @@ const Comment: FC<CommentProps> = ({
   const navId = authorId !== userId ? `/${authorId}` : "#";
 
   const avatarUrl = avatar ? avatar : defaultAvatar;
+  const handler = (value: number) => setPage(value);
 
-  useRefIntersection(loaderRef, setPage, { thresholds: [0.5] });
+  useRefIntersection(loaderRef, handler, { thresholds: [0.5] });
 
   return (
     <>
