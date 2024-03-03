@@ -3,6 +3,7 @@ import cn from "classnames";
 
 import { CommentsProps } from "./Comments.type";
 import { CommentValues } from "@/src/types";
+import { intersectionHandlerCB } from "@/src/utils";
 import { useRefIntersection } from "@/src/hooks";
 import styles from "./Comments.module.scss";
 
@@ -26,9 +27,7 @@ const Comments: FC<CommentsProps> = ({
 }) => {
   const startLoaderRef = useRef(null);
 
-  const handler = (value: number) => setPage(value);
-
-  useRefIntersection(startLoaderRef, handler, {
+  useRefIntersection(startLoaderRef, intersectionHandlerCB(setPage), {
     commentsIsShow: showAllComments,
     thresholds: [1],
   });
@@ -55,11 +54,7 @@ const Comments: FC<CommentsProps> = ({
     return (
       <>
         {showAllComments && !counter ? (
-          <input
-            className="hide-element"
-            ref={startLoaderRef}
-            defaultValue={1}
-          />
+          <div ref={startLoaderRef} data-value={1}></div>
         ) : null}
         <ul className={styles["feed__list"]}>
           {sortedComments.map((i) => {

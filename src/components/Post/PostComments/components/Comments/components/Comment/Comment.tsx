@@ -1,10 +1,10 @@
 import { FC } from "react";
-
 import { Link } from "react-router-dom";
+
 import { CommentProps } from "./Comment.type";
 import { EndpointsEnum } from "@/src/axios";
-
-import { getDate } from "@/src/utils";
+import { getDate, intersectionHandlerCB } from "@/src/utils";
+import { useRefIntersection } from "@/src/hooks";
 import { useAppSelector } from "@/src/redux";
 import styles from "./Comment.module.scss";
 
@@ -12,7 +12,6 @@ import { TextTagging } from "@/src/components";
 import { LikesButton, CommentsButton } from "../../../../..";
 
 import defaultAvatar from "@/src/assets/SVG/default-user-avatar.svg";
-import { useRefIntersection } from "@/src/hooks";
 
 const Comment: FC<CommentProps> = ({
   author: { avatar, firstName, lastName, nickName, id: authorId },
@@ -37,13 +36,18 @@ const Comment: FC<CommentProps> = ({
   const navId = authorId !== userId ? `/${authorId}` : "#";
 
   const avatarUrl = avatar ? avatar : defaultAvatar;
-  const handler = (value: number) => setPage(value);
 
-  useRefIntersection(loaderRef, handler, { thresholds: [0.5] });
+  useRefIntersection(loaderRef, intersectionHandlerCB(setPage), {
+    thresholds: [1],
+  });
 
   return (
     <>
-      <div className={styles["comment"]}>
+      <div
+        className={styles["comment"]}
+        ref={loaderRef}
+        data-value={loaderRef && pageValue ? pageValue : ""}
+      >
         <Link to={navId} className={styles["comment__image"]}>
           <img src={avatarUrl} alt="user avatar" width={44} height={44} />
         </Link>
@@ -95,13 +99,13 @@ const Comment: FC<CommentProps> = ({
           </div>
         </div>
       </div>
-      {loaderRef && pageValue ? (
+      {/* {loaderRef && pageValue ? (
         <input
-          className="hide-element"
+          className="hide-elemen"
           ref={loaderRef}
           defaultValue={pageValue}
         />
-      ) : null}
+      ) : null} */}
     </>
   );
 };

@@ -2,7 +2,7 @@ import { MutableRefObject, RefObject } from "react";
 
 export type RefType =
   | MutableRefObject<null>
-  | RefObject<HTMLInputElement>
+  | RefObject<HTMLDivElement>
   | undefined;
 
 export type OptionsType = {
@@ -10,4 +10,4 @@ export type OptionsType = {
   postsIsLoad?: boolean;
 } & Partial<IntersectionObserver>;
 
-export type HandlerType = (value: number) => void;
+export type HandlerType = (value: HTMLDivElement) => void;

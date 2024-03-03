@@ -10,8 +10,7 @@ export const useRefIntersection = (
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (nodeRef?.current && entry.isIntersecting)
-          handler(+nodeRef?.current.value);
+        if (nodeRef?.current && entry.isIntersecting) handler(nodeRef?.current);
       });
     }, options);
 

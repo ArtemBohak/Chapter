@@ -1,8 +1,9 @@
 import { FC, useRef } from "react";
 import { TransitionGroup } from "react-transition-group";
 
-import { useFeedContext } from "../../context";
+import { intersectionHandlerCB } from "@/src/utils";
 import { useRefIntersection } from "@/src/hooks";
+import { useFeedContext } from "../../context";
 import styles from "./Feeds.module.scss";
 
 import { Animation, Loader, PostSkeleton } from "@/src/components";
@@ -13,9 +14,7 @@ const Feeds: FC = () => {
   const { feeds, isLoad, setPage } = useFeedContext();
   const startLoaderRef = useRef(null);
 
-  const handler = (value: number) => setPage(value);
-
-  useRefIntersection(startLoaderRef, handler, {
+  useRefIntersection(startLoaderRef, intersectionHandlerCB(setPage), {
     postsIsLoad: isLoad,
     thresholds: [1],
   });
@@ -32,7 +31,7 @@ const Feeds: FC = () => {
 
   return (
     <>
-      <input className="hide-element" ref={startLoaderRef} defaultValue={1} />
+      <div ref={startLoaderRef} data-value={1}></div>
       <TransitionGroup component={"ul"} className={styles["feeds-list"]}>
         {feeds.map((i) => (
           <Animation

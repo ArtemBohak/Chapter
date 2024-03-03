@@ -2,6 +2,8 @@ import { FC, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { useAppSelector } from "@/src/redux";
+import { useRefIntersection } from "@/src/hooks";
+import { intersectionHandlerCB } from "@/src/utils";
 import { FeedProps } from "./Feed.type";
 import { EndpointsEnum } from "@/src/axios";
 import { useFeedContext } from "../../context";
@@ -20,7 +22,6 @@ import {
   PostFullName,
   PostDate,
 } from "@/src/components";
-import { useRefIntersection } from "@/src/hooks";
 
 const Feed: FC<FeedProps> = ({ nodeRef, loaderRef, pageValue, ...props }) => {
   const [commentsIsHide, setCommentsIsHide] = useState(true);
@@ -28,15 +29,17 @@ const Feed: FC<FeedProps> = ({ nodeRef, loaderRef, pageValue, ...props }) => {
 
   const { setFeeds, setPage } = useFeedContext();
 
-  const handler = (value: number) => setPage(value);
-
-  useRefIntersection(loaderRef, handler, { thresholds: [1] });
+  useRefIntersection(loaderRef, intersectionHandlerCB(setPage), {
+    thresholds: [1],
+  });
 
   const navId = props.author.id !== userId ? `/${props.author.id}` : "#";
   return (
     <div className={styles["item-feed"]} ref={nodeRef}>
       <div
         className={`${styles["item-feed__wrapper"]} ${styles["item-feed__wrapper--top"]}`}
+        ref={loaderRef}
+        data-value={loaderRef && pageValue ? pageValue : ""}
       >
         <div className={styles["item-feed__user"]}>
           <Link className={styles["item-feed__user-content"]} to={navId}>
@@ -87,13 +90,6 @@ const Feed: FC<FeedProps> = ({ nodeRef, loaderRef, pageValue, ...props }) => {
           setFeeds={setFeeds}
         />
       </div>
-      {loaderRef && pageValue ? (
-        <input
-          className="hide-element"
-          ref={loaderRef}
-          defaultValue={pageValue}
-        />
-      ) : null}
     </div>
   );
 };
