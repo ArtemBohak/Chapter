@@ -58,12 +58,6 @@ const PostComments: FC<PostCommentsProps> = ({
     thresholds: [1],
   });
 
-  const sortedNewComments = comments.sort((a, b) => {
-    const firstEl = new Date(a.createdAt).getTime();
-    const secondEl = new Date(b.createdAt).getTime();
-    return secondEl - firstEl;
-  });
-
   const onHandleCommentsToggle = () => {
     setCommentsIsHide && setCommentsIsHide(!commentsIsHide);
     if (!commentsIsHide) {
@@ -172,9 +166,7 @@ const PostComments: FC<PostCommentsProps> = ({
     >
       <div ref={commentsRef}>
         <Comments
-          comments={
-            showAllComments ? allComments : sortedNewComments.slice(0, 3)
-          }
+          comments={showAllComments ? allComments : comments}
           setId={setCommentId}
           setNickName={setNickName}
           setReplyToUserId={setReplyToUserId}
