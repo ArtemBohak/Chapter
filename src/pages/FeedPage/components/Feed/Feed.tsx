@@ -29,6 +29,15 @@ const Feed: FC<FeedProps> = ({ nodeRef, pageValue, ...props }) => {
 
   const { setFeeds, setPage } = useFeedContext();
 
+  const [isObserving, setIsObserving] = useState(false);
+
+  const handleIsObserving = ({ isIntersecting }: IntersectionObserverEntry) =>
+    setIsObserving(isIntersecting);
+
+  useRefIntersection(nodeRef, handleIsObserving, {
+    thresholds: [1],
+  });
+
   useRefIntersection(nodeRef, intersectionHandlerCB(setPage), {
     thresholds: [1],
   });
@@ -90,6 +99,7 @@ const Feed: FC<FeedProps> = ({ nodeRef, pageValue, ...props }) => {
           commentsIsHide={commentsIsHide}
           setCommentsIsHide={setCommentsIsHide}
           setFeeds={setFeeds}
+          isObserving={isObserving}
         />
       </div>
     </div>

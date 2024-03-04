@@ -3,6 +3,7 @@ import { PostProps } from "../Post.type";
 import { IPost } from "@/src/types";
 
 export type PostCommentsProps = {
+  isObserving?: boolean;
   commentsIsHide?: boolean;
   setCommentsIsHide?: Dispatch<SetStateAction<boolean>>;
   setFeeds?: Dispatch<SetStateAction<Array<IPost>>>;

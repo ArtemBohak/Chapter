@@ -8,7 +8,6 @@ import {
   useErrorBoundary,
   useGetScreenSize,
   useOutsideClick,
-  useRefIntersection,
 } from "@/src/hooks";
 import { CommentRefType } from "@/src/services/PostApi/PostApi.type";
 import styles from "./PostComments.module.scss";
@@ -23,6 +22,7 @@ const PostComments: FC<PostCommentsProps> = ({
   postId,
   comments,
   commentsIsHide,
+  isObserving,
   setCommentsIsHide,
   setFeeds,
 }) => {
@@ -38,12 +38,9 @@ const PostComments: FC<PostCommentsProps> = ({
   const [showFilterPopup, setShowFilterPopup] = useState(false);
   const [showAllComments, setShowAllComments] = useState(false);
 
-  const [isObserving, setIsObserving] = useState(false);
-
   const btnRef = useRef(null);
   const commentsRef = useRef(null);
   const popupRef = useRef(null);
-  const containerRef = useRef(null);
 
   const [screenSize] = useGetScreenSize();
   const isMobScreen = screenSize < tabScreen ? 16 : 26;
@@ -70,13 +67,6 @@ const PostComments: FC<PostCommentsProps> = ({
     setShowAllComments(!showAllComments);
     setShowFilterPopup(false);
   };
-
-  const handleIsObserving = ({ isIntersecting }: IntersectionObserverEntry) =>
-    setIsObserving(isIntersecting);
-
-  useRefIntersection(containerRef, handleIsObserving, {
-    thresholds: [1],
-  });
 
   useEffect(() => {
     const commentsApi = new PostApi(
@@ -187,7 +177,7 @@ const PostComments: FC<PostCommentsProps> = ({
   );
 
   return (
-    <div className={styles["feed-comments"]} ref={containerRef}>
+    <div className={styles["feed-comments"]}>
       <div className={styles["feed-comments__text-wrapper"]}>
         {renderTogglerBtn}
         {renderFilterBtn}
