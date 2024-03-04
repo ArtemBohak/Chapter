@@ -23,23 +23,25 @@ import {
   PostDate,
 } from "@/src/components";
 
-const Feed: FC<FeedProps> = ({ nodeRef, loaderRef, pageValue, ...props }) => {
+const Feed: FC<FeedProps> = ({ nodeRef, pageValue, ...props }) => {
   const [commentsIsHide, setCommentsIsHide] = useState(true);
   const userId = useAppSelector((state) => state.userSlice.user.id);
 
   const { setFeeds, setPage } = useFeedContext();
 
-  useRefIntersection(loaderRef, intersectionHandlerCB(setPage), {
+  useRefIntersection(nodeRef, intersectionHandlerCB(setPage), {
     thresholds: [1],
   });
 
   const navId = props.author.id !== userId ? `/${props.author.id}` : "#";
   return (
-    <div className={styles["item-feed"]} ref={nodeRef}>
+    <div
+      className={styles["item-feed"]}
+      ref={nodeRef}
+      data-value={nodeRef && pageValue ? pageValue : ""}
+    >
       <div
         className={`${styles["item-feed__wrapper"]} ${styles["item-feed__wrapper--top"]}`}
-        ref={loaderRef}
-        data-value={loaderRef && pageValue ? pageValue : ""}
       >
         <div className={styles["item-feed__user"]}>
           <Link className={styles["item-feed__user-content"]} to={navId}>

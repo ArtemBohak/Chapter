@@ -9,7 +9,6 @@ export const postDataEdit = <T>(data: Array<T>, pageLimit: number) => {
       return {
         ...el,
         nodeRef: createRef<HTMLDivElement>(),
-        loaderRef: createRef<HTMLInputElement>(),
         pageValue: Math.round(data.length / pageLimit) + 1,
       };
     }

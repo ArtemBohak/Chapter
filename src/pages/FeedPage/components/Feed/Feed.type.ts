@@ -1,8 +1,4 @@
 import { IPost } from "@/src/types";
-import { MutableRefObject, RefObject } from "react";
+import { RefsType } from "@/src/utils/callBacks/callBacks.type";
 
-export type FeedProps = {
-  nodeRef?: MutableRefObject<null> | RefObject<HTMLDivElement>;
-  loaderRef?: MutableRefObject<null> | RefObject<HTMLInputElement>;
-  pageValue?: number;
-} & IPost;
+export type FeedProps = IPost & RefsType;

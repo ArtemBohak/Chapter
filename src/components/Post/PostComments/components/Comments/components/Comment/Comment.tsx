@@ -24,8 +24,8 @@ const Comment: FC<CommentProps> = ({
   hideCommentBtn = false,
   replyTo,
   postId,
-  loaderRef,
   pageValue,
+  nodeRef,
   setNickName,
   setReplyToUserId,
   setId,
@@ -37,7 +37,7 @@ const Comment: FC<CommentProps> = ({
 
   const avatarUrl = avatar ? avatar : defaultAvatar;
 
-  useRefIntersection(loaderRef, intersectionHandlerCB(setPage), {
+  useRefIntersection(nodeRef, intersectionHandlerCB(setPage), {
     thresholds: [1],
   });
 
@@ -45,8 +45,8 @@ const Comment: FC<CommentProps> = ({
     <>
       <div
         className={styles["comment"]}
-        ref={loaderRef}
-        data-value={loaderRef && pageValue ? pageValue : ""}
+        ref={nodeRef}
+        data-value={nodeRef && pageValue ? pageValue : ""}
       >
         <Link to={navId} className={styles["comment__image"]}>
           <img src={avatarUrl} alt="user avatar" width={44} height={44} />
