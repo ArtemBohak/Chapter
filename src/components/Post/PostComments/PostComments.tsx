@@ -157,30 +157,6 @@ const PostComments: FC<PostCommentsProps> = ({
     </Animation>
   ) : null;
 
-  const renderComments = (
-    <Animation
-      in={!commentsIsHide}
-      nodeRef={commentsRef}
-      timeout={300}
-      classNames={transitionClassNames}
-      mountOnEnter
-      unmountOnExit
-    >
-      <div ref={commentsRef}>
-        <Comments
-          comments={showAllComments ? allComments : comments}
-          setId={setCommentId}
-          setNickName={setNickName}
-          setReplyToUserId={setReplyToUserId}
-          setPage={setPage}
-          showAllComments={showAllComments}
-          postId={postId}
-          isLoading={isLoading}
-        />
-      </div>
-    </Animation>
-  );
-
   return (
     <div className={styles["feed-comments"]} ref={wrapperRef}>
       <div className={styles["feed-comments__text-wrapper"]}>
@@ -188,7 +164,27 @@ const PostComments: FC<PostCommentsProps> = ({
         {renderFilterBtn}
       </div>
       <div className={styles["feed-comments__content-wrapper"]}>
-        {renderComments}
+        <Animation
+          in={!commentsIsHide}
+          nodeRef={commentsRef}
+          timeout={300}
+          classNames={transitionClassNames}
+          mountOnEnter
+          unmountOnExit
+        >
+          <div ref={commentsRef}>
+            <Comments
+              comments={showAllComments ? allComments : comments}
+              showAllComments={showAllComments}
+              postId={postId}
+              isLoading={isLoading}
+              setId={setCommentId}
+              setNickName={setNickName}
+              setReplyToUserId={setReplyToUserId}
+              setPage={setPage}
+            />
+          </div>
+        </Animation>
       </div>
       <div className={styles["feed-comments__form-wrapper"]}>
         <CommentsForm
