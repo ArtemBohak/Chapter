@@ -11,9 +11,9 @@ import { Comment } from "./components";
 import { Loader } from "@/src/components";
 
 const itemClassNames = (value: number) => {
-  return cn(styles["feed__item"], {
-    [styles["border"]]: value === 0,
-    [styles["feed__sub-list-item--first"]]: value === 1,
+  return cn(styles["comments__item"], {
+    [styles["indent"]]: value === 0,
+    [styles["comments__sub-comments--first"]]: value === 1,
   });
 };
 
@@ -52,7 +52,7 @@ const Comments: FC<CommentsProps> = ({
         {showAllComments && !counter ? (
           <div ref={startLoaderRef} data-value={1}></div>
         ) : null}
-        <ul className={styles["feed__list"]}>
+        <ul className={styles["comments__list"]}>
           {sortedComments.map((i) => {
             return (
               <li key={i.id} className={classNames}>
