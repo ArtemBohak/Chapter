@@ -20,7 +20,6 @@ const itemClassNames = (value: number) => {
 const Comments: FC<CommentsProps> = ({
   comments,
   showAllComments,
-  isLoading,
   ...props
 }) => {
   const startLoaderRef = useRef(null);
@@ -71,7 +70,7 @@ const Comments: FC<CommentsProps> = ({
     <>
       {renderComments(comments, 0)}
       <Loader
-        isShown={showAllComments && isLoading}
+        isShown={showAllComments && props.isLoading}
         wrapperClassNames={styles["loader"]}
         height={40}
         width={40}
