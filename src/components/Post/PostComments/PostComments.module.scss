@@ -1,25 +1,13 @@
-.feed-comments {
-  &__text-wrapper {
+.comments {
+  &__button {
     @apply flex justify-between mb-1-md md:mb-2-md;
   }
 
-  &__button {
-    @apply bg-transparent text-xs md:text-lg laptop:text-xxl text-[#6C6C6C];
-
-    &.is-show {
-      @apply font-semibold text-black;
-    }
-
-    &-toggler {
-      @apply text-[#6C6C6C];
-    }
-  }
-
-  &__content-wrapper {
+  &__content {
     @apply overflow-hidden;
   }
 
-  &__form-wrapper {
+  &__form {
     @apply pt-1-xs md:pt-2-xs;
   }
 
@@ -37,5 +25,17 @@
     &-active {
       @apply -translate-y-1/2 opacity-0 transition-all duration-300;
     }
+  }
+}
+
+.button {
+  @apply bg-transparent text-xs md:text-lg laptop:text-xxl text-[#6C6C6C];
+
+  &.is-show {
+    @apply font-semibold text-black;
+  }
+
+  &__toggler {
+    @apply text-[#6C6C6C];
   }
 }

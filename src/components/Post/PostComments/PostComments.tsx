@@ -12,10 +12,10 @@ import { Animation } from "@/src/components";
 import { Comments, CommentsForm, FilterButton } from "./components";
 
 const transitionClassNames = {
-  enter: styles["feed-comments-enter"],
-  enterActive: styles["feed-comments-enter-active"],
-  exit: styles["feed-comments-exit"],
-  exitActive: styles["feed-comments-exit-active"],
+  enter: styles["comments-enter"],
+  enterActive: styles["comments-enter-active"],
+  exit: styles["comments-exit"],
+  exitActive: styles["comments-exit-active"],
 };
 
 const PostComments: FC<PostCommentsProps> = ({
@@ -71,15 +71,13 @@ const PostComments: FC<PostCommentsProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [commentsCount, isObserving, page, props.postId]);
 
-  const togglerBtnClassNames = cn(
-    styles["feed-comments__button"],
-    styles["feed-comments__button-toggler"],
-    { [styles["is-show"]]: !commentsIsHide }
-  );
+  const togglerBtnClassNames = cn(styles["button"], styles["button__toggler"], {
+    [styles["is-show"]]: !commentsIsHide,
+  });
 
   return (
     <div ref={wrapperRef}>
-      <div className={styles["feed-comments__text-wrapper"]}>
+      <div className={styles["comments__button"]}>
         {comments.length ? (
           <button
             onClick={onHandleCommentsToggle}
@@ -98,7 +96,7 @@ const PostComments: FC<PostCommentsProps> = ({
           />
         ) : null}
       </div>
-      <div className={styles["feed-comments__content-wrapper"]}>
+      <div className={styles["comments__content"]}>
         <Animation
           in={!commentsIsHide}
           nodeRef={commentsRef}
@@ -121,7 +119,7 @@ const PostComments: FC<PostCommentsProps> = ({
           </div>
         </Animation>
       </div>
-      <div className={styles["feed-comments__form-wrapper"]}>
+      <div className={styles["comments__form"]}>
         <CommentsForm
           {...props}
           commentId={commentId}
