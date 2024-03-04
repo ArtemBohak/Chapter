@@ -10,4 +10,5 @@ export type CommentsProps = {
   setPage: Dispatch<SetStateAction<number>>;
   showAllComments: boolean;
   postId: string | number;
+  isLoading: boolean;
 };

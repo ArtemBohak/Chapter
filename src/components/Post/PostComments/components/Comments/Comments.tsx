@@ -8,6 +8,7 @@ import { useRefIntersection } from "@/src/hooks";
 import styles from "./Comments.module.scss";
 
 import { Comment } from "./components";
+import { Loader } from "@/src/components";
 
 const itemClassNames = (value: number) => {
   return cn(styles["feed__item"], {
@@ -19,15 +20,12 @@ const itemClassNames = (value: number) => {
 const Comments: FC<CommentsProps> = ({
   comments,
   showAllComments,
-  postId,
-  setPage,
-  setId,
-  setNickName,
-  setReplyToUserId,
+  isLoading,
+  ...props
 }) => {
   const startLoaderRef = useRef(null);
 
-  useRefIntersection(startLoaderRef, intersectionHandlerCB(setPage), {
+  useRefIntersection(startLoaderRef, intersectionHandlerCB(props.setPage), {
     commentsIsShow: showAllComments,
     thresholds: [1],
   });
@@ -59,14 +57,7 @@ const Comments: FC<CommentsProps> = ({
           {sortedComments.map((i) => {
             return (
               <li key={i.id} className={classNames}>
-                <Comment
-                  {...i}
-                  setId={setId}
-                  setNickName={setNickName}
-                  setReplyToUserId={setReplyToUserId}
-                  setPage={setPage}
-                  postId={postId}
-                />
+                <Comment {...i} {...props} />
                 {i.comments?.length ? renderComments(i.comments, 1) : null}
               </li>
             );
@@ -76,7 +67,18 @@ const Comments: FC<CommentsProps> = ({
     );
   };
 
-  return renderComments(comments, 0);
+  return (
+    <>
+      {renderComments(comments, 0)}
+      <Loader
+        isShown={showAllComments && isLoading}
+        wrapperClassNames={styles["loader"]}
+        height={40}
+        width={40}
+        color="#6C6C6C"
+      />
+    </>
+  );
 };
 
 export default Comments;

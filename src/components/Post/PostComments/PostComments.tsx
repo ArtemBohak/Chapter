@@ -18,6 +18,15 @@ import { Comments, CommentsForm } from "./components";
 
 const filterValue = { latest: "Latest comments", all: "All comments" };
 
+const filterBtnClassNames = `${styles["feed-comments__button"]} ${styles["feed-comments__button-filter"]}`;
+
+const transitionClassNames = {
+  enter: styles["feed-comments-enter"],
+  enterActive: styles["feed-comments-enter-active"],
+  exit: styles["feed-comments-exit"],
+  exitActive: styles["feed-comments-exit-active"],
+};
+
 const PostComments: FC<PostCommentsProps> = ({
   commentsCount,
   postId,
@@ -39,6 +48,7 @@ const PostComments: FC<PostCommentsProps> = ({
   const [showAllComments, setShowAllComments] = useState(false);
 
   const [isObserving, setIsObserving] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const btnRef = useRef(null);
   const commentsRef = useRef(null);
@@ -76,7 +86,7 @@ const PostComments: FC<PostCommentsProps> = ({
     const commentsApi = new PostApi(
       setAllComments,
       setErrorBoundary,
-      undefined,
+      setIsLoading,
       postId
     );
     if (isObserving) {
@@ -92,14 +102,6 @@ const PostComments: FC<PostCommentsProps> = ({
     styles["feed-comments__button-toggler"],
     { [styles["is-show"]]: !commentsIsHide }
   );
-  const filterBtnClassNames = `${styles["feed-comments__button"]} ${styles["feed-comments__button-filter"]}`;
-
-  const transitionClassNames = {
-    enter: styles["feed-comments-enter"],
-    enterActive: styles["feed-comments-enter-active"],
-    exit: styles["feed-comments-exit"],
-    exitActive: styles["feed-comments-exit-active"],
-  };
 
   const renderTogglerBtn = comments.length ? (
     <button
@@ -173,6 +175,7 @@ const PostComments: FC<PostCommentsProps> = ({
           setPage={setPage}
           showAllComments={showAllComments}
           postId={postId}
+          isLoading={isLoading}
         />
       </div>
     </Animation>
