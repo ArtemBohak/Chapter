@@ -1,4 +1,4 @@
-import { FC, useEffect, useMemo, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import cn from "classnames";
 
 import { useProfileContext } from "@/src/context";
@@ -19,24 +19,18 @@ const LikesButton: FC<LikesButtonProps> = ({
   id,
   hiddenText = false,
   withoutModal = false,
-  totalLikes,
   url,
 }) => {
   const setErrorBoundary = useErrorBoundary();
-
   const { setHeaderAddPostBtnIsDisabled } = useProfileContext();
 
-  const uniqueUsersId = useMemo(() => [...new Set(userIds)], [userIds]);
-  const [usersId, setUsersId] = useState<IdList>(uniqueUsersId);
+  const [usersId, setUsersId] = useState<IdList>([...new Set(userIds)]);
   const [liked] = useFindUserId(usersId);
-
-  const [likeCount, setLikeCount] = useState(totalLikes || usersId?.length);
-
   const [isLiked, setIsLiked] = useState(liked);
+  const [likeCount, setLikeCount] = useState(usersId.length);
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
-
-  const [likes, setLikes] = useState<Array<User>>([]);
+  const [usersLikedList, setUsersLikedList] = useState<Array<User>>([]);
 
   useEffect(() => {
     if (modalIsOpen) return setHeaderAddPostBtnIsDisabled(true);
@@ -54,8 +48,11 @@ const LikesButton: FC<LikesButtonProps> = ({
       isLiked && setLikeCount((likeCount) => (likeCount -= 1));
       !isLiked && setLikeCount((likeCount) => (likeCount += 1));
 
-      const res = await api.post(url + id);
-      setUsersId(res.data);
+      const res: AxiosResponse<Array<number>> = await api.post(url + id);
+
+      const likes = [...new Set(res.data)];
+      setUsersId(likes);
+      setLikeCount(likes.length);
     } catch (e) {
       if (e instanceof AxiosError) {
         setErrorBoundary && setErrorBoundary(e);
@@ -71,7 +68,7 @@ const LikesButton: FC<LikesButtonProps> = ({
 
       if (!data.length) return;
       setHeaderAddPostBtnIsDisabled(true);
-      setLikes(data);
+      setUsersLikedList(data);
 
       setModalIsOpen(true);
     } catch (e) {
@@ -116,7 +113,7 @@ const LikesButton: FC<LikesButtonProps> = ({
         isOpen={modalIsOpen}
         setIsOpen={setModalIsOpen}
         likeCount={likeCount}
-        likesData={likes}
+        likesData={usersLikedList}
       />
     </div>
   );
