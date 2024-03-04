@@ -47,6 +47,7 @@ const CommentsForm: FC<CommentsFormProps> = ({
           recipientId: replyToUserId,
         };
       }
+
       if (commentId !== null) {
         const { data }: AxiosResponse<IPost> = await api.post(
           EndpointsEnum.COMMENTS + commentId + "/to-comment",
@@ -103,6 +104,7 @@ const CommentsForm: FC<CommentsFormProps> = ({
                   nickName={nickName}
                   setNickName={setNickName}
                   setReplyToUserId={setReplyToUserId}
+                  setCommentId={setCommentId}
                 />
                 <PostButton
                   type="submit"

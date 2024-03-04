@@ -56,7 +56,7 @@ const Comments: FC<CommentsProps> = ({
           {sortedComments.map((i) => {
             return (
               <li key={i.id} className={classNames}>
-                <Comment {...i} {...props} />
+                <Comment {...props} {...i} />
                 {i.comments?.length ? renderComments(i.comments, 1) : null}
               </li>
             );

@@ -23,6 +23,7 @@ const TextAreaField: FC<TextAreaFieldProps> = ({
   nickName,
   placeholder,
   setNickName,
+  setCommentId,
   setReplyToUserId,
   ...props
 }) => {
@@ -51,6 +52,7 @@ const TextAreaField: FC<TextAreaFieldProps> = ({
   const onHandleCrossClick = () => {
     setNickName && setNickName("");
     setReplyToUserId && setReplyToUserId(null);
+    setCommentId && setCommentId(null);
   };
 
   const isErrorValidation = meta.touched && meta.error;

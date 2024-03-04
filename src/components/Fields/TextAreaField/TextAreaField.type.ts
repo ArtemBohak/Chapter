@@ -14,6 +14,7 @@ export type TextAreaFieldProps = {
   nickName?: string;
   setNickName?: Dispatch<SetStateAction<string>>;
   setReplyToUserId?: Dispatch<SetStateAction<string | null | number>>;
+  setCommentId?: Dispatch<SetStateAction<string | null | number>>;
 } & Partial<TextareaHTMLAttributes<HTMLTextAreaElement>>;
 
 export interface IEmoji {
