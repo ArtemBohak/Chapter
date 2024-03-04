@@ -15,3 +15,7 @@
     }
   }
 }
+
+.loader {
+  @apply static mx-auto flex justify-center items-center translate-x-0 translate-y-0;
+}

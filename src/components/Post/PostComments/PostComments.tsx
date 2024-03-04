@@ -8,7 +8,7 @@ import { useErrorBoundary, useRefIntersection } from "@/src/hooks";
 import { CommentRefType } from "@/src/services/PostApi/PostApi.type";
 import styles from "./PostComments.module.scss";
 
-import { Animation, Loader } from "@/src/components";
+import { Animation } from "@/src/components";
 import { Comments, CommentsForm, FilterButton } from "./components";
 
 const transitionClassNames = {
@@ -110,6 +110,7 @@ const PostComments: FC<PostCommentsProps> = ({
               {...props}
               comments={showAllComments ? allComments : comments}
               showAllComments={showAllComments}
+              isLoading={isLoading}
               setId={setCommentId}
               setNickName={setNickName}
               setReplyToUserId={setReplyToUserId}
@@ -119,13 +120,6 @@ const PostComments: FC<PostCommentsProps> = ({
         </Animation>
       </div>
       <div className={styles["comments__form"]}>
-        <Loader
-          isShown={showAllComments && isLoading}
-          wrapperClassNames={styles["loader"]}
-          height={40}
-          width={40}
-          color="#6C6C6C"
-        />
         <CommentsForm
           {...props}
           commentId={commentId}
