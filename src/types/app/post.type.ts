@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, MutableRefObject, RefObject, SetStateAction } from "react";
 
 export type IdList =
   | Array<string | number | { [key: string]: [string | number] }>
@@ -48,3 +48,5 @@ export interface IPost extends IPostValues {
   userIds: IdList;
   comments: Array<CommentValues> | [];
 }
+
+export type RefType = MutableRefObject<null> | RefObject<HTMLDivElement>;

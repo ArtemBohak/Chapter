@@ -3,22 +3,13 @@ import cn from "classnames";
 
 import { PostApi } from "@/src/services";
 import { PostCommentsProps } from "./PostComments.type";
-import { tabScreen } from "@/src/utils";
-import {
-  useErrorBoundary,
-  useGetScreenSize,
-  useOutsideClick,
-  useRefIntersection,
-} from "@/src/hooks";
+
+import { useErrorBoundary, useRefIntersection } from "@/src/hooks";
 import { CommentRefType } from "@/src/services/PostApi/PostApi.type";
 import styles from "./PostComments.module.scss";
 
-import { Animation, Icon, IconEnum, PopUpMenu } from "@/src/components";
-import { Comments, CommentsForm } from "./components";
-
-const filterValue = { latest: "Latest comments", all: "All comments" };
-
-const filterBtnClassNames = `${styles["feed-comments__button"]} ${styles["feed-comments__button-filter"]}`;
+import { Animation } from "@/src/components";
+import { Comments, CommentsForm, FilterButton } from "./components";
 
 const transitionClassNames = {
   enter: styles["feed-comments-enter"],
@@ -29,37 +20,24 @@ const transitionClassNames = {
 
 const PostComments: FC<PostCommentsProps> = ({
   commentsCount,
-  postId,
   comments,
   commentsIsHide,
   setCommentsIsHide,
-  setFeeds,
+  ...props
 }) => {
   const [commentId, setCommentId] = useState<string | number | null>(null);
   const [nickName, setNickName] = useState("");
+  const [allComments, setAllComments] = useState<Array<CommentRefType>>([]);
+  const [page, setPage] = useState(0);
+  const [showAllComments, setShowAllComments] = useState(false);
+  const [isObserving, setIsObserving] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [replyToUserId, setReplyToUserId] = useState<string | number | null>(
     null
   );
 
-  const [allComments, setAllComments] = useState<Array<CommentRefType>>([]);
-  const [page, setPage] = useState(0);
-
-  const [showFilterPopup, setShowFilterPopup] = useState(false);
-  const [showAllComments, setShowAllComments] = useState(false);
-
-  const [isObserving, setIsObserving] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const btnRef = useRef(null);
   const commentsRef = useRef(null);
-  const popupRef = useRef(null);
   const wrapperRef = useRef(null);
-
-  const [screenSize] = useGetScreenSize();
-  const isMobScreen = screenSize < tabScreen ? 16 : 26;
-
-  useOutsideClick(popupRef, setShowFilterPopup, "filter-btn");
-  const setErrorBoundary = useErrorBoundary();
 
   const handleIsObserving = ({ isIntersecting }: IntersectionObserverEntry) =>
     setIsObserving(isIntersecting);
@@ -67,6 +45,8 @@ const PostComments: FC<PostCommentsProps> = ({
   useRefIntersection(wrapperRef, handleIsObserving, {
     thresholds: [1],
   });
+
+  const setErrorBoundary = useErrorBoundary();
 
   const onHandleCommentsToggle = () => {
     setCommentsIsHide && setCommentsIsHide(!commentsIsHide);
@@ -77,25 +57,19 @@ const PostComments: FC<PostCommentsProps> = ({
     }
   };
 
-  const onHandlePopupButtonClick = async () => {
-    setShowAllComments(!showAllComments);
-    setShowFilterPopup(false);
-  };
-
   useEffect(() => {
     const commentsApi = new PostApi(
       setAllComments,
       setErrorBoundary,
       setIsLoading,
-      postId
+      props.postId
     );
     if (isObserving) {
       commentsCount && !page && commentsApi.get();
       page && commentsApi.get(page);
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [commentsCount, isObserving, page, postId]);
+  }, [commentsCount, isObserving, page, props.postId]);
 
   const togglerBtnClassNames = cn(
     styles["feed-comments__button"],
@@ -103,65 +77,26 @@ const PostComments: FC<PostCommentsProps> = ({
     { [styles["is-show"]]: !commentsIsHide }
   );
 
-  const renderTogglerBtn = comments.length ? (
-    <button
-      onClick={onHandleCommentsToggle}
-      data-automation="clickButton"
-      className={togglerBtnClassNames}
-    >{`${
-      commentsIsHide ? "Show all comments" : "Hide Comments"
-    } (${commentsCount})`}</button>
-  ) : null;
-
-  const renderFilterBtn = comments.length ? (
-    <Animation
-      in={!commentsIsHide}
-      nodeRef={btnRef}
-      classNames={transitionClassNames}
-      mountOnEnter
-      unmountOnExit
-    >
-      <div className={styles["feed-comments__button-filter-wrapper"]}>
-        <button
-          data-automation="clickButton"
-          className={`${filterBtnClassNames}`}
-          ref={btnRef}
-          id="filter-btn"
-          onClick={() => setShowFilterPopup(!showFilterPopup)}
-        >
-          {showAllComments ? filterValue.all : filterValue.latest}
-          <Icon
-            className={`${styles["feed-comments__button-filter-icon"]} ${
-              showFilterPopup ? styles["icon"] : ""
-            }`}
-            icon={IconEnum.Back}
-            size={isMobScreen}
-          />
-        </button>
-        <PopUpMenu
-          nodeRef={popupRef}
-          isOpen={showFilterPopup}
-          setIsOpen={setShowFilterPopup}
-          backdropClassName={styles["popup"]}
-          bodyClassName={styles["popup__body"]}
-          contentWrapperClassNames={styles["popup__content"]}
-        >
-          <button
-            data-automation="clickButton"
-            onClick={onHandlePopupButtonClick}
-          >
-            {showAllComments ? filterValue.latest : filterValue.all}
-          </button>
-        </PopUpMenu>
-      </div>
-    </Animation>
-  ) : null;
-
   return (
-    <div className={styles["feed-comments"]} ref={wrapperRef}>
+    <div ref={wrapperRef}>
       <div className={styles["feed-comments__text-wrapper"]}>
-        {renderTogglerBtn}
-        {renderFilterBtn}
+        {comments.length ? (
+          <button
+            onClick={onHandleCommentsToggle}
+            data-automation="clickButton"
+            className={togglerBtnClassNames}
+          >{`${
+            commentsIsHide ? "Show all comments" : "Hide Comments"
+          } (${commentsCount})`}</button>
+        ) : null}
+        {comments.length ? (
+          <FilterButton
+            showAllComments={showAllComments}
+            commentsIsHide={commentsIsHide}
+            transitionClassNames={transitionClassNames}
+            setShowAllComments={setShowAllComments}
+          />
+        ) : null}
       </div>
       <div className={styles["feed-comments__content-wrapper"]}>
         <Animation
@@ -174,9 +109,9 @@ const PostComments: FC<PostCommentsProps> = ({
         >
           <div ref={commentsRef}>
             <Comments
+              {...props}
               comments={showAllComments ? allComments : comments}
               showAllComments={showAllComments}
-              postId={postId}
               isLoading={isLoading}
               setId={setCommentId}
               setNickName={setNickName}
@@ -188,13 +123,12 @@ const PostComments: FC<PostCommentsProps> = ({
       </div>
       <div className={styles["feed-comments__form-wrapper"]}>
         <CommentsForm
-          postId={postId}
+          {...props}
           commentId={commentId}
           nickName={nickName}
           replyToUserId={replyToUserId}
           setCommentsIsHide={setCommentsIsHide}
           setCommentId={setCommentId}
-          setFeeds={setFeeds}
           setReplyToUserId={setReplyToUserId}
           setNickName={setNickName}
         />
