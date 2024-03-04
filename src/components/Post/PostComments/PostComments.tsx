@@ -38,6 +38,8 @@ const PostComments: FC<PostCommentsProps> = ({
   const [showFilterPopup, setShowFilterPopup] = useState(false);
   const [showAllComments, setShowAllComments] = useState(false);
 
+  const [isObserving, setIsObserving] = useState(false);
+
   const btnRef = useRef(null);
   const commentsRef = useRef(null);
   const popupRef = useRef(null);
@@ -48,8 +50,6 @@ const PostComments: FC<PostCommentsProps> = ({
 
   useOutsideClick(popupRef, setShowFilterPopup, "filter-btn");
   const setErrorBoundary = useErrorBoundary();
-
-  const [isObserving, setIsObserving] = useState(false);
 
   const handleIsObserving = ({ isIntersecting }: IntersectionObserverEntry) =>
     setIsObserving(isIntersecting);
