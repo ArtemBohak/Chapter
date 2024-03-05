@@ -4,7 +4,7 @@ import cn from "classnames";
 import { PostApi } from "@/src/services";
 import { PostCommentsProps } from "./PostComments.type";
 
-import { useErrorBoundary, useRefIntersection } from "@/src/hooks";
+import { useErrorBoundary } from "@/src/hooks";
 import { CommentRefType } from "@/src/services/PostApi/PostApi.type";
 import styles from "./PostComments.module.scss";
 
@@ -30,7 +30,7 @@ const PostComments: FC<PostCommentsProps> = ({
   const [allComments, setAllComments] = useState<Array<CommentRefType>>([]);
   const [page, setPage] = useState(0);
   const [showAllComments, setShowAllComments] = useState(false);
-  const [isObserving, setIsObserving] = useState(false);
+
   const [isLoading, setIsLoading] = useState(false);
   const [replyToUserId, setReplyToUserId] = useState<string | number | null>(
     null
@@ -38,13 +38,6 @@ const PostComments: FC<PostCommentsProps> = ({
 
   const commentsRef = useRef(null);
   const wrapperRef = useRef(null);
-
-  const handleIsObserving = ({ isIntersecting }: IntersectionObserverEntry) =>
-    setIsObserving(isIntersecting);
-
-  useRefIntersection(wrapperRef, handleIsObserving, {
-    thresholds: [1],
-  });
 
   const setErrorBoundary = useErrorBoundary();
 
@@ -64,12 +57,11 @@ const PostComments: FC<PostCommentsProps> = ({
       setIsLoading,
       props.postId
     );
-    if (isObserving) {
-      commentsCount && !page && commentsApi.get();
-      page && commentsApi.get(page);
-    }
+
+    !commentsIsHide && commentsCount && !page && commentsApi.get();
+    commentsCount && page && commentsApi.get(page);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [commentsCount, isObserving, page, props.postId]);
+  }, [commentsCount, commentsIsHide, page, props.postId]);
 
   const togglerBtnClassNames = cn(styles["button"], styles["button__toggler"], {
     [styles["is-show"]]: !commentsIsHide,
