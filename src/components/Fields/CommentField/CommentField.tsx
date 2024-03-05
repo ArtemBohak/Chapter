@@ -1,14 +1,19 @@
 import { ChangeEvent, FC, useState } from "react";
 import { ErrorMessage, Field, useField, useFormikContext } from "formik";
-import { Picker } from "emoji-mart";
+import Picker from "@emoji-mart/react";
+import data from "@emoji-mart/data";
 import cn from "classnames";
 
 import styles from "./CommentField.module.scss";
-import { CommentFieldProps } from "./CommentField.type";
+import { CommentFieldProps, IEmoji } from "./CommentField.type";
+import { Icon, IconEnum } from "../..";
 
 const CommentField: FC<CommentFieldProps> = ({
   classNames,
   name,
+  iconSize = 24,
+  labelValue,
+  emojiClassNames,
   ...props
 }) => {
   const [showPicker, setShowPicker] = useState(false);
@@ -33,28 +38,31 @@ const CommentField: FC<CommentFieldProps> = ({
 
   const fieldCN = cn(styles["caption"], classNames);
 
-  const inputClassname = cn(
-    styles["text-area__field"],
+  //   const inputClassname = cn(
+  //     styles["text-area__field"],
 
-    {
-      [styles["error"]]: isErrorValidation,
-    }
-  );
+  //     {
+  //       [styles["error"]]: isErrorValidation,
+  //     }
+  //   );
 
   return (
     <div className={fieldCN}>
-      <Field
-        name={name}
-        data-automation="textInput"
-        className={styles["caption__field"]}
-        component="textarea"
-        onChange={onHandleChange}
-        {...props}
-      />
-      <p className={styles["caption__text"]}>
-        <span></span>
-        <span>{field.value}</span>
-      </p>
+      {labelValue ? <span>{labelValue}</span> : null}
+      <div className={styles["caption__wrapper"]}>
+        <Field
+          name={name}
+          data-automation="textInput"
+          className={styles["caption__field"]}
+          component="textarea"
+          onChange={onHandleChange}
+          {...props}
+        />
+        <p className={styles["caption__text"]}>
+          <span></span>
+          <span>{field.value}</span>
+        </p>
+      </div>
       {isErrorValidation ? (
         <ErrorMessage
           name={name || "Field invalid"}

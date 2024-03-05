@@ -12,7 +12,7 @@ import { FormValues, CommentsFormProps, BodyValues } from "./CommentsForm.type";
 import { FeedType } from "@/src/services/PostApi/PostApi.type";
 import styles from "./CommentsForm.module.scss";
 
-import { TextAreaField } from "@/src/components";
+import { CommentField, TextAreaField } from "@/src/components";
 import { PostButton } from "@/src/components/Post/components";
 
 const initialValues = { text: "" };
@@ -92,7 +92,7 @@ const CommentsForm: FC<CommentsFormProps> = ({
           {({ isSubmitting, values, dirty, isValid }) => {
             return (
               <Form>
-                <TextAreaField
+                {/* <TextAreaField
                   id="text"
                   placeholder="Add a comment ..."
                   name="text"
@@ -105,6 +105,14 @@ const CommentsForm: FC<CommentsFormProps> = ({
                   setNickName={setNickName}
                   setReplyToUserId={setReplyToUserId}
                   setCommentId={setCommentId}
+                /> */}
+                <CommentField
+                  id="text"
+                  placeholder="Add a comment ..."
+                  name="text"
+                  value={values.text}
+                  iconSize={iconSize}
+                  classNames={styles["form__field"]}
                 />
                 <PostButton
                   type="submit"

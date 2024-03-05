@@ -16,7 +16,7 @@
   &__field {
     @apply mb-0-md md:mb-1-md;
 
-    & > textarea {
+    & p {
       @apply h-[72px] md:h-[132px];
     }
   }
