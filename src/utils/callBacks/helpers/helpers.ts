@@ -5,14 +5,14 @@ export const dataFindIndex = <T>(array: Array<T>, obj: T, key: keyof T) =>
 
 export const postDataEdit = <T>(data: Array<T>, pageLimit: number) => {
   return data.map((el, i) => {
-    if (data.length - 3 === i && !(data.length % pageLimit))
+    if (data.length - pageLimit / 2 === i && !(data.length % pageLimit))
       return {
         ...el,
         nodeRef: createRef<HTMLDivElement>(),
         pageValue: Math.round(data.length / pageLimit) + 1,
       };
 
-    if (!(i % 5))
+    if (!(i % pageLimit))
       return {
         ...el,
         nodeRef: createRef<HTMLDivElement>(),
