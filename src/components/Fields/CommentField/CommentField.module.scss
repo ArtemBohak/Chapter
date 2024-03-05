@@ -1,0 +1,14 @@
+.caption {
+}
+
+.field {
+  @apply relative;
+
+  & > input {
+    @apply absolute top-0 left-0 w-full h-full opacity-0;
+  }
+
+  & > p {
+    @apply h-[72px] md:h-[132px];
+  }
+}
