@@ -6,7 +6,6 @@ export type PostProps = {
   nodeRef?: MutableRefObject<null> | RefObject<HTMLDivElement>;
   file?: File | null;
   setFormIsOpen?: SetIsOpenType;
-  fetchData?: (id: string | number) => void;
 } & Partial<ModalProps> &
   Partial<IPost> &
   Partial<Author>;
