@@ -35,23 +35,23 @@ const Feed: FC<FeedProps> = ({ nodeRef, pageValue, ...props }) => {
 
   const navId = props.author.id !== userId ? `/${props.author.id}` : "#";
   return (
-    <div className={styles["item-feed"]}>
+    <div className={styles["feed"]}>
       <div ref={nodeRef} data-value={nodeRef && pageValue ? pageValue : ""} />
       <div
-        className={`${styles["item-feed__wrapper"]} ${styles["item-feed__wrapper--top"]}`}
+        className={`${styles["feed__wrapper"]} ${styles["feed__wrapper--top"]}`}
       >
-        <div className={styles["item-feed__user"]}>
-          <Link className={styles["item-feed__user-content"]} to={navId}>
+        <div className={styles["feed__user"]}>
+          <Link className={styles["feed__user-content"]} to={navId}>
             <Avatar avatarUrl={props.author.avatar} />
             <UserNickName nickName={props.author.nickName} />
           </Link>
           <FollowButton {...props} id={props.author.id} />
         </div>
-        <div className={styles["item-feed__image"]}>
+        <div className={styles["feed__image"]}>
           <PostImage {...props} />
         </div>
-        <div className={styles["item-feed__activity"]}>
-          <div className={styles["item-feed__activity-icons"]}>
+        <div className={styles["feed__activity"]}>
+          <div className={styles["feed__activity-icons"]}>
             <LikesButton
               {...props}
               id={props.postId}
@@ -66,7 +66,7 @@ const Feed: FC<FeedProps> = ({ nodeRef, pageValue, ...props }) => {
               textValue={props.commentsCount > 1 ? "comments" : "comment"}
             />
           </div>
-          <div className={styles["item-feed__activity-text"]}>
+          <div className={styles["feed__activity-text"]}>
             <Link to={navId}>
               <PostFullName
                 firstName={props.author.firstName}
@@ -80,7 +80,7 @@ const Feed: FC<FeedProps> = ({ nodeRef, pageValue, ...props }) => {
         <PostText {...props} isLimit />
       </div>
       <div
-        className={`${styles["item-feed__wrapper"]} ${styles["item-feed__wrapper--bottom"]}`}
+        className={`${styles["feed__wrapper"]} ${styles["feed__wrapper--bottom"]}`}
       >
         <PostComments
           {...props}
