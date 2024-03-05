@@ -7,12 +7,12 @@ import { EndpointsEnum, api } from "@/src/axios";
 import { useErrorBoundary, useGetScreenSize } from "@/src/hooks";
 import { ElementsId, IPost } from "@/src/types";
 import { postsCB, tabScreen } from "@/src/utils";
-import { validationSchema } from "./validationSchema";
 import { FormValues, CommentsFormProps, BodyValues } from "./CommentsForm.type";
 import { FeedType } from "@/src/services/PostApi/PostApi.type";
+import { validationSchema } from "./validationSchema";
 import styles from "./CommentsForm.module.scss";
 
-import { CommentField, TextAreaField } from "@/src/components";
+import { TextAreaField } from "@/src/components";
 import { PostButton } from "@/src/components/Post/components";
 
 const initialValues = { text: "" };
@@ -41,6 +41,7 @@ const CommentsForm: FC<CommentsFormProps> = ({
     try {
       let body: BodyValues = { ...values };
       if (nickName && replyToUserId) {
+        // const [, text] = values.text.split(": ");
         body = {
           ...body,
           recipientNickName: nickName,
@@ -74,6 +75,12 @@ const CommentsForm: FC<CommentsFormProps> = ({
     }
   };
 
+  const resetNickname = () => {
+    setNickName && setNickName("");
+    setReplyToUserId && setReplyToUserId(null);
+    setCommentId(null);
+  };
+
   const iconSize = screenSize < tabScreen ? 20 : 24;
   return (
     <div
@@ -92,7 +99,7 @@ const CommentsForm: FC<CommentsFormProps> = ({
           {({ isSubmitting, values, dirty, isValid }) => {
             return (
               <Form>
-                {/* <TextAreaField
+                <TextAreaField
                   id="text"
                   placeholder="Add a comment ..."
                   name="text"
@@ -100,19 +107,8 @@ const CommentsForm: FC<CommentsFormProps> = ({
                   value={values.text}
                   iconSize={iconSize}
                   classNames={styles["form__field"]}
-                  replyToUserId={replyToUserId}
                   nickName={nickName}
-                  setNickName={setNickName}
-                  setReplyToUserId={setReplyToUserId}
-                  setCommentId={setCommentId}
-                /> */}
-                <CommentField
-                  id="text"
-                  placeholder="Add a comment ..."
-                  name="text"
-                  value={values.text}
-                  iconSize={iconSize}
-                  classNames={styles["form__field"]}
+                  resetNickname={resetNickname}
                 />
                 <PostButton
                   type="submit"
