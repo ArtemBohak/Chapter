@@ -39,7 +39,6 @@ const Comment: FC<CommentProps> = ({
 
   useRefIntersection(nodeRef, intersectionHandlerCB(setPage), {
     thresholds: [1],
-    root: null,
   });
 
   return (

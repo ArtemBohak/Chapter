@@ -5,18 +5,20 @@ export const dataFindIndex = <T>(array: Array<T>, obj: T, key: keyof T) =>
 
 export const postDataEdit = <T>(data: Array<T>, pageLimit: number) => {
   return data.map((el, i) => {
-    if (data.length - pageLimit / 2 === i && !(data.length % pageLimit))
+    const nextPage = Math.round(data.length / pageLimit) + 1;
+    const currentPage = Math.floor(i / pageLimit) + 1;
+    if (i === data.length - 1 && !(data.length % pageLimit))
       return {
         ...el,
         nodeRef: createRef<HTMLDivElement>(),
-        pageValue: Math.round(data.length / pageLimit) + 1,
+        pageValue: nextPage,
       };
 
-    if (!(i % pageLimit))
+    if (!(i % 5))
       return {
         ...el,
         nodeRef: createRef<HTMLDivElement>(),
-        pageValue: Math.floor(i / pageLimit) + 1,
+        pageValue: currentPage,
       };
 
     return { ...el, nodeRef: createRef<HTMLDivElement>() };

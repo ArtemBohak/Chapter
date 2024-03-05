@@ -16,6 +16,14 @@ class PostApi<T extends object> {
     this.limit = this.postId ? commentsPageLimit : pageLimit;
   }
 
+  private clearCacheData() {
+    caches.keys().then((names) => {
+      names.forEach((name) => {
+        caches.delete(name);
+      });
+    });
+  }
+
   async get(page = 1) {
     const url = this.postId
       ? EndpointsEnum.COMMENTS + "comments/" + this.postId
@@ -35,6 +43,7 @@ class PostApi<T extends object> {
       }
     } finally {
       this.setIsLoading && this.setIsLoading(false);
+      this.clearCacheData();
     }
   }
 }
