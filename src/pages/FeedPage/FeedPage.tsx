@@ -9,8 +9,8 @@ import { Feeds } from "./components";
 const FeedPage: FC = () => {
   return (
     <FeedProvider>
-      <section className={styles["feed"]}>
-        <div className={styles["feed__container"]}>
+      <section className={styles["feeds"]}>
+        <div className={styles["container"]}>
           <Feeds />
         </div>
       </section>

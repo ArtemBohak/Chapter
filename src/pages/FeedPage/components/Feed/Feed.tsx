@@ -2,6 +2,8 @@ import { FC, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { useAppSelector } from "@/src/redux";
+import { useRefIntersection } from "@/src/hooks";
+import { intersectionHandlerCB } from "@/src/utils";
 import { FeedProps } from "./Feed.type";
 import { EndpointsEnum } from "@/src/axios";
 import { useFeedContext } from "../../context";
@@ -20,33 +22,38 @@ import {
   PostFullName,
   PostDate,
 } from "@/src/components";
-import { useRefIntersection } from "@/src/hooks";
 
-const Feed: FC<FeedProps> = ({ nodeRef, loaderRef, pageValue, ...props }) => {
+const Feed: FC<FeedProps> = ({ nodeRef, pageValue, ...props }) => {
   const [commentsIsHide, setCommentsIsHide] = useState(true);
   const userId = useAppSelector((state) => state.userSlice.user.id);
 
   const { setFeeds, setPage } = useFeedContext();
-  useRefIntersection(loaderRef, setPage, { thresholds: [1] });
+
+  useRefIntersection(nodeRef, intersectionHandlerCB(setPage), {
+    thresholds: [1],
+  });
 
   const navId = props.author.id !== userId ? `/${props.author.id}` : "#";
   return (
-    <div className={styles["item-feed"]} ref={nodeRef}>
+    <div className={styles["feed"]}>
       <div
-        className={`${styles["item-feed__wrapper"]} ${styles["item-feed__wrapper--top"]}`}
-      >
-        <div className={styles["item-feed__user"]}>
-          <Link className={styles["item-feed__user-content"]} to={navId}>
+        className="hide-element"
+        ref={nodeRef}
+        data-value={nodeRef && pageValue ? pageValue : ""}
+      />
+      <div className={`${styles["wrapper"]} ${styles["wrapper__top"]}`}>
+        <div className={styles["feed__user"]}>
+          <Link className={styles["user__content"]} to={navId}>
             <Avatar avatarUrl={props.author.avatar} />
             <UserNickName nickName={props.author.nickName} />
           </Link>
           <FollowButton {...props} id={props.author.id} />
         </div>
-        <div className={styles["item-feed__image"]}>
+        <div className={styles["feed__image"]}>
           <PostImage {...props} />
         </div>
-        <div className={styles["item-feed__activity"]}>
-          <div className={styles["item-feed__activity-icons"]}>
+        <div className={styles["feed__activity"]}>
+          <div className={styles["activity__icons"]}>
             <LikesButton
               {...props}
               id={props.postId}
@@ -61,7 +68,7 @@ const Feed: FC<FeedProps> = ({ nodeRef, loaderRef, pageValue, ...props }) => {
               textValue={props.commentsCount > 1 ? "comments" : "comment"}
             />
           </div>
-          <div className={styles["item-feed__activity-text"]}>
+          <div className={styles["activity__text"]}>
             <Link to={navId}>
               <PostFullName
                 firstName={props.author.firstName}
@@ -74,9 +81,7 @@ const Feed: FC<FeedProps> = ({ nodeRef, loaderRef, pageValue, ...props }) => {
         <PostTitle {...props} />
         <PostText {...props} isLimit />
       </div>
-      <div
-        className={`${styles["item-feed__wrapper"]} ${styles["item-feed__wrapper--bottom"]}`}
-      >
+      <div className={`${styles["wrapper"]} ${styles["wrapper__bottom"]}`}>
         <PostComments
           {...props}
           commentsIsHide={commentsIsHide}
@@ -84,13 +89,6 @@ const Feed: FC<FeedProps> = ({ nodeRef, loaderRef, pageValue, ...props }) => {
           setFeeds={setFeeds}
         />
       </div>
-      {loaderRef && pageValue ? (
-        <input
-          className="hide-element"
-          ref={loaderRef}
-          defaultValue={pageValue}
-        />
-      ) : null}
     </div>
   );
 };

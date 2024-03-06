@@ -4,7 +4,6 @@ import { CommentValues, IPost } from "@/src/types";
 
 export type RefsType = {
   nodeRef?: MutableRefObject<null> | RefObject<HTMLDivElement>;
-  loaderRef?: MutableRefObject<null> | RefObject<HTMLInputElement>;
   pageValue?: number;
 };
 

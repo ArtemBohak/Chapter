@@ -1,10 +1,6 @@
 .error {
   @apply h-screen  bg-[#FFC78A] text-[#F9F9F9] relative overflow-y-auto;
 
-  &__container {
-    @apply w-full text-center px-2-md md:px-3-md pb-2-xs pt-[220px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-no-repeat  bg-top bg-[url('@/src/assets/WEBP/page-404.webp')] bg-[length:375px_250px] md:bg-[length:768px_462px] md:pt-[420px] laptop:bg-[length:974px_650px] laptop:pt-[580px];
-  }
-
   &__title {
     @apply mb-2-xs md:mb-1-lg;
   }
@@ -20,6 +16,10 @@
       @apply font-medium md:text-xxl;
     }
   }
+}
+
+.container {
+  @apply w-full text-center px-2-md md:px-3-md pb-2-xs pt-[220px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-no-repeat  bg-top bg-[url('@/src/assets/WEBP/page-404.webp')] bg-[length:375px_250px] md:bg-[length:768px_462px] md:pt-[420px] laptop:bg-[length:974px_650px] laptop:pt-[580px];
 }
 
 .title {

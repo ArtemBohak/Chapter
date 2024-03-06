@@ -1,8 +1,7 @@
-import { pageLimit } from "@/src/utils";
 import { postDataEdit, dataFindIndex } from "../helpers";
 
 export const postsCB =
-  <T>(postsApiData: Array<T> | T, key: string) =>
+  <T>(postsApiData: Array<T> | T, key: string, pageLimit: number = 5) =>
   (posts: Array<T>) => {
     let postsC = [...posts];
     let index: number;

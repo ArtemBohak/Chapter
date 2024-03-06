@@ -1,8 +1,9 @@
 import { FC, useRef } from "react";
 import { TransitionGroup } from "react-transition-group";
 
-import { useFeedContext } from "../../context";
+import { intersectionHandlerCB } from "@/src/utils";
 import { useRefIntersection } from "@/src/hooks";
+import { useFeedContext } from "../../context";
 import styles from "./Feeds.module.scss";
 
 import { Animation, Loader, PostSkeleton } from "@/src/components";
@@ -13,16 +14,16 @@ const Feeds: FC = () => {
   const { feeds, isLoad, setPage } = useFeedContext();
   const startLoaderRef = useRef(null);
 
-  useRefIntersection(startLoaderRef, setPage, {
+  useRefIntersection(startLoaderRef, intersectionHandlerCB(setPage), {
     postsIsLoad: isLoad,
     thresholds: [1],
   });
 
   const transitionClassNames = {
-    enter: styles["feeds-list-enter"],
-    enterActive: styles["feeds-list-enter-active"],
-    exit: styles["feeds-list-exit"],
-    exitActive: styles["feeds-list-exit-active"],
+    enter: styles["feeds-enter"],
+    enterActive: styles["feeds-enter-active"],
+    exit: styles["feeds-exit"],
+    exitActive: styles["feeds-exit-active"],
   };
 
   if (!feeds.length && isLoad)
@@ -30,8 +31,8 @@ const Feeds: FC = () => {
 
   return (
     <>
-      <input className="hide-element" ref={startLoaderRef} defaultValue={1} />
-      <TransitionGroup component={"ul"} className={styles["feeds-list"]}>
+      <div ref={startLoaderRef} data-value={1} className="hide-element" />
+      <TransitionGroup component={"ul"} className={styles["feeds"]}>
         {feeds.map((i) => (
           <Animation
             key={i.postId}

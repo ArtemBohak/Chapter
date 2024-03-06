@@ -36,19 +36,19 @@ const ModalWindow: FC<ModalWindowProps> = ({
     >
       <button
         onClick={onClick}
-        className={`${styles["icon-button"]} ${styles["icon-button-back"]}`}
+        className={`${styles["button"]} ${styles["button--back"]}`}
         data-automation="clickButton"
       >
         <Icon icon={IconEnum.Back} size={32} />
       </button>
       <button
         onClick={onClick}
-        className={`${styles["icon-button"]} ${styles["icon-button-cross"]}`}
+        className={`${styles["button"]} ${styles["button--cross"]}`}
         data-automation="clickButton"
       >
         <Icon icon={IconEnum.Cross} size={32} />
       </button>
-      <div className={styles["modal-window__body-content"]}>{children}</div>
+      <div className={styles["content"]}>{children}</div>
     </Modal>
   );
 };

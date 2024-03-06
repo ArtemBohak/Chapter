@@ -43,6 +43,11 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
       setIsConnected(true);
     };
 
+    const onError = (error: Error) => {
+      console.log(error);
+      socket.connect(isAuth);
+    };
+
     const onDisconnect = () => {
       setIsConnected(false);
       socket.connect(isAuth);
@@ -54,10 +59,12 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
     }
 
     socket.addListener("connect", onConnect);
+    socket.addListener("connect_error", onError);
     socket.addListener("disconnect", onDisconnect);
 
     return () => {
       socket.removeListener("connect", onConnect);
+      socket.addListener("connect_error", onError);
       socket.removeListener("disconnect", onDisconnect);
       socket.disconnect();
     };

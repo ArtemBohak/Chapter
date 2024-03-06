@@ -13,6 +13,7 @@ const PostButton: FC<IPostButtonProps> = ({
   variant = "contained",
   type = "button",
   dataAutomation = "clickButton",
+  ...props
 }) => {
   const classnames = cn(
     styles["post-button"],
@@ -34,6 +35,7 @@ const PostButton: FC<IPostButtonProps> = ({
       className={classnames}
       disabled={isLoading || isDisabled}
       data-automation={dataAutomation}
+      {...props}
     >
       {children}
     </button>

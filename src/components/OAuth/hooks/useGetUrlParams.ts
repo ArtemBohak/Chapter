@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import { useLocation, useSearchParams } from "react-router-dom";
 
 const useGetUrlParams = () => {
@@ -7,10 +6,7 @@ const useGetUrlParams = () => {
 
   const currentLocation = window.location.origin + location.pathname;
 
-  const { state, code, error_message } = useMemo(
-    () => Object.fromEntries([...searchParams]),
-    [searchParams]
-  );
+  const { state, code, error_message } = Object.fromEntries([...searchParams]);
 
   return {
     state,

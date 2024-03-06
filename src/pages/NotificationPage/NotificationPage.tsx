@@ -24,7 +24,7 @@ const NotificationPage: FC = () => {
 
   return (
     <section className={styles["notifications"]}>
-      <div className={styles["notifications__wrapper"]}>
+      <div className={styles["wrapper"]}>
         <TransitionGroup
           component={"ul"}
           className={styles["notifications__list"]}

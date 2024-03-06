@@ -1,57 +1,14 @@
-.feed-comments {
-  &__text-wrapper {
+.comments {
+  &__button {
     @apply flex justify-between mb-1-md md:mb-2-md;
   }
 
-  &__content-wrapper {
+  &__content {
     @apply overflow-hidden;
   }
 
-  &__form-wrapper {
+  &__form {
     @apply pt-1-xs md:pt-2-xs;
-  }
-
-  &__button {
-    @apply bg-transparent text-xs md:text-lg laptop:text-xxl text-[#6C6C6C];
-
-    &.is-show {
-      @apply font-semibold text-black;
-    }
-
-    &-toggler {
-      @apply text-[#6C6C6C];
-    }
-    &-filter {
-      @apply font-semibold text-[#F69400] flex items-center gap-0-sm md:text-lg;
-
-      &-wrapper {
-        @apply relative;
-      }
-
-      &-icon {
-        @apply -rotate-90 transition-all duration-150;
-
-        &.icon {
-          @apply rotate-90;
-        }
-      }
-    }
-  }
-
-  .popup {
-    @apply -bottom-[30px] md:-bottom-[40px] right-0 w-[100px] h-[30px] md:w-[162px] md:h-4-xs;
-
-    &__body {
-      @apply w-full h-full bg-[#fafafa] rounded-lg border border-grey-1010 shadow-[0_4px_10px_0_rgba(124,124,124,0.52)] overflow-hidden;
-    }
-
-    &__content {
-      @apply w-full h-full;
-
-      & > button {
-        @apply w-full h-full bg-transparent text-xxs md:text-base;
-      }
-    }
   }
 
   &-enter {
@@ -68,5 +25,17 @@
     &-active {
       @apply -translate-y-1/2 opacity-0 transition-all duration-300;
     }
+  }
+}
+
+.button {
+  @apply bg-transparent text-xs md:text-lg laptop:text-xxl text-[#6C6C6C];
+
+  &.is-show {
+    @apply font-semibold text-black;
+  }
+
+  &__toggler {
+    @apply text-[#6C6C6C];
   }
 }

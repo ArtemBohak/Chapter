@@ -20,7 +20,7 @@ const IconButton: FC<IconButtonProps> = ({
       <button
         onClick={onHandleClick}
         data-automation="clickButton"
-        className={`${styles["icon-button"]} ${classNames}`}
+        className={`${styles["icon"]} ${classNames}`}
       >
         {isEditing ? (
           <Icon icon={IconEnum.Save} />

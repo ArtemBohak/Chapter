@@ -119,7 +119,6 @@ const UserLikedPosts: FC = () => {
                 <LikesButton
                   id={post.postId}
                   userIds={[]}
-                  totalLikes={post.likesCount}
                   url={EndpointsEnum.POST_LIKE}
                 />
                 <CommentsButton

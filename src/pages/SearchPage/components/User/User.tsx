@@ -30,7 +30,7 @@ const User: FC<UserProps> = ({ id, nickName, isSubscribed, avatarUrl }) => {
       </Link>
       <FollowButton
         id={id}
-        classNames={styles["follow-btn"]}
+        classNames={styles["button"]}
         isSubscribeToAuthor={isSubscribed}
       />
     </>

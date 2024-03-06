@@ -139,7 +139,7 @@ const FormCreateAccount: FC = () => {
   }, [debouncedNickname]);
 
   return (
-    <div className={cn(styles["form-create-account"])}>
+    <div className={cn(styles["form"])}>
       <Formik
         initialValues={{ ...initialValues, fullname }}
         validationSchema={validationSchema}

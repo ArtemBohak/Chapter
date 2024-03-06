@@ -1,4 +1,4 @@
-import { FC, useMemo } from "react";
+import { FC } from "react";
 
 import { LikesProps } from "./Likes.type";
 import styles from "./Likes.module.scss";
@@ -11,10 +11,7 @@ const Likes: FC<LikesProps> = (props) => {
     user: { id },
   } = useAppSelector((state) => state.userSlice);
 
-  const likes = useMemo(
-    () => props.likesData.filter((i) => i.userId !== id),
-    [id, props.likesData]
-  );
+  const likes = props.likesData.filter((i) => i.userId !== id);
   return (
     <ul className={styles["likes-list"]}>
       {likes.map((i) => (
