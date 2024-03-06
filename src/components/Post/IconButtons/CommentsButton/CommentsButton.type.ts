@@ -6,10 +6,9 @@ export type CommentsButtonProps = {
   textValue: string;
   hiddenText?: boolean;
   postId: string | number;
+  id: string | number;
+  authorId?: string | number | null;
   setCommentsIsHide?: Dispatch<SetStateAction<boolean>>;
   handleNickname?: HandleNickname;
 } & Required<Pick<PostProps, "commentsCount">> &
-  Pick<PostProps, "nickName"> & {
-    id: string | number;
-    authorId?: string | number | null;
-  };
+  Pick<PostProps, "nickName">;
