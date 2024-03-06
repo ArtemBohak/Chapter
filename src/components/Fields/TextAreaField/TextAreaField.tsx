@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useState } from "react";
+import { ChangeEvent, FC, useEffect, useState } from "react";
 import { ErrorMessage, Field, useField, useFormikContext } from "formik";
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
@@ -23,47 +23,42 @@ const TextAreaField: FC<TextAreaFieldProps> = ({
 }) => {
   const { setFieldValue } = useFormikContext();
   const [field, meta] = useField(name);
+  const [nickNameValue, setNickNameValue] = useState("");
 
   const [showPicker, setShowPicker] = useState(false);
 
-  const onHandleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    const [fieldNickname] = e.target.value.split(": ");
-    if (fieldNickname && fieldNickname !== nickName) {
+  useEffect(() => {
+    if (nickName) setNickNameValue(nickName + ": ");
+    if (nickNameValue) setFieldValue(field.name, nickNameValue);
+  }, [field.name, nickName, nickNameValue, setFieldValue]);
+
+  useEffect(() => {
+    if (
+      field.value.includes(nickName) &&
+      !field.value.startsWith(nickNameValue)
+    ) {
+      setFieldValue(field.name, field.value.replace(nickName, ""));
+      setNickNameValue("");
       resetNickname && resetNickname();
     }
-    if (!e.target.value.startsWith(nickName || "")) {
-      return setFieldValue(field.name, nickName + ": " + e.target.value);
-    }
+  }, [
+    field.name,
+    field.value,
+    nickName,
+    nickNameValue,
+    resetNickname,
+    setFieldValue,
+  ]);
 
-    return setFieldValue(field.name, e.target.value);
-  };
+  const onHandleChange = (e: ChangeEvent<HTMLTextAreaElement>) =>
+    setFieldValue(field.name, e.target.value);
 
-  const onHandleIconClick = () => {
-    setShowPicker(!showPicker);
-  };
+  const onHandleIconClick = () => setShowPicker(!showPicker);
 
   const onHandleEmojiClick = (emoji: IEmoji) => {
     setFieldValue(field.name, field.value + emoji.native);
     setShowPicker(false);
   };
-
-  // useEffect(() => {
-  //   setFieldValue(field.name, nickName);
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [nickName]);
-
-  // useEffect(() => {
-  //   if (fieldNickname && fieldNickname !== nickName) {
-  //     nicknameHandler && nicknameHandler();
-  //   }
-  // }, [
-  //   field.value,
-  //   fieldNickname,
-  //   name,
-  //   nickName,
-  //   nicknameHandler,
-  //   setFieldValue,
-  // ]);
 
   const isErrorValidation = meta.touched && meta.error;
 
