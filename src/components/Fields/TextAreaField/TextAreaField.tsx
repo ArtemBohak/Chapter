@@ -31,21 +31,16 @@ const TextAreaField: FC<TextAreaFieldProps> = ({
 
   useEffect(() => {
     if (
+      nickName &&
       field.value.includes(nickName) &&
       !field.value.startsWith(nickNameValue)
     ) {
-      setFieldValue(field.name, field.value.replace(nickName, ""));
+      setFieldValue(field.name, field.value.replace(nickName + ":", ""));
       setNickNameValue("");
       handleNickname && handleNickname();
     }
-  }, [
-    field.name,
-    field.value,
-    nickName,
-    nickNameValue,
-    handleNickname,
-    setFieldValue,
-  ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [field.name, field.value, nickName, nickNameValue]);
 
   const onHandleChange = (e: ChangeEvent<HTMLTextAreaElement>) =>
     setFieldValue(field.name, e.target.value);
