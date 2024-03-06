@@ -9,7 +9,6 @@ import { ElementsId, IPost } from "@/src/types";
 import { postsCB, tabScreen } from "@/src/utils";
 import { FormValues, CommentsFormProps, BodyValues } from "./CommentsForm.type";
 import { FeedType } from "@/src/services/PostApi/PostApi.type";
-import { validationSchema } from "./validationSchema";
 import styles from "./CommentsForm.module.scss";
 
 import { TextAreaField } from "@/src/components";
@@ -41,7 +40,6 @@ const CommentsForm: FC<CommentsFormProps> = ({
     try {
       let body: BodyValues = { ...values };
       if (nickName && replyToUserId) {
-        // const [, text] = values.text.split(": ");
         body = {
           ...body,
           recipientNickName: nickName,
@@ -81,6 +79,20 @@ const CommentsForm: FC<CommentsFormProps> = ({
     setCommentId(null);
   };
 
+  const onValidate = (values: FormValues) => {
+    const errors: Partial<FormValues> = {};
+    if (values.text.includes(nickName || "")) {
+      const [, text] = values.text.split(": ");
+      if (!text) errors.text = "";
+      else if (text.length > 500) errors.text = "";
+    } else {
+      if (!values.text) errors.text = "";
+      else if (values.text.length > 500) errors.text = "";
+    }
+
+    return errors;
+  };
+
   const iconSize = screenSize < tabScreen ? 20 : 24;
   return (
     <div
@@ -94,7 +106,8 @@ const CommentsForm: FC<CommentsFormProps> = ({
         <Formik
           initialValues={initialValues}
           onSubmit={onHandleSubmit}
-          validationSchema={validationSchema}
+          // validationSchema={validationSchema}
+          validate={onValidate}
         >
           {({ isSubmitting, values, dirty, isValid }) => {
             return (
