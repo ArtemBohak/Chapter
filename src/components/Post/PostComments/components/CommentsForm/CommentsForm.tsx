@@ -33,17 +33,26 @@ const CommentsForm: FC<CommentsFormProps> = ({
   const setErrorBoundary = useErrorBoundary();
   const [screenSize] = useGetScreenSize();
 
+  const resetNickname = () => {
+    setNickName && setNickName("");
+    setReplyToUserId && setReplyToUserId(null);
+    setCommentId(null);
+  };
+
   const onHandleSubmit = async (
     values: FormValues,
     { setSubmitting, resetForm }: FormikHelpers<FormValues>
   ) => {
     try {
       let body: BodyValues = { ...values };
-      if (nickName && replyToUserId) {
+      if (nickName && replyToUserId && values.text.includes(nickName)) {
+        const [, text] = values.text.split(": ");
+
         body = {
           ...body,
           recipientNickName: nickName,
           recipientId: replyToUserId,
+          text,
         };
       }
 
@@ -52,8 +61,7 @@ const CommentsForm: FC<CommentsFormProps> = ({
           EndpointsEnum.COMMENTS + commentId + "/to-comment",
           body
         );
-        setFeeds && setFeeds(postsCB<FeedType>(data, "postId"));
-        return setCommentId(null);
+        return setFeeds && setFeeds(postsCB<FeedType>(data, "postId"));
       }
       const { data }: AxiosResponse<IPost> = await api.post(
         EndpointsEnum.COMMENTS + postId,
@@ -68,21 +76,15 @@ const CommentsForm: FC<CommentsFormProps> = ({
     } finally {
       setSubmitting(false);
       resetForm();
-      setReplyToUserId && setReplyToUserId(null);
-      setNickName && setNickName("");
+      resetNickname();
     }
-  };
-
-  const resetNickname = () => {
-    setNickName && setNickName("");
-    setReplyToUserId && setReplyToUserId(null);
-    setCommentId(null);
   };
 
   const onValidate = (values: FormValues) => {
     const errors: Partial<FormValues> = {};
-    if (values.text.includes(nickName || "")) {
+    if (nickName && values.text.includes(nickName)) {
       const [, text] = values.text.split(": ");
+
       if (!text) errors.text = "";
       else if (text.length > 500) errors.text = "";
     } else {
