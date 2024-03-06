@@ -1,5 +1,5 @@
 import { HandleNickname } from "@/src/types";
-import { TextareaHTMLAttributes } from "react";
+import { Dispatch, SetStateAction, TextareaHTMLAttributes } from "react";
 
 export type TextAreaFieldProps = {
   id: string;
@@ -12,6 +12,8 @@ export type TextAreaFieldProps = {
   emojiClassNames?: string;
   labelValue?: string;
   nickName?: string;
+  commentText?: string | null;
+  setCommentText?: Dispatch<SetStateAction<string | null>>;
   handleNickname?: HandleNickname;
 } & Partial<TextareaHTMLAttributes<HTMLTextAreaElement>>;
 

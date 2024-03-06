@@ -51,6 +51,7 @@ export enum EndpointsEnum {
 
   // COMMENTS
   COMMENTS = "comments/",
+  DELETE_COMMENTS = "comments/delete/",
 
   // FEEDS
   FEEDS = "feed",

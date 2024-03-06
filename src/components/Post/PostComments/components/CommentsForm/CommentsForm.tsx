@@ -20,9 +20,11 @@ const CommentsForm: FC<CommentsFormProps> = ({
   commentId,
   nickName,
   replyToUserId,
+  commentText,
   setCommentsIsHide,
   setFeeds,
   handleNickname,
+  setCommentText,
 }) => {
   const {
     user: { avatarUrl },
@@ -46,6 +48,15 @@ const CommentsForm: FC<CommentsFormProps> = ({
         };
       }
 
+      if (commentText !== null) {
+        const { data }: AxiosResponse<IPost> = await api.patch(
+          EndpointsEnum.COMMENTS + commentId,
+          body
+        );
+        return console.log(data);
+        // return setFeeds && setFeeds(postsCB<FeedType>(data, "postId"));
+      }
+
       if (commentId !== null) {
         const { data }: AxiosResponse<IPost> = await api.post(
           EndpointsEnum.COMMENTS + commentId + "/to-comment",
@@ -66,6 +77,7 @@ const CommentsForm: FC<CommentsFormProps> = ({
     } finally {
       setSubmitting(false);
       resetForm();
+      setCommentText(null);
       handleNickname();
     }
   };
@@ -109,6 +121,8 @@ const CommentsForm: FC<CommentsFormProps> = ({
                   iconSize={iconSize}
                   classNames={styles["comments__field"]}
                   nickName={nickName}
+                  commentText={commentText}
+                  setCommentText={setCommentText}
                   handleNickname={handleNickname}
                 />
                 <PostButton

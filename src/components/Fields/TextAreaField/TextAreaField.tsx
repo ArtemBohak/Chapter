@@ -15,7 +15,9 @@ const TextAreaField: FC<TextAreaFieldProps> = ({
   emojiClassNames,
   labelValue,
   nickName,
+  commentText,
   handleNickname,
+  setCommentText,
   ...props
 }) => {
   const { setFieldValue } = useFormikContext();
@@ -23,15 +25,22 @@ const TextAreaField: FC<TextAreaFieldProps> = ({
   const [showPicker, setShowPicker] = useState(false);
 
   useEffect(() => {
-    if (nickName) setFieldValue(field.name, nickName + ": ");
-  }, [field.name, nickName, setFieldValue]);
+    if (nickName && commentText)
+      setFieldValue(field.name, nickName + ": " + commentText);
+    else if (nickName) setFieldValue(field.name, nickName + ": ");
+    else if (commentText) setFieldValue(field.name, commentText);
+  }, [commentText, field.name, nickName, setFieldValue]);
 
   const onHandleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
     const [nick] = value.split(" ");
 
-    if (nickName && nick.startsWith("@") && !nick.includes(nickName)) {
-      setFieldValue(field.name, value.replace(nick, ""));
+    if (
+      (nickName && nick.startsWith("@") && !nick.includes(nickName)) ||
+      (commentText && !value)
+    ) {
+      setFieldValue(field.name, "");
+      setCommentText && setCommentText(null);
       return handleNickname && handleNickname();
     }
 
