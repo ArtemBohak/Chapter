@@ -133,10 +133,6 @@ const PostComments: FC<PostCommentsProps> = ({
           nickName={nickName}
           replyToUserId={replyToUserId}
           setCommentsIsHide={setCommentsIsHide}
-          // setCommentId={setCommentId}
-          // setReplyToUserId={setReplyToUserId}
-          // setNickName={setNickName}
-
           handleNickname={handleNickname}
         />
       </div>

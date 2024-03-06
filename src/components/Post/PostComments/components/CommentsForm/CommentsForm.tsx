@@ -15,7 +15,6 @@ import { TextAreaField } from "@/src/components";
 import { PostButton } from "@/src/components/Post/components";
 
 const initialValues = { text: "" };
-
 const CommentsForm: FC<CommentsFormProps> = ({
   postId,
   commentId,
@@ -39,7 +38,6 @@ const CommentsForm: FC<CommentsFormProps> = ({
       let body: BodyValues = { ...values };
       if (nickName && replyToUserId && values.text.includes(nickName)) {
         const [, text] = values.text.split(": ");
-
         body = {
           ...body,
           recipientNickName: nickName,
