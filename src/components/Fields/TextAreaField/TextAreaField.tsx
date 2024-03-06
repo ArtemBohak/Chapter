@@ -20,30 +20,23 @@ const TextAreaField: FC<TextAreaFieldProps> = ({
 }) => {
   const { setFieldValue } = useFormikContext();
   const [field, meta] = useField(props.name);
-  const [nickNameValue, setNickNameValue] = useState("");
-
   const [showPicker, setShowPicker] = useState(false);
 
   useEffect(() => {
-    if (nickName) setNickNameValue(nickName + ": ");
-    if (nickNameValue) setFieldValue(field.name, nickNameValue);
-  }, [field.name, nickName, nickNameValue, setFieldValue]);
+    if (nickName) setFieldValue(field.name, nickName + ": ");
+  }, [field.name, nickName, setFieldValue]);
 
-  useEffect(() => {
-    if (
-      nickName &&
-      field.value.includes(nickName) &&
-      !field.value.startsWith(nickNameValue)
-    ) {
-      setFieldValue(field.name, field.value.replace(nickName + ":", ""));
-      setNickNameValue("");
-      handleNickname && handleNickname();
+  const onHandleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    const value = e.target.value;
+    const [nick] = value.split(" ");
+
+    if (nickName && nick.startsWith("@") && !nick.includes(nickName)) {
+      setFieldValue(field.name, value.replace(nick, ""));
+      return handleNickname && handleNickname();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [field.name, field.value, nickName, nickNameValue]);
 
-  const onHandleChange = (e: ChangeEvent<HTMLTextAreaElement>) =>
-    setFieldValue(field.name, e.target.value);
+    setFieldValue(field.name, value);
+  };
 
   const onHandleIconClick = () => setShowPicker(!showPicker);
 
@@ -51,6 +44,8 @@ const TextAreaField: FC<TextAreaFieldProps> = ({
     setFieldValue(field.name, field.value + emoji.native);
     setShowPicker(false);
   };
+
+  const onHandleInputClick = () => setShowPicker(false);
 
   const isErrorValidation = meta.touched && meta.error;
 
@@ -67,7 +62,7 @@ const TextAreaField: FC<TextAreaFieldProps> = ({
         data-automation={dataAutomation}
         className={validationClassname}
         onChange={onHandleChange}
-        onClick={() => setShowPicker(false)}
+        onClick={onHandleInputClick}
       />
       {isErrorValidation ? (
         <ErrorMessage
