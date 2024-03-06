@@ -43,7 +43,11 @@ const Comment: FC<CommentProps> = ({
 
   return (
     <div className={styles["comment"]}>
-      <div ref={nodeRef} data-value={nodeRef && pageValue ? pageValue : ""} />
+      <div
+        className="hide-element"
+        ref={nodeRef}
+        data-value={nodeRef && pageValue ? pageValue : ""}
+      />
       <Link to={navId} className={styles["comment__image"]}>
         <img src={avatarUrl} alt="user avatar" width={44} height={44} />
       </Link>

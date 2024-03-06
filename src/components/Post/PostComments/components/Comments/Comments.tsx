@@ -50,7 +50,7 @@ const Comments: FC<CommentsProps> = ({
     return (
       <>
         {showAllComments && !counter ? (
-          <div ref={startLoaderRef} data-value={1}></div>
+          <div className="hide-element" ref={startLoaderRef} data-value={1} />
         ) : null}
         <ul className={styles["comments__list"]}>
           {sortedComments.map((i) => {

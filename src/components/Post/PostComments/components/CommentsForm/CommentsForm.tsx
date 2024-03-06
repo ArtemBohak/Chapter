@@ -95,14 +95,11 @@ const CommentsForm: FC<CommentsFormProps> = ({
 
   const iconSize = screenSize < tabScreen ? 20 : 24;
   return (
-    <div
-      id={`${ElementsId.POST_FORM}${postId}`}
-      className={styles["form__content-wrapper"]}
-    >
-      <div className={styles["form__image"]}>
+    <div id={`${ElementsId.POST_FORM}${postId}`} className={styles["comments"]}>
+      <div className={styles["comments__avatar"]}>
         <img src={avatarUrl} alt="user avatar" width={44} height={44} />
       </div>
-      <div className={styles["form__comments-form-wrapper"]}>
+      <div className={styles["comments__form"]}>
         <Formik
           initialValues={initialValues}
           onSubmit={onHandleSubmit}
@@ -118,7 +115,7 @@ const CommentsForm: FC<CommentsFormProps> = ({
                   dataAutomation="textInput"
                   value={values.text}
                   iconSize={iconSize}
-                  classNames={styles["form__field"]}
+                  classNames={styles["comments__field"]}
                   nickName={nickName}
                   resetNickname={resetNickname}
                 />
@@ -127,7 +124,7 @@ const CommentsForm: FC<CommentsFormProps> = ({
                   dataAutomation="submitButton"
                   isLoading={isSubmitting}
                   isDisabled={!isValid || !dirty || isSubmitting}
-                  className={styles["form__button"]}
+                  className={styles["comments__button"]}
                 >
                   Send
                 </PostButton>

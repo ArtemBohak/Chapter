@@ -36,7 +36,11 @@ const Feed: FC<FeedProps> = ({ nodeRef, pageValue, ...props }) => {
   const navId = props.author.id !== userId ? `/${props.author.id}` : "#";
   return (
     <div className={styles["feed"]}>
-      <div ref={nodeRef} data-value={nodeRef && pageValue ? pageValue : ""} />
+      <div
+        className="hide-element"
+        ref={nodeRef}
+        data-value={nodeRef && pageValue ? pageValue : ""}
+      />
       <div
         className={`${styles["feed__wrapper"]} ${styles["feed__wrapper--top"]}`}
       >

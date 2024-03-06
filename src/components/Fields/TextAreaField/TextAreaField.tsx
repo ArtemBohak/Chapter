@@ -12,17 +12,14 @@ const TextAreaField: FC<TextAreaFieldProps> = ({
   dataAutomation,
   iconSize = 24,
   classNames,
-  name,
-  value,
   emojiClassNames,
   labelValue,
   nickName,
-  placeholder,
   resetNickname,
   ...props
 }) => {
   const { setFieldValue } = useFormikContext();
-  const [field, meta] = useField(name);
+  const [field, meta] = useField(props.name);
   const [nickNameValue, setNickNameValue] = useState("");
 
   const [showPicker, setShowPicker] = useState(false);
@@ -67,25 +64,21 @@ const TextAreaField: FC<TextAreaFieldProps> = ({
   });
 
   return (
-    <div className={`${styles["text-area__wrapper"]} ${classNames}`}>
-      {labelValue ? <span>{labelValue}</span> : null}
-
+    <div className={`${styles["text-area"]} ${classNames}`}>
+      {labelValue ? <p>{labelValue}</p> : null}
       <Field
         {...props}
-        name={name}
-        value={value}
         component="textarea"
         data-automation={dataAutomation}
         className={validationClassname}
-        placeholder={placeholder}
         onChange={onHandleChange}
         onClick={() => setShowPicker(false)}
       />
       {isErrorValidation ? (
         <ErrorMessage
-          name={name || "Field invalid"}
+          name={props.name || "Field invalid"}
           component="p"
-          className={styles["text-area-error-message"]}
+          className={styles["text-area__error"]}
         />
       ) : null}
       <button
