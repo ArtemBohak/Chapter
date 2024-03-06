@@ -1,3 +1,4 @@
+import { HandleNickname } from "@/src/types";
 import { TextareaHTMLAttributes } from "react";
 
 export type TextAreaFieldProps = {
@@ -11,7 +12,7 @@ export type TextAreaFieldProps = {
   emojiClassNames?: string;
   labelValue?: string;
   nickName?: string;
-  resetNickname?: () => void;
+  handleNickname?: HandleNickname;
 } & Partial<TextareaHTMLAttributes<HTMLTextAreaElement>>;
 
 export interface IEmoji {

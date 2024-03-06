@@ -1,13 +1,12 @@
 import { Dispatch, SetStateAction } from "react";
 import { PostCommentsProps } from "../../PostComments.type";
+import { HandleNickname } from "@/src/types";
 
 export type CommentsFormProps = {
   commentId: string | number | null;
   nickName?: string;
   replyToUserId?: string | number | null;
-  setCommentId: Dispatch<SetStateAction<string | number | null>>;
-  setNickName?: Dispatch<SetStateAction<string>>;
-  setReplyToUserId?: Dispatch<SetStateAction<string | null | number>>;
+  handleNickname: HandleNickname;
   setCommentsIsHide?: Dispatch<SetStateAction<boolean>>;
 } & Required<Pick<PostCommentsProps, "postId">> &
   Pick<PostCommentsProps, "setFeeds">;

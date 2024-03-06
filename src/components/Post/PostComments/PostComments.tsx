@@ -5,6 +5,7 @@ import { PostApi } from "@/src/services";
 import { PostCommentsProps } from "./PostComments.type";
 
 import { useErrorBoundary } from "@/src/hooks";
+import { HandleNickname } from "@/src/types";
 import { CommentRefType } from "@/src/services/PostApi/PostApi.type";
 import styles from "./PostComments.module.scss";
 
@@ -48,6 +49,22 @@ const PostComments: FC<PostCommentsProps> = ({
       setAllComments([]);
       setPage(0);
     }
+  };
+
+  const handleNickname: HandleNickname = (
+    id?: string | number,
+    nickname?: string | undefined,
+    authorId?: string | undefined | null | number
+  ) => {
+    if (id && nickname && authorId) {
+      setCommentId(id);
+      setNickName(nickname);
+      return setReplyToUserId(authorId);
+    }
+
+    setNickName("");
+    setReplyToUserId(null);
+    setCommentId(null);
   };
 
   useEffect(() => {
@@ -103,10 +120,8 @@ const PostComments: FC<PostCommentsProps> = ({
               comments={showAllComments ? allComments : comments}
               showAllComments={showAllComments}
               isLoading={isLoading}
-              setId={setCommentId}
-              setNickName={setNickName}
-              setReplyToUserId={setReplyToUserId}
               setPage={setPage}
+              handleNickname={handleNickname}
             />
           </div>
         </Animation>
@@ -118,9 +133,11 @@ const PostComments: FC<PostCommentsProps> = ({
           nickName={nickName}
           replyToUserId={replyToUserId}
           setCommentsIsHide={setCommentsIsHide}
-          setCommentId={setCommentId}
-          setReplyToUserId={setReplyToUserId}
-          setNickName={setNickName}
+          // setCommentId={setCommentId}
+          // setReplyToUserId={setReplyToUserId}
+          // setNickName={setNickName}
+
+          handleNickname={handleNickname}
         />
       </div>
     </div>

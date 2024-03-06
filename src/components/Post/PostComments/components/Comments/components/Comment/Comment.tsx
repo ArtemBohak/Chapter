@@ -26,9 +26,7 @@ const Comment: FC<CommentProps> = ({
   postId,
   pageValue,
   nodeRef,
-  setNickName,
-  setReplyToUserId,
-  setId,
+  handleNickname,
   setPage,
 }) => {
   const userId = useAppSelector((state) => state.userSlice.user.id);
@@ -90,9 +88,7 @@ const Comment: FC<CommentProps> = ({
               commentsCount={commentCount || commentsCount}
               nickName={nickName}
               authorId={authorId}
-              setId={setId}
-              setNickName={setNickName}
-              setReplyToUserId={setReplyToUserId}
+              handleNickname={handleNickname}
             />
           ) : null}
         </div>

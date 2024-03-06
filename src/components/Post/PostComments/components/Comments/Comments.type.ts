@@ -1,12 +1,11 @@
 import { CommentRefType } from "@/src/services/PostApi/PostApi.type";
+import { HandleNickname } from "@/src/types";
 
 import { Dispatch, SetStateAction } from "react";
 
 export type CommentsProps = {
   comments: Array<CommentRefType>;
-  setId: Dispatch<SetStateAction<number | string | null>>;
-  setNickName: Dispatch<SetStateAction<string>>;
-  setReplyToUserId: Dispatch<SetStateAction<number | string | null>>;
+  handleNickname: HandleNickname;
   setPage: Dispatch<SetStateAction<number>>;
   isLoading: boolean;
   showAllComments: boolean;

@@ -17,15 +17,11 @@ const itemClassNames = (value: number) => {
   });
 };
 
-const Comments: FC<CommentsProps> = ({
-  comments,
-  showAllComments,
-  ...props
-}) => {
+const Comments: FC<CommentsProps> = (props) => {
   const startLoaderRef = useRef(null);
 
   useRefIntersection(startLoaderRef, intersectionHandlerCB(props.setPage), {
-    commentsIsShow: showAllComments,
+    commentsIsShow: props.showAllComments,
     thresholds: [1],
   });
 
@@ -49,7 +45,7 @@ const Comments: FC<CommentsProps> = ({
 
     return (
       <>
-        {showAllComments && !counter ? (
+        {props.showAllComments && !counter ? (
           <div className="hide-element" ref={startLoaderRef} data-value={1} />
         ) : null}
         <ul className={styles["comments__list"]}>
@@ -68,9 +64,9 @@ const Comments: FC<CommentsProps> = ({
 
   return (
     <>
-      {renderComments(comments, 0)}
+      {renderComments(props.comments, 0)}
       <Loader
-        isShown={showAllComments && props.isLoading}
+        isShown={props.showAllComments && props.isLoading}
         wrapperClassNames={styles["loader"]}
         height={40}
         width={40}

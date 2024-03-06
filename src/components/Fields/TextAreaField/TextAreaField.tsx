@@ -15,7 +15,7 @@ const TextAreaField: FC<TextAreaFieldProps> = ({
   emojiClassNames,
   labelValue,
   nickName,
-  resetNickname,
+  handleNickname,
   ...props
 }) => {
   const { setFieldValue } = useFormikContext();
@@ -36,14 +36,14 @@ const TextAreaField: FC<TextAreaFieldProps> = ({
     ) {
       setFieldValue(field.name, field.value.replace(nickName, ""));
       setNickNameValue("");
-      resetNickname && resetNickname();
+      handleNickname && handleNickname();
     }
   }, [
     field.name,
     field.value,
     nickName,
     nickNameValue,
-    resetNickname,
+    handleNickname,
     setFieldValue,
   ]);
 

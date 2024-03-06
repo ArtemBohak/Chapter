@@ -21,23 +21,15 @@ const CommentsForm: FC<CommentsFormProps> = ({
   commentId,
   nickName,
   replyToUserId,
-  setCommentId,
   setCommentsIsHide,
   setFeeds,
-  setNickName,
-  setReplyToUserId,
+  handleNickname,
 }) => {
   const {
     user: { avatarUrl },
   } = useAppSelector((state) => state.userSlice);
   const setErrorBoundary = useErrorBoundary();
   const [screenSize] = useGetScreenSize();
-
-  const resetNickname = () => {
-    setNickName && setNickName("");
-    setReplyToUserId && setReplyToUserId(null);
-    setCommentId(null);
-  };
 
   const onHandleSubmit = async (
     values: FormValues,
@@ -76,7 +68,7 @@ const CommentsForm: FC<CommentsFormProps> = ({
     } finally {
       setSubmitting(false);
       resetForm();
-      resetNickname();
+      handleNickname();
     }
   };
 
@@ -119,7 +111,7 @@ const CommentsForm: FC<CommentsFormProps> = ({
                   iconSize={iconSize}
                   classNames={styles["comments__field"]}
                   nickName={nickName}
-                  resetNickname={resetNickname}
+                  handleNickname={handleNickname}
                 />
                 <PostButton
                   type="submit"

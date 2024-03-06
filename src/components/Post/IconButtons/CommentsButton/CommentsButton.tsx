@@ -17,15 +17,11 @@ const CommentsButton: FC<CommentsButtonProps> = ({
   authorId,
   postId,
   setCommentsIsHide,
-  setNickName,
-  setReplyToUserId,
-  setId,
+  handleNickname,
 }) => {
   const onHandleClick = () => {
     setCommentsIsHide && setCommentsIsHide(false);
-    setId && setId(id);
-    setNickName && setNickName(nickName || "");
-    setReplyToUserId && setReplyToUserId(authorId || "");
+    handleNickname && handleNickname(id, nickName, authorId);
     scrollTo(ElementsId.POST_FORM + postId);
   };
   const btnTextStyle = cn(styles["icon-button__text"], {

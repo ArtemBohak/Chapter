@@ -50,3 +50,9 @@ export interface IPost extends IPostValues {
 }
 
 export type RefType = MutableRefObject<null> | RefObject<HTMLDivElement>;
+
+export type HandleNickname = (
+  id?: string | number,
+  nickname?: string | undefined,
+  authorId?: string | undefined | null | number
+) => void;

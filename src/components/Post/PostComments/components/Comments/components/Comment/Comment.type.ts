@@ -5,10 +5,5 @@ import { RefsType } from "@/src/utils/callBacks/callBacks.type";
 export type CommentProps = {
   hideCommentBtn?: boolean;
 } & CommentValues &
-  Required<
-    Pick<
-      CommentsProps,
-      "setId" | "setNickName" | "setReplyToUserId" | "postId" | "setPage"
-    >
-  > &
+  Required<Pick<CommentsProps, "postId" | "setPage" | "handleNickname">> &
   RefsType;
