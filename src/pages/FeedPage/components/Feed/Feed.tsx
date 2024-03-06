@@ -41,11 +41,9 @@ const Feed: FC<FeedProps> = ({ nodeRef, pageValue, ...props }) => {
         ref={nodeRef}
         data-value={nodeRef && pageValue ? pageValue : ""}
       />
-      <div
-        className={`${styles["feed__wrapper"]} ${styles["feed__wrapper--top"]}`}
-      >
+      <div className={`${styles["wrapper"]} ${styles["wrapper__top"]}`}>
         <div className={styles["feed__user"]}>
-          <Link className={styles["feed__user-content"]} to={navId}>
+          <Link className={styles["user__content"]} to={navId}>
             <Avatar avatarUrl={props.author.avatar} />
             <UserNickName nickName={props.author.nickName} />
           </Link>
@@ -55,7 +53,7 @@ const Feed: FC<FeedProps> = ({ nodeRef, pageValue, ...props }) => {
           <PostImage {...props} />
         </div>
         <div className={styles["feed__activity"]}>
-          <div className={styles["feed__activity-icons"]}>
+          <div className={styles["activity__icons"]}>
             <LikesButton
               {...props}
               id={props.postId}
@@ -70,7 +68,7 @@ const Feed: FC<FeedProps> = ({ nodeRef, pageValue, ...props }) => {
               textValue={props.commentsCount > 1 ? "comments" : "comment"}
             />
           </div>
-          <div className={styles["feed__activity-text"]}>
+          <div className={styles["activity__text"]}>
             <Link to={navId}>
               <PostFullName
                 firstName={props.author.firstName}
@@ -83,9 +81,7 @@ const Feed: FC<FeedProps> = ({ nodeRef, pageValue, ...props }) => {
         <PostTitle {...props} />
         <PostText {...props} isLimit />
       </div>
-      <div
-        className={`${styles["feed__wrapper"]} ${styles["feed__wrapper--bottom"]}`}
-      >
+      <div className={`${styles["wrapper"]} ${styles["wrapper__bottom"]}`}>
         <PostComments
           {...props}
           commentsIsHide={commentsIsHide}

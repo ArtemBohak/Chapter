@@ -39,48 +39,39 @@ const SettingsPage: FC = () => {
           if (res?.code) setError(apiUiMessage.ERROR_MESSAGE);
         });
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [file, user.id]);
 
   return (
     <section className={styles["settings"]}>
-      <div
-        className={`${styles["settings__container"]} ${styles["settings__container-top"]}`}
-      >
+      <div className={`${styles["container"]} ${styles["container__top"]}`}>
         <User avatarUrl={avatarUrl} email={user.email} />
-        <div className={styles["settings__input-wrapper"]}>
+        <div className={styles["settings__form"]}>
           <ImageField
             btnVariant="button"
             setFile={setFile}
             isLoading={isLoading}
             error={error}
           />
-          <Layout className={styles["form-wrapper__top-spacing"]} customSpacing>
+          <Layout className={styles["form__top"]} customSpacing>
             <UserStatus userStatus={user.userStatus} />
           </Layout>
         </div>
       </div>
-      <div
-        className={`${styles["settings__container"]} ${styles["settings__container-bottom"]}`}
-      >
+      <div className={`${styles["container"]} ${styles["container__bottom"]}`}>
         <Layout
           title="Personal Info"
-          className={styles["form-wrapper__bottom-spacing"]}
+          className={styles["form__bottom"]}
           fullWidth
         >
           <UserName firstName={user.firstName} lastName={user.lastName} />
         </Layout>
-        <Layout
-          title="Location"
-          className={styles["form-wrapper__bottom-spacing"]}
-          fullWidth
-        >
+        <Layout title="Location" className={styles["form__bottom"]} fullWidth>
           <UserLocation />
         </Layout>
         <Layout
           title="Update password"
-          className={styles["form-wrapper__bottom-spacing"]}
+          className={styles["form__bottom"]}
           fullWidth
         >
           <UserPassword />

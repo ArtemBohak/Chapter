@@ -1,15 +1,15 @@
 .layout {
-  @apply w-full  relative rounded-lg bg-[#FAFAFA];
+  @apply w-full relative rounded-lg bg-[#FAFAFA];
 
-  &--base {
+  &__base {
     @apply px-1-xs py-1-md md:p-2-xs;
   }
 
-  &--story {
+  &__story {
     @apply px-0-md py-1-sm md:p-0-md laptop:p-1-md;
   }
 
-  &-width {
+  &__width {
     @apply w-full md:max-w-none;
 
     &--full {

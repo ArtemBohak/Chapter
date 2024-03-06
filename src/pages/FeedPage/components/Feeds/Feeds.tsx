@@ -20,10 +20,10 @@ const Feeds: FC = () => {
   });
 
   const transitionClassNames = {
-    enter: styles["feeds-list-enter"],
-    enterActive: styles["feeds-list-enter-active"],
-    exit: styles["feeds-list-exit"],
-    exitActive: styles["feeds-list-exit-active"],
+    enter: styles["feeds-enter"],
+    enterActive: styles["feeds-enter-active"],
+    exit: styles["feeds-exit"],
+    exitActive: styles["feeds-exit-active"],
   };
 
   if (!feeds.length && isLoad)
@@ -32,7 +32,7 @@ const Feeds: FC = () => {
   return (
     <>
       <div ref={startLoaderRef} data-value={1} className="hide-element" />
-      <TransitionGroup component={"ul"} className={styles["feeds-list"]}>
+      <TransitionGroup component={"ul"} className={styles["feeds"]}>
         {feeds.map((i) => (
           <Animation
             key={i.postId}

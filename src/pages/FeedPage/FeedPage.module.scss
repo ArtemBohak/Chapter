@@ -1,7 +1,7 @@
-.feed {
+.feeds {
   @apply relative  bg-cover  bg-fixed bg-center pt-[72px] md:pt-[108px] laptop:pt-[176px] bg-[url('src/assets/WEBP/feed-bg.webp')] min-h-screen;
+}
 
-  &__container {
-    @apply max-w-[962px] mx-auto md:px-4-xl laptop:px-0;
-  }
+.container {
+  @apply max-w-[962px] mx-auto md:px-4-xl laptop:px-0;
 }
