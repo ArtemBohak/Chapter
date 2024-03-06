@@ -27,10 +27,10 @@ const CommentsForm: FC<CommentsFormProps> = ({
   setNickName,
   setReplyToUserId,
 }) => {
-  const setErrorBoundary = useErrorBoundary();
   const {
     user: { avatarUrl },
   } = useAppSelector((state) => state.userSlice);
+  const setErrorBoundary = useErrorBoundary();
   const [screenSize] = useGetScreenSize();
 
   const onHandleSubmit = async (
@@ -106,7 +106,6 @@ const CommentsForm: FC<CommentsFormProps> = ({
         <Formik
           initialValues={initialValues}
           onSubmit={onHandleSubmit}
-          // validationSchema={validationSchema}
           validate={onValidate}
         >
           {({ isSubmitting, values, dirty, isValid }) => {
