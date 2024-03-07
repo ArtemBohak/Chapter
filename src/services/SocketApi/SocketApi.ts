@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction } from "react";
 import { io, Socket } from "socket.io-client";
 import { AxiosError, AxiosResponse } from "axios";
 import { SetErrorType } from "@/src/types";
-import { api } from "@/src/axios";
+import { EndpointsEnum, api } from "@/src/axios";
 import { notificationsCB } from "@/src/utils";
 
 class SocketApi {
@@ -48,6 +48,25 @@ class SocketApi {
           if (e instanceof AxiosError) {
             setError && setError(e);
           }
+        }
+      }
+    };
+  }
+
+  handleData<T>(
+    setData: Dispatch<SetStateAction<Array<T>>>,
+    setError?: SetErrorType
+  ) {
+    return async function () {
+      try {
+        const { data }: AxiosResponse<Array<T>> = await api.get(
+          EndpointsEnum.NOTA
+        );
+
+        setData(notificationsCB<T>(data, "id"));
+      } catch (e) {
+        if (e instanceof AxiosError) {
+          setError && setError(e);
         }
       }
     };

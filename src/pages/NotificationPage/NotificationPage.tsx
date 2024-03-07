@@ -32,7 +32,7 @@ const NotificationPage: FC = () => {
           {editedNotifications.map((el) => {
             return (
               <Animation
-                key={el.keyId}
+                key={el.id}
                 nodeRef={el.nodeRef}
                 classNames={transitionClassNames}
                 timeout={300}
