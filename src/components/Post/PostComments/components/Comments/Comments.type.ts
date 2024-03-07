@@ -1,5 +1,5 @@
 import { CommentRefType } from "@/src/services/PostApi/PostApi.type";
-import { HandleCommentDataType, HandleNickname } from "@/src/types";
+import { HandleNickname } from "@/src/types";
 
 import { Dispatch, SetStateAction } from "react";
 import { PostCommentsProps } from "../../PostComments.type";
@@ -7,7 +7,6 @@ import { PostCommentsProps } from "../../PostComments.type";
 export type CommentsProps = {
   comments: Array<CommentRefType>;
   handleNickname: HandleNickname;
-  handleCommentsData: HandleCommentDataType;
   setPage: Dispatch<SetStateAction<number>>;
   isLoading: boolean;
   showAllComments: boolean;

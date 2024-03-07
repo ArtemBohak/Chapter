@@ -3,9 +3,8 @@ import cn from "classnames";
 
 import { PostApi } from "@/src/services";
 import { PostCommentsProps } from "./PostComments.type";
-
 import { useErrorBoundary } from "@/src/hooks";
-import { HandleCommentDataType, HandleNickname } from "@/src/types";
+import { HandleNickname } from "@/src/types";
 import { CommentRefType } from "@/src/services/PostApi/PostApi.type";
 import styles from "./PostComments.module.scss";
 
@@ -31,7 +30,6 @@ const PostComments: FC<PostCommentsProps> = ({
   const [allComments, setAllComments] = useState<Array<CommentRefType>>([]);
   const [page, setPage] = useState(0);
   const [showAllComments, setShowAllComments] = useState(false);
-  const [commentText, setCommentText] = useState<null | string>(null);
 
   const [isLoading, setIsLoading] = useState(false);
   const [replyToUserId, setReplyToUserId] = useState<string | number | null>(
@@ -66,19 +64,6 @@ const PostComments: FC<PostCommentsProps> = ({
     setNickName("");
     setReplyToUserId(null);
     setCommentId(null);
-  };
-
-  const handleCommentsData: HandleCommentDataType = (
-    commentId: string | number,
-    text: string,
-    replyToObj?: { id: number | string; nickName: string }
-  ) => {
-    setCommentText(text);
-    if (replyToObj) {
-      return handleNickname(commentId, replyToObj.nickName, replyToObj.id);
-    }
-
-    setCommentId(commentId);
   };
 
   useEffect(() => {
@@ -136,7 +121,6 @@ const PostComments: FC<PostCommentsProps> = ({
               isLoading={isLoading}
               setPage={setPage}
               handleNickname={handleNickname}
-              handleCommentsData={handleCommentsData}
             />
           </div>
         </Animation>
@@ -147,10 +131,8 @@ const PostComments: FC<PostCommentsProps> = ({
           commentId={commentId}
           nickName={nickName}
           replyToUserId={replyToUserId}
-          commentText={commentText}
           setCommentsIsHide={setCommentsIsHide}
           handleNickname={handleNickname}
-          setCommentText={setCommentText}
         />
       </div>
     </div>

@@ -56,9 +56,3 @@ export type HandleNickname = (
   nickname?: string | undefined,
   authorId?: string | undefined | null | number
 ) => void;
-
-export type HandleCommentDataType = (
-  commentId: string | number,
-  text: string,
-  replyToObj?: { id: string | number; nickName: string }
-) => void;

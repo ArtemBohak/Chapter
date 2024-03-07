@@ -4,6 +4,57 @@
     {
       "icon": {
         "paths": [
+          "M348.16 389.12c16.966 0 30.72 13.754 30.72 30.72v368.64c0 16.968-13.754 30.72-30.72 30.72s-30.72-13.752-30.72-30.72v-368.64c0-16.966 13.754-30.72 30.72-30.72z",
+          "M501.76 389.12c16.968 0 30.72 13.754 30.72 30.72v368.64c0 16.968-13.752 30.72-30.72 30.72-16.966 0-30.72-13.752-30.72-30.72v-368.64c0-16.966 13.754-30.72 30.72-30.72z",
+          "M686.080 419.84c0-16.966-13.752-30.72-30.72-30.72s-30.72 13.754-30.72 30.72v368.64c0 16.968 13.752 30.72 30.72 30.72s30.72-13.752 30.72-30.72v-368.64z",
+          "M901.12 235.52c0 33.932-27.51 61.44-61.44 61.44h-30.72v552.96c0 67.866-55.014 122.88-122.88 122.88h-368.64c-67.865 0-122.88-55.014-122.88-122.88v-552.96h-30.72c-33.932 0-61.44-27.508-61.44-61.44v-61.44c0-33.932 27.508-61.44 61.44-61.44h215.040c0-33.932 27.508-61.44 61.44-61.44h122.88c33.93 0 61.44 27.508 61.44 61.44h215.040c33.93 0 61.44 27.508 61.44 61.44v61.44zM263.252 296.96l-7.252 3.626v549.334c0 33.93 27.508 61.44 61.44 61.44h368.64c33.93 0 61.44-27.51 61.44-61.44v-549.334l-7.25-3.626h-477.018zM163.84 235.52v-61.44h675.84v61.44h-675.84z"
+        ],
+        "attrs": [
+          {
+            "fill": "rgb(108, 108, 108)"
+          },
+          {
+            "fill": "rgb(108, 108, 108)"
+          },
+          {
+            "fill": "rgb(108, 108, 108)"
+          },
+          {
+            "fill": "rgb(108, 108, 108)"
+          }
+        ],
+        "isMulticolor": false,
+        "isMulticolor2": false,
+        "grid": 0,
+        "tags": ["trash"]
+      },
+      "attrs": [
+        {
+          "fill": "rgb(108, 108, 108)"
+        },
+        {
+          "fill": "rgb(108, 108, 108)"
+        },
+        {
+          "fill": "rgb(108, 108, 108)"
+        },
+        {
+          "fill": "rgb(108, 108, 108)"
+        }
+      ],
+      "properties": {
+        "order": 2,
+        "id": 0,
+        "name": "trash",
+        "prevSize": 32
+      },
+      "setIdx": 0,
+      "setId": 2,
+      "iconIdx": 0
+    },
+    {
+      "icon": {
+        "paths": [
           "M832 160h-640c-53.019 0-96 42.981-96 96v512c0 53.020 42.981 96 96 96h640c53.020 0 96-42.98 96-96v-512c0-53.019-42.98-96-96-96z",
           "M672 416c35.347 0 64-28.653 64-64s-28.653-64-64-64c-35.347 0-64 28.653-64 64s28.653 64 64 64z",
           "M608 671.584l-181.321-180.979c-11.537-11.535-27.046-18.229-43.354-18.711-16.307-0.484-32.186 5.28-44.386 16.111l-242.94 216M448 864.004l246.679-246.679c11.281-11.305 26.381-17.982 42.334-18.722s31.607 4.512 43.887 14.722l147.1 122.679"
@@ -918,9 +969,7 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "grid": 0,
-        "tags": [
-          "Color=White, name=edit"
-        ],
+        "tags": ["Color=White, name=edit"],
         "colorPermutations": {
           "10810810812471480125325325312542542541": [
             {
@@ -957,9 +1006,7 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "grid": 0,
-        "tags": [
-          "Color=White, arrow-left"
-        ],
+        "tags": ["Color=White, arrow-left"],
         "colorPermutations": {
           "10810810812471480125325325312542542541": [
             {
@@ -996,9 +1043,7 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "grid": 0,
-        "tags": [
-          "Color=White, name=book"
-        ],
+        "tags": ["Color=White, name=book"],
         "colorPermutations": {
           "10810810812471480125325325312542542541": [
             {
@@ -1035,9 +1080,7 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "grid": 0,
-        "tags": [
-          "Color=White, name=book-black"
-        ],
+        "tags": ["Color=White, name=book-black"],
         "colorPermutations": {
           "10810810812471480125325325312542542541": [
             {
@@ -1079,9 +1122,7 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "grid": 0,
-        "tags": [
-          "favoriteBook"
-        ],
+        "tags": ["favoriteBook"],
         "colorPermutations": {
           "10810810812471480125325325312542542541": [
             {
@@ -1129,9 +1170,7 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "grid": 0,
-        "tags": [
-          "favoriteBookActive"
-        ],
+        "tags": ["favoriteBookActive"],
         "colorPermutations": {
           "10810810812471480125325325312542542541": [
             {
@@ -1166,19 +1205,13 @@
         "paths": [
           "M810.667 273.493l-60.16-60.16-238.507 238.507-238.507-238.507-60.16 60.16 238.507 238.507-238.507 238.507 60.16 60.16 238.507-238.507 238.507 238.507 60.16-60.16-238.507-238.507z"
         ],
-        "attrs": [
-          {}
-        ],
+        "attrs": [{}],
         "isMulticolor": false,
         "isMulticolor2": false,
         "grid": 0,
-        "tags": [
-          "close_black"
-        ]
+        "tags": ["close_black"]
       },
-      "attrs": [
-        {}
-      ],
+      "attrs": [{}],
       "properties": {
         "order": 24,
         "id": 0,
@@ -1202,9 +1235,7 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "grid": 0,
-        "tags": [
-          "Icons (3)"
-        ],
+        "tags": ["Icons (3)"],
         "colorPermutations": {
           "2471480125325325312542542541": [
             {
@@ -1241,9 +1272,7 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "grid": 0,
-        "tags": [
-          "Color=orange, name=плюс, fill=Default"
-        ],
+        "tags": ["Color=orange, name=плюс, fill=Default"],
         "colorPermutations": {
           "10810810812471480125325325312542542541": [
             {
@@ -1280,9 +1309,7 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "grid": 0,
-        "tags": [
-          "Color=orange, name=plus-in-circle, fill=fill"
-        ],
+        "tags": ["Color=orange, name=plus-in-circle, fill=fill"],
         "colorPermutations": {
           "10810810812471480125325325312542542541": [
             {
@@ -1340,9 +1367,7 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "grid": 0,
-        "tags": [
-          "more-horizontal"
-        ]
+        "tags": ["more-horizontal"]
       },
       "attrs": [
         {
@@ -1390,9 +1415,7 @@
         "isMulticolor": false,
         "isMulticolor2": false,
         "grid": 0,
-        "tags": [
-          "Color=White, name=ok, fill=Default"
-        ],
+        "tags": ["Color=White, name=ok, fill=Default"],
         "colorPermutations": {
           "247148012542542541": [
             {
@@ -1417,7 +1440,7 @@
       "iconIdx": 0
     }
   ],
-  
+
   "height": 1024,
   "metadata": { "name": "icomoon" },
   "preferences": {
