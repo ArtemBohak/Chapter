@@ -1,4 +1,4 @@
-export const nickNameCharsRegex = /^@[a-zA-Z]+$/;
+export const nickNameCharsRegex = /^@[a-zA-Z0-9]+$/;
 
 export const simpleStringRegex =
   /^[a-zA-Zа-яА-ЯґҐіІєЄщЩ']+([-']?[a-zA-Zа-яА-ЯґҐіІєЄщЩ']+)\s[a-zA-Zа-яА-ЯґҐіІєЄщЩ']+([-']?[a-zA-Zа-яА-ЯґҐіІєЄщЩ']+)$/;
