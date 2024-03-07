@@ -9,3 +9,5 @@ export const isNickNameCheckingPattern =
 export const replaceSymbolsPattern = /[!@#$%^&*()_+{}|[\]\\:;"'<>,.?/]+$/g;
 
 export const replaceLettersPattern = /^@[a-zA-Z'`]+/g;
+
+export const stringRegex = /^[a-zA-Zа-яА-ЯґҐіІєЄщЩ0-9:]+$/;
