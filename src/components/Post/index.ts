@@ -2,7 +2,7 @@ export { default as PostComments } from "./PostComments/PostComments";
 export { default as PostImage } from "./PostImage/PostImage";
 export { default as PostText } from "./PostText/PostText";
 export { default as FollowButton } from "./FollowButton/FollowButton";
-export { CommentsButton, LikesButton, DeleteButton } from "./IconButtons";
+export { CommentsButton, LikesButton, DeleteButton } from "./Buttons";
 export { default as Avatar } from "./Avatar/Avatar";
 export { default as PostDate } from "./PostDate/PostDate";
 export { default as PostTitle } from "./PostTitle/PostTitle";
