@@ -57,6 +57,5 @@ export enum EndpointsEnum {
   FEEDS = "feed",
 
   // NOTIFICATION
-  NOTA = "https://obscure-island-84086-0710166a71eb.herokuapp.com/api/nota",
-  // NOTA = "nota",
+  NOTA = "nota",
 }
