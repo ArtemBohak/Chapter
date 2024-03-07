@@ -49,14 +49,15 @@
 }
 
 .edit-comment {
-  @apply relative ml-auto;
+  @apply relative;
+  align-self: flex-end;
   &__button {
     @apply bg-transparent;
   }
 }
 
 .popup {
-  @apply absolute right-[100px] -top-[70px] w-[220px] h-[100px] z-50;
+  @apply absolute left-10 -bottom-1 w-[180px] h-[90px] z-50;
 
   &__body {
     @apply w-full h-full bg-[#FAFAFA] rounded-lg border-grey-1010 overflow-hidden;
@@ -64,7 +65,7 @@
   }
 
   &__menu {
-    @apply flex flex-col items-start gap-2-md p-2-xs z-50 right-0;
+    @apply h-full flex flex-col items-start justify-around p-1-xs z-50;
     & > button {
       @apply bg-inherit outline-none;
     }

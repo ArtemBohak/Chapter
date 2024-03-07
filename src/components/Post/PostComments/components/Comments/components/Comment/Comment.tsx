@@ -99,14 +99,12 @@ const Comment: FC<CommentProps> = ({
           <p>{getDate(createdAt)}</p>
         </div>
         <div className={styles["comment__text"]}>
-          {
-            <TextTagging
-              replyTo={replyTo}
-              text={text || ""}
-              className={styles["comment__text-button"]}
-              linkClassName={styles["comment__text-link"]}
-            />
-          }
+          <TextTagging
+            replyTo={replyTo}
+            text={text || ""}
+            className={styles["comment__text-button"]}
+            linkClassName={styles["comment__text-link"]}
+          />
         </div>
         <div className={styles["comment__buttons"]}>
           <LikesButton
