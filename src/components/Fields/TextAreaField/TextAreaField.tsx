@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useEffect, useState } from "react";
+import { ChangeEvent, FC, useEffect, useRef, useState } from "react";
 import { ErrorMessage, Field, useField, useFormikContext } from "formik";
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
@@ -23,6 +23,7 @@ const TextAreaField: FC<TextAreaFieldProps> = ({
   const { setFieldValue } = useFormikContext();
   const [field, meta] = useField(props.name);
   const [showPicker, setShowPicker] = useState(false);
+  const valueRef = useRef<string | null>(null);
 
   useEffect(() => {
     if (nickName && commentText)
@@ -34,15 +35,20 @@ const TextAreaField: FC<TextAreaFieldProps> = ({
   const onHandleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
     const [nick] = value.split(" ");
+    valueRef.current = value;
 
-    if (
-      (nickName && nick.startsWith("@") && !nick.includes(nickName)) ||
-      (commentText && !value)
-    ) {
+    if (nickName && nick.startsWith("@") && !nick.includes(nickName)) {
       setFieldValue(field.name, "");
       setCommentText && setCommentText(null);
       return handleNickname && handleNickname();
     }
+    setTimeout(() => {
+      if (commentText && !valueRef.current) {
+        setFieldValue(field.name, "");
+        setCommentText && setCommentText(null);
+        return handleNickname && handleNickname();
+      }
+    }, 2000);
 
     setFieldValue(field.name, value);
   };
