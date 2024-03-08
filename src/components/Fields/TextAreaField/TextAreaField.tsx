@@ -30,7 +30,7 @@ const TextAreaField: FC<TextAreaFieldProps> = ({
     const value = e.target.value;
     const [nick] = value.split(" ");
 
-    if (nickName && nick.startsWith("@") && !nick.includes(nickName)) {
+    if (nickName && !nick.includes(nickName + ":")) {
       setFieldValue(field.name, "");
       return handleNickname && handleNickname();
     }
