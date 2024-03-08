@@ -1,5 +1,5 @@
 .notifications {
-  @apply h-screen pt-[88px] pb-[20px] md:pt-[108px] px-2-md md:px-4-xl md:pb-[30px] base:pt-[168px] base:pb-4-xs base:bg-grey-1030;
+  @apply h-screen pt-[88px] pb-[20px] md:pt-[108px] px-2-md md:px-4-xl md:pb-[30px] base:pt-[168px] base:pb-4-xs base:bg-grey-1030 relative;
 
   &__button {
     @apply block bg-transparent mb-2-md ml-auto base:mb-2-xs;
