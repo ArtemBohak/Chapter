@@ -20,17 +20,21 @@ const Toast: FC<ToastProps> = ({
   classNames,
   messageClassNames,
   setNotifications,
+  setIsLoading,
 }) => {
   const setErrorBoundary = useErrorBoundary();
 
   const onHandleClick = async () => {
+    setIsLoading && setIsLoading(true);
     try {
-      setNotifications((state) => state.filter((el) => el.id !== id));
       await api.delete(EndpointsEnum.NOTA + "/" + id);
+      setNotifications((state) => state.filter((el) => el.id !== id));
     } catch (e) {
       if (e instanceof AxiosError) {
         setErrorBoundary(e);
       }
+    } finally {
+      setIsLoading && setIsLoading(false);
     }
   };
   return (

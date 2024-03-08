@@ -1,5 +1,6 @@
-import { FC, createRef } from "react";
+import { FC, createRef, useState } from "react";
 import { AxiosError } from "axios";
+import { api } from "@/src/axios";
 import { TransitionGroup } from "react-transition-group";
 
 import { useProfileContext } from "@/src/context";
@@ -7,12 +8,17 @@ import { INotification } from "@/src/types";
 import { useErrorBoundary } from "@/src/hooks";
 import styles from "./NotificationPage.module.scss";
 
-import { Animation, Toast } from "@/src/components";
-import { api } from "@/src/axios";
+import { Animation, Loader, Toast } from "@/src/components";
 
 const NotificationPage: FC = () => {
-  const { notifications, isLoading, setNotifications } = useProfileContext();
+  const {
+    notifications,
+    isLoading: isLoadingOnMount,
+    setNotifications,
+  } = useProfileContext();
   const setErrorBoundary = useErrorBoundary();
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const editedNotifications: Array<INotification> = notifications.map((el) => ({
     ...el,
@@ -21,12 +27,15 @@ const NotificationPage: FC = () => {
 
   const onHandleClick = async () => {
     try {
-      setNotifications([]);
+      setIsLoading(true);
       await api.delete("");
+      setNotifications([]);
     } catch (e) {
       if (e instanceof AxiosError) {
         setErrorBoundary(e);
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -48,7 +57,7 @@ const NotificationPage: FC = () => {
             Delete all notifications
           </button>
         ) : null}
-        {!isLoading && !notifications.length ? (
+        {!isLoadingOnMount && !notifications.length ? (
           <p className={styles["notifications__text"]}>
             There are no notifications at the moment
           </p>
@@ -66,13 +75,18 @@ const NotificationPage: FC = () => {
                 timeout={300}
               >
                 <li>
-                  <Toast {...el} setNotifications={setNotifications} />
+                  <Toast
+                    {...el}
+                    setNotifications={setNotifications}
+                    setIsLoading={setIsLoading}
+                  />
                 </li>
               </Animation>
             );
           })}
         </TransitionGroup>
       </div>
+      <Loader isShown={isLoading || isLoadingOnMount} />
     </section>
   );
 };
