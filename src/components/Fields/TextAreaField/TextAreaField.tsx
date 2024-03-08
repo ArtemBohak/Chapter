@@ -18,8 +18,8 @@ const TextAreaField: FC<TextAreaFieldProps> = ({
   handleNickname,
   ...props
 }) => {
-  const { setFieldValue } = useFormikContext();
   const [field, meta] = useField(props.name);
+  const { setFieldValue } = useFormikContext();
   const [showPicker, setShowPicker] = useState(false);
 
   useEffect(() => {
@@ -57,12 +57,12 @@ const TextAreaField: FC<TextAreaFieldProps> = ({
     <div className={`${styles["text-area"]} ${classNames}`}>
       {labelValue ? <p>{labelValue}</p> : null}
       <Field
-        {...props}
         component="textarea"
         data-automation={dataAutomation}
         className={validationClassname}
         onChange={onHandleChange}
         onClick={onHandleInputClick}
+        {...props}
       />
       {isErrorValidation ? (
         <ErrorMessage

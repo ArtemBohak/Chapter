@@ -3,6 +3,7 @@ import { Formik, Form, FormikHelpers } from "formik";
 import { AxiosError, AxiosResponse } from "axios";
 
 import { useAppSelector } from "@/src/redux";
+import { validationSchema } from "./validationSchema";
 import { EndpointsEnum, api } from "@/src/axios";
 import { useErrorBoundary, useGetScreenSize } from "@/src/hooks";
 import { ElementsId, IPost } from "@/src/types";
@@ -32,41 +33,42 @@ const CommentsForm: FC<CommentsFormProps> = ({
 
   const onHandleSubmit = async (
     values: FormValues,
-    { setSubmitting, resetForm }: FormikHelpers<FormValues>
+    { setSubmitting, resetForm, setFieldError }: FormikHelpers<FormValues>
   ) => {
+    let body: BodyValues = { ...values };
+    if (nickName && replyToUserId && values.text.includes(nickName)) {
+      const [, text] = values.text.split(": ");
+      body = {
+        ...body,
+        recipientNickName: nickName,
+        recipientId: replyToUserId,
+        text,
+      };
+    }
     try {
-      let body: BodyValues = { ...values };
-      if (nickName && replyToUserId && values.text.includes(nickName)) {
-        const [, text] = values.text.split(": ");
-        body = {
-          ...body,
-          recipientNickName: nickName,
-          recipientId: replyToUserId,
-          text,
-        };
-      }
-
       if (commentId !== null) {
         const { data }: AxiosResponse<IPost> = await api.post(
           EndpointsEnum.COMMENTS + commentId + "/to-comment",
           body
         );
-        return setFeeds && setFeeds(postsCB<FeedType>(data, "postId"));
+        setFeeds && setFeeds(postsCB<FeedType>(data, "postId"));
+        return resetForm();
       }
+
       const { data }: AxiosResponse<IPost> = await api.post(
         EndpointsEnum.COMMENTS + postId,
         values
       );
       setFeeds && setFeeds(postsCB<FeedType>(data, "postId"));
       setCommentsIsHide && setCommentsIsHide(false);
+      resetForm();
     } catch (e) {
       if (e instanceof AxiosError) {
         setErrorBoundary(e);
+        setFieldError("text", e.response?.data.errors.text);
       }
     } finally {
       setSubmitting(false);
-      resetForm();
-
       handleNickname();
     }
   };
@@ -97,6 +99,7 @@ const CommentsForm: FC<CommentsFormProps> = ({
           initialValues={initialValues}
           onSubmit={onHandleSubmit}
           validate={onValidate}
+          validationSchema={validationSchema}
         >
           {({ isSubmitting, values, dirty, isValid }) => {
             return (
