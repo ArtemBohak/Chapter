@@ -1,23 +1,27 @@
 .notifications {
   @apply md:h-screen pt-[88px] pb-[20px] md:pt-[108px] px-2-md md:px-4-xl md:pb-[30px] base:pt-[168px] base:pb-4-xs base:bg-grey-1030;
-}
 
-.notifications__list {
-  @apply flex flex-col gap-1-sm;
-
-  &-enter {
-    @apply scale-0 opacity-0;
-
-    &-active {
-      @apply opacity-100 scale-100 transition-all duration-300;
-    }
+  &__button {
+    @apply block bg-transparent mb-2-md ml-auto base:mb-2-xs;
   }
 
-  &-exit {
-    @apply scale-100 opacity-100;
+  &__list {
+    @apply flex flex-col gap-1-sm;
 
-    &-active {
-      @apply scale-0 opacity-0 transition-all duration-300;
+    &-enter {
+      @apply scale-0 opacity-0;
+
+      &-active {
+        @apply opacity-100 scale-100 transition-all duration-300;
+      }
+    }
+
+    &-exit {
+      @apply scale-100 opacity-100;
+
+      &-active {
+        @apply scale-0 opacity-0 transition-all duration-300;
+      }
     }
   }
 }

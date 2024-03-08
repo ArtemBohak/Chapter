@@ -5,10 +5,10 @@ import { Link } from "react-router-dom";
 import { EndpointsEnum, api } from "@/src/axios";
 import { ToastProps } from "./Toast.type";
 import { genLink } from "./utils";
+import { useErrorBoundary } from "@/src/hooks";
 import styles from "./Toast.module.scss";
 
 import defaultUserAvatar from "@/src/assets/SVG/default-user-avatar.svg";
-import { useErrorBoundary } from "@/src/hooks";
 
 const Toast: FC<ToastProps> = ({
   data: {
