@@ -58,4 +58,5 @@ export enum EndpointsEnum {
 
   // NOTIFICATION
   NOTA = "nota",
+  DELETE_ALL_NOTA = "",
 }

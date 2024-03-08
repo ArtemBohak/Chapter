@@ -1,6 +1,6 @@
 import { FC, createRef, useState } from "react";
 import { AxiosError } from "axios";
-import { api } from "@/src/axios";
+import { EndpointsEnum, api } from "@/src/axios";
 import { TransitionGroup } from "react-transition-group";
 
 import { useProfileContext } from "@/src/context";
@@ -28,7 +28,7 @@ const NotificationPage: FC = () => {
   const onHandleClick = async () => {
     try {
       setIsLoading(true);
-      await api.delete("");
+      await api.delete(EndpointsEnum.DELETE_ALL_NOTA);
       setNotifications([]);
     } catch (e) {
       if (e instanceof AxiosError) {
