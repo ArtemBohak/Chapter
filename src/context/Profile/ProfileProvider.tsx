@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useLayoutEffect, useState } from "react";
 import { AxiosError, AxiosResponse } from "axios";
 
 import { EndpointsEnum, api } from "@/src/axios";
@@ -16,6 +16,7 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
   const setErrorBoundary = useErrorBoundary();
   const isAuth = useAppSelector((state) => state.userSlice.isAuth);
   const [isConnected, setIsConnected] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [headerAddPostBtnIsDisabled, setHeaderAddPostBtnIsDisabled] =
     useState(false);
@@ -24,21 +25,20 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
 
   const [unreadMessage, setUnreadMessage] = useState(notifications.length);
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const { data }: AxiosResponse<Array<INotification>> = await api.get(
-          EndpointsEnum.NOTA
-        );
-        setNotifications(data);
-      } catch (e) {
+  useLayoutEffect(() => {
+    setIsLoading(true);
+    api
+      .get(EndpointsEnum.NOTA)
+      .then(({ data }: AxiosResponse<Array<INotification>>) =>
+        setNotifications(data)
+      )
+      .catch((e) => {
         if (e instanceof AxiosError) {
           setErrorBoundary(e);
         }
-      }
-    })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+      })
+      .finally(() => setIsLoading(false));
+  }, [setErrorBoundary]);
 
   useEffect(() => {
     const onConnect = () => {
@@ -112,6 +112,7 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
         headerAddPostBtnIsDisabled,
         unreadMessage,
         notifications,
+        isLoading,
         setHeaderAddPostBtnIsDisabled,
         setUnreadMessage,
         setNotifications,

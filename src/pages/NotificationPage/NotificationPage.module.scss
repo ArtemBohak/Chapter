@@ -1,5 +1,5 @@
 .notifications {
-  @apply md:h-screen pt-[88px] pb-[20px] md:pt-[108px] px-2-md md:px-4-xl md:pb-[30px] base:pt-[168px] base:pb-4-xs base:bg-grey-1030;
+  @apply h-screen pt-[88px] pb-[20px] md:pt-[108px] px-2-md md:px-4-xl md:pb-[30px] base:pt-[168px] base:pb-4-xs base:bg-grey-1030 relative;
 
   &__button {
     @apply block bg-transparent mb-2-md ml-auto base:mb-2-xs;
@@ -23,6 +23,10 @@
         @apply scale-0 opacity-0 transition-all duration-300;
       }
     }
+  }
+
+  &__text {
+    @apply w-full text-base font-normal text-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 md:text-lg;
   }
 }
 

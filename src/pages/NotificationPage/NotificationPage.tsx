@@ -11,7 +11,7 @@ import { Animation, Toast } from "@/src/components";
 import { api } from "@/src/axios";
 
 const NotificationPage: FC = () => {
-  const { notifications, setNotifications } = useProfileContext();
+  const { notifications, isLoading, setNotifications } = useProfileContext();
   const setErrorBoundary = useErrorBoundary();
 
   const editedNotifications: Array<INotification> = notifications.map((el) => ({
@@ -47,6 +47,11 @@ const NotificationPage: FC = () => {
           >
             Delete all notifications
           </button>
+        ) : null}
+        {!isLoading && !notifications.length ? (
+          <p className={styles["notifications__text"]}>
+            There are no notifications at the moment
+          </p>
         ) : null}
         <TransitionGroup
           component={"ul"}
