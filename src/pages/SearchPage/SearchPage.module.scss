@@ -1,5 +1,5 @@
 .search {
-  @apply absolute w-full  bg-white z-50 md:h-screen md:z-0 md:static px-2-md py-0-md md:pt-[108px] md:px-4-xl md:pb-4-md base:pt-[168px] base:pb-4-xs base:bg-grey-1030;
+  @apply fixed w-full   bg-white z-50 md:h-screen md:z-0 md:static px-2-md py-0-md md:pt-[108px] md:px-4-xl md:pb-4-md base:pt-[168px] base:pb-4-xs base:bg-grey-1030;
 
   &__wrapper {
     @apply bg-white md:rounded-md md:border md:border-grey-1010 md:h-full md:py-3-sm md:px-[60px] md:overflow-hidden md:overflow-y-auto base:max-w-[962px] base:mx-auto base:border-0 base:px-[122px] base:py-[64px];
