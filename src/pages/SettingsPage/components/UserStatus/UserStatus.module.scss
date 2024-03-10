@@ -1,3 +1,3 @@
-.status-text {
+.status {
   @apply resize-none text-xs w-[262px] laptop:text-base laptop:w-[372px] h-[118px] md:h-[166px] laptop:h-[170px] px-1-xs py-0-sm md:p-0-md laptop:p-0-md pr-1-xs bg-transparent outline-none rounded-lg border-[#FFD18C] border leading-[18px] md:leading-[24px] transition-all duration-100 disabled:border-transparent disabled:text-black disabled:opacity-100;
 }

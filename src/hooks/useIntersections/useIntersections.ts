@@ -1,31 +1,33 @@
 import { useEffect } from "react";
 
-import {
-  IntersectionsOptionsType,
-  RefType,
-  SetNumberType,
-} from "./useIntersections.type";
+import { OptionsType, RefType, HandlerType } from "./useIntersections.type";
 
 export const useRefIntersection = (
   nodeRef: RefType,
-  setPage: SetNumberType,
-  { postsIsLoad, commentsIsShow }: IntersectionsOptionsType = {}
+  handler: HandlerType,
+  {
+    postsIsLoad,
+    commentsIsShow,
+
+    ...options
+  }: OptionsType = {}
 ) => {
   useEffect(() => {
-    const loader = nodeRef?.current;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (nodeRef?.current) {
+          handler(entry, nodeRef?.current);
+        }
+      });
+    }, options);
 
-    const observer = new IntersectionObserver(([entries]) => {
-      if (loader && entries.isIntersecting) setPage(+loader.value);
-    });
-
-    if (loader) {
-      observer.observe(loader);
+    if (nodeRef?.current) {
+      observer.observe(nodeRef?.current);
     }
 
     return () => {
-      if (loader) {
-        observer.unobserve(loader);
-      }
+      observer.disconnect();
     };
-  }, [commentsIsShow, postsIsLoad, nodeRef, setPage]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [commentsIsShow, postsIsLoad, nodeRef, options]);
 };

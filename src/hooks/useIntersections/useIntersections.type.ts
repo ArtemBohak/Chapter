@@ -1,11 +1,16 @@
-import { Dispatch, MutableRefObject, RefObject, SetStateAction } from "react";
+import { MutableRefObject, RefObject } from "react";
 
-export type SetNumberType = Dispatch<SetStateAction<number>>;
 export type RefType =
   | MutableRefObject<null>
-  | RefObject<HTMLInputElement>
+  | RefObject<HTMLDivElement>
   | undefined;
-export type IntersectionsOptionsType = {
+
+export type OptionsType = {
   commentsIsShow?: boolean;
   postsIsLoad?: boolean;
-};
+} & Partial<IntersectionObserver>;
+
+export type HandlerType = (
+  entry: IntersectionObserverEntry,
+  element: HTMLElement
+) => void;

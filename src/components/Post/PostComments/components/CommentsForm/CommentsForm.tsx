@@ -7,7 +7,6 @@ import { EndpointsEnum, api } from "@/src/axios";
 import { useErrorBoundary, useGetScreenSize } from "@/src/hooks";
 import { ElementsId, IPost } from "@/src/types";
 import { postsCB, tabScreen } from "@/src/utils";
-import { validationSchema } from "./validationSchema";
 import { FormValues, CommentsFormProps, BodyValues } from "./CommentsForm.type";
 import { FeedType } from "@/src/services/PostApi/PostApi.type";
 import styles from "./CommentsForm.module.scss";
@@ -16,22 +15,19 @@ import { TextAreaField } from "@/src/components";
 import { PostButton } from "@/src/components/Post/components";
 
 const initialValues = { text: "" };
-
 const CommentsForm: FC<CommentsFormProps> = ({
   postId,
   commentId,
   nickName,
   replyToUserId,
-  setCommentId,
   setCommentsIsHide,
   setFeeds,
-  setNickName,
-  setReplyToUserId,
+  handleNickname,
 }) => {
-  const setErrorBoundary = useErrorBoundary();
   const {
     user: { avatarUrl },
   } = useAppSelector((state) => state.userSlice);
+  const setErrorBoundary = useErrorBoundary();
   const [screenSize] = useGetScreenSize();
 
   const onHandleSubmit = async (
@@ -40,20 +36,22 @@ const CommentsForm: FC<CommentsFormProps> = ({
   ) => {
     try {
       let body: BodyValues = { ...values };
-      if (nickName && replyToUserId) {
+      if (nickName && replyToUserId && values.text.includes(nickName)) {
+        const [, text] = values.text.split(": ");
         body = {
           ...body,
           recipientNickName: nickName,
           recipientId: replyToUserId,
+          text,
         };
       }
+
       if (commentId !== null) {
         const { data }: AxiosResponse<IPost> = await api.post(
           EndpointsEnum.COMMENTS + commentId + "/to-comment",
           body
         );
-        setFeeds && setFeeds(postsCB<FeedType>(data, "postId"));
-        return setCommentId(null);
+        return setFeeds && setFeeds(postsCB<FeedType>(data, "postId"));
       }
       const { data }: AxiosResponse<IPost> = await api.post(
         EndpointsEnum.COMMENTS + postId,
@@ -68,25 +66,36 @@ const CommentsForm: FC<CommentsFormProps> = ({
     } finally {
       setSubmitting(false);
       resetForm();
-      setReplyToUserId && setReplyToUserId(null);
-      setNickName && setNickName("");
+      handleNickname();
     }
+  };
+
+  const onValidate = (values: FormValues) => {
+    const errors: Partial<FormValues> = {};
+    if (nickName && values.text.includes(nickName)) {
+      const [, text] = values.text.split(": ");
+
+      if (!text) errors.text = "";
+      else if (text.length > 500) errors.text = "";
+    } else {
+      if (!values.text) errors.text = "";
+      else if (values.text.length > 500) errors.text = "";
+    }
+
+    return errors;
   };
 
   const iconSize = screenSize < tabScreen ? 20 : 24;
   return (
-    <div
-      id={`${ElementsId.POST_FORM}${postId}`}
-      className={styles["form__content-wrapper"]}
-    >
-      <div className={styles["form__image"]}>
+    <div id={`${ElementsId.POST_FORM}${postId}`} className={styles["comments"]}>
+      <div className={styles["comments__avatar"]}>
         <img src={avatarUrl} alt="user avatar" width={44} height={44} />
       </div>
-      <div className={styles["form__comments-form-wrapper"]}>
+      <div className={styles["comments__form"]}>
         <Formik
           initialValues={initialValues}
           onSubmit={onHandleSubmit}
-          validationSchema={validationSchema}
+          validate={onValidate}
         >
           {({ isSubmitting, values, dirty, isValid }) => {
             return (
@@ -98,18 +107,16 @@ const CommentsForm: FC<CommentsFormProps> = ({
                   dataAutomation="textInput"
                   value={values.text}
                   iconSize={iconSize}
-                  classNames={styles["form__field"]}
-                  replyToUserId={replyToUserId}
+                  classNames={styles["comments__field"]}
                   nickName={nickName}
-                  setNickName={setNickName}
-                  setReplyToUserId={setReplyToUserId}
+                  handleNickname={handleNickname}
                 />
                 <PostButton
                   type="submit"
                   dataAutomation="submitButton"
                   isLoading={isSubmitting}
                   isDisabled={!isValid || !dirty || isSubmitting}
-                  className={styles["form__button"]}
+                  className={styles["comments__button"]}
                 >
                   Send
                 </PostButton>

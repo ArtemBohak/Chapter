@@ -9,7 +9,7 @@ const PostSkeleton: FC<JSX.IntrinsicAttributes & IContentLoaderProps> = ({
   ...props
 }) => (
   <ContentLoader
-    className={`${styles["post-skeleton__wrapper"]} ${className}`}
+    className={`${styles["skeleton"]} ${className}`}
     speed={4}
     width={776}
     viewBox="0 0 776 800"

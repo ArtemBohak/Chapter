@@ -2,7 +2,7 @@
   &__title {
     @apply mb-2-xs;
   }
-  &__image-wrapper {
+  &__image {
     @apply rounded-lg overflow-hidden mt-2-xs relative flex justify-center;
 
     & > button {
@@ -18,11 +18,11 @@
     }
   }
 
-  &__button-wrapper {
+  &__button {
     @apply w-full md:max-w-[316px] mx-auto;
   }
 }
 
-.image-label {
+.image__label {
   @apply text-xs text-grey-1000;
 }

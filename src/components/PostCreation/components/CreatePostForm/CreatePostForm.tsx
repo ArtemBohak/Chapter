@@ -59,9 +59,9 @@ const CreatePostForm: FC<CreatePostFormProps> = ({
               setImage={setImage}
               setFile={setFile}
             />
-            <p className={styles["image-label"]}>.png, .jpg, .gif</p>
+            <p className={styles["image__label"]}>.png, .jpg, .gif</p>
             {imgUrl ? (
-              <div className={styles["form__image-wrapper"]}>
+              <div className={styles["form__image"]}>
                 <button
                   onClick={onHandleRemoveClick}
                   data-automation="clickButton"
@@ -79,7 +79,7 @@ const CreatePostForm: FC<CreatePostFormProps> = ({
               value={values.caption || ""}
               classNames={styles["form__comment"]}
             />
-            <div className={styles["form__button-wrapper"]}>
+            <div className={styles["form__button"]}>
               <UIbutton
                 type="submit"
                 dataAutomation="submitButton"

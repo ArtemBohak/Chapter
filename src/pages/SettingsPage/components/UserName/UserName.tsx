@@ -29,13 +29,13 @@ const UserName: FC<UserNameProps> = ({ firstName, lastName }) => {
         onHandleEdit={onHandleEdit}
         onHandleSave={onHandleSave}
       />
-      <label className={styles["info-label"]}>
-        <span className={styles["info-label__text"]}>Full Name</span>
+      <label className={styles["info"]}>
+        <span className={styles["info__text"]}>Full Name</span>
         <input
           ref={inputRef}
           value={inputValue}
           onChange={onChange}
-          className={styles["info-label__input"]}
+          className={styles["info__input"]}
           disabled={!isEditing}
           onFocus={onHandleFocus}
           data-automation="userNameInput"

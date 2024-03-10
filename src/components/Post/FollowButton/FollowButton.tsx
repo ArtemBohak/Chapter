@@ -11,7 +11,6 @@ const FollowButton: FC<FollowButtonProps> = ({
   isSubscribeToAuthor,
   id,
   classNames,
-  fetchData,
 }) => {
   const [isFollow, setIsFollow] = useState(isSubscribeToAuthor);
   const setErrorBoundary = useErrorBoundary();
@@ -20,7 +19,6 @@ const FollowButton: FC<FollowButtonProps> = ({
     try {
       setIsFollow(!isFollow);
       await api.post(EndpointsEnum.FOLLOW_UNFOLLOW + `${id}`);
-      fetchData && fetchData(id);
     } catch (e) {
       if (e instanceof AxiosError) {
         setErrorBoundary(e);

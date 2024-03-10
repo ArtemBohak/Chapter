@@ -139,8 +139,8 @@ const RegisterForm: FC = () => {
       nodeRef={nodeRef}
       timeout={300}
       classNames={{
-        enter: styles["input--enter"],
-        enterActive: styles["input--enter-active"],
+        enter: styles["form__input-enter"],
+        enterActive: styles["form__input-enter-active"],
       }}
       unmountOnExit
     >
@@ -173,12 +173,12 @@ const RegisterForm: FC = () => {
               value={values.email}
               dataAutomation={`${RegisterAccountKey.EMAIL}Input`}
               label="Your email"
-              className={isNextStep ? styles["input"] : ""}
+              className={isNextStep ? styles["form__input"] : ""}
               disabled={isNextStep}
             />
             {renderNextStep(values.hash)}
             <UIbutton
-              className={styles["button"]}
+              className={styles["form__button"]}
               dataAutomation="submitButton"
               type="submit"
               fullWidth

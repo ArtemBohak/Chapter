@@ -5,10 +5,6 @@
 
   &__body {
     @apply bg-white h-screen md:h-[358px] w-full md:max-w-[640px] laptop:max-w-[1166px] laptop:h-[458px] md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:rounded-sm;
-
-    &-content {
-      @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full text-center px-[80px] md:px-[100px] laptop:px-[124px];
-    }
   }
 
   &-enter {
@@ -27,15 +23,18 @@
     }
   }
 }
+.content {
+  @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full text-center px-[80px] md:px-[100px] laptop:px-[124px];
+}
 
-.icon-button {
+.button {
   @apply bg-transparent absolute  top-[20px] md:top-[40px] z-50;
 
-  &-back {
+  &--back {
     @apply md:hidden left-[20px];
   }
 
-  &-cross {
+  &--cross {
     @apply hidden md:inline-block right-[40px];
   }
 }

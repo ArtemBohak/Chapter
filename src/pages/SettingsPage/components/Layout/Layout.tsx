@@ -14,10 +14,10 @@ const Layout: FC<LayoutProps> = ({
   const containerClassNames = cn(
     styles["layout"],
     {
-      [styles["layout-width--full"]]: fullWidth,
-      [styles["layout-width"]]: !fullWidth,
-      [styles["layout--base"]]: !customSpacing,
-      [styles["layout--story"]]: customSpacing,
+      [styles["layout__width--full"]]: fullWidth,
+      [styles["layout__width"]]: !fullWidth,
+      [styles["layout__base"]]: !customSpacing,
+      [styles["layout__story"]]: customSpacing,
     },
     className
   );

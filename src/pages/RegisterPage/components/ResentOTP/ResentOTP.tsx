@@ -37,16 +37,14 @@ const ResentOTP: FC<ResentOTPProps> = ({ email }) => {
   };
 
   return (
-    <div className={styles["resent-wrapper"]}>
-      <p className={styles["resent-wrapper__message"]}>
-        3 attempt per 24 hours.
-      </p>
-      <p className={styles["resent-wrapper__btn-text"]}>
+    <div className={styles["resent"]}>
+      <p className={styles["resent__message"]}>3 attempt per 24 hours.</p>
+      <p className={styles["resent__label"]}>
         Send the code again?{" "}
         <button
           onClick={onHandleClick}
           disabled={isLoading}
-          className={styles["resent-wrapper__button"]}
+          className={styles["resent__button"]}
         >
           Click here.
         </button>

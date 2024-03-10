@@ -17,7 +17,7 @@ const ErrorBoundary: FC = () => {
     return (
       <ErrorLayout>
         <section className={styles["error"]}>
-          <div className={styles["error__wrapper"]}>
+          <div className={styles["wrapper"]}>
             <h2 className={`${styles["error__title"]} ${styles["title"]}`}>
               Oh no! Something went wrong!
             </h2>

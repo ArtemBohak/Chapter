@@ -1,4 +1,4 @@
-import { FC, MouseEvent, TouchEvent, useMemo, useRef } from "react";
+import { FC, MouseEvent, TouchEvent, useRef } from "react";
 import { GetState, GetCity } from "react-country-state-city";
 
 import { CityType, StateType } from "../../UserLocation.type";
@@ -25,12 +25,8 @@ const SelectMenu: FC<SelectMenuProps> = ({
 }) => {
   const menuRef = useRef(null);
 
-  const filteredData = useMemo(
-    () =>
-      data.filter((city) =>
-        city.name.toLowerCase().includes(selectedValue.toLowerCase())
-      ),
-    [data, selectedValue]
+  const filteredData = data.filter((city) =>
+    city.name.toLowerCase().includes(selectedValue.toLowerCase())
   );
 
   const handleSelect = (
