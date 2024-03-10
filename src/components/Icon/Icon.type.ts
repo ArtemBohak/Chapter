@@ -38,4 +38,5 @@ export enum IconEnum {
   PlusInCircle = "plus-in-circle",
   MoreHorizontal = "more-horizontal",
   WhiteOk = "whiteOk",
+  TRASH = "trash",
 }

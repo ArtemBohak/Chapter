@@ -1,7 +1,7 @@
-import { FC, useEffect, useState } from "react";
-// import { AxiosError } from "axios";
+import { FC, useEffect, useLayoutEffect, useState } from "react";
+import { AxiosError, AxiosResponse } from "axios";
 
-// import { api } from "@/src/axios";
+import { EndpointsEnum, api } from "@/src/axios";
 import { SocketApi } from "@/src/services";
 import { getTokenFromLC } from "@/src/utils";
 import { useErrorBoundary } from "@/src/hooks";
@@ -16,6 +16,7 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
   const setErrorBoundary = useErrorBoundary();
   const isAuth = useAppSelector((state) => state.userSlice.isAuth);
   const [isConnected, setIsConnected] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [headerAddPostBtnIsDisabled, setHeaderAddPostBtnIsDisabled] =
     useState(false);
@@ -24,19 +25,20 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
 
   const [unreadMessage, setUnreadMessage] = useState(notifications.length);
 
-  // useEffect(() => {
-  //   (async () => {
-  //     try {
-  //       // const { data }: AxiosResponse<Array<INotification>> = await api.get("");
-  //       // setNotifications(data);
-  //     } catch (e) {
-  //       if (e instanceof AxiosError) {
-  //         setErrorBoundary(e);
-  //       }
-  //     }
-  //   })();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+  useLayoutEffect(() => {
+    setIsLoading(true);
+    api
+      .get(EndpointsEnum.NOTA)
+      .then(({ data }: AxiosResponse<Array<INotification>>) =>
+        setNotifications(data)
+      )
+      .catch((e) => {
+        if (e instanceof AxiosError) {
+          setErrorBoundary(e);
+        }
+      })
+      .finally(() => setIsLoading(false));
+  }, [setErrorBoundary]);
 
   useEffect(() => {
     const onConnect = () => {
@@ -71,12 +73,12 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
   }, [isAuth]);
 
   useEffect(() => {
-    const onHandleSubscribe = socket.handleEvent<INotification, INotification>(
+    const onHandleSubscribe = socket.handleData<INotification>(
       setNotifications,
       setErrorBoundary
     );
 
-    const onHandleNewPost = socket.handleEvent<INotification, INotification>(
+    const onHandleNewPost = socket.handleData<INotification>(
       setNotifications,
       setErrorBoundary
     );
@@ -110,6 +112,7 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
         headerAddPostBtnIsDisabled,
         unreadMessage,
         notifications,
+        isLoading,
         setHeaderAddPostBtnIsDisabled,
         setUnreadMessage,
         setNotifications,

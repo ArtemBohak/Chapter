@@ -2,6 +2,7 @@ import { CommentRefType } from "@/src/services/PostApi/PostApi.type";
 import { HandleNickname } from "@/src/types";
 
 import { Dispatch, SetStateAction } from "react";
+import { PostCommentsProps } from "../../PostComments.type";
 
 export type CommentsProps = {
   comments: Array<CommentRefType>;
@@ -10,4 +11,4 @@ export type CommentsProps = {
   isLoading: boolean;
   showAllComments: boolean;
   postId: string | number;
-};
+} & Pick<PostCommentsProps, "setFeeds">;

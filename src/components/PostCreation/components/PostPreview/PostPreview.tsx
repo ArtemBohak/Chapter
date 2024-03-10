@@ -72,7 +72,9 @@ const PostPreview: FC<PostPreviewProps> = ({
     } catch (error) {
       if (error instanceof AxiosError) {
         setErrorBoundary(error);
-        setError(apiUiMessage.ERROR_MESSAGE);
+        const errors = error.response?.data.errors;
+        const [key] = Object.keys(errors);
+        setError(errors[key] || apiUiMessage.ERROR_MESSAGE);
       }
     } finally {
       setIsLoading(false);

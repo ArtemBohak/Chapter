@@ -1,48 +1,45 @@
 import { FC } from "react";
+import { AxiosError } from "axios";
 import { Link } from "react-router-dom";
 
-import { AxiosError } from "axios";
-// import { INotification } from "@/src/types";
-// import { api } from "@/src/axios";
+import { EndpointsEnum, api } from "@/src/axios";
 import { ToastProps } from "./Toast.type";
 import { genLink } from "./utils";
+import { useErrorBoundary } from "@/src/hooks";
 import styles from "./Toast.module.scss";
 
 import defaultUserAvatar from "@/src/assets/SVG/default-user-avatar.svg";
-import { useErrorBoundary } from "@/src/hooks";
 
 const Toast: FC<ToastProps> = ({
-  setNotifications,
-  user: { id, firstName, lastName, avatarUrl, nickName },
-  message,
+  data: {
+    message,
+    user: { id: userId, firstName, lastName, nickName, avatarUrl },
+  },
+  id,
   nodeRef,
   classNames,
   messageClassNames,
-  keyId,
+  setNotifications,
+  setIsLoading,
 }) => {
   const setErrorBoundary = useErrorBoundary();
 
   const onHandleClick = async () => {
+    setIsLoading && setIsLoading(true);
     try {
-      // const { data }: AxiosResponse<Array<INotification>> = await api.delete(
-      //   ""
-      // );
-      // setNotifications(data);
+      await api.delete(EndpointsEnum.NOTA + "/" + id);
+      setNotifications((state) => state.filter((el) => el.id !== id));
     } catch (e) {
       if (e instanceof AxiosError) {
         setErrorBoundary(e);
       }
+    } finally {
+      setIsLoading && setIsLoading(false);
     }
-    setNotifications((state) => state.filter((el) => el.keyId !== keyId));
   };
   return (
-    <Link
-      to={genLink(message, id)}
-      className={`${styles["toast"]} ${classNames}`}
-      onClick={onHandleClick}
-      ref={nodeRef}
-    >
-      <span className={styles["toast__user"]}>
+    <div className={`${styles["toast"]} ${classNames}`} ref={nodeRef}>
+      <Link to={genLink(message, userId)} className={styles["toast__user"]}>
         <img
           src={avatarUrl ? avatarUrl : defaultUserAvatar}
           width={40}
@@ -54,11 +51,14 @@ const Toast: FC<ToastProps> = ({
           </span>
           <span className={styles["user__nickname"]}>{nickName}</span>
         </span>
-      </span>
-      <span className={`${styles["toast__message"]} ${messageClassNames}`}>
+      </Link>
+      <button
+        className={`${styles["toast__message"]} ${messageClassNames}`}
+        onClick={onHandleClick}
+      >
         {message}
-      </span>
-    </Link>
+      </button>
+    </div>
   );
 };
 

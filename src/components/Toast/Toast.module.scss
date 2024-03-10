@@ -10,7 +10,7 @@
   }
 
   &__message {
-    @apply text-sm font-bold md:text-lg;
+    @apply text-sm font-bold md:text-lg bg-transparent;
   }
 }
 

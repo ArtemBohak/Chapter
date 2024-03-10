@@ -11,6 +11,7 @@ export type ProfileContextType = {
   headerAddPostBtnIsDisabled: boolean;
   unreadMessage: number;
   notifications: Array<INotification>;
+  isLoading: boolean;
   setNotifications: Dispatch<SetStateAction<Array<INotification>>>;
   setHeaderAddPostBtnIsDisabled: SetBoolean;
   setUnreadMessage: Dispatch<SetStateAction<number>>;

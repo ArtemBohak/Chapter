@@ -51,7 +51,12 @@ export enum EndpointsEnum {
 
   // COMMENTS
   COMMENTS = "comments/",
+  DELETE_COMMENTS = "comments/delete/",
 
   // FEEDS
   FEEDS = "feed",
+
+  // NOTIFICATION
+  NOTA = "nota",
+  DELETE_ALL_NOTA = "",
 }
