@@ -5,8 +5,7 @@ import { useProfileContext } from "@/src/context";
 import { useErrorBoundary, useFindUserId } from "@/src/hooks";
 import { LikesButtonProps } from "./LikesButton.type";
 import { User } from "./components/LikesModal/LikesModal.type";
-import styles from "../IconButtons.module.scss";
-import likesButtonStyles from "./LikesButton.module.scss";
+import styles from "../Buttons.module.scss";
 
 import { Icon, IconEnum } from "@/src/components";
 import { LikesModal } from "./components";
@@ -30,6 +29,7 @@ const LikesButton: FC<LikesButtonProps> = ({
   const [likeCount, setLikeCount] = useState(usersId.length);
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [usersLikedList, setUsersLikedList] = useState<Array<User>>([]);
 
   useEffect(() => {
@@ -62,6 +62,7 @@ const LikesButton: FC<LikesButtonProps> = ({
 
   const onHandleModalOpenClick = async () => {
     try {
+      setIsLoading(true);
       const { data }: AxiosResponse<Array<User>> = await api.get(
         EndpointsEnum.LIKED_USER_LIST + id
       );
@@ -75,6 +76,8 @@ const LikesButton: FC<LikesButtonProps> = ({
       if (e instanceof AxiosError) {
         setErrorBoundary(e);
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -88,7 +91,7 @@ const LikesButton: FC<LikesButtonProps> = ({
   });
 
   return (
-    <div className={likesButtonStyles["likes-button"]}>
+    <div className={styles["likes-button"]}>
       <button
         onClick={onHandleLikeClick}
         data-automation="clickButton"
@@ -105,6 +108,7 @@ const LikesButton: FC<LikesButtonProps> = ({
         onClick={withoutModal ? onHandleLikeClick : onHandleModalOpenClick}
         data-automation="clickButton"
         className={styles["icon-button"]}
+        disabled={isLoading}
       >
         {likeCount ? likeCount : ""}{" "}
         <span className={btnTextStyle}>like{likeCount > 1 ? "s" : ""}</span>

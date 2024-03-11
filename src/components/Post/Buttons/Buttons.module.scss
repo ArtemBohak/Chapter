@@ -1,5 +1,5 @@
 .icon-button {
-  @apply bg-transparent outline-none flex gap-0-sm items-center text-xxs md:text-base text-[#6C6C6C];
+  @apply bg-transparent outline-none flex gap-0-sm items-center text-xxs md:text-base text-[#6C6C6C] transition-all duration-150 disabled:animate-pulse disabled:pointer-events-none;
 
   &__text {
     &-hidden {
@@ -16,6 +16,6 @@
   }
 }
 
-.delete-btn {
-  @apply transition-all duration-150 disabled:animate-pulse disabled:pointer-events-none;
+.likes-button {
+  @apply flex gap-[5px];
 }

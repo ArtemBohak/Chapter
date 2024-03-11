@@ -4,7 +4,7 @@ import cn from "classnames";
 import { scrollTo } from "@/src/utils";
 import { ElementsId } from "@/src/types";
 import { CommentsButtonProps } from "./CommentsButton.type";
-import styles from "../IconButtons.module.scss";
+import styles from "../Buttons.module.scss";
 
 import { Icon, IconEnum } from "@/src/components";
 

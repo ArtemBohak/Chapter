@@ -7,7 +7,7 @@ import { useErrorBoundary } from "@/src/hooks";
 import { postsCB } from "@/src/utils";
 import { PostType } from "@/src/types";
 import { DeleteButtonProps } from "./DeleteButton.type";
-import styles from "../IconButtons.module.scss";
+import styles from "../Buttons.module.scss";
 
 import { Icon, IconEnum } from "@/src/components";
 
@@ -45,7 +45,7 @@ const DeleteButton: FC<DeleteButtonProps> = ({
       <button
         onClick={onHandleDelete}
         data-automation="clickButton"
-        className={`${styles["icon-button"]} ${styles["delete-btn"]}`}
+        className={styles["icon-button"]}
         disabled={isLoading}
       >
         <Icon
