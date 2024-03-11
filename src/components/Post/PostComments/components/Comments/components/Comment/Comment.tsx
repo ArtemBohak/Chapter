@@ -28,7 +28,7 @@ const Comment: FC<CommentProps> = ({
   nodeRef,
   handleNickname,
   setPage,
-  setFeeds,
+  setPosts,
 }) => {
   const userId = useAppSelector((state) => state.userSlice.user.id);
 
@@ -93,7 +93,7 @@ const Comment: FC<CommentProps> = ({
           <DeleteButton
             authorId={authorId}
             commentId={id}
-            setFeeds={setFeeds}
+            setPosts={setPosts}
           />
         </div>
       </div>

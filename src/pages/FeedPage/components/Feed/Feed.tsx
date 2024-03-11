@@ -27,7 +27,7 @@ const Feed: FC<FeedProps> = ({ nodeRef, pageValue, ...props }) => {
   const [commentsIsHide, setCommentsIsHide] = useState(true);
   const userId = useAppSelector((state) => state.userSlice.user.id);
 
-  const { setFeeds, setPage } = useFeedContext();
+  const { setPosts, setPage } = useFeedContext();
 
   useRefIntersection(nodeRef, intersectionHandlerCB(setPage), {
     thresholds: [1],
@@ -86,7 +86,7 @@ const Feed: FC<FeedProps> = ({ nodeRef, pageValue, ...props }) => {
           {...props}
           commentsIsHide={commentsIsHide}
           setCommentsIsHide={setCommentsIsHide}
-          setFeeds={setFeeds}
+          setPosts={setPosts}
         />
       </div>
     </div>

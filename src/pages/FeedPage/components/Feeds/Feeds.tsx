@@ -11,7 +11,7 @@ import { Animation, Loader, PostSkeleton } from "@/src/components";
 import Feed from "../Feed/Feed";
 
 const Feeds: FC = () => {
-  const { feeds, isLoad, setPage } = useFeedContext();
+  const { posts, isLoad, setPage } = useFeedContext();
   const startLoaderRef = useRef(null);
 
   useRefIntersection(startLoaderRef, intersectionHandlerCB(setPage), {
@@ -26,14 +26,14 @@ const Feeds: FC = () => {
     exitActive: styles["feeds-exit-active"],
   };
 
-  if (!feeds.length && isLoad)
+  if (!posts.length && isLoad)
     return <PostSkeleton className={styles["skeleton"]} />;
 
   return (
     <>
       <div ref={startLoaderRef} data-value={1} className="hide-element" />
       <TransitionGroup component={"ul"} className={styles["feeds"]}>
-        {feeds.map((i) => (
+        {posts.map((i) => (
           <Animation
             key={i.postId}
             nodeRef={i.nodeRef}
@@ -47,7 +47,7 @@ const Feeds: FC = () => {
         ))}
       </TransitionGroup>
       <Loader
-        isShown={!!feeds.length && isLoad}
+        isShown={!!posts.length && isLoad}
         wrapperClassNames={styles["loader"]}
         height={80}
         width={90}

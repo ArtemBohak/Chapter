@@ -4,8 +4,7 @@ import cn from "classnames";
 import { PostApi } from "@/src/services";
 import { PostCommentsProps } from "./PostComments.type";
 import { useErrorBoundary } from "@/src/hooks";
-import { HandleNickname } from "@/src/types";
-import { CommentRefType } from "@/src/services/PostApi/PostApi.type";
+import { HandleNickname, CommentRefType } from "@/src/types";
 import styles from "./PostComments.module.scss";
 
 import { Animation } from "@/src/components";

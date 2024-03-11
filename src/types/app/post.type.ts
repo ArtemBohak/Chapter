@@ -49,10 +49,21 @@ export interface IPost extends IPostValues {
   comments: Array<CommentValues> | [];
 }
 
-export type RefType = MutableRefObject<null> | RefObject<HTMLDivElement>;
-
 export type HandleNickname = (
   id?: string | number,
   nickname?: string | undefined,
   authorId?: string | undefined | null | number
 ) => void;
+
+export type RefType = MutableRefObject<null> | RefObject<HTMLDivElement>;
+
+export type RefsType = {
+  nodeRef?: RefType;
+  pageValue?: number;
+};
+
+export type PostType = IPost;
+export type PostRefType = PostType & RefsType;
+
+export type CommentType = CommentValues;
+export type CommentRefType = CommentType & RefsType;

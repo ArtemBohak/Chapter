@@ -4,5 +4,5 @@ import { IPost } from "@/src/types";
 export type DeleteButtonProps = {
   authorId: string | number;
   commentId: string | number;
-  setFeeds?: Dispatch<SetStateAction<Array<IPost>>>;
+  setPosts?: Dispatch<SetStateAction<Array<IPost>>>;
 };

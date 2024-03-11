@@ -9,7 +9,7 @@ export type CommentsFormProps = {
   handleNickname: HandleNickname;
   setCommentsIsHide?: Dispatch<SetStateAction<boolean>>;
 } & Required<Pick<PostCommentsProps, "postId">> &
-  Pick<PostCommentsProps, "setFeeds">;
+  Pick<PostCommentsProps, "setPosts">;
 
 export type FormValues = { text: string };
 

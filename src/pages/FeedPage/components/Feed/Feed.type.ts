@@ -1,4 +1,3 @@
-import { IPost } from "@/src/types";
-import { RefsType } from "@/src/utils/callBacks/callBacks.type";
+import { IPost, RefsType } from "@/src/types";
 
 export type FeedProps = IPost & RefsType;

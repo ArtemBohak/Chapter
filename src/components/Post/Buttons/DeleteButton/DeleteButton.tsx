@@ -5,7 +5,7 @@ import { EndpointsEnum, api } from "@/src/axios";
 import { useAppSelector } from "@/src/redux";
 import { useErrorBoundary } from "@/src/hooks";
 import { postsCB } from "@/src/utils";
-import { FeedType } from "@/src/utils/callBacks/callBacks.type";
+import { PostType } from "@/src/types";
 import { DeleteButtonProps } from "./DeleteButton.type";
 import styles from "../IconButtons.module.scss";
 
@@ -14,17 +14,17 @@ import { Icon, IconEnum } from "@/src/components";
 const DeleteButton: FC<DeleteButtonProps> = ({
   authorId,
   commentId,
-  setFeeds,
+  setPosts,
 }) => {
   const userId = useAppSelector((state) => state.userSlice.user.id);
   const setErrorBoundary = useErrorBoundary();
 
   const onHandleDelete = async () => {
     try {
-      const { data }: AxiosResponse<Array<FeedType>> = await api.delete(
+      const { data }: AxiosResponse<Array<PostType>> = await api.delete(
         EndpointsEnum.DELETE_COMMENTS + commentId
       );
-      setFeeds && setFeeds(postsCB<FeedType>(data, "postId"));
+      setPosts && setPosts(postsCB<PostType>(data, "postId"));
     } catch (e) {
       if (e instanceof AxiosError) {
         setErrorBoundary(e);

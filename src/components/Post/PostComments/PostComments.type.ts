@@ -5,5 +5,5 @@ import { IPost } from "@/src/types";
 export type PostCommentsProps = {
   commentsIsHide?: boolean;
   setCommentsIsHide?: Dispatch<SetStateAction<boolean>>;
-  setFeeds?: Dispatch<SetStateAction<Array<IPost>>>;
+  setPosts?: Dispatch<SetStateAction<Array<IPost>>>;
 } & Required<Pick<PostProps, "postId" | "commentsCount" | "comments">>;

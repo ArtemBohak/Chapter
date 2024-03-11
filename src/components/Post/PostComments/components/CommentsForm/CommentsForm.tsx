@@ -6,10 +6,10 @@ import { useAppSelector } from "@/src/redux";
 import { validationSchema } from "./validationSchema";
 import { EndpointsEnum, api } from "@/src/axios";
 import { useErrorBoundary, useGetScreenSize } from "@/src/hooks";
-import { ElementsId, IPost } from "@/src/types";
+import { ElementsId, IPost, PostType } from "@/src/types";
 import { postsCB, tabScreen } from "@/src/utils";
 import { FormValues, CommentsFormProps, BodyValues } from "./CommentsForm.type";
-import { FeedType } from "@/src/services/PostApi/PostApi.type";
+
 import styles from "./CommentsForm.module.scss";
 
 import { TextAreaField } from "@/src/components";
@@ -22,7 +22,7 @@ const CommentsForm: FC<CommentsFormProps> = ({
   nickName,
   replyToUserId,
   setCommentsIsHide,
-  setFeeds,
+  setPosts,
   handleNickname,
 }) => {
   const {
@@ -51,7 +51,7 @@ const CommentsForm: FC<CommentsFormProps> = ({
           EndpointsEnum.COMMENTS + commentId + "/to-comment",
           body
         );
-        setFeeds && setFeeds(postsCB<FeedType>(data, "postId"));
+        setPosts && setPosts(postsCB<PostType>(data, "postId"));
         return resetForm();
       }
 
@@ -59,7 +59,7 @@ const CommentsForm: FC<CommentsFormProps> = ({
         EndpointsEnum.COMMENTS + postId,
         values
       );
-      setFeeds && setFeeds(postsCB<FeedType>(data, "postId"));
+      setPosts && setPosts(postsCB<PostType>(data, "postId"));
       setCommentsIsHide && setCommentsIsHide(false);
       resetForm();
     } catch (e) {
