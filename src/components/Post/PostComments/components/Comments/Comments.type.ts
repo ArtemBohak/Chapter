@@ -7,6 +7,7 @@ export type CommentsProps = {
   comments: Array<CommentRefType>;
   handleNickname: HandleNickname;
   setPage: Dispatch<SetStateAction<number>>;
+  setAllComments: Dispatch<SetStateAction<Array<CommentRefType>>>;
   isLoading: boolean;
   showAllComments: boolean;
   postId: string | number;

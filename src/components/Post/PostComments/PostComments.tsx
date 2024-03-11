@@ -72,9 +72,11 @@ const PostComments: FC<PostCommentsProps> = ({
       setIsLoading,
       props.postId
     );
+    if (commentsCount) {
+      !commentsIsHide && !page && commentsApi.get();
+      page && commentsApi.get(page);
+    }
 
-    !commentsIsHide && commentsCount && !page && commentsApi.get();
-    commentsCount && page && commentsApi.get(page);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [commentsCount, commentsIsHide, page, props.postId]);
 
@@ -120,6 +122,7 @@ const PostComments: FC<PostCommentsProps> = ({
               isLoading={isLoading}
               setPage={setPage}
               handleNickname={handleNickname}
+              setAllComments={setAllComments}
             />
           </div>
         </Animation>

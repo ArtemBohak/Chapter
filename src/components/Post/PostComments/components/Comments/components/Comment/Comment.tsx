@@ -26,6 +26,7 @@ const Comment: FC<CommentProps> = ({
   postId,
   pageValue,
   nodeRef,
+  setAllComments,
   handleNickname,
   setPage,
   setPosts,
@@ -94,6 +95,7 @@ const Comment: FC<CommentProps> = ({
             authorId={authorId}
             commentId={id}
             setPosts={setPosts}
+            setAllComments={setAllComments}
           />
         </div>
       </div>

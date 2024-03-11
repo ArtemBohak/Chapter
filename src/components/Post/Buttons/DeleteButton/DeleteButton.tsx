@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { AxiosError, AxiosResponse } from "axios";
 
 import { EndpointsEnum, api } from "@/src/axios";
@@ -15,20 +15,28 @@ const DeleteButton: FC<DeleteButtonProps> = ({
   authorId,
   commentId,
   setPosts,
+  setAllComments,
 }) => {
   const userId = useAppSelector((state) => state.userSlice.user.id);
   const setErrorBoundary = useErrorBoundary();
+  const [isLoading, setIsLoading] = useState(false);
 
   const onHandleDelete = async () => {
     try {
+      setIsLoading(true);
       const { data }: AxiosResponse<Array<PostType>> = await api.delete(
         EndpointsEnum.DELETE_COMMENTS + commentId
       );
       setPosts && setPosts(postsCB<PostType>(data, "postId"));
+      setAllComments((comments) =>
+        comments.filter((comment) => comment.id !== commentId)
+      );
     } catch (e) {
       if (e instanceof AxiosError) {
         setErrorBoundary(e);
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -37,7 +45,8 @@ const DeleteButton: FC<DeleteButtonProps> = ({
       <button
         onClick={onHandleDelete}
         data-automation="clickButton"
-        className={styles["icon-button"]}
+        className={`${styles["icon-button"]} ${styles["delete-btn"]}`}
+        disabled={isLoading}
       >
         <Icon
           id="delete-icon"
@@ -46,7 +55,7 @@ const DeleteButton: FC<DeleteButtonProps> = ({
           icon={IconEnum.TRASH}
           removeInlineStyle
           className={styles["icon-button__icon"]}
-        />{" "}
+        />
         delete
       </button>
     );
