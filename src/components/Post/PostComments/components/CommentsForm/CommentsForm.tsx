@@ -6,7 +6,7 @@ import { useAppSelector } from "@/src/redux";
 import { validationSchema } from "./validationSchema";
 import { EndpointsEnum, api } from "@/src/axios";
 import { useErrorBoundary, useGetScreenSize } from "@/src/hooks";
-import { ElementsId, IPost, PostType } from "@/src/types";
+import { ElementsId, PostType } from "@/src/types";
 import { postsCB, tabScreen } from "@/src/utils";
 import { FormValues, CommentsFormProps, BodyValues } from "./CommentsForm.type";
 
@@ -23,6 +23,7 @@ const CommentsForm: FC<CommentsFormProps> = ({
   replyToUserId,
   setCommentsIsHide,
   setPosts,
+  setPost,
   handleNickname,
 }) => {
   const {
@@ -47,19 +48,22 @@ const CommentsForm: FC<CommentsFormProps> = ({
     }
     try {
       if (commentId !== null) {
-        const { data }: AxiosResponse<IPost> = await api.post(
+        const { data }: AxiosResponse<PostType> = await api.post(
           EndpointsEnum.COMMENTS + commentId + "/to-comment",
           body
         );
-        setPosts(postsCB<PostType>(data, "postId"));
+        setPosts && setPosts(postsCB<PostType>(data, "postId"));
+
+        setPost && setPost(data);
         return resetForm();
       }
 
-      const { data }: AxiosResponse<IPost> = await api.post(
+      const { data }: AxiosResponse<PostType> = await api.post(
         EndpointsEnum.COMMENTS + postId,
         values
       );
-      setPosts(postsCB<PostType>(data, "postId"));
+      setPosts && setPosts(postsCB<PostType>(data, "postId"));
+      setPost && setPost(data);
       setCommentsIsHide(false);
       resetForm();
     } catch (e) {

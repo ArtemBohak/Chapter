@@ -10,4 +10,4 @@ export type CommentsProps = {
   handleNickname: HandleNickname;
   setPage: Dispatch<SetStateAction<number>>;
   setAllComments: Dispatch<SetStateAction<Array<CommentRefType>>>;
-} & Pick<PostCommentsProps, "setPosts">;
+} & Pick<PostCommentsProps, "setPosts" | "setPost">;

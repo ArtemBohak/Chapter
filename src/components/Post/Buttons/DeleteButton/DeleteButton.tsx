@@ -15,6 +15,7 @@ const DeleteButton: FC<DeleteButtonProps> = ({
   authorId,
   commentId,
   setPosts,
+  setPost,
   setAllComments,
 }) => {
   const userId = useAppSelector((state) => state.userSlice.user.id);
@@ -24,10 +25,12 @@ const DeleteButton: FC<DeleteButtonProps> = ({
   const onHandleDelete = async () => {
     try {
       setIsLoading(true);
-      const { data }: AxiosResponse<Array<PostType>> = await api.delete(
+      const { data }: AxiosResponse<PostType> = await api.delete(
         EndpointsEnum.DELETE_COMMENTS + commentId
       );
-      setPosts(postsCB<PostType>(data, "postId"));
+
+      setPosts && setPosts(postsCB<PostType>(data, "postId"));
+      setPost && setPost(data);
       setAllComments((comments) =>
         comments.filter((comment) => comment.id !== commentId)
       );

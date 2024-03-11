@@ -30,6 +30,7 @@ const Comment: FC<CommentProps> = ({
   handleNickname,
   setPage,
   setPosts,
+  setPost,
 }) => {
   const userId = useAppSelector((state) => state.userSlice.user.id);
 
@@ -96,6 +97,7 @@ const Comment: FC<CommentProps> = ({
             commentId={id}
             setPosts={setPosts}
             setAllComments={setAllComments}
+            setPost={setPost}
           />
         </div>
       </div>

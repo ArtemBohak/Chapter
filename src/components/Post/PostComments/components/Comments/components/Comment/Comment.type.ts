@@ -9,6 +9,6 @@ export type CommentProps = {
     "postId" | "setPage" | "handleNickname" | "setAllComments"
   >
 > &
-  Pick<CommentsProps, "setPosts"> &
+  Pick<CommentsProps, "setPosts" | "setPost"> &
   CommentValues &
   RefsType;
