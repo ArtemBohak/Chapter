@@ -19,6 +19,7 @@ export interface INotification {
   nodeRef?: NotificationsRefType;
   data: {
     message: string;
+    postId: number | null;
     user: Required<
       Pick<IUser, "avatarUrl" | "firstName" | "lastName" | "nickName" | "id">
     >;

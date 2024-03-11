@@ -85,8 +85,8 @@ const NotificationPage: FC = () => {
             );
           })}
         </TransitionGroup>
+        <Loader isShown={isLoading || isLoadingOnMount} />
       </div>
-      <Loader isShown={isLoading || isLoadingOnMount} />
     </section>
   );
 };
