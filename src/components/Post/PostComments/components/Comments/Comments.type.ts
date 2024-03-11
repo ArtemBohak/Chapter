@@ -5,10 +5,9 @@ import { PostCommentsProps } from "../../PostComments.type";
 
 export type CommentsProps = {
   comments: Array<CommentRefType>;
+  showAllComments: boolean;
+  postId: string | number;
   handleNickname: HandleNickname;
   setPage: Dispatch<SetStateAction<number>>;
   setAllComments: Dispatch<SetStateAction<Array<CommentRefType>>>;
-  isLoading: boolean;
-  showAllComments: boolean;
-  postId: string | number;
 } & Pick<PostCommentsProps, "setPosts">;

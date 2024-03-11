@@ -7,7 +7,7 @@ import { useErrorBoundary } from "@/src/hooks";
 import { HandleNickname, CommentRefType } from "@/src/types";
 import styles from "./PostComments.module.scss";
 
-import { Animation } from "@/src/components";
+import { Animation, Loader } from "@/src/components";
 import { Comments, CommentsForm, FilterButton } from "./components";
 
 const transitionClassNames = {
@@ -119,7 +119,6 @@ const PostComments: FC<PostCommentsProps> = ({
               {...props}
               comments={showAllComments ? allComments : comments}
               showAllComments={showAllComments}
-              isLoading={isLoading}
               setPage={setPage}
               handleNickname={handleNickname}
               setAllComments={setAllComments}
@@ -128,6 +127,13 @@ const PostComments: FC<PostCommentsProps> = ({
         </Animation>
       </div>
       <div className={styles["comments__form"]}>
+        <Loader
+          isShown={showAllComments && isLoading}
+          wrapperClassNames={styles["loader"]}
+          height={40}
+          width={40}
+          color="#6C6C6C"
+        />
         <CommentsForm
           {...props}
           commentId={commentId}

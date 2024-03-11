@@ -8,7 +8,7 @@
   }
 
   &__form {
-    @apply pt-1-xs md:pt-2-xs;
+    @apply pt-1-xs md:pt-2-xs relative;
   }
 
   &-enter {
@@ -38,4 +38,8 @@
   &__toggler {
     @apply text-[#6C6C6C];
   }
+}
+
+.loader {
+  @apply top-0 z-20;
 }

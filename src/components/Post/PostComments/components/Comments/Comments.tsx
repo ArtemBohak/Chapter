@@ -8,7 +8,6 @@ import { useRefIntersection } from "@/src/hooks";
 import styles from "./Comments.module.scss";
 
 import { Comment } from "./components";
-import { Loader } from "@/src/components";
 
 const itemClassNames = (value: number) => {
   return cn(styles["comments__item"], {
@@ -62,18 +61,7 @@ const Comments: FC<CommentsProps> = (props) => {
     );
   };
 
-  return (
-    <>
-      {renderComments(props.comments, 0)}
-      <Loader
-        isShown={props.showAllComments && props.isLoading}
-        wrapperClassNames={styles["loader"]}
-        height={40}
-        width={40}
-        color="#6C6C6C"
-      />
-    </>
-  );
+  return renderComments(props.comments, 0);
 };
 
 export default Comments;
