@@ -27,7 +27,7 @@ const UserStatus: FC<UserStatusProps> = ({ userStatus }) => {
         onHandleSave={onHandleSave}
       />
       <textarea
-        className={styles["status-text"]}
+        className={styles["status"]}
         ref={textareaRef}
         value={inputValue}
         disabled={!isEditing}

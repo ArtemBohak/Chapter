@@ -34,3 +34,5 @@ export { PostCreation } from "./PostCreation";
 export { ConfirmationWindow } from "./ConfirmationWindow";
 export { PopUpMenu } from "./PopUpMenu";
 export { Notification } from "./Notification";
+export { PostSkeleton } from "./Skeleton";
+export { Toast } from "./Toast";

@@ -26,13 +26,13 @@ const ImageField: FC<ImageFieldProps> = ({
   const imageClassNames = cn(
     styles["image"],
     {
-      [styles["image-icon-btn"]]: btnVariant === "button",
+      [styles["image__button"]]: btnVariant === "button",
     },
     classNames
   );
   const btnClassNames = cn({
-    [styles["image__button"]]: btnVariant === "button",
-    [styles["image__icon-btn"]]: btnVariant === "icon",
+    [styles["button"]]: btnVariant === "button",
+    [styles["icon"]]: btnVariant === "icon",
   });
 
   return (

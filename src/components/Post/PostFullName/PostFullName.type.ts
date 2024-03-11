@@ -1,5 +1,5 @@
-import { PostProps } from "../Post.type";
+import { Author } from "@/src/types";
 
 export type PostFullNameProps = Required<
-  Pick<PostProps, "firstName" | "lastName">
+  Pick<Author, "firstName" | "lastName">
 >;

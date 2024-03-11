@@ -50,7 +50,6 @@ const AddBookForm: FC = () => {
   };
 
   const onHandleSubmit = async (values: bookProps) => {
-    setIsAddBookModalOpen(false);
     if (file) {
       try {
         setError(null);
@@ -60,6 +59,7 @@ const AddBookForm: FC = () => {
           nameOfBook: values.nameOfBook,
           author: values.author,
           annotation: values.annotation,
+          favorite_book_status: false,
           imagePath: "",
         };
         if (file) {
@@ -85,6 +85,7 @@ const AddBookForm: FC = () => {
         }
       } finally {
         setIsLoading(false);
+        setIsAddBookModalOpen(false);
       }
     }
   };
@@ -98,6 +99,7 @@ const AddBookForm: FC = () => {
           author: "",
           annotation: "",
           imagePath: bookImage,
+          favorite_book_status: false,
         }}
         onSubmit={async (values) => {
           await onHandleSubmit(values);
@@ -158,7 +160,7 @@ const AddBookForm: FC = () => {
                     value={values.annotation}
                     dataAutomation={"bookAnnotation-field"}
                     iconSize={0}
-                    onHandleIconClick={() => {}}
+                    // onHandleIconClick={() => { }}
                   />
                 </div>
               </div>

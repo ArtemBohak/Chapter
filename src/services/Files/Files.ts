@@ -1,6 +1,7 @@
 import { nanoid } from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
 
+import { store } from "@/src/redux";
 import { uploadFilesApi } from "@/src/axios";
 import { hashingString } from "@/src/utils";
 import { FileArgs, SetErrorType, Path } from "@/src/types";
@@ -14,13 +15,14 @@ const {
 } = import.meta.env;
 
 class FilesService {
+  private static defaultId = store.getState().userSlice.user.id;
   private cloudName = VITE_CLOUDINARY_CLOUD_NAME;
   private apiKey = VITE_CLOUDINARY_API_KEY;
   private apiSecret = VITE_CLOUDINARY_API_SECRET;
   private formats = ["webp"];
 
   constructor(
-    private id: string | number,
+    private id: string | number = FilesService.defaultId,
     private file?: File | string,
     private avatar?: boolean,
     private setError?: SetErrorType
@@ -69,7 +71,7 @@ class FilesService {
         folder: path || defaultPath,
         format,
         overwrite,
-        public_id: this.avatar ? `${this.id}` : this.id + "_" + nanoid(),
+        public_id: this.avatar ? `${this.id}` : this.id + "/" + nanoid(),
         tags: imageTags,
         timestamp: Math.floor(Date.now() / 1000),
       };
@@ -91,10 +93,14 @@ class FilesService {
     }
   }
 
-  async delete() {
+  private getPublicIdFromUrl(url: string, sliceValue: number = -4) {
+    return url.split("/").slice(sliceValue).join("/").split(".")[0];
+  }
+
+  async delete(url: string, sliceValue?: number) {
     try {
       const params = {
-        public_id: this.id,
+        public_id: this.getPublicIdFromUrl(url, sliceValue),
         timestamp: Math.floor(Date.now() / 1000),
       };
 

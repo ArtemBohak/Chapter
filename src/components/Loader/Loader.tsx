@@ -1,5 +1,5 @@
 import { FC, useRef } from "react";
-import ContentLoader from "react-content-loader";
+import { ThreeDots } from "react-loader-spinner";
 
 import { ILoaderProps } from "./Loader.type";
 import styles from "./Loader.module.scss";
@@ -7,15 +7,14 @@ import styles from "./Loader.module.scss";
 import { Animation } from "@/src/components";
 
 const Loader: FC<ILoaderProps> = ({
-  height = 160,
-  width = 400,
-  speed = 2,
-  interval = 0.1,
+  height = 60,
+  width = 100,
   isShown = false,
   timeTransition = 150,
+  radius,
+  color = "#FFBD5A",
   wrapperClassNames,
   loaderClassNames,
-  ...props
 }) => {
   const nodeRef = useRef(null);
   const transitionClassNames = {
@@ -35,21 +34,15 @@ const Loader: FC<ILoaderProps> = ({
       unmountOnExit
     >
       <div ref={nodeRef} className={`${styles["loader"]} ${wrapperClassNames}`}>
-        <ContentLoader
-          viewBox="0 0 400 160"
+        <ThreeDots
+          ariaLabel="three-dots-loading"
+          visible={isShown}
           height={height}
           width={width}
-          backgroundColor="transparent"
-          className={loaderClassNames}
-          speed={speed}
-          interval={interval}
-          title=""
-          {...props}
-        >
-          <circle cx="150" cy="86" r="8" />
-          <circle cx="194" cy="86" r="8" />
-          <circle cx="238" cy="86" r="8" />
-        </ContentLoader>
+          wrapperClass={loaderClassNames}
+          color={color}
+          radius={radius}
+        />
       </div>
     </Animation>
   );

@@ -16,10 +16,12 @@ const PostText: FC<PostTextProps> = ({ caption, isLimit = false }) => {
   };
 
   const renderText =
-    !isShowingFullText && isLimit ? caption.limit(textSize) : caption;
+    !isShowingFullText && isLimit && caption
+      ? caption.limit(textSize)
+      : caption;
 
   const renderButton =
-    caption.split(" ").length > textSize && isLimit ? (
+    caption && caption.split(" ").length > textSize && isLimit ? (
       <button data-automation="clickButton" onClick={onHandleClick}>
         {isShowingFullText ? "Read less" : "Read more"}
       </button>

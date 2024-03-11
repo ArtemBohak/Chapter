@@ -1,227 +1,138 @@
-import { FC, useRef, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import cn from "classnames";
 
+import { PostApi } from "@/src/services";
 import { PostCommentsProps } from "./PostComments.type";
-import { tabScreen } from "@/src/utils";
-import { useGetScreenSize } from "@/src/hooks";
+import { useErrorBoundary } from "@/src/hooks";
+import { HandleNickname } from "@/src/types";
+import { CommentRefType } from "@/src/services/PostApi/PostApi.type";
 import styles from "./PostComments.module.scss";
 
-import { Animation, Icon, IconEnum } from "@/src/components";
-import { Comments, CommentsForm } from "./components";
+import { Animation } from "@/src/components";
+import { Comments, CommentsForm, FilterButton } from "./components";
 
-const comments = [
-  {
-    id: 0,
-    totalComments: 10,
-    totalLikes: 10,
-    avatar: null,
-    firstName: "Mary",
-    lastName: "Reeves",
-    nickName: "@maryreeves",
-    date: Date.now() - 10002102111,
-    caption:
-      "Thank you for sharing your impressions of the book, I agree with @Vilkkyyyy, it was just a great post! Full of magic and enchantment. I read it with pleasure and look forward to the new one!",
-    likesList: [1, 2, 168],
-    comments: [
-      {
-        id: 0,
-        totalComments: 10,
-        totalLikes: 10,
-        avatar: null,
-        firstName: "Alex",
-        lastName: "Reeves",
-        nickName: "@maryreeves",
-        date: Date.now() - 10002102,
-        caption: "It's a shame that the Harry Potter books are over 😭",
-        likesList: [1, 2, 168],
-      },
-      {
-        id: 1,
-        totalComments: 10,
-        totalLikes: 10,
-        avatar: null,
-        firstName: "Marta",
-        lastName: "Reeves",
-        nickName: "@maryreeves",
-        date: Date.now() - 10002102,
-        caption: "It's a shame that the Harry Potter books are over 😭",
-        likesList: [1, 2, 168],
-        comments: [
-          {
-            id: 0,
-            totalComments: 10,
-            totalLikes: 10,
-            avatar: null,
-            firstName: "Alex",
-            lastName: "Reeves",
-            nickName: "@maryreeves",
-            date: Date.now() - 10002102,
-            caption: "It's a shame that the Harry Potter books are over 😭",
-            likesList: [1, 2, 168],
-          },
-          {
-            id: 1,
-            totalComments: 10,
-            totalLikes: 10,
-            avatar: null,
-            firstName: "Marta",
-            lastName: "Reeves",
-            nickName: "@maryreeves",
-            date: Date.now() - 10002102,
-            caption: "It's a shame that the Harry Potter books are over 😭",
-            likesList: [1, 2, 168],
-            comments: [
-              {
-                id: 0,
-                totalComments: 10,
-                totalLikes: 10,
-                avatar: null,
-                firstName: "Alex",
-                lastName: "Reeves",
-                nickName: "@maryreeves",
-                date: Date.now() - 10002102,
-                caption: "It's a shame that the Harry Potter books are over 😭",
-                likesList: [1, 2, 168],
-              },
-              {
-                id: 1,
-                totalComments: 10,
-                totalLikes: 10,
-                avatar: null,
-                firstName: "Marta",
-                lastName: "Reeves",
-                nickName: "@maryreeves",
-                date: Date.now() - 10002102,
-                caption: "It's a shame that the Harry Potter books are over 😭",
-                likesList: [1, 2, 168],
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-  {
-    id: 1,
-    totalComments: 10,
-    totalLikes: 10,
-    avatar: null,
-    firstName: "Mary",
-    lastName: "Reeves",
-    nickName: "@maryreeves",
-    date: Date.now() - 10002102111,
-    caption: "It's a shame that the Harry Potter books are over 😭",
-    likesList: [1, 2, 168],
-  },
-  {
-    id: 2,
-    totalComments: 110,
-    totalLikes: 120,
-    avatar: null,
-    firstName: "Mary",
-    lastName: "Reeves",
-    nickName: "@maryreeves",
-    date: Date.now() - 1002111,
-    caption: "It's a shame that the Harry Potter books are over 😭",
-    likesList: [1, 2, 168],
-  },
-];
+const transitionClassNames = {
+  enter: styles["comments-enter"],
+  enterActive: styles["comments-enter-active"],
+  exit: styles["comments-exit"],
+  exitActive: styles["comments-exit-active"],
+};
 
 const PostComments: FC<PostCommentsProps> = ({
-  totalComments,
-  id,
-  fetchData,
+  commentsCount,
+  comments,
+  commentsIsHide,
+  setCommentsIsHide,
+  ...props
 }) => {
-  const [commentsIsHide, setCommentsIsHide] = useState(true);
-  const btnRef = useRef(null);
+  const [commentId, setCommentId] = useState<string | number | null>(null);
+  const [nickName, setNickName] = useState("");
+  const [allComments, setAllComments] = useState<Array<CommentRefType>>([]);
+  const [page, setPage] = useState(0);
+  const [showAllComments, setShowAllComments] = useState(false);
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [replyToUserId, setReplyToUserId] = useState<string | number | null>(
+    null
+  );
+
   const commentsRef = useRef(null);
-  const [screenSize] = useGetScreenSize();
+  const wrapperRef = useRef(null);
 
-  const isMobScreen = screenSize < tabScreen ? 16 : 26;
+  const setErrorBoundary = useErrorBoundary();
 
-  const onHandleCommentsToggle = async () => {
-    if (commentsIsHide) {
-      fetchData && fetchData(id);
+  const onHandleCommentsToggle = () => {
+    setCommentsIsHide && setCommentsIsHide(!commentsIsHide);
+    if (!commentsIsHide) {
+      setShowAllComments(false);
+      setAllComments([]);
+      setPage(0);
     }
-    setCommentsIsHide(!commentsIsHide);
   };
 
-  const togglerBtnClassNames = cn(
-    styles["feed-comments__button"],
-    styles["feed-comments__button-toggler"],
-    { [styles["is-show"]]: !commentsIsHide }
-  );
-  const filterBtnClassNames = `${styles["feed-comments__button"]} ${styles["feed-comments__button-filter"]}`;
+  const handleNickname: HandleNickname = (
+    id?: string | number,
+    nickname?: string | undefined,
+    authorId?: string | undefined | null | number
+  ) => {
+    if (id && nickname && authorId) {
+      setCommentId(id);
+      setNickName(nickname);
+      return setReplyToUserId(authorId);
+    }
 
-  const transitionClassNames = {
-    enter: styles["feed-comments-enter"],
-    enterActive: styles["feed-comments-enter-active"],
-    exit: styles["feed-comments-exit"],
-    exitActive: styles["feed-comments-exit-active"],
+    setNickName("");
+    setReplyToUserId(null);
+    setCommentId(null);
   };
 
-  const renderTogglerBtn = (
-    <button
-      onClick={onHandleCommentsToggle}
-      data-automation="clickButton"
-      className={togglerBtnClassNames}
-    >{`${
-      commentsIsHide ? "Show all comments" : "Hide Comments"
-    } (${totalComments})`}</button>
-  );
+  useEffect(() => {
+    const commentsApi = new PostApi(
+      setAllComments,
+      setErrorBoundary,
+      setIsLoading,
+      props.postId
+    );
 
-  const renderFilterBtn = (
-    <Animation
-      in={!commentsIsHide}
-      nodeRef={btnRef}
-      classNames={transitionClassNames}
-      mountOnEnter
-      unmountOnExit
-    >
-      <button
-        data-automation="clickButton"
-        className={filterBtnClassNames}
-        ref={btnRef}
-      >
-        Latest comments
-        <Icon
-          className={styles["feed-comments__button-filter-icon"]}
-          icon={IconEnum.Back}
-          size={isMobScreen}
-        />
-      </button>
-    </Animation>
-  );
+    !commentsIsHide && commentsCount && !page && commentsApi.get();
+    commentsCount && page && commentsApi.get(page);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [commentsCount, commentsIsHide, page, props.postId]);
 
-  const renderComments = (
-    <Animation
-      in={!commentsIsHide}
-      nodeRef={commentsRef}
-      timeout={300}
-      classNames={transitionClassNames}
-      mountOnEnter
-      unmountOnExit
-    >
-      <div ref={commentsRef}>
-        <Comments comments={comments} />
-      </div>
-    </Animation>
-  );
+  const togglerBtnClassNames = cn(styles["button"], styles["button__toggler"], {
+    [styles["is-show"]]: !commentsIsHide,
+  });
 
   return (
-    <div className={styles["feed-comments"]}>
-      <div className={styles["feed-comments__text-wrapper"]}>
-        {renderTogglerBtn}
-        {renderFilterBtn}
+    <div className={styles["comments"]} ref={wrapperRef}>
+      <div className={styles["comments__button"]}>
+        {comments.length ? (
+          <button
+            onClick={onHandleCommentsToggle}
+            data-automation="clickButton"
+            className={togglerBtnClassNames}
+          >{`${
+            commentsIsHide ? "Show all comments" : "Hide Comments"
+          } (${commentsCount})`}</button>
+        ) : null}
+        {comments.length ? (
+          <FilterButton
+            showAllComments={showAllComments}
+            commentsIsHide={commentsIsHide}
+            transitionClassNames={transitionClassNames}
+            setShowAllComments={setShowAllComments}
+          />
+        ) : null}
       </div>
-      <div className={styles["feed-comments__content-wrapper"]}>
-        {renderComments}
+      <div className={styles["comments__content"]}>
+        <Animation
+          in={!commentsIsHide}
+          nodeRef={commentsRef}
+          timeout={300}
+          classNames={transitionClassNames}
+          mountOnEnter
+          unmountOnExit
+        >
+          <div ref={commentsRef}>
+            <Comments
+              {...props}
+              comments={showAllComments ? allComments : comments}
+              showAllComments={showAllComments}
+              isLoading={isLoading}
+              setPage={setPage}
+              handleNickname={handleNickname}
+            />
+          </div>
+        </Animation>
       </div>
-      <div className={styles["feed-comments__form-wrapper"]}>
+      <div className={styles["comments__form"]}>
         <CommentsForm
-          id={id}
-          fetchData={fetchData}
+          {...props}
+          commentId={commentId}
+          nickName={nickName}
+          replyToUserId={replyToUserId}
           setCommentsIsHide={setCommentsIsHide}
+          handleNickname={handleNickname}
         />
       </div>
     </div>

@@ -3,7 +3,8 @@ import { IPost, SetIsOpenType } from "@/src/types";
 
 export type PostPreviewProps = {
   file: File | null;
-} & Pick<IPost, "caption" | "title" | "imageUrl"> &
+  prevImgUrl?: string | null;
+} & Pick<IPost, "caption" | "title" | "imgUrl"> &
   Pick<ModalProps, "setIsOpen"> &
   SetIsOpenType;
 

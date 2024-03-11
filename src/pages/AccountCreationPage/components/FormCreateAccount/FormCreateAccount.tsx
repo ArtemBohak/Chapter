@@ -12,6 +12,7 @@ import {
   emojiRegex,
   getCookies,
   getDataFromLS,
+  nickNameMinLength,
   removeDataFromLS,
 } from "@/src/utils";
 
@@ -31,7 +32,7 @@ const initialValues: IAccountCreate = {
 
 const FormCreateAccount: FC = () => {
   const setError = useErrorBoundary();
-  const LSFullName = localStorage.getItem("fullName");
+  const LSFullName = getDataFromLS<string>("fullName");
   const fullname = LSFullName ? LSFullName : "";
 
   const [nkIsLoading, setNkIsLoading] = useState(false);
@@ -46,15 +47,11 @@ const FormCreateAccount: FC = () => {
   const [email] = getCookies(keysValue.EMAIL);
 
   async function handleNicknameChange(nickname: string) {
+    if (nickname.trim().length < nickNameMinLength) return;
     try {
       setNkErrorMessage(null);
-      if (nickname.trim().length >= 8) {
-        setNkIsLoading(true);
-        await api.post(
-          `${EndpointsEnum.NICKNAME_VALIDATION}/${nickname}`,
-          null
-        );
-      }
+      setNkIsLoading(true);
+      await api.post(`${EndpointsEnum.NICKNAME_VALIDATION}/${nickname}`, null);
     } catch (e) {
       if (e instanceof AxiosError) {
         if (e.response?.data.error === apiErrorMessage.NICKNAME_IN_USE) {
@@ -103,7 +100,6 @@ const FormCreateAccount: FC = () => {
       navigate(links.LOG_IN);
     } catch (e) {
       if (e instanceof AxiosError) {
-        console.log(e);
         setError(e);
         setErrorMessageForm(
           e.response?.data.message ||
@@ -144,7 +140,7 @@ const FormCreateAccount: FC = () => {
   }, [debouncedNickname]);
 
   return (
-    <div className={cn(styles["form-create-account"])}>
+    <div className={cn(styles["form"])}>
       <Formik
         initialValues={{ ...initialValues, fullname }}
         validationSchema={validationSchema}

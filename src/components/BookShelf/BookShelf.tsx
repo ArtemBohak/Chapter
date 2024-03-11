@@ -11,41 +11,72 @@ import { useAppSelector } from "@/src/redux";
 import { IBook } from "./Book/BookProps.type";
 import AddBookSliderButton from "./AddBookSliderButton/AddBookSliderButton";
 import { BooksPageProvider } from "@/src/pages/BooksPage/context";
+import { BookShelfProps } from "./BookShelf.type";
 
-const BookShelf: FC = () => {
+const BookShelf: FC<BookShelfProps> = ({ enemyData, Id }) => {
   const { user } = useAppSelector((state) => state.userSlice);
   const { userBooks } = user;
   const [favoriteBooksList, setFavoriteBooksList] = useState<Array<IBook> | []>(
     []
   );
   const [addBookArray, setAddBookArray] = useState<number[]>([]);
+  // const [booksLength, setBooksLength] = useState(2)
+
+
+
+
   const responsive = [
+    {
+      breakpoint: 2500,
+      settings: {
+        slidesToShow: favoriteBooksList.length < 3 ? !Id && addBookArray.length != 0 ? favoriteBooksList.length + 1 : favoriteBooksList.length : 3,
+        slidesToScroll: 3,
+        initialSlide: 0,
+        swipe: true,
+        Infinity,
+
+      },
+    },
+    {
+      breakpoint: 1921,
+      settings: {
+        slidesToShow: favoriteBooksList.length < 3 ? !Id && addBookArray.length != 0 ? favoriteBooksList.length + 1 : favoriteBooksList.length : 3,
+        slidesToScroll: 3,
+        initialSlide: 0,
+        swipe: true,
+        Infinity,
+
+      },
+    },
     {
       breakpoint: 1680,
       settings: {
-        slidesToShow: favoriteBooksList.length,
-        slidesToScroll: favoriteBooksList.length,
+        slidesToShow: favoriteBooksList.length < 3 ? (!Id && addBookArray.length != 0 ? favoriteBooksList.length + 1 : favoriteBooksList.length) : favoriteBooksList.length,
+        slidesToScroll: 3,
         initialSlide: 0,
-        swipe: favoriteBooksList.length < 3 && false,
+        swipe: true,
+        Infinity,
+        variableWidth: true
       },
     },
     {
       breakpoint: 768,
       settings: {
-        slidesToShow:
-          favoriteBooksList.length < 3 ? favoriteBooksList.length : 5,
-        slidesToScroll: favoriteBooksList.length < 3 ? 0 : 5,
+        slidesToShow: favoriteBooksList.length < 5 ? (!Id && addBookArray.length != 0 ? favoriteBooksList.length + 1 : favoriteBooksList.length) : 5,
+        slidesToScroll: 5,
         initialSlide: 0,
-        swipe: favoriteBooksList.length < 3 && false,
+        variableWidth: false
+
       },
     },
     {
       breakpoint: 374,
       settings: {
-        slidesToShow: 3,
+        slidesToShow: favoriteBooksList.length < 3 ? (!Id && addBookArray.length != 0 ? favoriteBooksList.length + 1 : favoriteBooksList.length) : 3,
         slidesToScroll: 3,
         initialSlide: 0,
-        swipe: favoriteBooksList.length < 3 && false,
+        swipe: favoriteBooksList.length < 3 ? false : true,
+        variableWidth: false
       },
     },
   ];
@@ -56,32 +87,47 @@ const BookShelf: FC = () => {
     });
     const ListLength = bookslist.length;
     if (ListLength === 0) {
-      setAddBookArray([1, 2, 3]);
+      setAddBookArray([1]);
     } else if (ListLength === 1) {
-      setAddBookArray([1, 2]);
+      setAddBookArray([1]);
     }
     if (ListLength > 1) {
       setAddBookArray([1]);
     }
+    if (ListLength > 2) {
+      setAddBookArray([]);
+    }
   };
 
   useEffect(() => {
-    const bookslist = userBooks.filter((item) => {
-      return item.favorite_book_status === true;
-    });
-    setFavoriteBooksList(bookslist);
+    if (!Id) {
+      const bookslist = userBooks.filter((item) => {
+        return item.favorite_book_status === true;
+      });
+      setFavoriteBooksList(bookslist);
+    }
+    if (enemyData) {
+      const bookslist = enemyData.userBooks.filter((item) => {
+        return item.favorite_book_status === true;
+      });
+      setFavoriteBooksList(bookslist);
+    }
+
   }, [userBooks]);
+
+
 
   useEffect(() => {
     setAddBook();
-  }, []);
+
+  }, [favoriteBooksList]);
 
   return (
     <BooksPageProvider>
       <div className="flex flex-col h-full w-full">
-        <div className="flex justify-between">
+        <div className="flex justify-between px-1">
           <h6 className="favorite-books-title">Favorite books</h6>
-          <Link className="text-[#6C6C6C]" to={links.USER_BOOKS}>
+          <Link className="text-[#6C6C6C]" to={enemyData ? `/${Id}/books` : links.USER_BOOKS}>
             see all
           </Link>
         </div>
@@ -99,8 +145,8 @@ const BookShelf: FC = () => {
               bookNameLength={38}
             />
           ))}
-          {addBookArray.map((_, i) => (
-            <AddBookSliderButton key={i} />
+          {!Id && addBookArray.map((_, i) => (
+            <Link to={'/books'}><AddBookSliderButton key={i} /></Link>
           ))}
         </Slider>
       </div>

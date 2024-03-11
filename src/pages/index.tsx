@@ -13,3 +13,5 @@ export { default as PasswordChange } from "./PasswordChange/PasswordChange";
 export { default as BooksPage } from "./BooksPage/BooksPage";
 export { default as GuestProfilePage } from "./GuestProfilePage/GuestProfilePage";
 export { default as ErrorBoundary } from "./ErrorBoundary/ErrorBoundary";
+export { default as SearchPage } from "./SearchPage/SearchPage";
+export { default as NotificationPage } from "./NotificationPage/NotificationPage";

@@ -1,6 +1,7 @@
-import { ReactNode } from "react";
+import { ButtonHTMLAttributes, ReactNode } from "react";
 
-export interface IPostButtonProps {
+export interface IPostButtonProps
+  extends Partial<ButtonHTMLAttributes<HTMLButtonElement>> {
   children: ReactNode;
   onHandleClick?: () => void;
   isLoading?: boolean;

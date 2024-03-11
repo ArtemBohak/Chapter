@@ -6,6 +6,6 @@ import styles from "./FormNotification.module.scss";
 
 const FormNotification: FC<FormNotificationProps> = ({
   message = signUpCodeMessage,
-}) => <p className={styles["form-notification"]}>{message}</p>;
+}) => <p className={styles["message"]}>{message}</p>;
 
 export default FormNotification;

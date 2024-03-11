@@ -1,4 +1,4 @@
-import { FC, useEffect, useLayoutEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FacebookLogin, {
   SuccessResponse,
@@ -57,7 +57,7 @@ const Facebook: FC<SocialsProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [error_message]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (
       oAuthVariant === OAuthVariant.FACEBOOK &&
       facebookAuthCode &&

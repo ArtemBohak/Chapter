@@ -1,76 +1,33 @@
 import { FC, useEffect, useState } from "react";
 
+import { useErrorBoundary } from "@/src/hooks";
+import { PostApi } from "@/src/services";
 import { FeedContext } from "./hooks/useFeedContext";
-import { Feeds, IFeedProviderProps } from "./FeedProvider.type";
-
-import temp from "../assets/feed-image.png";
-const list = [1, 2, 3, 168];
-const feedsList = [
-  {
-    id: 1,
-    avatar: null,
-    nickName: "@Jgreen",
-    followList: list,
-    imageUrl: temp,
-    likesList: list,
-    totalLikes: 101,
-    totalComments: 101,
-    date: Date.now(),
-    firstName: "Jennifer",
-    lastName: "Green",
-    title: "Harry Potter and the Philosopher's Stone my thoughts",
-    caption:
-      "Ten years pass and Harry, along with his cousin Dudley, are about to turn eleven. While on Dudley’s birthday trip to the zoo Harry somehow communicates with a snake. Dudley is astonished by how the snake is acting and starts prodding the glass to the enclosure, Harry notes that odd things happen around him all the time and that’s why Dudley and he don’t get along, besides the fact that Harry’s Aunt and Uncle treat him terribly. Harry gets blamed for Dudley falling into the enclosure after the glass surrounding it disappears. When they all get back home Vernon Dursley shoves Harry into his “room” which is a cupboard under their stairs. One day in July Harry gets the mail and notices that there is a letter for him. It’s addressed to Mr. H. Potter, the Cupboard under the Stairs 4 Privet Drive, Little Whining, Surrey. Vernon decides to take the family on a trip to get away from it all.",
-  },
-  {
-    id: 2,
-    avatar: null,
-    nickName: "@Jgreen",
-    followList: list,
-    imageUrl: temp,
-    likesList: list,
-    totalLikes: 101,
-    totalComments: 101,
-    date: Date.now(),
-    firstName: "Jennifer",
-    lastName: "Green",
-    title: "Harry Potter and the Philosopher's Stone my thoughts ",
-    caption:
-      "Ten years pass and Harry, along with his cousin Dudley, are about to turn eleven. While on Dudley’s birthday trip to the zoo Harry somehow communicates with a snake. Dudley is astonished by how the snake is acting and starts prodding the glass to the enclosure, Harry notes that odd things happen around him all the time and that’s why Dudley and he don’t get along, besides the fact that Harry’s Aunt and Uncle treat him terribly. Harry gets blamed for Dudley falling into the enclosure after the glass surrounding it disappears. When they all get back home Vernon Dursley shoves Harry into his “room” which is a cupboard under their stairs. One day in July Harry gets the mail and notices that there is a letter for him. It’s addressed to Mr. H. Potter, the Cupboard under the Stairs 4 Privet Drive, Little Whining, Surrey. Vernon decides to take the family on a trip to get away from it all.",
-  },
-  {
-    id: 3,
-    avatar: null,
-    nickName: "@Jgreen",
-    followList: list,
-    imageUrl: temp,
-    likesList: list,
-    totalLikes: 101,
-    totalComments: 101,
-    date: Date.now(),
-    firstName: "Jennifer",
-    lastName: "Green",
-    title: "Harry Potter and the Philosopher's Stone my thoughts ",
-    caption:
-      "Ten years pass and Harry, along with his cousin Dudley, are about to turn eleven. While on Dudley’s birthday trip to the zoo Harry somehow communicates with a snake. Dudley is astonished by how the snake is acting and starts prodding the glass to the enclosure, Harry notes that odd things happen around him all the time and that’s why Dudley and he don’t get along, besides the fact that Harry’s Aunt and Uncle treat him terribly. Harry gets blamed for Dudley falling into the enclosure after the glass surrounding it disappears. When they all get back home Vernon Dursley shoves Harry into his “room” which is a cupboard under their stairs. One day in July Harry gets the mail and notices that there is a letter for him. It’s addressed to Mr. H. Potter, the Cupboard under the Stairs 4 Privet Drive, Little Whining, Surrey. Vernon decides to take the family on a trip to get away from it all.",
-  },
-];
+import { IFeedProviderProps } from "./FeedProvider.type";
+import { FeedRefType } from "@/src/services/PostApi/PostApi.type";
 
 const FeedProvider: FC<IFeedProviderProps> = ({ children }) => {
-  const [feeds, setFeeds] = useState<Feeds>([]);
+  const [feeds, setFeeds] = useState<Array<FeedRefType>>([]);
+  const [page, setPage] = useState(0);
+  const [isLoad, setIsLoad] = useState(false);
+
+  const setErrorBoundary = useErrorBoundary();
 
   useEffect(() => {
-    setFeeds(feedsList);
-  }, []);
+    const feedsApi = new PostApi(setFeeds, setErrorBoundary, setIsLoad);
+    if (page) feedsApi.get(page);
 
-  const fetchData = (id: string | number) => {
-    console.log(id);
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page]);
+
   return (
     <FeedContext.Provider
       value={{
         feeds,
-        fetchData,
+        isLoad,
+        page,
+        setPage,
+        setFeeds,
       }}
     >
       {children}

@@ -38,9 +38,16 @@
     &-button {
       @apply text-[#0000EB] bg-transparent;
     }
+    &-link {
+      @apply no-underline hover:no-underline text-xxs font-normal md:text-[18px];
+    }
   }
 
   &__buttons {
     @apply flex gap-1-xs md:gap-3-xs;
   }
+}
+
+.edit-button {
+  @apply bg-transparent;
 }

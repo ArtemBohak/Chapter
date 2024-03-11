@@ -11,9 +11,8 @@ import { ProfileUpdateApiArgs } from "./ProfileUpdateApi.type";
 export class ProfileUpdateApi extends UserApiConstructor {
   private userAvatarParams = {
     alt: "user avatar",
-    height: 640,
-    width: 640,
-    radius: 50,
+    transform:
+      "c_thumb,h_216,w_216/r_30/f_auto,q_auto:eco/d_chapter:placeholders:post.webp",
   };
 
   constructor(setIsLoading?: SetIsLoadingType, setError?: SetErrorType) {

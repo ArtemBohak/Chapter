@@ -69,7 +69,7 @@ const PostCreation: FC<PostCreationProps> = ({
       <div className={styles["create-post__content"]}>
         {formIsOpen ? (
           <CreatePostForm
-            imageUrl={image}
+            imgUrl={image}
             title={title}
             caption={caption}
             setFormIsOpen={setFormIsOpen}
@@ -81,11 +81,12 @@ const PostCreation: FC<PostCreationProps> = ({
         ) : (
           <PostPreview
             file={file}
-            imageUrl={image}
+            imgUrl={image}
             title={title}
             caption={caption}
             setFormIsOpen={setFormIsOpen}
             setIsOpen={setIsOpen}
+            {...props}
           />
         )}
       </div>

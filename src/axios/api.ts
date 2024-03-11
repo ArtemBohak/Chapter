@@ -20,6 +20,8 @@ api.interceptors.request.use(
     if (getTokenFromLC())
       config.headers.Authorization = "Bearer" + " " + getTokenFromLC();
 
+    if (!getTokenFromLC()) store.dispatch(logoutUser());
+
     return config;
   },
   (error) => {

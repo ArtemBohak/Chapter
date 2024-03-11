@@ -21,17 +21,14 @@ const CreatePostForm: FC<CreatePostFormProps> = ({
   setFile,
   title,
   caption,
-  imageUrl,
+  imgUrl,
 }) => {
   const initialValues = { title, caption };
   const onSubmit = (values: PostValues) => {
-    setTitle(values.title);
-    setCaption(values.caption);
+    setTitle(values.title || "");
+    setCaption(values.caption || "");
 
     setFormIsOpen(false);
-  };
-  const onHandleIconClick = () => {
-    console.log("icon");
   };
 
   const onHandleRemoveClick = () => {
@@ -53,7 +50,7 @@ const CreatePostForm: FC<CreatePostFormProps> = ({
               name="title"
               dataAutomation="titleInput"
               label="Add a title"
-              value={values.title}
+              value={values.title || ""}
               className={styles["form__title"]}
             />
             <ImageField
@@ -62,16 +59,16 @@ const CreatePostForm: FC<CreatePostFormProps> = ({
               setImage={setImage}
               setFile={setFile}
             />
-            <p className={styles["image-label"]}>.png, .jpg, .gif</p>
-            {imageUrl ? (
-              <div className={styles["form__image-wrapper"]}>
+            <p className={styles["image__label"]}>.png, .jpg, .gif</p>
+            {imgUrl ? (
+              <div className={styles["form__image"]}>
                 <button
                   onClick={onHandleRemoveClick}
                   data-automation="clickButton"
                 >
                   <Icon icon={IconEnum.Cross} size={20} />
                 </button>
-                <img src={imageUrl} alt="post image" />
+                <img src={imgUrl} alt="post image" />
               </div>
             ) : null}
             <TextAreaField
@@ -79,16 +76,15 @@ const CreatePostForm: FC<CreatePostFormProps> = ({
               dataAutomation="commentInput"
               name="caption"
               placeholder="Add a text"
-              value={values.caption}
-              onHandleIconClick={onHandleIconClick}
+              value={values.caption || ""}
               classNames={styles["form__comment"]}
             />
-            <div className={styles["form__button-wrapper"]}>
+            <div className={styles["form__button"]}>
               <UIbutton
                 type="submit"
                 dataAutomation="submitButton"
                 disabled={
-                  (!imageUrl && !values.caption && !values.title) || !isValid
+                  (!imgUrl && !values.caption && !values.title) || !isValid
                 }
                 fullWidth
               >

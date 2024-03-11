@@ -1,4 +1,4 @@
-.info-label {
+.info {
   @apply flex gap-[82px] md:gap-[182px];
 
   &__text {
@@ -6,10 +6,6 @@
   }
 
   &__input {
-    @apply outline-none w-full max-w-[120px] md:max-w-[214px] bg-transparent rounded-none border-b border-b-[#FFD18C] transition-all duration-100 text-xs md:text-base;
-
-    &:disabled {
-      @apply border-transparent bg-transparent text-black;
-    }
+    @apply outline-none w-full max-w-[120px] md:max-w-[214px] bg-transparent rounded-none border-b border-b-[#FFD18C] transition-all duration-100 text-xs md:text-base disabled:border-transparent disabled:text-black disabled:opacity-100;
   }
 }

@@ -31,7 +31,7 @@ const PostPreview: FC<PostPreviewProps> = ({
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const date = Date.now();
+  const createAt = Date.now();
 
   const onHandleBackClick = () => {
     setFormIsOpen(true);
@@ -42,24 +42,26 @@ const PostPreview: FC<PostPreviewProps> = ({
       setError(null);
       setIsLoading(true);
       const body: BodyProps = {
-        date,
+        createAt,
       };
 
       if (props.title) body.title = props.title;
 
       if (file) {
-        const res = await new FilesService(
-          id,
-          file,
-          undefined,
-          setErrorBoundary
-        ).upload({
-          overwrite: false,
+        const files = new FilesService(id, file, undefined, setErrorBoundary);
+        const res = await files.upload({
+          overwrite: true,
+          transform:
+            "c_auto,g_auto/f_auto,q_auto:eco/d_chapter:placeholders:post.webp",
         });
+
         if (res.code) {
           return setError(apiUiMessage.ERROR_MESSAGE);
         }
-        body.imageUrl = res.secure_url;
+
+        body.imgUrl = res?.eager[0].secure_url;
+
+        props.prevImgUrl && files.delete(props.prevImgUrl);
       }
 
       if (props.caption) body.caption = props.caption;
@@ -70,7 +72,9 @@ const PostPreview: FC<PostPreviewProps> = ({
     } catch (error) {
       if (error instanceof AxiosError) {
         setErrorBoundary(error);
-        setError(apiUiMessage.ERROR_MESSAGE);
+        const errors = error.response?.data.errors;
+        const [key] = Object.keys(errors);
+        setError(errors[key] || apiUiMessage.ERROR_MESSAGE);
       }
     } finally {
       setIsLoading(false);
@@ -78,18 +82,18 @@ const PostPreview: FC<PostPreviewProps> = ({
   };
   return (
     <div className={styles["preview"]}>
-      <div className={styles["preview__image-wrapper"]}>
+      <div className={styles["preview__image"]}>
         <PostImage {...props} />
       </div>
-      <div className={styles["preview__meta-wrapper"]}>
+      <div className={styles["preview__user"]}>
         <PostFullName firstName={firstName} lastName={lastName} />
-        <PostDate date={date} />
+        <PostDate createAt={createAt} />
       </div>
-      <div className={styles["preview__title-wrapper"]}>
+      <div className={styles["preview__title"]}>
         <PostTitle {...props} />
       </div>
       <PostText {...props} />
-      <div className={styles["preview__buttons-wrapper"]}>
+      <div className={styles["preview__buttons"]}>
         <UIbutton
           onClick={onHandleBackClick}
           dataAutomation="clickButton"
@@ -107,7 +111,7 @@ const PostPreview: FC<PostPreviewProps> = ({
           Publish
         </UIbutton>
       </div>
-      {error ? <p className={styles["preview__error"]}>{error}</p> : null}
+      {error ? <p className={styles["error"]}>{error}</p> : null}
     </div>
   );
 };

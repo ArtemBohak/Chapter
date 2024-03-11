@@ -12,7 +12,7 @@ const ErrorPage: FC = () => {
   return (
     <ErrorLayout>
       <section className={styles["error"]}>
-        <div className={styles["error__container"]}>
+        <div className={styles["container"]}>
           <h1 className={`${styles["error_title"]} ${styles["title"]}`}>
             Oh no! Page not found
           </h1>

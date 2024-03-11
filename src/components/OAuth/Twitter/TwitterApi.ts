@@ -29,7 +29,7 @@ class TwitterApi extends UserApiConstructor {
   }
 
   private login() {
-    console.log("POST auth/twitter/login => ", this.token);
+    // console.log("POST auth/twitter/login => ", this.token);
   }
 }
 

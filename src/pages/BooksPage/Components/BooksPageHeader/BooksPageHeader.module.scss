@@ -1,6 +1,6 @@
 .books-page-header {
     &__wrapper {
-        @apply flex fixed top-[64px] py-2 z-50 bg-white w-full md:relative md:top-0 justify-between items-center md:h-[84px] md:py-[18px];
+        @apply flex fixed top-[64px] py-2 z-20 bg-white w-full md:relative md:top-0 justify-between items-center md:h-[84px] md:py-[18px];
     }
     
     &__title {

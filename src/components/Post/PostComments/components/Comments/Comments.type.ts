@@ -1,21 +1,14 @@
-import { PostProps } from "../../../Post.type";
+import { CommentRefType } from "@/src/services/PostApi/PostApi.type";
+import { HandleNickname } from "@/src/types";
 
-export type CommentsData = Required<
-  Pick<
-    PostProps,
-    | "totalComments"
-    | "totalLikes"
-    | "avatar"
-    | "firstName"
-    | "lastName"
-    | "date"
-    | "nickName"
-    | "id"
-    | "caption"
-    | "likesList"
-  >
->;
+import { Dispatch, SetStateAction } from "react";
+import { PostCommentsProps } from "../../PostComments.type";
 
-export type CommentValues = { comments?: CommentsData[] } & CommentsData;
-
-export type CommentsProps = { comments: Array<CommentValues> };
+export type CommentsProps = {
+  comments: Array<CommentRefType>;
+  handleNickname: HandleNickname;
+  setPage: Dispatch<SetStateAction<number>>;
+  isLoading: boolean;
+  showAllComments: boolean;
+  postId: string | number;
+} & Pick<PostCommentsProps, "setFeeds">;

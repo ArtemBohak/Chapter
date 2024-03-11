@@ -4,8 +4,9 @@ import styles from "./BooksList.module.scss";
 import { useBooksPageContext } from "../../context/hooks/useBooksPageContext";
 import { useAppSelector } from "@/src/redux";
 import { IBook } from "@/src/components/BookShelf/Book/BookProps.type";
+import { BooksListProps } from "./BooksList.type";
 
-const BooksList: FC = () => {
+const BooksList: FC<BooksListProps> = ({ guestBooks }) => {
   const [deleteButtonState, setdeleteButtonState] = useState(false);
   const { edit } = useBooksPageContext();
   const { user } = useAppSelector((state) => state.userSlice);
@@ -21,8 +22,14 @@ const BooksList: FC = () => {
   }, [edit]);
 
   useEffect(() => {
-    setBooksList(userBooks);
-  }, [userBooks]);
+    if (guestBooks) {
+      setBooksList(guestBooks)
+    }
+    if (!guestBooks) {
+      setBooksList(userBooks);
+    }
+
+  }, [userBooks, guestBooks]);
 
   return (
     <div className={styles["books-list__wrapper"]}>
@@ -35,7 +42,7 @@ const BooksList: FC = () => {
           author={book.author}
           annotation={book.annotation}
           bookImageUrl={book.imagePath}
-          favoriteButton
+          favoriteButton={guestBooks ? false : true}
           deleteButton={deleteButtonState}
           className={styles["book__wrapper"]}
           imageClassName={styles["book-cover"]}

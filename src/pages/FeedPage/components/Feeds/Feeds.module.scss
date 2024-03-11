@@ -1,5 +1,5 @@
-.feeds-list {
-  @apply flex flex-col gap-1-lg md:gap-2-xs laptop:gap-2-md;
+.feeds {
+  @apply flex flex-col gap-0-sm md:gap-2-xs laptop:gap-2-md;
 
   &-enter {
     @apply scale-0 opacity-0;
@@ -16,4 +16,12 @@
       @apply scale-0 opacity-0 transition-all duration-300;
     }
   }
+}
+
+.loader {
+  @apply static mx-auto flex justify-center items-center translate-x-0 translate-y-0;
+}
+
+.skeleton {
+  @apply rounded-none md:rounded-lg;
 }
