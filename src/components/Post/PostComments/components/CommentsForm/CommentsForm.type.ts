@@ -5,9 +5,9 @@ import { HandleNickname } from "@/src/types";
 export type CommentsFormProps = {
   commentId: string | number | null;
   nickName?: string;
-  replyToUserId?: string | number | null;
+  replyToUserId: string | number | null;
   handleNickname: HandleNickname;
-  setCommentsIsHide?: Dispatch<SetStateAction<boolean>>;
+  setCommentsIsHide: Dispatch<SetStateAction<boolean>>;
 } & Required<Pick<PostCommentsProps, "postId">> &
   Pick<PostCommentsProps, "setPosts">;
 

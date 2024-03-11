@@ -51,7 +51,7 @@ const CommentsForm: FC<CommentsFormProps> = ({
           EndpointsEnum.COMMENTS + commentId + "/to-comment",
           body
         );
-        setPosts && setPosts(postsCB<PostType>(data, "postId"));
+        setPosts(postsCB<PostType>(data, "postId"));
         return resetForm();
       }
 
@@ -59,8 +59,8 @@ const CommentsForm: FC<CommentsFormProps> = ({
         EndpointsEnum.COMMENTS + postId,
         values
       );
-      setPosts && setPosts(postsCB<PostType>(data, "postId"));
-      setCommentsIsHide && setCommentsIsHide(false);
+      setPosts(postsCB<PostType>(data, "postId"));
+      setCommentsIsHide(false);
       resetForm();
     } catch (e) {
       if (e instanceof AxiosError) {

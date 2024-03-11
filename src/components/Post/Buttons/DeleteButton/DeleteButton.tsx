@@ -27,7 +27,7 @@ const DeleteButton: FC<DeleteButtonProps> = ({
       const { data }: AxiosResponse<Array<PostType>> = await api.delete(
         EndpointsEnum.DELETE_COMMENTS + commentId
       );
-      setPosts && setPosts(postsCB<PostType>(data, "postId"));
+      setPosts(postsCB<PostType>(data, "postId"));
       setAllComments((comments) =>
         comments.filter((comment) => comment.id !== commentId)
       );
