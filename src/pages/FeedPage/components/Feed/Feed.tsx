@@ -79,7 +79,7 @@ const Feed: FC<FeedProps> = ({ nodeRef, pageValue, ...props }) => {
           </div>
         </div>
         <PostTitle {...props} />
-        <PostText {...props} isLimit />
+        <PostText {...props} isLimited />
       </div>
       <div className={`${styles["wrapper"]} ${styles["wrapper__bottom"]}`}>
         <PostComments

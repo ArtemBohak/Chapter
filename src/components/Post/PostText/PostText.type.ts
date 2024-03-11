@@ -1,7 +1,7 @@
 import { PostProps } from "../Post.type";
 
 export type PostTextProps = {
-  isLimit?: boolean;
+  isLimited?: boolean;
 } & Required<Pick<PostProps, "caption">>;
 
 export enum Words {

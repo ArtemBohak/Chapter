@@ -4,7 +4,7 @@ import { PostTextProps, Words } from "./PostText.type";
 import { useGetScreenSize } from "@/src/hooks";
 import styles from "./PostText.module.scss";
 
-const PostText: FC<PostTextProps> = ({ caption, isLimit = false }) => {
+const PostText: FC<PostTextProps> = ({ caption, isLimited = false }) => {
   const [screenSize] = useGetScreenSize();
   const [isShowingFullText, setIsShowingFullText] = useState(false);
 
@@ -16,12 +16,12 @@ const PostText: FC<PostTextProps> = ({ caption, isLimit = false }) => {
   };
 
   const renderText =
-    !isShowingFullText && isLimit && caption
+    !isShowingFullText && isLimited && caption
       ? caption.limit(textSize)
       : caption;
 
   const renderButton =
-    caption && caption.split(" ").length > textSize && isLimit ? (
+    caption && caption.split(" ").length > textSize && isLimited ? (
       <button data-automation="clickButton" onClick={onHandleClick}>
         {isShowingFullText ? "Read less" : "Read more"}
       </button>
