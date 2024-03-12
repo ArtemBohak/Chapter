@@ -2,7 +2,7 @@ import { FC, useRef } from "react";
 import cn from "classnames";
 
 import { CommentsProps } from "./Comments.type";
-import { CommentValues } from "@/src/types";
+import { CommentType } from "@/src/types";
 import { intersectionHandlerCB } from "@/src/utils";
 import { useRefIntersection } from "@/src/hooks";
 import styles from "./Comments.module.scss";
@@ -24,7 +24,7 @@ const Comments: FC<CommentsProps> = (props) => {
     thresholds: [1],
   });
 
-  const renderComments = (comments: Array<CommentValues>, step: number) => {
+  const renderComments = (comments: Array<CommentType>, step: number) => {
     let counter: number = 0;
 
     counter += step;

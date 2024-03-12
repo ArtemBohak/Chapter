@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 import {
   Author,
-  IPost,
+  PostType,
   RefType,
   RefsType,
   SetIsOpenType,
@@ -11,7 +11,7 @@ import { ModalProps } from "@/src/components/Modal/Modal.type";
 
 export interface IPostProps
   extends Partial<ModalProps>,
-    Partial<IPost>,
+    Partial<PostType>,
     Partial<Author> {
   nodeRef?: RefType;
   file?: File | null;
@@ -21,6 +21,6 @@ export interface IPostProps
 export type PostProps = {
   setPage?: Dispatch<SetStateAction<number>>;
   setPosts?: Dispatch<SetStateAction<Array<PostRefType>>>;
-  setPost?: Dispatch<SetStateAction<IPost | null>>;
-} & IPost &
+  setPost?: Dispatch<SetStateAction<PostType | null>>;
+} & PostType &
   RefsType;

@@ -42,9 +42,9 @@ type CommentsData = Required<
     replyTo?: Pick<Author, "id" | "nickName">;
   };
 
-export type CommentValues = CommentsData & { comments?: CommentsData[] };
+type CommentValues = CommentsData & { comments?: CommentsData[] };
 
-export interface IPost extends IPostValues {
+interface IPost extends IPostValues {
   userIds: IdList;
   comments: Array<CommentValues> | [];
 }

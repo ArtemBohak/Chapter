@@ -1,4 +1,4 @@
-import { CommentValues, RefsType } from "@/src/types";
+import { CommentType, RefsType } from "@/src/types";
 import { CommentsProps } from "../../Comments.type";
 
 export type CommentProps = {
@@ -10,5 +10,5 @@ export type CommentProps = {
   >
 > &
   Pick<CommentsProps, "setPosts" | "setPost"> &
-  CommentValues &
+  CommentType &
   RefsType;

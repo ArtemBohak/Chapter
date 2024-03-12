@@ -1,12 +1,11 @@
 import { Dispatch, ReactNode, SetStateAction } from "react";
-import { IPost } from "@/src/types";
-import { PostRefType } from "@/src/types";
+import { PostRefType, PostType } from "@/src/types";
 
 export interface IFeedProviderProps {
   children: ReactNode;
 }
 
-export type Posts = Array<IPost> | [];
+export type Posts = Array<PostType> | [];
 
 export type FeedContextType = {
   posts: Array<PostRefType>;

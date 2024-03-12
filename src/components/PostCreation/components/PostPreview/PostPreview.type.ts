@@ -1,11 +1,11 @@
 import { ModalProps } from "@/src/components/Modal/Modal.type";
-import { IPost, SetIsOpenType } from "@/src/types";
+import { PostType, SetIsOpenType } from "@/src/types";
 
 export type PostPreviewProps = {
   file: File | null;
   prevImgUrl?: string | null;
-} & Pick<IPost, "caption" | "title" | "imgUrl"> &
+} & Pick<PostType, "caption" | "title" | "imgUrl"> &
   Pick<ModalProps, "setIsOpen"> &
   SetIsOpenType;
 
-export type BodyProps = Partial<IPost>;
+export type BodyProps = Partial<PostType>;
