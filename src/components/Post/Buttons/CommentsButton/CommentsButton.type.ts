@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import { PostProps } from "../../Post.type";
+import { IPostProps } from "../../Post.type";
 import { HandleNickname } from "@/src/types";
 
 export type CommentsButtonProps = {
@@ -10,5 +10,5 @@ export type CommentsButtonProps = {
   authorId?: string | number | null;
   setCommentsIsHide?: Dispatch<SetStateAction<boolean>>;
   handleNickname?: HandleNickname;
-} & Required<Pick<PostProps, "commentsCount">> &
-  Pick<PostProps, "nickName">;
+} & Required<Pick<IPostProps, "commentsCount">> &
+  Pick<IPostProps, "nickName">;
