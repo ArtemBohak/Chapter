@@ -33,12 +33,11 @@ const Post: FC<PostProps> = ({ nodeRef, pageValue, setPage, ...props }) => {
   const navId = props.author.id !== userId ? `/${props.author.id}` : "#";
 
   return (
-    <div className={styles["post"]}>
-      <div
-        className="hide-element"
-        ref={nodeRef}
-        data-value={nodeRef && pageValue ? pageValue : ""}
-      />
+    <div
+      ref={nodeRef}
+      data-value={nodeRef && pageValue ? pageValue : ""}
+      className={styles["post"]}
+    >
       <div className={`${styles["wrapper"]} ${styles["wrapper__top"]}`}>
         <div className={styles["post__user"]}>
           <Link className={styles["user__content"]} to={navId}>
