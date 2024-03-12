@@ -5,6 +5,6 @@ export type DeleteButtonProps = {
   authorId: string | number;
   commentId: string | number;
   setPosts?: Dispatch<SetStateAction<Array<IPost>>>;
-  setPost?: Dispatch<SetStateAction<IPost>>;
+  setPost?: Dispatch<SetStateAction<IPost | null>>;
   setAllComments: Dispatch<SetStateAction<Array<CommentRefType>>>;
 };

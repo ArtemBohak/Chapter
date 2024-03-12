@@ -21,6 +21,6 @@ export interface IPostProps
 export type PostProps = {
   setPage?: Dispatch<SetStateAction<number>>;
   setPosts?: Dispatch<SetStateAction<Array<PostRefType>>>;
-  setPost?: Dispatch<SetStateAction<IPost>>;
+  setPost?: Dispatch<SetStateAction<IPost | null>>;
 } & IPost &
   RefsType;

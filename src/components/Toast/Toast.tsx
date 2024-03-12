@@ -15,7 +15,7 @@ import { Icon, IconEnum } from "..";
 const Toast: FC<ToastProps> = ({
   data: {
     message,
-    postId = 119,
+    postId,
     user: { id: userId, firstName, lastName, nickName, avatarUrl },
   },
   id,

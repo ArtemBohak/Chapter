@@ -1,3 +1,11 @@
 .post {
-  @apply py-[200px] pl-[200px];
+  @apply relative  bg-cover  bg-fixed bg-center pt-[72px] md:pt-[108px] laptop:pt-[176px] bg-[url('src/assets/WEBP/feed-bg.webp')] min-h-screen;
+}
+
+.container {
+  @apply max-w-[962px] mx-auto md:px-4-xl laptop:px-0;
+}
+
+.skeleton {
+  @apply rounded-none md:rounded-lg;
 }
