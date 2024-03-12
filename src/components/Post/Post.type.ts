@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 import {
-  Author,
+  IAuthor,
   PostType,
   RefType,
   RefsType,
@@ -12,7 +12,7 @@ import { ModalProps } from "@/src/components/Modal/Modal.type";
 export interface IPostProps
   extends Partial<ModalProps>,
     Partial<PostType>,
-    Partial<Author> {
+    Partial<IAuthor> {
   nodeRef?: RefType;
   file?: File | null;
   setFormIsOpen?: SetIsOpenType;

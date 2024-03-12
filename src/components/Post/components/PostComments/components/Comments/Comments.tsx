@@ -19,7 +19,7 @@ const itemClassNames = (value: number) => {
 const Comments: FC<CommentsProps> = (props) => {
   const startLoaderRef = useRef(null);
 
-  useRefIntersection(startLoaderRef, intersectionHandlerCB(props.setPage), {
+  useRefIntersection(intersectionHandlerCB(props.setPage), startLoaderRef, {
     commentsIsShow: props.showAllComments,
     thresholds: [1],
   });

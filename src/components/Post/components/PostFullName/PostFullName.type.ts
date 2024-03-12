@@ -1,5 +1,5 @@
-import { Author } from "@/src/types";
+import { IAuthor } from "@/src/types";
 
 export type PostFullNameProps = Required<
-  Pick<Author, "firstName" | "lastName">
+  Pick<IAuthor, "firstName" | "lastName">
 >;

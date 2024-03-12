@@ -8,7 +8,7 @@ export type SetIsOpenType = {
   setFormIsOpen: Dispatch<SetStateAction<boolean>>;
 };
 
-export interface Author {
+export interface IAuthor {
   id: string | number;
   avatar: string | null;
   firstName: string;
@@ -19,7 +19,7 @@ export interface Author {
 
 interface IPostValues {
   postId: string | number;
-  author: Author;
+  author: IAuthor;
   title: string | null;
   caption: string | null;
   imgUrl: string | null;
@@ -39,7 +39,7 @@ interface ICommentsData
   parentId?: string | number;
   text: string;
   createdAt: string | Date | number;
-  replyTo?: Pick<Author, "id" | "nickName">;
+  replyTo?: Pick<IAuthor, "id" | "nickName">;
 }
 
 type CommentValues = ICommentsData & { comments?: ICommentsData[] };

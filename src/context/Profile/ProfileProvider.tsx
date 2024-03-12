@@ -6,7 +6,7 @@ import { SocketApi } from "@/src/services";
 import { getTokenFromLC } from "@/src/utils";
 import { useErrorBoundary } from "@/src/hooks";
 import { useAppSelector } from "@/src/redux";
-import { INotification, SocketEvents } from "@/src/types";
+import { INotification, SocketEventsEnum } from "@/src/types";
 import { IProfileProviderProps } from "./ProfileProvider.type";
 import { ProfileContext } from "./hooks";
 
@@ -85,20 +85,23 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
 
     if (isConnected) {
       socket.addListener<INotification>(
-        SocketEvents.subscribe,
+        SocketEventsEnum.subscribe,
         onHandleSubscribe
       );
 
-      socket.addListener<INotification>(SocketEvents.post, onHandleNewPost);
+      socket.addListener<INotification>(SocketEventsEnum.post, onHandleNewPost);
     }
 
     return () => {
       socket.removeListener<INotification>(
-        SocketEvents.subscribe,
+        SocketEventsEnum.subscribe,
         onHandleSubscribe
       );
 
-      socket.removeListener<INotification>(SocketEvents.post, onHandleNewPost);
+      socket.removeListener<INotification>(
+        SocketEventsEnum.post,
+        onHandleNewPost
+      );
     };
   }, [isConnected, setErrorBoundary]);
 

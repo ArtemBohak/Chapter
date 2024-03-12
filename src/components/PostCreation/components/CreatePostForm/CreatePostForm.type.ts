@@ -1,5 +1,5 @@
-import { PostType, SetIsOpenType } from "@/src/types";
 import { Dispatch, SetStateAction } from "react";
+import { PostType, SetIsOpenType } from "@/src/types";
 
 export type PostValues = Pick<PostType, "caption" | "title">;
 

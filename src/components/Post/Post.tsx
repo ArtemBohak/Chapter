@@ -26,7 +26,7 @@ const Post: FC<PostProps> = ({ nodeRef, pageValue, setPage, ...props }) => {
   const [commentsIsHide, setCommentsIsHide] = useState(true);
   const userId = useAppSelector((state) => state.userSlice.user.id);
 
-  useRefIntersection(nodeRef, intersectionHandlerCB(setPage), {
+  useRefIntersection(intersectionHandlerCB(setPage), nodeRef, {
     thresholds: [1],
   });
 
