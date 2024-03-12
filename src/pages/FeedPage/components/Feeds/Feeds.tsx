@@ -6,12 +6,10 @@ import { useRefIntersection } from "@/src/hooks";
 import { useFeedContext } from "../../context";
 import styles from "./Feeds.module.scss";
 
-import { Animation, Loader, PostSkeleton } from "@/src/components";
-
-import Feed from "../Feed/Feed";
+import { Animation, Loader, Post, PostSkeleton } from "@/src/components";
 
 const Feeds: FC = () => {
-  const { posts, isLoad, setPage } = useFeedContext();
+  const { posts, isLoad, setPage, setPosts } = useFeedContext();
   const startLoaderRef = useRef(null);
 
   useRefIntersection(startLoaderRef, intersectionHandlerCB(setPage), {
@@ -41,7 +39,7 @@ const Feeds: FC = () => {
             timeout={300}
           >
             <li>
-              <Feed {...i} nodeRef={i.nodeRef} />
+              <Post {...i} setPosts={setPosts} setPage={setPage} />
             </li>
           </Animation>
         ))}

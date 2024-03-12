@@ -28,6 +28,7 @@ export {
   PostTitle,
   PostFullName,
   UserNickName,
+  Post,
 } from "./Post";
 export { ModalWindow } from "./ModalWindow";
 export { PostCreation } from "./PostCreation";

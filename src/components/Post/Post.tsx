@@ -4,10 +4,9 @@ import { Link } from "react-router-dom";
 import { useAppSelector } from "@/src/redux";
 import { useRefIntersection } from "@/src/hooks";
 import { intersectionHandlerCB } from "@/src/utils";
-import { FeedProps } from "./Feed.type";
 import { EndpointsEnum } from "@/src/axios";
-import { useFeedContext } from "../../context";
-import styles from "./Feed.module.scss";
+import { PostProps } from "./Post.type";
+import styles from "./Post.module.scss";
 
 import {
   Avatar,
@@ -23,36 +22,35 @@ import {
   PostDate,
 } from "@/src/components";
 
-const Feed: FC<FeedProps> = ({ nodeRef, pageValue, ...props }) => {
+const Post: FC<PostProps> = ({ nodeRef, pageValue, setPage, ...props }) => {
   const [commentsIsHide, setCommentsIsHide] = useState(true);
   const userId = useAppSelector((state) => state.userSlice.user.id);
-
-  const { setPosts, setPage } = useFeedContext();
 
   useRefIntersection(nodeRef, intersectionHandlerCB(setPage), {
     thresholds: [1],
   });
 
   const navId = props.author.id !== userId ? `/${props.author.id}` : "#";
+
   return (
-    <div className={styles["feed"]}>
+    <div className={styles["post"]}>
       <div
         className="hide-element"
         ref={nodeRef}
         data-value={nodeRef && pageValue ? pageValue : ""}
       />
       <div className={`${styles["wrapper"]} ${styles["wrapper__top"]}`}>
-        <div className={styles["feed__user"]}>
+        <div className={styles["post__user"]}>
           <Link className={styles["user__content"]} to={navId}>
             <Avatar avatarUrl={props.author.avatar} />
             <UserNickName nickName={props.author.nickName} />
           </Link>
           <FollowButton {...props} id={props.author.id} />
         </div>
-        <div className={styles["feed__image"]}>
+        <div className={styles["post__image"]}>
           <PostImage {...props} />
         </div>
-        <div className={styles["feed__activity"]}>
+        <div className={styles["post__activity"]}>
           <div className={styles["activity__icons"]}>
             <LikesButton
               {...props}
@@ -86,11 +84,10 @@ const Feed: FC<FeedProps> = ({ nodeRef, pageValue, ...props }) => {
           {...props}
           commentsIsHide={commentsIsHide}
           setCommentsIsHide={setCommentsIsHide}
-          setPosts={setPosts}
         />
       </div>
     </div>
   );
 };
 
-export default Feed;
+export default Post;
