@@ -1,5 +1,5 @@
 export enum links {
-  WELCOME = "/",
+  HOME = "/",
   AUTH = "/auth",
   SIGN_UP = "/auth/register",
   ACCOUNT_CREATION = "/auth/account-creation",

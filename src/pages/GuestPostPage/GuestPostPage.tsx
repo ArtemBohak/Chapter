@@ -1,19 +1,21 @@
 import { FC, useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { AxiosError, AxiosResponse } from "axios";
 
 import { EndpointsEnum, api } from "@/src/axios";
 import { useErrorBoundary } from "@/src/hooks";
-import { PostType } from "@/src/types";
+import { PostType, links } from "@/src/types";
 import styles from "./GuestPostPage.module.scss";
 
 import { Animation, Post, PostSkeleton } from "@/src/components";
 
 const GuestPostPage: FC = () => {
+  const [post, setPost] = useState<PostType | null>(null);
+
   const setErrorBoundary = useErrorBoundary();
   const nodeRef = useRef(null);
-  const [post, setPost] = useState<PostType | null>(null);
   const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     api
@@ -22,9 +24,10 @@ const GuestPostPage: FC = () => {
       .catch((e) => {
         if (e instanceof AxiosError) {
           setErrorBoundary(e);
+          navigate(links.HOME);
         }
       });
-  }, [id, setErrorBoundary]);
+  }, [id, navigate, setErrorBoundary]);
 
   const renderPost = post ? (
     <Post nodeRef={nodeRef} setPost={setPost} {...post} />
