@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import { IPostProps } from "../Post.type";
+import { IPostProps } from "../../Post.type";
 import { PostType } from "@/src/types";
 
 export type PostCommentsProps = {

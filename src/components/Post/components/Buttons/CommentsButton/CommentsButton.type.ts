@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
-import { IPostProps } from "../../Post.type";
+
 import { HandleNickname } from "@/src/types";
+import { IPostProps } from "../../../Post.type";
 
 export type CommentsButtonProps = {
   textValue: string;

@@ -5,7 +5,7 @@ import { FollowButtonProps } from "./FollowButton.type";
 import { useErrorBoundary } from "@/src/hooks";
 import { EndpointsEnum, api } from "@/src/axios";
 
-import { PostButton } from "../components";
+import { PostButton } from "..";
 
 const FollowButton: FC<FollowButtonProps> = ({
   isSubscribeToAuthor,
