@@ -26,16 +26,20 @@ const GuestPostPage: FC = () => {
       });
   }, [id, setErrorBoundary]);
 
+  const renderPost = post ? (
+    <Post nodeRef={nodeRef} setPost={setPost} {...post} />
+  ) : (
+    <div ref={nodeRef}>
+      <PostSkeleton className={styles["skeleton"]} />
+    </div>
+  );
+
   return (
     <section className={styles["post"]}>
       <div className={styles["container"]}>
-        {post ? (
-          <Animation nodeRef={nodeRef} in={!!post}>
-            <Post nodeRef={nodeRef} setPost={setPost} {...post} />
-          </Animation>
-        ) : (
-          <PostSkeleton className={styles["skeleton"]} />
-        )}
+        <Animation nodeRef={nodeRef} in={!!post}>
+          {renderPost}
+        </Animation>
       </div>
     </section>
   );
