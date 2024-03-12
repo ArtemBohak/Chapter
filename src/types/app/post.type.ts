@@ -30,19 +30,19 @@ interface IPostValues {
   updatedAt: string | Date | number;
 }
 
-type CommentsData = Required<
-  Pick<IPostValues, "postId" | "author" | "commentsCount">
-> &
-  Pick<IPostValues, "commentCount"> & {
-    usersId: IdList;
-    id: string | number;
-    parentId?: string | number;
-    text: string;
-    createdAt: string | Date | number;
-    replyTo?: Pick<Author, "id" | "nickName">;
-  };
+interface ICommentsData
+  extends Required<
+    Pick<IPostValues, "postId" | "author" | "commentsCount" | "commentCount">
+  > {
+  usersId: IdList;
+  id: string | number;
+  parentId?: string | number;
+  text: string;
+  createdAt: string | Date | number;
+  replyTo?: Pick<Author, "id" | "nickName">;
+}
 
-type CommentValues = CommentsData & { comments?: CommentsData[] };
+type CommentValues = ICommentsData & { comments?: ICommentsData[] };
 
 interface IPost extends IPostValues {
   userIds: IdList;
