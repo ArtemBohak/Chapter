@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, SetStateAction } from "react";
 import styles from "./GuestPosts.module.scss";
 import {
   Avatar,
@@ -46,13 +46,26 @@ const GuestPosts: FC = () => {
               </div>
               <PostTitle title={post.title} />
               <PostText caption={post.caption} />
-              <PostComments postId={post.id} commentsCount={0} comments={[]} />
+              <PostComments
+                postId={post.id}
+                commentsCount={0}
+                comments={[]}
+                commentsIsHide={false}
+                setCommentsIsHide={function (
+                  value: SetStateAction<boolean>
+                ): void {
+                  value;
+                  throw new Error("Function not implemented.");
+                }}
+              />
               {/* <PostDate date={post.createdAt}/> */}
             </div>
           );
         })
       ) : (
-        <div className={styles["user-post__skeleton"]}><Loader /></div>
+        <div className={styles["user-post__skeleton"]}>
+          <Loader />
+        </div>
       )}
     </div>
   );

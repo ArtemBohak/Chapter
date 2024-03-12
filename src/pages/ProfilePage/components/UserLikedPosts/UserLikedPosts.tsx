@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, SetStateAction, useEffect, useRef, useState } from "react";
 import styles from "./Liked.module.scss";
 import { EndpointsEnum, api, followApi } from "@/src/axios";
 import {
@@ -136,6 +136,13 @@ const UserLikedPosts: FC = () => {
               postId={post.postId}
               commentsCount={post.commentsCount}
               comments={[]}
+              commentsIsHide={false}
+              setCommentsIsHide={function (
+                value: SetStateAction<boolean>
+              ): void {
+                value;
+                throw new Error("Function not implemented.");
+              }}
             />
           </div>
         ))

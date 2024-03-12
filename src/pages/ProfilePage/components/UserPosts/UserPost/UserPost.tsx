@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, SetStateAction, useEffect, useRef, useState } from "react";
 
 import { FilesService } from "@/src/services";
 
@@ -134,7 +134,16 @@ const UserPost: FC<UserPostProps> = ({ post, fetchUserPosts }) => {
       </div>
       <PostTitle title={post.title} />
       <PostText caption={post.caption} />
-      <PostComments postId={post.id} commentsCount={0} comments={[]} />
+      <PostComments
+        postId={post.id}
+        commentsCount={0}
+        comments={[]}
+        commentsIsHide={false}
+        setCommentsIsHide={function (value: SetStateAction<boolean>): void {
+          value;
+          throw new Error("Function not implemented.");
+        }}
+      />
 
       {/* <PostDate date={post.createdAt}/> */}
     </div>
