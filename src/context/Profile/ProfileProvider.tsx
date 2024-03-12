@@ -6,7 +6,7 @@ import { SocketApi } from "@/src/services";
 import { getTokenFromLC } from "@/src/utils";
 import { useErrorBoundary } from "@/src/hooks";
 import { useAppSelector } from "@/src/redux";
-import { INotification, SocketEventsEnum } from "@/src/types";
+import { INots, SocketEventsEnum } from "@/src/types";
 import { IProfileProviderProps } from "./ProfileProvider.type";
 import { ProfileContext } from "./hooks";
 
@@ -21,7 +21,7 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
   const [headerAddPostBtnIsDisabled, setHeaderAddPostBtnIsDisabled] =
     useState(false);
 
-  const [notifications, setNotifications] = useState<Array<INotification>>([]);
+  const [notifications, setNotifications] = useState<Array<INots>>([]);
 
   const [unreadMessage, setUnreadMessage] = useState(notifications.length);
 
@@ -29,9 +29,7 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
     setIsLoading(true);
     api
       .get(EndpointsEnum.NOTA)
-      .then(({ data }: AxiosResponse<Array<INotification>>) =>
-        setNotifications(data)
-      )
+      .then(({ data }: AxiosResponse<Array<INots>>) => setNotifications(data))
       .catch((e) => {
         if (e instanceof AxiosError) {
           setErrorBoundary(e);
@@ -73,35 +71,29 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
   }, [isAuth]);
 
   useEffect(() => {
-    const onHandleSubscribe = socket.handleData<INotification>(
+    const onHandleSubscribe = socket.handleData<INots>(
       setNotifications,
       setErrorBoundary
     );
 
-    const onHandleNewPost = socket.handleData<INotification>(
+    const onHandleNewPost = socket.handleData<INots>(
       setNotifications,
       setErrorBoundary
     );
 
     if (isConnected) {
-      socket.addListener<INotification>(
-        SocketEventsEnum.subscribe,
-        onHandleSubscribe
-      );
+      socket.addListener<INots>(SocketEventsEnum.subscribe, onHandleSubscribe);
 
-      socket.addListener<INotification>(SocketEventsEnum.post, onHandleNewPost);
+      socket.addListener<INots>(SocketEventsEnum.post, onHandleNewPost);
     }
 
     return () => {
-      socket.removeListener<INotification>(
+      socket.removeListener<INots>(
         SocketEventsEnum.subscribe,
         onHandleSubscribe
       );
 
-      socket.removeListener<INotification>(
-        SocketEventsEnum.post,
-        onHandleNewPost
-      );
+      socket.removeListener<INots>(SocketEventsEnum.post, onHandleNewPost);
     };
   }, [isConnected, setErrorBoundary]);
 
