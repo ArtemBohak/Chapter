@@ -18,6 +18,8 @@ const Modal: FC<ModalProps> = ({
   backdropClassName,
   bodyClassName,
   disableScroll = false,
+  mountOnEnter = true,
+  unmountOnExit = true,
   ...props
 }) => {
   const nodeRef = useRef(null);
@@ -65,8 +67,8 @@ const Modal: FC<ModalProps> = ({
         nodeRef={nodeRef}
         timeout={transitionTimeOut}
         classNames={transitionClassName}
-        mountOnEnter
-        unmountOnExit
+        mountOnEnter={mountOnEnter}
+        unmountOnExit={unmountOnExit}
       >
         <div
           className={backDropClassNames}
@@ -87,8 +89,8 @@ const Modal: FC<ModalProps> = ({
       in={isOpen}
       timeout={transitionTimeOut}
       classNames={transitionClassName}
-      mountOnEnter
-      unmountOnExit
+      mountOnEnter={mountOnEnter}
+      unmountOnExit={unmountOnExit}
     >
       <div
         className={backDropClassNames}
