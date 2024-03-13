@@ -9,7 +9,7 @@ import {
 } from "@/src/types";
 import { ModalProps } from "@/src/components/Modal/Modal.type";
 
-export interface IPostProps
+export interface IPost
   extends Partial<ModalProps>,
     Partial<PostType>,
     Partial<IAuthor> {

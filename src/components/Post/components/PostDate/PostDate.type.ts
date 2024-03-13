@@ -1,3 +1,3 @@
-import { IPostProps } from "../../Post.type";
+import { IPost } from "../../Post.type";
 
-export type PostDateProps = Required<Pick<IPostProps, "createAt">>;
+export type PostDateProps = Required<Pick<IPost, "createAt">>;

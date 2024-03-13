@@ -1,8 +1,8 @@
-import { IPostProps } from "../../Post.type";
+import { IPost } from "../../Post.type";
 
 export type PostTextProps = {
   isLimited?: boolean;
-} & Required<Pick<IPostProps, "caption">>;
+} & Required<Pick<IPost, "caption">>;
 
 export enum Words {
   ScreenSize = 769,

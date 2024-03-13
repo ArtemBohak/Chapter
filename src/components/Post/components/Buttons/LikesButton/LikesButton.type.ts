@@ -1,8 +1,8 @@
-import { IPostProps } from "../../../Post.type";
+import { IPost } from "../../../Post.type";
 
 export type LikesButtonProps = {
   hiddenText?: boolean;
   url: string;
   id: string | number;
   withoutModal?: boolean;
-} & Required<Pick<IPostProps, "userIds">>;
+} & Required<Pick<IPost, "userIds">>;

@@ -1,5 +1,5 @@
-import { IPostProps } from "../../Post.type";
+import { IPost } from "../../Post.type";
 
 export type UserNickNameProps = {
   classNames?: string;
-} & Required<Pick<IPostProps, "nickName">>;
+} & Required<Pick<IPost, "nickName">>;

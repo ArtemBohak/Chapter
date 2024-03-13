@@ -1,3 +1,3 @@
-import { IPostProps } from "../../Post.type";
+import { IPost } from "../../Post.type";
 
-export type PostImageProps = Required<Pick<IPostProps, "imgUrl">>;
+export type PostImageProps = Required<Pick<IPost, "imgUrl">>;

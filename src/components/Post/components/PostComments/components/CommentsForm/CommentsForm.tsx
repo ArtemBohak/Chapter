@@ -16,6 +16,7 @@ import { TextAreaField } from "@/src/components";
 import { PostButton } from "@/src/components/Post/components";
 
 const initialValues = { text: "" };
+
 const CommentsForm: FC<CommentsFormProps> = ({
   postId,
   commentId,
@@ -93,6 +94,7 @@ const CommentsForm: FC<CommentsFormProps> = ({
   };
 
   const iconSize = screenSize < tabScreen ? 20 : 24;
+
   return (
     <div id={`${ElementsId.POST_FORM}${postId}`} className={styles["comments"]}>
       <div className={styles["comments__avatar"]}>

@@ -1,2 +1,3 @@
-import { IPostProps } from "../../Post.type";
-export type PostTitleProps = Required<Pick<IPostProps, "title">>;
+import { IPost } from "../../Post.type";
+
+export type PostTitleProps = Required<Pick<IPost, "title">>;
