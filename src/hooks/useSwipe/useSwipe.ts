@@ -22,11 +22,13 @@ export const useSwipe = ({
     const handleTouchEnd = (e: TouchEvent) => {
       const touchEnd = e.changedTouches[0][axis];
 
-      if (touchStart - touchEnd > touchDistinction)
+      if (touchStart - touchEnd > touchDistinction) {
         leftSwipeCB && leftSwipeCB();
+      }
 
-      if (touchStart - touchEnd < touchDistinction)
+      if (touchStart - touchEnd < -touchDistinction) {
         rightSwipeCB && rightSwipeCB();
+      }
     };
 
     if (enableSwipe && screenSize < enableSwipeOnScreen) {
