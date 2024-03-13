@@ -24,11 +24,13 @@ const PostCreation: FC<PostCreationProps> = ({
   const [file, setFile] = useState<File | null>(null);
 
   const clearData = () => {
-    setTitle("");
-    setFile(null);
-    setCaption("");
-    setImage("");
-    setFormIsOpen(true);
+    setTimeout(() => {
+      setTitle("");
+      setFile(null);
+      setCaption("");
+      setImage("");
+      setFormIsOpen(true);
+    }, 100);
   };
 
   const onHandleCrossClick = () => {
