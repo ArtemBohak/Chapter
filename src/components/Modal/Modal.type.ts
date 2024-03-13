@@ -14,4 +14,4 @@ export type ModalProps = {
   touchDistinction?: number;
   enableSwipeOnScreen?: number;
   enableSwipe?: boolean;
-} & Partial<IAnimationProps>;
+} & Pick<IAnimationProps, "mountOnEnter" | "unmountOnExit">;
