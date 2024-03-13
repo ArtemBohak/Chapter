@@ -50,6 +50,7 @@ const GuestPosts: FC = () => {
                 postId={post.id}
                 commentsCount={0}
                 comments={[]}
+                // * Temporary plug
                 commentsIsHide={false}
                 setCommentsIsHide={function (
                   value: SetStateAction<boolean>
@@ -57,6 +58,7 @@ const GuestPosts: FC = () => {
                   value;
                   throw new Error("Function not implemented.");
                 }}
+                // * Temporary plug
               />
               {/* <PostDate date={post.createdAt}/> */}
             </div>

@@ -138,11 +138,13 @@ const UserPost: FC<UserPostProps> = ({ post, fetchUserPosts }) => {
         postId={post.id}
         commentsCount={0}
         comments={[]}
+        // * Temporary plug
         commentsIsHide={false}
         setCommentsIsHide={function (value: SetStateAction<boolean>): void {
           value;
           throw new Error("Function not implemented.");
         }}
+        // * Temporary plug
       />
 
       {/* <PostDate date={post.createdAt}/> */}

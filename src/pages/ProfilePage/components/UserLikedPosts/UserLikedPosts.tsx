@@ -137,6 +137,7 @@ const UserLikedPosts: FC = () => {
               postId={post.postId}
               commentsCount={post.commentsCount}
               comments={[]}
+              // * Temporary plug
               commentsIsHide={false}
               setCommentsIsHide={function (
                 value: SetStateAction<boolean>
@@ -144,6 +145,7 @@ const UserLikedPosts: FC = () => {
                 value;
                 throw new Error("Function not implemented.");
               }}
+              // * Temporary plug
             />
           </div>
         ))
