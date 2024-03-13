@@ -52,7 +52,7 @@ const Toast: FC<ToastProps> = ({
       onMouseOver={() => setIsShown(true)}
       onMouseOut={() => setIsShown(false)}
     >
-      <Link to={`/${id}`} className={styles["toast__user"]}>
+      <Link to={`/${userId}`} className={styles["toast__user"]}>
         <img
           src={avatarUrl ? avatarUrl : defaultUserAvatar}
           width={40}
