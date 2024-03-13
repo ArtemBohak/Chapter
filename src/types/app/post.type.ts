@@ -8,7 +8,7 @@ export type SetIsOpenType = {
   setFormIsOpen: Dispatch<SetStateAction<boolean>>;
 };
 
-export interface Author {
+export interface IAuthor {
   id: string | number;
   avatar: string | null;
   firstName: string;
@@ -19,7 +19,7 @@ export interface Author {
 
 interface IPostValues {
   postId: string | number;
-  author: Author;
+  author: IAuthor;
   title: string | null;
   caption: string | null;
   imgUrl: string | null;
@@ -30,29 +30,40 @@ interface IPostValues {
   updatedAt: string | Date | number;
 }
 
-type CommentsData = Required<
-  Pick<IPostValues, "postId" | "author" | "commentsCount">
-> &
-  Pick<IPostValues, "commentCount"> & {
-    usersId: IdList;
-    id: string | number;
-    parentId?: string | number;
-    text: string;
-    createdAt: string | Date | number;
-    replyTo?: Pick<Author, "id" | "nickName">;
-  };
+interface ICommentsData
+  extends Required<
+    Pick<IPostValues, "postId" | "author" | "commentsCount" | "commentCount">
+  > {
+  usersId: IdList;
+  id: string | number;
+  parentId?: string | number;
+  text: string;
+  createdAt: string | Date | number;
+  replyTo?: Pick<IAuthor, "id" | "nickName">;
+}
 
-export type CommentValues = CommentsData & { comments?: CommentsData[] };
+type CommentValues = ICommentsData & { comments?: ICommentsData[] };
 
-export interface IPost extends IPostValues {
+interface IPost extends IPostValues {
   userIds: IdList;
   comments: Array<CommentValues> | [];
 }
-
-export type RefType = MutableRefObject<null> | RefObject<HTMLDivElement>;
 
 export type HandleNickname = (
   id?: string | number,
   nickname?: string | undefined,
   authorId?: string | undefined | null | number
 ) => void;
+
+export type RefType = MutableRefObject<null> | RefObject<HTMLDivElement>;
+
+export type RefsType = {
+  nodeRef?: RefType;
+  pageValue?: number;
+};
+
+export type PostType = IPost;
+export type PostRefType = PostType & RefsType;
+
+export type CommentType = CommentValues;
+export type CommentRefType = CommentType & RefsType;

@@ -1,16 +1,12 @@
 import { useEffect } from "react";
 
-import { OptionsType, RefType, HandlerType } from "./useIntersections.type";
+import { OptionsType, HandlerType } from "./useIntersections.type";
+import { RefType } from "@/src/types";
 
 export const useRefIntersection = (
-  nodeRef: RefType,
   handler: HandlerType,
-  {
-    postsIsLoad,
-    commentsIsShow,
-
-    ...options
-  }: OptionsType = {}
+  nodeRef?: RefType,
+  { postsIsLoad, commentsIsShow, ...options }: OptionsType = {}
 ) => {
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {

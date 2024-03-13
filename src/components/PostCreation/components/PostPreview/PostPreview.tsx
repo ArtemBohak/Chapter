@@ -104,6 +104,7 @@ const PostPreview: FC<PostPreviewProps> = ({
         </UIbutton>
         <UIbutton
           disabled={isLoading}
+          isLoading={isLoading}
           onClick={onHandlePublishClick}
           dataAutomation="clickButton"
           fullWidth

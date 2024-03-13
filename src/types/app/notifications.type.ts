@@ -1,26 +1,26 @@
-import { MutableRefObject, RefObject } from "react";
-import { IUser } from "..";
+import { IUser, RefType } from "..";
 
-export enum SocketEvents {
+export enum SocketEventsEnum {
   subscribe = "subscribeNotification",
   post = "postNotification",
 }
 
-export enum SocketMessage {
-  newPost = "New post",
-}
+export type SocketEventsType =
+  | SocketEventsEnum.subscribe
+  | SocketEventsEnum.post;
 
-export type SocketEventsType = SocketEvents.subscribe | SocketEvents.post;
-
-type NotificationsRefType = MutableRefObject<null> | RefObject<HTMLDivElement>;
-
-export interface INotification {
+export interface INots {
   id: number;
-  nodeRef?: NotificationsRefType;
+  createdAt: Date;
   data: {
     message: string;
+    postId?: number;
     user: Required<
       Pick<IUser, "avatarUrl" | "firstName" | "lastName" | "nickName" | "id">
     >;
   };
+}
+
+export interface INotification extends INots {
+  nodeRef: RefType;
 }

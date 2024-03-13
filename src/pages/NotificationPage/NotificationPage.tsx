@@ -1,4 +1,4 @@
-import { FC, createRef, useState } from "react";
+import { FC, createRef, useRef, useState } from "react";
 import { AxiosError } from "axios";
 import { EndpointsEnum, api } from "@/src/axios";
 import { TransitionGroup } from "react-transition-group";
@@ -17,13 +17,20 @@ const NotificationPage: FC = () => {
     setNotifications,
   } = useProfileContext();
   const setErrorBoundary = useErrorBoundary();
+  const btnRef = useRef(null);
+  const textRef = useRef(null);
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const editedNotifications: Array<INotification> = notifications.map((el) => ({
-    ...el,
-    nodeRef: createRef(),
-  }));
+  const editedNotifications: Array<INotification> = notifications
+    .sort(
+      (a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    )
+    .map((el) => ({
+      ...el,
+      nodeRef: createRef(),
+    }));
 
   const onHandleClick = async () => {
     try {
@@ -45,22 +52,36 @@ const NotificationPage: FC = () => {
     exit: styles["notifications__list-exit"],
     exitActive: styles["notifications__list-exit-active"],
   };
-
   return (
     <section className={styles["notifications"]}>
       <div className={styles["wrapper"]}>
-        {notifications.length ? (
+        <Animation
+          nodeRef={btnRef}
+          classNames={transitionClassNames}
+          timeout={300}
+          in={!!notifications.length}
+          unmountOnExit
+        >
           <button
+            ref={btnRef}
             onClick={onHandleClick}
             className={styles["notifications__button"]}
           >
             Delete all notifications
           </button>
-        ) : null}
-        {!isLoadingOnMount && !notifications.length ? (
-          <p className={styles["notifications__text"]}>
-            There are no notifications at the moment
-          </p>
+        </Animation>
+        {!isLoadingOnMount ? (
+          <Animation
+            nodeRef={textRef}
+            classNames={transitionClassNames}
+            timeout={300}
+            in={!notifications.length}
+            unmountOnExit
+          >
+            <p ref={textRef} className={styles["notifications__text"]}>
+              There are no notifications at the moment
+            </p>
+          </Animation>
         ) : null}
         <TransitionGroup
           component={"ul"}
@@ -85,8 +106,8 @@ const NotificationPage: FC = () => {
             );
           })}
         </TransitionGroup>
+        <Loader isShown={isLoading || isLoadingOnMount} />
       </div>
-      <Loader isShown={isLoading || isLoadingOnMount} />
     </section>
   );
 };

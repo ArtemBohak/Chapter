@@ -1,4 +1,4 @@
-import { Author } from "@/src/types";
+import { IAuthor } from "@/src/types";
 import { MouseEvent } from "react";
 
 export type TextTaggingProps = {
@@ -7,6 +7,6 @@ export type TextTaggingProps = {
   textClassName?: string;
   linkClassName?: string;
   withTag?: boolean;
-  replyTo?: Pick<Author, "id" | "nickName"> | null;
+  replyTo?: Pick<IAuthor, "id" | "nickName"> | null;
   onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
 };

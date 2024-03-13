@@ -1,4 +1,4 @@
-import { ITransitionArgs } from "../Animation/Animation.type";
+import { IAnimationProps, ITransitionArgs } from "../Animation/Animation.type";
 
 export type ModalProps = {
   setIsOpen: (isOpen: boolean) => void;
@@ -14,4 +14,4 @@ export type ModalProps = {
   touchDistinction?: number;
   enableSwipeOnScreen?: number;
   enableSwipe?: boolean;
-};
+} & Pick<IAnimationProps, "mountOnEnter" | "unmountOnExit">;

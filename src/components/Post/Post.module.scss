@@ -1,0 +1,46 @@
+.post {
+  @apply bg-[#FCFCFC] md:rounded-lg border border-[#C4C4C4] py-1-lg md:py-3-lg laptop:py-3-lg;
+
+  &__user {
+    @apply flex items-center justify-between mb-1-lg md:mb-3-xs;
+  }
+
+  &__image {
+    @apply mb-1-xs laptop:mb-2-md;
+  }
+
+  &__activity {
+    @apply flex justify-between mb-1-md md:mb-3-xs;
+  }
+}
+
+.wrapper {
+  @apply px-1-lg md:px-2-lg laptop:px-5-xl;
+
+  &__top {
+    @apply md:border-b md:border-b-grey-1010 md:pb-2-md;
+
+    &::after {
+      content: "";
+      @apply block border-b-grey-1010 border-b pt-1-sm md:pt-2-md md:hidden;
+    }
+  }
+
+  &__bottom {
+    @apply pt-1-sm md:pt-2-md;
+  }
+}
+
+.user__content {
+  @apply flex items-center gap-0-sm md:gap-1-xs laptop:gap-1-md;
+}
+
+.activity {
+  &__icons {
+    @apply flex gap-1-md md:gap-2-xs;
+  }
+
+  &__text {
+    @apply flex gap-[2px];
+  }
+}

@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, SetStateAction, useEffect, useRef, useState } from "react";
 import styles from "./Liked.module.scss";
 import { EndpointsEnum, api, followApi } from "@/src/axios";
 import {
@@ -17,6 +17,7 @@ import { LikedPostData } from "./UserLikedPost.type";
 import { Link } from "react-router-dom";
 // import { Like } from "@/src/components/Post/IconButtons/LikesButton/components/LikesModal/LikesModal.type";
 import { PostSkeleton } from "@/src/components";
+import { links } from "@/src/types";
 
 const UserLikedPosts: FC = () => {
   const [userLikedPostsList, setUserLikedPostsList] = useState<LikedPostData[]>(
@@ -81,7 +82,7 @@ const UserLikedPosts: FC = () => {
     return (
       <div className={styles["liked-wrapper"]}>
         <div className={"bg-white text-center m-auto my-[50px]"}>
-          Hey! go to <Link to={"/feed"}>Feed</Link> and like some posts
+          Hey! go to <Link to={links.FEED}>Feed</Link> and like some posts
         </div>
       </div>
     );
@@ -136,6 +137,15 @@ const UserLikedPosts: FC = () => {
               postId={post.postId}
               commentsCount={post.commentsCount}
               comments={[]}
+              // * Temporary plug
+              commentsIsHide={false}
+              setCommentsIsHide={function (
+                value: SetStateAction<boolean>
+              ): void {
+                value;
+                throw new Error("Function not implemented.");
+              }}
+              // * Temporary plug
             />
           </div>
         ))
