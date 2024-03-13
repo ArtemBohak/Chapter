@@ -25,9 +25,8 @@ const GuestPostPage: FC = () => {
         .catch((e) => {
           if (e instanceof AxiosError) {
             setErrorBoundary(e);
-            //* handle error 404
-            navigate(links.HOME);
-            //*
+
+            if (e.response?.status === 404) navigate(links.HOME);
           }
         });
   }, [id, navigate, setErrorBoundary]);
