@@ -40,7 +40,7 @@ export enum EndpointsEnum {
   // POSTS
   CREATE_POST = "posts/create",
   DELETE_POST = "posts/delete",
-  GET_POST = "post/",
+  GET_POST = "posts/post/",
   POSTS_BY_AUTHOR = "posts/by-author",
   POSTS_BY_USER = "posts/by-user/",
   LIKED_POSTS = "posts/posts",
