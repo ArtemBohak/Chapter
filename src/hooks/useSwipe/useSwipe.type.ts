@@ -1,8 +1,8 @@
 import { ModalProps } from "@/src/components/Modal/Modal.type";
-import { Dispatch, SetStateAction } from "react";
 
 export type UseSwipeProps = {
-  setIsShown: Dispatch<SetStateAction<boolean>>;
+  leftSwipeCB?: () => void;
+  rightSwipeCB?: () => void;
 } & Pick<
   ModalProps,
   "axis" | "touchDistinction" | "enableSwipeOnScreen" | "enableSwipe"

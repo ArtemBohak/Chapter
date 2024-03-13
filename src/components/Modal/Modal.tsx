@@ -23,7 +23,7 @@ const Modal: FC<ModalProps> = ({
   ...props
 }) => {
   const nodeRef = useRef(null);
-  useSwipe({ setIsShown: setIsOpen, ...props });
+  useSwipe({ leftSwipeCB: () => setIsOpen(false), ...props });
 
   useEffect(() => {
     const handlePressESC = (e: { code: string }) => {

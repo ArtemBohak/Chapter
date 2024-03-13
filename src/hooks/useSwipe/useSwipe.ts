@@ -4,7 +4,8 @@ import { UseSwipeProps } from "./useSwipe.type";
 import { useGetScreenSize } from "@/src/hooks";
 
 export const useSwipe = ({
-  setIsShown,
+  leftSwipeCB,
+  rightSwipeCB,
   enableSwipe = false,
   axis = "clientX",
   touchDistinction = 200,
@@ -20,9 +21,12 @@ export const useSwipe = ({
 
     const handleTouchEnd = (e: TouchEvent) => {
       const touchEnd = e.changedTouches[0][axis];
-      if (touchStart - touchEnd > touchDistinction) {
-        setIsShown(false);
-      }
+
+      if (touchStart - touchEnd > touchDistinction)
+        leftSwipeCB && leftSwipeCB();
+
+      if (touchStart - touchEnd < touchDistinction)
+        rightSwipeCB && rightSwipeCB();
     };
 
     if (enableSwipe && screenSize < enableSwipeOnScreen) {

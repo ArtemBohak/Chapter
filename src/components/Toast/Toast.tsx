@@ -6,7 +6,8 @@ import cn from "classnames";
 import { EndpointsEnum, api } from "@/src/axios";
 import { ToastProps } from "./Toast.type";
 import { genLink } from "./utils";
-import { useErrorBoundary } from "@/src/hooks";
+import { useErrorBoundary, useGetScreenSize, useSwipe } from "@/src/hooks";
+import { tabScreen } from "@/src/utils";
 import styles from "./Toast.module.scss";
 
 import defaultUserAvatar from "@/src/assets/SVG/default-user-avatar.svg";
@@ -27,6 +28,14 @@ const Toast: FC<ToastProps> = ({
 }) => {
   const [isShown, setIsShown] = useState(false);
   const setErrorBoundary = useErrorBoundary();
+  const [screenSize] = useGetScreenSize();
+  const isMobScreen = screenSize < tabScreen;
+
+  useSwipe({
+    leftSwipeCB: () => setIsShown(true),
+    rightSwipeCB: () => setIsShown(false),
+    enableSwipe: isMobScreen,
+  });
 
   const onHandleClick = async () => {
     setIsLoading && setIsLoading(true);
