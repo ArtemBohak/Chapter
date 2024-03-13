@@ -1,8 +1,6 @@
 import { FC } from "react";
 
 import { ModalWindowProps } from "./ModalWindow.type";
-import { tabScreen } from "@/src/utils";
-import { useGetScreenSize } from "@/src/hooks";
 import styles from "./ModalWindow.module.scss";
 import { Icon, IconEnum, Modal } from "..";
 
@@ -11,10 +9,6 @@ const ModalWindow: FC<ModalWindowProps> = ({
   children,
   ...props
 }) => {
-  const [screenSize] = useGetScreenSize();
-
-  const isMobScreen = screenSize < tabScreen;
-
   const onClick = () => setIsOpen(false);
 
   const transition = {
@@ -32,7 +26,7 @@ const ModalWindow: FC<ModalWindowProps> = ({
       bodyClassName={styles["modal-window__body"]}
       portal
       transitionClassName={transition}
-      enableSwipe={isMobScreen}
+      enableSwipe
     >
       <button
         onClick={onClick}
