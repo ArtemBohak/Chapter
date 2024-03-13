@@ -91,7 +91,6 @@ const Toast: FC<ToastProps> = ({
           width={32}
           hanging={32}
           icon={IconEnum.TRASH}
-          removeInlineStyle
           className={styles["button__icon"]}
         />
       </button>

@@ -36,6 +36,6 @@
   }
 
   &__icon {
-    @apply stroke-[#6C6C6C] w-[32px] h-[32px];
+    @apply w-[32px] h-[32px] text-[#FEFEFE] base:text-red;
   }
 }
