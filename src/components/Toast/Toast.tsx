@@ -6,12 +6,12 @@ import cn from "classnames";
 import { EndpointsEnum, api } from "@/src/axios";
 import { ToastProps } from "./Toast.type";
 import { genLink } from "./utils";
-import { useErrorBoundary, useGetScreenSize, useSwipe } from "@/src/hooks";
-import { tabScreen } from "@/src/utils";
+import { useErrorBoundary, useSwipe } from "@/src/hooks";
+
 import styles from "./Toast.module.scss";
 
-import defaultUserAvatar from "@/src/assets/SVG/default-user-avatar.svg";
 import { Icon, IconEnum } from "..";
+import defaultUserAvatar from "@/src/assets/SVG/default-user-avatar.svg";
 
 const Toast: FC<ToastProps> = ({
   data: {
@@ -28,13 +28,13 @@ const Toast: FC<ToastProps> = ({
 }) => {
   const [isShown, setIsShown] = useState(false);
   const setErrorBoundary = useErrorBoundary();
-  const [screenSize] = useGetScreenSize();
-  const isMobScreen = screenSize < tabScreen;
 
   useSwipe({
     leftSwipeCB: () => setIsShown(true),
     rightSwipeCB: () => setIsShown(false),
-    enableSwipe: isMobScreen,
+    enableSwipe: true,
+    enableSwipeOnScreen: 1025,
+    touchDistinction: 100,
   });
 
   const onHandleClick = async () => {
@@ -61,40 +61,40 @@ const Toast: FC<ToastProps> = ({
       onMouseOver={() => setIsShown(true)}
       onMouseOut={() => setIsShown(false)}
     >
-      <Link to={`/${userId}`} className={styles["toast__user"]}>
-        <img
-          src={avatarUrl ? avatarUrl : defaultUserAvatar}
-          width={40}
-          height={40}
-        />
-        <span className={styles["user__text"]}>
-          <span>
-            {firstName} {lastName}
-          </span>
-          <span className={styles["user__nickname"]}>{nickName}</span>
-        </span>
-      </Link>
       <div className={styles["wrapper"]}>
+        <Link to={`/${userId}`} className={styles["toast__user"]}>
+          <img
+            src={avatarUrl ? avatarUrl : defaultUserAvatar}
+            width={40}
+            height={40}
+          />
+          <span className={styles["user__text"]}>
+            <span>
+              {firstName} {lastName}
+            </span>
+            <span className={styles["user__nickname"]}>{nickName}</span>
+          </span>
+        </Link>
         <Link
           className={`${styles["toast__message"]} ${messageClassNames}`}
           to={genLink(userId, postId)}
         >
           {message}
         </Link>
-        <button
-          data-automation="clickButton"
-          className={deleteBtnClassNames}
-          onClick={onHandleClick}
-        >
-          <Icon
-            width={20}
-            hanging={20}
-            icon={IconEnum.TRASH}
-            removeInlineStyle
-            className={styles["button__icon"]}
-          />
-        </button>
       </div>
+      <button
+        data-automation="clickButton"
+        className={deleteBtnClassNames}
+        onClick={onHandleClick}
+      >
+        <Icon
+          width={32}
+          hanging={32}
+          icon={IconEnum.TRASH}
+          removeInlineStyle
+          className={styles["button__icon"]}
+        />
+      </button>
     </div>
   );
 };
