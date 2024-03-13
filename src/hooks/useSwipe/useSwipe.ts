@@ -3,8 +3,9 @@ import { useEffect, useState } from "react";
 import { UseSwipeProps } from "./useSwipe.type";
 import { useGetScreenSize } from "@/src/hooks";
 
-const useSwipe = ({
-  setIsOpen,
+export const useSwipe = ({
+  leftSwipeCB,
+  rightSwipeCB,
   enableSwipe = false,
   axis = "clientX",
   touchDistinction = 200,
@@ -20,8 +21,13 @@ const useSwipe = ({
 
     const handleTouchEnd = (e: TouchEvent) => {
       const touchEnd = e.changedTouches[0][axis];
+
       if (touchStart - touchEnd > touchDistinction) {
-        setIsOpen(false);
+        leftSwipeCB && leftSwipeCB();
+      }
+
+      if (touchStart - touchEnd < -touchDistinction) {
+        rightSwipeCB && rightSwipeCB();
       }
     };
 
@@ -44,5 +50,3 @@ const useSwipe = ({
     touchStart,
   ]);
 };
-
-export default useSwipe;

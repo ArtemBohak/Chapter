@@ -3,7 +3,7 @@ import { FC, MouseEvent, useEffect, useRef } from "react";
 import cn from "classnames";
 
 import { ModalProps } from "./Modal.type";
-import useSwipe from "./hooks/useSwipe";
+import { useSwipe } from "@/src/hooks";
 import styles from "./Modal.module.scss";
 
 import { Animation } from "@/src/components";
@@ -23,7 +23,7 @@ const Modal: FC<ModalProps> = ({
   ...props
 }) => {
   const nodeRef = useRef(null);
-  useSwipe({ setIsOpen, ...props });
+  useSwipe({ leftSwipeCB: () => setIsOpen(false), ...props });
 
   useEffect(() => {
     const handlePressESC = (e: { code: string }) => {

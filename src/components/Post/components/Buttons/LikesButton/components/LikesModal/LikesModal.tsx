@@ -42,7 +42,7 @@ const LikesModal: FC<LikesModalProps> = ({
       backdropClassName={styles["modal"]}
       bodyClassName={styles["modal__body"]}
       transitionTimeOut={200}
-      enableSwipe={isMobScreen}
+      enableSwipe
       disableScroll
     >
       <div className={styles["modal__body-header"]}>
