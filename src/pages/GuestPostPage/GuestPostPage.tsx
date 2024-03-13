@@ -18,15 +18,18 @@ const GuestPostPage: FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    api
-      .get(EndpointsEnum.GUEST_POST + id)
-      .then(({ data }: AxiosResponse<PostType>) => setPost(data))
-      .catch((e) => {
-        if (e instanceof AxiosError) {
-          setErrorBoundary(e);
-          navigate(links.HOME);
-        }
-      });
+    id &&
+      api
+        .get(EndpointsEnum.GET_POST + id)
+        .then(({ data }: AxiosResponse<PostType>) => setPost(data))
+        .catch((e) => {
+          if (e instanceof AxiosError) {
+            setErrorBoundary(e);
+            //* handle error 404
+            navigate(links.HOME);
+            //*
+          }
+        });
   }, [id, navigate, setErrorBoundary]);
 
   const renderPost = post ? (
