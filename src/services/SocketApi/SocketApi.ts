@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import { io, Socket } from "socket.io-client";
+import { io, ManagerOptions, Socket, SocketOptions } from "socket.io-client";
 import { AxiosError, AxiosResponse } from "axios";
 import { SetErrorType } from "@/src/types";
 import { EndpointsEnum, api } from "@/src/axios";
@@ -8,7 +8,11 @@ import { notificationsCB } from "@/src/utils";
 class SocketApi {
   private static instance: SocketApi;
   private readonly url = import.meta.env.VITE_SOCKET_BASE_URL;
-  private socket: Socket | undefined = undefined;
+  private options: Partial<SocketOptions> & Partial<ManagerOptions> = {
+    reconnectionAttempts: 5,
+    autoConnect: false,
+  };
+  private socket: Socket | null = null;
 
   constructor() {
     if (!SocketApi.instance) {
@@ -19,10 +23,11 @@ class SocketApi {
   }
 
   init(token: string) {
-    this.socket = io(this.url, {
-      autoConnect: false,
-      extraHeaders: { Authorization: token },
-    });
+    const { options, url } = this;
+
+    options.extraHeaders = { Authorization: token };
+
+    this.socket = io(url, options);
   }
 
   get socketInstance() {
