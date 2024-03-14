@@ -19,7 +19,6 @@ const UserStatus: FC<UserStatusProps> = ({ userStatus }) => {
     onHandleChange,
     onHandleFocus,
   } = useEditField("status", userStatus, setIsLoading, textareaRef);
-  const inputValue = value ? value : "";
 
   return (
     <>
@@ -32,7 +31,7 @@ const UserStatus: FC<UserStatusProps> = ({ userStatus }) => {
       <textarea
         className={styles["status"]}
         ref={textareaRef}
-        value={inputValue}
+        value={value}
         disabled={!isEditing}
         onChange={onHandleChange}
         onFocus={onHandleFocus}

@@ -31,9 +31,8 @@ const useEditField = (
   }, [isEditing, nodeRef]);
 
   useEffect(() => {
-    if (value && value.length > stringLength) {
-      return setError("Too long");
-    }
+    if (value && value.length > stringLength) return setError("Too long");
+
     setError(null);
   }, [stringLength, value]);
 
@@ -42,6 +41,7 @@ const useEditField = (
   const onHandleSave = async () => {
     if (textValue && value !== textValue) {
       const profile = new ProfileUpdateApi(setIsLoading, setErrorBoundary);
+
       if (fieldType === "status") {
         if (value.length > stringLength) return setError("Too long");
 

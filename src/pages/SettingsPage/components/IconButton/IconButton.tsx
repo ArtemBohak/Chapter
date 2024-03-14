@@ -7,30 +7,28 @@ import { Icon, IconEnum } from "@/src/components";
 
 const IconButton: FC<IconButtonProps> = ({
   isEditing,
-  onHandleEdit,
-  onHandleSave,
   classNames,
   isLoading,
+  onHandleEdit,
+  onHandleSave,
 }) => {
   const onHandleClick = () => {
     if (isEditing) return onHandleSave && onHandleSave();
     onHandleEdit();
   };
   return (
-    <>
-      <button
-        onClick={onHandleClick}
-        data-automation="clickButton"
-        className={`${styles["icon"]} ${classNames}`}
-        disabled={isLoading}
-      >
-        {isEditing ? (
-          <Icon icon={IconEnum.Save} />
-        ) : (
-          <Icon icon={IconEnum.Edit} />
-        )}
-      </button>
-    </>
+    <button
+      onClick={onHandleClick}
+      data-automation="clickButton"
+      className={`${styles["icon"]} ${classNames}`}
+      disabled={isLoading}
+    >
+      {isEditing ? (
+        <Icon icon={IconEnum.Save} />
+      ) : (
+        <Icon icon={IconEnum.Edit} />
+      )}
+    </button>
   );
 };
 
