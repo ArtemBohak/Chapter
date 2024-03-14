@@ -12,7 +12,7 @@ const useEditField = (
 ) => {
   const setErrorBoundary = useErrorBoundary();
   const [isEditing, setIsEditing] = useState(false);
-  const [value, setValue] = useState<string>(textValue || "");
+  const [value, setValue] = useState<string>(textValue?.trim() || "");
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -37,7 +37,7 @@ const useEditField = (
         if (value.length > stringLength) return setError("Too long");
 
         profile.userSave({
-          userStatus: value || null,
+          userStatus: value || " ",
         });
       }
 
