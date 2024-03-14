@@ -10,7 +10,7 @@
 
     &:hover + .button,
     &:hover + .icon {
-      @apply text-orange;
+      @apply text-primaryHover;
     }
 
     &:disabled + .button,
