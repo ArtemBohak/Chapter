@@ -10,6 +10,7 @@ const IconButton: FC<IconButtonProps> = ({
   onHandleEdit,
   onHandleSave,
   classNames,
+  isLoading,
 }) => {
   const onHandleClick = () => {
     if (isEditing) return onHandleSave && onHandleSave();
@@ -21,6 +22,7 @@ const IconButton: FC<IconButtonProps> = ({
         onClick={onHandleClick}
         data-automation="clickButton"
         className={`${styles["icon"]} ${classNames}`}
+        disabled={isLoading}
       >
         {isEditing ? (
           <Icon icon={IconEnum.Save} />

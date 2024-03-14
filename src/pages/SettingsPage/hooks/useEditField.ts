@@ -1,4 +1,11 @@
-import { ChangeEvent, RefObject, useEffect, useState } from "react";
+import {
+  ChangeEvent,
+  Dispatch,
+  RefObject,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 
 import { ProfileUpdateApi } from "../utils/ProfileUpdateApi";
 import { simpleStringRegex } from "@/src/utils";
@@ -7,6 +14,7 @@ import { AxiosError } from "axios";
 
 const useEditField = (
   fieldType: "fullName" | "status",
+  setIsLoading: Dispatch<SetStateAction<boolean>>,
   textValue?: string | null,
   nodeRef?: RefObject<HTMLTextAreaElement | HTMLInputElement>,
   stringLength = 500
@@ -33,7 +41,7 @@ const useEditField = (
 
   const onHandleSave = async () => {
     if (textValue && value !== textValue) {
-      const profile = new ProfileUpdateApi(undefined, setErrorBoundary);
+      const profile = new ProfileUpdateApi(setIsLoading, setErrorBoundary);
       if (fieldType === "status") {
         if (value.length > stringLength) return setError("Too long");
 
