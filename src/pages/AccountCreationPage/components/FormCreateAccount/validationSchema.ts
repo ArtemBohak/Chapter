@@ -8,7 +8,7 @@ import {
 } from "@/src/utils";
 
 export default Yup.object({
-  fullname: Yup.string()
+  fullName: Yup.string()
     .required("Please enter a valid name.")
     .min(5, "Full Name must be at least 5 characters long.")
     .max(80, "Full Name must be at least 5 characters long.")
