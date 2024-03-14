@@ -12,6 +12,7 @@ const UserStatus: FC<UserStatusProps> = ({ userStatus }) => {
   const {
     isEditing,
     value,
+    error,
     onHandleEdit,
     onHandleSave,
     onHandleChange,
@@ -35,6 +36,7 @@ const UserStatus: FC<UserStatusProps> = ({ userStatus }) => {
         onFocus={onHandleFocus}
         data-automation="userStoryTextArea"
       />
+      {error && <p className={styles["error"]}>{error}</p>}
     </>
   );
 };

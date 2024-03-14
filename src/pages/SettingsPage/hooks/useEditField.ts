@@ -7,11 +7,13 @@ import { useErrorBoundary } from "@/src/hooks";
 const useEditField = (
   fieldType: "fullName" | "status",
   textValue?: string | null,
-  nodeRef?: RefObject<HTMLTextAreaElement | HTMLInputElement>
+  nodeRef?: RefObject<HTMLTextAreaElement | HTMLInputElement>,
+  stringLength = 500
 ) => {
-  const setError = useErrorBoundary();
+  const setErrorBoundary = useErrorBoundary();
   const [isEditing, setIsEditing] = useState(false);
-  const [value, setValue] = useState<string | null>(textValue || null);
+  const [value, setValue] = useState<string>(textValue || "");
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (nodeRef && isEditing) {
@@ -19,26 +21,34 @@ const useEditField = (
     }
   }, [isEditing, nodeRef]);
 
+  useEffect(() => {
+    if (value && value.length > stringLength) {
+      return setError("Too long");
+    }
+    setError(null);
+  }, [stringLength, value]);
+
   const onHandleEdit = () => setIsEditing(true);
 
   const onHandleSave = async () => {
-    if (value) {
-      const profile = new ProfileUpdateApi(undefined, setError);
-      if (value !== textValue) {
-        if (fieldType === "status" && value)
-          profile.userSave({
-            userStatus: value?.trim(),
-          });
+    if (textValue && value !== textValue) {
+      const profile = new ProfileUpdateApi(undefined, setErrorBoundary);
+      if (fieldType === "status") {
+        if (value.length > stringLength) return setError("Too long");
 
-        if (fieldType === "fullName" && value) {
-          if (!simpleStringRegex.test(value)) return;
-          const [firstName, lastName] = value
-            .trim()
-            .split(" ")
-            .filter((el) => el);
+        profile.userSave({
+          userStatus: value || null,
+        });
+      }
 
-          if (firstName && lastName) profile.userSave({ firstName, lastName });
-        }
+      if (fieldType === "fullName" && value) {
+        if (!simpleStringRegex.test(value)) return;
+        const [firstName, lastName] = value
+          .trim()
+          .split(" ")
+          .filter((el) => el);
+
+        if (firstName && lastName) profile.userSave({ firstName, lastName });
       }
     }
     setIsEditing(false);
@@ -57,7 +67,7 @@ const useEditField = (
   return {
     isEditing,
     value,
-    nodeRef,
+    error,
     setIsEditing,
     onHandleEdit,
     onHandleSave,
