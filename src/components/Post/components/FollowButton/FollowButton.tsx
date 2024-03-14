@@ -23,9 +23,11 @@ const FollowButton: FC<FollowButtonProps> = ({
   const onHandleClick = async () => {
     try {
       setIsFollow(!isFollow);
-      await api.post(EndpointsEnum.FOLLOW_UNFOLLOW + `${id}`);
+      setTimeout(async () => {
+        await api.post(EndpointsEnum.FOLLOW_UNFOLLOW + `${id}`);
 
-      postsApi && postsApi();
+        postsApi && postsApi();
+      }, 1000);
     } catch (e) {
       if (e instanceof AxiosError) {
         setErrorBoundary(e);
