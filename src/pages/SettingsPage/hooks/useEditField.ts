@@ -3,6 +3,7 @@ import { ChangeEvent, RefObject, useEffect, useState } from "react";
 import { ProfileUpdateApi } from "../utils/ProfileUpdateApi";
 import { simpleStringRegex } from "@/src/utils";
 import { useErrorBoundary } from "@/src/hooks";
+import { AxiosError } from "axios";
 
 const useEditField = (
   fieldType: "fullName" | "status",
@@ -36,9 +37,13 @@ const useEditField = (
       if (fieldType === "status") {
         if (value.length > stringLength) return setError("Too long");
 
-        profile.userSave({
+        const res = await profile.userSave({
           userStatus: value || " ",
         });
+        if (res instanceof AxiosError) {
+          if (res.response && res.response.status > 400)
+            return setError("Incorrect text");
+        }
       }
 
       if (fieldType === "fullName" && value) {

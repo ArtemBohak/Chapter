@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { Formik, Form, FormikHelpers, FormikProps } from "formik";
+import { AxiosError } from "axios";
 
 import { INameForm, NameFormProps } from "./NameForm.type";
 import validationSchema from "./validationSchema";
@@ -18,19 +19,23 @@ const NameForm: FC<NameFormProps> = ({
 
   const onSubmit = async (
     values: INameForm,
-    helpers: FormikHelpers<INameForm>
+    { setErrors }: FormikHelpers<INameForm>
   ) => {
-    helpers;
     const [firstName, lastName] = values.fullName
       .trim()
       .split(" ")
       .filter((el) => el);
 
     if (firstName && lastName) {
-      new ProfileUpdateApi(undefined, setErrorBoundary).userSave({
+      const profile = new ProfileUpdateApi(undefined, setErrorBoundary);
+      const res = await profile.userSave({
         firstName,
         lastName,
       });
+      if (res instanceof AxiosError) {
+        if (res.response && res.response.status > 400)
+          return setErrors({ fullName: "Incorrect Full name" });
+      }
     }
 
     setIsEditing(false);
