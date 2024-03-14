@@ -10,7 +10,7 @@
 
     &:hover + .button,
     &:hover + .icon {
-      @apply shadow-[0_4px_15px_0_rgba(246,148,0,0.30)];
+      @apply text-orange;
     }
 
     &:disabled + .button,
@@ -25,7 +25,7 @@
 }
 
 .icon {
-  @apply bg-transparent transition-all duration-150;
+  @apply text-[#F79400] bg-transparent transition-all duration-150;
 }
 
 .error {

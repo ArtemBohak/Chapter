@@ -89,7 +89,7 @@ const Toast: FC<ToastProps> = ({
       >
         <Icon
           width={32}
-          hanging={32}
+          height={32}
           icon={IconEnum.TRASH}
           className={styles["button__icon"]}
         />
