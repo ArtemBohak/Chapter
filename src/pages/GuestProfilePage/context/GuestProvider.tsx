@@ -4,17 +4,18 @@ import { enemyData, guestProfileApi } from "../components";
 import { IGuestProviderProps } from "./GuestProvider.type";
 import { useNavigate, useParams } from "react-router-dom";
 import { EndpointsEnum, api } from "@/src/axios";
-import { links } from "@/src/types";
+
+import { useErrorBoundary } from "@/src/hooks";
 
 const GuestProvider: FC<IGuestProviderProps> = ({ children }) => {
   const { Id } = useParams();
-  const navigate = useNavigate();
   const [enemyData, setEnemyData] = useState<enemyData>();
   const [guestPostsList, setGuestPostsList] = useState([]);
+  const setErrorBoundary = useErrorBoundary();
+  const navigate = useNavigate();
 
   const fetchEnemyUserData = async () => {
-    const response = await guestProfileApi(Id);
-    if (response.statusCode === 404) return navigate(links.HOME);
+    const response = await guestProfileApi(Id, navigate, setErrorBoundary);
 
     setEnemyData(response.data);
   };
