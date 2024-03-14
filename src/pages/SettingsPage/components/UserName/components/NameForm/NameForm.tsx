@@ -18,44 +18,43 @@ const NameForm: FC<NameFormProps> = ({ classNames }) => {
     helpers;
   };
   return (
-    <div className={`${styles["wrapper"]} ${classNames}`}>
-      <Formik
-        initialValues={initialValues}
-        onSubmit={onSubmit}
-        validationSchema={validationSchema}
-      >
-        {({
-          isValid,
-          dirty,
-          isSubmitting,
-          values,
-          handleChange,
-        }: FormikProps<INameForm>) => (
-          <Form>
-            <TextField
-              id="fullName"
-              name="fullName"
-              value={values.fullName}
-              placeholder="Full name"
-              dataAutomation="fullNameField"
-              onChange={(e) => {
-                e.target.value = e.target.value.replace(emojiRegex, "");
-                handleChange(e);
-              }}
-            />
-            <UIbutton
-              type="submit"
-              dataAutomation="submitButton"
-              className={styles["button"]}
-              disabled={!isValid || !dirty}
-              isLoading={isSubmitting}
-            >
-              Apply
-            </UIbutton>
-          </Form>
-        )}
-      </Formik>
-    </div>
+    <Formik
+      initialValues={initialValues}
+      onSubmit={onSubmit}
+      validationSchema={validationSchema}
+    >
+      {({
+        isValid,
+        dirty,
+        isSubmitting,
+        values,
+        handleChange,
+      }: FormikProps<INameForm>) => (
+        <Form className={`${styles["form"]} ${classNames}`}>
+          <TextField
+            id="fullName"
+            name="fullName"
+            value={values.fullName}
+            placeholder="Full name"
+            dataAutomation="fullNameField"
+            className={styles["form__field"]}
+            onChange={(e) => {
+              e.target.value = e.target.value.replace(emojiRegex, "");
+              handleChange(e);
+            }}
+          />
+          <UIbutton
+            type="submit"
+            dataAutomation="submitButton"
+            className={styles["form__button"]}
+            disabled={!isValid || !dirty}
+            isLoading={isSubmitting}
+          >
+            Apply
+          </UIbutton>
+        </Form>
+      )}
+    </Formik>
   );
 };
 

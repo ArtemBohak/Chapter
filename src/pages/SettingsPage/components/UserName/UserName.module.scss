@@ -1,18 +1,14 @@
 .name {
-  @apply mb-1-sm md:mb-0 md:flex md:gap-[182px];
-  &.form-is-hide {
-    @apply flex gap-[82px];
+  @apply flex gap-[82px] md:gap-[182px];
+  &.form-is-shown {
+    @apply block mb-1-sm md:mb-0 md:flex md:gap-0 md:justify-between md:items-center;
   }
 
   &__title {
-    @apply text-grey-1000 font-semibold text-xs md:text-base;
+    @apply text-grey-1000 font-semibold text-xs md:text-base mb-1-xs md:mb-0;
   }
 
   &__text {
     @apply text-xs font-medium md:text-base;
-  }
-
-  &__input {
-    @apply outline-none w-full max-w-[120px] md:max-w-[214px] bg-transparent rounded-none border-b border-b-[#FFD18C] transition-all duration-100 text-xs md:text-base disabled:border-transparent disabled:text-black disabled:opacity-100;
   }
 }

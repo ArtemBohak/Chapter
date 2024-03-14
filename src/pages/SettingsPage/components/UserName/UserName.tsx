@@ -15,8 +15,9 @@ const UserName: FC<UserNameProps> = ({ firstName, lastName }) => {
   // const inputValue = value ? value : "";
 
   const fieldClassName = cn(styles["name"], {
-    [styles["form-is-hide"]]: !isEditing,
+    [styles["form-is-shown"]]: isEditing,
   });
+
   return (
     <>
       <IconButton
