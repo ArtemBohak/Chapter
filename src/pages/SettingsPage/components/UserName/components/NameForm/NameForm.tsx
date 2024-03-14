@@ -4,22 +4,40 @@ import { Formik, Form, FormikHelpers, FormikProps } from "formik";
 import { INameForm, NameFormProps } from "./NameForm.type";
 import validationSchema from "./validationSchema";
 import { emojiRegex } from "@/src/utils";
+import { useErrorBoundary } from "@/src/hooks";
+import { TextField, UIbutton } from "@/src/components";
+import { ProfileUpdateApi } from "@/src/pages/SettingsPage/utils/ProfileUpdateApi";
 import styles from "./NameForm.module.scss";
 
-import { TextField, UIbutton } from "@/src/components";
+const NameForm: FC<NameFormProps> = ({
+  classNames,
+  fullName,
+  setIsEditing,
+}) => {
+  const setErrorBoundary = useErrorBoundary();
 
-const initialValues: INameForm = {
-  fullName: "",
-};
-
-const NameForm: FC<NameFormProps> = ({ classNames }) => {
-  const onSubmit = (values: INameForm, helpers: FormikHelpers<INameForm>) => {
-    values;
+  const onSubmit = async (
+    values: INameForm,
+    helpers: FormikHelpers<INameForm>
+  ) => {
     helpers;
+    const [firstName, lastName] = values.fullName
+      .trim()
+      .split(" ")
+      .filter((el) => el);
+
+    if (firstName && lastName) {
+      new ProfileUpdateApi(undefined, setErrorBoundary).userSave({
+        firstName,
+        lastName,
+      });
+    }
+
+    setIsEditing(false);
   };
   return (
     <Formik
-      initialValues={initialValues}
+      initialValues={{ fullName }}
       onSubmit={onSubmit}
       validationSchema={validationSchema}
     >

@@ -1,4 +1,8 @@
+import { Dispatch, SetStateAction } from "react";
+
 export type NameFormProps = {
+  fullName: string;
+  setIsEditing: Dispatch<SetStateAction<boolean>>;
   classNames?: string;
 };
 

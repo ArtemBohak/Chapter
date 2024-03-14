@@ -10,9 +10,7 @@ import IconButton from "../IconButton/IconButton";
 import { NameForm } from "./components";
 
 const UserName: FC<UserNameProps> = ({ firstName, lastName }) => {
-  // const inputRef = useRef<HTMLInputElement>(null);
-  const { isEditing, onHandleEdit, onHandleSave } = useEditField("fullName");
-  // const inputValue = value ? value : "";
+  const { isEditing, setIsEditing } = useEditField("fullName");
 
   const fieldClassName = cn(styles["name"], {
     [styles["form-is-shown"]]: isEditing,
@@ -22,13 +20,16 @@ const UserName: FC<UserNameProps> = ({ firstName, lastName }) => {
     <>
       <IconButton
         isEditing={isEditing}
-        onHandleEdit={onHandleEdit}
-        onHandleSave={onHandleSave}
+        onHandleEdit={() => setIsEditing(true)}
+        onHandleSave={() => setIsEditing(false)}
       />
       <div className={fieldClassName}>
         <p className={styles["name__title"]}>Full Name</p>
         {isEditing ? (
-          <NameForm />
+          <NameForm
+            fullName={firstName + " " + lastName}
+            setIsEditing={setIsEditing}
+          />
         ) : (
           <p className={styles["name__text"]}>
             {firstName} {lastName}
@@ -40,15 +41,3 @@ const UserName: FC<UserNameProps> = ({ firstName, lastName }) => {
 };
 
 export default UserName;
-// <label className={styles["info"]}>
-//   <span className={styles["info__text"]}>Full Name</span>
-//   <input
-//     ref={inputRef}
-//     value={inputValue}
-//     onChange={onChange}
-//     className={styles["info__input"]}
-//     disabled={!isEditing}
-//     onFocus={onHandleFocus}
-//     data-automation="userNameInput"
-//   />
-// </label>;
