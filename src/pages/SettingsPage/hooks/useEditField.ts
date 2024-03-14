@@ -1,35 +1,60 @@
-import { ChangeEvent, RefObject, useEffect, useState } from "react";
+import {
+  ChangeEvent,
+  Dispatch,
+  RefObject,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 
 import { ProfileUpdateApi } from "../utils/ProfileUpdateApi";
 import { simpleStringRegex } from "@/src/utils";
 import { useErrorBoundary } from "@/src/hooks";
+import { AxiosError } from "axios";
 
 const useEditField = (
-  textValue: string | null,
-  nodeRef: RefObject<HTMLTextAreaElement | HTMLInputElement>,
-  userStatus: boolean
+  fieldType: "fullName" | "status",
+  textValue?: string | null,
+  setIsLoading?: Dispatch<SetStateAction<boolean>>,
+  nodeRef?: RefObject<HTMLTextAreaElement | HTMLInputElement>,
+  stringLength = 500
 ) => {
-  const setError = useErrorBoundary();
+  const setErrorBoundary = useErrorBoundary();
   const [isEditing, setIsEditing] = useState(false);
-  const [value, setValue] = useState<string | null>(textValue);
+  const [value, setValue] = useState<string>(textValue?.trim() || "");
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (isEditing) {
+    if (nodeRef && isEditing) {
       nodeRef.current?.focus();
     }
   }, [isEditing, nodeRef]);
 
+  useEffect(() => {
+    if (value && value.length > stringLength) return setError("Too long");
+
+    setError(null);
+  }, [stringLength, value]);
+
   const onHandleEdit = () => setIsEditing(true);
 
   const onHandleSave = async () => {
-    const profile = new ProfileUpdateApi(undefined, setError);
-    if (value !== textValue) {
-      if (userStatus && value)
-        profile.userSave({
-          userStatus: value?.trim(),
-        });
+    if (textValue && value !== textValue) {
+      const profile = new ProfileUpdateApi(setIsLoading, setErrorBoundary);
 
-      if (!userStatus && value) {
+      if (fieldType === "status") {
+        if (value.length > stringLength) return setError("Too long");
+
+        const res = await profile.userSave({
+          userStatus: value || " ",
+        });
+        if (res instanceof AxiosError) {
+          if (res.response && res.response.status > 400)
+            return setError("Incorrect text");
+        }
+      }
+
+      if (fieldType === "fullName" && value) {
         if (!simpleStringRegex.test(value)) return;
         const [firstName, lastName] = value
           .trim()
@@ -55,7 +80,8 @@ const useEditField = (
   return {
     isEditing,
     value,
-    nodeRef,
+    error,
+    setIsEditing,
     onHandleEdit,
     onHandleSave,
     onHandleChange,

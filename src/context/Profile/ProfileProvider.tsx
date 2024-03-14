@@ -39,19 +39,9 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
   }, [setErrorBoundary]);
 
   useEffect(() => {
-    const onConnect = () => {
-      setIsConnected(true);
-    };
-
-    const onError = (error: Error) => {
-      console.log(error);
-      socket.connect(isAuth);
-    };
-
-    const onDisconnect = () => {
-      setIsConnected(false);
-      socket.connect(isAuth);
-    };
+    const onConnect = () => setIsConnected(true);
+    const onError = (error: Error) => console.log(error);
+    const onDisconnect = () => setIsConnected(false);
 
     if (getTokenFromLC()) {
       socket.init(getTokenFromLC() + "");

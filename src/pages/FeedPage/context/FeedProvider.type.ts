@@ -11,4 +11,5 @@ export type FeedContextType = {
   page: number;
   setPage: Dispatch<SetStateAction<number>>;
   setPosts: Dispatch<SetStateAction<Array<PostRefType>>>;
+  postsApi: () => Promise<void>;
 };

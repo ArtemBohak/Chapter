@@ -45,10 +45,20 @@ api.interceptors.response.use(
     ) {
       error.config._isRetry = true;
       try {
+        /* 
+          The problem happens on the deploy when we try to refresh our token
+          since the url for this request becomes /api/v1auth/refresh and not /api/v1/auth/refresh
+          on the deploment because the env API_BASE_URL doesn't include the last "/" symbol.
+          However, we might change it and add "/" at the end of the env
+        */
+        let apiBaseUrl: string = import.meta.env.VITE_API_BASE_URL
+        if (apiBaseUrl[apiBaseUrl.length - 1] !== '/') {
+          apiBaseUrl += '/' 
+        }
         const {
           data: { token },
         }: AxiosResponse<RefreshTokenType> = await axios.post(
-          import.meta.env.VITE_API_BASE_URL + EndpointsEnum.REFRESH,
+          apiBaseUrl + EndpointsEnum.REFRESH,
           null,
           {
             withCredentials: true,
