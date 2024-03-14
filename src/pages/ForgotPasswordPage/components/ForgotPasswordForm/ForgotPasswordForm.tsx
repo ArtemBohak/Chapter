@@ -31,7 +31,7 @@ const ForgotPasswordForm: FC<ForgotPasswordProps> = ({
   const onHandleSubmit = async (values: IForgotPassword) => {
     const [id, email] = getCookies(keysValue.USER_ID, keysValue.EMAIL);
     const res = await ForgotPasswordApi(values, setError);
-    console.log(res);
+
     if (
       res.statusCode === apiErrorStatus.BAD_REQUEST &&
       res.message === apiErrorMessage.REQUESTS_IS_EXPIRED

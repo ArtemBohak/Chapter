@@ -75,7 +75,6 @@ const FormCreateAccount: FC = () => {
         .trim()
         .split(" ")
         .filter((el) => el);
-      console.log(firstName, lastName, firstName.length, lastName.length)
 
       const { nickName, confirm_password, password } = values;
 
