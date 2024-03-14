@@ -1,6 +1,6 @@
 export type IconButtonProps = {
   onHandleEdit: () => void;
-  onHandleSave: () => void;
+  onHandleSave?: () => void;
   isEditing: boolean;
   classNames?: string;
 };

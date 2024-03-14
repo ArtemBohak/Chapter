@@ -5,16 +5,16 @@ import { simpleStringRegex } from "@/src/utils";
 import { useErrorBoundary } from "@/src/hooks";
 
 const useEditField = (
-  textValue: string | null,
-  nodeRef: RefObject<HTMLTextAreaElement | HTMLInputElement>,
-  userStatus: boolean
+  fieldType: "fullName" | "status",
+  textValue?: string | null,
+  nodeRef?: RefObject<HTMLTextAreaElement | HTMLInputElement>
 ) => {
   const setError = useErrorBoundary();
   const [isEditing, setIsEditing] = useState(false);
-  const [value, setValue] = useState<string | null>(textValue);
+  const [value, setValue] = useState<string | null>(textValue || null);
 
   useEffect(() => {
-    if (isEditing) {
+    if (nodeRef && isEditing) {
       nodeRef.current?.focus();
     }
   }, [isEditing, nodeRef]);
@@ -22,21 +22,23 @@ const useEditField = (
   const onHandleEdit = () => setIsEditing(true);
 
   const onHandleSave = async () => {
-    const profile = new ProfileUpdateApi(undefined, setError);
-    if (value !== textValue) {
-      if (userStatus && value)
-        profile.userSave({
-          userStatus: value?.trim(),
-        });
+    if (value) {
+      const profile = new ProfileUpdateApi(undefined, setError);
+      if (value !== textValue) {
+        if (fieldType === "status" && value)
+          profile.userSave({
+            userStatus: value?.trim(),
+          });
 
-      if (!userStatus && value) {
-        if (!simpleStringRegex.test(value)) return;
-        const [firstName, lastName] = value
-          .trim()
-          .split(" ")
-          .filter((el) => el);
+        if (fieldType === "fullName" && value) {
+          if (!simpleStringRegex.test(value)) return;
+          const [firstName, lastName] = value
+            .trim()
+            .split(" ")
+            .filter((el) => el);
 
-        if (firstName && lastName) profile.userSave({ firstName, lastName });
+          if (firstName && lastName) profile.userSave({ firstName, lastName });
+        }
       }
     }
     setIsEditing(false);
@@ -56,6 +58,7 @@ const useEditField = (
     isEditing,
     value,
     nodeRef,
+    setIsEditing,
     onHandleEdit,
     onHandleSave,
     onHandleChange,

@@ -12,7 +12,7 @@ const IconButton: FC<IconButtonProps> = ({
   classNames,
 }) => {
   const onHandleClick = () => {
-    if (isEditing) return onHandleSave();
+    if (isEditing) return onHandleSave && onHandleSave();
     onHandleEdit();
   };
   return (
