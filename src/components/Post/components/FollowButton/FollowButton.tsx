@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { AxiosError } from "axios";
 
 import { FollowButtonProps } from "./FollowButton.type";
@@ -11,14 +11,21 @@ const FollowButton: FC<FollowButtonProps> = ({
   isSubscribeToAuthor,
   id,
   classNames,
+  postsApi,
 }) => {
   const [isFollow, setIsFollow] = useState(isSubscribeToAuthor);
   const setErrorBoundary = useErrorBoundary();
+
+  useEffect(() => {
+    setIsFollow(isSubscribeToAuthor);
+  }, [isSubscribeToAuthor]);
 
   const onHandleClick = async () => {
     try {
       setIsFollow(!isFollow);
       await api.post(EndpointsEnum.FOLLOW_UNFOLLOW + `${id}`);
+
+      postsApi && postsApi();
     } catch (e) {
       if (e instanceof AxiosError) {
         setErrorBoundary(e);
