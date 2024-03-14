@@ -20,6 +20,7 @@ import {
   ErrorBoundary,
   SearchPage,
   NotificationPage,
+  GuestPostPage,
 } from "@/src/pages";
 import { PublicLayout, ProfileLayout } from "@/src/layouts";
 
@@ -105,6 +106,7 @@ const router = createBrowserRouter([
       { path: links.PROFILE, element: <ProfilePage /> },
       { path: links.GUEST_PROFILE, element: <GuestProfilePage /> },
       { path: links.GUEST_BOOKS, element: <GuestBooksPage /> },
+      { path: links.GUEST_POST, element: <GuestPostPage /> },
       { path: "/ui-page", element: <UIPage /> },
     ],
   },

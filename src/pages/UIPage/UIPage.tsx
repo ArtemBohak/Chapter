@@ -12,7 +12,7 @@ const UIPage: FC = () => {
     <div className="pt-[130px] pb-[100px]">
       <ul className="flex gap-3 justify-center flex-wrap  p-2 text-lg border-2 bg-gray-300">
         <li>
-          <Link to={links.WELCOME}>Welcome</Link>
+          <Link to={links.HOME}>Welcome</Link>
         </li>
         <li>
           <Link to={links.SIGN_UP}>Sign Up</Link>

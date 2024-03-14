@@ -1,18 +1,22 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { AxiosError } from "axios";
 import { Link } from "react-router-dom";
+import cn from "classnames";
 
 import { EndpointsEnum, api } from "@/src/axios";
 import { ToastProps } from "./Toast.type";
 import { genLink } from "./utils";
-import { useErrorBoundary } from "@/src/hooks";
+import { useErrorBoundary, useSwipe } from "@/src/hooks";
+
 import styles from "./Toast.module.scss";
 
+import { Icon, IconEnum } from "..";
 import defaultUserAvatar from "@/src/assets/SVG/default-user-avatar.svg";
 
 const Toast: FC<ToastProps> = ({
   data: {
     message,
+    postId,
     user: { id: userId, firstName, lastName, nickName, avatarUrl },
   },
   id,
@@ -22,7 +26,16 @@ const Toast: FC<ToastProps> = ({
   setNotifications,
   setIsLoading,
 }) => {
+  const [isShown, setIsShown] = useState(false);
   const setErrorBoundary = useErrorBoundary();
+
+  useSwipe({
+    leftSwipeCB: () => setIsShown(true),
+    rightSwipeCB: () => setIsShown(false),
+    enableSwipe: true,
+    enableSwipeOnScreen: 1025,
+    touchDistinction: 100,
+  });
 
   const onHandleClick = async () => {
     setIsLoading && setIsLoading(true);
@@ -37,26 +50,49 @@ const Toast: FC<ToastProps> = ({
       setIsLoading && setIsLoading(false);
     }
   };
+
+  const deleteBtnClassNames = cn(styles["button"], {
+    [styles["is-shown"]]: isShown,
+  });
   return (
-    <div className={`${styles["toast"]} ${classNames}`} ref={nodeRef}>
-      <Link to={genLink(message, userId)} className={styles["toast__user"]}>
-        <img
-          src={avatarUrl ? avatarUrl : defaultUserAvatar}
-          width={40}
-          height={40}
-        />
-        <span className={styles["user__text"]}>
-          <span>
-            {firstName} {lastName}
+    <div
+      className={`${styles["toast"]} ${classNames}`}
+      ref={nodeRef}
+      onMouseOver={() => setIsShown(true)}
+      onMouseOut={() => setIsShown(false)}
+    >
+      <div className={styles["wrapper"]}>
+        <Link to={`/${userId}`} className={styles["toast__user"]}>
+          <img
+            src={avatarUrl ? avatarUrl : defaultUserAvatar}
+            width={40}
+            height={40}
+          />
+          <span className={styles["user__text"]}>
+            <span>
+              {firstName} {lastName}
+            </span>
+            <span className={styles["user__nickname"]}>{nickName}</span>
           </span>
-          <span className={styles["user__nickname"]}>{nickName}</span>
-        </span>
-      </Link>
+        </Link>
+        <Link
+          className={`${styles["toast__message"]} ${messageClassNames}`}
+          to={genLink(userId, postId)}
+        >
+          {message}
+        </Link>
+      </div>
       <button
-        className={`${styles["toast__message"]} ${messageClassNames}`}
+        data-automation="clickButton"
+        className={deleteBtnClassNames}
         onClick={onHandleClick}
       >
-        {message}
+        <Icon
+          width={32}
+          hanging={32}
+          icon={IconEnum.TRASH}
+          className={styles["button__icon"]}
+        />
       </button>
     </div>
   );

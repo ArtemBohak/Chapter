@@ -1,7 +1,8 @@
-import { ITransitionArgs } from "../Animation/Animation.type";
+import { Dispatch, SetStateAction } from "react";
+import { IAnimationProps, ITransitionArgs } from "../Animation/Animation.type";
 
 export type ModalProps = {
-  setIsOpen: (isOpen: boolean) => void;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
   children: React.ReactNode;
   isOpen: boolean;
   transitionClassName?: ITransitionArgs;
@@ -14,4 +15,4 @@ export type ModalProps = {
   touchDistinction?: number;
   enableSwipeOnScreen?: number;
   enableSwipe?: boolean;
-};
+} & Pick<IAnimationProps, "mountOnEnter" | "unmountOnExit">;

@@ -1,5 +1,5 @@
 export enum links {
-  WELCOME = "/",
+  HOME = "/",
   AUTH = "/auth",
   SIGN_UP = "/auth/register",
   ACCOUNT_CREATION = "/auth/account-creation",
@@ -16,4 +16,5 @@ export enum links {
   SEARCH = "/search",
   GUEST_BOOKS = "/:id/books",
   NOTIFICATION = "/notifications",
+  GUEST_POST = "/post/:id",
 }

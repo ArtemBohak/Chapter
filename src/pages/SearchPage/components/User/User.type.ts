@@ -1,6 +1,6 @@
-export type UserProps = {
-  id: string | number;
-  nickName: string;
-  isSubscribed: boolean;
-  avatarUrl: string | null;
-};
+import { IUser } from "@/src/types";
+
+export type UserProps = Pick<
+  IUser,
+  "id" | "nickName" | "isSubscribed" | "avatarUrl"
+>;
