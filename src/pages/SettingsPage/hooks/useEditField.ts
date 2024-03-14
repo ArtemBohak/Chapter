@@ -14,8 +14,8 @@ import { AxiosError } from "axios";
 
 const useEditField = (
   fieldType: "fullName" | "status",
-  setIsLoading: Dispatch<SetStateAction<boolean>>,
   textValue?: string | null,
+  setIsLoading?: Dispatch<SetStateAction<boolean>>,
   nodeRef?: RefObject<HTMLTextAreaElement | HTMLInputElement>,
   stringLength = 500
 ) => {

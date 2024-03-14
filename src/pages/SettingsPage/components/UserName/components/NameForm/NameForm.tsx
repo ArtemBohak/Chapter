@@ -14,6 +14,7 @@ const NameForm: FC<NameFormProps> = ({
   classNames,
   fullName,
   setIsEditing,
+  setIsLoading,
 }) => {
   const setErrorBoundary = useErrorBoundary();
 
@@ -27,7 +28,7 @@ const NameForm: FC<NameFormProps> = ({
       .filter((el) => el);
 
     if (firstName && lastName) {
-      const profile = new ProfileUpdateApi(undefined, setErrorBoundary);
+      const profile = new ProfileUpdateApi(setIsLoading, setErrorBoundary);
       const res = await profile.userSave({
         firstName,
         lastName,
