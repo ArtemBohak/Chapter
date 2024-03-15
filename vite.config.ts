@@ -8,12 +8,7 @@ export default defineConfig({
   server: {
     https: true,
   },
-  plugins: [
-    react(),
-    mkcert(),
-    viteCompression({ algorithm: "brotliCompress", deleteOriginFile: false }),
-    splitVendorChunkPlugin(),
-  ],
+  plugins: [react(), mkcert(), viteCompression(), splitVendorChunkPlugin()],
   build: { chunkSizeWarningLimit: 1000, sourcemap: true },
   css: { devSourcemap: true },
   resolve: {
