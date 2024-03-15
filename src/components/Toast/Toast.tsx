@@ -71,6 +71,7 @@ const Toast: FC<ToastProps> = ({
             src={avatarUrl ? avatarUrl : defaultUserAvatar}
             width={40}
             height={40}
+            alt="user avatar"
           />
           <span className={styles["user__text"]}>
             <span>
