@@ -63,6 +63,7 @@ const NameForm: FC<NameFormProps> = ({
             dataAutomation="fullNameField"
             className={styles["form__field"]}
             aria-label="Full name input field"
+            autoFocus
             onChange={(e) => {
               e.target.value = e.target.value.replace(emojiRegex, "");
               handleChange(e);
