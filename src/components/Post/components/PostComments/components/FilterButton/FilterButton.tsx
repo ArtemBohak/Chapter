@@ -52,6 +52,7 @@ const FilterButton: FC<FilterButtonProps> = ({
           ref={nodeRef}
           id="filter-btn"
           onClick={onHandleButtonClick}
+          aria-label="Comment filtration popup button"
         >
           {showAllComments ? filterValue.all : filterValue.latest}
           <Icon
@@ -71,6 +72,7 @@ const FilterButton: FC<FilterButtonProps> = ({
           <button
             data-automation="clickButton"
             onClick={onHandlePopupButtonClick}
+            aria-label="Comment filtration button"
           >
             {showAllComments ? filterValue.latest : filterValue.all}
           </button>

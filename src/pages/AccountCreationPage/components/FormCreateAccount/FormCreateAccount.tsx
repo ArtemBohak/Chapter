@@ -159,7 +159,7 @@ const FormCreateAccount: FC = () => {
               type="email"
               defaultValue={email}
               className="invisible"
-              aria-label="email"
+              aria-label="Email input field"
             />
             <TextField
               id="fullName"
@@ -169,6 +169,7 @@ const FormCreateAccount: FC = () => {
               placeholder="ex. John Brick, Dina O’neal, Jonathan... "
               dataAutomation="fullNameField"
               showSuccessIcon={true}
+              aria-label="Full name input field"
               onChange={(e) => {
                 e.target.value = e.target.value.replace(emojiRegex, "");
                 handleChange(e);
@@ -179,6 +180,7 @@ const FormCreateAccount: FC = () => {
               name="nickName"
               label="Nickname"
               value={nickname}
+              aria-label="Nickname input field"
               placeholder="@JaneSMTH"
               dataAutomation="nicknameField"
               showSuccessIcon={true}
@@ -189,6 +191,7 @@ const FormCreateAccount: FC = () => {
               id="password"
               name="password"
               label="Create password"
+              aria-label="Password input field"
               placeholder="Enter your password"
               strength
               dataAutomation="passwordField"
@@ -198,6 +201,7 @@ const FormCreateAccount: FC = () => {
               id="confirm_password"
               name="confirm_password"
               label="Confirm password"
+              aria-label="Confirm password input field"
               placeholder="Re-enter your password"
               dataAutomation="confirm_passwordField"
               onChange={(e) => onHandleChange(e, handleChange)}
@@ -209,6 +213,7 @@ const FormCreateAccount: FC = () => {
               className={styles["button"]}
               disabled={!isValid || !dirty || !!nkErrorMessage || nkIsLoading}
               isLoading={isSubmitting}
+              aria-label="Submit form button"
             >
               Save changes
             </UIbutton>

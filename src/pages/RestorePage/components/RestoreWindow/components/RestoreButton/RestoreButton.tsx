@@ -64,18 +64,17 @@ const RestoreButton: FC<RestoreButtonProps> = ({
     }
   };
   return (
-    <>
-      <UIbutton
-        isLoading={loading}
-        disabled={loading}
-        dataAutomation="clickButton"
-        onClick={onHandleClick}
-        fullWidth
-        className={`${styles["restore-btn"]} ${styles["button"]}`}
-      >
-        Recover account
-      </UIbutton>
-    </>
+    <UIbutton
+      isLoading={loading}
+      disabled={loading}
+      dataAutomation="clickButton"
+      onClick={onHandleClick}
+      fullWidth
+      className={`${styles["restore-btn"]} ${styles["button"]}`}
+      aria-label="Recover account button"
+    >
+      Recover account
+    </UIbutton>
   );
 };
 

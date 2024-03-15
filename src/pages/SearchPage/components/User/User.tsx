@@ -18,6 +18,7 @@ const User: FC<UserProps> = ({ id, nickName, isSubscribed, avatarUrl }) => {
         onMouseOut={() => setShowFullNickName(false)}
         onTouchStart={() => setShowFullNickName(true)}
         onTouchEnd={() => setShowFullNickName(false)}
+        aria-label="User profile nav link"
       >
         <img src={avatarUrl || defaultAvatar} width={52} height={52} />
         <span className={styles["nickname"]}>

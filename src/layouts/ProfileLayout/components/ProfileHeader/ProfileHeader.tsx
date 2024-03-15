@@ -68,6 +68,7 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
         <NavLink
           to={links.FEED}
           className={styles["profile-header__logo-name"]}
+          aria-label="Home nav link"
         >
           Chapter
         </NavLink>
@@ -80,6 +81,7 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
             dataAutomation="addPostButton"
             className={styles["add-post-button"]}
             disabled={headerAddPostBtnIsDisabled}
+            aria-label="Open create post modal button"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -118,6 +120,7 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
             dataAutomation="addPostButton"
             className="md:hidden"
             disabled={headerAddPostBtnIsDisabled}
+            aria-label="Open create post modal button"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -152,12 +155,14 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
         <>
           <button
             data-automation="clickButton"
+            aria-label="Open confirmation modal button"
             onClick={() => setShowLogOutMsg(true)}
           >
             Log out of profile
           </button>
           <button
             data-automation="clickButton"
+            aria-label="Open confirmation modal button"
             onClick={() => setShowDeleteAccMsg(true)}
           >
             Delete user account

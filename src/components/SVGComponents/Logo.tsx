@@ -11,7 +11,7 @@ import logo from "src/assets/SVG/logo.svg";
 const Logo: FC<LogoProps> = ({ className, alt }) => {
   return (
     <div className={cn("max-w-[120px]", className)}>
-      <NavLink to={links.HOME}>
+      <NavLink to={links.HOME} aria-label="Home page nav link">
         <img className="w-full" src={logo} alt={alt || "logo"} />
       </NavLink>
     </div>

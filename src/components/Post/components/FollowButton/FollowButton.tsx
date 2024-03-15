@@ -12,6 +12,7 @@ const FollowButton: FC<FollowButtonProps> = ({
   id,
   classNames,
   postsApi,
+  setPosts,
 }) => {
   const [isFollow, setIsFollow] = useState(isSubscribeToAuthor);
   const setErrorBoundary = useErrorBoundary();
@@ -23,8 +24,16 @@ const FollowButton: FC<FollowButtonProps> = ({
   const onHandleClick = async () => {
     try {
       setIsFollow(!isFollow);
+
+      setPosts &&
+        setPosts((posts) =>
+          posts.map((el) =>
+            el.author.id === id ? { ...el, isSubscribeToAuthor: !isFollow } : el
+          )
+        );
+
       setTimeout(async () => {
-        await api.post(EndpointsEnum.FOLLOW_UNFOLLOW + `${id}`);
+        await api.post(EndpointsEnum.FOLLOW_UNFOLLOW + id);
 
         postsApi && postsApi();
       }, 1000);
@@ -40,6 +49,7 @@ const FollowButton: FC<FollowButtonProps> = ({
       onHandleClick={onHandleClick}
       variant={btnVariant}
       className={classNames}
+      aria-label="Subscribe profile button"
     >
       {isFollow ? "Unfollow" : "Follow"}
     </PostButton>

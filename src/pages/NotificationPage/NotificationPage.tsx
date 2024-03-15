@@ -66,6 +66,7 @@ const NotificationPage: FC = () => {
             ref={btnRef}
             onClick={onHandleClick}
             className={styles["notifications__button"]}
+            aria-label="Delete all notifications button"
           >
             Delete all notifications
           </button>

@@ -45,6 +45,7 @@ const ImageField: FC<ImageFieldProps> = ({
         onChange={handleChange}
         accept="image/*"
         data-automation="uploadInput"
+        aria-label="Image upload field"
       />
       <span className={btnClassNames} data-automation="clickButton">
         {btnVariant === "button" ? (

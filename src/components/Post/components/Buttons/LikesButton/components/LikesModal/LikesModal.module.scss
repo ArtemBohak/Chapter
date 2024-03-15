@@ -13,11 +13,7 @@
     }
 
     &-close-button {
-      @apply bg-transparent md:text-[#FDFDFD] py-[16px] md:py-[10px] md:px-[10px] md:bg-[#ffc368] outline-none transition-shadow duration-100;
-
-      &:hover {
-        @apply md:shadow;
-      }
+      @apply bg-transparent md:text-[#FDFDFD] py-[16px] md:py-[10px] md:px-[10px] md:bg-[#ffc368] outline-none hover:text-primaryHover focus:text-primaryHover transition-all duration-150;
     }
 
     &-content {

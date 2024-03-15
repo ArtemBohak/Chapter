@@ -80,6 +80,7 @@ const UserPost: FC<UserPostProps> = ({ post, fetchUserPosts }) => {
           <UserNickName nickName={user.nickName} />
         </div>
         <button
+          aria-label="Show popup button"
           className={styles["button-more"]}
           onClick={() => setShowPopUp(!showPopUp)}
         >
@@ -97,11 +98,16 @@ const UserPost: FC<UserPostProps> = ({ post, fetchUserPosts }) => {
             nodeRef={ref}
           >
             <div className={styles["menu"]}>
-              <button data-automation="clickButton" onClick={() => {}}>
+              <button
+                data-automation="clickButton"
+                onClick={() => {}}
+                aria-label="Edit post button"
+              >
                 Edit post
               </button>
               <button
                 data-automation="clickButton"
+                aria-label="Delete post button"
                 onClick={() => setShowConfirmationWindow(true)}
               >
                 Delete post

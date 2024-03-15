@@ -9,7 +9,7 @@ import styles from "./Feeds.module.scss";
 import { Animation, Loader, Post, PostSkeleton } from "@/src/components";
 
 const Feeds: FC = () => {
-  const { posts, isLoad, setPage, setPosts, postsApi } = useFeedContext();
+  const { posts, isLoad, setPage, setPosts } = useFeedContext();
   const startLoaderRef = useRef(null);
 
   useRefIntersection(intersectionHandlerCB(setPage), startLoaderRef, {
@@ -39,12 +39,7 @@ const Feeds: FC = () => {
             timeout={300}
           >
             <li>
-              <Post
-                {...i}
-                setPosts={setPosts}
-                setPage={setPage}
-                postsApi={postsApi}
-              />
+              <Post {...i} setPosts={setPosts} setPage={setPage} />
             </li>
           </Animation>
         ))}

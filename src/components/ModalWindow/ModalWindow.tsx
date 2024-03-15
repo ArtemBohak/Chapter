@@ -32,6 +32,7 @@ const ModalWindow: FC<ModalWindowProps> = ({
         onClick={onClick}
         className={`${styles["button"]} ${styles["button--back"]}`}
         data-automation="clickButton"
+        aria-label="Close button"
       >
         <Icon icon={IconEnum.Back} size={32} />
       </button>
@@ -39,6 +40,7 @@ const ModalWindow: FC<ModalWindowProps> = ({
         onClick={onClick}
         className={`${styles["button"]} ${styles["button--cross"]}`}
         data-automation="clickButton"
+        aria-label="Close button"
       >
         <Icon icon={IconEnum.Cross} size={32} />
       </button>

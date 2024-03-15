@@ -14,6 +14,7 @@ const ProfileButtons: FC<ProfileButtonsProps> = ({ setIsOpen }) => {
         fullWidth={true}
         isCustomIcon
         dataAutomation="addPost"
+        aria-label="Add post open modal button"
       >
         Add post
       </UIbutton>
@@ -23,6 +24,7 @@ const ProfileButtons: FC<ProfileButtonsProps> = ({ setIsOpen }) => {
         href={links.SETTINGS}
         fullWidth={true}
         variant="outlined"
+        aria-label="Edit post open modal button"
         color="primary"
         dataAutomation="editProfile"
       >

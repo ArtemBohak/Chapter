@@ -49,12 +49,20 @@ const Comment: FC<CommentProps> = ({
         ref={nodeRef}
         data-value={nodeRef && pageValue ? pageValue : ""}
       />
-      <Link to={navId} className={styles["comment__image"]}>
+      <Link
+        to={navId}
+        className={styles["comment__image"]}
+        aria-label="User profile nav link"
+      >
         <img src={avatarUrl} alt="user avatar" width={44} height={44} />
       </Link>
       <div className={styles["comment__content"]}>
         <div className={styles["comment__data"]}>
-          <Link to={navId} className={styles["comment__user"]}>
+          <Link
+            to={navId}
+            className={styles["comment__user"]}
+            aria-label="User profile nav link"
+          >
             <h5>
               {firstName} {lastName}
             </h5>

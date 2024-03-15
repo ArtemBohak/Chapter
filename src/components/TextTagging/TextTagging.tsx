@@ -20,6 +20,7 @@ const TextTagging: FC<TextTaggingProps> = ({
 }) => {
   const textArray = text.split(" ");
   const userId = useAppSelector((state) => state.userSlice.user.id);
+
   const renderButton = (value: string) => {
     if (isNickNameCheckingPattern.test(value)) {
       const formattedValue = value.replace(replaceSymbolsPattern, "");

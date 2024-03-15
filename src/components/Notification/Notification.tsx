@@ -16,7 +16,12 @@ const Notification: FC<NotificationProps> = ({
     <ModalWindow isOpen={isOpen} setIsOpen={setIsOpen}>
       <p className={styles["modal-text"]}>{children}</p>
       <div className={styles["modal-btn"]}>
-        <UIbutton dataAutomation="clickButton" onClick={onClick} fullWidth>
+        <UIbutton
+          dataAutomation="clickButton"
+          onClick={onClick}
+          fullWidth
+          aria-label="Close button"
+        >
           {btnText}
         </UIbutton>
       </div>

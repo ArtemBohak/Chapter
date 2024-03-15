@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AxiosError, AxiosResponse } from "axios";
 
@@ -7,13 +7,12 @@ import { useErrorBoundary } from "@/src/hooks";
 import { PostType, links } from "@/src/types";
 import styles from "./GuestPostPage.module.scss";
 
-import { Animation, Post, PostSkeleton } from "@/src/components";
+import { Post, PostSkeleton } from "@/src/components";
 
 const GuestPostPage: FC = () => {
   const [post, setPost] = useState<PostType | null>(null);
 
   const setErrorBoundary = useErrorBoundary();
-  const nodeRef = useRef(null);
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -32,20 +31,14 @@ const GuestPostPage: FC = () => {
   }, [id, navigate, setErrorBoundary]);
 
   const renderPost = post ? (
-    <Post nodeRef={nodeRef} setPost={setPost} {...post} />
+    <Post setPost={setPost} {...post} />
   ) : (
-    <div ref={nodeRef}>
-      <PostSkeleton className={styles["skeleton"]} />
-    </div>
+    <PostSkeleton className={styles["skeleton"]} />
   );
 
   return (
     <section className={styles["post"]}>
-      <div className={styles["container"]}>
-        <Animation nodeRef={nodeRef} in={!!post}>
-          {renderPost}
-        </Animation>
-      </div>
+      <div className={styles["container"]}>{renderPost}</div>
     </section>
   );
 };

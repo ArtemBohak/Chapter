@@ -75,8 +75,9 @@ const TextAreaField: FC<TextAreaFieldProps> = ({
         onClick={onHandleIconClick}
         type="button"
         className={styles["text-area__icon-button"]}
+        aria-label='Emoji select button'
       >
-        <Icon icon={IconEnum.Smile} size={iconSize} removeInlineStyle />
+        <Icon icon={IconEnum.Smile} size={iconSize} />
       </button>
       {showPicker ? (
         <div className={`${styles["text-area__emoji"]} ${emojiClassNames}`}>

@@ -31,11 +31,12 @@ const UserStatus: FC<UserStatusProps> = ({ userStatus }) => {
       <textarea
         className={styles["status"]}
         ref={textareaRef}
-        value={value}
+        value={value.trim()}
         disabled={!isEditing}
         onChange={onHandleChange}
         onFocus={onHandleFocus}
         data-automation="userStoryTextArea"
+        aria-label="User status textarea field"
       />
       {error && <p className={styles["error"]}>{error}</p>}
     </>

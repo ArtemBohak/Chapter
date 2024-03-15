@@ -21,7 +21,7 @@ const useEditField = (
 ) => {
   const setErrorBoundary = useErrorBoundary();
   const [isEditing, setIsEditing] = useState(false);
-  const [value, setValue] = useState<string>(textValue?.trim() || "");
+  const [value, setValue] = useState<string>(textValue || "");
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -39,7 +39,7 @@ const useEditField = (
   const onHandleEdit = () => setIsEditing(true);
 
   const onHandleSave = async () => {
-    if (textValue && value !== textValue) {
+    if (textValue && textValue.trim() !== value.trim()) {
       const profile = new ProfileUpdateApi(setIsLoading, setErrorBoundary);
 
       if (fieldType === "status") {

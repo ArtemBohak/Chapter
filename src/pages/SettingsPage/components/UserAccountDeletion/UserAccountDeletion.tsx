@@ -25,6 +25,7 @@ const UserAccountDeletion: FC = () => {
         disabled={isLoading}
         className={styles["account-delete__button"]}
         data-automation="clickButton"
+        aria-label="Open delete account confirmation menu"
       >
         Delete
       </button>

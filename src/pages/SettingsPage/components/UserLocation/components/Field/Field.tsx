@@ -53,15 +53,17 @@ const Field: FC<FieldProps> = ({
         <input
           className={iconClassName}
           type="text"
-          name="country"
+          name="location"
           value={selectedValue}
           onChange={handleChangeValue}
           data-automation="locationInput"
+          aria-label="User location input field"
         />
         <button
           className={styles["arrow-btn"]}
           type="button"
           data-automation="clickButton"
+          aria-label="Select location menu open button"
           onClick={toggleMenu}
         >
           <span className={arrowClassNames}></span>

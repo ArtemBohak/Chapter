@@ -131,7 +131,11 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
         {recentSearchArr.map((el, i) => {
           return (
             <li key={i}>
-              <button onClick={onHandleRecentSearchClick} value={el}>
+              <button
+                onClick={onHandleRecentSearchClick}
+                value={el}
+                aria-label="Recent search text button"
+              >
                 {el}
               </button>
             </li>
@@ -153,6 +157,7 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
                   to={`/${el.id}`}
                   onClick={onHandleLinkClick}
                   className={styles["nickname"]}
+                  aria-label="User profile nav link"
                 >
                   <img
                     src={el.avatarUrl || defaultAvatar}
@@ -176,6 +181,7 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
           state={resultArr}
           className={styles["link"]}
           onClick={onHandleLinkClick}
+          aria-label="Search page nav link"
         >
           See more
         </Link>

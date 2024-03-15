@@ -30,6 +30,7 @@ const MenuToggler: FC<MenuTogglerProps> = ({
       dataAutomation="profiile-header-menu-toggler"
       onClick={handleClick}
       variant="text"
+      aria-label="Toggler button"
     >
       <Icon
         icon={activeState ? IconEnum.Cross : IconEnum.Menu}

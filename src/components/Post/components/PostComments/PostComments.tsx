@@ -92,6 +92,7 @@ const PostComments: FC<PostCommentsProps> = ({
             onClick={onHandleCommentsToggle}
             data-automation="clickButton"
             className={togglerBtnClassNames}
+            aria-label="Toggler comment button"
           >{`${
             commentsIsHide ? "Show all comments" : "Hide Comments"
           } (${commentsCount})`}</button>

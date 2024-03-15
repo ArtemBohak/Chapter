@@ -23,6 +23,7 @@ const Buttons: FC<ButtonsProps> = ({ currentView, changeView }) => {
         size="medium"
         color="secondary"
         dataAutomation="postsButton"
+        aria-label="Show user posts button"
       >
         Posts
       </UIbutton>
@@ -38,6 +39,7 @@ const Buttons: FC<ButtonsProps> = ({ currentView, changeView }) => {
         size="medium"
         color="secondary"
         dataAutomation="likedButton"
+        aria-label="Show liked posts button"
       >
         Liked
       </UIbutton>

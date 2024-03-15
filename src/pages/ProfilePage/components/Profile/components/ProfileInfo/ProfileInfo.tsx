@@ -6,19 +6,17 @@ import { useAppSelector } from "@/src/redux";
 import FollowModal from "../FollowModal/FollowModal";
 import FollowersModal from "../FollowersModal/FollowersModal";
 
-
-
 const ProfileInfo: FC = () => {
   const { user } = useAppSelector((state) => state.userSlice);
-  const [isFollowModalOpen, setIsFollowModalOpen] = useState(false)
-  const [isFollowersModalOpen, setIsFollowersModalOpen] = useState(false)
+  const [isFollowModalOpen, setIsFollowModalOpen] = useState(false);
+  const [isFollowersModalOpen, setIsFollowersModalOpen] = useState(false);
 
   const getFollowList = async () => {
-    setIsFollowModalOpen(!isFollowModalOpen)
-  }
+    setIsFollowModalOpen(!isFollowModalOpen);
+  };
   const getFollowersList = async () => {
-    setIsFollowersModalOpen(!isFollowModalOpen)
-  }
+    setIsFollowersModalOpen(!isFollowModalOpen);
+  };
 
   const {
     firstName,
@@ -49,18 +47,32 @@ const ProfileInfo: FC = () => {
             {location}
           </p>
           <div className={styles["profile-info__social-counters"]}>
-            <button className={styles["default-button"]} onClick={getFollowersList}>
+            <button
+              className={styles["default-button"]}
+              onClick={getFollowersList}
+              aria-label="Get followers list button"
+            >
               <span>{myFollowersCount || 0}</span> followers
             </button>
-            <button className={styles["default-button"]} onClick={getFollowList}>
+            <button
+              className={styles["default-button"]}
+              onClick={getFollowList}
+              aria-label="Get follow list button"
+            >
               <span>{myFollowingCount || 0}</span> following
             </button>
           </div>
         </div>
       </div>
       <p className={styles["profile-info__status"]}>{userStatus}</p>
-      <FollowersModal isFollowersModalOpen={isFollowersModalOpen} setIsFollowersModalOpen={setIsFollowersModalOpen}/>
-      <FollowModal isFollowModalOpen={isFollowModalOpen} setIsFollowModalOpen={setIsFollowModalOpen}/>
+      <FollowersModal
+        isFollowersModalOpen={isFollowersModalOpen}
+        setIsFollowersModalOpen={setIsFollowersModalOpen}
+      />
+      <FollowModal
+        isFollowModalOpen={isFollowModalOpen}
+        setIsFollowModalOpen={setIsFollowModalOpen}
+      />
     </>
   );
 };
