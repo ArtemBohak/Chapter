@@ -25,7 +25,11 @@ const CookiesToaster: FC = () => {
           to browse on this website, you agree to our use of cookies.
         </p>
 
-        <button onClick={cookieAccept} className={styles["info-block__accept"]}>
+        <button
+          onClick={cookieAccept}
+          className={styles["info-block__accept"]}
+          aria-label="Continue to website button"
+        >
           <p>Continue to website</p>
           <Icon width={20} height={20} icon={IconEnum.ArrowRight} />
         </button>

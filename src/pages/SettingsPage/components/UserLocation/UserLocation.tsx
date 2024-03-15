@@ -121,6 +121,7 @@ const UserLocation: FC = () => {
         isLoading={isLoading}
         disabled={buttonIsDisabled}
         type="submit"
+        aria-label="Submit form button"
       >
         Save changes
       </UIbutton>

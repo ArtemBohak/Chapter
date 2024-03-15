@@ -22,6 +22,7 @@ const IconButton: FC<IconButtonProps> = ({
       data-automation="clickButton"
       className={`${styles["icon"]} ${classNames}`}
       disabled={isLoading}
+      aria-label="Edit user data button"
     >
       {isEditing ? (
         <Icon icon={IconEnum.Save} />

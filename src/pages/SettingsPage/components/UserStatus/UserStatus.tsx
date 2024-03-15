@@ -36,6 +36,7 @@ const UserStatus: FC<UserStatusProps> = ({ userStatus }) => {
         onChange={onHandleChange}
         onFocus={onHandleFocus}
         data-automation="userStoryTextArea"
+        aria-label="User status textarea field"
       />
       {error && <p className={styles["error"]}>{error}</p>}
     </>

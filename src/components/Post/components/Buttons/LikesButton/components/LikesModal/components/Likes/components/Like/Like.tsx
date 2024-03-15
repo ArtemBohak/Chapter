@@ -18,7 +18,11 @@ const Like: FC<LikeProps> = ({
 
   return (
     <div className={styles["like-item"]}>
-      <Link className={styles["like-item__text-content"]} to={`/${userId}`}>
+      <Link
+        className={styles["like-item__text-content"]}
+        to={`/${userId}`}
+        aria-label="User profile nav link"
+      >
         <img src={avatar} alt="user avatar" width={32} height={32} />
         <p>
           <span>{firstName}</span> <span>{lastName}</span>
@@ -28,6 +32,7 @@ const Like: FC<LikeProps> = ({
         classNames={styles["like-item__button"]}
         id={userId}
         isSubscribeToAuthor={isSubscribed}
+        aria-label="Subscribe to profile button"
       />
     </div>
   );

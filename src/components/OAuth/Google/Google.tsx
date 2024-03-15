@@ -89,6 +89,7 @@ const Google: FC<SocialsProps> = ({
       disabled={isLoading}
       color={buttonColor}
       size={buttonSize}
+      aria-label="Google oAuth button"
     >
       <Icon icon={IconEnum.Google} size={iconSize} />
       <span>

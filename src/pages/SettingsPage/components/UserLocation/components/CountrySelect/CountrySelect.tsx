@@ -41,7 +41,11 @@ const CountrySelect: FC<CountrySelectProps> = ({
   }, [location, selectMenuIsOpen, selectedCountry]);
 
   return (
-    <span className={styles["location-form__label"]} ref={countryRef}>
+    <label
+      className={styles["location-form__label"]}
+      ref={countryRef}
+      aria-label="Select user country"
+    >
       <Field
         selectMenuIsOpen={selectMenuIsOpen}
         selectedValue={selectedCountry}
@@ -63,7 +67,7 @@ const CountrySelect: FC<CountrySelectProps> = ({
         setIcon={setIcon}
         {...props}
       />
-    </span>
+    </label>
   );
 };
 

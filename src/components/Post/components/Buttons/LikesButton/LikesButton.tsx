@@ -96,6 +96,7 @@ const LikesButton: FC<LikesButtonProps> = ({
         onClick={onHandleLikeClick}
         data-automation="clickButton"
         className={styles["icon-button"]}
+        aria-label="Post like button"
       >
         <Icon
           icon={IconEnum.Likes}
@@ -108,6 +109,7 @@ const LikesButton: FC<LikesButtonProps> = ({
         onClick={withoutModal ? onHandleLikeClick : onHandleModalOpenClick}
         data-automation="clickButton"
         className={styles["icon-button"]}
+        aria-label="Post like button"
         disabled={isLoading}
       >
         {likeCount ? likeCount : ""}{" "}

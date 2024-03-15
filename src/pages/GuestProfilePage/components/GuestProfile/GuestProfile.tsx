@@ -58,6 +58,7 @@ const GuestProfile: FC = () => {
           color="primary"
           dataAutomation="FollowButton"
           isLoading={subscribeIsLoading}
+          aria-label="Subscribe user profile button"
         >
           {enemyData?.isSubscribed ? "Unfollow" : "Follow"}
         </UIbutton>

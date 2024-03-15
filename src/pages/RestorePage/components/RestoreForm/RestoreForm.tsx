@@ -32,6 +32,7 @@ const RestoreForm: FC<RestoringFormProps> = ({
     <div className={styles["restore-form"]}>
       <button
         className={styles["restore-form__button"]}
+        aria-label="Nav back button"
         onClick={onHandleClick}
       >
         <Icon icon={IconEnum.Cross} size={32} />

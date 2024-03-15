@@ -98,6 +98,7 @@ const UserLikedPosts: FC = () => {
           <div key={post.postId} className={styles["user-post"]}>
             <div className="flex items-center justify-between gap-2 w-full">
               <Link
+                aria-label="User profile nav link"
                 className={styles["user-post__link"]}
                 to={post.author.id != undefined ? `/${post.author.id}` : ""}
               >
@@ -108,6 +109,7 @@ const UserLikedPosts: FC = () => {
                 variant={post.isSubscribeToAuthor ? "outlined" : "contained"}
                 dataAutomation={"subscribe-button"}
                 onClick={() => followApi(post.author.id)}
+                aria-label="Subscribe user button"
               >
                 {post.isSubscribeToAuthor ? "unfollow" : "follow"}
               </UIbutton>

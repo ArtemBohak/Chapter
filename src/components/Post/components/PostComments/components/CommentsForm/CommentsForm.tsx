@@ -120,6 +120,7 @@ const CommentsForm: FC<CommentsFormProps> = ({
                   classNames={styles["comments__field"]}
                   nickName={nickName}
                   handleNickname={handleNickname}
+                  aria-label="Caption textarea field"
                 />
                 <PostButton
                   type="submit"
@@ -127,6 +128,7 @@ const CommentsForm: FC<CommentsFormProps> = ({
                   isLoading={isSubmitting}
                   isDisabled={!isValid || !dirty || isSubmitting}
                   className={styles["comments__button"]}
+                  aria-label="Submit comment button"
                 >
                   Send
                 </PostButton>

@@ -92,6 +92,7 @@ const RestoreEmail: FC<RestoreEmailProps> = ({
               dataAutomation="hashInput"
               label="Confirmation code"
               value={values.hash}
+              aria-label="OTP field input"
             />
             <UIbutton
               className={`${styles["restore-email__form-button"]} ${styles["button"]}`}
@@ -100,6 +101,7 @@ const RestoreEmail: FC<RestoreEmailProps> = ({
               fullWidth
               isLoading={isSubmitting}
               disabled={isSubmitting || !isValid || !dirty}
+              aria-label="Submit form button button"
             >
               Confirm
             </UIbutton>
@@ -112,6 +114,7 @@ const RestoreEmail: FC<RestoreEmailProps> = ({
       <button
         onClick={onHandleCLick}
         className={styles["restore-email__resent-btn"]}
+        aria-label="Send OTP button"
       >
         Send the <span>code</span> again?
       </button>

@@ -124,6 +124,7 @@ const LoginPageForm: FC = () => {
               name="email"
               label="Your email"
               dataAutomation="emailInput"
+              aria-label="Email field input"
             />
             <PasswordField
               id="password"
@@ -134,6 +135,7 @@ const LoginPageForm: FC = () => {
                 text: "Forgot password?",
                 href: links.FORGOT_PASSWORD,
               }}
+              aria-label="Password field input"
             />
             <UIbutton
               type="submit"
@@ -142,6 +144,7 @@ const LoginPageForm: FC = () => {
               className={styles["button"]}
               disabled={!isValid || !dirty}
               isLoading={isSubmitting}
+              aria-label="Submit form button"
             >
               Log in
             </UIbutton>

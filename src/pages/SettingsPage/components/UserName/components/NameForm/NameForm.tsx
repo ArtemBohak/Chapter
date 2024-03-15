@@ -62,6 +62,7 @@ const NameForm: FC<NameFormProps> = ({
             placeholder="Full name"
             dataAutomation="fullNameField"
             className={styles["form__field"]}
+            aria-label="Full name input field"
             onChange={(e) => {
               e.target.value = e.target.value.replace(emojiRegex, "");
               handleChange(e);
@@ -73,6 +74,7 @@ const NameForm: FC<NameFormProps> = ({
             className={styles["form__button"]}
             disabled={!isValid || !dirty}
             isLoading={isSubmitting}
+            aria-label="Submit form button"
           >
             Apply
           </UIbutton>

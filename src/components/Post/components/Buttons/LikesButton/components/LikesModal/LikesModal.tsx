@@ -50,6 +50,7 @@ const LikesModal: FC<LikesModalProps> = ({
           onClick={onHandleClick}
           className={styles["modal__body-close-button"]}
           data-automation="clickButton"
+          aria-label="Close menu button"
         >
           <Icon icon={icon} size={isMobScreen ? 26 : 32} />
         </button>

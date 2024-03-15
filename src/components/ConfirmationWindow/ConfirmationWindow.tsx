@@ -27,6 +27,7 @@ const ConfirmationWindow: FC<ConfirmationWindowProps> = ({
           dataAutomation="clickButton"
           disabled={isLoading}
           onClick={() => setIsOpen(false)}
+          aria-label="Confirmation button"
         >
           {deniedText}
         </UIbutton>
@@ -34,6 +35,7 @@ const ConfirmationWindow: FC<ConfirmationWindowProps> = ({
           dataAutomation="clickButton"
           disabled={isLoading}
           onClick={fetch}
+          aria-label="Confirmation button"
         >
           {confirmText}
         </UIbutton>

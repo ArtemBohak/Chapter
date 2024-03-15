@@ -62,7 +62,11 @@ const Toast: FC<ToastProps> = ({
       onMouseOut={() => setIsShown(false)}
     >
       <div className={styles["wrapper"]}>
-        <Link to={`/${userId}`} className={styles["toast__user"]}>
+        <Link
+          to={`/${userId}`}
+          className={styles["toast__user"]}
+          aria-label="User profile nav link"
+        >
           <img
             src={avatarUrl ? avatarUrl : defaultUserAvatar}
             width={40}
@@ -78,6 +82,7 @@ const Toast: FC<ToastProps> = ({
         <Link
           className={`${styles["toast__message"]} ${messageClassNames}`}
           to={genLink(userId, postId)}
+          aria-label="User profile or post nav link"
         >
           {message}
         </Link>
@@ -86,6 +91,7 @@ const Toast: FC<ToastProps> = ({
         data-automation="clickButton"
         className={deleteBtnClassNames}
         onClick={onHandleClick}
+        aria-label="Delete notification button"
       >
         <Icon
           width={32}

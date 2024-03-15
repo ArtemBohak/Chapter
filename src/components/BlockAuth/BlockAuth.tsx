@@ -26,7 +26,9 @@ const BlockAuth: FC<BlockAuthProps> = ({
               By clicking {typePageText ? `"${typePageText}"` : null} above, you
               acknowledged that you have read and understood, and agree to
               Chapter's {""}
-              <a href="/">Terms & Conditions and Privacy Policy.</a>
+              <a href="/" aria-label="Terms and conditions link">
+                Terms & Conditions and Privacy Policy.
+              </a>
             </p>
           </div>
         ) : null}

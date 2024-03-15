@@ -49,6 +49,7 @@ const FollowButton: FC<FollowButtonProps> = ({
       onHandleClick={onHandleClick}
       variant={btnVariant}
       className={classNames}
+      aria-label="Subscribe profile button"
     >
       {isFollow ? "Unfollow" : "Follow"}
     </PostButton>

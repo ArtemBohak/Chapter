@@ -99,6 +99,7 @@ const PostPreview: FC<PostPreviewProps> = ({
           dataAutomation="clickButton"
           fullWidth
           variant="outlined"
+          aria-label="Back to previous page button"
         >
           Back
         </UIbutton>
@@ -107,6 +108,7 @@ const PostPreview: FC<PostPreviewProps> = ({
           isLoading={isLoading}
           onClick={onHandlePublishClick}
           dataAutomation="clickButton"
+          aria-label="Publish post button"
           fullWidth
         >
           Publish

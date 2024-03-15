@@ -19,6 +19,7 @@ const WelcomePagePanel: FC = () => {
             fullWidth
             dataAutomation="navigationButton"
             href={links.SIGN_UP}
+            aria-label="Sign up nav link"
           >
             Sign up
           </UIbutton>
@@ -28,6 +29,7 @@ const WelcomePagePanel: FC = () => {
             dataAutomation="navigationButton"
             variant="outlined"
             href={links.LOG_IN}
+            aria-label="Log in nav link"
           >
             Log in
           </UIbutton>

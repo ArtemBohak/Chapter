@@ -28,6 +28,7 @@ const ErrorBoundary: FC = () => {
                 fullWidth
                 onClick={() => navigate(links.HOME)}
                 className={`${styles["error__button"]} ${styles["button"]}`}
+                aria-label="Home page nav button"
               >
                 Go to home page
               </UIbutton>

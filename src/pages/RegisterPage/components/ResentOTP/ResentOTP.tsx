@@ -45,6 +45,7 @@ const ResentOTP: FC<ResentOTPProps> = ({ email }) => {
           onClick={onHandleClick}
           disabled={isLoading}
           className={styles["resent__button"]}
+          aria-label="Resent OTP button"
         >
           Click here.
         </button>
@@ -55,7 +56,6 @@ const ResentOTP: FC<ResentOTPProps> = ({ email }) => {
           Try again tomorrow.
         </>
       </Notification>
-
       <Loader isShown={isLoading} />
     </div>
   );

@@ -50,6 +50,7 @@ const DeleteButton: FC<DeleteButtonProps> = ({
         data-automation="clickButton"
         className={styles["icon-button"]}
         disabled={isLoading}
+        aria-label="Delete comment button"
       >
         <Icon
           id="delete-icon"

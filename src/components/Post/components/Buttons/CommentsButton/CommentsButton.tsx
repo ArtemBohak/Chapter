@@ -33,6 +33,7 @@ const CommentsButton: FC<CommentsButtonProps> = ({
       onClick={onHandleClick}
       data-automation="clickButton"
       className={styles["icon-button"]}
+      aria-label="Add comment button"
     >
       <Icon
         icon={IconEnum.Comments}

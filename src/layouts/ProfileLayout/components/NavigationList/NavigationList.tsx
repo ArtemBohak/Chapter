@@ -46,6 +46,7 @@ const NavigationList: FC<NavigationListProps> = ({
           <li key={navItem.id} className="navigation-list__item">
             <NavLink
               to={navItem.path}
+              aria-label="Menu nav link"
               className={cn("navigation-list__link", {
                 "current-page": navItem.path === location.pathname,
                 "unread-message":
@@ -68,6 +69,7 @@ const NavigationList: FC<NavigationListProps> = ({
                 setConfirmModalIsShown(true);
               }}
               className="navigation-list__link navigation-list__button"
+              aria-label="Open modal button"
             >
               <Icon
                 icon={IconEnum.SignOut}

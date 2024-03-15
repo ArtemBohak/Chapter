@@ -47,7 +47,11 @@ const StateSelect: FC<StateSelectProps> = ({
       unmountOnExit
       classNames={transitionClassNames}
     >
-      <label ref={stateRef} className={styles["location-form__label"]}>
+      <label
+        ref={stateRef}
+        className={styles["location-form__label"]}
+        aria-label="Select user region"
+      >
         <Field
           selectMenuIsOpen={selectMenuIsOpen}
           selectedValue={selectedRegion}

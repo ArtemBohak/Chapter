@@ -20,6 +20,7 @@ const GuestProfilePage: FC = () => {
                 size="medium"
                 color="secondary"
                 dataAutomation="postsButton"
+                aria-label="Show posts button"
               >
                 Posts
               </UIbutton>

@@ -25,6 +25,7 @@ const ErrorPage: FC = () => {
               onClick={() => navigate(links.HOME)}
               dataAutomation="navigationButton"
               className={`${styles["error__button"]} ${styles["button"]}`}
+              aria-label="Home page nav button"
             >
               Go to home page
             </UIbutton>

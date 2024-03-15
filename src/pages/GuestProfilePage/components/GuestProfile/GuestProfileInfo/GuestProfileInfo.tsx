@@ -1,17 +1,15 @@
 import { FC } from "react";
 import styles from "./GuestProfileInfo.module.scss";
-import {
-  Icon,
-  IconEnum,
-  UIbutton,
-  UserAvatar,
-} from "@/src/components";
+import { Icon, IconEnum, UIbutton, UserAvatar } from "@/src/components";
 import { guestProfileProps } from "./GuestProfile.type";
 import defaultUserAvatar from "@/src/assets/SVG/default-user-avatar.svg";
 import { useGuestContext } from "../../../context";
 
-const GuestProfileInfo: FC<guestProfileProps> = ({ subscribe, subscribeIsLoading }) => {
-  const { enemyData } = useGuestContext()
+const GuestProfileInfo: FC<guestProfileProps> = ({
+  subscribe,
+  subscribeIsLoading,
+}) => {
+  const { enemyData } = useGuestContext();
   return (
     <>
       <div className={styles["profile-info"]}>
@@ -25,7 +23,9 @@ const GuestProfileInfo: FC<guestProfileProps> = ({ subscribe, subscribeIsLoading
             <h4 className={styles["profile-info__fulname"]}>
               {enemyData?.firstName} {enemyData?.lastName}
             </h4>
-            <p className={styles["profile-info__nickname"]}>{enemyData?.nickName}</p>
+            <p className={styles["profile-info__nickname"]}>
+              {enemyData?.nickName}
+            </p>
             <p className={styles["profile-info__address"]}>
               <Icon width={20} icon={IconEnum.Location} />
               {enemyData?.location}
@@ -50,6 +50,7 @@ const GuestProfileInfo: FC<guestProfileProps> = ({ subscribe, subscribeIsLoading
           color="primary"
           dataAutomation="FollowButton"
           isLoading={subscribeIsLoading}
+          aria-label="Subscribe user profile button"
         >
           {enemyData?.isSubscribed ? "Unfollow" : "Follow"}
         </UIbutton>

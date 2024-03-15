@@ -1,26 +1,29 @@
-import { Modal, UIbutton } from '@/src/components'
-import { FC, useEffect, useRef, useState } from 'react'
-import styles from './FollowersModal.module.scss'
-import { followersData, followersModalProps } from './FollowersModal.type'
-import { CloseButton } from '@/src/components/BookShelf/Book/IconButtons'
-import followersModalApi from './FollowersModalApi'
-import { useDispatch } from 'react-redux'
+import { Modal, UIbutton } from "@/src/components";
+import { FC, useEffect, useRef, useState } from "react";
+import styles from "./FollowersModal.module.scss";
+import { followersData, followersModalProps } from "./FollowersModal.type";
+import { CloseButton } from "@/src/components/BookShelf/Book/IconButtons";
+import followersModalApi from "./FollowersModalApi";
+import { useDispatch } from "react-redux";
 import defaultAvatar from "@/src/assets/SVG/default-user-avatar.svg";
-import { EndpointsEnum, api, followApi } from '@/src/axios'
-import { updateUser, useAppSelector } from '@/src/redux'
-import FollowerItem from './FollowerItem/FollowerItem'
+import { EndpointsEnum, api, followApi } from "@/src/axios";
+import { updateUser, useAppSelector } from "@/src/redux";
+import FollowerItem from "./FollowerItem/FollowerItem";
 
-const FollowersModal: FC<followersModalProps> = ({ isFollowersModalOpen, setIsFollowersModalOpen }) => {
+const FollowersModal: FC<followersModalProps> = ({
+  isFollowersModalOpen,
+  setIsFollowersModalOpen,
+}) => {
   const { user } = useAppSelector((state) => state.userSlice);
-  const [followersList, setFollowersList] = useState<followersData[] | []>([])
+  const [followersList, setFollowersList] = useState<followersData[] | []>([]);
   const [loadingStates, setLoadingStates] = useState([{}]);
   const [fetching, setFetching] = useState(false);
-  const [total, setTotal] = useState(0)
-  const dispatch = useDispatch()
+  const [total, setTotal] = useState(0);
+  const dispatch = useDispatch();
 
-  console.log(user.myFollowersCount)
+  console.log(user.myFollowersCount);
 
-  const followListViewport = useRef<HTMLUListElement | null>(null)
+  const followListViewport = useRef<HTMLUListElement | null>(null);
 
   const scrollHandler = () => {
     const scrollContainer = followListViewport.current;
@@ -31,19 +34,18 @@ const FollowersModal: FC<followersModalProps> = ({ isFollowersModalOpen, setIsFo
       const { scrollTop, scrollHeight, clientHeight } = scrollContainer;
 
       if (scrollHeight - (scrollTop + clientHeight) <= 20) {
+        setFetching(true);
 
-        setFetching(true)
-
-        getFollowList(nextPage).catch((error) => {
-          console.log(error)
-        }).finally(() => {
-          setFetching(false);
-        })
+        getFollowList(nextPage)
+          .catch((error) => {
+            console.log(error);
+          })
+          .finally(() => {
+            setFetching(false);
+          });
       }
     }
   };
-
-
 
   // const followingList = async () => {
   //   const { data } = await followModalApi(1);
@@ -54,12 +56,12 @@ const FollowersModal: FC<followersModalProps> = ({ isFollowersModalOpen, setIsFo
   // };
 
   const getFollowList = async (page: number) => {
-    const { data } = await followersModalApi(page)
-    console.log(data.myFollowers)
-    setTotal(data.total)
-    setFollowersList([...followersList, ...data.myFollowers])
+    const { data } = await followersModalApi(page);
+    console.log(data.myFollowers);
+    setTotal(data.total);
+    setFollowersList([...followersList, ...data.myFollowers]);
     return data.myFollowers;
-  }
+  };
 
   const unsubscribe = async (id: number) => {
     try {
@@ -68,9 +70,9 @@ const FollowersModal: FC<followersModalProps> = ({ isFollowersModalOpen, setIsFo
       const { data } = await followersModalApi(1);
       setFollowersList(data.myFollowers);
       const response = await api.get(EndpointsEnum.PROFILE);
-      dispatch(updateUser(response.data))
+      dispatch(updateUser(response.data));
     } catch (error) {
-      console.log(error)
+      console.log(error);
     } finally {
       setLoadingStates((prevStates) => ({ ...prevStates, [id]: false }));
     }
@@ -90,31 +92,52 @@ const FollowersModal: FC<followersModalProps> = ({ isFollowersModalOpen, setIsFo
       backdropClassName={styles["follow-modal__backdrop"]}
       transitionTimeOut={200}
       disableScroll
-      portal  >
+      portal
+    >
       <div className={styles["follow-modal__wrapper"]}>
         <div className={styles["follow-modal__header"]}>
-          <p className='font-bold'>Followers</p>
-          <CloseButton className={styles["follow-modal__close-button"]} setIsOpen={setIsFollowersModalOpen} />
+          <p className="font-bold">Followers</p>
+          <CloseButton
+            className={styles["follow-modal__close-button"]}
+            setIsOpen={setIsFollowersModalOpen}
+          />
         </div>
-        <ul ref={followListViewport} onScroll={scrollHandler} className={styles["follow-list"]}>
-
-          {followersList.length > 0 ? followersList.map((follower) => (
-            <FollowerItem follower={follower} loadingStates={loadingStates} unsubscribe={unsubscribe} />
-          ))
-            :
-            [...Array(user.myFollowersCount)].map((_, i) => (
-              <li className={styles["follow-list__person"]} key={i}>
-                <div className={styles["follow-list__info"]}>
-                  <img className={styles["follow-list__avatar"]} src={defaultAvatar} alt="" />
-                  <p>User Name</p>
-                </div>
-                <UIbutton size='small' dataAutomation={'Unfollow-button'} >Unfollow</UIbutton>
-              </li>))
-          }
+        <ul
+          ref={followListViewport}
+          onScroll={scrollHandler}
+          className={styles["follow-list"]}
+        >
+          {followersList.length > 0
+            ? followersList.map((follower) => (
+                <FollowerItem
+                  follower={follower}
+                  loadingStates={loadingStates}
+                  unsubscribe={unsubscribe}
+                />
+              ))
+            : [...Array(user.myFollowersCount)].map((_, i) => (
+                <li className={styles["follow-list__person"]} key={i}>
+                  <div className={styles["follow-list__info"]}>
+                    <img
+                      className={styles["follow-list__avatar"]}
+                      src={defaultAvatar}
+                      alt=""
+                    />
+                    <p>User Name</p>
+                  </div>
+                  <UIbutton
+                    size="small"
+                    dataAutomation={"Unfollow-button"}
+                    aria-label="Unfollow button"
+                  >
+                    Unfollow
+                  </UIbutton>
+                </li>
+              ))}
         </ul>
       </div>
     </Modal>
-  )
-}
+  );
+};
 
-export default FollowersModal
+export default FollowersModal;
