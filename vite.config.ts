@@ -14,7 +14,8 @@ export default defineConfig({
     viteCompression({ algorithm: "brotliCompress", deleteOriginFile: false }),
     splitVendorChunkPlugin(),
   ],
-  build: { chunkSizeWarningLimit: 500 },
+  build: { chunkSizeWarningLimit: 1000, sourcemap: true },
+  css: { devSourcemap: true },
   resolve: {
     alias: [
       { find: "@", replacement: path.resolve(__dirname) },
