@@ -23,5 +23,5 @@
 }
 
 .skeleton {
-  @apply rounded-none md:rounded-lg h-[90vh];
+  @apply rounded-none md:rounded-lg h-[90vh] md:h-min;
 }
