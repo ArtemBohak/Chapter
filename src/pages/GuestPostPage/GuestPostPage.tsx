@@ -20,7 +20,7 @@ const GuestPostPage: FC = () => {
     id &&
       api
         .get(EndpointsEnum.GET_POST + id)
-        .then(({ data }: AxiosResponse<PostType[]>) => setPost(data[0]))
+        .then(({ data }: AxiosResponse<PostType>) => setPost(data))
         .catch((e) => {
           if (e instanceof AxiosError) {
             setErrorBoundary(e);
