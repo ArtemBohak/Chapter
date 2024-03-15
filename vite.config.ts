@@ -1,4 +1,4 @@
-import { defineConfig } from "vite";
+import { defineConfig, splitVendorChunkPlugin } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import mkcert from "vite-plugin-mkcert";
 import viteCompression from "vite-plugin-compression";
@@ -12,7 +12,9 @@ export default defineConfig({
     react(),
     mkcert(),
     viteCompression({ algorithm: "brotliCompress", deleteOriginFile: false }),
+    splitVendorChunkPlugin(),
   ],
+  build: { chunkSizeWarningLimit: 500 },
   resolve: {
     alias: [
       { find: "@", replacement: path.resolve(__dirname) },
