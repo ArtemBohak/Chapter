@@ -60,6 +60,7 @@ export type RefType = MutableRefObject<null> | RefObject<HTMLDivElement>;
 export type RefsType = {
   nodeRef?: RefType;
   pageValue?: number;
+  pageLoaderRef?: RefType;
 };
 
 export type PostType = IPost;

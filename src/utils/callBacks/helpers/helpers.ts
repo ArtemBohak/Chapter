@@ -13,6 +13,7 @@ export const postDataEdit = <T>(data: Array<T>, limit: number) => {
       return {
         ...el,
         nodeRef: createRef<HTMLDivElement>(),
+        pageLoaderRef: createRef<HTMLDivElement>(),
         pageValue: nextPage,
       };
 
@@ -20,6 +21,7 @@ export const postDataEdit = <T>(data: Array<T>, limit: number) => {
       return {
         ...el,
         nodeRef: createRef<HTMLDivElement>(),
+        pageLoaderRef: createRef<HTMLDivElement>(),
         pageValue: currentPage,
       };
 

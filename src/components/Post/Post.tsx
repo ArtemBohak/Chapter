@@ -22,22 +22,29 @@ import {
   PostDate,
 } from "@/src/components";
 
-const Post: FC<PostProps> = ({ nodeRef, pageValue, classNames, ...props }) => {
+const Post: FC<PostProps> = ({
+  nodeRef,
+  pageLoaderRef,
+  pageValue,
+  classNames,
+  ...props
+}) => {
   const [commentsIsHide, setCommentsIsHide] = useState(true);
   const userId = useAppSelector((state) => state.userSlice.user.id);
 
   const navId = props.author.id !== userId ? `/${props.author.id}` : "#";
 
-  useRefIntersection(intersectionHandlerCB(props.setPage), nodeRef, {
+  useRefIntersection(intersectionHandlerCB(props.setPage), pageLoaderRef, {
     thresholds: [1],
   });
 
   return (
-    <div
-      ref={nodeRef}
-      data-value={nodeRef && pageValue ? pageValue : ""}
-      className={`${styles["post"]} ${classNames}`}
-    >
+    <div ref={nodeRef} className={`${styles["post"]} ${classNames}`}>
+      <div
+        ref={pageLoaderRef}
+        data-value={pageLoaderRef && pageValue ? pageValue : ""}
+        className="hide-element"
+      />
       <div className={`${styles["wrapper"]} ${styles["wrapper__top"]}`}>
         <div className={styles["post__user"]}>
           <Link className={styles["user__content"]} to={navId}>
