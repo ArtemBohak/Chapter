@@ -23,5 +23,6 @@ export type PostProps = {
   setPosts?: Dispatch<SetStateAction<Array<PostRefType>>>;
   setPost?: Dispatch<SetStateAction<PostType | null>>;
   postsApi?: () => Promise<void>;
+  classNames?: string;
 } & PostType &
   RefsType;

@@ -22,7 +22,7 @@ import {
   PostDate,
 } from "@/src/components";
 
-const Post: FC<PostProps> = ({ nodeRef, pageValue, ...props }) => {
+const Post: FC<PostProps> = ({ nodeRef, pageValue, classNames, ...props }) => {
   const [commentsIsHide, setCommentsIsHide] = useState(true);
   const userId = useAppSelector((state) => state.userSlice.user.id);
 
@@ -36,7 +36,7 @@ const Post: FC<PostProps> = ({ nodeRef, pageValue, ...props }) => {
     <div
       ref={nodeRef}
       data-value={nodeRef && pageValue ? pageValue : ""}
-      className={styles["post"]}
+      className={`${styles["post"]} ${classNames}`}
     >
       <div className={`${styles["wrapper"]} ${styles["wrapper__top"]}`}>
         <div className={styles["post__user"]}>

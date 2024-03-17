@@ -1,5 +1,5 @@
-.post {
-  @apply relative  bg-cover  bg-fixed bg-center pt-[72px] md:pt-[108px] laptop:pt-[176px] bg-[url('src/assets/WEBP/backgroundPosts.webp')] min-h-screen;
+.post-section {
+  @apply relative pt-[72px] md:pt-[108px] laptop:pt-[176px] bg-cover bg-fixed bg-center bg-[url('src/assets/WEBP/backgroundPosts.webp')];
 }
 
 .container {
@@ -7,5 +7,9 @@
 }
 
 .skeleton {
-  @apply rounded-none md:rounded-lg;
+  @apply rounded-none md:rounded-lg pt-[72px] md:pt-[108px] laptop:pt-[176px];
+}
+
+.post {
+  @apply border-0;
 }
