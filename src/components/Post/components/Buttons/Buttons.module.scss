@@ -8,7 +8,7 @@
   }
 
   &__icon {
-    @apply stroke-[#6C6C6C] w-[16px] h-[16px] md:w-[24px] md:h-[24px] hover:stroke-primaryHover focus:stroke-primaryHover transition-all duration-150;
+    @apply stroke-[#6C6C6C] w-[16px] h-[16px] md:w-[24px] md:h-[24px];
 
     &.liked {
       @apply fill-[#D22219];
