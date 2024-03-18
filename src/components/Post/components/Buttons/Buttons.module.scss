@@ -1,5 +1,5 @@
 .icon-button {
-  @apply bg-transparent outline-none flex gap-0-sm items-center text-xxs md:text-base text-[#6C6C6C] transition-all duration-150 disabled:animate-pulse disabled:pointer-events-none;
+  @apply bg-transparent outline-none flex gap-0-sm items-center text-xxs md:text-base  transition-all duration-150 disabled:animate-pulse disabled:pointer-events-none text-grey-1000;
 
   &__text {
     &-hidden {
