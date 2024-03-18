@@ -52,10 +52,7 @@ const DeleteButton: FC<DeleteButtonProps> = ({
       >
         <Icon
           id="delete-icon"
-          // width={20}
-          // height={20}
           icon={IconEnum.TRASH}
-          // removeInlineStyle
           className={styles["icon-button__icon"]}
         />
         delete
