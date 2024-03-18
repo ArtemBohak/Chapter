@@ -4,7 +4,7 @@ import { AxiosError, AxiosResponse } from "axios";
 import { EndpointsEnum, api } from "@/src/axios";
 import { useAppSelector } from "@/src/redux";
 import { useErrorBoundary } from "@/src/hooks";
-import { postsCB } from "@/src/utils";
+import { deleteCommentCB, postsCB } from "@/src/utils";
 import { PostType } from "@/src/types";
 import { DeleteButtonProps } from "./DeleteButton.type";
 import styles from "../Buttons.module.scss";
@@ -31,9 +31,7 @@ const DeleteButton: FC<DeleteButtonProps> = ({
 
       setPosts && setPosts(postsCB<PostType>(data, "postId"));
       setPost && setPost(data);
-      setAllComments((comments) =>
-        comments.filter((comment) => comment.id !== commentId)
-      );
+      setAllComments(deleteCommentCB(commentId));
     } catch (e) {
       if (e instanceof AxiosError) {
         setErrorBoundary(e);
