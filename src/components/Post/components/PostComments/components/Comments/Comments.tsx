@@ -21,7 +21,7 @@ const Comments: FC<CommentsProps> = (props) => {
 
   useRefIntersection(intersectionHandlerCB(props.setPage), startLoaderRef, {
     commentsIsShow: props.showAllComments,
-    thresholds: [1],
+    threshold: 1,
   });
 
   const renderComments = (comments: Array<CommentType>, step: number) => {

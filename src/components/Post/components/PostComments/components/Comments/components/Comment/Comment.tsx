@@ -39,7 +39,7 @@ const Comment: FC<CommentProps> = ({
   const avatarUrl = avatar ? avatar : defaultAvatar;
 
   useRefIntersection(intersectionHandlerCB(setPage), pageLoaderRef, {
-    thresholds: [1],
+    threshold: 0.1,
   });
 
   return (
@@ -49,6 +49,7 @@ const Comment: FC<CommentProps> = ({
         ref={pageLoaderRef}
         data-value={pageLoaderRef && pageValue ? pageValue : ""}
       />
+
       <Link
         to={navId}
         className={styles["comment__image"]}

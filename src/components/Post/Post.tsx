@@ -35,7 +35,7 @@ const Post: FC<PostProps> = ({
   const navId = props.author.id !== userId ? `/${props.author.id}` : "#";
 
   useRefIntersection(intersectionHandlerCB(props.setPage), pageLoaderRef, {
-    thresholds: [1],
+    threshold: 1,
   });
 
   return (
