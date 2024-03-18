@@ -26,9 +26,20 @@ export const deleteCommentCB =
     const updatedComments: CommentRefType[] = [];
 
     for (const comment of comments) {
+      const subComments = [];
+      if (comment.comments) {
+        for (const subComment of comment.comments) {
+          if (subComment.id === commentId) continue;
+
+          subComments.push(subComment);
+        }
+      }
+
       if (comment.id === commentId) continue;
+
       updatedComments.push({
         ...comment,
+        comments: [...subComments],
         pageValue: undefined,
         pageLoaderRef: undefined,
       });
