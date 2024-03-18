@@ -1,14 +1,16 @@
 import { createRef } from "react";
+import { pageLimit } from "../..";
 
 export const dataFindIndex = <T>(array: Array<T>, obj: T, key: keyof T) =>
   array.findIndex((el) => el[key] === obj[key]);
 
 export const postDataEdit = <T>(data: Array<T>, limit: number) =>
   data.map((el, i) => {
+    const repeatValue = limit === pageLimit ? 5 : 10;
     const nextPage = Math.round(data.length / limit) + 1;
     const currentPage = Math.floor(i / limit) + 1;
 
-    if (i === data.length - 1 && data.length % limit === 0)
+    if (i === data.length - 1 && !(data.length % limit))
       return {
         ...el,
         nodeRef: createRef<HTMLDivElement>(),
@@ -16,7 +18,7 @@ export const postDataEdit = <T>(data: Array<T>, limit: number) =>
         pageValue: nextPage,
       };
 
-    if (!(i % 5))
+    if (!(i % repeatValue))
       return {
         ...el,
         nodeRef: createRef<HTMLDivElement>(),
