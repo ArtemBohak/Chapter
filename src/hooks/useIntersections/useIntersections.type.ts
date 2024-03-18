@@ -1,7 +1,7 @@
 export type OptionsType = {
   commentsIsShow?: boolean;
   postsIsLoad?: boolean;
-} & Partial<IntersectionObserver>;
+} & Partial<IntersectionObserverInit>;
 
 export type HandlerType = (
   entry: IntersectionObserverEntry,

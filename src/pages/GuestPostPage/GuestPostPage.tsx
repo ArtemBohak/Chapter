@@ -31,13 +31,13 @@ const GuestPostPage: FC = () => {
   }, [id, navigate, setErrorBoundary]);
 
   const renderPost = post ? (
-    <Post setPost={setPost} {...post} />
+    <Post setPost={setPost} {...post} classNames={styles["post"]} />
   ) : (
     <PostSkeleton className={styles["skeleton"]} />
   );
 
   return (
-    <section className={styles["post"]}>
+    <section className={styles["post-section"]}>
       <div className={styles["container"]}>{renderPost}</div>
     </section>
   );

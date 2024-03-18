@@ -4,7 +4,7 @@
   &__field {
     @apply mb-0-sm md:mb-0 md:w-full;
     & input {
-      @apply md:h-[48px];
+      @apply md:h-[48px] bg-transparent;
     }
   }
 

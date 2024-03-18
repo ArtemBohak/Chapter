@@ -14,7 +14,7 @@ const Feeds: FC = () => {
 
   useRefIntersection(intersectionHandlerCB(setPage), startLoaderRef, {
     postsIsLoad: isLoad,
-    thresholds: [1],
+    threshold: 1,
   });
 
   const transitionClassNames = {
