@@ -9,6 +9,7 @@ export const postDataEdit = <T>(data: Array<T>, limit: number) => {
     const endIndex = limit === pageLimit ? 1 : 5;
     const nextPage = Math.round(data.length / limit) + 1;
     const currentPage = Math.floor(i / limit) + 1;
+
     if (i === data.length - 1 && !(data.length % limit))
       return {
         ...el,

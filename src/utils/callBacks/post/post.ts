@@ -10,18 +10,13 @@ export const postsCB =
       for (const postApiData of postsApiData) {
         index = dataFindIndex<T>(postsC, postApiData, key as keyof T);
 
-        if (index !== -1) {
-          postsC[index] = { ...postsC[index], ...postApiData };
-        } else postsC = [...postsC, postApiData];
+        if (index !== -1) postsC[index] = { ...postsC[index], ...postApiData };
+        else postsC = [...postsC, postApiData];
       }
-
-      return postDataEdit<T>(postsC, pageLimit);
     } else {
       index = dataFindIndex<T>(postsC, postsApiData, key as keyof T);
 
-      if (index !== -1) {
-        postsC[index] = { ...postsC[index], ...postsApiData };
-      }
+      if (index !== -1) postsC[index] = { ...postsC[index], ...postsApiData };
     }
-    return postsC;
+    return postDataEdit<T>(postsC, pageLimit);
   };
