@@ -52,6 +52,7 @@ const UserPassword: FC = () => {
               autoComplete="current-password"
               additionalLabel={ErrorMessages.OLD_PASSWORD}
               label="Old password"
+              aria-label="Old password input field"
               value={values.oldPassword}
               className={`${styles["password__input"]} ${styles["input"]}`}
               onChange={(e) => {
@@ -70,6 +71,7 @@ const UserPassword: FC = () => {
               value={values.newPassword}
               className={`${styles["password__input"]} ${styles["input"]}`}
               strength
+              aria-label="New password input field"
               onChange={(e) => {
                 e.target.value = e.target.value.replace(emojiRegex, "");
                 handleChange(e);
@@ -82,6 +84,7 @@ const UserPassword: FC = () => {
               autoComplete="new-password"
               label="Repeat new password"
               value={values.repeatNewPassword}
+              aria-label="Repeat password input field"
               additionalLabel={ErrorMessages.CONFIRM_NEW_PASSWORD}
               className={`${styles["password__input"]} ${styles["input"]}`}
               onChange={(e) => {
@@ -96,6 +99,7 @@ const UserPassword: FC = () => {
               disabled={isSubmitting || !isValid || !dirty}
               fullWidth
               className={`${styles["password__button"]} ${styles["button"]}`}
+              aria-label="Submit form button"
             >
               Update my password
             </UIbutton>

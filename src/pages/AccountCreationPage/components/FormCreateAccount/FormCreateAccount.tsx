@@ -24,7 +24,7 @@ import UIbutton from "@/src/components/Buttons/UIbutton/UIbutton";
 import { TextField, PasswordField } from "@/src/components/Fields";
 
 const initialValues: IAccountCreate = {
-  fullname: "",
+  fullName: "",
   nickName: "",
   password: "",
   confirm_password: "",
@@ -33,7 +33,7 @@ const initialValues: IAccountCreate = {
 const FormCreateAccount: FC = () => {
   const setError = useErrorBoundary();
   const LSFullName = getDataFromLS<string>("fullName");
-  const fullname = LSFullName ? LSFullName : "";
+  const fullName = LSFullName ? LSFullName : "";
 
   const [nkIsLoading, setNkIsLoading] = useState(false);
   const [nkErrorMessage, setNkErrorMessage] = useState<string | null>(null);
@@ -71,7 +71,7 @@ const FormCreateAccount: FC = () => {
       setErrorMessageForm(null);
       setSubmitting(true);
 
-      const [firstName, lastName = ""] = values.fullname
+      const [firstName, lastName = ""] = values.fullName
         .trim()
         .split(" ")
         .filter((el) => el);
@@ -141,7 +141,7 @@ const FormCreateAccount: FC = () => {
   return (
     <div className={cn(styles["form"])}>
       <Formik
-        initialValues={{ ...initialValues, fullname }}
+        initialValues={{ ...initialValues, fullName }}
         validationSchema={validationSchema}
         onSubmit={handleCreateAccount}
       >
@@ -159,16 +159,17 @@ const FormCreateAccount: FC = () => {
               type="email"
               defaultValue={email}
               className="invisible"
-              aria-label="email"
+              aria-label="Email input field"
             />
             <TextField
-              id="fullname"
-              name="fullname"
-              label="Full Name"
-              value={values.fullname}
+              id="fullName"
+              name="fullName"
+              label="Full name"
+              value={values.fullName}
               placeholder="ex. John Brick, Dina O’neal, Jonathan... "
-              dataAutomation="fullname"
+              dataAutomation="fullNameField"
               showSuccessIcon={true}
+              aria-label="Full name input field"
               onChange={(e) => {
                 e.target.value = e.target.value.replace(emojiRegex, "");
                 handleChange(e);
@@ -179,8 +180,9 @@ const FormCreateAccount: FC = () => {
               name="nickName"
               label="Nickname"
               value={nickname}
+              aria-label="Nickname input field"
               placeholder="@JaneSMTH"
-              dataAutomation="nickname"
+              dataAutomation="nicknameField"
               showSuccessIcon={true}
               onChange={onHandleChangeNickname}
               customErrorMessage={nkErrorMessage}
@@ -189,17 +191,19 @@ const FormCreateAccount: FC = () => {
               id="password"
               name="password"
               label="Create password"
+              aria-label="Password input field"
               placeholder="Enter your password"
               strength
-              dataAutomation="password"
+              dataAutomation="passwordField"
               onChange={(e) => onHandleChange(e, handleChange)}
             />
             <PasswordField
               id="confirm_password"
               name="confirm_password"
               label="Confirm password"
+              aria-label="Confirm password input field"
               placeholder="Re-enter your password"
-              dataAutomation="confirm_password"
+              dataAutomation="confirm_passwordField"
               onChange={(e) => onHandleChange(e, handleChange)}
             />
             <UIbutton
@@ -209,6 +213,7 @@ const FormCreateAccount: FC = () => {
               className={styles["button"]}
               disabled={!isValid || !dirty || !!nkErrorMessage || nkIsLoading}
               isLoading={isSubmitting}
+              aria-label="Submit form button"
             >
               Save changes
             </UIbutton>

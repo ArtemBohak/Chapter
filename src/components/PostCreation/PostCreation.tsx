@@ -24,11 +24,13 @@ const PostCreation: FC<PostCreationProps> = ({
   const [file, setFile] = useState<File | null>(null);
 
   const clearData = () => {
-    setTitle("");
-    setFile(null);
-    setCaption("");
-    setImage("");
-    setFormIsOpen(true);
+    setTimeout(() => {
+      setTitle("");
+      setFile(null);
+      setCaption("");
+      setImage("");
+      setFormIsOpen(true);
+    }, 100);
   };
 
   const onHandleCrossClick = () => {
@@ -62,7 +64,7 @@ const PostCreation: FC<PostCreationProps> = ({
           <img src={avatarUrl} alt="user avatar" width="44" height="44" />
           <p>{nickName}</p>
         </div>
-        <button onClick={onHandleCrossClick}>
+        <button onClick={onHandleCrossClick} className={styles["cross-btn"]}>
           <Icon icon={IconEnum.Cross} size={32} />
         </button>
       </div>

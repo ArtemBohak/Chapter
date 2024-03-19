@@ -119,7 +119,11 @@ const SearchPage: FC = () => {
         {recentSearchArr.map((el, i) => {
           return (
             <li key={i}>
-              <button onClick={onHandleRecentSearchClick} value={el}>
+              <button
+                onClick={onHandleRecentSearchClick}
+                value={el}
+                aria-label="Recent text button"
+              >
                 <Icon icon={IconEnum.Search} size={isTabScreen ? 24 : 16} />
                 <span>{el}</span>
               </button>
@@ -155,7 +159,10 @@ const SearchPage: FC = () => {
     <section className={styles["search"]}>
       <div className={styles["search__wrapper"]}>
         <div className={`${styles["field-wrapper"]} ${styles["mob"]}`}>
-          <button onClick={() => navigate(-1)}>
+          <button
+            onClick={() => navigate(-1)}
+            aria-label="Back navigation button"
+          >
             <Icon icon={IconEnum.Back} size={32} />
           </button>
           <div className={styles["input-container"]}>
@@ -173,6 +180,7 @@ const SearchPage: FC = () => {
               <button
                 className={styles["cross-btn"]}
                 onClick={onHandleCrossIconClick}
+                aria-label="Reset text button"
               >
                 <Icon icon={IconEnum.Cross} size={16} />
               </button>
@@ -196,6 +204,7 @@ const SearchPage: FC = () => {
               <button
                 className={styles["cross-btn"]}
                 onClick={onHandleCrossIconClick}
+                aria-label="Reset text button"
               >
                 <Icon icon={IconEnum.Cross} size={24} />
               </button>

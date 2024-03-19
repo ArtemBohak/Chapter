@@ -12,7 +12,7 @@ const PublicHeader: FC = () => {
   return (
     <header className={styles["header"]}>
       <div className={styles["header__container"]}>
-        {pathname !== links.WELCOME ? <Logo alt="chapter" /> : null}
+        {pathname !== links.HOME ? <Logo alt="chapter" /> : null}
       </div>
     </header>
   );

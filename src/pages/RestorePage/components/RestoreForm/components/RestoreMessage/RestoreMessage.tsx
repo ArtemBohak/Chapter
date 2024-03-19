@@ -36,6 +36,7 @@ const RestoreMessage: FC = () => {
         dataAutomation="clickButton"
         fullWidth
         className={`${styles["wrapper__button"]} ${styles["btn"]}`}
+        aria-label="Navigate to login button"
       >
         Proceed to log in
       </UIbutton>

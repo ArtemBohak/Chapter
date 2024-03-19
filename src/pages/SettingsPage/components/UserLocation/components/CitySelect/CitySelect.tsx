@@ -49,7 +49,11 @@ const CitySelect: FC<CitySelectProps> = ({
       unmountOnExit
       classNames={transitionClassNames}
     >
-      <label ref={cityRef} className={styles["location-form__label"]}>
+      <label
+        ref={cityRef}
+        className={styles["location-form__label"]}
+        aria-label="Select user city"
+      >
         <Field
           selectMenuIsOpen={selectMenuIsOpen}
           selectedValue={selectedCity}

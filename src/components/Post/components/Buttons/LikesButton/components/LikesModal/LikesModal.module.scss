@@ -1,0 +1,39 @@
+.modal {
+  @apply fixed top-0 left-0 w-full h-full bg-white overflow-y-auto  md:backdrop-blur-sm md:bg-[#1c1c1c33] z-20;
+
+  &__body {
+    @apply overflow-hidden relative  w-full h-full md:h-min pb-2-xs  md:max-w-[462px] md:rounded-lg md:pb-3-xs md:top-1/2 md:-translate-y-1/2 md:bg-grey-1030 md:ml-auto md:mr-auto base:mr-[20%] laptop:mr-[30%] laptop_md:mr-auto;
+
+    &-header {
+      @apply flex items-center pt-[84px] md:pt-0 justify-between pl-2-md pr-2-md md:pl-4-xs md:pr-0 md:flex-row-reverse md:bg-[#F69400];
+
+      & > h4 {
+        @apply text-lg mb-0 font-medium md:text-[#FDFDFD];
+      }
+    }
+
+    &-close-button {
+      @apply bg-transparent md:text-[#FDFDFD] py-[16px] md:py-[10px] md:px-[10px] md:bg-[#ffc368] outline-none hover:text-primaryHover focus:text-primaryHover transition-all duration-150;
+    }
+
+    &-content {
+      @apply px-2-md pt-2-xs md:max-h-[424px] md:px-4-xs md:pt-3-xs laptop:px-3-md overflow-y-auto;
+    }
+  }
+
+  &-enter {
+    @apply translate-x-[-100%] md:translate-x-0 md:opacity-0 md:scale-0;
+
+    &-active {
+      @apply translate-x-0 md:translate-x-0 md:opacity-100 md:scale-100 transition duration-200;
+    }
+  }
+
+  &-exit {
+    @apply translate-x-0 md:translate-x-0  md:scale-100 md:opacity-100;
+
+    &-active {
+      @apply translate-x-[-100%] md:translate-x-0  md:scale-0 md:opacity-0 transition duration-200;
+    }
+  }
+}

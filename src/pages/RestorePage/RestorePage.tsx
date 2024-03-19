@@ -60,6 +60,7 @@ const RestorePage: FC = () => {
             onClick={() => setShowError(false)}
             dataAutomation="clickButton"
             fullWidth
+            aria-label="Confirm restoring button"
           >
             Confirm
           </UIbutton>

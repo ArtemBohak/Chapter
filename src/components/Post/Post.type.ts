@@ -1,11 +1,28 @@
-import { MutableRefObject, RefObject } from "react";
-import { Author, IPost, SetIsOpenType } from "@/src/types";
+import { Dispatch, SetStateAction } from "react";
+import {
+  IAuthor,
+  PostType,
+  RefType,
+  RefsType,
+  SetIsOpenType,
+  PostRefType,
+} from "@/src/types";
 import { ModalProps } from "@/src/components/Modal/Modal.type";
 
-export type PostProps = {
-  nodeRef?: MutableRefObject<null> | RefObject<HTMLDivElement>;
+export interface IPost
+  extends Partial<ModalProps>,
+    Partial<PostType>,
+    Partial<IAuthor> {
+  nodeRef?: RefType;
   file?: File | null;
   setFormIsOpen?: SetIsOpenType;
-} & Partial<ModalProps> &
-  Partial<IPost> &
-  Partial<Author>;
+}
+
+export type PostProps = {
+  setPage?: Dispatch<SetStateAction<number>>;
+  setPosts?: Dispatch<SetStateAction<Array<PostRefType>>>;
+  setPost?: Dispatch<SetStateAction<PostType | null>>;
+  postsApi?: () => Promise<void>;
+  classNames?: string;
+} & PostType &
+  RefsType;

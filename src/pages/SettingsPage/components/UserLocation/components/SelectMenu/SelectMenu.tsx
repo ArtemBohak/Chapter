@@ -87,6 +87,7 @@ const SelectMenu: FC<SelectMenuProps> = ({
               value={id}
               data-automation="clickButton"
               onClick={handleSelect}
+              aria-label="Select user location button"
             >
               {emoji ? <span>{emoji}</span> : null}
               <span>{name}</span>

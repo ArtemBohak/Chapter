@@ -10,7 +10,11 @@ const AuthLink: FC<AuthLinkProps> = ({ textMsg, linkMsg, link, className }) => (
     <div>
       <span className={styles["auth-link__text"]}>{textMsg}</span>
       &nbsp;
-      <Link className={styles["auth-link__link"]} to={link}>
+      <Link
+        className={styles["auth-link__link"]}
+        to={link}
+        aria-label="Auth nav link"
+      >
         {linkMsg}
       </Link>
     </div>

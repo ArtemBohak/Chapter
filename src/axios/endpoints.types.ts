@@ -41,10 +41,11 @@ export enum EndpointsEnum {
   // POSTS
   CREATE_POST = "posts/create",
   EDIT_POST = "posts/update/",
-  DELETE_POST = "posts/delete/",
-  POSTS_BY_AUTHOR = "/posts/by-author",
+  DELETE_POST = "posts/delete",
+  GET_POST = "posts/post/",
+  POSTS_BY_AUTHOR = "posts/by-author",
   POSTS_BY_USER = "posts/by-user/",
-  LIKED_POSTS = "/posts/posts",
+  LIKED_POSTS = "posts/posts",
   LIKED_USER_LIST = "posts/users-who-liked-post/",
 
   // LIKE
@@ -55,7 +56,12 @@ export enum EndpointsEnum {
   // COMMENTS
   COMMENTS = "comments/",
   GET_COMMENTS = "comments/comments/",
+  DELETE_COMMENTS = "comments/delete/",
 
   // FEEDS
   FEEDS = "feed",
+
+  // NOTIFICATION
+  NOTA = "nota",
+  DELETE_ALL_NOTA = "nota/all",
 }

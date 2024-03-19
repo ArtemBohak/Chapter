@@ -1,4 +1,4 @@
-import { FC, useRef } from "react";
+import { FC, useRef, useState } from "react";
 
 import { useEditField } from "../../hooks";
 import { UserStatusProps } from "./UserStatus.type";
@@ -8,16 +8,17 @@ import IconButton from "../IconButton/IconButton";
 
 const UserStatus: FC<UserStatusProps> = ({ userStatus }) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     isEditing,
     value,
+    error,
     onHandleEdit,
     onHandleSave,
     onHandleChange,
     onHandleFocus,
-  } = useEditField(userStatus, textareaRef, true);
-  const inputValue = value ? value : "";
+  } = useEditField("status", userStatus, setIsLoading, textareaRef);
 
   return (
     <>
@@ -25,16 +26,19 @@ const UserStatus: FC<UserStatusProps> = ({ userStatus }) => {
         isEditing={isEditing}
         onHandleEdit={onHandleEdit}
         onHandleSave={onHandleSave}
+        isLoading={isLoading}
       />
       <textarea
         className={styles["status"]}
         ref={textareaRef}
-        value={inputValue}
+        value={value.trim()}
         disabled={!isEditing}
         onChange={onHandleChange}
         onFocus={onHandleFocus}
         data-automation="userStoryTextArea"
+        aria-label="User status textarea field"
       />
+      {error && <p className={styles["error"]}>{error}</p>}
     </>
   );
 };

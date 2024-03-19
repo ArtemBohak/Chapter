@@ -1,4 +1,4 @@
-import { FC, useLayoutEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGoogleLogin } from "@react-oauth/google";
 
@@ -33,7 +33,7 @@ const Google: FC<SocialsProps> = ({
 
   const navigate = useNavigate();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (
       oAuthVariant === OAuthVariant.GOOGLE &&
       googleAuthCode &&
@@ -89,6 +89,7 @@ const Google: FC<SocialsProps> = ({
       disabled={isLoading}
       color={buttonColor}
       size={buttonSize}
+      aria-label="Google oAuth button"
     >
       <Icon icon={IconEnum.Google} size={iconSize} />
       <span>

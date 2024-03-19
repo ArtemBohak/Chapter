@@ -14,7 +14,9 @@ const GuestPosts: FC = () => {
           <GuestPost post={post} />
         ))
       ) : (
-        <div className={styles["user-post__skeleton"]}><Loader /></div>
+        <div className={styles["user-post__skeleton"]}>
+          <Loader />
+        </div>
       )}
     </div>
   );

@@ -60,6 +60,7 @@ const PasswordChangeForm: FC = () => {
                 name="password"
                 label="Create password"
                 placeholder="Enter your password"
+                aria-label="Password field input"
                 value={values.password}
                 strength
                 dataAutomation="password-change"
@@ -68,6 +69,7 @@ const PasswordChangeForm: FC = () => {
               <PasswordField
                 id="confirm_password"
                 name="confirm_password"
+                aria-label="Confirm password field input"
                 label="Confirm password"
                 placeholder="Re-enter your password"
                 dataAutomation="confirm_password"
@@ -75,6 +77,7 @@ const PasswordChangeForm: FC = () => {
               />
               <UIbutton
                 type="submit"
+                aria-label="Submit form button"
                 fullWidth
                 dataAutomation="submitButton"
                 className="p-[12px] text-sm"

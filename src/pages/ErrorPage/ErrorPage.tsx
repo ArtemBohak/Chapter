@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { links } from "@/src/types";
 import styles from "./ErrorPage.module.scss";
 
 import { ErrorLayout } from "@/src/layouts";
@@ -21,9 +22,10 @@ const ErrorPage: FC = () => {
           </p>
           <div className={styles["error__button"]}>
             <UIbutton
-              onClick={() => navigate("/")}
+              onClick={() => navigate(links.HOME)}
               dataAutomation="navigationButton"
               className={`${styles["error__button"]} ${styles["button"]}`}
+              aria-label="Home page nav button"
             >
               Go to home page
             </UIbutton>

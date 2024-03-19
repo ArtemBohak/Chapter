@@ -5,6 +5,7 @@ import {
   useRouteError,
 } from "react-router-dom";
 
+import { links } from "@/src/types";
 import styles from "./ErrorBoundary.module.scss";
 import { ErrorLayout } from "@/src/layouts";
 import { UIbutton } from "@/src/components";
@@ -25,8 +26,9 @@ const ErrorBoundary: FC = () => {
               <UIbutton
                 dataAutomation="clickButton"
                 fullWidth
-                onClick={() => navigate("/")}
+                onClick={() => navigate(links.HOME)}
                 className={`${styles["error__button"]} ${styles["button"]}`}
+                aria-label="Home page nav button"
               >
                 Go to home page
               </UIbutton>

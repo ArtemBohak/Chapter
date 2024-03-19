@@ -1,25 +1,28 @@
 import { useEffect } from "react";
 
-import { OptionsType, RefType, HandlerType } from "./useIntersections.type";
+import { OptionsType, HandlerType } from "./useIntersections.type";
+import { RefType } from "@/src/types";
+
+const intersectionCB =
+  (handler: HandlerType, nodeRef?: RefType) =>
+  (entries: IntersectionObserverEntry[]) => {
+    entries.forEach((entry) => {
+      if (nodeRef?.current) {
+        handler(entry, nodeRef?.current);
+      }
+    });
+  };
 
 export const useRefIntersection = (
-  nodeRef: RefType,
   handler: HandlerType,
-  {
-    postsIsLoad,
-    commentsIsShow,
-
-    ...options
-  }: OptionsType = {}
+  nodeRef?: RefType,
+  { postsIsLoad, commentsIsShow, ...options }: OptionsType = {}
 ) => {
   useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (nodeRef?.current) {
-          handler(entry, nodeRef?.current);
-        }
-      });
-    }, options);
+    const observer = new IntersectionObserver(
+      intersectionCB(handler, nodeRef),
+      options
+    );
 
     if (nodeRef?.current) {
       observer.observe(nodeRef?.current);

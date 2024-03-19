@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { PostSkeleton } from "@/src/components";
 import { usePostsContext } from "../UserPosts/context";
 import LikedPost from "./LikedPost/LikedPost";
+import { links } from "@/src/types";
 
 
 const UserLikedPosts: FC = () => {
@@ -64,7 +65,7 @@ const UserLikedPosts: FC = () => {
     return (
       <div className={styles["liked-wrapper"]}>
         <div className={"bg-white text-center m-auto my-[50px]"}>
-          Hey! go to <Link to={"/feed"}>Feed</Link> and like some posts
+          Hey! go to <Link to={links.FEED}>Feed</Link> and like some posts
         </div>
       </div>
     );

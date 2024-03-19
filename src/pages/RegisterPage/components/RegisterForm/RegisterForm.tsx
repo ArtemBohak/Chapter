@@ -153,6 +153,7 @@ const RegisterForm: FC = () => {
           label="Sign up code"
           additionalLabel="It may take up to 2 minutes for the code to be sent."
           value={value}
+          aria-label="OTP input field"
         />
       </div>
     </Animation>
@@ -175,12 +176,14 @@ const RegisterForm: FC = () => {
               label="Your email"
               className={isNextStep ? styles["form__input"] : ""}
               disabled={isNextStep}
+              aria-label="Email input field"
             />
             {renderNextStep(values.hash)}
             <UIbutton
               className={styles["form__button"]}
               dataAutomation="submitButton"
               type="submit"
+              aria-label="Submit form button"
               fullWidth
               isLoading={isSubmitting}
               disabled={isSubmitting || !isValid || !dirty}

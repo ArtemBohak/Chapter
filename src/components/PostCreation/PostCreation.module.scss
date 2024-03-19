@@ -35,3 +35,7 @@
     }
   }
 }
+
+.cross-btn {
+  @apply hover:text-primaryHover focus:text-primaryHover transition-all duration-150;
+}

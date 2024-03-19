@@ -52,6 +52,7 @@ const CreatePostForm: FC<CreatePostFormProps> = ({
               label="Add a title"
               value={values.title || ""}
               className={styles["form__title"]}
+              aria-label="Title input field"
             />
             <ImageField
               btnVariant="icon"
@@ -65,6 +66,7 @@ const CreatePostForm: FC<CreatePostFormProps> = ({
                 <button
                   onClick={onHandleRemoveClick}
                   data-automation="clickButton"
+                  aria-label="Image delete button"
                 >
                   <Icon icon={IconEnum.Cross} size={20} />
                 </button>
@@ -78,6 +80,7 @@ const CreatePostForm: FC<CreatePostFormProps> = ({
               placeholder="Add a text"
               value={values.caption || ""}
               classNames={styles["form__comment"]}
+              aria-label="Caption textarea field"
             />
             <div className={styles["form__button"]}>
               <UIbutton
@@ -87,6 +90,7 @@ const CreatePostForm: FC<CreatePostFormProps> = ({
                   (!imgUrl && !values.caption && !values.title) || !isValid
                 }
                 fullWidth
+                aria-label="Form submit button"
               >
                 Confirm
               </UIbutton>

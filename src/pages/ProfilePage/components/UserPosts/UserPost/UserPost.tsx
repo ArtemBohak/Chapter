@@ -60,6 +60,7 @@ const UserPost: FC<UserPostProps> = ({ post }) => {
 
   const deletePost = async (Id: number) => {
     setIsDeletingLoading(true);
+
     try {
       const response = await api.delete(`${EndpointsEnum.DELETE_POST}${Id}`);
       console.log(response);
@@ -92,6 +93,7 @@ const UserPost: FC<UserPostProps> = ({ post }) => {
           <UserNickName nickName={user.nickName} />
         </div>
         <button
+          aria-label="Show popup button"
           className={styles["button-more"]}
           onClick={() => setShowPopUp(!showPopUp)}
         >
@@ -114,6 +116,7 @@ const UserPost: FC<UserPostProps> = ({ post }) => {
               </button>
               <button
                 data-automation="clickButton"
+                aria-label="Delete post button"
                 onClick={() => setShowConfirmationWindow(true)}
               >
                 Delete post
