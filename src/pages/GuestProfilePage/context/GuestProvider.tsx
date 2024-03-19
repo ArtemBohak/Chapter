@@ -9,10 +9,14 @@ const GuestProvider: FC<IGuestProviderProps> = ({ children }) => {
   const { Id } = useParams()
   const [enemyData, setEnemyData] = useState<enemyData>();
   const [guestPostsList, setGuestPostsList] = useState([])
+  const [BooksCheker, setbooksCheker] = useState(false)
 
   const fetchEnemyUserData = async () => {
     const response = await guestProfileApi(Id);
     setEnemyData(response.data)
+    if (response.data.userBooks.length > 0) {
+      setbooksCheker(true)
+    }
   };
 
   const fetchGuestPosts = async () => {
@@ -27,7 +31,7 @@ const GuestProvider: FC<IGuestProviderProps> = ({ children }) => {
 
   return (
     <GuestContext.Provider
-      value={{ fetchEnemyUserData, guestPostsList, enemyData }}>
+      value={{ fetchEnemyUserData, guestPostsList, enemyData, setEnemyData, BooksCheker }}>
       {children}
     </GuestContext.Provider>
 

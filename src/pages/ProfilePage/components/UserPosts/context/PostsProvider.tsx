@@ -9,12 +9,11 @@ const PostsProvider: FC<PostProviderProps> = ({ children }) => {
     const [userPostsList, setUserPostsList] = useState<[] | PostData[]>([]);
     const [userLikedPostsList, setUserLikedPostsList] = useState<LikedPostData[]>([]);
 
+
     const fetchUserPosts = async () => {
         try {
             const response = await api.get(EndpointsEnum.POSTS_BY_AUTHOR);
-            if (userLikedPostsList.length < 1) {
-                setUserPostsList(response.data);
-            }
+            setUserPostsList(response.data);
             return response.data
         } catch (error) {
             console.error('Error fetching user posts:', error);

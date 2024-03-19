@@ -50,9 +50,11 @@ export enum EndpointsEnum {
   // LIKE
   POST_LIKE = "likes/like-unlike-post/",
   COMMENT_LIKE = "likes/like-unlike-comment/",
+  USERS_WHO_LIKED_POST = "posts/users-who-liked-post/",
 
   // COMMENTS
   COMMENTS = "comments/",
+  GET_COMMENTS = "comments/comments/",
 
   // FEEDS
   FEEDS = "feed",

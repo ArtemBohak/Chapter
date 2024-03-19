@@ -9,11 +9,10 @@ const UserPosts: FC = () => {
   const { userPostsList, fetchUserPosts } = usePostsContext()
 
 
+
   useEffect(() => {
-    if (userPostsList.length < 1) {
-      fetchUserPosts();
-    }
-  }, [userPostsList]);
+    fetchUserPosts();
+  }, []);
 
 
 

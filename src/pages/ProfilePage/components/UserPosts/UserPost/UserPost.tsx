@@ -19,7 +19,7 @@ import styles from "./UserPost.module.scss";
 import { UserPostProps } from "../UserPost.type";
 import { useAppSelector } from "@/src/redux";
 import { EndpointsEnum, api } from "@/src/axios";
-import { useErrorBoundary, useOutsideClick } from "@/src/hooks";
+import { useOutsideClick } from "@/src/hooks";
 import { ElementsId } from "@/src/types";
 
 import { usePostsContext } from "../context";
@@ -34,9 +34,28 @@ const UserPost: FC<UserPostProps> = ({ post }) => {
   const [isDeletingLoading, setIsDeletingLoading] = useState(false);
   const [commentsList, setComentsList] = useState([])
   const { fetchUserPosts } = usePostsContext()
+  const [commentsIsHide, setCommentsIsHide] = useState(true);
+
+  const [usersWhoLikedPost, setUsersWhoLikedPost] = useState([])
+
+
+
+
+  const fetchUsersWhoLikedPosts = async (id: number) => {
+    const response = await api.get(`${EndpointsEnum.USERS_WHO_LIKED_POST}${id}`);
+    setUsersWhoLikedPost(response.data.map((i: any) => i.userId))
+
+  };
+  useEffect(() => {
+    fetchUsersWhoLikedPosts(post.id);
+  }, [])
+
+  useEffect(() => {
+    console.log(usersWhoLikedPost)
+  }, [usersWhoLikedPost])
+
 
   const ref = useRef(null);
-  const setErrorBoundary = useErrorBoundary();
   useOutsideClick(ref, setShowPopUp, ElementsId.POST_MORE_ICON);
 
   const deletePost = async (Id: number) => {
@@ -55,14 +74,14 @@ const UserPost: FC<UserPostProps> = ({ post }) => {
   };
 
   const getComments = async (id: number) => {
-    const response = await api.get(`/comments/comments/${id}`);
+    const response = await api.get(`${EndpointsEnum.GET_COMMENTS}${id}`);
 
-    setComentsList(response.data.comments);
+    setComentsList(response.data);
   };
 
   useEffect(() => {
     getComments(post.id);
-    console.log(commentsList);
+
   }, []);
 
   return (
@@ -110,27 +129,36 @@ const UserPost: FC<UserPostProps> = ({ post }) => {
         setIsOpen={setShowConfirmationWindow}
         isLoading={isDeletingLoading}
       />
-      <PostEditing isOpen={showEditionWindow} setIsOpen={setShowEditionWindow} post={post} />
+      <PostEditing isOpen={showEditionWindow} setIsOpen={setShowEditionWindow} post={post} portal />
       <div className={styles["user-post__image"]}>
         <PostImage imgUrl={post.imgUrl} />
       </div>
       <div className="flex justify-between">
         <div className={styles["user-post__activity-icons"]}>
-          <LikesButton id={post.id} userIds={[]} url="" />
+          <LikesButton id={post.id} userIds={usersWhoLikedPost} url={EndpointsEnum.POST_LIKE} />
           <CommentsButton
             id={post.id}
             hiddenText
             textValue={''}
             postId={post.id}
-            commentsCount={0} />
+            commentsCount={commentsList.length} />
         </div>
         <PostDate createAt={post.updatedAt} />
       </div>
       <PostTitle title={post.title} />
       <PostText caption={post.caption} />
-      <PostComments postId={post.id} commentsCount={0} comments={[]} />
+      <PostComments
+
+        postId={post.id}
+        commentsCount={commentsList.length}
+        comments={commentsList}
+        setCommentsIsHide={setCommentsIsHide}
+        commentsIsHide={commentsIsHide}
+      />
 
       {/* <PostDate date={post.createdAt}/> */}
+
+      {/* setFeeds={setComentsList} */}
     </div>
   );
 };

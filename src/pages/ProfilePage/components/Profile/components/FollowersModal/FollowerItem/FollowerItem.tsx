@@ -18,6 +18,8 @@ const FollowerItem: FC<FollowerProps> = ({ follower, loadingStates, unsubscribe 
 
   const NameLength = truncatedFirstName && truncatedFirstName.length > 15 || truncatedLastName && truncatedLastName.length > 15;
   const ShowTitle = NameLength ? `${follower.firstName} ${follower.lastName}` : "";
+
+  const followRule = loadingStates[follower.id] ? (follower.isSubscribed ? 'Unfollowing...' : "Following...") : (follower.isSubscribed ? "Unfollow" : "Follow");
   return (
     <li className={styles["follow-list__person"]} key={follower.id}>
       <Link className={styles["follow-list__link"]} to={`/${follower.id}`}>
@@ -37,7 +39,7 @@ const FollowerItem: FC<FollowerProps> = ({ follower, loadingStates, unsubscribe 
         size='small'
         dataAutomation={'Unfollow-button'}
       >
-        {loadingStates[follower.id] ? 'Unfollowing...' : follower.isSubscribed ? "Unfollow" : "Follow"}
+        {followRule}
       </UIbutton>
     </li>
   )

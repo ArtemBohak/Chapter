@@ -1,13 +1,13 @@
 .create-post {
   &__backdrop {
-    @apply top-0 left-0 bg-[#1c1c1c99] overflow-y-auto w-full h-full  flex;
+    @apply top-0 left-0 bg-[#1c1c1c99] overflow-y-auto w-full h-full fixed;
 
     &--page {
       @apply fixed bg-white md:bg-[#1c1c1c99] items-start md:items-center;
     }
 
     &--profile {
-      @apply px-2-md top-[44px] md:top-[44px]  items-start pt-4-xs;
+      @apply px-2-md items-start pt-4-xs pb-4-xs;
     }
   }
   &__body {

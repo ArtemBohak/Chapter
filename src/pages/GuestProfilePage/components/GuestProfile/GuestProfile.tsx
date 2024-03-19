@@ -1,34 +1,31 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import styles from "./GuestProfile.module.scss";
 import GuestProfileInfo from "./GuestProfileInfo/GuestProfileInfo";
 import { BookShelf, IconEnum, UIbutton } from "@/src/components";
 import { useParams } from "react-router";
-import guestProfileApi from "../GuestProfileApi/guestProfileApi";
 import { followApi } from "@/src/axios";
-import { enemyData } from "./GuestProfile.type";
+import { useGuestContext } from "../../context";
 
 const GuestProfile: FC = () => {
   const { Id } = useParams();
-  const [enemyData, setEnemyData] = useState<enemyData>();
-  const [BooksCheker, setbooksCheker] = useState(false)
+  const { enemyData, fetchEnemyUserData, BooksCheker } = useGuestContext()
+
   const [subscribeIsLoading, setSubscribeIsLoading] = useState(false)
 
 
-  const fetchEnemyUserData = async (Id: string | number | undefined) => {
-    const response = await guestProfileApi(Id);
-    setEnemyData(response.data);
-    console.log(enemyData)
-    if (response.data.userBooks.length > 0) {
-      setbooksCheker(true)
-    }
-  };
+  // const fetchEnemyUserData = async (Id: string | number | undefined) => {
+  //   const response = await guestProfileApi(Id);
+  //   setEnemyData(response.data);
+  //   console.log(enemyData)
+
+  // };
 
 
   const subscribe = async () => {
     setSubscribeIsLoading(true)
     try {
       await followApi(Id);
-      fetchEnemyUserData(Id);
+      await fetchEnemyUserData(Id);
     } catch (error) {
       console.log(error)
     }
@@ -37,9 +34,6 @@ const GuestProfile: FC = () => {
     }
   };
 
-  useEffect(() => {
-    fetchEnemyUserData(Id);
-  }, []);
   return (
     <div className={styles["profile-conteiner"]}>
       <GuestProfileInfo data={enemyData} subscribe={subscribe} subscribeIsLoading={subscribeIsLoading} />

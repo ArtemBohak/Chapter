@@ -1,21 +1,21 @@
-import { EndpointsEnum, api, followApi } from '@/src/axios'
+import { EndpointsEnum, followApi } from '@/src/axios'
 import { Avatar, CommentsButton, LikesButton, PostComments, PostDate, PostImage, PostText, PostTitle, UIbutton, UserNickName } from '@/src/components'
-import { FC, useEffect, useState } from 'react'
+import { FC, useState } from 'react'
 import { Link } from 'react-router-dom'
 import styles from '../Liked.module.scss'
 import { LikedPostProps } from '../UserLikedPost.type'
 
 const LikedPost: FC<LikedPostProps> = ({ post }) => {
-    const [usersWhoLikedPost, setUsersWhoLikedPost] = useState([])
 
-    const fetchUsersWhoLikedPosts = async (id: number) => {
-        const response = await api.get(`posts/users-who-liked-post/${id}`);
-        setUsersWhoLikedPost(response.data)
-        console.log(response.data);
-    };
-    useEffect(() => {
-        fetchUsersWhoLikedPosts(post.postId);
-    }, [])
+    const [commentsIsHide, setCommentsIsHide] = useState(true);
+
+    // const fetchUsersWhoLikedPosts = async (id: number) => {
+    //     const response = await api.get(`posts/users-who-liked-post/${id}`);
+
+    // };
+    // useEffect(() => {
+    //     fetchUsersWhoLikedPosts(post.postId);
+    // }, [])
 
     return (
         <div key={post.postId} className={styles["user-post"]}>
@@ -42,7 +42,7 @@ const LikedPost: FC<LikedPostProps> = ({ post }) => {
                 <div className={styles["user-post__activity-icons"]}>
                     <LikesButton
                         id={post.postId}
-                        userIds={usersWhoLikedPost}
+                        userIds={post.userIds}
                         url={EndpointsEnum.POST_LIKE}
                     />
                     <CommentsButton
@@ -60,6 +60,8 @@ const LikedPost: FC<LikedPostProps> = ({ post }) => {
                 postId={post.postId}
                 commentsCount={post.commentsCount}
                 comments={post.comments}
+                setCommentsIsHide={setCommentsIsHide}
+                commentsIsHide={commentsIsHide}
             />
         </div>
     )

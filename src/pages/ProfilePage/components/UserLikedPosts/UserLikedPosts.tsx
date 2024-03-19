@@ -11,7 +11,6 @@ import LikedPost from "./LikedPost/LikedPost";
 const UserLikedPosts: FC = () => {
   const { userLikedPostsList, setUserLikedPostsList } = usePostsContext()
   const [page, setPage] = useState(1);
-
   const [isPostsLoaded, setIsPostsLoaded] = useState(false);
 
   const fetchUserLikedPosts = async (page: number) => {
@@ -57,8 +56,6 @@ const UserLikedPosts: FC = () => {
   useEffect(() => {
 
     fetchUserLikedPosts(1);
-
-
   }, []);
   // const sortByCreatedDate = (a: LikedPostData, b: LikedPostData) => {
   //   new Date(b.createdDate).getTime() - new Date(a.createdDate).getTime();

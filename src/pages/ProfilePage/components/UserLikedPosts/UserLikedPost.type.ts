@@ -15,6 +15,7 @@ export type LikedPostData = {
     likesCount: number;
     commentsCount: number;
     comments: Array<CommentValues> | [];
+    userIds: number[]
     author: {
         id: number;
         nickName: string;
