@@ -13,6 +13,13 @@ export const postDataEdit = <T>(data: Array<T>, limit: number) =>
     if (i === data.length - 1 && !(data.length % limit))
       return createDataObj(el, nextPage);
 
+    if (
+      repeatValue === 10 &&
+      i > data.length - repeatValue &&
+      i < data.length - 5
+    )
+      return createDataObj(el, currentPage);
+
     if (!(i % repeatValue)) return createDataObj(el, currentPage);
 
     return createDataObj(el);

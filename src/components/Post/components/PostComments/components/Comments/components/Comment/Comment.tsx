@@ -49,7 +49,6 @@ const Comment: FC<CommentProps> = ({
         ref={pageLoaderRef}
         data-value={pageLoaderRef && pageValue ? pageValue : ""}
       />
-
       <Link
         to={navId}
         className={styles["comment__image"]}
