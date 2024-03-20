@@ -11,7 +11,7 @@ export const useErrorBoundary = ({
   const [error, setError] = useState<AxiosError | string | null>(null);
 
   useEffect(() => {
-    if (error && error instanceof AxiosError) {
+    if (error instanceof AxiosError) {
       if (error.code === apiErrorMessage.CANCELED)
         throw new Error(error.message);
 
