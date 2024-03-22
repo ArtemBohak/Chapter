@@ -1,7 +1,6 @@
 import Cookies from "js-cookie";
 import { CookieOptions, CookieValue } from "./cookies.type";
 
-Cookies.attributes;
 export const getCookies = (...args: string[]) =>
   args.map((name) => Cookies.get(name));
 
