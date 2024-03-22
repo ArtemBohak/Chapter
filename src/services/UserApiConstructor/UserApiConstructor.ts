@@ -55,7 +55,7 @@ export default abstract class UserApiConstructor {
 
     setCookies(
       { email: user.email, userId: user.id },
-      { expires: 604800, secure: true }
+      { expires: 7, secure: true }
     );
     setDataToLS({
       fullName,
