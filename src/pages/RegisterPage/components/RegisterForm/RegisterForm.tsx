@@ -82,7 +82,7 @@ const RegisterForm: FC = () => {
           );
 
         if (id && email)
-          setCookies({ email, userId: id }, { expires: 604800, secure: true });
+          setCookies({ email, userId: id }, { expires: 7, secure: true });
 
         return navigate(`${links.ACCOUNT_CREATION}/${id}`);
       }
