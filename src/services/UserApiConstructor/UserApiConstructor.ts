@@ -4,7 +4,7 @@ import { NavigateFunction } from "react-router-dom";
 import {
   apiErrorStatus,
   apiErrorMessage,
-  LocaleStorageArgs,
+  StorageArgs,
   links,
   keysValue,
   SetErrorType,
@@ -63,7 +63,7 @@ export default abstract class UserApiConstructor {
     this.navigate && this.navigate(redirectUrl);
   }
 
-  protected handleUserData(user: User, cred?: LocaleStorageArgs) {
+  protected handleUserData(user: User, cred?: StorageArgs) {
     if (cred) {
       deleteCookie(
         keysValue.DELETED_ACCOUNT_TIME_STAMP,
