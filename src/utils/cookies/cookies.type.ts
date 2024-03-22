@@ -1,4 +1,4 @@
-export type CookieValue = { [key: string]: string | number };
+export type Cookie = { [key: string]: string | number };
 
 export type CookieOptions = {
   expires?: Date | number;
