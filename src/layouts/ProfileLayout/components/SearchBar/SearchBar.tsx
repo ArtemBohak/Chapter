@@ -189,11 +189,7 @@ const SearchBar: FC<ISearchBar> = ({ inputClassName }) => {
     </>
   );
 
-  const renderNotFound = (
-    <>
-      <p>Nothing found.</p>
-    </>
-  );
+  const renderNotFound = <p>Nothing found.</p>;
 
   return (
     <div className={styles["search__wrapper"]}>
