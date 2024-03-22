@@ -19,7 +19,7 @@ const OAuth: FC<OAuthProps> = (props) => {
 
   useEffect(() => {
     if (!cStateId) {
-      setCookies({ stateId: nanoid() }, undefined, undefined, true);
+      setCookies({ stateId: nanoid() }, { secure: true });
     }
   }, [cStateId]);
 
