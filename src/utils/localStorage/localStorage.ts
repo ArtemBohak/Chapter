@@ -2,8 +2,8 @@ import { StorageArgs, keysValue } from "@/src/types";
 
 export const getTokenFromLC = (): string | null => {
   const value = localStorage.getItem(keysValue.ACCESS_TOKEN);
-  if (value) return JSON.parse(value);
-  return null;
+
+  return value ? JSON.parse(value) : null;
 };
 
 export const getExpiresTokenValueFromLS = (): string | null =>
