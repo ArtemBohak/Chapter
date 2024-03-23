@@ -1,9 +1,10 @@
 import { ModalProps } from "@/src/components/Modal/Modal.type";
-import { IPost } from "@/src/types";
+import { IPost } from "../Post.type";
+
 
 export type PostEditingProps = {
   post: Pick<IPost, "caption" | "title" | "imgUrl"> & {
-    id: string | number
+    postId: string | number
   };
   isScreenSize?: boolean;
 } & Pick<ModalProps, "portal" | "isOpen" | "setIsOpen"> &

@@ -1,14 +1,28 @@
+import { CommentType, PostRefType } from "@/src/types";
+import { Dispatch, SetStateAction } from "react";
 
 export interface UserPostProps {
-  post: PostData;
+  post: PostRefType;
+  setPage?: Dispatch<SetStateAction<number>>;
+  setPosts?: Dispatch<SetStateAction<Array<PostRefType>>>;
 }
 
 export type PostData = {
-  id: number;
-  nickName: string;
+  postId: number;
   imgUrl: string;
   title: string;
   caption: string;
-  createdAt: string;
+  createAt: string;
   updatedAt: string;
+  commentsCount: number;
+  comments: Array<CommentType> | [];
+  userIds: number[]
+  author: {
+    id: number;
+    nickName: string;
+    avatar: string;
+    firstName: string;
+    lastName: string;
+  }
+  isSubscribeToAuthor: boolean;
 }

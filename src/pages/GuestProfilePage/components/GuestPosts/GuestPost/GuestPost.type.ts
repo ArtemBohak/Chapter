@@ -1,7 +1,7 @@
-import { IPost } from "@/src/types";
+import { PostRefType } from "@/src/types";
 
 export interface GuestPostProps {
-  post: IPost & { id: string | number };
+  post: PostRefType;
 }
 
 export type PostData = {

@@ -1,19 +1,21 @@
 import { FC, useState } from 'react'
 import { PostsContext } from './hooks/usePostsContext';
-import { PostData } from '../UserPost.type';
-import { PostProviderProps } from './PostsProvider.type';
+import { IPostProviderProps } from './PostsProvider.type';
 import { EndpointsEnum, api } from '@/src/axios';
-import { LikedPostData } from '../../UserLikedPosts/UserLikedPost.type';
+import { PostRefType } from '@/src/types';
 
-const PostsProvider: FC<PostProviderProps> = ({ children }) => {
-    const [userPostsList, setUserPostsList] = useState<[] | PostData[]>([]);
-    const [userLikedPostsList, setUserLikedPostsList] = useState<LikedPostData[]>([]);
+const PostsProvider: FC<IPostProviderProps> = ({ children }) => {
+    const [userPostsList, setUserPostsList] = useState<Array<PostRefType>>([]);
+    const [userLikedPostsList, setUserLikedPostsList] = useState<Array<PostRefType>>([]);
+    const [page, setPage] = useState<number>(1);
+    const [isLoad, setIsLoad] = useState(false);
 
 
-    const fetchUserPosts = async () => {
+    const fetchUserPosts = async (currentPage: number) => {
         try {
-            const response = await api.get(EndpointsEnum.POSTS_BY_AUTHOR);
+            const response = await api.get(`${EndpointsEnum.POSTS_BY_AUTHOR}?page=${currentPage}&limit=3`);
             setUserPostsList(response.data);
+            setIsLoad(true)
             return response.data
         } catch (error) {
             console.error('Error fetching user posts:', error);
@@ -28,6 +30,9 @@ const PostsProvider: FC<PostProviderProps> = ({ children }) => {
                 userLikedPostsList,
                 setUserLikedPostsList,
                 fetchUserPosts,
+                page,
+                setPage,
+                isLoad,
             }}
         >
             {children}

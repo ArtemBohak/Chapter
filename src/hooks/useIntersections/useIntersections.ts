@@ -5,13 +5,13 @@ import { RefType } from "@/src/types";
 
 const intersectionCB =
   (handler: HandlerType, nodeRef?: RefType) =>
-  (entries: IntersectionObserverEntry[]) => {
-    entries.forEach((entry) => {
-      if (nodeRef?.current) {
-        handler(entry, nodeRef?.current);
-      }
-    });
-  };
+    (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (nodeRef?.current) {
+          handler(entry, nodeRef?.current);
+        }
+      });
+    };
 
 export const useRefIntersection = (
   handler: HandlerType,

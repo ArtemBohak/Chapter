@@ -24,6 +24,7 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
   const [notifications, setNotifications] = useState<Array<INots>>([]);
 
   const [unreadMessage, setUnreadMessage] = useState(notifications.length);
+  const [page, setPage] = useState<number>(0);
 
   useLayoutEffect(() => {
     setIsLoading(true);
@@ -101,6 +102,8 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
         setHeaderAddPostBtnIsDisabled,
         setUnreadMessage,
         setNotifications,
+        page,
+        setPage,
       }}
     >
       {children}

@@ -6,7 +6,7 @@ import { GuestPostProps } from './GuestPost.type';
 import { EndpointsEnum, api } from '@/src/axios';
 
 const GuestPost: FC<GuestPostProps> = ({ post }) => {
-    const { enemyData } = useGuestContext();
+    const { enemyData, setGuestPostsList } = useGuestContext();
     const [commentsList, setComentsList] = useState([])
     const [commentsIsHide, setCommentsIsHide] = useState(true);
 
@@ -18,11 +18,11 @@ const GuestPost: FC<GuestPostProps> = ({ post }) => {
     };
 
     useEffect(() => {
-        getComments(post.id);
+        getComments(post.postId);
 
     }, []);
     return (
-        <div className={styles["user-post"]} key={post.id}>
+        <div className={styles["user-post"]} key={post.postId}>
             <div className="flex items-center justify-between w-full relative">
                 <div className="flex gap-3 items-center">
                     <Avatar avatarUrl={enemyData?.avatarUrl || null} />
@@ -35,14 +35,14 @@ const GuestPost: FC<GuestPostProps> = ({ post }) => {
             <div className="flex justify-between">
                 <div className={styles["user-post__activity-icons"]}>
                     <LikesButton
-                        id={post.id}
+                        id={post.postId}
                         userIds={[]}
                         url={EndpointsEnum.POST_LIKE}
                     />
                     <CommentsButton
                         textValue={""}
                         id={""}
-                        postId={post.id}
+                        postId={post.postId}
                         commentsCount={commentsList.length}
                     />
                 </div>
@@ -51,9 +51,10 @@ const GuestPost: FC<GuestPostProps> = ({ post }) => {
             <PostTitle title={post.title} />
             <PostText caption={post.caption} />
             <PostComments
-                postId={post.id}
+                setPosts={setGuestPostsList}
+                postId={post.postId}
                 commentsCount={commentsList.length}
-                comments={commentsList}
+                comments={post.comments}
                 setCommentsIsHide={setCommentsIsHide}
                 commentsIsHide={commentsIsHide}
             />

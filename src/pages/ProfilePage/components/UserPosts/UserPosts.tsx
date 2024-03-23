@@ -3,31 +3,36 @@ import styles from "./Posts.module.scss";
 import { PostSkeleton } from "@/src/components";
 import UserPost from "./UserPost/UserPost";
 import { usePostsContext } from "./context";
+import { useProfileContext } from "@/src/context";
 
 
 const UserPosts: FC = () => {
   const { userPostsList, fetchUserPosts } = usePostsContext()
+  const { page, setPage } = useProfileContext()
 
 
 
   useEffect(() => {
-    fetchUserPosts();
-  }, []);
+    fetchUserPosts(page);
+    console.log("Page №", page)
+  }, [page]);
+
+
 
 
 
   return (
-    <div className={styles["posts-wrapper"]}>
+    <ul className={styles["posts-wrapper"]}>
       {userPostsList.length > 0 ? (
         userPostsList.map((post) => (
-          <UserPost key={post.id} post={post} />
+          <UserPost key={post.postId} post={post} setPage={setPage} />
         ))
       ) : (
-        <div className={styles["user-post__skeleton"]}>
+        <li className={styles["user-post__skeleton"]}>
           <PostSkeleton />
-        </div>
+        </li>
       )}
-    </div>
+    </ul>
   );
 };
 

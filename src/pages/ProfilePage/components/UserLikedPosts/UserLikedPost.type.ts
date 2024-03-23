@@ -1,20 +1,19 @@
-import { CommentValues } from "@/src/types";
+import { CommentType, PostRefType } from "@/src/types";
 
 export type LikedPostProps = {
-    post: LikedPostData
+    post: PostRefType
 }
 
 
 export type LikedPostData = {
-    postId: number;
-    imgUrl: string;
-    title: string;
-    caption: string;
-    createAt: string;
-    updatedAt: string;
-    likesCount: number;
+    postId: string | number;
+    imgUrl: string | null;
+    title: string | null;
+    caption: string | null;
+    createAt: string | number | Date;
+    updatedAt: string | number | Date;
     commentsCount: number;
-    comments: Array<CommentValues> | [];
+    comments: Array<CommentType> | [];
     userIds: number[]
     author: {
         id: number;

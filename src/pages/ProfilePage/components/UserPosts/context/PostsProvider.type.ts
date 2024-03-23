@@ -1,16 +1,18 @@
 
-import { Dispatch, ReactNode } from "react";
-import { PostData } from "../UserPost.type";
-import { LikedPostData } from "@/src/pages/ProfilePage/components/UserLikedPosts/UserLikedPost.type";
+import { Dispatch, ReactNode, SetStateAction } from "react";
+import { PostRefType } from "@/src/types";
 
 export type PostsContextType = {
-    userPostsList: [] | PostData[];
-    setUserPostsList: Dispatch<React.SetStateAction<PostData[]>>
-    fetchUserPosts: () => void;
-    userLikedPostsList: [] | LikedPostData[]
-    setUserLikedPostsList: Dispatch<React.SetStateAction<LikedPostData[]>>
+    userPostsList: [] | Array<PostRefType>;
+    setUserPostsList: Dispatch<SetStateAction<Array<PostRefType>>>;
+    fetchUserPosts: (currentPage: number) => void;
+    userLikedPostsList: [] | Array<PostRefType>;
+    setUserLikedPostsList: Dispatch<SetStateAction<Array<PostRefType>>>;
+    page: number;
+    setPage: Dispatch<SetStateAction<number>>;
+    isLoad: boolean;
 };
 
-export type PostProviderProps = {
+export interface IPostProviderProps {
     children: ReactNode
-} & Partial<PostsContextType>;
+};

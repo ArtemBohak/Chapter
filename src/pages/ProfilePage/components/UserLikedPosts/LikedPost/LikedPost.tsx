@@ -4,11 +4,12 @@ import { FC, useState } from 'react'
 import { Link } from 'react-router-dom'
 import styles from '../Liked.module.scss'
 import { LikedPostProps } from '../UserLikedPost.type'
+import { usePostsContext } from '../../UserPosts/context'
 
 const LikedPost: FC<LikedPostProps> = ({ post }) => {
 
     const [commentsIsHide, setCommentsIsHide] = useState(true);
-
+    const { setUserLikedPostsList } = usePostsContext()
     // const fetchUsersWhoLikedPosts = async (id: number) => {
     //     const response = await api.get(`posts/users-who-liked-post/${id}`);
 
@@ -57,6 +58,7 @@ const LikedPost: FC<LikedPostProps> = ({ post }) => {
             <PostTitle title={post.title} />
             <PostText caption={post.caption} />
             <PostComments
+                setPosts={setUserLikedPostsList}
                 postId={post.postId}
                 commentsCount={post.commentsCount}
                 comments={post.comments}

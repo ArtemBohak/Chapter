@@ -1,4 +1,4 @@
-import { PostType } from "@/src/types";
+import { PostRefType } from "@/src/types";
 import { Dispatch, ReactNode } from "react";
 import { enemyData } from "../components";
 
@@ -8,8 +8,9 @@ export interface IGuestProviderProps {
 
 export type GuestContextType = {
   fetchEnemyUserData: (Id: string | number | undefined) => Promise<void>;
-  guestPostsList: Array<PostType & { id: string | number }> | [];
+  guestPostsList: [] | Array<PostRefType>;
+  setGuestPostsList: Dispatch<React.SetStateAction<Array<PostRefType>>>;
   enemyData: enemyData;
-  setEnemyData: Dispatch<React.SetStateAction<enemyData>>
+  setEnemyData: Dispatch<React.SetStateAction<enemyData>>;
   BooksCheker: boolean;
 };

@@ -15,4 +15,6 @@ export type ProfileContextType = {
   setNotifications: Dispatch<SetStateAction<Array<INots>>>;
   setHeaderAddPostBtnIsDisabled: SetBoolean;
   setUnreadMessage: Dispatch<SetStateAction<number>>;
+  page: number,
+  setPage: Dispatch<SetStateAction<number>>;
 };

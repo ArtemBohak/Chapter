@@ -84,7 +84,7 @@ const PostEditing: FC<PostEditingProps> = ({
                     />
                 ) : (
                     <EditedPostPreview
-                        postId={post.id}
+                        postId={post.postId}
                         file={file}
                         imgUrl={image}
                         title={title}
