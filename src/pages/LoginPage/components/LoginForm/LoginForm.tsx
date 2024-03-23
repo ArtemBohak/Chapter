@@ -76,15 +76,12 @@ const LoginPageForm: FC = () => {
       response.message === apiErrorMessage.ACCOUNT_DELETED
     ) {
       deleteCookie(keysValue.RESTORE_TOKEN);
-      const expiresValue = setDate(
-        response.deletedUserDate,
-        accountDeletionTerm
-      );
+      const expires = setDate(response.deletedUserDate, accountDeletionTerm);
       const cValue = {
-        deletedUserDate: String(expiresValue),
+        deletedUserDate: String(expires),
         restoringEmail: values.email,
       };
-      setCookies(cValue, expiresValue, undefined, true);
+      setCookies(cValue, { secure: true, expires });
 
       return navigate(links.RESTORE);
     }

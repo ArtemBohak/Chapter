@@ -61,7 +61,7 @@ class FilesService {
   }: FileArgs) {
     try {
       const defaultPath = this.avatar ? Path.AVATAR : Path.POSTS;
-      const imageTags = tags.length ? tags : [...defaultPath.split("/")];
+      const imageTags = tags.length ? tags : defaultPath.split("/");
       const context = `alt=${alt ? alt : defaultPath.split("/")}`;
 
       const params = {

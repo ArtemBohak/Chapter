@@ -1,6 +1,3 @@
-export type LocaleStorageArgs = {
-  token?: string;
-  tokenExpires?: number;
-  fullName?: string;
-  recentSearch?: Array<string>;
+export type StorageArgs = {
+  [key: string]: string | number | string[];
 };

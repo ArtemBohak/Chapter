@@ -4,7 +4,7 @@ import { NavigateFunction } from "react-router-dom";
 import {
   apiErrorStatus,
   apiErrorMessage,
-  LocaleStorageArgs,
+  StorageArgs,
   links,
   keysValue,
   SetErrorType,
@@ -54,10 +54,8 @@ export default abstract class UserApiConstructor {
     }`;
 
     setCookies(
-      { email: user.email, userId: String(user.id) },
-      604800,
-      undefined,
-      true
+      { email: user.email, userId: user.id },
+      { expires: 7, secure: true }
     );
     setDataToLS({
       fullName,
@@ -65,7 +63,7 @@ export default abstract class UserApiConstructor {
     this.navigate && this.navigate(redirectUrl);
   }
 
-  protected handleUserData(user: User, cred?: LocaleStorageArgs) {
+  protected handleUserData(user: User, cred?: StorageArgs) {
     if (cred) {
       deleteCookie(
         keysValue.DELETED_ACCOUNT_TIME_STAMP,
@@ -102,15 +100,15 @@ export default abstract class UserApiConstructor {
           ) {
             deleteCookie(keysValue.RESTORE_EMAIL);
 
-            const expiresDate = setDate(
+            const expires = setDate(
               error.response.data.deletedUserDate,
               accountDeletionTerm
             );
             const cValue = {
-              deletedUserDate: String(expiresDate),
+              deletedUserDate: String(expires),
               restoreToken: error.response.data.restoreToken,
             };
-            setCookies(cValue, expiresDate, undefined, true);
+            setCookies(cValue, { expires, secure: true });
             return this.navigate && this.navigate(links.RESTORE);
           }
 
