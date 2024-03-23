@@ -1,45 +1,13 @@
-import { CookieValue } from "./cookies.type";
-
-export const getCookie = (key: string) =>
-  document.cookie
-    .split("; ")
-    .find((item) => item.startsWith(`${key}=`))
-    ?.split("=")[1];
+import Cookies from "js-cookie";
+import { CookieOptions, Cookie } from "./cookies.type";
 
 export const getCookies = (...args: string[]) =>
-  args.map(
-    (i) =>
-      document.cookie
-        .split("; ")
-        .find((item) => item.startsWith(`${i}=`))
-        ?.split("=")[1]
+  args.map((name) => Cookies.get(name));
+
+export const setCookies = (cookies: Cookie, options?: CookieOptions) =>
+  Object.keys(cookies).forEach((name) =>
+    Cookies.set(name, String(cookies[name]), options)
   );
-
-export const setCookies = (
-  cookieValue: CookieValue,
-  cookieExpirationValue?: number | string | Date,
-  cookiePath?: string,
-  isSecure: boolean = false
-) => {
-  const path = cookiePath ? "path=" + cookiePath : "path=/";
-  let expires = "";
-  const secureFlag = isSecure ? "Secure" : "";
-
-  if (
-    typeof cookieExpirationValue === "number" ||
-    typeof cookieExpirationValue === "string"
-  ) {
-    expires = "max-age=" + cookieExpirationValue;
-  }
-  if (cookieExpirationValue instanceof Date) {
-    expires = "expires=" + cookieExpirationValue.toUTCString();
-  }
-
-  Object.keys(cookieValue).forEach(
-    (i: keyof CookieValue) =>
-      (document.cookie = `${i}=${cookieValue[i]};${path};${expires};${secureFlag}`)
-  );
-};
 
 export const deleteCookie = (...args: string[]) =>
-  args.forEach((item) => setCookies({ [item]: "" }, -1));
+  args.forEach((name) => Cookies.remove(name));

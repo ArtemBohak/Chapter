@@ -6,7 +6,7 @@ const useGetUrlParams = () => {
 
   const currentLocation = window.location.origin + location.pathname;
 
-  const { state, code, error_message } = Object.fromEntries([...searchParams]);
+  const { state, code, error_message } = Object.fromEntries(searchParams);
 
   return {
     state,

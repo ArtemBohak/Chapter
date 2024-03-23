@@ -11,20 +11,27 @@ export const postDataEdit = <T>(data: Array<T>, limit: number) =>
     const currentPage = Math.floor(i / limit) + 1;
 
     if (i === data.length - 1 && !(data.length % limit))
-      return {
-        ...el,
-        nodeRef: createRef<HTMLDivElement>(),
-        pageLoaderRef: createRef<HTMLDivElement>(),
-        pageValue: nextPage,
-      };
+      return createDataObj(el, nextPage);
 
-    if (!(i % repeatValue))
-      return {
-        ...el,
-        nodeRef: createRef<HTMLDivElement>(),
-        pageLoaderRef: createRef<HTMLDivElement>(),
-        pageValue: currentPage,
-      };
+    if (
+      repeatValue === 10 &&
+      i > data.length - repeatValue &&
+      i < data.length - 5
+    )
+      return createDataObj(el, currentPage);
 
-    return { ...el, nodeRef: createRef<HTMLDivElement>() };
+    if (!(i % repeatValue)) return createDataObj(el, currentPage);
+
+    return createDataObj(el);
   });
+
+function createDataObj<T>(data: T, page?: number) {
+  return page
+    ? {
+        ...data,
+        nodeRef: createRef<HTMLDivElement>(),
+        pageLoaderRef: createRef<HTMLDivElement>(),
+        pageValue: page,
+      }
+    : { ...data, nodeRef: createRef<HTMLDivElement>() };
+}
