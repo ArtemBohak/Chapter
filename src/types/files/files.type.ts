@@ -15,5 +15,5 @@ export type FileOptions = {
 export enum Path {
   AVATAR = "chapter/avatars",
   POSTS = "chapter/posts",
-  BOOKS = "chapters/books",
+  BOOKS = "chapter/books",
 }
