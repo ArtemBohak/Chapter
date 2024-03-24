@@ -1,4 +1,5 @@
-export type FileArgs = {
+export type FileOptions = {
+  avatar?: boolean;
   path?: string;
   format?: string;
   height?: number;

@@ -63,15 +63,13 @@ const AddBookForm: FC = () => {
           imagePath: "",
         };
         if (file) {
-          const res = await new FilesService(
-            id,
+          const res = await new FilesService(id, setErrorBoundary).upload(
             file,
-            undefined,
-            setErrorBoundary
-          ).upload({
-            overwrite: false,
-            path: Path.BOOKS,
-          });
+            {
+              overwrite: false,
+              path: Path.BOOKS,
+            }
+          );
           if (res.code) {
             return setError(apiUiMessage.ERROR_MESSAGE);
           }
