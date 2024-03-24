@@ -49,15 +49,14 @@ const PostPreview: FC<PostPreviewProps> = ({
 
       if (file) {
         const files = new FilesService(id, file, undefined, setErrorBoundary);
+
         const res = await files.upload({
           overwrite: true,
           transform:
             "c_auto,g_auto/f_auto,q_auto:eco/d_chapter:placeholders:post.webp",
         });
 
-        if (res.code) {
-          return setError(apiUiMessage.ERROR_MESSAGE);
-        }
+        if (res.code) return setError(apiUiMessage.ERROR_MESSAGE);
 
         body.imgUrl = res?.eager[0].secure_url;
 
