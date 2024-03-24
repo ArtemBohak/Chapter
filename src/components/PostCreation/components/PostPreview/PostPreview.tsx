@@ -47,9 +47,9 @@ const PostPreview: FC<PostPreviewProps> = ({
 
       if (props.title) body.title = props.title;
 
-      if (file) {
-        const files = new FilesService(id, setErrorBoundary);
+      const files = new FilesService(id, setErrorBoundary);
 
+      if (file) {
         const res = await files.upload(file, {
           overwrite: true,
           transform:
@@ -59,9 +59,9 @@ const PostPreview: FC<PostPreviewProps> = ({
         if (res.code) return setError(apiUiMessage.ERROR_MESSAGE);
 
         body.imgUrl = res?.eager[0].secure_url;
-
-        props.prevImgUrl && files.delete(props.prevImgUrl);
       }
+
+      props.prevImgUrl && files.delete(props.prevImgUrl);
 
       if (props.caption) body.caption = props.caption;
 
