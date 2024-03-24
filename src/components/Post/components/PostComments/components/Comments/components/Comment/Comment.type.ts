@@ -11,4 +11,4 @@ export type CommentProps = {
 > &
   Pick<CommentsProps, "setPosts" | "setPost"> &
   CommentType &
-  RefsType;
+  Omit<RefsType, "nodeRef">;

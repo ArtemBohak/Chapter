@@ -29,9 +29,8 @@ function createDataObj<T>(data: T, page?: number) {
   return page
     ? {
         ...data,
-        nodeRef: createRef<HTMLDivElement>(),
         pageLoaderRef: createRef<HTMLDivElement>(),
         pageValue: page,
       }
-    : { ...data, nodeRef: createRef<HTMLDivElement>() };
+    : data;
 }

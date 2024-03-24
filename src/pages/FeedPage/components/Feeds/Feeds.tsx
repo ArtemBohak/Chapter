@@ -1,4 +1,4 @@
-import { FC, useRef } from "react";
+import { FC, createRef, useRef } from "react";
 import { TransitionGroup } from "react-transition-group";
 
 import { intersectionHandlerCB } from "@/src/utils";
@@ -31,18 +31,26 @@ const Feeds: FC = () => {
     <>
       <div ref={startLoaderRef} data-value={1} className="hide-element" />
       <TransitionGroup component={"ul"} className={styles["feeds"]}>
-        {posts.map((i) => (
-          <Animation
-            key={i.postId}
-            nodeRef={i.nodeRef}
-            classNames={transitionClassNames}
-            timeout={300}
-          >
-            <li>
-              <Post {...i} setPosts={setPosts} setPage={setPage} />
-            </li>
-          </Animation>
-        ))}
+        {posts.map((i) => {
+          const nodeRef = createRef<HTMLDivElement>();
+          return (
+            <Animation
+              key={i.postId}
+              nodeRef={nodeRef}
+              classNames={transitionClassNames}
+              timeout={300}
+            >
+              <li>
+                <Post
+                  {...i}
+                  setPosts={setPosts}
+                  setPage={setPage}
+                  nodeRef={nodeRef}
+                />
+              </li>
+            </Animation>
+          );
+        })}
       </TransitionGroup>
       <Loader
         isShown={!!posts.length && isLoad}
