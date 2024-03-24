@@ -61,7 +61,8 @@ const PostPreview: FC<PostPreviewProps> = ({
         body.imgUrl = res?.eager[0].secure_url;
       }
 
-      props.prevImgUrl && files.delete(props.prevImgUrl);
+      if (props.prevImgUrl && (file || !props.imgUrl))
+        files.delete(props.prevImgUrl);
 
       if (props.caption) body.caption = props.caption;
 
