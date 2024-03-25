@@ -43,12 +43,7 @@ const UserPost: FC<UserPostProps> = ({ post, fetchUserPosts }) => {
       const response = await api.delete(`${EndpointsEnum.DELETE_POST}/${Id}`);
 
       if (post.imgUrl)
-        await new FilesService(
-          undefined,
-          undefined,
-          undefined,
-          setErrorBoundary
-        ).delete(post.imgUrl);
+        new FilesService(undefined, setErrorBoundary).delete(post.imgUrl);
 
       console.log(response);
     } catch (error) {

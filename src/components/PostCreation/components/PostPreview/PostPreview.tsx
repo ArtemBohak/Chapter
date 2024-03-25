@@ -47,22 +47,22 @@ const PostPreview: FC<PostPreviewProps> = ({
 
       if (props.title) body.title = props.title;
 
+      const files = new FilesService(id, setErrorBoundary);
+
       if (file) {
-        const files = new FilesService(id, file, undefined, setErrorBoundary);
-        const res = await files.upload({
+        const res = await files.upload(file, {
           overwrite: true,
           transform:
             "c_auto,g_auto/f_auto,q_auto:eco/d_chapter:placeholders:post.webp",
         });
 
-        if (res.code) {
-          return setError(apiUiMessage.ERROR_MESSAGE);
-        }
+        if (res.code) return setError(apiUiMessage.ERROR_MESSAGE);
 
         body.imgUrl = res?.eager[0].secure_url;
-
-        props.prevImgUrl && files.delete(props.prevImgUrl);
       }
+
+      if (props.prevImgUrl && (file || !props.imgUrl))
+        files.delete(props.prevImgUrl);
 
       if (props.caption) body.caption = props.caption;
 

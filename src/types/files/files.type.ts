@@ -1,4 +1,5 @@
-export type FileArgs = {
+export type FileOptions = {
+  avatar?: boolean;
   path?: string;
   format?: string;
   height?: number;
@@ -14,5 +15,5 @@ export type FileArgs = {
 export enum Path {
   AVATAR = "chapter/avatars",
   POSTS = "chapter/posts",
-  BOOKS = "chapters/books",
+  BOOKS = "chapter/books",
 }
