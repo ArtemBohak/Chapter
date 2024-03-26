@@ -24,23 +24,28 @@ export const getDate = (date: Date | string | number) => {
   const hours = Math.floor((delta % day) / hour);
   const minutes = Math.floor(((delta % day) % hour) / minute);
 
-  const dateTime = inDate.toLocaleString("en-GB", {
-    day: "2-digit",
-    month: "short",
-  });
+  // const dateTime = inDate.toLocaleString("en-GB", {
+  //   day: "2-digit",
+  //   month: "short",
+  // });
 
-  const hoursTime = inDate.toLocaleString("en-GB", {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
+  // const hoursTime = inDate.toLocaleString("en-GB", {
+  //   hour: "2-digit",
+  //   minute: "2-digit",
+  // });
 
-  if (years >= 1) return `${years}yr ago`;
-  if (years < 1 && months >= 1) return `${dateTime}.`;
-  if (months < 1 && days >= 1) return `${days}d ago`;
-  if (days < 1 && hours >= 1) return `${hours}h ago`;
-  if (hours < 1 && minutes > 30) return `${hoursTime}`;
-  if (minutes <= 30 && minutes > 1) return `${minutes}min ago`;
-  return "less than a minute ago";
+  // if (years >= 1) return `${years}yr ago`;
+  // if (years < 1 && months >= 1) return `${dateTime}.`;
+  // if (months < 1 && days >= 1) return `${days}d ago`;
+  // if (days < 1 && hours >= 1) return `${hours}h ago`;
+  // if (hours < 1 && minutes > 30) return `${hoursTime}`;
+  // if (minutes <= 30 && minutes > 1) return `${minutes}min ago`;
+
+  if (!years && !months && !days && !hours && minutes <= 1)
+    return "less than a minute ago";
+  if (!years && !months && !days && !hours) return `${minutes}min ago`;
+  if (!years && !months && !days && hours < 24) return `${hours}h ago`;
+  return formatDate(date);
 };
 
 export const setDate = (dateValue: Date, value: number) => {
