@@ -1,5 +1,5 @@
 import { IPost } from "../../Post.type";
 
-export type PostDateProps = { createPost?: boolean } & Required<
+export type PostDateProps = { creatingPost?: boolean } & Required<
   Pick<IPost, "createAt">
 >;

@@ -24,6 +24,7 @@ export const getDate = (date: Date | string | number) => {
   const hours = Math.floor((delta % day) / hour);
   const minutes = Math.floor(((delta % day) % hour) / minute);
 
+  //* Different ways of date view
   // const dateTime = inDate.toLocaleString("en-GB", {
   //   day: "2-digit",
   //   month: "short",
@@ -40,6 +41,7 @@ export const getDate = (date: Date | string | number) => {
   // if (days < 1 && hours >= 1) return `${hours}h ago`;
   // if (hours < 1 && minutes > 30) return `${hoursTime}`;
   // if (minutes <= 30 && minutes > 1) return `${minutes}min ago`;
+  //* --->
 
   if (!years && !months && !days && !hours && minutes <= 1)
     return "less than a minute ago";

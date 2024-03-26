@@ -4,9 +4,9 @@ import { getDate, formatDate } from "@/src/utils";
 import { PostDateProps } from "./PostDate.type";
 import styles from "./PostDate.module.scss";
 
-const PostDate: FC<PostDateProps> = ({ createAt, createPost = false }) => (
+const PostDate: FC<PostDateProps> = ({ createAt, creatingPost = false }) => (
   <p className={styles["date"]}>
-    {createPost ? formatDate(createAt) : getDate(createAt)}
+    {creatingPost ? formatDate(createAt) : getDate(createAt)}
   </p>
 );
 
