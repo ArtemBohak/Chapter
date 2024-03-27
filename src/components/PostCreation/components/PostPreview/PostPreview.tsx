@@ -87,7 +87,7 @@ const PostPreview: FC<PostPreviewProps> = ({
       </div>
       <div className={styles["preview__user"]}>
         <PostFullName firstName={firstName} lastName={lastName} />
-        <PostDate createAt={createAt} />
+        <PostDate createAt={createAt} creatingPost />
       </div>
       <div className={styles["preview__title"]}>
         <PostTitle {...props} />
