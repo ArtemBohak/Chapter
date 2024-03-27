@@ -19,11 +19,12 @@ import styles from "./UserPost.module.scss";
 import { UserPostProps } from "../UserPost.type";
 import { useAppSelector } from "@/src/redux";
 import { EndpointsEnum, api } from "@/src/axios";
-import { useOutsideClick, useRefIntersection } from "@/src/hooks";
+import { useErrorBoundary, useOutsideClick, useRefIntersection } from "@/src/hooks";
 import { ElementsId } from "@/src/types";
 import { PostEditing } from "@/src/components/Post/PostEditing";
 import { intersectionHandlerCB } from "@/src/utils";
 import { useProfileContext } from "@/src/context";
+import { FilesService } from "@/src/services";
 
 
 const UserPost: FC<UserPostProps> = ({ post, setPage }) => {
@@ -36,6 +37,7 @@ const UserPost: FC<UserPostProps> = ({ post, setPage }) => {
   const [commentsIsHide, setCommentsIsHide] = useState(true);
   const [usersWhoLikedPost, setUsersWhoLikedPost] = useState([])
   const { page, fetchUserPosts, setUserPostsList } = useProfileContext()
+  const setErrorBoundary = useErrorBoundary()
 
   const pageLoaderRef = useRef(null)
 
@@ -66,6 +68,10 @@ const UserPost: FC<UserPostProps> = ({ post, setPage }) => {
 
     try {
       const response = await api.delete(`${EndpointsEnum.DELETE_POST}/${Id}`);
+
+      if (post.imgUrl)
+        new FilesService(undefined, setErrorBoundary).delete(post.imgUrl);
+
       console.log(response);
     } catch (error) {
       console.log(error);

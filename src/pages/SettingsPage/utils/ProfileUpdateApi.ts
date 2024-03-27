@@ -6,10 +6,11 @@ import {
 } from "@/src/services";
 
 import { SetErrorType } from "@/src/types";
-import { ProfileUpdateApiArgs } from "./ProfileUpdateApi.type";
+import { ImageSaveArgs, ProfileUpdateApiArgs } from "./ProfileUpdateApi.type";
 
 export class ProfileUpdateApi extends UserApiConstructor {
-  private userAvatarParams = {
+  private userAvatarParams: ImageSaveArgs = {
+    avatar: true,
     alt: "user avatar",
     transform:
       "c_thumb,h_216,w_216/r_30/f_auto,q_auto:eco/d_chapter:placeholders:post.webp",
@@ -20,11 +21,13 @@ export class ProfileUpdateApi extends UserApiConstructor {
   }
 
   async imageSave(id: string | number, file: File) {
+    const { userAvatarParams } = this;
     try {
       this.setIsLoading && this.setIsLoading(true);
 
-      const res = await new FilesService(id, file, true, this.setError).upload(
-        this.userAvatarParams
+      const res = await new FilesService(id, this.setError).upload(
+        file,
+        userAvatarParams
       );
 
       if (res.code) {

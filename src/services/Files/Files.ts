@@ -4,7 +4,7 @@ import { AxiosError } from "axios";
 import { store } from "@/src/redux";
 import { uploadFilesApi } from "@/src/axios";
 import { hashingString } from "@/src/utils";
-import { FileArgs, SetErrorType, Path } from "@/src/types";
+import { FileOptions, SetErrorType, Path } from "@/src/types";
 
 import { Params } from "./Files.type";
 
@@ -23,8 +23,6 @@ class FilesService {
 
   constructor(
     private id: string | number = FilesService.defaultId,
-    private file?: File | string,
-    private avatar?: boolean,
     private setError?: SetErrorType
   ) {}
 
@@ -37,12 +35,13 @@ class FilesService {
   }
 
   private imageTransformString({
+    avatar,
     transform,
     height = 216,
     width = 216,
     radius = 10,
-  }: Partial<FileArgs>) {
-    if (this.avatar)
+  }: Partial<FileOptions>) {
+    if (avatar)
       return transform
         ? transform
         : `c_thumb,h_${height},w_${width}/r_${radius}`;
@@ -50,35 +49,39 @@ class FilesService {
     return transform ? transform : `c_thumb,h_${height},w_${width}`;
   }
 
-  async upload({
-    path,
-    overwrite = true,
-    format = "webp",
-    tags = [],
-    formats = [],
-    alt,
-    ...args
-  }: FileArgs) {
+  async upload(
+    file: File | string,
+    {
+      avatar = false,
+      path,
+      overwrite = true,
+      format = "webp",
+      tags = [],
+      formats = [],
+      alt,
+      ...args
+    }: FileOptions = {}
+  ) {
     try {
-      const defaultPath = this.avatar ? Path.AVATAR : Path.POSTS;
+      const defaultPath = avatar ? Path.AVATAR : Path.POSTS;
       const imageTags = tags.length ? tags : defaultPath.split("/");
       const context = `alt=${alt ? alt : defaultPath.split("/")}`;
 
       const params = {
         allowed_formats: [...this.formats, ...formats],
         context,
-        eager: this.imageTransformString({ ...args }),
+        eager: this.imageTransformString({ avatar, ...args }),
         folder: path || defaultPath,
         format,
         overwrite,
-        public_id: this.avatar ? `${this.id}` : this.id + "/" + nanoid(),
+        public_id: avatar ? `${this.id}` : this.id + "/" + nanoid(),
         tags: imageTags,
         timestamp: Math.floor(Date.now() / 1000),
       };
       const signature = this.createSignature(params);
 
       const res = await uploadFilesApi.post(`${this.cloudName}/image/upload`, {
-        file: this.file,
+        file,
         api_key: this.apiKey,
         signature,
         ...params,
