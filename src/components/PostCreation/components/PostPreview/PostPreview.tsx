@@ -17,6 +17,7 @@ import {
   PostText,
   PostTitle,
 } from "@/src/components";
+import { useProfileContext } from "@/src/context";
 
 const PostPreview: FC<PostPreviewProps> = ({
   setFormIsOpen,
@@ -30,6 +31,7 @@ const PostPreview: FC<PostPreviewProps> = ({
   const setErrorBoundary = useErrorBoundary();
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const { fetchUserPosts, page } = useProfileContext()
 
   const createAt = Date.now();
 
@@ -77,6 +79,7 @@ const PostPreview: FC<PostPreviewProps> = ({
         setError(errors[key] || apiUiMessage.ERROR_MESSAGE);
       }
     } finally {
+      fetchUserPosts(page)
       setIsLoading(false);
     }
   };

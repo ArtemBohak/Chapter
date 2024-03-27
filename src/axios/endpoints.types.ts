@@ -32,6 +32,7 @@ export enum EndpointsEnum {
   USERS_BOOKS = "books/books",
   TOOGLE_FAVORITE_BOOKS = "/books/toggle-favorite-status/",
   DELETE_BOOK = "books/",
+  EDITE_BOOK = "books/",
 
   // FILES
   UPLOAD_FILES = "files/upload",
@@ -39,6 +40,7 @@ export enum EndpointsEnum {
 
   // POSTS
   CREATE_POST = "posts/create",
+  EDIT_POST = "posts/update/",
   DELETE_POST = "posts/delete",
   GET_POST = "posts/post/",
   POSTS_BY_AUTHOR = "posts/by-author",
@@ -49,9 +51,11 @@ export enum EndpointsEnum {
   // LIKE
   POST_LIKE = "likes/like-unlike-post/",
   COMMENT_LIKE = "likes/like-unlike-comment/",
+  USERS_WHO_LIKED_POST = "posts/users-who-liked-post/",
 
   // COMMENTS
   COMMENTS = "comments/",
+  GET_COMMENTS = "comments/comments/",
   DELETE_COMMENTS = "comments/delete/",
 
   // FEEDS

@@ -22,5 +22,4 @@ export interface IBook {
     book_statusId: number;
     favorite_book_status: boolean;
     imagePath: string;
-
 }

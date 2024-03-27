@@ -6,7 +6,7 @@ import { SocketApi } from "@/src/services";
 import { getTokenFromLC } from "@/src/utils";
 import { useErrorBoundary } from "@/src/hooks";
 import { useAppSelector } from "@/src/redux";
-import { INots, SocketEventsEnum } from "@/src/types";
+import { INots, PostRefType, SocketEventsEnum } from "@/src/types";
 import { IProfileProviderProps } from "./ProfileProvider.type";
 import { ProfileContext } from "./hooks";
 
@@ -17,6 +17,8 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
   const isAuth = useAppSelector((state) => state.userSlice.isAuth);
   const [isConnected, setIsConnected] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [userPostsList, setUserPostsList] = useState<Array<PostRefType>>([]);
+  const [isLoad, setIsLoad] = useState(false);
 
   const [headerAddPostBtnIsDisabled, setHeaderAddPostBtnIsDisabled] =
     useState(false);
@@ -24,6 +26,18 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
   const [notifications, setNotifications] = useState<Array<INots>>([]);
 
   const [unreadMessage, setUnreadMessage] = useState(notifications.length);
+  const [page, setPage] = useState<number>(0);
+
+  const fetchUserPosts = async (currentPage: number) => {
+    try {
+      const response = await api.get(`${EndpointsEnum.POSTS_BY_AUTHOR}?page=${currentPage}&limit=50`);
+      setUserPostsList(response.data);
+      setIsLoad(true)
+      return response.data
+    } catch (error) {
+      console.error('Error fetching user posts:', error);
+    }
+  };
 
   useLayoutEffect(() => {
     setIsLoading(true);
@@ -101,6 +115,12 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
         setHeaderAddPostBtnIsDisabled,
         setUnreadMessage,
         setNotifications,
+        page,
+        setPage,
+        fetchUserPosts,
+        userPostsList,
+        setUserPostsList,
+        isLoad,
       }}
     >
       {children}

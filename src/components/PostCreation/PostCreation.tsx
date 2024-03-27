@@ -56,6 +56,7 @@ const PostCreation: FC<PostCreationProps> = ({
       backdropClassName={backDropClassNames}
       bodyClassName={bodyClassNames}
       disableScroll={disableScroll}
+      portal
       isOpen={isOpen}
       {...props}
     >

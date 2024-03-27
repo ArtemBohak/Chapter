@@ -19,12 +19,10 @@ const FollowerItem: FC<FollowerProps> = ({
       ? follower.firstName.substring(0, 15) + "..."
       : follower.firstName;
 
-  const NameLength =
-    (truncatedFirstName && truncatedFirstName.length > 15) ||
-    (truncatedLastName && truncatedLastName.length > 15);
-  const ShowTitle = NameLength
-    ? `${follower.firstName} ${follower.lastName}`
-    : "";
+  const NameLength = truncatedFirstName && truncatedFirstName.length > 15 || truncatedLastName && truncatedLastName.length > 15;
+  const ShowTitle = NameLength ? `${follower.firstName} ${follower.lastName}` : "";
+
+  const followRule = loadingStates[follower.id] ? (follower.isSubscribed ? 'Unfollowing...' : "Following...") : (follower.isSubscribed ? "Unfollow" : "Follow");
   return (
     <li className={styles["follow-list__person"]} key={follower.id}>
       <Link
@@ -56,11 +54,7 @@ const FollowerItem: FC<FollowerProps> = ({
         dataAutomation={"Unfollow-button"}
         aria-label="Subscribe user button"
       >
-        {loadingStates[follower.id]
-          ? "Unfollowing..."
-          : follower.isSubscribed
-          ? "Unfollow"
-          : "Follow"}
+        {followRule}
       </UIbutton>
     </li>
   );
