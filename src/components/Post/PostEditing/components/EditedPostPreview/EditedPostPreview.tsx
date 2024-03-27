@@ -47,16 +47,14 @@ const EditedPostPreview: FC<PostPreviewProps> = ({
         createAt,
       };
 
+      const files = new FilesService(id, setErrorBoundary);
       if (props.title) body.title = props.title;
 
       if (file) {
-        const res = await new FilesService(
-          id,
-          file,
-          undefined,
-          setErrorBoundary
-        ).upload({
-          overwrite: false,
+        const res = await files.upload(file, {
+          overwrite: true,
+          transform:
+            "c_auto,g_auto/f_auto,q_auto:eco/d_chapter:placeholders:post.webp",
         });
         if (res.code) {
           return setError(apiUiMessage.ERROR_MESSAGE);
