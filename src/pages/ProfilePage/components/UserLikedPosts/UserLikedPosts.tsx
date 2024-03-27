@@ -2,27 +2,32 @@ import { FC, useEffect, useRef, useState } from "react";
 import styles from "./Liked.module.scss";
 import { EndpointsEnum, api } from "@/src/axios";
 import { Link } from "react-router-dom";
-// import { Like } from "@/src/components/Post/IconButtons/LikesButton/components/LikesModal/LikesModal.type";
 import { PostSkeleton } from "@/src/components";
 import { usePostsContext } from "../UserPosts/context";
 import LikedPost from "./LikedPost/LikedPost";
 import { links } from "@/src/types";
+import { useErrorBoundary } from "@/src/hooks";
+import { AxiosError } from "axios";
 
 
 const UserLikedPosts: FC = () => {
   const { userLikedPostsList, setUserLikedPostsList } = usePostsContext()
   const [page, setPage] = useState(1);
   const [isPostsLoaded, setIsPostsLoaded] = useState(false);
+  const setErrorBoundary = useErrorBoundary()
 
   const fetchUserLikedPosts = async (page: number) => {
     try {
       const response = await api.get(
-        `${EndpointsEnum.LIKED_POSTS}?page=${page}&limit=10`
+        `${EndpointsEnum.LIKED_POSTS}?page=${page}&limit=50`
       );
       setUserLikedPostsList(response.data);
       setIsPostsLoaded(true);
     } catch (error) {
-      console.log(error);
+      if (error instanceof AxiosError) {
+        setErrorBoundary(error);
+
+      }
     }
 
   };
@@ -55,7 +60,6 @@ const UserLikedPosts: FC = () => {
 
 
   useEffect(() => {
-
     fetchUserLikedPosts(1);
   }, []);
   // const sortByCreatedDate = (a: LikedPostData, b: LikedPostData) => {

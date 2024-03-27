@@ -13,7 +13,7 @@ const PostsProvider: FC<IPostProviderProps> = ({ children }) => {
 
     const fetchUserPosts = async (currentPage: number) => {
         try {
-            const response = await api.get(`${EndpointsEnum.POSTS_BY_AUTHOR}?page=${currentPage}&limit=3`);
+            const response = await api.get(`${EndpointsEnum.POSTS_BY_AUTHOR}?page=${currentPage}&limit=50`);
             setUserPostsList(response.data);
             setIsLoad(true)
             return response.data

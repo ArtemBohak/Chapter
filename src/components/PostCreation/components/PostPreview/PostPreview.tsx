@@ -17,7 +17,6 @@ import {
   PostText,
   PostTitle,
 } from "@/src/components";
-import { usePostsContext } from "@/src/pages/ProfilePage/components/UserPosts/context/hooks/usePostsContext";
 import { useProfileContext } from "@/src/context";
 
 const PostPreview: FC<PostPreviewProps> = ({
@@ -32,8 +31,7 @@ const PostPreview: FC<PostPreviewProps> = ({
   const setErrorBoundary = useErrorBoundary();
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const { fetchUserPosts } = usePostsContext()
-  const { page } = useProfileContext()
+  const { fetchUserPosts, page } = useProfileContext()
 
   const createAt = Date.now();
 

@@ -22,7 +22,7 @@ const GuestPost: FC<GuestPostProps> = ({ post }) => {
 
     }, []);
     return (
-        <div className={styles["user-post"]} key={post.postId}>
+        <li className={styles["user-post"]} key={post.postId}>
             <div className="flex items-center justify-between w-full relative">
                 <div className="flex gap-3 items-center">
                     <Avatar avatarUrl={enemyData?.avatarUrl || null} />
@@ -59,7 +59,7 @@ const GuestPost: FC<GuestPostProps> = ({ post }) => {
                 commentsIsHide={commentsIsHide}
             />
             {/* <PostDate date={post.createdAt}/> */}
-        </div>
+        </li>
     )
 }
 

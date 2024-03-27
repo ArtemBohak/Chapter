@@ -2,13 +2,11 @@ import { FC, useEffect } from "react";
 import styles from "./Posts.module.scss";
 import { PostSkeleton } from "@/src/components";
 import UserPost from "./UserPost/UserPost";
-import { usePostsContext } from "./context";
 import { useProfileContext } from "@/src/context";
 
 
 const UserPosts: FC = () => {
-  const { userPostsList, fetchUserPosts } = usePostsContext()
-  const { page, setPage } = useProfileContext()
+  const { page, setPage, userPostsList, fetchUserPosts } = useProfileContext()
 
 
 

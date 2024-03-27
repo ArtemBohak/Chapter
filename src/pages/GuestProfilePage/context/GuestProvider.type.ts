@@ -13,4 +13,5 @@ export type GuestContextType = {
   enemyData: enemyData;
   setEnemyData: Dispatch<React.SetStateAction<enemyData>>;
   BooksCheker: boolean;
+  setPage: Dispatch<React.SetStateAction<number>>
 };

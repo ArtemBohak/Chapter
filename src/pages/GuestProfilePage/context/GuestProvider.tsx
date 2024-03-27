@@ -26,7 +26,7 @@ const GuestProvider: FC<IGuestProviderProps> = ({ children }) => {
   };
 
   const fetchGuestPosts = async (currentPage: number) => {
-    const response = await api.get(`${EndpointsEnum.POSTS_BY_USER}${Id}?&page=${currentPage}&limit=1`);
+    const response = await api.get(`${EndpointsEnum.POSTS_BY_USER}${Id}?&page=${currentPage}&limit=50`);
     setGuestPostsList(response.data);
   };
 
@@ -37,7 +37,7 @@ const GuestProvider: FC<IGuestProviderProps> = ({ children }) => {
 
   return (
     <GuestContext.Provider
-      value={{ fetchEnemyUserData, guestPostsList, setGuestPostsList, enemyData, setEnemyData, BooksCheker }}>
+      value={{ fetchEnemyUserData, guestPostsList, setGuestPostsList, enemyData, setEnemyData, BooksCheker, setPage }}>
       {children}
     </GuestContext.Provider>
   );

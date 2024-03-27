@@ -1,20 +1,20 @@
 .create-post {
   &__backdrop {
-    @apply top-0 left-0 bg-[#1c1c1c99] overflow-y-auto w-full h-full  flex;
+    @apply top-0 left-0 bg-[#1c1c1c99] overflow-y-auto w-full h-full fixed;
 
     &--page {
       @apply fixed bg-white md:bg-[#1c1c1c99] items-start md:items-center;
     }
 
     &--profile {
-      @apply px-2-md top-[44px] md:top-[44px]  items-start pt-4-xs;
+      @apply px-2-md top-0 items-start pt-4-xs;
     }
   }
   &__body {
     @apply relative bg-white rounded-md w-full px-2-md md:py-4-xs md:max-w-[674px];
 
     &--page {
-      @apply translate-y-[10%] ml-auto mr-auto base:mr-[5%] laptop:mr-[20%] pb-2-xs;
+      @apply translate-y-[10%] ml-auto mr-auto pb-2-xs;
     }
 
     &--profile {

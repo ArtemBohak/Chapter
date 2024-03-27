@@ -21,8 +21,6 @@ import { useAppSelector } from "@/src/redux";
 import { EndpointsEnum, api } from "@/src/axios";
 import { useOutsideClick, useRefIntersection } from "@/src/hooks";
 import { ElementsId } from "@/src/types";
-
-import { usePostsContext } from "../context";
 import { PostEditing } from "@/src/components/Post/PostEditing";
 import { intersectionHandlerCB } from "@/src/utils";
 import { useProfileContext } from "@/src/context";
@@ -35,10 +33,9 @@ const UserPost: FC<UserPostProps> = ({ post, setPage }) => {
   const [showEditionWindow, setShowEditionWindow] = useState(false);
   const [isDeletingLoading, setIsDeletingLoading] = useState(false);
   const [commentsList, setComentsList] = useState([])
-  const { fetchUserPosts, setUserPostsList } = usePostsContext()
   const [commentsIsHide, setCommentsIsHide] = useState(true);
   const [usersWhoLikedPost, setUsersWhoLikedPost] = useState([])
-  const { page } = useProfileContext()
+  const { page, fetchUserPosts, setUserPostsList } = useProfileContext()
 
   const pageLoaderRef = useRef(null)
 

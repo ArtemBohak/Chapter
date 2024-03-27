@@ -7,18 +7,18 @@
     }
 
     &--profile {
-      @apply px-2-md items-start pt-4-xs pb-4-xs;
+      @apply px-2-md top-0 items-start pt-4-xs;
     }
   }
   &__body {
-    @apply relative bg-white rounded-md w-full px-2-md py-4-xs md:max-w-[674px];
+    @apply relative bg-white rounded-md w-full px-2-md md:py-4-xs md:max-w-[674px];
 
     &--page {
-      @apply translate-y-[10%] ml-auto mr-auto base:mr-[5%] laptop:mr-[20%];
+      @apply translate-y-[10%] ml-auto mr-auto pb-2-xs;
     }
 
     &--profile {
-      @apply mx-auto;
+      @apply mx-auto py-4-xs;
     }
   }
   &__header {
@@ -34,4 +34,8 @@
       @apply bg-transparent;
     }
   }
+}
+
+.cross-btn {
+  @apply hover:text-primaryHover focus:text-primaryHover transition-all duration-150;
 }

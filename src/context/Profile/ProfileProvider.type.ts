@@ -1,5 +1,6 @@
 import { Dispatch, ReactNode, SetStateAction } from "react";
 import { INots } from "@/src/types/app/notifications.type";
+import { PostRefType } from "@/src/types";
 
 export interface IProfileProviderProps {
   children: ReactNode;
@@ -17,4 +18,8 @@ export type ProfileContextType = {
   setUnreadMessage: Dispatch<SetStateAction<number>>;
   page: number,
   setPage: Dispatch<SetStateAction<number>>;
+  fetchUserPosts: (currentPage: number) => void;
+  userPostsList: [] | Array<PostRefType>;
+  setUserPostsList: Dispatch<SetStateAction<Array<PostRefType>>>;
+  isLoad: boolean;
 };

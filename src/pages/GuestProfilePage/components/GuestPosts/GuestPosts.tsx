@@ -8,7 +8,7 @@ const GuestPosts: FC = () => {
   const { guestPostsList } = useGuestContext();
 
   return (
-    <div className={styles["posts-wrapper"]}>
+    <ul className={styles["posts-wrapper"]}>
       {guestPostsList.length > 0 ? (
         guestPostsList.map((post) => (
           <GuestPost post={post} />
@@ -18,7 +18,7 @@ const GuestPosts: FC = () => {
           <Loader />
         </div>
       )}
-    </div>
+    </ul>
   );
 };
 

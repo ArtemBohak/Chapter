@@ -17,7 +17,7 @@ import {
   PostText,
   PostTitle,
 } from "@/src/components";
-import { usePostsContext } from "@/src/pages/ProfilePage/components/UserPosts/context/hooks/usePostsContext";
+import { useProfileContext } from "@/src/context";
 
 const EditedPostPreview: FC<PostPreviewProps> = ({
   setFormIsOpen,
@@ -32,7 +32,7 @@ const EditedPostPreview: FC<PostPreviewProps> = ({
   const setErrorBoundary = useErrorBoundary();
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const { fetchUserPosts } = usePostsContext()
+  const { fetchUserPosts } = useProfileContext()
   const createAt = Date.now();
 
   const onHandleBackClick = () => {
@@ -76,7 +76,7 @@ const EditedPostPreview: FC<PostPreviewProps> = ({
       }
     } finally {
       setIsLoading(false);
-      fetchUserPosts()
+      fetchUserPosts(1)
     }
   };
   return (

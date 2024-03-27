@@ -1,9 +1,10 @@
 import { ModalProps } from "@/src/components/Modal/Modal.type";
-import { IPost } from "../Post.type";
+
+import { PostRefType } from "@/src/types";
 
 
 export type PostEditingProps = {
-  post: Pick<IPost, "caption" | "title" | "imgUrl"> & {
+  post: Pick<PostRefType, "caption" | "title" | "imgUrl"> & {
     postId: string | number
   };
   isScreenSize?: boolean;
