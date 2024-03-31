@@ -7,7 +7,6 @@ import { IBook } from "@/src/components/BookShelf/Book/BookProps.type";
 const BooksPageProvider: FC<BooksPageProviderProps> = ({ children }) => {
   const { user } = useAppSelector((state) => state.userSlice);
   const { userBooks } = user;
-
   const [books, setBooks] = useState<IBook[]>([]);
   const [edit, setEdit] = useState<boolean>(false);
   const [isCancelModalOpen, setIsCancelModalOpen] = useState<boolean>(false);

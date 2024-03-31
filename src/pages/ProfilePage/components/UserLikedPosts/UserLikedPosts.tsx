@@ -1,43 +1,35 @@
-import { FC, SetStateAction, useEffect, useRef, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import styles from "./Liked.module.scss";
-import { EndpointsEnum, api, followApi } from "@/src/axios";
-import {
-  Avatar,
-  CommentsButton,
-  LikesButton,
-  PostComments,
-  PostDate,
-  PostImage,
-  PostText,
-  PostTitle,
-  UIbutton,
-  UserNickName,
-} from "@/src/components";
-import { LikedPostData } from "./UserLikedPost.type";
+import { EndpointsEnum, api } from "@/src/axios";
 import { Link } from "react-router-dom";
-// import { Like } from "@/src/components/Post/IconButtons/LikesButton/components/LikesModal/LikesModal.type";
 import { PostSkeleton } from "@/src/components";
+import { usePostsContext } from "../UserPosts/context";
+import LikedPost from "./LikedPost/LikedPost";
 import { links } from "@/src/types";
+import { useErrorBoundary } from "@/src/hooks";
+import { AxiosError } from "axios";
+
 
 const UserLikedPosts: FC = () => {
-  const [userLikedPostsList, setUserLikedPostsList] = useState<LikedPostData[]>(
-    []
-  );
+  const { userLikedPostsList, setUserLikedPostsList } = usePostsContext()
   const [page, setPage] = useState(1);
-  // const [usersWhoLikedPost, setUsersWhoLikedPost] = useState<Array<Like>>([])
   const [isPostsLoaded, setIsPostsLoaded] = useState(false);
+  const setErrorBoundary = useErrorBoundary()
 
   const fetchUserLikedPosts = async (page: number) => {
     try {
       const response = await api.get(
-        `${EndpointsEnum.LIKED_POSTS}?page=${page}&limit=20`
+        `${EndpointsEnum.LIKED_POSTS}?page=${page}&limit=50`
       );
       setUserLikedPostsList(response.data);
-      console.log(response.data);
       setIsPostsLoaded(true);
     } catch (error) {
-      console.log(error);
+      if (error instanceof AxiosError) {
+        setErrorBoundary(error);
+
+      }
     }
+
   };
 
   const PostsListViewport = useRef<HTMLDivElement | null>(null);
@@ -65,15 +57,10 @@ const UserLikedPosts: FC = () => {
       }
     }
   };
-  const fetchUsersWhoLikedPosts = async () => {
-    const response = await api.post(`/posts/users-who-liked-post/35`);
-    // setUsersWhoLikedPost(response.data)
-    console.log(response.data);
-  };
+
 
   useEffect(() => {
     fetchUserLikedPosts(1);
-    fetchUsersWhoLikedPosts();
   }, []);
   // const sortByCreatedDate = (a: LikedPostData, b: LikedPostData) => {
   //   new Date(b.createdDate).getTime() - new Date(a.createdDate).getTime();
@@ -95,61 +82,7 @@ const UserLikedPosts: FC = () => {
     >
       {isPostsLoaded ? (
         userLikedPostsList.map((post) => (
-          <div key={post.postId} className={styles["user-post"]}>
-            <div className="flex items-center justify-between gap-2 w-full">
-              <Link
-                aria-label="User profile nav link"
-                className={styles["user-post__link"]}
-                to={post.author.id != undefined ? `/${post.author.id}` : ""}
-              >
-                <Avatar avatarUrl={post.author.avatar} />
-                <UserNickName nickName={post.author.nickName} />
-              </Link>
-              <UIbutton
-                variant={post.isSubscribeToAuthor ? "outlined" : "contained"}
-                dataAutomation={"subscribe-button"}
-                onClick={() => followApi(post.author.id)}
-                aria-label="Subscribe user button"
-              >
-                {post.isSubscribeToAuthor ? "unfollow" : "follow"}
-              </UIbutton>
-            </div>
-            <div className={styles["user-post__image"]}>
-              <PostImage imgUrl={post.imgUrl} />
-            </div>
-            <div className="flex justify-between">
-              <div className={styles["user-post__activity-icons"]}>
-                <LikesButton
-                  id={post.postId}
-                  userIds={[]}
-                  url={EndpointsEnum.POST_LIKE}
-                />
-                <CommentsButton
-                  textValue={""}
-                  id={""}
-                  commentsCount={post.commentsCount}
-                  postId={""}
-                />
-              </div>
-              <PostDate createAt={post.createAt} />
-            </div>
-            <PostTitle title={post.title} />
-            <PostText caption={post.caption} />
-            <PostComments
-              postId={post.postId}
-              commentsCount={post.commentsCount}
-              comments={[]}
-              // * Temporary plug
-              commentsIsHide={false}
-              setCommentsIsHide={function (
-                value: SetStateAction<boolean>
-              ): void {
-                value;
-                throw new Error("Function not implemented.");
-              }}
-              // * Temporary plug
-            />
-          </div>
+          <LikedPost key={post.postId} post={post} />
         ))
       ) : (
         <div className={styles["user-post__skeleton"]}>

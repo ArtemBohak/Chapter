@@ -1,9 +1,11 @@
-import { FC, useMemo } from "react";
+import { FC, useMemo, useState } from "react";
 import { IconEnum, Modal, UIbutton } from "@/src/components";
 import styles from "./BookInfoModal.module.scss";
 import { BookInfoModalProps } from "./BookInfoModal.type";
 import CloseButton from "../Book/IconButtons/CloseButton/CloseButton";
 import FavoriteBookButton from "../Book/IconButtons/FavoriteBookButton/FavoriteBookButton";
+import EditBookModal from "../EditBookModal/EditBookModal";
+
 
 const BookInfoModal: FC<BookInfoModalProps> = ({
   isOpen,
@@ -17,7 +19,18 @@ const BookInfoModal: FC<BookInfoModalProps> = ({
   imagePath,
   favoriteButtons,
 }) => {
+  const [editeBookInfo, setEditeBookInfo] = useState(false)
   const nameLength = useMemo(() => nameOfBook?.length ?? 0, [nameOfBook]);
+
+
+
+
+  if (editeBookInfo) {
+    return (
+      <EditBookModal isOpen={editeBookInfo} setIsOpen={setEditeBookInfo} bookId={id} />
+    )
+  }
+
 
   return (
     <Modal
@@ -60,6 +73,7 @@ const BookInfoModal: FC<BookInfoModalProps> = ({
             fullWidth={false}
             icon={IconEnum.EditBook}
             dataAutomation={"editBookButton"}
+            onClick={() => setEditeBookInfo(true)}
           >
             Edit book info
           </UIbutton>}
@@ -68,6 +82,7 @@ const BookInfoModal: FC<BookInfoModalProps> = ({
       </div>
     </Modal>
   );
+
 };
 
 export default BookInfoModal;
