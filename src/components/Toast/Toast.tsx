@@ -53,7 +53,7 @@ const Toast: FC<ToastProps> = ({
 
   const onHandleLinkClick = async () => {
     try {
-      // await api.patch(EndpointsEnum.NOTA + "/" + id);
+      await api.patch(EndpointsEnum.NOTA + "/" + id);
       setNotifications((notifications) =>
         notifications.map((notification) => {
           if (notification.id === id)
