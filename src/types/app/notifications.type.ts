@@ -12,7 +12,7 @@ export type SocketEventsType =
 export interface INots {
   id: number;
   isViewed: boolean;
-  createdAt: Date;
+  createdAt: Date | string;
   data: {
     message: string;
     postId?: number;
