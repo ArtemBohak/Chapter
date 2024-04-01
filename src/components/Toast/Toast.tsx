@@ -37,7 +37,7 @@ const Toast: FC<ToastProps> = ({
     touchDistinction: 100,
   });
 
-  const onHandleClick = async () => {
+  const onHandleDeleteButtonClick = async () => {
     setIsLoading && setIsLoading(true);
     try {
       await api.delete(EndpointsEnum.NOTA + "/" + id);
@@ -48,6 +48,23 @@ const Toast: FC<ToastProps> = ({
       }
     } finally {
       setIsLoading && setIsLoading(false);
+    }
+  };
+
+  const onHandleLinkClick = async () => {
+    try {
+      // await api.patch(EndpointsEnum.NOTA + "/" + id);
+      setNotifications((notifications) =>
+        notifications.map((notification) => {
+          if (notification.id === id)
+            return { ...notification, isViewed: true };
+          return notification;
+        })
+      );
+    } catch (e) {
+      if (e instanceof AxiosError) {
+        setErrorBoundary(e);
+      }
     }
   };
 
@@ -63,6 +80,7 @@ const Toast: FC<ToastProps> = ({
     >
       <div className={styles["wrapper"]}>
         <Link
+          onClick={onHandleLinkClick}
           to={`/${userId}`}
           className={styles["toast__user"]}
           aria-label="User profile nav link"
@@ -91,7 +109,7 @@ const Toast: FC<ToastProps> = ({
       <button
         data-automation="clickButton"
         className={deleteBtnClassNames}
-        onClick={onHandleClick}
+        onClick={onHandleDeleteButtonClick}
         aria-label="Delete notification button"
       >
         <Icon

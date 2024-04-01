@@ -11,6 +11,7 @@ export type SocketEventsType =
 
 export interface INots {
   id: number;
+  isViewed: boolean;
   createdAt: Date;
   data: {
     message: string;
