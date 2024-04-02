@@ -32,7 +32,7 @@ const EditedPostPreview: FC<PostPreviewProps> = ({
   const setErrorBoundary = useErrorBoundary();
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const { fetchUserPosts } = useProfileContext()
+  const { fetchUserPosts } = useProfileContext();
   const createAt = Date.now();
 
   const onHandleBackClick = () => {
@@ -50,16 +50,19 @@ const EditedPostPreview: FC<PostPreviewProps> = ({
       const files = new FilesService(id, setErrorBoundary);
       if (props.title) body.title = props.title;
 
+      if (props.prevImgUrl && (file || !props.imgUrl)) {
+        files.delete(props.prevImgUrl);
+        body.imgUrl = null;
+      }
       if (file) {
         const res = await files.upload(file, {
           overwrite: true,
           transform:
             "c_auto,g_auto/f_auto,q_auto:eco/d_chapter:placeholders:post.webp",
         });
-        if (res.code) {
-          return setError(apiUiMessage.ERROR_MESSAGE);
-        }
-        body.imgUrl = res.secure_url;
+        if (res.code) return setError(apiUiMessage.ERROR_MESSAGE);
+
+        body.imgUrl = res?.eager[0].secure_url;
       }
 
       if (props.caption) body.caption = props.caption;
@@ -74,7 +77,7 @@ const EditedPostPreview: FC<PostPreviewProps> = ({
       }
     } finally {
       setIsLoading(false);
-      fetchUserPosts(1)
+      fetchUserPosts(1);
     }
   };
   return (

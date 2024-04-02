@@ -1,4 +1,3 @@
-
 import {
   Avatar,
   CommentsButton,
@@ -19,13 +18,16 @@ import styles from "./UserPost.module.scss";
 import { UserPostProps } from "../UserPost.type";
 import { useAppSelector } from "@/src/redux";
 import { EndpointsEnum, api } from "@/src/axios";
-import { useErrorBoundary, useOutsideClick, useRefIntersection } from "@/src/hooks";
+import {
+  useErrorBoundary,
+  useOutsideClick,
+  useRefIntersection,
+} from "@/src/hooks";
 import { ElementsId } from "@/src/types";
 import { PostEditing } from "@/src/components/Post/PostEditing";
 import { intersectionHandlerCB } from "@/src/utils";
 import { useProfileContext } from "@/src/context";
 import { FilesService } from "@/src/services";
-
 
 const UserPost: FC<UserPostProps> = ({ post, setPage }) => {
   const { user } = useAppSelector((state) => state.userSlice);
@@ -33,32 +35,31 @@ const UserPost: FC<UserPostProps> = ({ post, setPage }) => {
   const [showConfirmationWindow, setShowConfirmationWindow] = useState(false);
   const [showEditionWindow, setShowEditionWindow] = useState(false);
   const [isDeletingLoading, setIsDeletingLoading] = useState(false);
-  const [commentsList, setComentsList] = useState([])
+  const [commentsList, setComentsList] = useState([]);
   const [commentsIsHide, setCommentsIsHide] = useState(true);
-  const [usersWhoLikedPost, setUsersWhoLikedPost] = useState([])
-  const { page, fetchUserPosts, setUserPostsList } = useProfileContext()
-  const setErrorBoundary = useErrorBoundary()
+  const [usersWhoLikedPost, setUsersWhoLikedPost] = useState([]);
+  const { page, fetchUserPosts, setUserPostsList } = useProfileContext();
+  const setErrorBoundary = useErrorBoundary();
 
-  const pageLoaderRef = useRef(null)
-
+  const pageLoaderRef = useRef(null);
 
   useRefIntersection(intersectionHandlerCB(setPage), pageLoaderRef, {
     threshold: 1,
   });
 
   const fetchUsersWhoLikedPosts = async (id: string | number) => {
-    const response = await api.get(`${EndpointsEnum.USERS_WHO_LIKED_POST}${id}`);
-    setUsersWhoLikedPost(response.data.map((i: any) => i.userId))
-
+    const response = await api.get(
+      `${EndpointsEnum.USERS_WHO_LIKED_POST}${id}`
+    );
+    setUsersWhoLikedPost(response.data.map((i: any) => i.userId));
   };
   useEffect(() => {
     fetchUsersWhoLikedPosts(post.postId);
-  }, [])
+  }, []);
 
   useEffect(() => {
-    console.log(usersWhoLikedPost)
-  }, [usersWhoLikedPost])
-
+    console.log(usersWhoLikedPost);
+  }, [usersWhoLikedPost]);
 
   const ref = useRef(null);
   useOutsideClick(ref, setShowPopUp, ElementsId.POST_MORE_ICON);
@@ -124,13 +125,22 @@ const UserPost: FC<UserPostProps> = ({ post, setPage }) => {
             nodeRef={ref}
           >
             <div className={styles["menu"]}>
-              <button data-automation="clickButton" onClick={() => setShowEditionWindow(true)}>
+              <button
+                data-automation="clickButton"
+                onClick={() => {
+                  setShowPopUp(false);
+                  setShowEditionWindow(true);
+                }}
+              >
                 Edit post
               </button>
               <button
                 data-automation="clickButton"
                 aria-label="Delete post button"
-                onClick={() => setShowConfirmationWindow(true)}
+                onClick={() => {
+                  setShowPopUp(false);
+                  setShowConfirmationWindow(true);
+                }}
               >
                 Delete post
               </button>
@@ -145,19 +155,30 @@ const UserPost: FC<UserPostProps> = ({ post, setPage }) => {
         setIsOpen={setShowConfirmationWindow}
         isLoading={isDeletingLoading}
       />
-      <PostEditing isOpen={showEditionWindow} setIsOpen={setShowEditionWindow} post={post} portal />
+      <PostEditing
+        isOpen={showEditionWindow}
+        setIsOpen={setShowEditionWindow}
+        post={post}
+        prevImgUrl={post.imgUrl}
+        portal
+      />
       <div className={styles["user-post__image"]}>
         <PostImage imgUrl={post.imgUrl} />
       </div>
       <div className="flex justify-between">
         <div className={styles["user-post__activity-icons"]}>
-          <LikesButton id={post.postId} userIds={post.userIds} url={EndpointsEnum.POST_LIKE} />
+          <LikesButton
+            id={post.postId}
+            userIds={post.userIds}
+            url={EndpointsEnum.POST_LIKE}
+          />
           <CommentsButton
             id={post.postId}
             hiddenText
-            textValue={''}
+            textValue={""}
             postId={post.postId}
-            commentsCount={commentsList.length} />
+            commentsCount={commentsList.length}
+          />
         </div>
         <PostDate createAt={post.updatedAt} />
       </div>
