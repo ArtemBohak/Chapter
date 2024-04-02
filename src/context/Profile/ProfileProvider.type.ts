@@ -1,5 +1,6 @@
 import { Dispatch, ReactNode, SetStateAction } from "react";
-import { INotification, INots } from "@/src/types/app/notifications.type";
+import { INotification, INots } from "@/src/types";
+
 import { PostRefType } from "@/src/types";
 
 export interface IProfileProviderProps {
