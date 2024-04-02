@@ -17,6 +17,8 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
   const isAuth = useAppSelector((state) => state.userSlice.isAuth);
   const [isConnected, setIsConnected] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [userPostsList, setUserPostsList] = useState<Array<PostRefType>>([]);
+  const [isLoad, setIsLoad] = useState(false);
 
   const [headerAddPostBtnIsDisabled, setHeaderAddPostBtnIsDisabled] =
     useState(false);
@@ -119,6 +121,12 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
         setHeaderAddPostBtnIsDisabled,
         setUnreadMessage,
         setNotifications,
+        page,
+        setPage,
+        fetchUserPosts,
+        userPostsList,
+        setUserPostsList,
+        isLoad,
       }}
     >
       {children}

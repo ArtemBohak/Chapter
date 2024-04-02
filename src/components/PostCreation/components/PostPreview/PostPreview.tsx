@@ -17,6 +17,7 @@ import {
   PostText,
   PostTitle,
 } from "@/src/components";
+import { useProfileContext } from "@/src/context";
 
 const PostPreview: FC<PostPreviewProps> = ({
   setFormIsOpen,
@@ -30,6 +31,7 @@ const PostPreview: FC<PostPreviewProps> = ({
   const setErrorBoundary = useErrorBoundary();
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const { fetchUserPosts, page } = useProfileContext();
 
   const createAt = Date.now();
 
@@ -49,6 +51,11 @@ const PostPreview: FC<PostPreviewProps> = ({
 
       const files = new FilesService(id, setErrorBoundary);
 
+      if (props.prevImgUrl && (file || !props.imgUrl)) {
+        files.delete(props.prevImgUrl);
+        body.imgUrl = null;
+      }
+
       if (file) {
         const res = await files.upload(file, {
           overwrite: true,
@@ -60,9 +67,6 @@ const PostPreview: FC<PostPreviewProps> = ({
 
         body.imgUrl = res?.eager[0].secure_url;
       }
-
-      if (props.prevImgUrl && (file || !props.imgUrl))
-        files.delete(props.prevImgUrl);
 
       if (props.caption) body.caption = props.caption;
 
@@ -77,6 +81,7 @@ const PostPreview: FC<PostPreviewProps> = ({
         setError(errors[key] || apiUiMessage.ERROR_MESSAGE);
       }
     } finally {
+      fetchUserPosts(page);
       setIsLoading(false);
     }
   };

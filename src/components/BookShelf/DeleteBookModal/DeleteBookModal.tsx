@@ -4,8 +4,14 @@ import styles from "./DeleteBookModal.module.scss";
 import { DeleteModalProps } from "./DeleteBookModal.type";
 import { useBooksPageContext } from "@/src/pages/BooksPage/context";
 import { deleteUserBook, useAppDispatch } from "@/src/redux";
+import { FilesService } from "@/src/services";
 
-const DeleteBookModal: FC<DeleteModalProps> = ({ isOpen, setIsOpen, id }) => {
+const DeleteBookModal: FC<DeleteModalProps> = ({
+  isOpen,
+  imgUrl,
+  setIsOpen,
+  id,
+}) => {
   const dispatch = useAppDispatch();
   const { setDeleteIdList } = useBooksPageContext();
 
@@ -15,6 +21,7 @@ const DeleteBookModal: FC<DeleteModalProps> = ({ isOpen, setIsOpen, id }) => {
   const onHandleClickConfirm = () => {
     setDeleteIdList((PrevIds) => [...PrevIds, id]);
     dispatch(deleteUserBook(id));
+    new FilesService().delete(imgUrl);
     setIsOpen(false);
   };
 

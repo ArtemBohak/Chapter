@@ -6,5 +6,5 @@ export type ConfirmationWindowProps = {
   deniedText?: string;
   classNames?: string;
   isLoading?: boolean;
-  fetch: () => void;
+  fetch: () => Promise<void>;
 } & Pick<ModalProps, "isOpen" | "setIsOpen">;

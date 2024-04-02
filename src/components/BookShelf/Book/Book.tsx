@@ -46,7 +46,7 @@ const Book: FC<BooksProps> = ({
       {favoriteButton ? (
         <FavoriteBookButton isFavorite={isFavorite} id={id} />
       ) : null}
-      {deleteButton ? <DeleteBookButton id={id} /> : null}
+      {deleteButton ? <DeleteBookButton id={id} imgUrl={bookImageUrl} /> : null}
       <BookInfoModal
         bookStatus={bookStatus}
         nameOfBook={nameOfBook}

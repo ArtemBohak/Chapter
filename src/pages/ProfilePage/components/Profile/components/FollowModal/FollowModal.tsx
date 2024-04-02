@@ -102,31 +102,32 @@ const FollowModal: FC<followModalProps> = ({
         >
           {followList.length > 0
             ? followList.map((follow) => (
-                <FollowingItem
-                  follow={follow}
-                  loadingStates={loadingStates}
-                  unsubscribe={unsubscribe}
-                />
-              ))
+              <FollowingItem
+                key={follow.id}
+                follow={follow}
+                loadingStates={loadingStates}
+                unsubscribe={unsubscribe}
+              />
+            ))
             : [...Array(3)].map((_, i) => (
-                <li className={styles["follow-list__person"]} key={i}>
-                  <div className={styles["follow-list__info"]}>
-                    <img
-                      className={styles["follow-list__avatar"]}
-                      src={defaultAvatar}
-                      alt=""
-                    />
-                    <p>User Name</p>
-                  </div>
-                  <UIbutton
-                    size="small"
-                    dataAutomation={"Unfollow-button"}
-                    aria-label="Unfollow button"
-                  >
-                    Unfollow
-                  </UIbutton>
-                </li>
-              ))}
+              <li className={styles["follow-list__person"]} key={i}>
+                <div className={styles["follow-list__info"]}>
+                  <img
+                    className={styles["follow-list__avatar"]}
+                    src={defaultAvatar}
+                    alt=""
+                  />
+                  <p>User Name</p>
+                </div>
+                <UIbutton
+                  size="small"
+                  dataAutomation={"Unfollow-button"}
+                  aria-label="Unfollow button"
+                >
+                  Unfollow
+                </UIbutton>
+              </li>
+            ))}
         </ul>
       </div>
     </Modal>

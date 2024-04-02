@@ -15,7 +15,7 @@ export type BooksPageContextType = {
   setDeleteIdList: Dispatch<React.SetStateAction<number[]>>;
   favoriteCount: Array<IBook> | [];
   setFavoriteCount: Dispatch<React.SetStateAction<IBook[]>>
-    
+
 };
 
 export type BooksPageProviderProps = {

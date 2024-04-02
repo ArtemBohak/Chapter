@@ -65,6 +65,8 @@ const BookShelf: FC<BookShelfProps> = ({ enemyData, Id }) => {
         slidesToShow: favoriteBooksList.length < 5 ? (!Id && addBookArray.length != 0 ? favoriteBooksList.length + 1 : favoriteBooksList.length) : 5,
         slidesToScroll: 5,
         initialSlide: 0,
+        swipe: true,
+        Infinity,
         variableWidth: false
 
       },
@@ -75,8 +77,9 @@ const BookShelf: FC<BookShelfProps> = ({ enemyData, Id }) => {
         slidesToShow: favoriteBooksList.length < 3 ? (!Id && addBookArray.length != 0 ? favoriteBooksList.length + 1 : favoriteBooksList.length) : 3,
         slidesToScroll: 3,
         initialSlide: 0,
-        swipe: favoriteBooksList.length < 3 ? false : true,
-        variableWidth: false
+        swipe: true,
+        Infinity,
+        variableWidth: true
       },
     },
   ];

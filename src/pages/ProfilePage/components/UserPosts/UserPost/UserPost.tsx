@@ -1,14 +1,3 @@
-import { FC, SetStateAction, useEffect, useRef, useState } from "react";
-
-import { FilesService } from "@/src/services";
-
-import { UserPostProps } from "../UserPost.type";
-import { useAppSelector } from "@/src/redux";
-import { EndpointsEnum, api } from "@/src/axios";
-import { useErrorBoundary, useOutsideClick } from "@/src/hooks";
-import { ElementsId } from "@/src/types";
-import styles from "./UserPost.module.scss";
-
 import {
   Avatar,
   CommentsButton,
@@ -24,19 +13,58 @@ import {
   PostTitle,
   UserNickName,
 } from "@/src/components";
+import { FC, useEffect, useRef, useState } from "react";
+import styles from "./UserPost.module.scss";
+import { UserPostProps } from "../UserPost.type";
+import { useAppSelector } from "@/src/redux";
+import { EndpointsEnum, api } from "@/src/axios";
+import {
+  useErrorBoundary,
+  useOutsideClick,
+  useRefIntersection,
+} from "@/src/hooks";
+import { ElementsId } from "@/src/types";
+import { PostEditing } from "@/src/components/Post/PostEditing";
+import { intersectionHandlerCB } from "@/src/utils";
+import { useProfileContext } from "@/src/context";
+import { FilesService } from "@/src/services";
 
-const UserPost: FC<UserPostProps> = ({ post, fetchUserPosts }) => {
+const UserPost: FC<UserPostProps> = ({ post, setPage }) => {
   const { user } = useAppSelector((state) => state.userSlice);
   const [showPopUp, setShowPopUp] = useState(false);
   const [showConfirmationWindow, setShowConfirmationWindow] = useState(false);
+  const [showEditionWindow, setShowEditionWindow] = useState(false);
   const [isDeletingLoading, setIsDeletingLoading] = useState(false);
   const [commentsList, setComentsList] = useState([]);
+  const [commentsIsHide, setCommentsIsHide] = useState(true);
+  const [usersWhoLikedPost, setUsersWhoLikedPost] = useState([]);
+  const { page, fetchUserPosts, setUserPostsList } = useProfileContext();
+  const setErrorBoundary = useErrorBoundary();
+
+  const pageLoaderRef = useRef(null);
+
+  useRefIntersection(intersectionHandlerCB(setPage), pageLoaderRef, {
+    threshold: 1,
+  });
+
+  const fetchUsersWhoLikedPosts = async (id: string | number) => {
+    const response = await api.get(
+      `${EndpointsEnum.USERS_WHO_LIKED_POST}${id}`
+    );
+    setUsersWhoLikedPost(response.data.map((i: any) => i.userId));
+  };
+  useEffect(() => {
+    fetchUsersWhoLikedPosts(post.postId);
+  }, []);
+
+  useEffect(() => {
+    console.log(usersWhoLikedPost);
+  }, [usersWhoLikedPost]);
 
   const ref = useRef(null);
-  const setErrorBoundary = useErrorBoundary();
   useOutsideClick(ref, setShowPopUp, ElementsId.POST_MORE_ICON);
 
-  const deletePost = async (Id: number) => {
+  const deletePost = async (Id: string | number) => {
     setIsDeletingLoading(true);
 
     try {
@@ -52,23 +80,27 @@ const UserPost: FC<UserPostProps> = ({ post, fetchUserPosts }) => {
       setShowPopUp(false);
       setIsDeletingLoading(false);
       setShowConfirmationWindow(false);
-      fetchUserPosts();
+      fetchUserPosts(1);
     }
   };
 
-  const getComments = async (id: number) => {
-    const response = await api.get(`/comments/comments/${id}`);
+  const getComments = async (id: string | number) => {
+    const response = await api.get(`${EndpointsEnum.GET_COMMENTS}${id}`);
 
-    setComentsList(response.data.comments);
+    setComentsList(response.data);
   };
 
   useEffect(() => {
-    getComments(post.id);
-    console.log(commentsList);
+    getComments(post.postId);
   }, []);
 
   return (
-    <div className={styles["user-post"]}>
+    <li className={styles["user-post"]}>
+      <div
+        ref={pageLoaderRef}
+        data-value={pageLoaderRef && page ? page : ""}
+        className="hide-element"
+      />
       <div className="flex items-center justify-between w-full relative">
         <div className="flex gap-3 items-center">
           <Avatar avatarUrl={user.avatarUrl} />
@@ -95,15 +127,20 @@ const UserPost: FC<UserPostProps> = ({ post, fetchUserPosts }) => {
             <div className={styles["menu"]}>
               <button
                 data-automation="clickButton"
-                onClick={() => {}}
-                aria-label="Edit post button"
+                onClick={() => {
+                  setShowPopUp(false);
+                  setShowEditionWindow(true);
+                }}
               >
                 Edit post
               </button>
               <button
                 data-automation="clickButton"
                 aria-label="Delete post button"
-                onClick={() => setShowConfirmationWindow(true)}
+                onClick={() => {
+                  setShowPopUp(false);
+                  setShowConfirmationWindow(true);
+                }}
               >
                 Delete post
               </button>
@@ -113,22 +150,34 @@ const UserPost: FC<UserPostProps> = ({ post, fetchUserPosts }) => {
       </div>
       <ConfirmationWindow
         text={"Do you want to delete this post?"}
-        fetch={() => deletePost(post.id)}
+        fetch={() => deletePost(post.postId)}
         isOpen={showConfirmationWindow}
         setIsOpen={setShowConfirmationWindow}
         isLoading={isDeletingLoading}
+      />
+      <PostEditing
+        isOpen={showEditionWindow}
+        setIsOpen={setShowEditionWindow}
+        post={post}
+        prevImgUrl={post.imgUrl}
+        portal
       />
       <div className={styles["user-post__image"]}>
         <PostImage imgUrl={post.imgUrl} />
       </div>
       <div className="flex justify-between">
         <div className={styles["user-post__activity-icons"]}>
-          <LikesButton id={post.id} userIds={[]} url="" />
+          <LikesButton
+            id={post.postId}
+            userIds={post.userIds}
+            url={EndpointsEnum.POST_LIKE}
+          />
           <CommentsButton
+            id={post.postId}
+            hiddenText
             textValue={""}
-            id={""}
-            commentsCount={0}
-            postId={""}
+            postId={post.postId}
+            commentsCount={commentsList.length}
           />
         </div>
         <PostDate createAt={post.updatedAt} />
@@ -136,20 +185,14 @@ const UserPost: FC<UserPostProps> = ({ post, fetchUserPosts }) => {
       <PostTitle title={post.title} />
       <PostText caption={post.caption} />
       <PostComments
-        postId={post.id}
-        commentsCount={0}
-        comments={[]}
-        // * Temporary plug
-        commentsIsHide={false}
-        setCommentsIsHide={function (value: SetStateAction<boolean>): void {
-          value;
-          throw new Error("Function not implemented.");
-        }}
-        // * Temporary plug
+        setPosts={setUserPostsList}
+        postId={post.postId}
+        commentsCount={post.comments.length}
+        comments={post.comments}
+        setCommentsIsHide={setCommentsIsHide}
+        commentsIsHide={commentsIsHide}
       />
-
-      {/* <PostDate date={post.createdAt}/> */}
-    </div>
+    </li>
   );
 };
 

@@ -6,4 +6,5 @@ export type FavoriteBookButtonProps = {
 
 export type DeleteBookButtonProps = {
   id: number;
-}
+  imgUrl: string;
+};

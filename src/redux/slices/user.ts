@@ -4,7 +4,6 @@ import {
   createSlice,
   isAnyOf,
 } from "@reduxjs/toolkit";
-import { isAxiosError } from "axios";
 
 import { EndpointsEnum, api } from "@/src/axios";
 import { keysValue } from "@/src/types";
@@ -15,6 +14,8 @@ import { defaultUserState } from "../default-state/user";
 
 import defaultAvatar from "@/src/assets/SVG/default-user-avatar.svg";
 import { bookProps } from "@/src/components/BookShelf/AddBookModal/AddBookForm/AddBookForm.type";
+import { isAxiosError } from "axios";
+import { editBookProps } from "@/src/components/BookShelf/EditBookModal/EditBookForm/EditBookForm.type";
 
 export interface IUserState {
   user: IUserStore;
@@ -57,11 +58,26 @@ export const fetchFavoriteBookStatus = createAsyncThunk(
     return { bookId, data };
   }
 );
+
 export const addNewBook = createAsyncThunk(
   "user/addNewBook",
   async (values: bookProps) => {
     try {
       const { data } = await api.post(EndpointsEnum.USERS_BOOKS, values);
+      return { data };
+    } catch (error) {
+      if (isAxiosError(error)) {
+        return error.response?.data;
+      }
+    }
+  }
+);
+
+export const editBook = createAsyncThunk(
+  "user/editBook",
+  async (values: editBookProps) => {
+    try {
+      const { data } = await api.patch(`${EndpointsEnum.EDITE_BOOK}${values.bookId}`, values);
       return { data };
     } catch (error) {
       if (isAxiosError(error)) {
@@ -141,6 +157,13 @@ export const userSlice = createSlice({
           return book;
         });
       })
+      .addCase(editBook.fulfilled, (state, action) => {
+        const editedBook = action.payload.data;
+        const index = state.user.userBooks.findIndex((book) => book.id === editedBook.id);
+        if (index !== -1) {
+          state.user.userBooks[index] = editedBook;
+        }
+      })
       .addCase(addNewBook.fulfilled, (state, action) => {
         const { data } = action.payload;
         state.user.userBooks = [...state.user.userBooks, data];
@@ -167,6 +190,7 @@ export const userSlice = createSlice({
           state.error = action.error.message;
         }
       );
+
   },
 });
 
