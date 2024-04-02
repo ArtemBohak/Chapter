@@ -1,4 +1,4 @@
-import { FC, useEffect, useLayoutEffect, useState } from "react";
+import { FC, createRef, useEffect, useLayoutEffect, useState } from "react";
 import { AxiosError, AxiosResponse } from "axios";
 
 import { EndpointsEnum, api } from "@/src/axios";
@@ -6,7 +6,13 @@ import { SocketApi } from "@/src/services";
 import { getTokenFromLC } from "@/src/utils";
 import { useErrorBoundary } from "@/src/hooks";
 import { useAppSelector } from "@/src/redux";
-import { INots, PostRefType, SocketEventsEnum } from "@/src/types";
+import {
+  INotification,
+  INots,
+  SocketEventsEnum,
+  PostRefType,
+} from "@/src/types";
+
 import { IProfileProviderProps } from "./ProfileProvider.type";
 import { ProfileContext } from "./hooks";
 
@@ -25,17 +31,36 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
 
   const [notifications, setNotifications] = useState<Array<INots>>([]);
 
-  const [unreadMessage, setUnreadMessage] = useState(notifications.length);
+  const editedNotifications: Array<INotification> = notifications
+    .sort(
+      (a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    )
+    .map((el) => ({
+      ...el,
+      nodeRef: createRef(),
+    }));
+
+  const viewedNotifications = editedNotifications.filter(
+    (notification) => notification.isViewed
+  );
+  const newNotifications = editedNotifications.filter(
+    (notification) => !notification.isViewed
+  );
+  const [unreadMessage, setUnreadMessage] = useState(newNotifications.length);
+
   const [page, setPage] = useState<number>(0);
 
   const fetchUserPosts = async (currentPage: number) => {
     try {
-      const response = await api.get(`${EndpointsEnum.POSTS_BY_AUTHOR}?page=${currentPage}&limit=50`);
+      const response = await api.get(
+        `${EndpointsEnum.POSTS_BY_AUTHOR}?page=${currentPage}&limit=50`
+      );
       setUserPostsList(response.data);
-      setIsLoad(true)
-      return response.data
+      setIsLoad(true);
+      return response.data;
     } catch (error) {
-      console.error('Error fetching user posts:', error);
+      console.error("Error fetching user posts:", error);
     }
   };
 
@@ -102,16 +127,18 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
   }, [isConnected, setErrorBoundary]);
 
   useEffect(() => {
-    setUnreadMessage(notifications.length);
-  }, [notifications.length]);
+    setUnreadMessage(newNotifications.length);
+  }, [newNotifications.length]);
 
   return (
     <ProfileContext.Provider
       value={{
         headerAddPostBtnIsDisabled,
         unreadMessage,
-        notifications,
+        viewedNotifications,
+        newNotifications,
         isLoading,
+        notificationsLength: notifications.length,
         setHeaderAddPostBtnIsDisabled,
         setUnreadMessage,
         setNotifications,

@@ -33,3 +33,11 @@
 .wrapper {
   @apply relative h-full bg-white md:overflow-hidden md:overflow-y-auto md:rounded-t-lg md:border md:border-grey-1010 md:px-[58px] md:py-3-xs laptop:max-w-[962px] laptop:mx-auto laptop:border-0 laptop:px-[120px] laptop:py-[60px];
 }
+
+.new-nots {
+  @apply mb-2-xs;
+}
+
+.title {
+  @apply text-base text-grey-1000 font-[400] mb-1-sm md:text-lg;
+}

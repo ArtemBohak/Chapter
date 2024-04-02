@@ -1,10 +1,10 @@
-import { FC, createRef, useRef, useState } from "react";
+import { FC, useRef, useState } from "react";
 import { AxiosError } from "axios";
 import { EndpointsEnum, api } from "@/src/axios";
 import { TransitionGroup } from "react-transition-group";
 
 import { useProfileContext } from "@/src/context";
-import { INotification } from "@/src/types";
+
 import { useErrorBoundary } from "@/src/hooks";
 import styles from "./NotificationPage.module.scss";
 
@@ -12,7 +12,9 @@ import { Animation, Loader, Toast } from "@/src/components";
 
 const NotificationPage: FC = () => {
   const {
-    notifications,
+    newNotifications,
+    viewedNotifications,
+    notificationsLength,
     isLoading: isLoadingOnMount,
     setNotifications,
   } = useProfileContext();
@@ -21,16 +23,6 @@ const NotificationPage: FC = () => {
   const textRef = useRef(null);
 
   const [isLoading, setIsLoading] = useState(false);
-
-  const editedNotifications: Array<INotification> = notifications
-    .sort(
-      (a, b) =>
-        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-    )
-    .map((el) => ({
-      ...el,
-      nodeRef: createRef(),
-    }));
 
   const onHandleClick = async () => {
     try {
@@ -52,6 +44,54 @@ const NotificationPage: FC = () => {
     exit: styles["notifications__list-exit"],
     exitActive: styles["notifications__list-exit-active"],
   };
+
+  const isNots = !!notificationsLength;
+
+  const renderNewNots = (
+    <TransitionGroup component={"ul"} className={styles["notifications__list"]}>
+      {newNotifications.map((el) => {
+        return (
+          <Animation
+            key={el.id}
+            nodeRef={el.nodeRef}
+            classNames={transitionClassNames}
+            timeout={300}
+          >
+            <li>
+              <Toast
+                {...el}
+                setNotifications={setNotifications}
+                setIsLoading={setIsLoading}
+              />
+            </li>
+          </Animation>
+        );
+      })}
+    </TransitionGroup>
+  );
+
+  const renderViewedNots = (
+    <TransitionGroup component={"ul"} className={styles["notifications__list"]}>
+      {viewedNotifications.map((el) => {
+        return (
+          <Animation
+            key={el.id}
+            nodeRef={el.nodeRef}
+            classNames={transitionClassNames}
+            timeout={300}
+          >
+            <li>
+              <Toast
+                {...el}
+                setNotifications={setNotifications}
+                setIsLoading={setIsLoading}
+              />
+            </li>
+          </Animation>
+        );
+      })}
+    </TransitionGroup>
+  );
   return (
     <section className={styles["notifications"]}>
       <div className={styles["wrapper"]}>
@@ -59,7 +99,7 @@ const NotificationPage: FC = () => {
           nodeRef={btnRef}
           classNames={transitionClassNames}
           timeout={300}
-          in={!!notifications.length}
+          in={isNots}
           unmountOnExit
         >
           <button
@@ -76,7 +116,7 @@ const NotificationPage: FC = () => {
             nodeRef={textRef}
             classNames={transitionClassNames}
             timeout={300}
-            in={!notifications.length}
+            in={!isNots}
             unmountOnExit
           >
             <p ref={textRef} className={styles["notifications__text"]}>
@@ -84,29 +124,18 @@ const NotificationPage: FC = () => {
             </p>
           </Animation>
         ) : null}
-        <TransitionGroup
-          component={"ul"}
-          className={styles["notifications__list"]}
-        >
-          {editedNotifications.map((el) => {
-            return (
-              <Animation
-                key={el.id}
-                nodeRef={el.nodeRef}
-                classNames={transitionClassNames}
-                timeout={300}
-              >
-                <li>
-                  <Toast
-                    {...el}
-                    setNotifications={setNotifications}
-                    setIsLoading={setIsLoading}
-                  />
-                </li>
-              </Animation>
-            );
-          })}
-        </TransitionGroup>
+        <div className={styles["new-nots"]}>
+          {newNotifications.length ? (
+            <h3 className={styles["title"]}>New</h3>
+          ) : null}
+          {renderNewNots}
+        </div>
+        <div className={styles["new-nots"]}>
+          {viewedNotifications.length ? (
+            <h3 className={styles["title"]}>Viewed</h3>
+          ) : null}
+          {renderViewedNots}
+        </div>
         <Loader isShown={isLoading || isLoadingOnMount} />
       </div>
     </section>

@@ -2,7 +2,7 @@
   @apply w-full  bg-[#fafafa] max-h-[108px] rounded-md px-4-xl pr-0 md:py-1-xs md:pl-3-xs laptop:py-0 laptop:px-2-xs laptop:pr-1-xs flex items-center justify-between overflow-hidden;
 
   &__user {
-    @apply flex items-center gap-1-sm mb-0-md md:mb-0 md:p-1-xs laptop:p-2-xs;
+    @apply flex items-center gap-1-sm mb-0-md md:mb-0 md:p-1-xs laptop:p-2-xs w-1/2;
 
     & > img {
       @apply rounded-md;
@@ -20,7 +20,7 @@
   }
 
   &__nickname {
-    @apply text-xs;
+    @apply text-xs inline-block;
   }
 }
 
