@@ -24,7 +24,8 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
   const [isConnected, setIsConnected] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [userPostsList, setUserPostsList] = useState<Array<PostRefType>>([]);
-  const [isLoad, setIsLoad] = useState(false);
+  const [isPostsLoad, setIsPostsLoad] = useState(false);
+  const [page, setPage] = useState<number>(0);
 
   const [headerAddPostBtnIsDisabled, setHeaderAddPostBtnIsDisabled] =
     useState(false);
@@ -49,7 +50,7 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
   );
   const [unreadMessage, setUnreadMessage] = useState(newNotifications.length);
 
-  const [page, setPage] = useState<number>(0);
+
 
   const fetchUserPosts = async (currentPage: number) => {
     try {
@@ -57,7 +58,7 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
         `${EndpointsEnum.POSTS_BY_AUTHOR}?page=${currentPage}&limit=50`
       );
       setUserPostsList(response.data);
-      setIsLoad(true);
+      setIsPostsLoad(true);
       return response.data;
     } catch (error) {
       console.error("Error fetching user posts:", error);
@@ -147,7 +148,8 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
         fetchUserPosts,
         userPostsList,
         setUserPostsList,
-        isLoad,
+        setIsPostsLoad,
+        isPostsLoad,
       }}
     >
       {children}

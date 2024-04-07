@@ -6,30 +6,31 @@ import { useProfileContext } from "@/src/context";
 
 
 const UserPosts: FC = () => {
-  const { page, setPage, userPostsList, fetchUserPosts } = useProfileContext()
-
-
+  const { page, setPage, userPostsList, fetchUserPosts, isPostsLoad } = useProfileContext()
 
   useEffect(() => {
     fetchUserPosts(page);
     console.log("Page №", page)
   }, [page]);
 
-
-
-
-
+  if (isPostsLoad && userPostsList.length === 0) {
+    return (
+      <ul className={styles["posts-wrapper"]}>
+      </ul>
+    );
+  }
   return (
     <ul className={styles["posts-wrapper"]}>
-      {userPostsList.length > 0 ? (
+      {isPostsLoad ? (
         userPostsList.map((post) => (
           <UserPost key={post.postId} post={post} setPage={setPage} />
         ))
       ) : (
-        <li className={styles["user-post__skeleton"]}>
-          <PostSkeleton />
-        </li>
+
+        <PostSkeleton className={styles["user-post__skeleton"]} />
+
       )}
+
     </ul>
   );
 };

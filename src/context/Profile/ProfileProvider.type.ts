@@ -24,5 +24,6 @@ export type ProfileContextType = {
   fetchUserPosts: (currentPage: number) => void;
   userPostsList: [] | Array<PostRefType>;
   setUserPostsList: Dispatch<SetStateAction<Array<PostRefType>>>;
-  isLoad: boolean;
+  isPostsLoad: boolean;
+  setIsPostsLoad: Dispatch<SetStateAction<boolean>>
 };

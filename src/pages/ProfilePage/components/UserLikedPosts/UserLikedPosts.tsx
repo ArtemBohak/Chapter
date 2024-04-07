@@ -1,11 +1,9 @@
 import { FC, useEffect, useRef, useState } from "react";
 import styles from "./Liked.module.scss";
 import { EndpointsEnum, api } from "@/src/axios";
-import { Link } from "react-router-dom";
 import { PostSkeleton } from "@/src/components";
 import { usePostsContext } from "../UserPosts/context";
 import LikedPost from "./LikedPost/LikedPost";
-import { links } from "@/src/types";
 import { useErrorBoundary } from "@/src/hooks";
 import { AxiosError } from "axios";
 
@@ -58,7 +56,6 @@ const UserLikedPosts: FC = () => {
     }
   };
 
-
   useEffect(() => {
     fetchUserLikedPosts(1);
   }, []);
@@ -68,9 +65,6 @@ const UserLikedPosts: FC = () => {
   if (isPostsLoaded && userLikedPostsList.length === 0) {
     return (
       <div className={styles["liked-wrapper"]}>
-        <div className={"bg-white text-center m-auto my-[50px]"}>
-          Hey! go to <Link to={links.FEED}>Feed</Link> and like some posts
-        </div>
       </div>
     );
   }

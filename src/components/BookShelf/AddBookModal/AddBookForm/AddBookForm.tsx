@@ -140,25 +140,25 @@ const AddBookForm: FC = () => {
                   <TextField
                     id={"nameOfBook"}
                     name={"nameOfBook"}
-                    value={values.nameOfBook}
                     placeholder="Book Title"
+                    value={values.nameOfBook}
                     dataAutomation={"bookTitle-field"}
                   />
                   <TextField
                     id={"author"}
                     name={"author"}
+                    placeholder="Author name"
                     value={values.author}
-                    placeholder="Book Author"
                     dataAutomation={"bookAuthor-field"}
                   />
                   <TextAreaField
                     id={"annotation"}
-                    placeholder={"annotation"}
                     name={"annotation"}
+                    placeholder={"My impressions"}
                     value={values.annotation}
                     dataAutomation={"bookAnnotation-field"}
                     iconSize={0}
-                    // onHandleIconClick={() => { }}
+                  // onHandleIconClick={() => { }}
                   />
                 </div>
               </div>
