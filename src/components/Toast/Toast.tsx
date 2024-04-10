@@ -6,7 +6,7 @@ import cn from "classnames";
 import { EndpointsEnum, api } from "@/src/axios";
 import { ToastProps } from "./Toast.type";
 import { genLink } from "./utils";
-import { useErrorBoundary, useSwipe } from "@/src/hooks";
+import { useErrorBoundary, useGetScreenSize, useSwipe } from "@/src/hooks";
 
 import styles from "./Toast.module.scss";
 
@@ -32,10 +32,14 @@ const Toast: FC<ToastProps> = ({
   useSwipe({
     leftSwipeCB: () => setIsShown(true),
     rightSwipeCB: () => setIsShown(false),
+    nodeRef,
     enableSwipe: true,
     enableSwipeOnScreen: 1025,
     touchDistinction: 100,
   });
+
+  const [screenSize] = useGetScreenSize();
+  const isDesc = screenSize > 1023;
 
   const onHandleDeleteButtonClick = async () => {
     setIsLoading && setIsLoading(true);
@@ -75,8 +79,12 @@ const Toast: FC<ToastProps> = ({
     <div
       className={`${styles["toast"]} ${classNames}`}
       ref={nodeRef}
-      onMouseOver={() => setIsShown(true)}
-      onMouseOut={() => setIsShown(false)}
+      onMouseOver={() => {
+        if (isDesc) setIsShown(true);
+      }}
+      onMouseOut={() => {
+        if (isDesc) setIsShown(false);
+      }}
     >
       <div className={styles["wrapper"]}>
         <Link
