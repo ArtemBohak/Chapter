@@ -11,7 +11,7 @@ const GuestPosts: FC = () => {
     <ul className={styles["posts-wrapper"]}>
       {guestPostsList.length > 0 ? (
         guestPostsList.map((post) => (
-          <GuestPost post={post} />
+          <GuestPost key={post.postId} post={post} />
         ))
       ) : (
         <div className={styles["user-post__skeleton"]}>
