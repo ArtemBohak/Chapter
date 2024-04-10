@@ -103,6 +103,7 @@ class FilesService {
   async delete(url: string, sliceValue?: number) {
     try {
       const params = {
+        invalidate: true,
         public_id: this.getPublicIdFromUrl(url, sliceValue),
         timestamp: Math.floor(Date.now() / 1000),
       };
