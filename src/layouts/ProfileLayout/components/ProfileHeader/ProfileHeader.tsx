@@ -1,8 +1,7 @@
 import { FC, useRef, useState } from "react";
-import { NavLink } from "react-router-dom";
 import cn from "classnames";
 
-import { ElementsId, UiMessage, links } from "@/src/types";
+import { ElementsId, UiMessage } from "@/src/types";
 import { ProfileUpdateApi } from "@/src/pages/SettingsPage/utils/ProfileUpdateApi";
 import { useNavigationToggler, useProfileContext } from "@/src/context";
 import { useErrorBoundary, useHideElement, useOutsideClick } from "@/src/hooks";
@@ -66,13 +65,7 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
           className={styles["profile-header__menu-toggler"]}
           onClick={() => setIsActiveMenu && setIsActiveMenu(!isActiveMenu)}
         />
-        <NavLink
-          to={links.FEED}
-          className={styles["profile-header__logo-name"]}
-          aria-label="Home nav link"
-        >
-          <Logo />
-        </NavLink>
+        <Logo className={styles["profile-header__logo-name"]} />
         <div className={styles["profile-header__auth-side"]}>
           <SearchBar inputClassName={styles["profile-header__search-field"]} />
           <UIbutton
