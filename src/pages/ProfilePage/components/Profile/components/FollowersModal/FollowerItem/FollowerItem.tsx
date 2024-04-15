@@ -15,9 +15,9 @@ const FollowerItem: FC<FollowerProps> = ({
       ? follower.firstName.substring(0, 15) + "..."
       : follower.firstName;
   const truncatedLastName =
-    follower.firstName && follower.firstName.length > 15
-      ? follower.firstName.substring(0, 15) + "..."
-      : follower.firstName;
+    follower.lastName && follower.lastName.length > 15
+      ? follower.lastName.substring(0, 15) + "..."
+      : follower.lastName;
 
   const NameLength = truncatedFirstName && truncatedFirstName.length > 15 || truncatedLastName && truncatedLastName.length > 15;
   const ShowTitle = NameLength ? `${follower.firstName} ${follower.lastName}` : "";
