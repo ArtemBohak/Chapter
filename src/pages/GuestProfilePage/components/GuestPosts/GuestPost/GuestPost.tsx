@@ -36,7 +36,7 @@ const GuestPost: FC<GuestPostProps> = ({ post }) => {
                 <div className={styles["user-post__activity-icons"]}>
                     <LikesButton
                         id={post.postId}
-                        userIds={[]}
+                        userIds={post.userIds}
                         url={EndpointsEnum.POST_LIKE}
                     />
                     <CommentsButton
