@@ -11,24 +11,30 @@ export const navigation: NavigationLinkProps[] = [
   },
   {
     id: "2",
+    path: links.MESSAGES,
+    icon: IconEnum.Home,
+    name: "Messages",
+  },
+  {
+    id: "3",
     path: links.NOTIFICATION,
     icon: IconEnum.Notification,
     name: "Notification",
   },
   {
-    id: "3",
+    id: "4",
     path: links.SEARCH,
     icon: IconEnum.Search,
     name: "Search",
   },
   {
-    id: "4",
+    id: "5",
     path: "/profile",
     icon: IconEnum.User,
     name: "Profile",
   },
   {
-    id: "5",
+    id: "6",
     path: "/books",
     icon: IconEnum.BlackBook,
     name: "My library",

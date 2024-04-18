@@ -21,6 +21,7 @@ import {
   SearchPage,
   NotificationPage,
   GuestPostPage,
+  MessagesPage,
 } from "@/src/pages";
 import { PublicLayout, ProfileLayout } from "@/src/layouts";
 
@@ -107,6 +108,7 @@ const router = createBrowserRouter([
       { path: links.GUEST_PROFILE, element: <GuestProfilePage /> },
       { path: links.GUEST_BOOKS, element: <GuestBooksPage /> },
       { path: links.GUEST_POST, element: <GuestPostPage /> },
+      { path: links.MESSAGES, element: <MessagesPage /> },
       { path: "/ui-page", element: <UIPage /> },
     ],
   },

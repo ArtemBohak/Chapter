@@ -16,3 +16,4 @@ export { default as ErrorBoundary } from "./ErrorBoundary/ErrorBoundary";
 export { default as SearchPage } from "./SearchPage/SearchPage";
 export { default as NotificationPage } from "./NotificationPage/NotificationPage";
 export { default as GuestPostPage } from "./GuestPostPage/GuestPostPage";
+export { default as MessagesPage } from "./MessagesPage/MessagesPage";
