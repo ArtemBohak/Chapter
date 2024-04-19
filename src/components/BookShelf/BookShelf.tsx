@@ -22,64 +22,83 @@ const BookShelf: FC<BookShelfProps> = ({ enemyData, Id }) => {
   const [addBookArray, setAddBookArray] = useState<number[]>([]);
   // const [booksLength, setBooksLength] = useState(2)
 
-
-
-
   const responsive = [
     {
       breakpoint: 2500,
       settings: {
-        slidesToShow: favoriteBooksList.length < 3 ? !Id && addBookArray.length != 0 ? favoriteBooksList.length + 1 : favoriteBooksList.length : 3,
+        slidesToShow:
+          favoriteBooksList.length < 3
+            ? !Id && addBookArray.length != 0
+              ? favoriteBooksList.length + 1
+              : favoriteBooksList.length
+            : 3,
         slidesToScroll: 3,
         initialSlide: 0,
         swipe: true,
         Infinity,
-
       },
     },
     {
       breakpoint: 1921,
       settings: {
-        slidesToShow: favoriteBooksList.length < 3 ? !Id && addBookArray.length != 0 ? favoriteBooksList.length + 1 : favoriteBooksList.length : 3,
+        slidesToShow:
+          favoriteBooksList.length < 3
+            ? !Id && addBookArray.length != 0
+              ? favoriteBooksList.length + 1
+              : favoriteBooksList.length
+            : 3,
         slidesToScroll: 3,
         initialSlide: 0,
         swipe: true,
         Infinity,
-
       },
     },
     {
       breakpoint: 1680,
       settings: {
-        slidesToShow: favoriteBooksList.length < 3 ? (!Id && addBookArray.length != 0 ? favoriteBooksList.length + 1 : favoriteBooksList.length) : favoriteBooksList.length,
+        slidesToShow:
+          favoriteBooksList.length < 3
+            ? !Id && addBookArray.length != 0
+              ? favoriteBooksList.length + 1
+              : favoriteBooksList.length
+            : favoriteBooksList.length,
         slidesToScroll: 3,
         initialSlide: 0,
         swipe: true,
         Infinity,
-        variableWidth: true
+        variableWidth: true,
       },
     },
     {
       breakpoint: 768,
       settings: {
-        slidesToShow: favoriteBooksList.length < 5 ? (!Id && addBookArray.length != 0 ? favoriteBooksList.length + 1 : favoriteBooksList.length) : 5,
+        slidesToShow:
+          favoriteBooksList.length < 5
+            ? !Id && addBookArray.length != 0
+              ? favoriteBooksList.length + 1
+              : favoriteBooksList.length
+            : 5,
         slidesToScroll: 5,
         initialSlide: 0,
         swipe: true,
         Infinity,
-        variableWidth: false
-
+        variableWidth: false,
       },
     },
     {
       breakpoint: 374,
       settings: {
-        slidesToShow: favoriteBooksList.length < 3 ? (!Id && addBookArray.length != 0 ? favoriteBooksList.length + 1 : favoriteBooksList.length) : 3,
+        slidesToShow:
+          favoriteBooksList.length < 3
+            ? !Id && addBookArray.length != 0
+              ? favoriteBooksList.length + 1
+              : favoriteBooksList.length
+            : 3,
         slidesToScroll: 3,
         initialSlide: 0,
         swipe: true,
         Infinity,
-        variableWidth: true
+        variableWidth: true,
       },
     },
   ];
@@ -115,14 +134,10 @@ const BookShelf: FC<BookShelfProps> = ({ enemyData, Id }) => {
       });
       setFavoriteBooksList(bookslist);
     }
-
   }, [userBooks]);
-
-
 
   useEffect(() => {
     setAddBook();
-
   }, [favoriteBooksList]);
 
   return (
@@ -130,16 +145,19 @@ const BookShelf: FC<BookShelfProps> = ({ enemyData, Id }) => {
       <div className="flex flex-col h-full w-full">
         <div className="flex justify-between px-1">
           <h6 className="favorite-books-title">Favorite books</h6>
-          <Link className="text-[#6C6C6C]" to={enemyData ? `/${Id}/books` : links.USER_BOOKS}>
+          <Link
+            className="text-[#6C6C6C]"
+            to={enemyData ? `/${Id}/books` : links.USER_BOOKS}
+          >
             see all
           </Link>
         </div>
         <Slider responsive={responsive} {...settings}>
-          {favoriteBooksList.map((book, i) => (
+          {favoriteBooksList.map((book) => (
             <Book
               bookImageUrl={book.imagePath}
               bookStatus={book.book_statusId}
-              key={i}
+              key={book.id}
               id={book.id}
               isFavorite={book.favorite_book_status}
               nameOfBook={book.nameOfBook}
@@ -148,9 +166,12 @@ const BookShelf: FC<BookShelfProps> = ({ enemyData, Id }) => {
               bookNameLength={38}
             />
           ))}
-          {!Id && addBookArray.map((_, i) => (
-            <Link to={'/books'}><AddBookSliderButton key={i} /></Link>
-          ))}
+          {!Id &&
+            addBookArray.map((_, i) => (
+              <Link to={"/books"} key={i}>
+                <AddBookSliderButton />
+              </Link>
+            ))}
         </Slider>
       </div>
     </BooksPageProvider>

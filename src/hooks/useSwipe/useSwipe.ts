@@ -6,6 +6,7 @@ import { useGetScreenSize } from "@/src/hooks";
 export const useSwipe = ({
   leftSwipeCB,
   rightSwipeCB,
+  nodeRef,
   enableSwipe = false,
   axis = "clientX",
   touchDistinction = 200,
@@ -16,8 +17,10 @@ export const useSwipe = ({
   const [screenSize] = useGetScreenSize();
 
   useEffect(() => {
-    const handleTouchStart = (e: TouchEvent) =>
+    const element = nodeRef?.current;
+    const handleTouchStart = (e: TouchEvent) => {
       setTouchStart(e.changedTouches[0][axis]);
+    };
 
     const handleTouchEnd = (e: TouchEvent) => {
       const touchEnd = e.changedTouches[0][axis];
@@ -32,21 +35,33 @@ export const useSwipe = ({
     };
 
     if (enableSwipe && screenSize < enableSwipeOnScreen) {
-      window.addEventListener("touchstart", handleTouchStart);
-      window.addEventListener("touchend", handleTouchEnd);
+      if (nodeRef) {
+        element?.addEventListener("touchstart", handleTouchStart);
+        element?.addEventListener("touchend", handleTouchEnd);
+      } else {
+        window.addEventListener("touchstart", handleTouchStart);
+        window.addEventListener("touchend", handleTouchEnd);
+      }
     }
 
     return () => {
-      window.removeEventListener("touchstart", handleTouchStart);
-      window.removeEventListener("touchend", handleTouchEnd);
+      if (nodeRef) {
+        element?.removeEventListener("touchstart", handleTouchStart);
+        element?.removeEventListener("touchend", handleTouchEnd);
+      } else {
+        window.removeEventListener("touchstart", handleTouchStart);
+        window.removeEventListener("touchend", handleTouchEnd);
+      }
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     axis,
     enableSwipe,
     enableSwipeOnScreen,
+    nodeRef,
     screenSize,
     touchDistinction,
     touchStart,
+    leftSwipeCB,
+    rightSwipeCB,
   ]);
 };
