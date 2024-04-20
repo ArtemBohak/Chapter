@@ -51,6 +51,8 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
 
   const [page, setPage] = useState<number>(0);
 
+  const [unreadChatMessages, setUnreadChatMessages] = useState(0);
+
   const fetchUserPosts = async (currentPage: number) => {
     try {
       const response = await api.get(
@@ -133,21 +135,23 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
   return (
     <ProfileContext.Provider
       value={{
+        unreadChatMessages,
         headerAddPostBtnIsDisabled,
         unreadMessage,
         viewedNotifications,
         newNotifications,
         isLoading,
         notificationsLength: notifications.length,
+        page,
+        userPostsList,
+        isLoad,
+        setUnreadChatMessages,
         setHeaderAddPostBtnIsDisabled,
         setUnreadMessage,
         setNotifications,
-        page,
         setPage,
         fetchUserPosts,
-        userPostsList,
         setUserPostsList,
-        isLoad,
       }}
     >
       {children}

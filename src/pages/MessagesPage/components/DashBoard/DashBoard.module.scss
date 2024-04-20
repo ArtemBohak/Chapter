@@ -1,0 +1,11 @@
+.dashboard {
+  @apply flex flex-col p-0-md gap-1-lg;
+}
+
+.full-name {
+  @apply text-lg font-bold leading-[28px];
+}
+
+.label {
+  @apply text-base font-semibold leading-[24px];
+}

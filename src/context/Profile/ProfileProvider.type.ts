@@ -16,13 +16,15 @@ export type ProfileContextType = {
   newNotifications: Array<INotification>;
   isLoading: boolean;
   notificationsLength: number;
+  isLoad: boolean;
+  page: number;
+  userPostsList: [] | Array<PostRefType>;
+  unreadChatMessages: number;
+  setUnreadChatMessages: Dispatch<SetStateAction<number>>;
   setNotifications: Dispatch<SetStateAction<Array<INots>>>;
   setHeaderAddPostBtnIsDisabled: SetBoolean;
   setUnreadMessage: Dispatch<SetStateAction<number>>;
-  page: number;
   setPage: Dispatch<SetStateAction<number>>;
   fetchUserPosts: (currentPage: number) => void;
-  userPostsList: [] | Array<PostRefType>;
   setUserPostsList: Dispatch<SetStateAction<Array<PostRefType>>>;
-  isLoad: boolean;
 };

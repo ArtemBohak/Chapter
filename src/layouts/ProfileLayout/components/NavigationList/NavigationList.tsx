@@ -24,7 +24,7 @@ const NavigationList: FC<NavigationListProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const [confirmModalIsShown, setConfirmModalIsShown] = useState(false);
 
-  const { unreadMessage } = useProfileContext();
+  const { unreadMessage, unreadChatMessages } = useProfileContext();
 
   function handleClickNavLink() {
     setIsActiveMenu && setIsActiveMenu(false);
@@ -50,7 +50,8 @@ const NavigationList: FC<NavigationListProps> = ({
               className={cn("navigation-list__link", {
                 "current-page": navItem.path === location.pathname,
                 "unread-message":
-                  navItem.name === "Notification" && unreadMessage > 0,
+                  (navItem.name === "Notification" && unreadMessage > 0) ||
+                  (navItem.name === "Messages" && unreadChatMessages > 0),
               })}
               onClick={handleClickNavLink}
             >
