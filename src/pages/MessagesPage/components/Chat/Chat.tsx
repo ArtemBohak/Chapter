@@ -1,5 +1,5 @@
-import { useSwipe } from "@/src/hooks";
 import { FC } from "react";
+import { useSwipe } from "@/src/hooks";
 
 const Chat: FC = () => {
   useSwipe();
