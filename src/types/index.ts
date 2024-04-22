@@ -9,3 +9,4 @@ export * from "./app/user.type";
 export * from "./app/notifications.type";
 export * from "./elementsId/elementsId.type";
 export * from "./uiMessage/uiMessage.type";
+export * from "./app/chat.type.ts";

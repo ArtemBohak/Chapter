@@ -1,8 +1,8 @@
 import { IUser } from "@/src/types";
 
 export type RoomProps = {
-  active: boolean;
+  active?: boolean;
   id: number;
-  newMessage: boolean;
-  handleClick: (data: number) => void;
+  newMessage?: boolean;
+  handleClick?: (data: number) => void;
 } & Partial<IUser>;

@@ -15,15 +15,15 @@ const Room: FC<RoomProps> = ({
   id,
   handleClick,
 }) => {
-  const [unreadMessage, setUnreadMessage] = useState(newMessage);
+  const [unreadMessage, setUnreadMessage] = useState(false);
 
   useEffect(() => {
-    setUnreadMessage(newMessage);
+    newMessage && setUnreadMessage(newMessage);
   }, [newMessage]);
 
   const onClick = () => {
-    setUnreadMessage(false);
-    handleClick(id);
+    newMessage && setUnreadMessage(false);
+    handleClick && handleClick(id);
   };
 
   const btnClassNames = cn(styles["room"], {

@@ -1,37 +1,14 @@
 import { FC } from "react";
 import styles from "./DashBoard.module.scss";
 import { useAppSelector } from "@/src/redux";
-import { Room } from "./components";
+import { Room } from "../";
 import { DashBoardProps } from "./DashBoard.type";
 
-const rooms = [
-  {
-    avatarUrl: null,
-    firstName: "John",
-    lastName: "Doe",
-    nickName: "user1",
-    id: 0,
-    newMessage: false,
-  },
-  {
-    avatarUrl: null,
-    firstName: "Jack",
-    lastName: "Ryan",
-    nickName: "user2",
-    id: 1,
-    newMessage: true,
-  },
-  {
-    avatarUrl: null,
-    firstName: "Jimmy",
-    lastName: "Shit",
-    nickName: "user3",
-    id: 2,
-    newMessage: true,
-  },
-];
-
-const DashBoard: FC<DashBoardProps> = ({ currentChat, setCurrentChat }) => {
+const DashBoard: FC<DashBoardProps> = ({
+  currentChat,
+  rooms,
+  setCurrentChat,
+}) => {
   const { firstName, lastName } = useAppSelector(
     (state) => state.userSlice.user
   );
