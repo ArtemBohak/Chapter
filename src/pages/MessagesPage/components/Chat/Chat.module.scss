@@ -6,10 +6,11 @@
 }
 
 .wrapper {
-  @apply w-full flex items-center justify-between;
+  @apply w-full flex  items-center justify-between;
 }
 
 .messages {
+  @apply flex flex-col gap-2-xs h-[420px] max-h-[420px] overflow-y-auto justify-end;
 }
 
 .avatar {

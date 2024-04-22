@@ -1,8 +1,8 @@
 import { FC } from "react";
-import styles from "./DashBoard.module.scss";
 import { useAppSelector } from "@/src/redux";
 import { Room } from "../";
 import { DashBoardProps } from "./DashBoard.type";
+import styles from "./DashBoard.module.scss";
 
 const DashBoard: FC<DashBoardProps> = ({
   currentChat,

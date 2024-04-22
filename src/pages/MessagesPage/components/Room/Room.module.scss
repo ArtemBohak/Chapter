@@ -1,6 +1,10 @@
 .room {
   @apply relative py-0-sm px-1-lg rounded-sm bg-transparent flex gap-1-xs w-full transition-all duration-150;
 
+  &.cursor-disable {
+    @apply pointer-events-none;
+  }
+
   &.active {
     @apply bg-[#F79400] text-white;
   }

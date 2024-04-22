@@ -1,0 +1,21 @@
+.message {
+  @apply w-full;
+  &__content {
+    @apply rounded-md w-full max-w-[80%] min-w-[276px] px-1-sm py-0-md flex flex-col gap-0-md ml-auto bg-[#FFEED6];
+
+    &.incoming {
+      @apply mr-auto bg-grey-1030 ml-0;
+    }
+  }
+}
+
+.date {
+  @apply text-xxs leading-[14px] text-grey-1000 font-medium text-left;
+
+  &.incoming {
+    @apply text-right;
+  }
+}
+.text {
+  @apply text-xs font-medium  leading-[18px];
+}

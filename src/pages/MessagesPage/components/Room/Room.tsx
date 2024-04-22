@@ -29,6 +29,7 @@ const Room: FC<RoomProps> = ({
   const btnClassNames = cn(styles["room"], {
     [styles["active"]]: active,
     [styles["unread"]]: unreadMessage,
+    [styles["cursor-disable"]]: newMessage === undefined,
   });
 
   return (
