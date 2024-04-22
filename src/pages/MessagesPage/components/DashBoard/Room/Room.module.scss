@@ -1,0 +1,23 @@
+.room {
+  @apply py-0-sm px-1-lg rounded-sm bg-transparent flex gap-1-xs w-full transition-all duration-150;
+
+  &.active {
+    @apply bg-[#F79400] text-white;
+  }
+
+  &__image {
+    @apply rounded-md;
+  }
+
+  &__text {
+    @apply flex flex-col justify-between;
+  }
+}
+
+.full-name {
+  @apply text-lg font-bold tracking-[0.36px] leading-[28px];
+}
+
+.nickname {
+  @apply self-start text-base font-normal tracking-[0.176px] leading-[24px];
+}

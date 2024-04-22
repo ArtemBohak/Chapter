@@ -9,3 +9,7 @@
 .label {
   @apply text-base font-semibold leading-[24px];
 }
+
+.rooms {
+  @apply flex flex-col gap-1-lg;
+}
