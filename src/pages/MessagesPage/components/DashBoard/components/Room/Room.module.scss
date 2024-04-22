@@ -1,8 +1,15 @@
 .room {
-  @apply py-0-sm px-1-lg rounded-sm bg-transparent flex gap-1-xs w-full transition-all duration-150;
+  @apply relative py-0-sm px-1-lg rounded-sm bg-transparent flex gap-1-xs w-full transition-all duration-150;
 
   &.active {
     @apply bg-[#F79400] text-white;
+  }
+
+  &.unread {
+    &::before {
+      content: "";
+      @apply absolute w-0-md h-0-md rounded-[50%] bg-[#F79400] top-1/2 -translate-y-1/2 left-0-md -translate-x-1/2;
+    }
   }
 
   &__image {

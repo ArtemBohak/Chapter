@@ -1,12 +1,20 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import styles from "./MessagesPage.module.scss";
-import { DashBoard } from "./components";
+import { Chat, DashBoard } from "./components";
 
 const MessagesPage: FC = () => {
+  const [currentChat, setCurrentChat] = useState<number | null>(null);
   return (
     <section className={styles["messages"]}>
       <div className={styles["container"]}>
-        <DashBoard />
+        {currentChat ? (
+          <Chat />
+        ) : (
+          <DashBoard
+            setCurrentChat={setCurrentChat}
+            currentChat={currentChat}
+          />
+        )}
       </div>
     </section>
   );

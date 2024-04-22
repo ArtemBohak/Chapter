@@ -1,7 +1,7 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import cn from "classnames";
 
-import { RoomProps } from "../DashBoard.type";
+import { RoomProps } from "./Room.type";
 import styles from "./Room.module.scss";
 import defaultUserAvatar from "@/src/assets/SVG/default-user-avatar.svg";
 
@@ -11,11 +11,28 @@ const Room: FC<RoomProps> = ({
   firstName,
   lastName,
   active,
+  newMessage,
+  id,
+  handleClick,
 }) => {
-  const btnClassNames = cn(styles["room"], { [styles["active"]]: active });
+  const [unreadMessage, setUnreadMessage] = useState(newMessage);
+
+  useEffect(() => {
+    setUnreadMessage(newMessage);
+  }, [newMessage]);
+
+  const onClick = () => {
+    setUnreadMessage(false);
+    handleClick(id);
+  };
+
+  const btnClassNames = cn(styles["room"], {
+    [styles["active"]]: active,
+    [styles["unread"]]: unreadMessage,
+  });
 
   return (
-    <button className={btnClassNames}>
+    <button className={btnClassNames} onClick={onClick}>
       <img
         src={avatarUrl || defaultUserAvatar}
         alt="user avatar"

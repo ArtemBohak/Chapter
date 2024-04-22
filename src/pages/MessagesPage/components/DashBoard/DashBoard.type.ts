@@ -1,5 +1,6 @@
-import { IUser } from "@/src/types";
+import { Dispatch, SetStateAction } from "react";
 
-export type RoomProps = { active: boolean; id: number } & Partial<IUser>;
-
-// export type DashBoardProps = {};
+export type DashBoardProps = {
+  setCurrentChat: Dispatch<SetStateAction<null | number>>;
+  currentChat: null | number;
+};

@@ -1,9 +1,8 @@
 import { FC } from "react";
 import styles from "./DashBoard.module.scss";
 import { useAppSelector } from "@/src/redux";
-import Room from "./Room/Room";
-
-const currentRoom = 0;
+import { Room } from "./components";
+import { DashBoardProps } from "./DashBoard.type";
 
 const rooms = [
   {
@@ -11,28 +10,36 @@ const rooms = [
     firstName: "John",
     lastName: "Doe",
     nickName: "user1",
-    roomId: 0,
+    id: 0,
+    newMessage: false,
   },
   {
     avatarUrl: null,
     firstName: "Jack",
     lastName: "Ryan",
     nickName: "user2",
-    roomId: 1,
+    id: 1,
+    newMessage: true,
   },
   {
     avatarUrl: null,
     firstName: "Jimmy",
     lastName: "Shit",
     nickName: "user3",
-    roomId: 2,
+    id: 2,
+    newMessage: true,
   },
 ];
 
-const DashBoard: FC = () => {
+const DashBoard: FC<DashBoardProps> = ({ currentChat, setCurrentChat }) => {
   const { firstName, lastName } = useAppSelector(
     (state) => state.userSlice.user
   );
+
+  const onHandleClick = (id: number) => {
+    setCurrentChat(id);
+  };
+
   return (
     <div className={styles["dashboard"]}>
       <h2 className={styles["full-name"]}>
@@ -44,8 +51,8 @@ const DashBoard: FC = () => {
           <li key={i}>
             <Room
               {...room}
-              id={room.roomId}
-              active={room.roomId === currentRoom}
+              active={room.id === currentChat}
+              handleClick={onHandleClick}
             />
           </li>
         ))}
