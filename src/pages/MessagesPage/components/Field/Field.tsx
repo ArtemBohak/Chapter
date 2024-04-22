@@ -2,6 +2,7 @@ import { ChangeEvent, FC, useState } from "react";
 
 import styles from "./Field.module.scss";
 import { FieldType } from "./Field.type";
+import { Icon, IconEnum } from "@/src/components";
 
 const Field: FC<FieldType> = ({ onChange }) => {
   const [value, setValue] = useState("");
@@ -11,7 +12,7 @@ const Field: FC<FieldType> = ({ onChange }) => {
     onChange(event.target.value);
   };
   return (
-    <label className={styles["field"]}>
+    <div className={styles["field"]}>
       <input
         type="text"
         name="chat"
@@ -20,7 +21,12 @@ const Field: FC<FieldType> = ({ onChange }) => {
         placeholder="Write a message"
         className={styles["field__input"]}
       />
-    </label>
+      {value.length ? (
+        <button className={styles["submit-btn"]}>
+          <Icon icon={IconEnum.NextSlide} size={20} />
+        </button>
+      ) : null}
+    </div>
   );
 };
 
