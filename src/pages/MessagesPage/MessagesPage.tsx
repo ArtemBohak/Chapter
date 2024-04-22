@@ -4,11 +4,12 @@ import { Chat, DashBoard } from "./components";
 
 const MessagesPage: FC = () => {
   const [currentChat, setCurrentChat] = useState<number | null>(null);
+
   return (
     <section className={styles["messages"]}>
       <div className={styles["container"]}>
-        {currentChat ? (
-          <Chat />
+        {currentChat !== null ? (
+          <Chat setCurrentChat={setCurrentChat} />
         ) : (
           <DashBoard
             setCurrentChat={setCurrentChat}
