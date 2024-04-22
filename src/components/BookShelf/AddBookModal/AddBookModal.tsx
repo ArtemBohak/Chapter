@@ -18,7 +18,7 @@ const AddBookModal: FC<AddBookModalProps> = ({ isOpen, setIsOpen }) => {
       disableScroll={true}
     >
       <div className={styles["add-book-modal__header"]}>
-        <h4>Add new book</h4>
+        <p>Add new book</p>
         <CloseButton
           className={styles["add-book-modal__close-button"]}
           setIsOpen={setIsOpen}

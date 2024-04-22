@@ -1,4 +1,4 @@
-import { FC, createRef, useEffect, useLayoutEffect, useState } from "react";
+import { FC, createRef, useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { AxiosError, AxiosResponse } from "axios";
 
 import { EndpointsEnum, api } from "@/src/axios";
@@ -15,6 +15,7 @@ import {
 
 import { IProfileProviderProps } from "./ProfileProvider.type";
 import { ProfileContext } from "./hooks";
+import UserPostsLoader from "../UserPostsLoader/userPostsLoader";
 
 const socket = new SocketApi();
 
@@ -25,10 +26,12 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [userPostsList, setUserPostsList] = useState<Array<PostRefType>>([]);
   const [isPostsLoad, setIsPostsLoad] = useState(false);
-  const [page, setPage] = useState<number>(0);
+  const [page, setPage] = useState<number>(1);
+  const intersectionRef = useRef(null);
 
   const [headerAddPostBtnIsDisabled, setHeaderAddPostBtnIsDisabled] =
     useState(false);
+
 
   const [notifications, setNotifications] = useState<Array<INots>>([]);
 
@@ -53,17 +56,32 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
 
 
   const fetchUserPosts = async (currentPage: number) => {
+    console.log(currentPage)
     try {
       const response = await api.get(
-        `${EndpointsEnum.POSTS_BY_AUTHOR}?page=${currentPage}&limit=50`
+        `${EndpointsEnum.POSTS_BY_AUTHOR}?page=${currentPage}&limit=3`
       );
-      setUserPostsList(response.data);
+      const newPosts = response.data;
+      setUserPostsList(prevPosts => [...prevPosts, ...newPosts]); // Append new posts to the existing list
       setIsPostsLoad(true);
-      return response.data;
+      return newPosts;
     } catch (error) {
       console.error("Error fetching user posts:", error);
     }
   };
+
+  const userPostsApi = useCallback(
+    () => new UserPostsLoader(setUserPostsList, setErrorBoundary, setIsPostsLoad).get(page),
+    [page, setErrorBoundary]
+  );
+
+  // useEffect(() => {
+  //   if (page) {
+  //     userPostsApi()
+  //     console.log(userPostsList)
+  //   };
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [page]);
 
   useLayoutEffect(() => {
     setIsLoading(true);
@@ -150,6 +168,8 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
         setUserPostsList,
         setIsPostsLoad,
         isPostsLoad,
+        intersectionRef,
+        userPostsApi
       }}
     >
       {children}

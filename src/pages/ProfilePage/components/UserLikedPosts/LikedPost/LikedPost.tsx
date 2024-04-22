@@ -1,22 +1,30 @@
-import { EndpointsEnum, followApi } from '@/src/axios'
+import { EndpointsEnum, api, followApi } from '@/src/axios'
 import { Avatar, CommentsButton, LikesButton, PostComments, PostDate, PostImage, PostText, PostTitle, UIbutton, UserNickName } from '@/src/components'
 import { FC, useState } from 'react'
 import { Link } from 'react-router-dom'
 import styles from '../Liked.module.scss'
 import { LikedPostProps } from '../UserLikedPost.type'
 import { usePostsContext } from '../../UserPosts/context'
+import { updateUser } from '@/src/redux'
+import { useDispatch } from 'react-redux'
 
 const LikedPost: FC<LikedPostProps> = ({ post }) => {
-
     const [commentsIsHide, setCommentsIsHide] = useState(true);
+    const [subsribedToPostAuthor, setSubsribedToPostAuthort] = useState(post.isSubscribeToAuthor)
     const { setUserLikedPostsList } = usePostsContext()
-    // const fetchUsersWhoLikedPosts = async (id: number) => {
-    //     const response = await api.get(`posts/users-who-liked-post/${id}`);
+    const dispatch = useDispatch();
 
-    // };
-    // useEffect(() => {
-    //     fetchUsersWhoLikedPosts(post.postId);
-    // }, [])
+    const FollowUnfollow = async () => {
+        try {
+            await followApi(post.author.id);
+            const response = await api.get(EndpointsEnum.PROFILE);
+            dispatch(updateUser(response.data));
+            setSubsribedToPostAuthort(!subsribedToPostAuthor)
+        } catch (error) {
+            console.log(error);
+        } finally {
+        }
+    };
 
     return (
         <div key={post.postId} className={styles["user-post"]}>
@@ -29,11 +37,11 @@ const LikedPost: FC<LikedPostProps> = ({ post }) => {
                     <UserNickName nickName={post.author.nickName} />
                 </Link>
                 <UIbutton
-                    variant={post.isSubscribeToAuthor ? "outlined" : "contained"}
+                    variant={subsribedToPostAuthor ? "outlined" : "contained"}
                     dataAutomation={"subscribe-button"}
-                    onClick={() => followApi(post.author.id)}
+                    onClick={FollowUnfollow}
                 >
-                    {post.isSubscribeToAuthor ? "unfollow" : "follow"}
+                    {subsribedToPostAuthor ? "unfollow" : "follow"}
                 </UIbutton>
             </div>
             <div className={styles["user-post__image"]}>

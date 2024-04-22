@@ -1,7 +1,7 @@
 import { IBook } from "@/src/components/BookShelf/Book/BookProps.type";
 
 export type enemyData = {
-    id: string;
+    id: string | number;
     nickName: string;
     firstName: string;
     lastName: string;
@@ -12,6 +12,6 @@ export type enemyData = {
     myFollowingCount: number | null;
     userBooks: Array<IBook> | [];
     isSubscribed: boolean;
-} | undefined;
+}
 
 export default enemyData;

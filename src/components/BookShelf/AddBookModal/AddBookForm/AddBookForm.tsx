@@ -154,6 +154,7 @@ const AddBookForm: FC = () => {
                   <TextAreaField
                     id={"annotation"}
                     name={"annotation"}
+                    classNames={styles["annotation-field"]}
                     placeholder={"My impressions"}
                     value={values.annotation}
                     dataAutomation={"bookAnnotation-field"}

@@ -168,12 +168,13 @@ const EditBookForm: FC<EditBookFormProps> = ({
                     />
                     <TextAreaField
                       id={"annotation"}
+                      classNames={styles["annotation-field"]}
                       placeholder={"annotation"}
                       name={"annotation"}
                       value={values.annotation}
                       dataAutomation={"bookAnnotation-field"}
                       iconSize={0}
-                      // onHandleIconClick={() => { }}
+                    // onHandleIconClick={() => { }}
                     />
                   </div>
                 </div>

@@ -1,16 +1,24 @@
-import { FC, useEffect } from "react";
+import { FC, createRef, useEffect } from "react";
 import styles from "./Posts.module.scss";
 import { PostSkeleton } from "@/src/components";
 import UserPost from "./UserPost/UserPost";
 import { useProfileContext } from "@/src/context";
+import { useRefIntersection } from "@/src/hooks";
+import { intersectionHandlerCB } from "@/src/utils";
 
 
 const UserPosts: FC = () => {
-  const { page, setPage, userPostsList, fetchUserPosts, isPostsLoad } = useProfileContext()
+  const { page, setPage, userPostsList, userPostsApi, isPostsLoad, intersectionRef } = useProfileContext()
+
+  useRefIntersection(intersectionHandlerCB(setPage), intersectionRef, {
+    postsIsLoad: isPostsLoad,
+    threshold: 0.1,
+  });
 
   useEffect(() => {
-    fetchUserPosts(page);
-    console.log("Page №", page)
+    userPostsApi()
+    console.log("intersectionRef", intersectionRef)
+
   }, [page]);
 
   if (isPostsLoad && userPostsList.length === 0) {
@@ -21,14 +29,13 @@ const UserPosts: FC = () => {
   }
   return (
     <ul className={styles["posts-wrapper"]}>
-      {isPostsLoad ? (
-        userPostsList.map((post) => (
-          <UserPost key={post.postId} post={post} setPage={setPage} />
-        ))
-      ) : (
+      {(
+        userPostsList.map((post) => {
+          const nodeRef = createRef<HTMLDivElement>();
+          return (<UserPost key={post.postId} post={post} setPage={setPage} nodeRef={nodeRef} />)
+        }
 
-        <PostSkeleton className={styles["user-post__skeleton"]} />
-
+        )
       )}
 
     </ul>

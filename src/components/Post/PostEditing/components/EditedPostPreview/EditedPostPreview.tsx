@@ -41,6 +41,7 @@ const EditedPostPreview: FC<PostPreviewProps> = ({
 
   const onHandlePublishClick = async () => {
     try {
+      fetchUserPosts(1)
       setError(null);
       setIsLoading(true);
       const body: BodyProps = {
@@ -77,7 +78,7 @@ const EditedPostPreview: FC<PostPreviewProps> = ({
       }
     } finally {
       setIsLoading(false);
-      fetchUserPosts(1);
+      // fetchUserPosts(1);
     }
   };
   return (

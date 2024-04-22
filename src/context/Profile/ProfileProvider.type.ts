@@ -1,5 +1,5 @@
 import { Dispatch, ReactNode, SetStateAction } from "react";
-import { INotification, INots } from "@/src/types";
+import { INotification, INots, RefType } from "@/src/types";
 
 import { PostRefType } from "@/src/types";
 
@@ -25,5 +25,7 @@ export type ProfileContextType = {
   userPostsList: [] | Array<PostRefType>;
   setUserPostsList: Dispatch<SetStateAction<Array<PostRefType>>>;
   isPostsLoad: boolean;
-  setIsPostsLoad: Dispatch<SetStateAction<boolean>>
+  setIsPostsLoad: Dispatch<SetStateAction<boolean>>;
+  intersectionRef: RefType | undefined;
+  userPostsApi: () => {}
 };

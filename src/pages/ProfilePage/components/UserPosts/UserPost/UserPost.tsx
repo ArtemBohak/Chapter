@@ -29,7 +29,7 @@ import { intersectionHandlerCB } from "@/src/utils";
 import { useProfileContext } from "@/src/context";
 import { FilesService } from "@/src/services";
 
-const UserPost: FC<UserPostProps> = ({ post, setPage }) => {
+const UserPost: FC<UserPostProps> = ({ post, setPage, nodeRef }) => {
   const { user } = useAppSelector((state) => state.userSlice);
   const [showPopUp, setShowPopUp] = useState(false);
   const [showConfirmationWindow, setShowConfirmationWindow] = useState(false);
@@ -95,7 +95,7 @@ const UserPost: FC<UserPostProps> = ({ post, setPage }) => {
   }, []);
 
   return (
-    <li className={styles["user-post"]}>
+    <div ref={nodeRef} className={styles["user-post"]}>
       <div
         ref={pageLoaderRef}
         data-value={pageLoaderRef && page ? page : ""}
@@ -192,7 +192,7 @@ const UserPost: FC<UserPostProps> = ({ post, setPage }) => {
         setCommentsIsHide={setCommentsIsHide}
         commentsIsHide={commentsIsHide}
       />
-    </li>
+    </div>
   );
 };
 
