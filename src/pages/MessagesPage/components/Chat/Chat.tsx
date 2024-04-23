@@ -61,7 +61,7 @@ const Chat: FC<ChatProps> = ({ setCurrentChat, room }) => {
             </li>
           ))}
         </ul>
-        <div className={styles["wrapper"]}>
+        <div className={styles["chat__fields"]}>
           <Field onChange={onChange} />
           <img
             src={userAvatar}
