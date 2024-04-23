@@ -10,10 +10,10 @@
 }
 
 .date {
-  @apply text-xxs leading-[14px] text-grey-1000 font-medium text-left md:text-xs md:leading-[18px];
+  @apply text-xxs leading-[14px] text-grey-1000 font-medium text-right md:text-xs md:leading-[18px];
 
   &.incoming {
-    @apply text-right;
+    @apply text-left;
   }
 }
 .text {
