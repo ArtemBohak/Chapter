@@ -8,7 +8,7 @@ export const useErrorBoundary = ({
   additionalStatusValue,
   messageValues = [],
 }: UseErrorBoundaryArgs = {}) => {
-  const [error, setError] = useState<AxiosError | string | null>(null);
+  const [error, setError] = useState<AxiosError | Error | string | null>(null);
 
   useEffect(() => {
     if (error instanceof AxiosError) {
@@ -25,6 +25,8 @@ export const useErrorBoundary = ({
       )
         throw new Error(error.message);
     }
+
+    if (error instanceof Error) throw new Error(error.message);
   }, [error, statusValue, additionalStatusValue]);
 
   useEffect(() => {
