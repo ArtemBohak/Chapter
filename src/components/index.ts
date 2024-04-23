@@ -37,3 +37,4 @@ export { PopUpMenu } from "./PopUpMenu";
 export { Notification } from "./Notification";
 export { PostSkeleton } from "./Skeleton";
 export { Toast } from "./Toast";
+export { default as Emoji } from "./Emoji/Emoji";

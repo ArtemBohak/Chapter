@@ -1,12 +1,11 @@
 import { ChangeEvent, FC, useEffect, useState } from "react";
 import { ErrorMessage, Field, useField, useFormikContext } from "formik";
-import data from "@emoji-mart/data";
-import Picker from "@emoji-mart/react";
 import cn from "classnames";
 
-import { IEmoji, TextAreaFieldProps } from "./TextAreaField.type";
+import { IEmoji } from "../../Emoji/Emoji.type";
+import { TextAreaFieldProps } from "./TextAreaField.type";
 import styles from "./TextAreaField.module.scss";
-import { Icon, IconEnum } from "../..";
+import Emoji from "../../Emoji/Emoji";
 
 const TextAreaField: FC<TextAreaFieldProps> = ({
   dataAutomation,
@@ -37,8 +36,6 @@ const TextAreaField: FC<TextAreaFieldProps> = ({
 
     setFieldValue(field.name, value);
   };
-
-  const onHandleIconClick = () => setShowPicker(!showPicker);
 
   const onHandleEmojiClick = (emoji: IEmoji) => {
     setFieldValue(field.name, field.value + emoji.native);
@@ -71,26 +68,14 @@ const TextAreaField: FC<TextAreaFieldProps> = ({
           className={styles["text-area__error"]}
         />
       ) : null}
-      <button
-        onClick={onHandleIconClick}
-        type="button"
-        className={styles["text-area__icon-button"]}
-        aria-label='Emoji select button'
-      >
-        <Icon icon={IconEnum.Smile} size={iconSize} />
-      </button>
-      {showPicker ? (
-        <div className={`${styles["text-area__emoji"]} ${emojiClassNames}`}>
-          <Picker
-            data={data}
-            onEmojiSelect={onHandleEmojiClick}
-            previewPosition="none"
-            theme="light"
-            maxFrequentRows={1}
-            perLine={6}
-          />
-        </div>
-      ) : null}
+      <Emoji
+        showEmojiPicker={showPicker}
+        iconSize={iconSize}
+        buttonClassNames={styles["text-area__icon-button"]}
+        emojiClassNames={`${styles["text-area__emoji"]} ${emojiClassNames}`}
+        handleEmojiClick={onHandleEmojiClick}
+        setShowEmojiPicker={setShowPicker}
+      />
     </div>
   );
 };
