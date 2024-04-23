@@ -1,5 +1,6 @@
 export { Icon, IconEnum } from "./Icon";
 export * from "./Fields";
+export * from "./Recorders";
 
 export { AuthBy } from "./AuthBy";
 export { AuthLink } from "./AuthLink";

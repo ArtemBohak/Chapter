@@ -2,11 +2,11 @@ import { FC } from "react";
 
 import { useSwipe } from "@/src/hooks";
 import { useAppSelector } from "@/src/redux";
+import { MessageType } from "@/src/types";
 
-import { Field, Message } from "../";
+import { ChatField, Message } from "../";
 import { ChatProps } from "./Chat.type";
 import styles from "./Chat.module.scss";
-import { MessageType } from "@/src/types";
 import defaultUserAvatar from "@/src/assets/SVG/default-user-avatar.svg";
 
 const messages: MessageType[] = [
@@ -62,7 +62,7 @@ const Chat: FC<ChatProps> = ({ setCurrentChat, room }) => {
           ))}
         </ul>
         <div className={styles["chat__fields"]}>
-          <Field onChange={onChange} />
+          <ChatField onChange={onChange} />
           <img
             src={userAvatar}
             width={52}

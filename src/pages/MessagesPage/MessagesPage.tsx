@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
-import styles from "./MessagesPage.module.scss";
 import { Chat, DashBoard } from "./components";
+import styles from "./MessagesPage.module.scss";
 
 const rooms = [
   {

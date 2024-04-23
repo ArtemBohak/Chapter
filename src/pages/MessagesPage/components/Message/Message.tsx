@@ -1,10 +1,10 @@
 import { FC } from "react";
 import cn from "classnames";
 
+import { useAppSelector } from "@/src/redux";
+import { convertDate } from "@/src/utils";
 import { MessageProps } from "./Message.type";
 import styles from "./Message.module.scss";
-import { convertDate } from "@/src/utils";
-import { useAppSelector } from "@/src/redux";
 
 const Message: FC<MessageProps> = ({ message, date, ownerId }) => {
   const userId = useAppSelector((state) => state.userSlice.user.id);

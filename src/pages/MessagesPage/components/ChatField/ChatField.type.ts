@@ -1,3 +1,3 @@
-export type FieldType = {
+export type ChatFieldType = {
   onChange: (value: string) => void;
 };

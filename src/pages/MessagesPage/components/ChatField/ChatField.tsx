@@ -1,17 +1,17 @@
 import { ChangeEvent, FC, useState } from "react";
 
-import styles from "./Field.module.scss";
-import { FieldType } from "./Field.type";
 import {
-  AudioField,
+  AudioRecorder,
   Emoji,
   Icon,
   IconEnum,
   ImageField,
 } from "@/src/components";
 import { IEmoji } from "@/src/components/Emoji/Emoji.type";
+import { ChatFieldType } from "./ChatField.type";
+import styles from "./ChatField.module.scss";
 
-const Field: FC<FieldType> = ({ onChange }) => {
+const ChatField: FC<ChatFieldType> = ({ onChange }) => {
   const [value, setValue] = useState("");
   const [showPicker, setShowPicker] = useState(false);
   const [, setImage] = useState<File | null>(null);
@@ -30,7 +30,7 @@ const Field: FC<FieldType> = ({ onChange }) => {
 
   const mediaButtons = (
     <div className={styles["buttons"]}>
-      <AudioField />
+      <AudioRecorder />
       <ImageField btnVariant="icon" setFile={setImage} />
     </div>
   );
@@ -65,4 +65,4 @@ const Field: FC<FieldType> = ({ onChange }) => {
   );
 };
 
-export default Field;
+export default ChatField;
