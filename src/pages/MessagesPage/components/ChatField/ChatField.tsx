@@ -15,6 +15,7 @@ const ChatField: FC<ChatFieldType> = () => {
   const [value, setValue] = useState("");
   const [showPicker, setShowPicker] = useState(false);
   const [, setImage] = useState<File | null>(null);
+  const [audio, setAudio] = useState<string | null>(null);
 
   const onHandleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
@@ -29,11 +30,12 @@ const ChatField: FC<ChatFieldType> = () => {
 
   const onSubmitButtonClick = () => {
     console.log(value);
+    console.log(audio);
   };
 
   const mediaButtons = (
     <div className={styles["buttons"]}>
-      <AudioRecorder />
+      <AudioRecorder setAudio={setAudio} />
       <ImageField btnVariant="icon" setFile={setImage} />
     </div>
   );
