@@ -11,5 +11,5 @@
 }
 
 .rooms {
-  @apply flex flex-col gap-1-lg md:gap-2-xs min-h-[80vh] overflow-y-auto;
+  @apply flex flex-col h-[80vh] overflow-y-auto gap-1-lg md:gap-2-xs;
 }
