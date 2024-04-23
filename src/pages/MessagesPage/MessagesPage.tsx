@@ -30,20 +30,33 @@ const rooms = [
 ];
 
 const MessagesPage: FC = () => {
-  const [currentChat, setCurrentChat] = useState<number | null>(null);
+  const [currentChat, setCurrentChat] = useState<number | null>(0);
 
   return (
     <section className={styles["messages"]}>
       <div className={styles["container"]}>
-        {currentChat !== null ? (
-          <Chat setCurrentChat={setCurrentChat} room={rooms[currentChat]} />
-        ) : (
+        <div className={styles["mob"]}>
+          {currentChat !== null ? (
+            <Chat setCurrentChat={setCurrentChat} room={rooms[currentChat]} />
+          ) : (
+            <DashBoard
+              rooms={rooms}
+              setCurrentChat={setCurrentChat}
+              currentChat={currentChat}
+            />
+          )}
+        </div>
+        <div className={styles["tab"]}>
           <DashBoard
             rooms={rooms}
             setCurrentChat={setCurrentChat}
             currentChat={currentChat}
           />
-        )}
+          <Chat
+            setCurrentChat={setCurrentChat}
+            room={rooms[currentChat || 0]}
+          />
+        </div>
       </div>
     </section>
   );

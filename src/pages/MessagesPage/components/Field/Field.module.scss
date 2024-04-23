@@ -1,8 +1,8 @@
 .field {
-  @apply relative w-3/4;
+  @apply relative w-[80%];
 
   &__input {
-    @apply w-full rounded-sm border border-grey-1000 outline-none px-0-md pl-3-lg py-1-md text-xs leading-[18px];
+    @apply w-full rounded-sm border border-grey-1000 outline-none px-0-md pl-3-lg py-1-md text-xs leading-[18px] md:text-sm md:leading-[20px] placeholder:text-grey-1000;
   }
 }
 

@@ -1,8 +1,27 @@
 .chat {
-  @apply p-1-lg rounded-md border border-grey-1010 flex flex-col gap-1-lg;
+  @apply w-full p-1-lg rounded-md border border-grey-1010 flex flex-col gap-1-lg md:max-w-[70%];
   &__messages {
     @apply p-0-md rounded-[4px] border border-[#eee] flex flex-col justify-end gap-2-xs;
   }
+}
+
+.user {
+  @apply flex gap-1-xs w-full md:pl-3-sm;
+  &__image {
+    @apply rounded-md;
+  }
+
+  &__text {
+    @apply flex flex-col justify-between;
+  }
+}
+
+.full-name {
+  @apply text-lg font-bold tracking-[0.36px] leading-[28px];
+}
+
+.nickname {
+  @apply self-start text-base font-normal tracking-[0.176px] leading-[24px];
 }
 
 .wrapper {

@@ -3,10 +3,11 @@ import { FC } from "react";
 import { useSwipe } from "@/src/hooks";
 import { useAppSelector } from "@/src/redux";
 
-import { Field, Message, Room } from "../";
+import { Field, Message } from "../";
 import { ChatProps } from "./Chat.type";
 import styles from "./Chat.module.scss";
 import { MessageType } from "@/src/types";
+import defaultUserAvatar from "@/src/assets/SVG/default-user-avatar.svg";
 
 const messages: MessageType[] = [
   {
@@ -28,7 +29,7 @@ const messages: MessageType[] = [
 ];
 
 const Chat: FC<ChatProps> = ({ setCurrentChat, room }) => {
-  const { avatarUrl, firstName, lastName, nickName, id } = room;
+  const { avatarUrl, firstName, lastName, nickName } = room;
   const userAvatar = useAppSelector((state) => state.userSlice.user.avatarUrl);
   useSwipe({ leftSwipeCB: () => setCurrentChat(null), enableSwipe: true });
 
@@ -37,13 +38,21 @@ const Chat: FC<ChatProps> = ({ setCurrentChat, room }) => {
   };
   return (
     <div className={styles["chat"]}>
-      <Room
-        id={id}
-        avatarUrl={avatarUrl}
-        firstName={firstName}
-        lastName={lastName}
-        nickName={nickName}
-      />
+      <div className={styles["user"]}>
+        <img
+          src={avatarUrl || defaultUserAvatar}
+          alt="user avatar"
+          width={52}
+          height={52}
+          className={styles["user__image"]}
+        />
+        <div className={styles["user__text"]}>
+          <p className={styles["full-name"]}>
+            {firstName} {lastName}
+          </p>
+          <p className={styles["nickname"]}>{nickName}</p>
+        </div>
+      </div>
       <div className={styles["chat__messages"]}>
         <ul className={styles["messages"]}>
           {messages.map((message) => (

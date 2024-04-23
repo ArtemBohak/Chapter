@@ -1,7 +1,7 @@
 .message {
   @apply w-full;
   &__content {
-    @apply rounded-md w-full max-w-[80%] min-w-[276px] px-1-sm py-0-md flex flex-col gap-0-md ml-auto bg-[#FFEED6];
+    @apply rounded-md w-full max-w-[80%] min-w-[276px] px-1-sm py-0-md flex flex-col gap-0-md ml-auto bg-[#FFEED6] md:min-w-[320px];
 
     &.incoming {
       @apply mr-auto bg-grey-1030 ml-0;
@@ -10,12 +10,12 @@
 }
 
 .date {
-  @apply text-xxs leading-[14px] text-grey-1000 font-medium text-left;
+  @apply text-xxs leading-[14px] text-grey-1000 font-medium text-left md:text-xs md:leading-[18px];
 
   &.incoming {
     @apply text-right;
   }
 }
 .text {
-  @apply text-xs font-medium  leading-[18px];
+  @apply text-xs font-medium leading-[18px] md:text-base md:leading-[24px];
 }

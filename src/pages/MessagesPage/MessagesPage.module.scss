@@ -5,3 +5,11 @@
 .container {
   @apply px-1-lg;
 }
+
+.mob {
+  @apply md:hidden;
+}
+
+.tab {
+  @apply hidden md:flex;
+}

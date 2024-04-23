@@ -1,15 +1,15 @@
 .dashboard {
-  @apply flex flex-col p-0-md gap-1-lg;
+  @apply w-full flex flex-col p-0-md gap-1-lg md:max-w-[30%] md:gap-2-xs;
 }
 
 .full-name {
-  @apply text-lg font-bold leading-[28px];
+  @apply text-lg font-bold leading-[28px] md:text-[26px] md:leading-[38px] tracking-[0.468px];
 }
 
 .label {
-  @apply text-base font-semibold leading-[24px];
+  @apply text-base font-semibold leading-[24px] md:text-lg md:leading-[28px] md:tracking-[0.36px];
 }
 
 .rooms {
-  @apply flex flex-col gap-1-lg;
+  @apply flex flex-col gap-1-lg md:gap-2-xs md:min-h-[80vh] md:overflow-y-auto;
 }
