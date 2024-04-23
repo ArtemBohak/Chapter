@@ -1,4 +1,5 @@
 export enum IconEnum {
+  AUDIO = "recorder",
   Eye_Off = "eye-off",
   Eye = "eye",
   Facebook = "facebook",

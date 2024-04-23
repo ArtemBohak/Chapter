@@ -3,3 +3,4 @@ export * from "./TextField";
 export * from "./SearchField";
 export * from "./TextAreaField";
 export * from "./ImageField";
+export * from "./AudioField";

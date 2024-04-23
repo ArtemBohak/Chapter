@@ -16,3 +16,7 @@
     @apply text-[#F79400] top-1/2 -translate-y-1/2 left-0-md;
   }
 }
+
+.buttons {
+  @apply absolute flex gap-0-md items-center top-1/2 -translate-y-1/2 right-0-md;
+}
