@@ -50,15 +50,17 @@ const AudioRecorder: FC<AudioRecorderProps> = ({ iconSize = 20, setAudio }) => {
     setIsRecording(false);
   };
 
-  const handleRecorder = () => {
-    if (!isRecording) return startRecording();
-    return stopRecording();
-  };
-
   return (
-    <button className={styles["audio"]} onClick={handleRecorder}>
-      <Icon size={iconSize} icon={IconEnum.AUDIO} />
-    </button>
+    <div className={styles["wrapper"]}>
+      <button
+        className={styles["audio"]}
+        onMouseDown={startRecording}
+        onMouseUp={stopRecording}
+      >
+        <Icon size={iconSize} icon={IconEnum.AUDIO} />
+      </button>
+      {isRecording ? <div className={styles["status"]}>Recording</div> : null}
+    </div>
   );
 };
 

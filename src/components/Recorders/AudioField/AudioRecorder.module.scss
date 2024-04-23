@@ -1,3 +1,11 @@
+.wrapper {
+  @apply relative;
+}
+
 .audio {
   @apply text-[#F79400] bg-transparent;
+}
+
+.status {
+  @apply absolute;
 }
