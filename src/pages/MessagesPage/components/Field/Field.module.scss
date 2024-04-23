@@ -2,10 +2,17 @@
   @apply relative w-3/4;
 
   &__input {
-    @apply w-full rounded-sm border border-grey-1000 outline-none px-0-md py-1-md text-xs leading-[18px];
+    @apply w-full rounded-sm border border-grey-1000 outline-none px-0-md pl-3-lg py-1-md text-xs leading-[18px];
   }
 }
 
 .submit-btn {
   @apply bg-transparent absolute top-1/2 -translate-y-1/2 right-[8px];
+}
+
+.emoji {
+  @apply right-0 bottom-full;
+  &-button {
+    @apply text-[#F79400] top-1/2 -translate-y-1/2 left-0-md;
+  }
 }

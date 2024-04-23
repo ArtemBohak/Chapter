@@ -14,12 +14,3 @@ export type TextAreaFieldProps = {
   nickName?: string;
   handleNickname?: HandleNickname;
 } & Partial<TextareaHTMLAttributes<HTMLTextAreaElement>>;
-
-// export interface IEmoji {
-//   id: string;
-//   keywords: string[];
-//   name: string;
-//   native: string;
-//   shortcodes: string;
-//   unified: string;
-// }

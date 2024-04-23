@@ -2,8 +2,8 @@ import { ChangeEvent, FC, useState } from "react";
 
 import styles from "./Field.module.scss";
 import { FieldType } from "./Field.type";
-import { Icon, IconEnum } from "@/src/components";
-import { IEmoji } from "@/src/components/Fields/TextAreaField/TextAreaField.type";
+import { Emoji, Icon, IconEnum } from "@/src/components";
+import { IEmoji } from "@/src/components/Emoji/Emoji.type";
 
 const Field: FC<FieldType> = ({ onChange }) => {
   const [value, setValue] = useState("");
@@ -19,13 +19,24 @@ const Field: FC<FieldType> = ({ onChange }) => {
     setShowPicker(false);
   };
 
+  const onHandleInputClick = () => setShowPicker(false);
+
   return (
     <div className={styles["field"]}>
+      <Emoji
+        setShowEmojiPicker={setShowPicker}
+        showEmojiPicker={showPicker}
+        handleEmojiClick={onHandleEmojiClick}
+        emojiClassNames={styles["emoji"]}
+        buttonClassNames={styles["emoji-button"]}
+        iconSize={20}
+      />
       <input
         type="text"
         name="chat"
         value={value}
         onChange={onHandleChange}
+        onClick={onHandleInputClick}
         placeholder="Write a message"
         className={styles["field__input"]}
       />
