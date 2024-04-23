@@ -11,14 +11,13 @@ import { IEmoji } from "@/src/components/Emoji/Emoji.type";
 import { ChatFieldType } from "./ChatField.type";
 import styles from "./ChatField.module.scss";
 
-const ChatField: FC<ChatFieldType> = ({ onChange }) => {
+const ChatField: FC<ChatFieldType> = () => {
   const [value, setValue] = useState("");
   const [showPicker, setShowPicker] = useState(false);
   const [, setImage] = useState<File | null>(null);
 
   const onHandleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
-    onChange(event.target.value);
   };
 
   const onHandleEmojiClick = (emoji: IEmoji) => {
@@ -27,6 +26,10 @@ const ChatField: FC<ChatFieldType> = ({ onChange }) => {
   };
 
   const onHandleInputClick = () => setShowPicker(false);
+
+  const onSubmitButtonClick = () => {
+    console.log(value);
+  };
 
   const mediaButtons = (
     <div className={styles["buttons"]}>
@@ -55,7 +58,7 @@ const ChatField: FC<ChatFieldType> = ({ onChange }) => {
         className={styles["field__input"]}
       />
       {value.length ? (
-        <button className={styles["submit-btn"]}>
+        <button className={styles["submit-btn"]} onClick={onSubmitButtonClick}>
           <Icon icon={IconEnum.NextSlide} size={20} />
         </button>
       ) : (

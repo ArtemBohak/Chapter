@@ -1,3 +1,3 @@
 export type ChatFieldType = {
-  onChange: (value: string) => void;
+  classNames?: string;
 };

@@ -33,9 +33,6 @@ const Chat: FC<ChatProps> = ({ setCurrentChat, room }) => {
   const userAvatar = useAppSelector((state) => state.userSlice.user.avatarUrl);
   useSwipe({ leftSwipeCB: () => setCurrentChat(null), enableSwipe: true });
 
-  const onChange = (value: string) => {
-    console.log(value);
-  };
   return (
     <div className={styles["chat"]}>
       <div className={styles["user"]}>
@@ -62,7 +59,7 @@ const Chat: FC<ChatProps> = ({ setCurrentChat, room }) => {
           ))}
         </ul>
         <div className={styles["chat__fields"]}>
-          <ChatField onChange={onChange} />
+          <ChatField />
           <img
             src={userAvatar}
             width={52}
