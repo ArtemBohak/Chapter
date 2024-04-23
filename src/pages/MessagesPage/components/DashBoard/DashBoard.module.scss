@@ -1,5 +1,5 @@
 .dashboard {
-  @apply w-full flex flex-col p-0-md gap-1-lg md:max-w-[30%] md:gap-2-xs;
+  @apply w-full flex flex-col p-0-md gap-1-lg md:max-w-[30%] md:gap-2-xs laptop:pt-3-lg laptop:pr-3-xs;
 }
 
 .full-name {
@@ -11,5 +11,5 @@
 }
 
 .rooms {
-  @apply flex flex-col gap-1-lg md:gap-2-xs md:min-h-[80vh] md:overflow-y-auto;
+  @apply flex flex-col gap-1-lg md:gap-2-xs min-h-[80vh] overflow-y-auto;
 }

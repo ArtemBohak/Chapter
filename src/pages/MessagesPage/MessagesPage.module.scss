@@ -1,9 +1,9 @@
 .messages {
-  @apply pt-[90px];
+  @apply pt-[90px] laptop:pt-[160px] laptop:bg-grey-1030;
 }
 
 .container {
-  @apply px-1-lg;
+  @apply px-1-lg md:px-3-xs laptop:max-w-[1220px] laptop:mx-auto laptop:bg-[#fefefe] laptop:rounded-t-md;
 }
 
 .mob {

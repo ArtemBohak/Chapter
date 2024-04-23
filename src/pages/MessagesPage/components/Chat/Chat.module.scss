@@ -1,7 +1,8 @@
 .chat {
-  @apply w-full p-1-lg rounded-md border border-grey-1010 flex flex-col gap-1-lg md:max-w-[70%];
+  @apply w-full p-1-lg rounded-md border border-grey-1010 flex flex-col gap-1-lg md:max-w-[70%] md:gap-2-xs laptop:border-none laptop:pt-[60px];
+
   &__messages {
-    @apply p-0-md rounded-[4px] border border-[#eee] flex flex-col justify-end gap-2-xs;
+    @apply p-0-md rounded-[4px] border border-[#eee] flex flex-col justify-end gap-2-xs laptop:p-2-xs min-h-[80vh] overflow-y-scroll;
   }
 }
 
