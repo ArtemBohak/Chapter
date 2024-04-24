@@ -52,7 +52,7 @@ const AudioRecorder: FC<AudioRecorderProps> = ({ iconSize = 20, setAudio }) => {
   };
 
   const buttonClassNames = cn(styles["mic"], {
-    [styles["active"]]: true,
+    [styles["active"]]: isRecording,
   });
 
   return (

@@ -1,0 +1,15 @@
+.wrapper {
+  @apply relative;
+}
+
+.mic {
+  @apply text-[#F79400] bg-transparent  transition-all duration-150 relative;
+
+  &.active {
+    @apply bg-red text-white rounded-[50px] w-[24px] h-[24px];
+
+    &::before {
+      @apply content-[''] block rounded-[50px] absolute w-[24px] h-[24px] top-0 left-0 bg-[#FFBD5A] bg-opacity-40 animate-pulsate;
+    }
+  }
+}

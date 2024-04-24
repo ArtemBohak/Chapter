@@ -12,7 +12,7 @@ export const navigation: NavigationLinkProps[] = [
   {
     id: "2",
     path: links.MESSAGES,
-    icon: IconEnum.Home,
+    icon: IconEnum.CHAT,
     name: "Messages",
   },
   {

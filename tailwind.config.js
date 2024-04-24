@@ -6,6 +6,14 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      keyframes: {
+        pulsate: {
+          "0%": { transform: "scale(1)", opacity: "0" },
+          "50%": { transform: "scale(2)", opacity: "40" },
+          "100%": { transform: "scale(1)", opacity: "0" },
+        },
+      },
+      animation: { pulsate: "pulsate 2s infinite" },
       screens: {
         sm: "376px", // everything higher than 375px is considered as a tablet-sized markup
         md: "769px", // everything higher than 768px is considered as a desktop-sized markup
