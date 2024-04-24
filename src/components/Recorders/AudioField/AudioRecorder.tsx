@@ -1,4 +1,5 @@
 import { FC, useRef, useState } from "react";
+import cn from "classnames";
 import { useErrorBoundary } from "@/src/hooks";
 import { Icon, IconEnum } from "../../Icon";
 import { AudioRecorderProps } from "./AudioRecorder.type";
@@ -50,16 +51,19 @@ const AudioRecorder: FC<AudioRecorderProps> = ({ iconSize = 20, setAudio }) => {
     setIsRecording(false);
   };
 
+  const buttonClassNames = cn(styles["mic"], {
+    [styles["active"]]: true,
+  });
+
   return (
     <div className={styles["wrapper"]}>
       <button
-        className={styles["audio"]}
+        className={buttonClassNames}
         onMouseDown={startRecording}
         onMouseUp={stopRecording}
       >
         <Icon size={iconSize} icon={IconEnum.AUDIO} />
       </button>
-      {isRecording ? <div className={styles["status"]}>Recording</div> : null}
     </div>
   );
 };
