@@ -49,7 +49,12 @@ const NavigationList: FC<NavigationListProps> = ({
             })}
             onClick={handleClickNavLink}
           >
-            <Icon icon={navItem.icon} className="navigation-list__link-icon" />
+            {navItem.icon ? (
+              <Icon
+                icon={navItem.icon}
+                className="navigation-list__link-icon"
+              />
+            ) : null}
             {navItem.name}
           </NavLink>
         </li>

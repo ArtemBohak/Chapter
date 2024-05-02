@@ -7,6 +7,6 @@ export type NavigationList = {
 export type NavigationLinkProps = {
   id: string;
   path: string;
-  icon: IconEnum;
+  icon?: IconEnum;
   name: string;
 };

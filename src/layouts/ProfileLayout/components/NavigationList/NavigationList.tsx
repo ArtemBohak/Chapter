@@ -5,11 +5,12 @@ import cn from "classnames";
 import { useNavigationToggler, useProfileContext } from "@/src/context";
 import { UiMessage } from "@/src/types";
 import { useAppDispatch, fetchIsLogoutUser } from "@/src/redux";
+import { useModal } from "@/src/hooks";
 
 import { NavigationListProps } from "./NavigationList.type";
 import "./NavigationList.scss";
 
-import { ConfirmationWindow } from "@/src/components";
+import { ConfirmationWindow, ContactUs } from "@/src/components";
 import { Icon, IconEnum } from "../../../../components/Icon";
 
 const NavigationList: FC<NavigationListProps> = ({
@@ -18,6 +19,7 @@ const NavigationList: FC<NavigationListProps> = ({
   isBottom = false,
   setModalIsOpen,
 }) => {
+  const modalProps = useModal();
   const dispatch = useAppDispatch();
   const location = useLocation();
   const { setIsActiveMenu } = useNavigationToggler();
@@ -47,6 +49,7 @@ const NavigationList: FC<NavigationListProps> = ({
             <button
               className="navigation-list__link navigation-list__button"
               aria-label="Open modal button"
+              onClick={() => modalProps.setActive(true)}
             >
               <Icon
                 icon={IconEnum.EditBook}
@@ -101,6 +104,7 @@ const NavigationList: FC<NavigationListProps> = ({
         isLoading={isLoading}
         fetch={logOut}
       />
+      <ContactUs {...modalProps} />
     </>
   );
 };

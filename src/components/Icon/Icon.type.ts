@@ -1,7 +1,7 @@
 export enum IconEnum {
   Eye_Off = "eye-off",
   Eye = "eye",
-  Facebook = "facebook",
+  // Facebook = "facebook",
   Google = "google",
   Twitter = "twitter",
   Ok = "Ok",
@@ -41,4 +41,10 @@ export enum IconEnum {
   TRASH = "trash",
   Nav_book = "nav-book",
   ArrowBack = "arrow-back",
+  FacebookLink = "facebook-link",
+  GoogleLink = "google-link",
+  DiscordLink = "discord",
+  WhatsappLink = "whatsapp",
+  LinkedinLink = "linkedin",
+  TelegramLink = "telegram",
 }

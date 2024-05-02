@@ -3,7 +3,6 @@ import { Dispatch, ReactNode, SetStateAction } from "react";
 export type CustomModalProps = {
   children: ReactNode;
   active: boolean;
-  setActive: Dispatch<SetStateAction<boolean>>;
   visible: boolean;
   setVisible: Dispatch<SetStateAction<boolean>>;
   close: () => void;
