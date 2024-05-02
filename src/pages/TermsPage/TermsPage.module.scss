@@ -1,8 +1,8 @@
 .terms {
-  @apply pt-[80px] md:pt-[100px];
+  @apply py-[80px] md:py-[100px];
 
   &__container {
-    @apply px-1-lg md:px-4-xs base:pl-[300px];
+    @apply px-1-lg md:px-4-xs base:pl-[311px] laptop_md:pl-[411px]   laptop_md:pr-[100px];
   }
 }
 
