@@ -21,6 +21,8 @@ import {
   SearchPage,
   NotificationPage,
   GuestPostPage,
+  TermsPage,
+  TermPage,
 } from "@/src/pages";
 import { PublicLayout, ProfileLayout } from "@/src/layouts";
 
@@ -80,8 +82,12 @@ const router = createBrowserRouter([
           },
         ],
       },
-      // { path: "/ui-page", element: <UIPage /> },
     ],
+  },
+  {
+    path: "/terms",
+    element: <TermsPage />,
+    children: [{ path: ":title", element: <TermPage /> }],
   },
   {
     element: <PrivateRoute component={<ProfileLayout />} />,

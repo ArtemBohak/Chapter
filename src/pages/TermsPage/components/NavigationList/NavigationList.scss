@@ -1,0 +1,45 @@
+.navigation-list {
+  &__item {
+    &:not(:last-child) {
+      @apply mb-[4px] laptop_md:mb-1;
+    }
+  }
+
+  &__link {
+    @apply relative w-full inline-flex items-center py-1-lg px-2-md text-black font-semibold text-base tracking-[0.36px] rounded-[8px] transition duration-300 ease-in-out active:bg-primary active:text-white base:hover:bg-primary base:hover:text-white laptop_md:text-[20px] laptop_md:p-4;
+  }
+
+  &__link.unread-message {
+    &::before {
+      content: "";
+      @apply absolute w-[8px] h-[8px]  top-1/2 -translate-y-1/2 left-[10px] rounded-[50%] bg-primary transition duration-300 ease-in-out;
+    }
+
+    &:hover,
+    &:focus {
+      &::before {
+        @apply bg-white;
+      }
+    }
+  }
+
+  &__link.current-page {
+    @apply bg-primary text-white;
+
+    &::before {
+      @apply bg-white;
+    }
+  }
+
+  &__link.current-page &__link-icon path {
+    @apply fill-white;
+  }
+
+  &__link-icon {
+    @apply mr-4 w-[28px] laptop_md:mr-[24px] laptop_md:w-[32px];
+  }
+
+  &__button {
+    @apply bg-transparent;
+  }
+}
