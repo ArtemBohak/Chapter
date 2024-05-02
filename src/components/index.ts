@@ -12,7 +12,7 @@ export { MenuToggler } from "./MenuToggler";
 export { NavigationList } from "../layouts/ProfileLayout/components/NavigationList";
 export { CookiesToaster } from "./CookiesToaster";
 export { BookShelf } from "./BookShelf";
-export { Modal } from "./Modal";
+export { Modal, CustomModal } from "./Modals";
 export { Loader } from "./Loader";
 export { Animation } from "./Animation";
 export { TextTagging } from "./TextTagging";
