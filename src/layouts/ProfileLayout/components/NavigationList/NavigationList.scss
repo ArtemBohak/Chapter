@@ -3,6 +3,13 @@
     &:not(:last-child) {
       @apply mb-[4px] laptop_md:mb-1;
     }
+
+    &.contact-us {
+      &::after {
+        content: "";
+        @apply block w-full h-[1px] bg-grey-1000 mt-0-md md:mt-2-xs;
+      }
+    }
   }
 
   &__link {

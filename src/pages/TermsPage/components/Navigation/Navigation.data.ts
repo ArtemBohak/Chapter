@@ -30,7 +30,7 @@ export const navigation: NavigationLinkProps[] = [
   {
     id: "5",
     path: "/books",
-    icon: IconEnum.BlackBook,
+    icon: IconEnum.Nav_book,
     name: "My library",
   },
 ];
@@ -57,7 +57,7 @@ export const tabletNavigation: NavigationLinkProps[] = [
   {
     id: "5",
     path: "/books",
-    icon: IconEnum.BlackBook,
+    icon: IconEnum.Nav_book,
     name: "My library",
   },
 ];

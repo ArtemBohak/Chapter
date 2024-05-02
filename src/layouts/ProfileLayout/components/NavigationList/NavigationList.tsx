@@ -42,6 +42,20 @@ const NavigationList: FC<NavigationListProps> = ({
   return (
     <>
       <ul className={cn("navigation-list", className)}>
+        {isBottom && (
+          <li className="navigation-list__item contact-us">
+            <button
+              className="navigation-list__link navigation-list__button"
+              aria-label="Open modal button"
+            >
+              <Icon
+                icon={IconEnum.EditBook}
+                className="navigation-list__link-icon"
+              />
+              Contact us
+            </button>
+          </li>
+        )}
         {items.map((navItem) => (
           <li key={navItem.id} className="navigation-list__item">
             <NavLink

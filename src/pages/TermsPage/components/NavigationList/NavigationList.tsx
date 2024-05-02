@@ -26,7 +26,7 @@ const NavigationList: FC<NavigationListProps> = ({
   return (
     <ul className={cn("navigation-list", className)}>
       {isBottom && (
-        <li className="navigation-list__item">
+        <li className="navigation-list__item contact-us">
           <button
             className="navigation-list__link navigation-list__button"
             aria-label="Open modal button"
@@ -62,8 +62,8 @@ const NavigationList: FC<NavigationListProps> = ({
             aria-label="nav button"
           >
             <Icon
-              icon={IconEnum.ArrowLeft}
-              className="navigation-list__link-icon"
+              icon={IconEnum.ArrowBack}
+              className="navigation-list__link-icon navigation-list__custom-icon"
               removeInlineStyle
             />
             Back
