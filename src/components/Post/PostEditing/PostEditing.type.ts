@@ -1,4 +1,4 @@
-import { ModalProps } from "@/src/components/Modal/Modal.type";
+import { ModalProps } from "@/src/components/Modals/Modal/Modal.type";
 
 import { PostRefType } from "@/src/types";
 
