@@ -28,42 +28,15 @@ export const navigation: NavigationLinkProps[] = [
     name: "Search",
   },
   {
-    id: "5",
-    path: "/profile",
-    icon: IconEnum.User,
-    name: "Profile",
-  },
-  {
-    id: "6",
-    path: "/books",
-    icon: IconEnum.BlackBook,
-    name: "My library",
-  },
-];
-
-export const tabletNavigation: NavigationLinkProps[] = [
-  {
-    id: "1",
-    path: "/feed",
-    icon: IconEnum.Home,
-    name: "Feed",
-  },
-  {
-    id: "2",
-    path: "/",
-    icon: IconEnum.Notification,
-    name: "Notification",
-  },
-  {
-    id: "3",
-    path: "/profile",
+    id: "4",
+    path: links.PROFILE,
     icon: IconEnum.User,
     name: "Profile",
   },
   {
     id: "5",
-    path: "/books",
-    icon: IconEnum.BlackBook,
+    path: links.USER_BOOKS,
+    icon: IconEnum.Nav_book,
     name: "My library",
   },
 ];

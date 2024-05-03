@@ -1,0 +1,15 @@
+.sidebar-navigation {
+  @apply fixed w-full top-[68px] pt-2-xs md:pt-0 left-0 bottom-0 z-40 bg-white flex flex-col transition duration-300 ease-in-out transform -translate-x-full md:top-[88px] md:max-w-[260px] base:top-0 laptop:border-r  laptop:border-solid laptop:border-[#CDCDCD] base:translate-x-0 laptop:top-0 laptop_md:max-w-[310px];
+
+  &.active {
+    @apply translate-x-0;
+  }
+
+  &__logo {
+    @apply hidden pt-3-xs pb-3-xs md:pb-[40px] px-2-md laptop:max-w-[320px] base:inline-block laptop_md:mb-3-xs laptop_md:py-4-xl laptop_md:px-3-sm;
+
+    img {
+      @apply w-full;
+    }
+  }
+}

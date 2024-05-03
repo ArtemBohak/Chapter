@@ -1,4 +1,4 @@
-import { ModalProps } from "@/src/components/Modal/Modal.type";
+import { ModalProps } from "@/src/components/Modals/Modal/Modal.type";
 import { RefType } from "@/src/types";
 
 export type UseSwipeProps = {

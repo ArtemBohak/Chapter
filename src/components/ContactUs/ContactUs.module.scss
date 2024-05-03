@@ -1,0 +1,32 @@
+.backdrop {
+  @apply w-screen h-screen bg-[#fcfcfc] top-0 left-0 md:backdrop-blur-sm md:bg-[#1c1c1c33];
+}
+
+.menu {
+  @apply w-full h-full px-3-lg py-[64px]  md:px-[56px] md:py-[106px] laptop:px-[114px] flex flex-col items-center gap-3-sm md:gap-4-xs md:max-w-[672px] md:max-h-[458px] md:absolute md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:bg-[#fcfcfc] md:rounded-md laptop:max-w-[1166px] transition-all duration-300 delay-100 scale-0;
+
+  &.active {
+    @apply scale-100;
+  }
+}
+
+.close-btn {
+  @apply absolute top-[24px] right-[24px] bg-transparent;
+}
+
+.title {
+  @apply text-center md:text-[38px] laptop:text-[50px];
+}
+
+.links {
+  @apply flex flex-wrap gap-4-xs justify-center;
+
+  &__item {
+  }
+}
+
+.link {
+  &__icon {
+    @apply text-[#f79400];
+  }
+}

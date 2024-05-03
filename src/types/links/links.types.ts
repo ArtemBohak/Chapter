@@ -18,4 +18,5 @@ export enum links {
   NOTIFICATION = "/notifications",
   GUEST_POST = "/post/:id",
   MESSAGES = "/messages",
+  TERMS = "/terms",
 }

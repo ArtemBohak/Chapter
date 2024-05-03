@@ -1,0 +1,11 @@
+.term {
+  @apply flex flex-col items-center gap-4-xs;
+}
+
+.title {
+  @apply self-start md:text-[26px];
+}
+
+.text {
+  @apply text-xs md:text-base w-full leading-[18px] md:leading-[31.185px];
+}
