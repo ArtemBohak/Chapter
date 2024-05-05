@@ -23,7 +23,6 @@ const GuestFollowButton: FC<GuestFollowButtonProps> = ({
     const onHandleClick = async () => {
         setSubscribeIsLoading(true)
         try {
-            console.log(id)
             await followApi(id);
             await fetchEnemyUserData(id);
         } catch (error) {

@@ -7,7 +7,7 @@ export interface IProfileProviderProps {
   children: ReactNode;
 }
 
-type SetBoolean = Dispatch<SetStateAction<boolean>>;
+export type SetBoolean = Dispatch<SetStateAction<boolean>>;
 
 export type ProfileContextType = {
   headerAddPostBtnIsDisabled: boolean;
@@ -27,5 +27,12 @@ export type ProfileContextType = {
   isPostsLoad: boolean;
   setIsPostsLoad: Dispatch<SetStateAction<boolean>>;
   intersectionRef: RefType | undefined;
-  userPostsApi: () => {}
+  userPostsApi: (
+    url: string,
+    setPostsList: Dispatch<SetStateAction<PostRefType[]>>,
+    page: number,
+    setIsPostsLoaded?: SetBoolean,
+    postsAction?: "deletePost" | "addPost"
+  ) => void,
+
 };

@@ -1,67 +1,55 @@
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, createRef, useEffect, useState } from "react";
 import styles from "./Liked.module.scss";
-import { EndpointsEnum, api } from "@/src/axios";
-import { PostSkeleton } from "@/src/components";
+import { EndpointsEnum } from "@/src/axios";
+import { Loader } from "@/src/components";
 import { usePostsContext } from "../UserPosts/context";
 import LikedPost from "./LikedPost/LikedPost";
-import { useErrorBoundary } from "@/src/hooks";
-import { AxiosError } from "axios";
+import { useRefIntersection } from "@/src/hooks";
+import { useProfileContext } from "@/src/context";
+import { intersectionHandlerCB } from "@/src/utils";
 
 
 const UserLikedPosts: FC = () => {
   const { userLikedPostsList, setUserLikedPostsList } = usePostsContext()
+  const { userPostsApi, intersectionRef, isPostsLoad } = useProfileContext()
   const [page, setPage] = useState(1);
   const [isPostsLoaded, setIsPostsLoaded] = useState(false);
-  const setErrorBoundary = useErrorBoundary()
 
-  const fetchUserLikedPosts = async (page: number) => {
-    try {
-      const response = await api.get(
-        `${EndpointsEnum.LIKED_POSTS}?page=${page}&limit=50`
-      );
-      setUserLikedPostsList(response.data);
-      setIsPostsLoaded(true);
-    } catch (error) {
-      if (error instanceof AxiosError) {
-        setErrorBoundary(error);
 
-      }
-    }
+  useRefIntersection(intersectionHandlerCB(setPage), intersectionRef, {
+    postsIsLoad: isPostsLoad,
+    threshold: 1,
+  });
 
-  };
+  // const scrollHandler = () => {
+  //   const scrollContainer = PostsListViewport.current;
+  //   const nextPage = page + 1;
 
-  const PostsListViewport = useRef<HTMLDivElement | null>(null);
+  //   console.log(scrollContainer);
 
-  const scrollHandler = () => {
-    const scrollContainer = PostsListViewport.current;
-    const nextPage = page + 1;
+  //   if (scrollContainer && !isPostsLoaded) {
+  //     const { scrollTop, scrollHeight, clientHeight } = scrollContainer;
 
-    console.log(scrollContainer);
+  //     if (scrollHeight - (scrollTop + clientHeight) <= 20) {
+  //       setIsPostsLoaded(true);
+  //       setPage(nextPage);
 
-    if (scrollContainer && !isPostsLoaded) {
-      const { scrollTop, scrollHeight, clientHeight } = scrollContainer;
+  //       fetchUserLikedPosts(nextPage)
+  //         .catch((error) => {
+  //           console.log(error);
+  //         })
+  //         .finally(() => {
+  //           setIsPostsLoaded(false);
+  //         });
+  //     }
+  //   }
+  // };
 
-      if (scrollHeight - (scrollTop + clientHeight) <= 20) {
-        setIsPostsLoaded(true);
-        setPage(nextPage);
-
-        fetchUserLikedPosts(nextPage)
-          .catch((error) => {
-            console.log(error);
-          })
-          .finally(() => {
-            setIsPostsLoaded(false);
-          });
-      }
-    }
-  };
 
   useEffect(() => {
-    fetchUserLikedPosts(1);
-  }, []);
-  // const sortByCreatedDate = (a: LikedPostData, b: LikedPostData) => {
-  //   new Date(b.createdDate).getTime() - new Date(a.createdDate).getTime();
-  // }
+    userPostsApi(EndpointsEnum.LIKED_POSTS, setUserLikedPostsList, page, setIsPostsLoaded)
+  }, [page]);
+
   if (isPostsLoaded && userLikedPostsList.length === 0) {
     return (
       <div className={styles["liked-wrapper"]}>
@@ -70,19 +58,27 @@ const UserLikedPosts: FC = () => {
   }
   return (
     <div
-      ref={PostsListViewport}
-      onScroll={scrollHandler}
       className={styles["liked-wrapper"]}
     >
-      {isPostsLoaded ? (
-        userLikedPostsList.map((post) => (
-          <LikedPost key={post.postId} post={post} />
-        ))
-      ) : (
-        <div className={styles["user-post__skeleton"]}>
-          <PostSkeleton />
-        </div>
+      {(
+        userLikedPostsList.map((post) => {
+          const nodeRef = createRef<HTMLDivElement>();
+          return <LikedPost
+            key={post.postId}
+            {...post}
+            post={post}
+            setPage={setPage}
+            nodeRef={nodeRef} />
+        }
+
+        )
       )}
+      <Loader
+        isShown={!userLikedPostsList.length && isPostsLoad}
+        wrapperClassNames={styles["loader"]}
+        height={80}
+        width={90}
+      />
     </div>
   );
 };

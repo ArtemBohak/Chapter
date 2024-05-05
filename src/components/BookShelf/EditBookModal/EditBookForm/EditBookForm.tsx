@@ -36,8 +36,6 @@ const EditBookForm: FC<EditBookFormProps> = ({
     setbookImage(currentBook?.imagePath || "");
   }, [currentBook]);
 
-  console.log("CurBok", currentBook);
-
   const options = [
     {
       value: "1",

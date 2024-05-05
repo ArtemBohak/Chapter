@@ -32,7 +32,7 @@ const EditedPostPreview: FC<PostPreviewProps> = ({
   const setErrorBoundary = useErrorBoundary();
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const { fetchUserPosts } = useProfileContext();
+  const { userPostsApi, setUserPostsList, page } = useProfileContext();
   const createAt = Date.now();
 
   const onHandleBackClick = () => {
@@ -41,7 +41,6 @@ const EditedPostPreview: FC<PostPreviewProps> = ({
 
   const onHandlePublishClick = async () => {
     try {
-      fetchUserPosts(1)
       setError(null);
       setIsLoading(true);
       const body: BodyProps = {
@@ -77,6 +76,7 @@ const EditedPostPreview: FC<PostPreviewProps> = ({
         setError(apiUiMessage.ERROR_MESSAGE);
       }
     } finally {
+      userPostsApi(`${EndpointsEnum.POSTS_BY_AUTHOR}`, setUserPostsList, page)
       setIsLoading(false);
       // fetchUserPosts(1);
     }

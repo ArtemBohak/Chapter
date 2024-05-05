@@ -5,12 +5,15 @@ import { Link } from 'react-router-dom'
 import styles from '../Liked.module.scss'
 import { LikedPostProps } from '../UserLikedPost.type'
 import { usePostsContext } from '../../UserPosts/context'
-import { updateUser } from '@/src/redux'
+import { updateUser, useAppSelector } from '@/src/redux'
 import { useDispatch } from 'react-redux'
+import { useRefIntersection } from '@/src/hooks'
+import { intersectionHandlerCB } from '@/src/utils'
 
-const LikedPost: FC<LikedPostProps> = ({ post }) => {
+const LikedPost: FC<LikedPostProps> = ({ post, nodeRef, pageLoaderRef, pageValue, ...props }) => {
     const [commentsIsHide, setCommentsIsHide] = useState(true);
     const [subsribedToPostAuthor, setSubsribedToPostAuthort] = useState(post.isSubscribeToAuthor)
+    const { user } = useAppSelector((state) => state.userSlice);
     const { setUserLikedPostsList } = usePostsContext()
     const dispatch = useDispatch();
 
@@ -26,8 +29,17 @@ const LikedPost: FC<LikedPostProps> = ({ post }) => {
         }
     };
 
+    useRefIntersection(intersectionHandlerCB(props.setPage), pageLoaderRef, {
+        threshold: 1,
+    });
+
     return (
         <div key={post.postId} className={styles["user-post"]}>
+            <div
+                ref={pageLoaderRef}
+                data-value={pageLoaderRef && pageValue ? pageValue : ""}
+                className="hide-element"
+            />
             <div className="flex items-center justify-between gap-2 w-full">
                 <Link
                     className={styles["user-post__link"]}
@@ -36,13 +48,13 @@ const LikedPost: FC<LikedPostProps> = ({ post }) => {
                     <Avatar avatarUrl={post.author.avatar} />
                     <UserNickName nickName={post.author.nickName} />
                 </Link>
-                <UIbutton
+                {post.author.id !== user.id && <UIbutton
                     variant={subsribedToPostAuthor ? "outlined" : "contained"}
                     dataAutomation={"subscribe-button"}
                     onClick={FollowUnfollow}
                 >
                     {subsribedToPostAuthor ? "unfollow" : "follow"}
-                </UIbutton>
+                </UIbutton>}
             </div>
             <div className={styles["user-post__image"]}>
                 <PostImage imgUrl={post.imgUrl} />

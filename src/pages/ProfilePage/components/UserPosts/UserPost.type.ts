@@ -1,12 +1,11 @@
-import { CommentType, PostRefType, RefType } from "@/src/types";
+import { RefsType, PostRefType, CommentType } from "@/src/types";
 import { Dispatch, SetStateAction } from "react";
 
-export interface UserPostProps {
+export type UserPostProps = {
   post: PostRefType;
   setPage?: Dispatch<SetStateAction<number>>;
   setPosts?: Dispatch<SetStateAction<Array<PostRefType>>>;
-  nodeRef: RefType | undefined
-}
+} & RefsType;
 
 export type PostData = {
   postId: number;

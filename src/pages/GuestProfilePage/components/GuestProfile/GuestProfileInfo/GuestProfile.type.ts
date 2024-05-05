@@ -1,7 +1,7 @@
 import { IBook } from "@/src/components/BookShelf/Book/BookProps.type";
 
 export type guestProfileProps = {
-    data: {
+    data?: {
         id: string | number;
         nickName: string;
         firstName: string;

@@ -1,4 +1,4 @@
-import { FC, createRef, useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { Dispatch, FC, SetStateAction, createRef, useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { AxiosError, AxiosResponse } from "axios";
 
 import { EndpointsEnum, api } from "@/src/axios";
@@ -13,7 +13,7 @@ import {
   PostRefType,
 } from "@/src/types";
 
-import { IProfileProviderProps } from "./ProfileProvider.type";
+import { IProfileProviderProps, SetBoolean } from "./ProfileProvider.type";
 import { ProfileContext } from "./hooks";
 import UserPostsLoader from "../UserPostsLoader/userPostsLoader";
 
@@ -26,7 +26,7 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [userPostsList, setUserPostsList] = useState<Array<PostRefType>>([]);
   const [isPostsLoad, setIsPostsLoad] = useState(false);
-  const [page, setPage] = useState<number>(1);
+  const [page, setPage] = useState<number>(0);
   const intersectionRef = useRef(null);
 
   const [headerAddPostBtnIsDisabled, setHeaderAddPostBtnIsDisabled] =
@@ -56,7 +56,6 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
 
 
   const fetchUserPosts = async (currentPage: number) => {
-    console.log(currentPage)
     try {
       const response = await api.get(
         `${EndpointsEnum.POSTS_BY_AUTHOR}?page=${currentPage}&limit=3`
@@ -71,17 +70,10 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
   };
 
   const userPostsApi = useCallback(
-    () => new UserPostsLoader(setUserPostsList, setErrorBoundary, setIsPostsLoad).get(page),
+    (url: string, setPostsList: Dispatch<SetStateAction<PostRefType[]>>, page: number, setIsPostsLoaded?: SetBoolean, postsAction?: "deletePost" | "addPost") =>
+      new UserPostsLoader(url, setPostsList, setErrorBoundary, setIsPostsLoad, setIsPostsLoaded, postsAction).get(page),
     [page, setErrorBoundary]
   );
-
-  // useEffect(() => {
-  //   if (page) {
-  //     userPostsApi()
-  //     console.log(userPostsList)
-  //   };
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [page]);
 
   useLayoutEffect(() => {
     setIsLoading(true);

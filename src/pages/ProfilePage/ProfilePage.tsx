@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 
 import { useProfileContext } from "@/src/context";
 import styles from "./ProfilePage.module.scss";
@@ -14,9 +14,8 @@ import PostsProvider from "./components/UserPosts/context/PostsProvider";
 const ProfilePage: FC = () => {
   const { setHeaderAddPostBtnIsDisabled, intersectionRef } = useProfileContext();
   const [currentView, setCurrentView] = useState(ButtonsEnum.posts);
-
   const [modalIsOpen, setModalIsOpen] = useState(false);
-
+  const viewBlockContainerRef = useRef<HTMLDivElement>(null);
 
 
   useEffect(() => {
@@ -27,6 +26,7 @@ const ProfilePage: FC = () => {
 
   const changeView = (e: React.MouseEvent) => {
     e.preventDefault();
+    viewBlockContainerRef.current && viewBlockContainerRef.current.scrollTo({ top: 0, behavior: 'instant' });
     switch (e.currentTarget.id) {
       case "posts":
         setCurrentView(ButtonsEnum.posts);
@@ -40,7 +40,7 @@ const ProfilePage: FC = () => {
   };
 
   return (
-    <section className={styles["profile-wrapper"]}>
+    <section ref={viewBlockContainerRef} className={styles["profile-wrapper"]}>
       <Profile setIsOpen={setModalIsOpen} />
       <PostsProvider>
         <div className={styles["view-block-wrapper"]}>
