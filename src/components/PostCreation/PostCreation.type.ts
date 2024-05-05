@@ -1,4 +1,4 @@
-import { ModalProps } from "../Modal/Modal.type";
+import { ModalProps } from "../Modals/Modal/Modal.type";
 
 export type PostCreationProps = {
   isScreenSize?: boolean;

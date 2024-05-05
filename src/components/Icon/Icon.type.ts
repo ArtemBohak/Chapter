@@ -39,4 +39,12 @@ export enum IconEnum {
   MoreHorizontal = "more-horizontal",
   WhiteOk = "whiteOk",
   TRASH = "trash",
+  Nav_book = "nav-book",
+  ArrowBack = "arrow-back",
+  FacebookLink = "facebook-link",
+  GoogleLink = "google-link",
+  DiscordLink = "discord",
+  WhatsappLink = "whatsapp",
+  LinkedinLink = "linkedin",
+  TelegramLink = "telegram",
 }

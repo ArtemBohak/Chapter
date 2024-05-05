@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 import { IAuthor, PostType, RefsType, PostRefType } from "@/src/types";
-import { ModalProps } from "@/src/components/Modal/Modal.type";
+import { ModalProps } from "@/src/components/Modals/Modal/Modal.type";
 
 export interface IPost
   extends Partial<ModalProps>,

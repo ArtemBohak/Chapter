@@ -1,0 +1,11 @@
+.terms {
+  @apply py-[80px] md:py-[100px];
+
+  &__container {
+    @apply px-1-lg md:px-4-xs base:pl-[311px] laptop_md:pl-[411px]   laptop_md:pr-[100px];
+  }
+}
+
+.title {
+  @apply text-center md:text-[50px] mb-3-sm md:mb-[100px];
+}
