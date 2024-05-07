@@ -25,6 +25,9 @@ const EditePostForm: FC<EditPostFormProps> = ({
 }) => {
     const initialValues = { title, caption };
     const onSubmit = (values: PostValues) => {
+        if (values.title && values.title?.length < 0) {
+
+        }
         setTitle(values.title || "");
         setCaption(values.caption || "");
 

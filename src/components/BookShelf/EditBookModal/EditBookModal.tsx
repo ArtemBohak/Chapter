@@ -31,7 +31,7 @@ const EditBookModal: FC<EditBookModalProps> = ({
       disableScroll={true}
     >
       <div className={styles["edit-book-modal__header"]}>
-        <h4>Add new book</h4>
+        <p>Edit Book</p>
         <CloseButton
           className={styles["edit-book-modal__close-button"]}
           setIsOpen={setIsOpen}
@@ -43,6 +43,7 @@ const EditBookModal: FC<EditBookModalProps> = ({
           setIsOpen={setIsOpen}
           currentBook={currentBook}
           prevBookImagePath={currentBook?.imagePath}
+
         />
       </div>
     </Modal>

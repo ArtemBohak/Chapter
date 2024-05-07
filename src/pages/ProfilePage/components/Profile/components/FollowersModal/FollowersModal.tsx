@@ -21,8 +21,6 @@ const FollowersModal: FC<followersModalProps> = ({
   const [total, setTotal] = useState(0);
   const dispatch = useDispatch();
 
-  console.log(user.myFollowersCount);
-
   const followListViewport = useRef<HTMLUListElement | null>(null);
 
   const scrollHandler = () => {
@@ -57,7 +55,6 @@ const FollowersModal: FC<followersModalProps> = ({
 
   const getFollowList = async (page: number) => {
     const { data } = await followersModalApi(page);
-    console.log(data.myFollowers);
     setTotal(data.total);
     setFollowersList([...followersList, ...data.myFollowers]);
     return data.myFollowers;

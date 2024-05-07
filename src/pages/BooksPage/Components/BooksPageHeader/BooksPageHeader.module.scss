@@ -1,39 +1,39 @@
 .books-page-header {
-    &__wrapper {
-        @apply flex fixed top-[64px] py-2 z-20 bg-white w-full md:relative md:top-0 justify-between items-center md:h-[84px] md:py-[18px];
-    }
-    
-    &__title {
-        @apply md:hidden m-0 pr-[72px];
-    }
+  &__wrapper {
+    @apply flex fixed top-[64px] py-2 z-20 bg-white w-full md:sticky md:top-0 justify-between items-center md:h-[84px] md:py-[18px] overflow-auto;
+  }
+
+  &__title {
+    @apply absolute md:hidden m-0 pr-[32px] -translate-x-1/2 left-1/2;
+  }
 }
 
 .back-to-profile {
-    font-size: 20px !important;
-    padding: 0 !important;
-    font-weight: 600 !important;
-    & svg {
-        margin: 0 !important;
-    }
-    &__text {
-        @apply hidden md:inline;
-    }
+  font-size: 20px !important;
+  padding: 0 !important;
+  font-weight: 600 !important;
+  & svg {
+    margin: 0 !important;
+  }
+  &__text {
+    @apply hidden md:inline;
+  }
 }
 
 .button-edit {
-    @apply text-grey-1000 hidden md:block;
-    font-weight: 600 !important;
+  @apply text-grey-1000 hidden md:block;
+  font-weight: 600 !important;
 }
 
 .button-confirm {
-    @apply hidden md:block;
-    background-color: green !important;
+  @apply hidden md:block;
+  background-color: green !important;
 }
 
 .button-cancel {
-    @apply hidden md:block;
-    font-weight: 600 !important;
+  @apply hidden md:block;
+  font-weight: 600 !important;
 }
 .button-add {
-    @apply hidden md:block;
+  @apply hidden md:block;
 }

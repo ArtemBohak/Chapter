@@ -36,8 +36,6 @@ const EditBookForm: FC<EditBookFormProps> = ({
     setbookImage(currentBook?.imagePath || "");
   }, [currentBook]);
 
-  console.log("CurBok", currentBook);
-
   const options = [
     {
       value: "1",
@@ -168,12 +166,13 @@ const EditBookForm: FC<EditBookFormProps> = ({
                     />
                     <TextAreaField
                       id={"annotation"}
+                      classNames={styles["annotation-field"]}
                       placeholder={"annotation"}
                       name={"annotation"}
                       value={values.annotation}
                       dataAutomation={"bookAnnotation-field"}
                       iconSize={0}
-                      // onHandleIconClick={() => { }}
+                    // onHandleIconClick={() => { }}
                     />
                   </div>
                 </div>
