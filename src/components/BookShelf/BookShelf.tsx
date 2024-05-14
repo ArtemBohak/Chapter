@@ -33,7 +33,7 @@ const BookShelf: FC<BookShelfProps> = ({ enemyData, Id }) => {
               : favoriteBooksList.length
             : 3,
         slidesToScroll: 3,
-        initialSlide: 0,
+        initialSlide: 1,
         swipe: true,
         Infinity,
       },
@@ -48,7 +48,7 @@ const BookShelf: FC<BookShelfProps> = ({ enemyData, Id }) => {
               : favoriteBooksList.length
             : 3,
         slidesToScroll: 3,
-        initialSlide: 0,
+        initialSlide: 1,
         swipe: true,
         Infinity,
       },
@@ -63,7 +63,7 @@ const BookShelf: FC<BookShelfProps> = ({ enemyData, Id }) => {
               : favoriteBooksList.length
             : favoriteBooksList.length,
         slidesToScroll: 3,
-        initialSlide: 0,
+        initialSlide: 1,
         swipe: true,
         Infinity,
         variableWidth: true,
@@ -79,7 +79,7 @@ const BookShelf: FC<BookShelfProps> = ({ enemyData, Id }) => {
               : favoriteBooksList.length
             : 5,
         slidesToScroll: 5,
-        initialSlide: 0,
+        initialSlide: 1,
         swipe: true,
         Infinity,
         variableWidth: false,
@@ -95,7 +95,7 @@ const BookShelf: FC<BookShelfProps> = ({ enemyData, Id }) => {
               : favoriteBooksList.length
             : 3,
         slidesToScroll: 3,
-        initialSlide: 0,
+        initialSlide: 1,
         swipe: true,
         Infinity,
         variableWidth: true,

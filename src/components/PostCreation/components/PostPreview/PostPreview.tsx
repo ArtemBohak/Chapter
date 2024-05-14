@@ -31,7 +31,7 @@ const PostPreview: FC<PostPreviewProps> = ({
   const setErrorBoundary = useErrorBoundary();
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const { fetchUserPosts, page } = useProfileContext();
+  const { userPostsApi, setUserPostsList, page } = useProfileContext();
 
   const createAt = Date.now();
 
@@ -46,9 +46,7 @@ const PostPreview: FC<PostPreviewProps> = ({
       const body: BodyProps = {
         createAt,
       };
-
       if (props.title) body.title = props.title;
-
       const files = new FilesService(id, setErrorBoundary);
 
       if (props.prevImgUrl && (file || !props.imgUrl)) {
@@ -70,7 +68,10 @@ const PostPreview: FC<PostPreviewProps> = ({
 
       if (props.caption) body.caption = props.caption;
 
-      await api.post(EndpointsEnum.CREATE_POST, body);
+      const newPost = await api.post(EndpointsEnum.CREATE_POST, body);
+      newPost.data.postId = newPost.data.id;
+      newPost.data.comments = [];
+      setUserPostsList(prevPosts => [newPost.data, ...prevPosts]);
 
       setIsOpen(false);
     } catch (error) {
@@ -81,7 +82,7 @@ const PostPreview: FC<PostPreviewProps> = ({
         setError(errors[key] || apiUiMessage.ERROR_MESSAGE);
       }
     } finally {
-      fetchUserPosts(page);
+      userPostsApi(EndpointsEnum.POSTS_BY_AUTHOR, setUserPostsList, page, undefined, 'addPost')
       setIsLoading(false);
     }
   };

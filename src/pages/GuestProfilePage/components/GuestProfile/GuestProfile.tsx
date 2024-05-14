@@ -16,8 +16,6 @@ const GuestProfile: FC = () => {
   // const fetchEnemyUserData = async (Id: string | number | undefined) => {
   //   const response = await guestProfileApi(Id);
   //   setEnemyData(response.data);
-  //   console.log(enemyData)
-
   // };
 
 

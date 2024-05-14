@@ -1,8 +1,11 @@
-import { CommentType, PostRefType } from "@/src/types";
+import { CommentType, PostRefType, RefsType } from "@/src/types";
+import { Dispatch, SetStateAction } from "react";
 
 export type LikedPostProps = {
-    post: PostRefType
-}
+    post: PostRefType;
+    setPage?: Dispatch<SetStateAction<number>>;
+    setPosts?: Dispatch<SetStateAction<Array<PostRefType>>>;
+} & RefsType;
 
 
 export type LikedPostData = {

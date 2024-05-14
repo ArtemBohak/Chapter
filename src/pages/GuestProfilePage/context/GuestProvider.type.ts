@@ -10,8 +10,9 @@ export type GuestContextType = {
   fetchEnemyUserData: (Id: string | number | undefined) => Promise<void>;
   guestPostsList: [] | Array<PostRefType>;
   setGuestPostsList: Dispatch<React.SetStateAction<Array<PostRefType>>>;
-  enemyData: enemyData;
-  setEnemyData: Dispatch<React.SetStateAction<enemyData>>;
+  enemyData: enemyData | undefined;
+  setEnemyData: Dispatch<React.SetStateAction<enemyData | undefined>>;
   BooksCheker: boolean;
   setPage: Dispatch<React.SetStateAction<number>>
+  isGuestPostsLoaded: boolean;
 };

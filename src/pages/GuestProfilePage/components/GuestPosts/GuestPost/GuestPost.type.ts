@@ -1,8 +1,12 @@
-import { PostRefType } from "@/src/types";
+import { PostRefType, RefsType } from "@/src/types";
+import { Dispatch, SetStateAction } from "react";
 
-export interface GuestPostProps {
+export type GuestPostProps = {
   post: PostRefType;
-}
+  setPage?: Dispatch<SetStateAction<number>>;
+  setPosts?: Dispatch<SetStateAction<Array<PostRefType>>>;
+} & RefsType;
+
 
 export type PostData = {
   id: number;

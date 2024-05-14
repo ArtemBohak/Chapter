@@ -1,4 +1,14 @@
-import { FC, createRef, useEffect, useLayoutEffect, useState } from "react";
+import {
+  Dispatch,
+  FC,
+  SetStateAction,
+  createRef,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import { AxiosError, AxiosResponse } from "axios";
 
 import { EndpointsEnum, api } from "@/src/axios";
@@ -13,8 +23,9 @@ import {
   PostRefType,
 } from "@/src/types";
 
-import { IProfileProviderProps } from "./ProfileProvider.type";
+import { IProfileProviderProps, SetBoolean } from "./ProfileProvider.type";
 import { ProfileContext } from "./hooks";
+import UserPostsLoader from "../UserPostsLoader/userPostsLoader";
 
 const socket = new SocketApi();
 
@@ -24,7 +35,9 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
   const [isConnected, setIsConnected] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [userPostsList, setUserPostsList] = useState<Array<PostRefType>>([]);
-  const [isLoad, setIsLoad] = useState(false);
+  const [isPostsLoad, setIsPostsLoad] = useState(false);
+  const [page, setPage] = useState<number>(0);
+  const intersectionRef = useRef(null);
 
   const [headerAddPostBtnIsDisabled, setHeaderAddPostBtnIsDisabled] =
     useState(false);
@@ -49,22 +62,40 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
   );
   const [unreadMessage, setUnreadMessage] = useState(newNotifications.length);
 
-  const [page, setPage] = useState<number>(0);
-
   const [unreadChatMessages, setUnreadChatMessages] = useState(0);
 
   const fetchUserPosts = async (currentPage: number) => {
     try {
       const response = await api.get(
-        `${EndpointsEnum.POSTS_BY_AUTHOR}?page=${currentPage}&limit=50`
+        `${EndpointsEnum.POSTS_BY_AUTHOR}?page=${currentPage}&limit=3`
       );
-      setUserPostsList(response.data);
-      setIsLoad(true);
-      return response.data;
+      const newPosts = response.data;
+      setUserPostsList((prevPosts) => [...prevPosts, ...newPosts]); // Append new posts to the existing list
+      setIsPostsLoad(true);
+      return newPosts;
     } catch (error) {
       console.error("Error fetching user posts:", error);
     }
   };
+
+  const userPostsApi = useCallback(
+    (
+      url: string,
+      setPostsList: Dispatch<SetStateAction<PostRefType[]>>,
+      page: number,
+      setIsPostsLoaded?: SetBoolean,
+      postsAction?: "deletePost" | "addPost"
+    ) =>
+      new UserPostsLoader(
+        url,
+        setPostsList,
+        setErrorBoundary,
+        setIsPostsLoad,
+        setIsPostsLoaded,
+        postsAction
+      ).get(page),
+    [setErrorBoundary]
+  );
 
   useLayoutEffect(() => {
     setIsLoading(true);
@@ -144,7 +175,6 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
         notificationsLength: notifications.length,
         page,
         userPostsList,
-        isLoad,
         setUnreadChatMessages,
         setHeaderAddPostBtnIsDisabled,
         setUnreadMessage,
@@ -152,6 +182,10 @@ const ProfileProvider: FC<IProfileProviderProps> = ({ children }) => {
         setPage,
         fetchUserPosts,
         setUserPostsList,
+        setIsPostsLoad,
+        isPostsLoad,
+        intersectionRef,
+        userPostsApi,
       }}
     >
       {children}

@@ -1,43 +1,50 @@
 .add-book-modal {
-    &__body {
-        @apply flex  flex-col max-w-[670px] max-h-[600px] h-fit w-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-[40%] bg-[#FDFDFD] px-[40px] py-[20px] rounded-2xl gap-2 z-50;
-    }
-    &__backdrop {
-        @apply fixed top-0 left-0 w-full h-full bg-white backdrop-blur-sm bg-[#1c1c1c33];
-    }
-    &__wrapper {
-        @apply flex w-full text-center;
-    }
-    &__close-button {
-        @apply relative w-[32px] h-[32px];
-    }
-    &__header {
-        @apply flex justify-between items-center mb-5;
-    }
-
+  &__body {
+    @apply flex flex-col max-w-80 md:max-w-[670px]  md:max-h-[600px] w-full absolute 
+    top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-[40%] md:-translate-y-[50%] bg-[#FDFDFD] px-[40px] py-[20px] rounded-2xl gap-2 z-50;
+  }
+  &__backdrop {
+    @apply top-0 left-0 bg-[#1c1c1c34] overflow-y-auto w-full h-full;
+    position: fixed !important;
+  }
+  &__wrapper {
+    @apply flex w-full text-center;
+  }
+  &__close-button {
+    @apply relative w-[32px] h-[32px] bg-inherit;
+  }
+  &__header {
+    @apply flex justify-between items-center;
+  }
 }
 
 .form-conteiner {
-    @apply flex flex-col w-full gap-2 justify-around;
-    &__wrapper {
-        @apply flex mb-[40px] justify-between;
+  @apply flex flex-col w-full h-full gap-2 justify-around bg-white py-5;
+  &__wrapper {
+    @apply flex flex-col gap-5 md:flex-row mb-[40px] justify-center md:justify-between;
+  }
+  &__add-book-image {
+    @apply flex w-full min-h-[388px] md:min-h-[300px] md:w-5/12 border-grey-1000 border-[1px] rounded-[6px] justify-center items-center;
+  }
+  &__book-text {
+    @apply flex flex-col md:w-7/12 h-full justify-center md:pl-5;
+  }
+  &__buttons {
+    @apply flex justify-center gap-10;
+  }
+  &__image-preview {
+    @apply flex w-full md:w-5/12 rounded-[6px] object-cover relative;
+    & img {
+      @apply rounded-[6px] min-h-[388px] md:min-h-[300px] w-full h-full object-cover;
     }
-    &__add-book-image {
-        @apply flex w-5/12 border-grey-1000 border-[1px] rounded-[6px] justify-center items-center;
-    }
-    &__book-text {
-        @apply flex flex-col w-7/12 h-full justify-center pl-5;
-    }
-    &__buttons {
-        @apply flex justify-center gap-10;
-    }
-    &__image-preview {
-        @apply flex w-5/12 rounded-[6px] object-cover relative;
-        & img {
-            @apply rounded-[6px] w-full h-full;
-        }
-    }
-    &__image-preview-remove-button {
-        @apply absolute bg-transparent top-0 right-0;
-    }
+  }
+  &__image-preview-remove-button {
+    @apply absolute bg-transparent top-[1px] right-[1px] rounded-sm bg-white;
+  }
+}
+
+.annotation-field {
+  & textarea {
+    @apply h-[100px];
+  }
 }

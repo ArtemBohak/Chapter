@@ -1,33 +1,50 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useState } from 'react'
 import styles from '../GuestPosts.module.scss'
 import { Avatar, CommentsButton, LikesButton, PostComments, PostDate, PostImage, PostText, PostTitle, UserNickName } from '@/src/components'
 import { useGuestContext } from '../../../context';
 import { GuestPostProps } from './GuestPost.type';
-import { EndpointsEnum, api } from '@/src/axios';
+import { EndpointsEnum } from '@/src/axios';
+import { useParams } from 'react-router-dom';
+import GuestFollowButton from '../../GuestFollowButton/GuestFollowButton';
+import { useRefIntersection } from '@/src/hooks';
+import { intersectionHandlerCB } from '@/src/utils';
 
-const GuestPost: FC<GuestPostProps> = ({ post }) => {
+const GuestPost: FC<GuestPostProps> = ({ post, pageLoaderRef, pageValue, ...props }) => {
     const { enemyData, setGuestPostsList } = useGuestContext();
-    const [commentsList, setComentsList] = useState([])
+    // const [commentsList, setComentsList] = useState([])
     const [commentsIsHide, setCommentsIsHide] = useState(true);
+    const { Id } = useParams();
 
-    const getComments = async (id: number | string) => {
-        const response = await api.get(`/comments/comments/${id}`);
+    useRefIntersection(intersectionHandlerCB(props.setPage), pageLoaderRef, {
+        threshold: 1,
+    });
 
-        setComentsList(response.data);
-        console.log(response.data)
-    };
 
-    useEffect(() => {
-        getComments(post.postId);
+    // const getComments = async (id: number | string) => {
+    //     const response = await api.get(`/comments/comments/${id}`);
+    //     setComentsList(response.data);
+    //     console.log(response.data)
+    // };
 
-    }, []);
+    // useEffect(() => {
+    //     getComments(post.postId);
+    // }, []);
+
+
+    const commentsCount = post.commentsCount > 0 ? post.commentsCount : '';
     return (
         <li className={styles["user-post"]} key={post.postId}>
+            <div
+                ref={pageLoaderRef}
+                data-value={pageLoaderRef && pageValue ? pageValue : ""}
+                className="hide-element"
+            />
             <div className="flex items-center justify-between w-full relative">
                 <div className="flex gap-3 items-center">
                     <Avatar avatarUrl={enemyData?.avatarUrl || null} />
                     <UserNickName nickName={enemyData?.nickName || ""} />
                 </div>
+                <GuestFollowButton id={Id} isSubscribeToAuthor={enemyData && enemyData.isSubscribed} />
             </div>
             <div className={styles["user-post__image"]}>
                 <PostImage imgUrl={post.imgUrl} />
@@ -43,7 +60,7 @@ const GuestPost: FC<GuestPostProps> = ({ post }) => {
                         textValue={""}
                         id={""}
                         postId={post.postId}
-                        commentsCount={commentsList.length}
+                        commentsCount={post.commentsCount}
                     />
                 </div>
                 <PostDate createAt={post.updatedAt} />
@@ -53,7 +70,7 @@ const GuestPost: FC<GuestPostProps> = ({ post }) => {
             <PostComments
                 setPosts={setGuestPostsList}
                 postId={post.postId}
-                commentsCount={commentsList.length}
+                commentsCount={+commentsCount}
                 comments={post.comments}
                 setCommentsIsHide={setCommentsIsHide}
                 commentsIsHide={commentsIsHide}

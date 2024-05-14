@@ -74,8 +74,8 @@ const PostEditing: FC<PostEditingProps> = ({
         {formIsOpen ? (
           <EditPostForm
             imgUrl={image}
-            title={post.title}
-            caption={post.caption}
+            title={post.title || ''}
+            caption={post.caption || ''}
             setFormIsOpen={setFormIsOpen}
             setFile={setFile}
             setTitle={setTitle}

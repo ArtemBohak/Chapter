@@ -1,5 +1,5 @@
 import { Dispatch, ReactNode, SetStateAction } from "react";
-import { INotification, INots } from "@/src/types";
+import { INotification, INots, RefType } from "@/src/types";
 
 import { PostRefType } from "@/src/types";
 
@@ -7,7 +7,7 @@ export interface IProfileProviderProps {
   children: ReactNode;
 }
 
-type SetBoolean = Dispatch<SetStateAction<boolean>>;
+export type SetBoolean = Dispatch<SetStateAction<boolean>>;
 
 export type ProfileContextType = {
   headerAddPostBtnIsDisabled: boolean;
@@ -16,7 +16,6 @@ export type ProfileContextType = {
   newNotifications: Array<INotification>;
   isLoading: boolean;
   notificationsLength: number;
-  isLoad: boolean;
   page: number;
   userPostsList: [] | Array<PostRefType>;
   unreadChatMessages: number;
@@ -27,4 +26,14 @@ export type ProfileContextType = {
   setPage: Dispatch<SetStateAction<number>>;
   fetchUserPosts: (currentPage: number) => void;
   setUserPostsList: Dispatch<SetStateAction<Array<PostRefType>>>;
+  isPostsLoad: boolean;
+  setIsPostsLoad: Dispatch<SetStateAction<boolean>>;
+  intersectionRef: RefType | undefined;
+  userPostsApi: (
+    url: string,
+    setPostsList: Dispatch<SetStateAction<PostRefType[]>>,
+    page: number,
+    setIsPostsLoaded?: SetBoolean,
+    postsAction?: "deletePost" | "addPost"
+  ) => void;
 };

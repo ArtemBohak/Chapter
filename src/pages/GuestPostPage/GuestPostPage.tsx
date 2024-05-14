@@ -1,7 +1,6 @@
 import { FC, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AxiosError, AxiosResponse } from "axios";
-
 import { EndpointsEnum, api } from "@/src/axios";
 import { useErrorBoundary } from "@/src/hooks";
 import { PostType, links } from "@/src/types";
