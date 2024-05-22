@@ -31,7 +31,7 @@ const UserStatus: FC<UserStatusProps> = ({ userStatus }) => {
       <textarea
         className={styles["status"]}
         ref={textareaRef}
-        value={value.trim()}
+        value={value}
         disabled={!isEditing}
         onChange={onHandleChange}
         onFocus={onHandleFocus}
