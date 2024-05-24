@@ -1,11 +1,12 @@
 import { FC, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { AxiosError, AxiosResponse } from "axios";
 
 import { EndpointsEnum, api } from "@/src/axios";
 import { useAppSelector } from "@/src/redux";
 import { useErrorBoundary } from "@/src/hooks";
 import { deleteCommentCB, postsCB } from "@/src/utils";
-import { PostType } from "@/src/types";
+import { links, PostType } from "@/src/types";
 import { DeleteButtonProps } from "./DeleteButton.type";
 import styles from "../Buttons.module.scss";
 
@@ -21,6 +22,7 @@ const DeleteButton: FC<DeleteButtonProps> = ({
   const userId = useAppSelector((state) => state.userSlice.user.id);
   const setErrorBoundary = useErrorBoundary();
   const [isLoading, setIsLoading] = useState(false);
+  const location = useLocation();
 
   const onHandleDelete = async () => {
     try {
@@ -41,7 +43,7 @@ const DeleteButton: FC<DeleteButtonProps> = ({
     }
   };
 
-  if (userId === authorId)
+  if (location.pathname.startsWith(links.PROFILE) || userId === authorId)
     return (
       <button
         onClick={onHandleDelete}
