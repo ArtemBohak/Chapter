@@ -1,6 +1,6 @@
 .book-info {
   &__body {
-    @apply w-full fixed bg-[#FDFDFD] rounded-2xl z-50 overflow-x-hidden overflow-y-auto
+    @apply w-full fixed bg-[#FDFDFD] rounded-2xl z-50 overflow-x-hidden overflow-y-auto 
     max-w-80 px-[20px] py-[24px] top-[10%] laptop_md:top-1/2 left-1/2 transform -translate-x-1/2 laptop_md:-translate-y-1/2
         md:max-w-[670px] 
         laptop:max-w-[1060px] laptop:max-h-[660px] laptop:px-[60px] laptop:py-[50px];

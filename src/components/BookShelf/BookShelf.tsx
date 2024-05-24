@@ -28,7 +28,7 @@ const BookShelf: FC<BookShelfProps> = ({ enemyData, Id }) => {
       settings: {
         slidesToShow:
           favoriteBooksList.length < 3
-            ? !Id && addBookArray.length != 0
+            ? (!Id && addBookArray.length != 0)
               ? favoriteBooksList.length + 1
               : favoriteBooksList.length
             : 3,
@@ -43,7 +43,7 @@ const BookShelf: FC<BookShelfProps> = ({ enemyData, Id }) => {
       settings: {
         slidesToShow:
           favoriteBooksList.length < 3
-            ? !Id && addBookArray.length != 0
+            ? (!Id && addBookArray.length != 0)
               ? favoriteBooksList.length + 1
               : favoriteBooksList.length
             : 3,
@@ -58,7 +58,7 @@ const BookShelf: FC<BookShelfProps> = ({ enemyData, Id }) => {
       settings: {
         slidesToShow:
           favoriteBooksList.length < 3
-            ? !Id && addBookArray.length != 0
+            ? (!Id && addBookArray.length != 0)
               ? favoriteBooksList.length + 1
               : favoriteBooksList.length
             : favoriteBooksList.length,
@@ -74,7 +74,7 @@ const BookShelf: FC<BookShelfProps> = ({ enemyData, Id }) => {
       settings: {
         slidesToShow:
           favoriteBooksList.length < 5
-            ? !Id && addBookArray.length != 0
+            ? (!Id && addBookArray.length != 0)
               ? favoriteBooksList.length + 1
               : favoriteBooksList.length
             : 5,
@@ -90,7 +90,7 @@ const BookShelf: FC<BookShelfProps> = ({ enemyData, Id }) => {
       settings: {
         slidesToShow:
           favoriteBooksList.length < 3
-            ? !Id && addBookArray.length != 0
+            ? (!Id && addBookArray.length != 0)
               ? favoriteBooksList.length + 1
               : favoriteBooksList.length
             : 3,
@@ -163,7 +163,7 @@ const BookShelf: FC<BookShelfProps> = ({ enemyData, Id }) => {
               nameOfBook={book.nameOfBook}
               author={book.author}
               annotation={book.annotation}
-              bookNameLength={38}
+              bookNameLength={20}
             />
           ))}
           {!Id &&

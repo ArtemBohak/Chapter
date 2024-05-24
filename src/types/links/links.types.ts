@@ -19,3 +19,10 @@ export enum links {
   GUEST_POST = "/post/:id",
   TERMS = "/terms",
 }
+
+export enum outerLinks {
+  TELEGRAM = "https://t.me/ChapterTextBot",
+  LINKEDIN = "https://www.linkedin.com/company/chapter-socialnetwork/",
+  DISCORD = "https://discord.com/invite/6r7Qdwy7",
+  GMAIL = "mailto:Chapter.social.network@gmail.com"
+}
