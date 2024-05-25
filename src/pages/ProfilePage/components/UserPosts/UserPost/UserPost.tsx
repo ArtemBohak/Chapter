@@ -29,7 +29,13 @@ import { intersectionHandlerCB } from "@/src/utils";
 import { useProfileContext } from "@/src/context";
 import { FilesService } from "@/src/services";
 
-const UserPost: FC<UserPostProps> = ({ post, nodeRef, pageLoaderRef, pageValue, ...props }) => {
+const UserPost: FC<UserPostProps> = ({
+  post,
+  nodeRef,
+  pageLoaderRef,
+  pageValue,
+  ...props
+}) => {
   const { user } = useAppSelector((state) => state.userSlice);
   const [showPopUp, setShowPopUp] = useState(false);
   const [showConfirmationWindow, setShowConfirmationWindow] = useState(false);
@@ -55,7 +61,6 @@ const UserPost: FC<UserPostProps> = ({ post, nodeRef, pageLoaderRef, pageValue, 
   //   fetchUsersWhoLikedPosts(post.postId);
   // }, []);
 
-
   const ref = useRef(null);
   useOutsideClick(ref, setShowPopUp, ElementsId.POST_MORE_ICON);
 
@@ -63,7 +68,13 @@ const UserPost: FC<UserPostProps> = ({ post, nodeRef, pageLoaderRef, pageValue, 
     setIsDeletingLoading(true);
     try {
       await api.delete(`${EndpointsEnum.DELETE_POST}/${Id}`);
-      userPostsApi(EndpointsEnum.POSTS_BY_AUTHOR, setUserPostsList, 1, undefined, 'deletePost')
+      userPostsApi(
+        EndpointsEnum.POSTS_BY_AUTHOR,
+        setUserPostsList,
+        1,
+        undefined,
+        "deletePost"
+      );
       if (post.imgUrl)
         new FilesService(undefined, setErrorBoundary).delete(post.imgUrl);
     } catch (error) {
@@ -177,6 +188,7 @@ const UserPost: FC<UserPostProps> = ({ post, nodeRef, pageLoaderRef, pageValue, 
       <PostText caption={post.caption} />
       <PostComments
         setPosts={setUserPostsList}
+        postAuthor={post.author.id}
         postId={post.postId}
         commentsCount={post.commentsCount}
         comments={post.comments}

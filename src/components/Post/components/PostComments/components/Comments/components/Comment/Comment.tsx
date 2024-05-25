@@ -26,6 +26,7 @@ const Comment: FC<CommentProps> = ({
   postId,
   pageValue,
   pageLoaderRef,
+  postAuthor,
   setAllComments,
   handleNickname,
   setPage,
@@ -102,6 +103,7 @@ const Comment: FC<CommentProps> = ({
           ) : null}
           <DeleteButton
             authorId={authorId}
+            postAuthor={postAuthor}
             commentId={id}
             setPosts={setPosts}
             setAllComments={setAllComments}

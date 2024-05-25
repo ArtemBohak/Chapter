@@ -1,12 +1,11 @@
 import { FC, useState } from "react";
-import { useLocation } from "react-router-dom";
 import { AxiosError, AxiosResponse } from "axios";
 
 import { EndpointsEnum, api } from "@/src/axios";
 import { useAppSelector } from "@/src/redux";
 import { useErrorBoundary } from "@/src/hooks";
 import { deleteCommentCB, postsCB } from "@/src/utils";
-import { links, PostType } from "@/src/types";
+import { PostType } from "@/src/types";
 import { DeleteButtonProps } from "./DeleteButton.type";
 import styles from "../Buttons.module.scss";
 
@@ -15,6 +14,7 @@ import { Icon, IconEnum } from "@/src/components";
 const DeleteButton: FC<DeleteButtonProps> = ({
   authorId,
   commentId,
+  postAuthor,
   setPosts,
   setPost,
   setAllComments,
@@ -22,13 +22,13 @@ const DeleteButton: FC<DeleteButtonProps> = ({
   const userId = useAppSelector((state) => state.userSlice.user.id);
   const setErrorBoundary = useErrorBoundary();
   const [isLoading, setIsLoading] = useState(false);
-  const location = useLocation();
 
   const onHandleDelete = async () => {
     try {
       setIsLoading(true);
       const { data }: AxiosResponse<PostType> = await api.delete(
-        EndpointsEnum.DELETE_COMMENTS + commentId
+        EndpointsEnum.DELETE_COMMENTS + commentId,
+        { params: { isOwnPost: postAuthor === userId } }
       );
 
       setPosts && setPosts(postsCB<PostType>(data, "postId"));
@@ -43,7 +43,7 @@ const DeleteButton: FC<DeleteButtonProps> = ({
     }
   };
 
-  if (location.pathname.startsWith(links.PROFILE) || userId === authorId)
+  if (postAuthor === userId || userId === authorId)
     return (
       <button
         onClick={onHandleDelete}
