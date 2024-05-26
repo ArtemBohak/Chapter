@@ -88,6 +88,7 @@ const Post: FC<PostProps> = ({
       <div className={`${styles["wrapper"]} ${styles["wrapper__bottom"]}`}>
         <PostComments
           {...props}
+          postAuthor={props.author.id}
           commentsIsHide={commentsIsHide}
           setCommentsIsHide={setCommentsIsHide}
         />

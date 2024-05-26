@@ -14,6 +14,7 @@ import { Icon, IconEnum } from "@/src/components";
 const DeleteButton: FC<DeleteButtonProps> = ({
   authorId,
   commentId,
+  postAuthor,
   setPosts,
   setPost,
   setAllComments,
@@ -26,7 +27,8 @@ const DeleteButton: FC<DeleteButtonProps> = ({
     try {
       setIsLoading(true);
       const { data }: AxiosResponse<PostType> = await api.delete(
-        EndpointsEnum.DELETE_COMMENTS + commentId
+        EndpointsEnum.DELETE_COMMENTS + commentId,
+        { params: { isOwnPost: postAuthor === userId } }
       );
 
       setPosts && setPosts(postsCB<PostType>(data, "postId"));
@@ -41,7 +43,7 @@ const DeleteButton: FC<DeleteButtonProps> = ({
     }
   };
 
-  if (userId === authorId)
+  if (postAuthor === userId || userId === authorId)
     return (
       <button
         onClick={onHandleDelete}

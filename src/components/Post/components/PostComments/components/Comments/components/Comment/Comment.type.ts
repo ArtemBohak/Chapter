@@ -6,7 +6,7 @@ export type CommentProps = {
 } & Required<
   Pick<
     CommentsProps,
-    "postId" | "setPage" | "handleNickname" | "setAllComments"
+    "postId" | "setPage" | "handleNickname" | "setAllComments" | "postAuthor"
   >
 > &
   Pick<CommentsProps, "setPosts" | "setPost"> &
