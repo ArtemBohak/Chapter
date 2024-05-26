@@ -4,6 +4,7 @@ import { ContactUsProps } from "./ContactUs.type";
 import styles from "./ContactUs.module.scss";
 import { CustomModal } from "../Modals";
 import { Icon, IconEnum } from "../Icon";
+import { outerLinks } from "@/src/types";
 
 const ContactUs: FC<ContactUsProps> = ({
   title = "Select a social network to contact us",
@@ -22,7 +23,7 @@ const ContactUs: FC<ContactUsProps> = ({
         <ul className={styles["links"]}>
           <li className={styles["links__item"]}>
             <a
-              href="#"
+              href={outerLinks.TELEGRAM}
               target="_blank"
               rel="noopener noreferrer"
               className={styles["links"]}
@@ -36,7 +37,7 @@ const ContactUs: FC<ContactUsProps> = ({
           </li>
           <li className={styles["links__item"]}>
             <a
-              href="#"
+              href={outerLinks.LINKEDIN}
               target="_blank"
               rel="noopener noreferrer"
               className={styles["links"]}
@@ -49,6 +50,20 @@ const ContactUs: FC<ContactUsProps> = ({
             </a>
           </li>
           <li className={styles["links__item"]}>
+            <a
+              href={outerLinks.GMAIL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles["links"]}
+            >
+              <Icon
+                size={40}
+                className={styles["link__icon"]}
+                icon={IconEnum.GoogleLink}
+              />
+            </a>
+          </li>
+          {/* <li className={styles["links__item"]}>
             <a
               href="#"
               target="_blank"
@@ -89,21 +104,8 @@ const ContactUs: FC<ContactUsProps> = ({
                 icon={IconEnum.DiscordLink}
               />
             </a>
-          </li>
-          <li className={styles["links__item"]}>
-            <a
-              href="#"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles["links"]}
-            >
-              <Icon
-                size={40}
-                className={styles["link__icon"]}
-                icon={IconEnum.GoogleLink}
-              />
-            </a>
-          </li>
+          </li> */}
+
         </ul>
       </div>
     </CustomModal>

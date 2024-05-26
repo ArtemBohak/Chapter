@@ -1,14 +1,14 @@
 .books-list__wrapper {
-    @apply flex flex-1 flex-wrap gap-[20px] pt-2 justify-center md:justify-start;
+  @apply flex flex-1 flex-wrap gap-[20px] pt-2 justify-center md:justify-start;
 }
 
 .book__wrapper {
-    @apply max-w-[156px] min-w-[156px] h-[250px] md:h-[300px] md:max-w-[200px] md:min-w-[200px] laptop_md:max-w-[225px] laptop_md:min-w-[225px] laptop_md:max-h-[362px] laptop_md:min-h-[362px] relative mb-4;
+  @apply max-w-[156px] min-w-[156px] h-[250px] md:h-[300px] md:max-w-[200px] md:min-w-[200px] laptop_md:max-w-[225px] laptop_md:min-w-[225px] laptop_md:max-h-[362px] laptop_md:min-h-[362px] relative mb-4;
 
-    & .book-cover {
-        @apply mb-[8px] rounded-xl h-[88%] w-full cursor-pointer object-cover;
-    }
-    & .book-title {
-        @apply h-[12%] font-semibold;
-    }
+  & .book-cover {
+    @apply mb-[8px] rounded-xl h-[88%] w-full cursor-pointer object-cover;
+  }
+  & .book-title {
+    @apply h-[12%] font-semibold hyphens-auto;
+  }
 }

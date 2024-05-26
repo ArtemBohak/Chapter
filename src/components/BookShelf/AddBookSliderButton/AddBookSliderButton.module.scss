@@ -1,8 +1,10 @@
 .add-book-slider-button {
-  @apply h-[90px] w-full max-w-[85px] mx-2 laptop_md:mx-0
+  @apply h-[90px] w-full max-w-[95px] mx-2 laptop_md:mx-0
     laptop_md:max-w-[123px] laptop_md:h-[188px] mt-2 font-semibold cursor-pointer border  justify-center items-center rounded-sm;
+  box-shadow: 7px 7px 7px rgb(102, 102, 102);
+  outline: none !important;
   & svg {
-    @apply w-[24px] h-[24px] laptop:w-[32px] laptop:h-[32px];
+    @apply w-[44px] h-[24px] laptop:w-[32px] laptop:h-[32px];
   }
   &__icon {
     @apply w-full h-full flex justify-center items-center;
