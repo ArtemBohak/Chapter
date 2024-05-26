@@ -87,7 +87,7 @@ const router = createBrowserRouter([
   {
     path: "/terms",
     element: <TermsPage />,
-    children: [{ path: ":title", element: <TermPage /> }],
+    children: [{ path: ":term", element: <TermPage /> }],
     errorElement: <ErrorPage />,
   },
   {
