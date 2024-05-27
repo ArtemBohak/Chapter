@@ -23,6 +23,7 @@ const CreatePostForm: FC<CreatePostFormProps> = ({
   caption,
   imgUrl,
 }) => {
+
   const initialValues = { title, caption };
   const onSubmit = (values: PostValues) => {
     setTitle(values.title || "");
@@ -41,6 +42,7 @@ const CreatePostForm: FC<CreatePostFormProps> = ({
       onSubmit={onSubmit}
       validationSchema={validationSchema}
       validateOnMount
+      
     >
       {({ values, isValid }) => {
         return (
@@ -53,6 +55,7 @@ const CreatePostForm: FC<CreatePostFormProps> = ({
               value={values.title || ""}
               className={styles["form__title"]}
               aria-label="Title input field"
+              onChange={(e) => setTitle(e.target.value)}
             />
             <ImageField
               btnVariant="icon"
@@ -81,6 +84,7 @@ const CreatePostForm: FC<CreatePostFormProps> = ({
               value={values.caption || ""}
               classNames={styles["form__comment"]}
               aria-label="Caption textarea field"
+              changeCaption={setCaption}
             />
             <div className={styles["form__button"]}>
               <UIbutton

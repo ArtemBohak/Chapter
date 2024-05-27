@@ -23,6 +23,7 @@ const PostPreview: FC<PostPreviewProps> = ({
   setFormIsOpen,
   setIsOpen,
   file,
+  resetPostValues,
   ...props
 }) => {
   const { firstName, lastName, id } = useAppSelector(
@@ -74,6 +75,7 @@ const PostPreview: FC<PostPreviewProps> = ({
       setUserPostsList(prevPosts => [newPost.data, ...prevPosts]);
 
       setIsOpen(false);
+      resetPostValues()
     } catch (error) {
       if (error instanceof AxiosError) {
         setErrorBoundary(error);

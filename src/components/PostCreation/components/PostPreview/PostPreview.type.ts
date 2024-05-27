@@ -4,6 +4,7 @@ import { PostCreationProps } from "../../PostCreation.type";
 
 export type PostPreviewProps = {
   file: File | null;
+  resetPostValues: () => void
 } & Pick<PostCreationProps, "prevImgUrl"> &
   Pick<PostType, "caption" | "title" | "imgUrl"> &
   Pick<ModalProps, "setIsOpen"> &
