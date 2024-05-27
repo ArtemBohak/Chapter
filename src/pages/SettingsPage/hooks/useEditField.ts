@@ -39,7 +39,7 @@ const useEditField = (
   const onHandleEdit = () => setIsEditing(true);
 
   const onHandleSave = async () => {
-    if (textValue && textValue.trim() !== value.trim()) {
+    if (textValue?.trim() !== value.trim()) {
       const profile = new ProfileUpdateApi(setIsLoading, setErrorBoundary);
 
       if (fieldType === "status") {
