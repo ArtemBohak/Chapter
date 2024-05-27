@@ -36,11 +36,17 @@ const LoginPageForm: FC = () => {
   const onHandleSubmit = async (values: ILoginPage, setErrors: setErrors) => {
     const [id, email] = getCookies(keysValue.USER_ID, keysValue.EMAIL);
     const response = await LoginApi(values, setError);
-    const { status, data } = response;
-
+    // needs refactoring
+    if (!response) {
+      return setErrors({
+        ["email"]: " ",
+        ["password"]: "Something went wrong",
+      });
+    }
+    const { data, status } = response
     if (
-      response.status === apiErrorStatus.UNPROCESSABLE_ENTITY &&
-      response.errors.email === apiErrorMessage.EMAIL_NOT_EXISTS
+      status === apiErrorStatus.UNPROCESSABLE_ENTITY &&
+      data.errors.email === apiErrorMessage.EMAIL_NOT_EXISTS
     ) {
       debouncedNav(links.SIGN_UP);
       return setErrors({
@@ -50,8 +56,8 @@ const LoginPageForm: FC = () => {
     }
 
     if (
-      response.statusCode === apiErrorStatus.UNPROCESSABLE_ENTITY &&
-      response.message === apiErrorMessage.UNCONFIRMED_EMAIL
+      status === apiErrorStatus.UNPROCESSABLE_ENTITY &&
+      data.message === apiErrorMessage.UNCONFIRMED_EMAIL
     ) {
       debouncedNav(links.SIGN_UP, values.email);
       return setErrors({
@@ -61,8 +67,8 @@ const LoginPageForm: FC = () => {
     }
 
     if (
-      response.statusCode === apiErrorStatus.UNPROCESSABLE_ENTITY &&
-      response.message === apiErrorMessage.UNCOMPLETED_REGISTRATION
+      status === apiErrorStatus.UNPROCESSABLE_ENTITY &&
+      data.message === apiErrorMessage.UNCOMPLETED_REGISTRATION
     ) {
       if (id && email) debouncedNav(links.ACCOUNT_CREATION + "/" + id);
       else debouncedNav(links.SIGN_UP);
@@ -72,11 +78,11 @@ const LoginPageForm: FC = () => {
       });
     }
     if (
-      response.status === apiErrorStatus.FORBIDDEN &&
-      response.message === apiErrorMessage.ACCOUNT_DELETED
+      status === apiErrorStatus.FORBIDDEN &&
+      data.message === apiErrorMessage.ACCOUNT_DELETED
     ) {
       deleteCookie(keysValue.RESTORE_TOKEN);
-      const expires = setDate(response.deletedUserDate, accountDeletionTerm);
+      const expires = setDate(data.deletedUserDate, accountDeletionTerm);
       const cValue = {
         deletedUserDate: String(expires),
         restoringEmail: values.email,
@@ -98,8 +104,8 @@ const LoginPageForm: FC = () => {
       keysValue.EMAIL,
       keysValue.USER_ID
     );
-    setDataToLS({ token: data.token });
-    dispatch(updateUser(data.user));
+    setDataToLS({ token: response.data.token });
+    dispatch(updateUser(response.data.user));
   };
   return (
     <div>

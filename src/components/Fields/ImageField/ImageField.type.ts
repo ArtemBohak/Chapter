@@ -1,9 +1,8 @@
-import { Dispatch, SetStateAction } from "react";
 
 export type ImageFieldProps = {
   btnVariant: "button" | "icon" | "book";
-  setFile: Dispatch<SetStateAction<File | null>>;
-  setImage?: Dispatch<SetStateAction<string>>;
+  setFile: (value: File | null) => void;
+  setImage?: (value: string) => void;
   iconSize?: number;
   classNames?: string;
   isLoading?: boolean;

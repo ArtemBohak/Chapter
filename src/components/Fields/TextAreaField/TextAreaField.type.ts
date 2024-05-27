@@ -12,6 +12,7 @@ export type TextAreaFieldProps = {
   emojiClassNames?: string;
   labelValue?: string;
   nickName?: string;
+  changeCaption?: (value: string) => void,
   handleNickname?: HandleNickname;
 } & Partial<TextareaHTMLAttributes<HTMLTextAreaElement>>;
 

@@ -15,6 +15,7 @@ const TextAreaField: FC<TextAreaFieldProps> = ({
   emojiClassNames,
   labelValue,
   nickName,
+  changeCaption,
   handleNickname,
   ...props
 }) => {
@@ -29,7 +30,7 @@ const TextAreaField: FC<TextAreaFieldProps> = ({
   const onHandleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
     const [nick] = value.split(" ");
-
+    changeCaption && changeCaption(e.target.value)
     if (nickName && !nick.includes(nickName + ":")) {
       setFieldValue(field.name, "");
       return handleNickname && handleNickname();

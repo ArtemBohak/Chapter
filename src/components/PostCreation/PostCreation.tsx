@@ -1,11 +1,14 @@
-import { FC, useEffect, useState } from "react";
-import cn from "classnames";
-
-import { useAppSelector } from "@/src/redux";
 import { PostCreationProps } from "./PostCreation.type";
+import { FC } from "react";
+
+import { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "@/src/redux";
+import cn from "classnames";
 import styles from "./PostCreation.module.scss";
+
 import { CreatePostForm, PostPreview } from "./components";
 import { Icon, IconEnum, Modal } from "..";
+import { changeFile, changeImage, changeTitle, changeCaption, resetPostValues } from "@/src/redux/slices/post";
 
 const PostCreation: FC<PostCreationProps> = ({
   setIsOpen,
@@ -17,18 +20,15 @@ const PostCreation: FC<PostCreationProps> = ({
   const { nickName, avatarUrl } = useAppSelector(
     (state) => state.userSlice.user
   );
+  const {title, image, file, caption} = useAppSelector(
+    state => state.postsSlice
+  )
+  const dispatch = useAppDispatch()
+
   const [formIsOpen, setFormIsOpen] = useState(true);
-  const [title, setTitle] = useState("");
-  const [image, setImage] = useState("");
-  const [caption, setCaption] = useState("");
-  const [file, setFile] = useState<File | null>(null);
 
   const clearData = () => {
     setTimeout(() => {
-      setTitle("");
-      setFile(null);
-      setCaption("");
-      setImage("");
       setFormIsOpen(true);
     }, 100);
   };
@@ -76,10 +76,10 @@ const PostCreation: FC<PostCreationProps> = ({
             title={title}
             caption={caption}
             setFormIsOpen={setFormIsOpen}
-            setFile={setFile}
-            setTitle={setTitle}
-            setCaption={setCaption}
-            setImage={setImage}
+            setFile={(value) => dispatch(changeFile(value))}
+            setTitle={(value) => dispatch(changeTitle(value))}
+            setCaption={(value) => dispatch(changeCaption(value))}
+            setImage={(value) => dispatch(changeImage(value))}
           />
         ) : (
           <PostPreview
@@ -88,6 +88,7 @@ const PostCreation: FC<PostCreationProps> = ({
             title={title}
             caption={caption}
             setFormIsOpen={setFormIsOpen}
+            resetPostValues={() => dispatch(resetPostValues())}
             setIsOpen={setIsOpen}
             {...props}
           />

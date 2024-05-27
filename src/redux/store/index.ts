@@ -2,9 +2,11 @@ import { combineReducers } from "redux";
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 
 import { userSlice } from "../slices";
+import { postsSlice } from "../slices/post";
 
 const rootReducer = combineReducers({
   [userSlice.name]: userSlice.reducer,
+  [postsSlice.name]: postsSlice.reducer
 });
 
 export const makeStore = () =>
