@@ -30,7 +30,7 @@ export const SamplePrevArrow = ({ ...props }) => {
 export const settings = {
   adaptiveHeight: false,
   dots: false,
-  infinite: true,
+  infinite: false,
   speed: 500,
   swipeToSlide: false,
   nextArrow: <SampleNextArrow />,
