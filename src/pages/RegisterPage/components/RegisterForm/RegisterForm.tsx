@@ -1,17 +1,20 @@
 import { FC, useEffect, useRef, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Formik, Form, FormikHelpers } from "formik";
+import { AxiosError } from "axios";
 
 import { apiUiMessage, apiErrorStatus, links, keysValue } from "@/src/types";
 import { useErrorBoundary } from "@/src/hooks";
-import RegisterFormApi from "./RegisterFormApi";
+import { store, userError } from "@/src/redux";
 import { getCookies, setCookies } from "@/src/utils";
+
 import {
   RegisterAccountValues,
   EmailStatus,
   Steps,
   RegisterAccountKey,
 } from "./RegisterForm.type";
+import RegisterFormApi from "./RegisterFormApi";
 import { validationSchema } from "./validationSchema";
 import styles from "./RegisterForm.module.scss";
 
@@ -51,82 +54,88 @@ const RegisterForm: FC = () => {
   const onHandleSubmit = async (
     { email, hash }: RegisterAccountValues,
     {
-      setFieldError,
+      setErrors,
       resetForm,
       setSubmitting,
     }: FormikHelpers<RegisterAccountValues>
   ) => {
     try {
       if (step === Steps.SECOND) {
-        const res = await RegisterFormApi.fetchUserRegData(
-          {
-            hash: hash.trim(),
-          },
-          setError
-        );
-        const { id, email } = res;
-
-        if (
-          res.status === apiErrorStatus.BAD_REQUEST &&
-          res.error === EmailStatus.INVALID_HASH
-        )
-          return setFieldError(
-            RegisterAccountKey.HASH,
-            apiUiMessage.INSPIRED_HASH
-          );
-
-        if (res.status === apiErrorStatus.NOTFOUND)
-          return setFieldError(
-            RegisterAccountKey.HASH,
-            apiUiMessage.INVALID_HASH
-          );
-
-        if (id && email)
-          setCookies({ email, userId: id }, { expires: 7, secure: true });
-
+        const res = await RegisterFormApi.fetchUserRegData({
+          hash: hash.trim(),
+        });
+        const { id, email } = res.data;
+        setCookies({ email, userId: id }, { expires: 7, secure: true });
         return navigate(`${links.ACCOUNT_CREATION}/${id}`);
       }
+
       setEmailValue(email);
+      await RegisterFormApi.fetchUserRegData({
+        email: email.trim(),
+      });
 
-      const { error, statusCode, message, status } =
-        await RegisterFormApi.fetchUserRegData(
-          {
-            email: email.trim(),
-          },
-          setError
+      resetForm({ values: { email, hash } });
+      setStep(step + 1);
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        setError(error);
+        store.dispatch(
+          userError(
+            error.response?.data.error ||
+              error.response?.data.message ||
+              error.response?.statusText ||
+              error.message
+          )
         );
 
-      if (statusCode === apiErrorStatus.BAD_REQUEST)
-        return setFieldError(RegisterAccountKey.EMAIL, message);
+        if (
+          error.response?.status === apiErrorStatus.CONFLICT &&
+          error.response?.data.message === EmailStatus.UNCONFIRMED
+        ) {
+          resetForm({ values: { email, hash } });
+          return setStep(step + 1);
+        }
 
-      if (
-        status === apiErrorStatus.UNPROCESSABLE_ENTITY &&
-        error === EmailStatus.REGISTRATION_UNCOMPLETED &&
-        cUId &&
-        cEmail === email
-      )
-        return navigate(`${links.ACCOUNT_CREATION}/${cUId}`);
+        if (
+          error.response?.status === apiErrorStatus.CONFLICT &&
+          error.response?.data.message ===
+            EmailStatus.REGISTRATION_UNCOMPLETED &&
+          cUId &&
+          cEmail === email
+        ) {
+          return navigate(`${links.ACCOUNT_CREATION}/${cUId}`);
+        }
 
-      if (
-        status === apiErrorStatus.UNPROCESSABLE_ENTITY &&
-        error === EmailStatus.UNCONFIRMED
-      ) {
-        resetForm({ values: { email, hash } });
-        return setStep(step + 1);
-      }
+        if (
+          error.response?.status === apiErrorStatus.CONFLICT &&
+          error.response?.data.message === EmailStatus.CONFIRMED
+        ) {
+          return setErrors({ ["email"]: apiUiMessage.EMAIL_IN_USE });
+        }
 
-      if (
-        status === apiErrorStatus.UNPROCESSABLE_ENTITY &&
-        error === EmailStatus.CONFIRMED
-      )
-        return setFieldError(
-          RegisterAccountKey.EMAIL,
-          apiUiMessage.EMAIL_IN_USE
-        );
+        if (
+          error.response?.status === apiErrorStatus.BAD_REQUEST &&
+          error.response?.data.error === EmailStatus.INVALID_HASH
+        ) {
+          return setErrors({ hash: apiUiMessage.INSPIRED_HASH });
+        }
 
-      if (!error) {
-        resetForm({ values: { email, hash } });
-        setStep(step + 1);
+        if (
+          error.response?.status === apiErrorStatus.NOTFOUND &&
+          error.response?.data.error === "notFound"
+        ) {
+          return setErrors({ hash: apiUiMessage.INVALID_HASH });
+        }
+
+        if (
+          error.response?.status === apiErrorStatus.BAD_REQUEST ||
+          error.response?.status === apiErrorStatus.UNPROCESSABLE_ENTITY
+        ) {
+          const [errorKey] = Object.keys(error.response?.data?.errors);
+          return setErrors({
+            [errorKey]: error.response?.data.errors[errorKey],
+          });
+        }
       }
     } finally {
       setSubmitting(false);
@@ -166,32 +175,34 @@ const RegisterForm: FC = () => {
         validationSchema={validationSchema(isNextStep)}
         onSubmit={onHandleSubmit}
       >
-        {({ isSubmitting, dirty, isValid, values }) => (
-          <Form>
-            <TextField
-              id={RegisterAccountKey.EMAIL}
-              name={RegisterAccountKey.EMAIL}
-              value={values.email}
-              dataAutomation={`${RegisterAccountKey.EMAIL}Input`}
-              label="Your email"
-              className={isNextStep ? styles["form__input"] : ""}
-              disabled={isNextStep}
-              aria-label="Email input field"
-            />
-            {renderNextStep(values.hash)}
-            <UIbutton
-              className={styles["form__button"]}
-              dataAutomation="submitButton"
-              type="submit"
-              aria-label="Submit form button"
-              fullWidth
-              isLoading={isSubmitting}
-              disabled={isSubmitting || !isValid || !dirty}
-            >
-              Create new account
-            </UIbutton>
-          </Form>
-        )}
+        {({ isSubmitting, dirty, isValid, values }) => {
+          return (
+            <Form>
+              <TextField
+                id={RegisterAccountKey.EMAIL}
+                name={RegisterAccountKey.EMAIL}
+                value={values.email}
+                dataAutomation={`${RegisterAccountKey.EMAIL}Input`}
+                label="Your email"
+                className={isNextStep ? styles["form__input"] : ""}
+                disabled={isNextStep}
+                aria-label="Email input field"
+              />
+              {renderNextStep(values.hash)}
+              <UIbutton
+                className={styles["form__button"]}
+                dataAutomation="submitButton"
+                type="submit"
+                aria-label="Submit form button"
+                fullWidth
+                isLoading={isSubmitting}
+                disabled={isSubmitting || !isValid || !dirty}
+              >
+                Create new account
+              </UIbutton>
+            </Form>
+          );
+        }}
       </Formik>
       {step === Steps.SECOND ? <ResentOTP email={emailValue} /> : null}
     </div>
