@@ -25,7 +25,6 @@ const Book: FC<BooksProps> = ({
   const onHandleClick = () => {
     setIsBookInfoModalOpen(true);
   };
-
   const truncatedNameOfBook =
     nameOfBook && nameOfBook.length > bookNameLength
       ? nameOfBook.substring(0, bookNameLength - 3) + "..."

@@ -2,10 +2,10 @@ import { FC, useEffect, useState } from "react";
 import { AxiosError } from "axios";
 
 import { FollowButtonProps } from "./FollowButton.type";
-import { useErrorBoundary } from "@/src/hooks";
+import { useErrorBoundary, useUpdateFollowingCount } from "@/src/hooks";
 import { EndpointsEnum, api } from "@/src/axios";
-
 import { PostButton } from "..";
+
 
 const FollowButton: FC<FollowButtonProps> = ({
   isSubscribeToAuthor,
@@ -17,6 +17,8 @@ const FollowButton: FC<FollowButtonProps> = ({
   const [isFollow, setIsFollow] = useState(isSubscribeToAuthor);
   const setErrorBoundary = useErrorBoundary();
 
+  const { updateFollowingCount } = useUpdateFollowingCount()
+
   useEffect(() => {
     setIsFollow(isSubscribeToAuthor);
   }, [isSubscribeToAuthor]);
@@ -25,6 +27,7 @@ const FollowButton: FC<FollowButtonProps> = ({
     try {
       setIsFollow(!isFollow);
 
+      updateFollowingCount(isFollow)
       setPosts &&
         setPosts((posts) =>
           posts.map((el) =>

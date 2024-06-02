@@ -3,14 +3,18 @@ import styles from "./GuestProfile.module.scss";
 import GuestProfileInfo from "./GuestProfileInfo/GuestProfileInfo";
 import { BookShelf, IconEnum, UIbutton } from "@/src/components";
 import { useParams } from "react-router";
-import { followApi } from "@/src/axios";
+import { EndpointsEnum, api, followApi } from "@/src/axios";
 import { useGuestContext } from "../../context";
+import { useDispatch } from "react-redux";
+import { updateUser } from "@/src/redux";
 
 const GuestProfile: FC = () => {
   const { Id } = useParams();
   const { enemyData, fetchEnemyUserData, BooksCheker } = useGuestContext()
 
   const [subscribeIsLoading, setSubscribeIsLoading] = useState(false)
+
+  const dispatch = useDispatch();
 
 
   // const fetchEnemyUserData = async (Id: string | number | undefined) => {
@@ -24,6 +28,8 @@ const GuestProfile: FC = () => {
     try {
       await followApi(Id);
       await fetchEnemyUserData(Id);
+      const response = await api.get(EndpointsEnum.PROFILE);
+      dispatch(updateUser(response.data));
     } catch (error) {
       console.log(error)
     }
