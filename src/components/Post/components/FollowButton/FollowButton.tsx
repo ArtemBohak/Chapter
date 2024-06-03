@@ -26,8 +26,8 @@ const FollowButton: FC<FollowButtonProps> = ({
   const onHandleClick = async () => {
     try {
       setIsFollow(!isFollow);
-
       updateFollowingCount(isFollow)
+
       setPosts &&
         setPosts((posts) =>
           posts.map((el) =>
