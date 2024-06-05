@@ -12,6 +12,7 @@ import { IBook } from "./Book/BookProps.type";
 import AddBookSliderButton from "./AddBookSliderButton/AddBookSliderButton";
 import { BooksPageProvider } from "@/src/pages/BooksPage/context";
 import { BookShelfProps } from "./BookShelf.type";
+import { useGetScreenSize } from "@/src/hooks";
 
 const BookShelf: FC<BookShelfProps> = ({ enemyData, Id }) => {
   const { user } = useAppSelector((state) => state.userSlice);
@@ -21,6 +22,8 @@ const BookShelf: FC<BookShelfProps> = ({ enemyData, Id }) => {
   );
   const [addBookArray, setAddBookArray] = useState<number[]>([]);
   // const [booksLength, setBooksLength] = useState(2)
+
+  const [screenSize] = useGetScreenSize()
 
   const responsive = [
     {
@@ -163,7 +166,7 @@ const BookShelf: FC<BookShelfProps> = ({ enemyData, Id }) => {
               nameOfBook={book.nameOfBook}
               author={book.author}
               annotation={book.annotation}
-              bookNameLength={20}
+              bookNameLength={screenSize > 1680 ? 20 : 10}
             />
           ))}
           {!Id &&

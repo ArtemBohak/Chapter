@@ -48,7 +48,7 @@ const BooksList: FC<BooksListProps> = ({ guestBooks }) => {
           imageClassName={styles["book-cover"]}
           titleClassName={styles["book-title"]}
           key={book.id}
-          bookNameLength={25}
+          bookNameLength={22}
         />
       ))}
     </div>
