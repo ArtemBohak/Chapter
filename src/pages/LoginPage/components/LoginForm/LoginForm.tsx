@@ -103,8 +103,8 @@ const LoginPageForm: FC = () => {
         }
 
         if (
-          error.response?.status === apiErrorStatus.UNPROCESSABLE_ENTITY &&
-          error.response.data?.errors?.password
+          error.response?.status === apiErrorStatus.UNAUTHORIZED &&
+          error.response.data?.message
         ) {
           return setErrors({
             ["password"]: "Wrong email or password",
