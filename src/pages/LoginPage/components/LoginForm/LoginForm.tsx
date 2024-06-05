@@ -26,6 +26,7 @@ import { useDebouncedNav, useErrorBoundary } from "@/src/hooks";
 import styles from "./LoginForm.module.scss";
 
 import { PasswordField, TextField, UIbutton } from "@/src/components";
+import { isAxiosError } from "axios";
 
 const LoginPageForm: FC = () => {
   const setError = useErrorBoundary();
@@ -35,77 +36,82 @@ const LoginPageForm: FC = () => {
 
   const onHandleSubmit = async (values: ILoginPage, setErrors: setErrors) => {
     const [id, email] = getCookies(keysValue.USER_ID, keysValue.EMAIL);
-    const response = await LoginApi(values, setError);
-    // needs refactoring
-    if (!response) {
-      return setErrors({
-        ["email"]: " ",
-        ["password"]: "Something went wrong",
-      });
-    }
-    const { data, status } = response
-    if (
-      status === apiErrorStatus.UNPROCESSABLE_ENTITY &&
-      data.errors.email === apiErrorMessage.EMAIL_NOT_EXISTS
-    ) {
-      debouncedNav(links.SIGN_UP);
-      return setErrors({
-        ["email"]: " ",
-        ["password"]: apiUiMessage.NOT_REGISTERED,
-      });
-    }
+    try {
+      const response = await LoginApi(values);
+      // needs refactoring
+      deleteCookie(
+        keysValue.DELETED_ACCOUNT_TIME_STAMP,
+        keysValue.RESTORE_EMAIL,
+        keysValue.RESTORE_TOKEN,
+        keysValue.EMAIL,
+        keysValue.USER_ID
+      );
+      setDataToLS({ token: response.data.token });
+      dispatch(updateUser(response.data.user));
+    } catch (error) {
+      if (isAxiosError(error)) {
+        setError(error);
 
-    if (
-      status === apiErrorStatus.UNPROCESSABLE_ENTITY &&
-      data.message === apiErrorMessage.UNCONFIRMED_EMAIL
-    ) {
-      debouncedNav(links.SIGN_UP, values.email);
-      return setErrors({
-        ["email"]: " ",
-        ["password"]: apiUiMessage.EMAIL_UNCONFIRMED,
-      });
-    }
+        if (
+          error.response?.status === apiErrorStatus.UNPROCESSABLE_ENTITY &&
+          error.response.data?.errors?.email ===
+            apiErrorMessage.EMAIL_NOT_EXISTS
+        ) {
+          debouncedNav(links.SIGN_UP);
+          return setErrors({
+            ["password"]: apiUiMessage.NOT_REGISTERED,
+          });
+        }
 
-    if (
-      status === apiErrorStatus.UNPROCESSABLE_ENTITY &&
-      data.message === apiErrorMessage.UNCOMPLETED_REGISTRATION
-    ) {
-      if (id && email) debouncedNav(links.ACCOUNT_CREATION + "/" + id);
-      else debouncedNav(links.SIGN_UP);
-      return setErrors({
-        ["email"]: " ",
-        ["password"]: apiUiMessage.REGISTRATION_UNCOMPLETED,
-      });
-    }
-    if (
-      status === apiErrorStatus.FORBIDDEN &&
-      data.message === apiErrorMessage.ACCOUNT_DELETED
-    ) {
-      deleteCookie(keysValue.RESTORE_TOKEN);
-      const expires = setDate(data.deletedUserDate, accountDeletionTerm);
-      const cValue = {
-        deletedUserDate: String(expires),
-        restoringEmail: values.email,
-      };
-      setCookies(cValue, { secure: true, expires });
+        if (
+          error.response?.status === apiErrorStatus.UNPROCESSABLE_ENTITY &&
+          error.response.data.message === apiErrorMessage.UNCONFIRMED_EMAIL
+        ) {
+          debouncedNav(links.SIGN_UP, values.email);
+          return setErrors({
+            ["password"]: apiUiMessage.EMAIL_UNCONFIRMED,
+          });
+        }
 
-      return navigate(links.RESTORE);
+        if (
+          error.response?.status === apiErrorStatus.UNPROCESSABLE_ENTITY &&
+          error.response.data.message ===
+            apiErrorMessage.UNCOMPLETED_REGISTRATION
+        ) {
+          if (id && email) debouncedNav(links.ACCOUNT_CREATION + "/" + id);
+          else debouncedNav(links.SIGN_UP);
+          return setErrors({
+            ["password"]: apiUiMessage.REGISTRATION_UNCOMPLETED,
+          });
+        }
+
+        if (
+          error.response?.status === apiErrorStatus.FORBIDDEN &&
+          error.response.data.message === apiErrorMessage.ACCOUNT_DELETED
+        ) {
+          deleteCookie(keysValue.RESTORE_TOKEN);
+          const expires = setDate(
+            error.response.data.deletedUserDate,
+            accountDeletionTerm
+          );
+          const cValue = {
+            deletedUserDate: String(expires),
+            restoringEmail: values.email,
+          };
+          setCookies(cValue, { secure: true, expires });
+          return navigate(links.RESTORE);
+        }
+
+        if (
+          error.response?.status === apiErrorStatus.UNAUTHORIZED &&
+          error.response.data?.message
+        ) {
+          return setErrors({
+            ["password"]: "Wrong email or password",
+          });
+        }
+      }
     }
-    if (status === apiErrorStatus.UNPROCESSABLE_ENTITY) {
-      return setErrors({
-        ["email"]: " ",
-        ["password"]: "Wrong email or password",
-      });
-    }
-    deleteCookie(
-      keysValue.DELETED_ACCOUNT_TIME_STAMP,
-      keysValue.RESTORE_EMAIL,
-      keysValue.RESTORE_TOKEN,
-      keysValue.EMAIL,
-      keysValue.USER_ID
-    );
-    setDataToLS({ token: response.data.token });
-    dispatch(updateUser(response.data.user));
   };
   return (
     <div>

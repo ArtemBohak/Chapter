@@ -33,6 +33,8 @@ export enum apiErrorStatus {
   UNPROCESSABLE_ENTITY = 422,
   BAD_REQUEST = 400,
   TOO_MANY_REQUEST = 429,
+  CONFLICT = 409,
+  UNAUTHORIZED = 401,
 }
 
 export enum apiSuccessStatus {
