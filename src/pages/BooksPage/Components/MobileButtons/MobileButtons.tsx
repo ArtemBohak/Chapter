@@ -4,6 +4,7 @@ import styles from "./MobileButtons.module.scss";
 import { IconEnum, UIbutton } from "@/src/components";
 import CancelModal from "../CancelModal/CancelModal";
 import AddBookModal from "@/src/components/BookShelf/AddBookModal/AddBookModal";
+import { deleteMultipleBooksApi } from "@/src/components/BookShelf/DeleteBookModal/DeleteBookApi";
 
 const MobileButtons: FC = () => {
   const {
@@ -13,12 +14,14 @@ const MobileButtons: FC = () => {
     setIsCancelModalOpen,
     isAddBookModalOpen,
     setIsAddBookModalOpen,
+    deleteIdList,
   } = useBooksPageContext();
 
   const handleCancel = () => {
     setIsCancelModalOpen(true);
   };
   const handleConfirm = () => {
+    deleteMultipleBooksApi(deleteIdList);
     setEdit(!edit);
   };
   const handleAddBook = () => {

@@ -9,3 +9,4 @@ export { useRefIntersection } from "./useIntersections/useIntersections";
 export { useApiCB } from "./useApi/useApi";
 export { useSwipe } from "./useSwipe/useSwipe";
 export { default as useModal } from "./useModal/useModal";
+export { useUpdateFollowingCount } from "./useUpdateFollowingCount/useUpdateFollowingCount"

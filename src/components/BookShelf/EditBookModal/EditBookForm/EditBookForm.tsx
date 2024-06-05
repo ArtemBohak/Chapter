@@ -39,7 +39,7 @@ const EditBookForm: FC<EditBookFormProps> = ({
   const options = [
     {
       value: "1",
-      text: "Goin to read 📚",
+      text: "Going to read 📚",
     },
     {
       value: "2",
