@@ -1,5 +1,5 @@
 .books-list__wrapper {
-  @apply flex flex-1 flex-wrap gap-[20px] pt-2 justify-center md:justify-start;
+  @apply flex flex-1 flex-wrap gap-[20px] pt-2 justify-between md:justify-between;
 }
 
 .book__wrapper {
