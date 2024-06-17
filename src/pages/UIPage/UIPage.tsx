@@ -8,6 +8,8 @@ import { IconEnum } from "@/src/components/Icon";
 import CookiesToaster from "@/src/components/CookiesToaster/CookiesToaster";
 
 const UIPage: FC = () => {
+
+
   return (
     <div className="pt-[130px] pb-[100px]">
       <ul className="flex gap-3 justify-center flex-wrap  p-2 text-lg border-2 bg-gray-300">
