@@ -1,0 +1,15 @@
+.post-section {
+  @apply relative pt-[72px] md:pt-[108px] laptop:pt-[176px] bg-cover bg-fixed bg-center bg-[url('src/assets/WEBP/backgroundPosts.webp')];
+}
+
+.container {
+  @apply max-w-[962px] mx-auto md:px-4-xl laptop:px-0;
+}
+
+.skeleton {
+  @apply rounded-none md:rounded-lg pt-[72px] md:pt-[108px] laptop:pt-[176px];
+}
+
+.post {
+  @apply border-0;
+}

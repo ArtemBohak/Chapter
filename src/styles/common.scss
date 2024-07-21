@@ -1,0 +1,44 @@
+.nav-active {
+  overflow: hidden;
+}
+
+.profile-layout {
+  @apply bg-white flex flex-col flex-1 w-full;
+
+  &__body {
+    @apply w-full px-2-md mx-auto laptop_md:max-w-[94%];
+  }
+
+  > main {
+    @apply relative flex-1 z-[1] laptop:pl-[260px] laptop_md:pl-[310px];
+  }
+}
+
+.hide-scroll {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    @apply hidden;
+  }
+}
+
+.cyrillic {
+  @apply font-raleway;
+  & input {
+    @apply font-raleway;
+
+    &::placeholder {
+      @apply font-raleway;
+    }
+  }
+}
+
+.visually-hidden {
+  @apply absolute w-[1px] h-[1px] overflow-hidden border-0 p-0 -m-[1px] whitespace-nowrap;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+}
+
+.hide-element {
+  @apply invisible absolute;
+}

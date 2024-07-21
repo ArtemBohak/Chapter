@@ -1,0 +1,118 @@
+.btn {
+  @apply cursor-pointer relative inline-flex items-center justify-center font-medium rounded-sm leading-[1.75] transition-all duration-150;
+
+  &.btn--loading {
+    @apply animate-pulse pointer-events-none;
+  }
+
+  &.btn--fullwidth {
+    @apply w-full;
+  }
+
+  &.btn--small {
+    @apply py-0-md px-2-md text-sm laptop:text-base font-normal laptop:tracking-[0.176px];
+  }
+
+  &.btn--medium {
+    @apply py-0-md px-2-md text-base laptop:text-lg;
+  }
+
+  &.btn--large {
+    @apply py-1-xl laptop:py-1-sm px-2-md text-lg laptop:text-xxl laptop:tracking-[0.468px] leading-[1.46];
+  }
+
+  &.btn--small.btn--icon-right {
+    @apply flex-row-reverse;
+  }
+
+  &.btn--medium.btn--icon-right {
+    @apply flex-row-reverse;
+  }
+
+  &.btn--large.btn--icon-right {
+    @apply flex-row-reverse;
+  }
+
+  &.btn--primary.btn--contained {
+    @apply bg-primary border-solid text-white;
+
+    &:active,
+    &:hover {
+      @apply bg-primaryHover;
+    }
+
+    &:disabled {
+      @apply bg-grey-1010 text-white border-grey-1010;
+    }
+  }
+
+  &.btn--text {
+    @apply p-0;
+  }
+
+  &.btn--outlined {
+    @apply bg-transparent;
+  }
+
+  &.btn--primary.btn--outlined {
+    @apply border-2 border-solid border-primary text-primary;
+
+    &:active,
+    &:hover {
+      @apply bg-white;
+    }
+
+    &:disabled {
+      @apply bg-grey-1010 text-white border-transparent;
+    }
+  }
+
+  &.btn--primary.btn--text {
+    @apply bg-transparent text-primary;
+  }
+  &.btn--secondary.btn--outlined {
+    @apply border-2 border-solid border-grey-1000 text-black;
+
+    &:active,
+    &:hover {
+      @apply bg-white;
+    }
+
+    &:disabled {
+      @apply bg-grey-1010 text-white border-transparent;
+    }
+  }
+
+  &.btn--secondary.btn--text {
+    @apply bg-transparent text-black;
+  }
+
+  &.btn--secondary.btn--outlined {
+    @apply border-2 border-solid border-grey-1000 text-black;
+
+    &:active,
+    &:hover {
+      @apply bg-white;
+    }
+
+    &:disabled {
+      @apply bg-grey-1010 text-white border-transparent;
+    }
+  }
+
+  &.btn--secondary.btn--text {
+    @apply bg-transparent text-black;
+  }
+
+  > svg,
+  &.btn__icon {
+    @apply w-[32px] mr-[10px];
+  }
+
+  &.btn--icon-right {
+    > svg,
+    .btn__icon {
+      @apply right-0 ml-[10px] mr-0;
+    }
+  }
+}

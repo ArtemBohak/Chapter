@@ -1,0 +1,17 @@
+.animation {
+  &-enter {
+    @apply scale-0 opacity-0;
+
+    &-active {
+      @apply opacity-100 scale-100 transition-all duration-200;
+    }
+  }
+
+  &-exit {
+    @apply scale-100 opacity-100;
+
+    &-active {
+      @apply scale-0 opacity-0 transition-all duration-200;
+    }
+  }
+}

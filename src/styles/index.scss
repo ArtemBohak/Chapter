@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "./preflightReset";
+@import "./base-reset";
+@import "./typography";
+@import "./icons";
+@import "./common";

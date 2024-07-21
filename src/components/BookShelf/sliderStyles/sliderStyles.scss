@@ -1,0 +1,41 @@
+.favorite-books-title {
+  @apply my-0 text-sm laptop_md:text-base;
+}
+.slick-next {
+  &::before {
+    display: none;
+  }
+  & svg {
+    background-color: #fff2de;
+    border-radius: 50%;
+  }
+}
+
+.slide-item-wrapper {
+  @apply h-[90px] max-w-[60px] 
+    laptop_md:max-w-[123px] laptop_md:h-[209px] mt-2;
+
+  // padding-inline: 5px;
+  font-weight: 600;
+  cursor: pointer;
+
+  & img {
+    width: 100%;
+    height: 80%;
+    box-shadow: 7px 7px 7px rgb(102, 102, 102);
+    object-fit: cover;
+    margin-bottom: 7px;
+    border-radius: 10px;
+    outline: none !important;
+  }
+  & p {
+    height: 12%;
+    font-size: 12px;
+
+    outline: none !important;
+  }
+}
+
+/* .slick-cloned {
+  display: none !important;
+} */

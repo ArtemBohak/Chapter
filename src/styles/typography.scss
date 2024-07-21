@@ -1,0 +1,58 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@100..900&display=swap");
+
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3,
+h4,
+.h4,
+h5,
+.h5,
+h6,
+.h6 {
+  @apply font-raleway mb-2 leading-[1.4] font-semibold;
+}
+
+h1,
+.h1 {
+  @apply text-h1_sm laptop:text-h1_lg;
+}
+
+h2,
+.h2 {
+  @apply text-h2_sm laptop:text-h2_lg;
+}
+
+h3,
+.h3 {
+  @apply text-h3_sm laptop:text-h3_lg;
+}
+
+h4,
+.h4 {
+  @apply text-h4_sm laptop:text-h4_lg;
+}
+
+h5,
+.h5 {
+  @apply text-h5_sm laptop:text-h5_lg;
+}
+
+h6,
+.h6 {
+  @apply text-h5_sm laptop:text-h5_lg;
+}
+
+@layer components {
+  .subtitle1 {
+    @apply text-xs leading-[1.5] laptop:text-xl;
+  }
+  .subtitle2 {
+    @apply text-xxs leading-[1.4] laptop:text-sm laptop:leading-[1.2];
+  }
+  .subtitle3 {
+    @apply text-xs leading-[1.5];
+  }
+}

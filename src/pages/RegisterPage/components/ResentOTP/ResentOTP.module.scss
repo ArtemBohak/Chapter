@@ -1,0 +1,19 @@
+.resent {
+  @apply pt-3-xs pb-2-xs text-center text-grey-1000;
+
+  &__message {
+    @apply text-xs mb-0-sm;
+  }
+
+  &__label {
+    @apply font-normal text-xxs;
+  }
+
+  &__button {
+    @apply bg-transparent text-[#0000EB] underline  inline transition-all duration-150;
+
+    &::disabled {
+      @apply animate-pulse pointer-events-none;
+    }
+  }
+}

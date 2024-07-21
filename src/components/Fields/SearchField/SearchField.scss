@@ -1,0 +1,25 @@
+.search-field {
+  @apply w-full;
+
+  &.text-field {
+    margin: 0;
+
+    .text-field__holder {
+      @apply relative;
+
+      &::before {
+        content: "\e90d";
+        font-family: "icomoon" !important;
+        @apply absolute top-1/2 -translate-y-1/2 left-[14px] text-[30px] text-[#B4B4B4];
+      }
+    }
+
+    .text-field__input {
+      @apply bg-grey-1030 h-[52px] pl-[54px] border-0 font-medium text-base font-raleway;
+
+      &::placeholder {
+        @apply text-[#B4B4B4];
+      }
+    }
+  }
+}

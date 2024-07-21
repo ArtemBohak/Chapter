@@ -1,0 +1,33 @@
+.image {
+  @apply cursor-pointer text-center;
+
+  &__button {
+    @apply block max-w-[328px] md:max-w-[224px] mx-auto md:mx-0;
+  }
+
+  &__input {
+    @apply w-[0.1px] h-[0.1px] opacity-0 hidden absolute z-[-1] leading-[1.75];
+
+    &:hover + .button,
+    &:hover + .icon {
+      @apply text-primaryHover;
+    }
+
+    &:disabled + .button,
+    &:disabled + .icon {
+      @apply border-none bg-grey-1010 text-[#FDFDFD] animate-pulse pointer-events-none;
+    }
+  }
+}
+
+.button {
+  @apply w-full  min-h-[44px] flex justify-center items-center gap-[14px] rounded-lg border bg-[#fefefe] border-[#F79400] transition-all duration-150;
+}
+
+.icon {
+  @apply text-[#F79400] bg-transparent transition-all duration-150;
+}
+
+.error {
+  @apply text-red text-xxs;
+}

@@ -1,0 +1,55 @@
+.text-field {
+  @apply mb-4;
+
+  &--has-error .text-field__label-text {
+    @apply text-red;
+  }
+
+  &--has-error .text-field__input {
+    @apply border-red;
+  }
+
+  &__label {
+    @apply block;
+  }
+
+  &__label-text {
+    @apply text-grey-1000 text-xs text-left;
+  }
+
+  &__holder {
+    @apply relative;
+  }
+
+  &__input {
+    @apply text-black text-xs py-2 h-[34px] pl-1-xs laptop:pl-2-xs pr-8 outline-none border-grey-1000 border-[1px] rounded-[5px] base:rounded-md w-full base:text-sm base:h-[48px];
+
+    &::placeholder {
+      @apply text-grey-1000;
+    }
+  }
+
+  &__helper-box {
+    @apply flex flex-wrap items-center justify-between;
+  }
+
+  &__helper-link {
+    @apply ml-auto text-blue text-xs inline-block mt-1;
+  }
+
+  &__icon {
+    @apply absolute top-1/2 right-[12px] translate-y-[-50%] cursor-pointer;
+  }
+
+  &__error-message {
+    @apply text-red text-xxs mt-1 mr-2;
+  }
+
+  &__custom-error-message {
+    @apply text-red text-xxs mt-1 mr-2 w-full;
+  }
+
+  &__additional-label {
+    @apply mt-1 text-grey-1000 text-xxs text-left;
+  }
+}

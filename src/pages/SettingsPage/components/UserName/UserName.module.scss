@@ -1,0 +1,14 @@
+.name {
+  @apply flex gap-[82px] md:gap-[182px];
+  &.form-is-shown {
+    @apply block mb-1-sm md:mb-0 md:flex md:gap-0 md:justify-between md:items-center;
+  }
+
+  &__title {
+    @apply text-grey-1000 font-semibold text-xs md:text-base mb-1-xs md:mb-0;
+  }
+
+  &__text {
+    @apply text-xs font-medium md:text-base;
+  }
+}

@@ -1,0 +1,7 @@
+.delimiter {
+  @apply w-full mb-1-xs;
+}
+
+.delimiter__line {
+  @apply flex justify-center items-center gap-1-xs text-lg before:content-[''] before:h-[2px] before:w-full before:bg-black after:content-[''] after:h-[2px] after:w-full after:bg-black;
+}

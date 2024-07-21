@@ -1,0 +1,23 @@
+.error {
+  @apply h-screen  bg-[#FFC78A] text-[#F9F9F9] overflow-y-auto relative;
+
+  &__title {
+    @apply mb-[192px] md:mb-[408px] laptop:mb-[440px];
+  }
+
+  &__button {
+    @apply w-full mx-auto max-w-[328px] md:max-w-[316px];
+
+    &.button {
+      @apply font-medium md:text-xxl;
+    }
+  }
+}
+
+.wrapper {
+  @apply w-full text-center pb-2-xs px-2-md md:px-3-md bg-[url('@/src/assets/WEBP/page-error.webp')] bg-no-repeat bg-[length:327px_100%] bg-center md:bg-[length:700px_100%] laptop:bg-[length:966px_100%] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
+}
+
+.title {
+  @apply font-bold md:text-[40px] laptop:text-[60px];
+}

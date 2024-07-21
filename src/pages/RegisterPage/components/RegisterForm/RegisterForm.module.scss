@@ -1,0 +1,19 @@
+.form {
+  @apply pb-1-xs;
+
+  &__input {
+    @apply mb-0;
+
+    &-enter {
+      @apply opacity-0 scale-0;
+
+      &-active {
+        @apply opacity-100 scale-100 transition-all duration-300;
+      }
+    }
+  }
+
+  &__button {
+    @apply min-h-[42px] md:min-h-[44px] laptop:min-h-[50px];
+  }
+}

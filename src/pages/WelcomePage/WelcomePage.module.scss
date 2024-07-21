@@ -1,0 +1,10 @@
+.wrapper {
+  @apply md:h-[100vh] w-[100vw] 
+  md:flex md:items-center md:justify-center
+}
+
+.welcome-page-container {
+  @apply flex 
+  flex-col items-center md:flex-row-reverse md:justify-between 
+  md:h-[100vh] md:w-[100vw] h-[100dvh] max-w-[1920px]
+}

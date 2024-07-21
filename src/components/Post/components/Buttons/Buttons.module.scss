@@ -1,0 +1,21 @@
+.icon-button {
+  @apply bg-transparent outline-none flex gap-0-sm items-center text-xxs md:text-base  transition-all duration-150 disabled:animate-pulse disabled:pointer-events-none text-grey-1000;
+
+  &__text {
+    &-hidden {
+      @apply hidden md:inline;
+    }
+  }
+
+  &__icon {
+    @apply stroke-[#6C6C6C] w-[20px] h-[20px] md:w-[24px] md:h-[24px];
+
+    &.liked {
+      @apply fill-[#D22219];
+    }
+  }
+}
+
+.likes-button {
+  @apply flex gap-[5px];
+}

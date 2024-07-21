@@ -1,0 +1,16 @@
+.restore-page {
+  @apply pt-[164px] pb-[20px] md:pt-[244px] laptop:pt-[266px];
+  &-container {
+    @apply mx-auto px-2-md md:px-4-xl laptop:px-[80px];
+  }
+}
+
+.error {
+  &-text {
+    @apply text-[28px] md:text-[38px] laptop:text-[50px] mb-4-xs md:mb-3-xs;
+  }
+
+  &-button {
+    @apply mx-auto md:max-w-[316px];
+  }
+}

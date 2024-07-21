@@ -1,0 +1,56 @@
+.profile-header {
+  @apply fixed  w-[100vw] shadow-bottom z-30 py-1-md bg-white md:shadow-none md:py-1-xl laptop:pl-[260px] laptop_md:py-4-xs laptop_md:pl-[310px];
+
+  &__heading {
+    @apply hidden text-black text-[26px] font-bold md:inline-block md:text-[30px] laptop_md:text-[36px] capitalize;
+  }
+
+  &__container {
+    @apply flex justify-between items-center w-full px-2-md mx-auto laptop_md:max-w-[95%];
+  }
+
+  &__logo-name {
+    @apply absolute left-1/2 translate-x-[-50%] text-lg font-semibold md:hidden;
+  }
+
+  &__auth-side {
+    @apply flex md:justify-end md:w-full;
+  }
+
+  &__search-wrapper {
+    @apply hidden md:inline-block;
+  }
+
+  &__menu-toggler {
+    @apply -ml-1 mr-1-xs w-[40px] h-[40px] md:-ml-2 md:w-[52px] md:h-[52px] base:hidden;
+  }
+
+  &__search-field {
+    @apply hidden w-[200px] md:block md:w-[300px] laptop_md:w-[400px];
+  }
+
+  &__user-avatar {
+    @apply hidden ml-[16px] w-[40px] md:inline-flex md:w-[52px] max-h-10;
+  }
+
+  .add-post-button {
+    @apply hidden md:inline-flex md:ml-4;
+  }
+}
+
+.popup {
+  @apply hidden md:block right-2-xs laptop_md:right-[60px] md:-bottom-[70px] bg-transparent w-[282px] h-[108px];
+
+  &__body {
+    @apply w-full h-full bg-[#FAFAFA] rounded-lg  border-grey-1010 overflow-hidden;
+    box-shadow: 0px 4px 20px 0px rgba(124, 124, 124, 0.52);
+  }
+
+  &__content-wrapper {
+    @apply w-full h-full flex flex-col items-start gap-2-md p-2-xs;
+
+    & > button {
+      @apply bg-transparent outline-none;
+    }
+  }
+}

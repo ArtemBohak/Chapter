@@ -1,0 +1,43 @@
+.notifications {
+  @apply h-screen pt-[88px] pb-[20px] md:pt-[108px] px-2-md md:px-4-xl md:pb-[30px] laptop:pt-[168px] laptop:pb-4-xs laptop:bg-grey-1030;
+
+  &__button {
+    @apply block bg-transparent mb-2-md ml-auto base:mb-2-xs;
+  }
+
+  &__list {
+    @apply flex flex-col gap-1-sm;
+
+    &-enter {
+      @apply scale-0 opacity-0;
+
+      &-active {
+        @apply opacity-100 scale-100 transition-all duration-300;
+      }
+    }
+
+    &-exit {
+      @apply scale-100 opacity-100;
+
+      &-active {
+        @apply scale-0 opacity-0 transition-all duration-300;
+      }
+    }
+  }
+
+  &__text {
+    @apply w-full text-base font-normal text-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 md:text-lg;
+  }
+}
+
+.wrapper {
+  @apply relative h-full bg-white md:overflow-hidden md:overflow-y-auto md:rounded-t-lg md:border md:border-grey-1010 md:px-[58px] md:py-3-xs laptop:max-w-[962px] laptop:mx-auto laptop:border-0 laptop:px-[120px] laptop:py-[60px];
+}
+
+.new-nots {
+  @apply mb-2-xs;
+}
+
+.title {
+  @apply text-base text-grey-1000 font-[400] mb-1-sm md:text-lg;
+}

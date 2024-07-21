@@ -1,0 +1,15 @@
+.user-avatar {
+  @apply rounded-[8px] overflow-hidden w-full cursor-pointer;
+
+  &--small {
+    @apply max-w-[52px];
+  }
+
+  &--large {
+    @apply max-w-[190px];
+  }
+
+  &__image {
+    @apply w-full object-cover;
+  }
+}
