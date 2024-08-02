@@ -1,0 +1,39 @@
+.backdrop {
+  @apply w-full min-h-[304px] md:max-w-[260px]  laptop:max-w-[309px] bottom-0 left-0 translate-y-full flex flex-col items-center pt-0-md pb-4-xl px-1-lg bg-[#FCFBFA];
+}
+
+.active {
+  @apply translate-y-0;
+}
+
+.button {
+  @apply mb-0-md bg-transparent;
+}
+
+.list {
+  @apply flex flex-col gap-0-md items-start self-center md:self-start;
+  & > li {
+    @apply py-1-sm;
+  }
+}
+
+.menu-btn {
+  @apply bg-transparent py-1-sm flex items-start w-full gap-0-md;
+
+  &-icon {
+    @apply text-[#291804] w-[28px] laptop_md:w-[32px];
+  }
+
+  &-text {
+    @apply text-lg font-semibold tracking-[0.22px] text-[#291804];
+  }
+
+  &:hover,
+  &:focus,
+  &:active {
+    & .menu-btn-icon,
+    & .menu-btn-text {
+      @apply transition-all duration-150 text-primary;
+    }
+  }
+}

@@ -1,13 +1,18 @@
 import { FC } from "react";
 
-import { navigation, bottomNavigation } from "./ProfileNavigation.data";
+import { navigation } from "./ProfileNavigation.data";
 
-import styles from "./ProfileNavigation.module.scss";
+import { useModal } from "@/src/hooks";
 
 import { NavigationList } from "../NavigationList";
 import { ProfileNavigationProps } from "./ProfileNavigation.type";
+import styles from "./ProfileNavigation.module.scss";
+import { Icon, IconEnum, Menu } from "@/src/components";
+import { useNavigationToggler } from "@/src/context";
 
 const ProfileNavigation: FC<ProfileNavigationProps> = (props) => {
+  const { setIsActiveMenu } = useNavigationToggler();
+  const menu = useModal();
   return (
     <nav className={styles["profile-navigation"]}>
       <NavigationList
@@ -15,12 +20,12 @@ const ProfileNavigation: FC<ProfileNavigationProps> = (props) => {
         items={navigation}
         {...props}
       />
-      <NavigationList
-        className={styles["profile-navigation__bottom-nav-list"]}
-        items={bottomNavigation}
-        isBottom
-        {...props}
-      />
+      <button className={styles["btn"]} onClick={() => menu.setActive(true)}>
+        <Icon icon={IconEnum.Menu} className={styles["btn-icon"]} />
+        More
+      </button>
+
+      <Menu {...menu} setIsActiveMenu={setIsActiveMenu} />
     </nav>
   );
 };

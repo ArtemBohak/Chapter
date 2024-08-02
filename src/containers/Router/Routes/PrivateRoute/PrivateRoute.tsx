@@ -12,6 +12,7 @@ const PrivateRoute: FC<IRoutesProps> = ({
   const { pathname } = useLocation();
 
   const { isAuth } = useAppSelector((state) => state.userSlice);
+  return Component;
 
   return isAuth ? (
     Component
