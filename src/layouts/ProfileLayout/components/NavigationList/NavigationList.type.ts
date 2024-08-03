@@ -6,5 +6,4 @@ import {
 export type NavigationListProps = {
   className?: string;
   items: NavigationLinkProps[];
-  isBottom?: boolean;
 } & Pick<ProfileNavigationProps, "setModalIsOpen">;

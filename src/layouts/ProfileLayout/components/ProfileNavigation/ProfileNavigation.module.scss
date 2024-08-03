@@ -1,9 +1,6 @@
 .profile-navigation {
   @apply flex flex-col flex-1 pb-4 px-2-md overflow-auto md:py-2-sm md:px-2 laptop_md:px-4;
 
-  &__list {
-  }
-
   &__top-nav-list {
     @apply mb-4;
   }
