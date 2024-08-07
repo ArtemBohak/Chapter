@@ -52,10 +52,6 @@
       & p {
         @apply text-sm leading-5 font-medium text-grey-1000 mb-1-sm;
       }
-
-      & img {
-        @apply rounded-[50%];
-      }
     }
 
     &.not-found {

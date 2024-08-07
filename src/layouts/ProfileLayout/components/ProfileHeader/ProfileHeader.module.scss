@@ -30,7 +30,7 @@
   }
 
   &__user-avatar {
-    @apply hidden ml-[16px] w-[40px] md:inline-flex md:w-[52px] max-h-10;
+    @apply hidden ml-[16px] w-[40px] md:inline-flex md:w-[52px] md:h-[52px] laptop:w-[56px] laptop:h-[56px];
   }
 
   .add-post-button {

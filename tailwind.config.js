@@ -19,6 +19,7 @@ export default {
         sm: "6px",
         md: "8px",
         lg: "10px",
+        xl: "16px",
       },
       boxShadow: {
         bottom: "0px 1px 11px 0px rgba(0, 0, 0, 0.1)",
@@ -53,8 +54,8 @@ export default {
         "5-xl": "58px",
       },
       colors: {
-        primary: "#F69400",
-        primaryHover: "#E78A00",
+        primary: "#F29B18",
+        primaryHover: "#D98B15",
         orange: "#FFBD5A",
         black: "#000000",
         grey: {
