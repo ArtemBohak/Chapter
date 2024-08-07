@@ -10,6 +10,6 @@
   }
 
   &__image {
-    @apply w-full object-cover;
+    @apply w-full object-contain;
   }
 }
