@@ -1,0 +1,37 @@
+.backdrop {
+  @apply w-full min-h-[304px] md:max-w-[260px]  laptop:max-w-[309px] bottom-0 left-0 translate-y-full flex flex-col items-center pt-0-md pb-4-xl px-1-lg bg-[#FCFBFA];
+}
+
+.active {
+  @apply translate-y-0;
+}
+
+.button {
+  @apply mb-0-md bg-transparent;
+}
+
+.list {
+  @apply flex flex-col gap-0-md items-start self-start w-full;
+  & > li {
+    @apply w-full;
+  }
+}
+
+.menu-btn {
+  @apply bg-transparent relative w-full flex items-center py-1-lg px-2-md text-black font-semibold text-base tracking-[0.36px] rounded-[8px] transition duration-300 ease-in-out active:bg-primary active:text-white  laptop_md:text-[20px] laptop_md:p-4 gap-4 laptop_md:gap-[24px];
+
+  &-icon {
+    @apply w-[28px] laptop_md:w-[32px];
+  }
+
+  &:hover,
+  &:focus,
+  &:active,
+  &.active {
+    @apply text-white bg-primary;
+
+    &-icon {
+      @apply bg-primary;
+    }
+  }
+}

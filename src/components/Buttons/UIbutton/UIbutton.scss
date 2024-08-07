@@ -10,7 +10,7 @@
   }
 
   &.btn--small {
-    @apply py-0-sm px-0-md md:px-1-sm md:py-0-md laptop:px-1-lg laptop:py-1-sm text-base laptop:text-lg font-normal laptop:tracking-[0.176px] leading-[24px] laptop:leading-[32px];
+    @apply py-0-sm px-0-md md:px-1-sm md:py-0-md laptop:px-1-lg laptop:py-1-sm text-base  font-normal laptop:text-lg laptop:tracking-[0.176px] leading-[24px] laptop:leading-[32px];
   }
 
   &.btn--medium {
@@ -18,7 +18,7 @@
   }
 
   &.btn--large {
-    @apply py-1-xl laptop:py-1-sm px-2-md text-lg laptop:text-xxl laptop:tracking-[0.468px] leading-[1.46];
+    @apply py-1-xl laptop:py-1-sm px-2-md text-lg laptop:text-xxl laptop:tracking-[0.468px] leading-[1.46] laptop:leading-[32px];
   }
 
   &.btn--small.btn--icon-right {

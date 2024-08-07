@@ -1,9 +1,6 @@
 .profile-navigation {
   @apply flex flex-col flex-1 pb-4 px-2-md overflow-auto md:py-2-sm md:px-2 laptop_md:px-4;
 
-  &__list {
-  }
-
   &__top-nav-list {
     @apply mb-4;
   }
@@ -32,5 +29,23 @@
 
   &__link-icon {
     @apply mr-4 laptop_md:mr-[24px] w-[28px] laptop_md:w-[32px];
+  }
+}
+
+.btn {
+  @apply bg-transparent mt-auto relative w-full inline-flex items-center py-1-lg px-2-md text-black font-semibold text-base tracking-[0.36px] rounded-[8px] transition duration-300 ease-in-out active:bg-primary active:text-white base:hover:bg-primary base:hover:text-white laptop_md:text-[20px] laptop_md:p-4 gap-4 laptop_md:gap-[24px];
+  &-icon {
+    @apply w-[28px] laptop_md:w-[32px];
+  }
+
+  &:hover,
+  &:focus,
+  &:active,
+  &.active {
+    @apply text-white bg-primary;
+
+    &-icon {
+      @apply bg-primary;
+    }
   }
 }

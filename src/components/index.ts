@@ -38,3 +38,4 @@ export { Notification } from "./Notification";
 export { PostSkeleton } from "./Skeleton";
 export { Toast } from "./Toast";
 export { default as ContactUs } from "./ContactUs/ContactUs";
+export { default as Menu } from "./Menu/Menu";
