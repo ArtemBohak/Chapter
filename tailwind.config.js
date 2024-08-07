@@ -19,6 +19,7 @@ export default {
         sm: "6px",
         md: "8px",
         lg: "10px",
+        xl: "16px",
       },
       boxShadow: {
         bottom: "0px 1px 11px 0px rgba(0, 0, 0, 0.1)",
