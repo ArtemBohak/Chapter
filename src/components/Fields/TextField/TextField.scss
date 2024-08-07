@@ -14,7 +14,7 @@
   }
 
   &__label-text {
-    @apply text-grey-1000 text-xs text-left;
+    @apply text-grey-1000 text-xxs laptop:text-xs text-left;
   }
 
   &__holder {
@@ -22,10 +22,19 @@
   }
 
   &__input {
-    @apply text-black text-xs py-2 h-[34px] pl-1-xs laptop:pl-2-xs pr-8 outline-none border-grey-1000 border-[1px] rounded-[5px] base:rounded-md w-full base:text-sm base:h-[48px];
+    @apply w-full py-0-md pl-0-md md:py-1-xs laptop:py-1-sm pr-8 outline-none border-[1px] border-[#F5EDE1] bg-[#FAF8F5] rounded-md text-sm md:text-base leading-[20px] md:leading-[24px] text-black transition-all duration-150;
 
     &::placeholder {
       @apply text-grey-1000;
+    }
+
+    &:hover,
+    &:focus {
+      @apply border-[#EBDFCE];
+    }
+
+    &:focus-within {
+      @apply border-primary;
     }
   }
 
@@ -50,6 +59,6 @@
   }
 
   &__additional-label {
-    @apply mt-1 text-grey-1000 text-xxs text-left;
+    @apply mt-1 text-grey-1000  text-xxs laptop:text-xs text-left;
   }
 }

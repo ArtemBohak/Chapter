@@ -1,24 +1,18 @@
-import { FC, useRef, useState } from "react";
+import { FC } from "react";
 import cn from "classnames";
 
-import { ElementsId, UiMessage } from "@/src/types";
-import { ProfileUpdateApi } from "@/src/pages/SettingsPage/utils/ProfileUpdateApi";
+import { ElementsId, links } from "@/src/types";
+
 import { useNavigationToggler, useProfileContext } from "@/src/context";
-import { useErrorBoundary, useHideElement, useOutsideClick } from "@/src/hooks";
-import { fetchIsLogoutUser, useAppDispatch, useAppSelector } from "@/src/redux";
+import { useHideElement } from "@/src/hooks";
+import { useAppSelector } from "@/src/redux";
 import { ProfileHeaderProps } from "./ProfileHeader.type";
 import styles from "./ProfileHeader.module.scss";
 
-import {
-  UserAvatar,
-  UIbutton,
-  MenuToggler,
-  PopUpMenu,
-  ConfirmationWindow,
-  Logo,
-} from "@/src/components";
+import { UserAvatar, UIbutton, MenuToggler, Logo } from "@/src/components";
 
 import { SearchBar } from "../SearchBar";
+import { useNavigate } from "react-router-dom";
 
 const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
   const { headerAddPostBtnIsDisabled } = useProfileContext();
@@ -26,32 +20,8 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
   const {
     user: { firstName, lastName, avatarUrl },
   } = useAppSelector((store) => store.userSlice);
-
-  const [showLogOutMsg, setShowLogOutMsg] = useState(false);
-  const [showDeleteAccMsg, setShowDeleteAccMsg] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const setError = useErrorBoundary();
-  const dispatch = useAppDispatch();
-
-  const avatarRef = useRef(null);
-  const [showPopUp, setShowPopUp] = useState(false);
+  const navigate = useNavigate();
   useHideElement(ElementsId.ADD_POST_BTN, isActiveMenu);
-  useOutsideClick(avatarRef, setShowPopUp, ElementsId.AVATAR);
-
-  const logOut = async () => {
-    try {
-      setIsLoading(true);
-      await dispatch(fetchIsLogoutUser());
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const onDeleteAcc = async () => {
-    const user = new ProfileUpdateApi(setIsLoading, setError);
-    await user.deleteAccount();
-  };
 
   const onHandleClick = () => {
     setModalIsOpen(true);
@@ -103,7 +73,7 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
             src={avatarUrl}
             alt={`${firstName} ${lastName}`}
             className={cn(styles["profile-header__user-avatar"])}
-            onClick={() => setShowPopUp(!showPopUp)}
+            onClick={() => navigate(links.SETTINGS)}
           />
           <UIbutton
             onClick={onHandleClick}
@@ -138,45 +108,6 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({ setModalIsOpen }) => {
           </UIbutton>
         </div>
       </div>
-      <PopUpMenu
-        isOpen={showPopUp}
-        setIsOpen={setShowPopUp}
-        nodeRef={avatarRef}
-        backdropClassName={styles["popup"]}
-        bodyClassName={styles["popup__body"]}
-        contentWrapperClassNames={styles["popup__content-wrapper"]}
-      >
-        <>
-          <button
-            data-automation="clickButton"
-            aria-label="Open confirmation modal button"
-            onClick={() => setShowLogOutMsg(true)}
-          >
-            Log out of profile
-          </button>
-          <button
-            data-automation="clickButton"
-            aria-label="Open confirmation modal button"
-            onClick={() => setShowDeleteAccMsg(true)}
-          >
-            Delete user account
-          </button>
-        </>
-      </PopUpMenu>
-      <ConfirmationWindow
-        text={UiMessage.LOG_OUT}
-        isLoading={isLoading}
-        isOpen={showLogOutMsg}
-        setIsOpen={setShowLogOutMsg}
-        fetch={logOut}
-      />
-      <ConfirmationWindow
-        text={UiMessage.DELETE}
-        isLoading={isLoading}
-        isOpen={showDeleteAccMsg}
-        setIsOpen={setShowDeleteAccMsg}
-        fetch={onDeleteAcc}
-      />
     </header>
   );
 };

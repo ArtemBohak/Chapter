@@ -1,5 +1,5 @@
 .avatar {
   & > img {
-    @apply rounded-[33px] w-[32px] h-[32px] md:w-[56px] md:h-[56px];
+    @apply w-[32px] h-[32px] md:w-[56px] md:h-[56px];
   }
 }

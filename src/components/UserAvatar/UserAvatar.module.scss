@@ -1,8 +1,8 @@
 .user-avatar {
-  @apply rounded-[8px] overflow-hidden w-full cursor-pointer;
+  @apply overflow-hidden w-full cursor-pointer flex items-center;
 
   &--small {
-    @apply max-w-[52px];
+    @apply max-w-[56px] max-h-[56px];
   }
 
   &--large {
@@ -10,6 +10,6 @@
   }
 
   &__image {
-    @apply w-full object-cover;
+    @apply w-full h-auto object-contain;
   }
 }

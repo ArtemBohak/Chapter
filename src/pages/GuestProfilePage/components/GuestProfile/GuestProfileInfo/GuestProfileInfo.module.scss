@@ -5,7 +5,7 @@
     @apply flex flex-col flex-wrap justify-between;
   }
   &__avatar {
-    @apply min-w-[60px] max-w-[120px] md:max-w-[125px] w-full h-full object-cover rounded-2xl;
+    @apply min-w-[60px] max-w-[120px] md:max-w-[125px] w-full h-full object-cover;
     & img {
       @apply w-full h-[120px] laptop:h-[125px] m-auto;
     }
