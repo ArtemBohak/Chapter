@@ -28,6 +28,8 @@ const ConfirmationWindow: FC<ConfirmationWindowProps> = ({
           disabled={isLoading}
           onClick={() => setIsOpen(false)}
           aria-label="Confirmation button"
+          size="small"
+          fullWidth
         >
           {deniedText}
         </UIbutton>
@@ -36,6 +38,8 @@ const ConfirmationWindow: FC<ConfirmationWindowProps> = ({
           disabled={isLoading}
           onClick={fetch}
           aria-label="Confirmation button"
+          fullWidth
+          size="small"
         >
           {confirmText}
         </UIbutton>
