@@ -3,9 +3,6 @@
 
   &__image {
     @apply w-[24px] h-[24px] md:w-[44px] md:h-[44px];
-    & > img {
-      @apply rounded-[25px];
-    }
   }
 
   &__content {
