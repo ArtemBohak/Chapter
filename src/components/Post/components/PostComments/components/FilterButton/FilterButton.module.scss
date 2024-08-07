@@ -6,7 +6,7 @@
   @apply bg-transparent text-xs md:text-lg laptop:text-xxl text-[#6C6C6C];
 
   &.filter {
-    @apply font-semibold text-[#F69400] flex items-center gap-0-sm md:text-lg;
+    @apply font-semibold text-primary flex items-center gap-0-sm md:text-lg;
   }
 }
 

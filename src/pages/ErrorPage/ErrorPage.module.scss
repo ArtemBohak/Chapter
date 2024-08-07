@@ -1,5 +1,5 @@
 .error {
-  @apply h-screen  bg-[#FFC78A] text-[#F9F9F9] relative overflow-y-auto;
+  @apply h-screen  bg-primary text-[#F9F9F9] relative overflow-y-auto;
 
   &__title {
     @apply mb-2-xs md:mb-1-lg;

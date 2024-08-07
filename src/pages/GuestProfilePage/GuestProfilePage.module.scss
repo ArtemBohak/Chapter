@@ -1,6 +1,6 @@
 .profile-wrapper {
-  @apply bg-white flex flex-col items-center laptop_md:flex-row laptop_md:items-start align-top justify-between gap-5 w-full pt-[78px] 
-laptop_md:pt-[169px] laptop_md:pl-[80px] laptop_md:pr-[52px]  
+  @apply bg-white flex flex-col items-center laptop_md:flex-row laptop_md:items-start align-top justify-between gap-5 w-full pt-[78px]
+laptop_md:pt-[169px] laptop_md:pl-[80px] laptop_md:pr-[52px]
 h-[100vh] relative overflow-y-auto overflow-hidden;
 }
 
@@ -42,5 +42,5 @@ h-[100vh] relative overflow-y-auto overflow-hidden;
 }
 
 .button-posts {
-  @apply bg-[#FFC368] text-white rounded-none rounded-t-sm z-20;
+  @apply bg-primary text-white rounded-none rounded-t-sm z-20;
 }
