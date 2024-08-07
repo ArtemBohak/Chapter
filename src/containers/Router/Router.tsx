@@ -30,6 +30,7 @@ import PublicRoute from "./Routes/PublicRoute/PublicRoute";
 import PrivateRoute from "./Routes/PrivateRoute/PrivateRoute";
 import RestrictedRoute from "./Routes/RestrictedRoute/RestrictedRoute";
 import GuestBooksPage from "@/src/pages/BooksPage/GuestBooksPage/GuestBooksPage";
+import TestPage from "@/src/pages/TestPage/TestPage";
 
 const router = createBrowserRouter([
   {
@@ -84,6 +85,7 @@ const router = createBrowserRouter([
       },
     ],
   },
+  { path: "/test", element: <TestPage /> },
   {
     path: "/terms",
     element: <TermsPage />,
