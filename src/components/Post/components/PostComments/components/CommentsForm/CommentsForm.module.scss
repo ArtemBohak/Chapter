@@ -3,7 +3,7 @@
 
   &__avatar {
     & > img {
-      @apply w-[26px] h-[24px] md:w-[48px] md:h-[44px] rounded-[25px];
+      @apply w-[26px] h-[24px] md:w-[48px] md:h-[44px];
     }
   }
 
