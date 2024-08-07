@@ -1,5 +1,5 @@
 .button {
-  @apply flex items-center text-white relative w-[222px];
+  @apply flex items-center text-white relative;
 
   & > span {
     @apply relative p-2 rounded-sm bg-orange transition-all duration-300;
@@ -7,11 +7,18 @@
 
   &:hover {
     & > .content {
-      @apply translate-x-[30%];
+      @apply translate-x-[60px];
     }
 
     & > .icon {
-      @apply -translate-x-[329%];
+      @apply -translate-x-[180px];
     }
   }
+}
+.content {
+  @apply w-[180px];
+}
+
+.icon {
+  @apply w-[60px];
 }
