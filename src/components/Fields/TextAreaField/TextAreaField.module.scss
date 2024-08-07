@@ -2,10 +2,23 @@
   @apply relative;
 
   &__field {
-    @apply block w-full resize-none min-h-min py-[10px] md:py-[18px] pl-[14px] pr-[20px] md:pl-[20px] md:pr-[40px] placeholder:text-grey-1000 text-xxs md:text-base base:text-[18px] rounded-md border border-solid border-grey-1010 outline-none  bg-inherit h-[50px] md:h-[132px] overflow-y-auto;
+    @apply block w-full outline-none bg-inherit overflow-y-auto resize-none min-h-min p-0-md pr-4-xs h-[80px] md:h-[100px] laptop:h-[120px] border-[1px] border-[#F5EDE1] bg-[#FAF8F5] rounded-md text-sm md:text-base leading-[20px] md:leading-[24px] text-black transition-all duration-150;
 
     &.error {
       @apply border-red;
+    }
+
+    &::placeholder {
+      @apply text-grey-1000;
+    }
+
+    &:hover,
+    &:focus {
+      @apply border-[#EBDFCE];
+    }
+
+    &:focus-within {
+      @apply border-primary;
     }
   }
 
